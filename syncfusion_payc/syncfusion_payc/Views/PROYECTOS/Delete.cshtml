@@ -1,0 +1,160 @@
+﻿@model syncfusion_payc.Models.PROYECTOS
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>PROYECTOS</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CENTRO_COSTOS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CENTRO_COSTOS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DESCRIPCION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DESCRIPCION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AREA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AREA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PLAZO_PREVIA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PLAZO_PREVIA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA_INI_PREVIA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA_INI_PREVIA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PLAZO_OBRA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PLAZO_OBRA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA_INI_OBRA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA_INI_OBRA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PLAZO_LIQUIDACION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PLAZO_LIQUIDACION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA_INI_LIQUIDACION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA_INI_LIQUIDACION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ESTRUCTURA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ESTRUCTURA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CIMENTACION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CIMENTACION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SOTANOS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SOTANOS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PISOS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PISOS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VALOR_PROYECTO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VALOR_PROYECTO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TIPO_OBRA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TIPO_OBRA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DIRECCION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DIRECCION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TIPO_SERVICIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TIPO_SERVICIO)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

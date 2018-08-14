@@ -1,0 +1,26 @@
+﻿@model syncfusion_payc.Models.TIPOS_NOVEDAD
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TIPOS_NOVEDAD</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DESCRIPCION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DESCRIPCION)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.COD_TIPO_NOVEDAD }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

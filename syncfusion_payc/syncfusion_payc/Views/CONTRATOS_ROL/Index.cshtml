@@ -1,0 +1,152 @@
+﻿
+@model IEnumerable<syncfusion_payc.Models.CONTRATOS_ROL>
+
+@{
+    ViewBag.Title = "";
+
+
+    
+	}
+<h4>CONTRATOS ROL</h4>
+
+<div class="control-section">
+
+@(Html.EJ().Grid<syncfusion_payc.Models.CONTRATOS_ROL>("Grid")
+.Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                    .AllowPaging()
+                    .AllowFiltering(true)
+                    .AllowScrolling(true)
+                     .ClientSideEvents(eve =>
+                    {
+                        eve.Create("create");
+                    })
+                    .Locale("es-CO")
+                    
+                    .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                    .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+                    .ToolbarSettings(toolbar =>
+                    {
+                        toolbar.ShowToolbar().ToolbarItems(items =>
+                        {
+                            items.AddTool(ToolBarItems.Add);
+                            items.AddTool(ToolBarItems.Edit);
+                            items.AddTool(ToolBarItems.Delete);
+                            items.AddTool(ToolBarItems.Update);
+                            items.AddTool(ToolBarItems.Cancel);
+
+                        });
+
+                    }).Columns(col =>
+                    {
+                        col.Field("COD_CONTRATO_PROYECTO").AllowEditing(false).ForeignKeyField("COD_CONTRATO_PROYECTO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONTRATO_PROYECTO_DESCRIPCION.ToList()).HeaderText("ORDEN SERVICIO").EditType(EditingType.DropdownEdit).Add();
+
+                        col.Field("COD_ROL").ForeignKeyField("COD_ROL").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").EditType(EditingType.DropdownEdit).Add();
+                        col.Field("COD_CONTRATO_ROL").HeaderText("CONTRATO_ROL").IsPrimaryKey(true).Visible(false) .Format("{0:n0}").EditType(EditingType.Numeric).ValidationRules(v => v.AddRule("number", true)).Add();
+                        col.Field("FECHA_INI").HeaderText("FECHA_INI").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                        col.Field("MESES").HeaderText("MESES").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                        col.Field("VALOR_MENSUAL_SIN_PRESTACIONES").HeaderText("VALOR_MENSUAL_SIN_PRESTACIONES").Format("{0:n2}").EditType(EditingType.Numeric).ValidationRules(v => v.AddRule("number", true)).Add();
+                        col.Field("PRESTACIONES").HeaderText("PRESTACIONES").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                        col.Field("VALOR_MENSUAL_PRESTACIONES").HeaderText("VALOR_MENSUAL_PRESTACIONES").Format("{0:n2}").EditType(EditingType.Numeric).ValidationRules(v => v.AddRule("number", true)).Add();
+                        col.Field("FACTOR_MULTIPLICADOR").HeaderText("FACTOR_MULTIPLICADOR").Format("{0:n2}").EditType(EditingType.Numeric).ValidationRules(v => v.AddRule("number", true)).Add();
+                        col.Field("VALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR").HeaderText("VALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR").Format("{0:n2}").EditType(EditingType.Numeric).ValidationRules(v => v.AddRule("number", true)).Add();
+                        col.Field("DEDICACION").HeaderText("DEDICACION").Format("{0:n2}").EditType(EditingType.Numeric).ValidationRules(v => v.AddRule("number", true)).Add();
+                        col.Field("OBSERVACIONES").HeaderText("OBSERVACIONES").Add();
+
+                    }))
+
+</div>
+
+
+<script>
+    
+    $(document).ready(function () {
+        ej.Grid.Locale["es-CO"] = {
+            EmptyRecord: "No hay registros que mostrar",
+            GroupDropArea: "Arrastre un encabezado de columna aquí para agrupar su columna",
+            DeleteOperationAlert: "No hay registros seleccionados para la operación de eliminación",
+            EditOperationAlert: "No hay registros seleccionados para la operación de edición",
+            SaveButton: "Guardar",
+            OKButton: "DE ACUERDO",
+            CancelButton: "Cancelar",
+            EditFormTitle: "Detalles de ",
+            AddFormTitle: "Añadir nuevo registro",
+            GroupCaptionFormat: "{{:headerText}}: {{:key}} - {{:count}} {{if count == 1 }} ítem {{else}} artículos {{/if}} ",
+            
+            
+        };
+        ej.Pager.Locale["es-CO"] = {
+            pagerInfo: "{0} de {1} páginas ({2} artículos)",
+            firstPageTooltip: "Ir a la primera página",
+            lastPageTooltip: "Ir a la última página",
+            nextPageTooltip: "Ir a la página siguiente",
+            previousPageTooltip: "Ir a la página anterior",
+            nextPagerTooltip: "Ir al siguiente Pager",
+            previousPagerTooltip: "Ir a Pager anterior"
+        };
+
+        ej.ExcelFilter.Locale["es-CO"] = {
+            SortNoSmaller: "Ordenar de menor a mayor",
+            SortNoLarger: "Ordenar de mayor a menor",
+            SortTextAscending: "Ordenar de A a Z",
+            SortTextDescending: "Ordenar de Z a A",
+            SortDateOldest: "Ordenar por Más antiguos",
+            SortDateNewest: "Ordenar por Más reciente",
+            SortByColor: "Ordenar por color",
+            SortByCellColor: "Ordenar por color de la célula",
+            SortByFontColor: "Ordenar por Color de fuente",
+            FilterByColor: "Filtrar por color",
+            CustomSort: "Orden personalizado",
+            FilterByCellColor: "Filtrar por color de la célula",
+            FilterByFontColor: "Filtrar por color de fuente",
+            ClearFilter: "Borrar filtro",
+            NumberFilter: "Número Filtros",
+            GuidFilter: "Gud Filtros",
+            TextFilter: "Filtros de texto",
+            DateFilter: "Filtros de fecha",
+            DateTimeFilter: "Fecha filtros de tiempo",
+            SelectAll: "Seleccionar todo",
+            Blanks: "Los espacios en blanco",
+            Search: "Buscar",
+            Showrowswhere: "Mostrar filas",
+            NumericTextboxWaterMark: "introducir el valor",
+            StringMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Comienza con", value: "startswith" }, { text: "Termina con", value: "endswith" }, { text: "contiene", value: "contains" }, { text: "Filtro personalizado", value: "customfilter" },],
+            NumberMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Menos que", value: "lessthan" }, { text: "Menor o equal", value: "lessthanorequal" }, { text: "Mas grande que", value: "greaterthan" }, { text: "Mayor que o equal", value: "greaterthanorequal" }, { text: "Entre", value: "between" }, { text: "Filtro personalizado", value: "customfilter" },],
+            GuidMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Filtro personalizado", value: "customfilter" },],
+            DateMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Menos que", value: "lessthan" }, { text: "Menor o equal", value: "lessthanorequal" }, { text: "Mas grande que", value: "greaterthan" }, { text: "Mayor que o equal", value: "greaterthanorequal" }, { text: "Entre", value: "between" }, { text: "Filtro personalizado", value: "customfilter" },],
+            DatetimeMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Menos que", value: "lessthan" }, { text: "Menor o equal", value: "lessthanorequal" }, { text: "Mas grande que", value: "greaterthan" }, { text: "Mayor que o equal", value: "greaterthanorequal" }, { text: "Entre", value: "between" }, { text: "Filtro personalizado", value: "customfilter" },],
+            Top10MenuOptions: [{ text: "Parte superior", value: "top" }, { text: "Fondo", value: "bottom" },],
+            title: "Filtro personalizado",
+            PredicateAnd: "Y",
+            PredicateOr: "O",
+            Ok: "Aceptar",
+            MatchCase: "Coincidencia",
+            Cancel: "Cancelar",
+            NoResult: "No se encontraron coincidencias",
+            CheckBoxStatusMsg: "No todos los elementos que muestran",
+            DatePickerWaterMark: "Seleccione fecha",
+            DateTimePickerWaterMark: "Seleccionar fecha y hora",
+            True: "cierto",
+            False: "falso"
+        };
+    });
+
+    
+        console.log("val");
+        var isNull = function (val) {
+            return val === undefined || val === null;
+        };
+        var toLowerCase = function (val) {
+            return val ? val.toLowerCase ? val.toLowerCase() : val.toString().toLowerCase() : (val === 0 || val === false) ? val.toString() : "";
+        };
+        var b = {
+            //set the customized filter operator 
+            notcontains: function (actual, expected, ignoreCase) {
+                if (ignoreCase)
+                    return !(!isNull(actual) && !isNull(expected) && toLowerCase(actual).indexOf(toLowerCase(expected)) != -1);
+                return !(!isNull(actual) && !isNull(expected) && actual.toString().indexOf(expected) != -1);
+            }
+        }
+        //add the customized filter operator to default filters 
+       
+    
+</script>

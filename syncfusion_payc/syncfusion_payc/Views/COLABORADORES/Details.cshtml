@@ -1,0 +1,114 @@
+﻿@model syncfusion_payc.Models.COLABORADORES
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>COLABORADORES</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DESCRIPCION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DESCRIPCION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CEDULA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CEDULA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GENERO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GENERO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA_NACIMIENTO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA_NACIMIENTO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CELULAR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CELULAR)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CORREO_ELECTRONICO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CORREO_ELECTRONICO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ESTADO_CIVIL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ESTADO_CIVIL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CENTROS_COSTOS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CENTROS_COSTOS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA_INGRESO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA_INGRESO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TIPO_DE_CONTRATO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TIPO_DE_CONTRATO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ESTADO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ESTADO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CARGOS.DESCRIPCION_CARGO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CARGOS.DESCRIPCION_CARGO)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.COD_COLABORADOR }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

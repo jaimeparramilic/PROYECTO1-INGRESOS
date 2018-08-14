@@ -1,0 +1,104 @@
+﻿@model syncfusion_payc.Models.ITEMS_CONTRATO
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>ITEMS_CONTRATO</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DESCRIPCION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DESCRIPCION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ITEM_REEMBOLZABLE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ITEM_REEMBOLZABLE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.REUTILIZABLE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.REUTILIZABLE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COSTO_INICIAL_UNITARIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COSTO_INICIAL_UNITARIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COSTO_MENSUAL_UNITARIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COSTO_MENSUAL_UNITARIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CANTIDAD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CANTIDAD)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA_INI_USO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA_INI_USO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MESES_USO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MESES_USO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OBSERVACIONES)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OBSERVACIONES)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CONTRATO_PROYECTO.COD_CONTRATO_PROYECTO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CONTRATO_PROYECTO.COD_CONTRATO_PROYECTO)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

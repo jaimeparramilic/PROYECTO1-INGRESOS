@@ -1,0 +1,1260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="test_payc_contabilidadModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CARGOS">
+    <Key>
+      <PropertyRef Name="COD_CARGO" />
+    </Key>
+    <Property Name="COD_CARGO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION_CARGO" Type="varchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="CARTERA">
+    <Key>
+      <PropertyRef Name="COD_CARTERA" />
+    </Key>
+    <Property Name="COD_CARTERA" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COD_FACTURA" Type="bigint" />
+    <Property Name="ESTADO_CARTERA" Type="varchar" MaxLength="300" />
+    <Property Name="COD_RECIBO_PAGO" Type="bigint" />
+  </EntityType>
+  <EntityType Name="CLIENTES">
+    <Key>
+      <PropertyRef Name="COD_CLIENTE" />
+    </Key>
+    <Property Name="COD_CLIENTE" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
+    <Property Name="NIT" Type="varchar" MaxLength="50" />
+    <Property Name="DIRECCION_CLIENTE" Type="varchar" MaxLength="300" />
+    <Property Name="DIRECCION_FACTURACION" Type="varchar" MaxLength="300" />
+    <Property Name="CONTACTO_CONTRATANTE" Type="varchar" MaxLength="300" />
+    <Property Name="CONTACTO_FACTURACION" Type="varchar" MaxLength="300" />
+    <Property Name="TELEFONO_CLIENTE" Type="varchar" MaxLength="300" />
+    <Property Name="TELEFONO_FACTURACION" Type="varchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="COLABORADORES">
+    <Key>
+      <PropertyRef Name="COD_COLABORADOR" />
+    </Key>
+    <Property Name="COD_COLABORADOR" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COD_CARGO" Type="bigint" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
+    <Property Name="CEDULA" Type="bigint" />
+    <Property Name="GENERO" Type="varchar" MaxLength="300" />
+    <Property Name="FECHA_NACIMIENTO" Type="date" />
+    <Property Name="CELULAR" Type="varchar" MaxLength="300" />
+    <Property Name="CORREO_ELECTRONICO" Type="varchar" MaxLength="300" />
+    <Property Name="ESTADO_CIVIL" Type="varchar" MaxLength="300" />
+    <Property Name="CENTROS_COSTOS" Type="varchar" MaxLength="300" />
+    <Property Name="FECHA_INGRESO" Type="date" />
+    <Property Name="TIPO_DE_CONTRATO" Type="varchar" MaxLength="300" />
+    <Property Name="ESTADO" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="COMPROMISOS_ENTREGABLES">
+    <Key>
+      <PropertyRef Name="COD_COMPROMISO" />
+    </Key>
+    <Property Name="COD_COMPROMISO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COD_CARTERA" Type="bigint" />
+    <Property Name="COD_ENTREGABLE" Type="bigint" />
+    <Property Name="ESTADO_COMPROMISO" Type="varchar" MaxLength="300" />
+    <Property Name="FECHA_COMPROMISO" Type="date" />
+    <Property Name="RUTA_ENTREGABLE" Type="varchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="COMPROMISOS_PAGOS">
+    <Key>
+      <PropertyRef Name="COD_COMPROMISO" />
+    </Key>
+    <Property Name="COD_COMPROMISO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COD_CARTERA" Type="bigint" />
+    <Property Name="FECHA_COMPROMISO_PAGO" Type="date" />
+    <Property Name="ESTADO_COMPROMISO" Type="varchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="CONTRATO_COLABORADOR">
+    <Key>
+      <PropertyRef Name="COD_CONTRATO_COLABORADOR" />
+    </Key>
+    <Property Name="COD_CONTRATO_COLABORADOR" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COD_COLABORADOR" Type="bigint" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
+    <Property Name="COD_ROL" Type="bigint" />
+    <Property Name="FECHA_INI" Type="date" />
+    <Property Name="FECHA_FIN" Type="date" />
+  </EntityType>
+  <EntityType Name="CONTRATO_PROYECTO">
+    <Key>
+      <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+    </Key>
+    <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COD_CONTRATO" Type="bigint" />
+    <Property Name="COD_PROYECTO" Type="bigint" />
+    <Property Name="COD_FORMA_PAGO" Type="bigint" />
+    <Property Name="COMPLETA" Type="varchar" MaxLength="100" />
+    <Property Name="MODIFICADO_POR" Type="varchar" MaxLength="300" />
+    <Property Name="FECHA_ULTIMA_MODIFICACION" Type="date" />
+    <Property Name="CREADO_POR" Type="varchar" MaxLength="300" />
+    <Property Name="FECHA_CREACION" Type="date" />
+  </EntityType>
+  <EntityType Name="CONTRATOS">
+    <Key>
+      <PropertyRef Name="COD_CONTRATO" />
+    </Key>
+    <Property Name="COD_CONTRATO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
+    <Property Name="COD_CLIENTE" Type="bigint" />
+    <Property Name="FECHA_FIRMA" Type="date" />
+    <Property Name="RUTA_ACTA_INICIO" Type="varchar" MaxLength="300" />
+    <Property Name="FECHA_INICIO_EJECUCION" Type="date" />
+    <Property Name="FECHA_FIN_EJECUCION" Type="date" />
+    <Property Name="VALOR_CONTRATO" Type="real" />
+    <Property Name="ORDEN_SERVICIO" Type="varchar" MaxLength="300" />
+    <Property Name="RUTA_DOCUMENTO" Type="varchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="CONTRATOS_CONDICIONES">
+    <Key>
+      <PropertyRef Name="COD_CONTRATO_CONDICION" />
+    </Key>
+    <Property Name="COD_CONTRATO_CONDICION" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
+    <Property Name="COD_TIPO_CONDICION" Type="bigint" />
+    <Property Name="VIGENTE" Type="varchar" MaxLength="10" />
+    <Property Name="FECHA_INCLUSION" Type="date" />
+    <Property Name="FECHA_EXCLUSION" Type="date" />
+  </EntityType>
+  <EntityType Name="CONTRATOS_ROL">
+    <Key>
+      <PropertyRef Name="COD_CONTRATO_ROL" />
+    </Key>
+    <Property Name="COD_CONTRATO_ROL" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COD_ROL" Type="bigint" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
+    <Property Name="FECHA_INI" Type="date" />
+    <Property Name="MESES" Type="bigint" />
+    <Property Name="VALOR_MENSUAL_SIN_PRESTACIONES" Type="real" />
+    <Property Name="PRESTACIONES" Type="real" />
+    <Property Name="VALOR_MENSUAL_PRESTACIONES" Type="real" />
+    <Property Name="FACTOR_MULTIPLICADOR" Type="real" />
+    <Property Name="VALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR" Type="real" />
+    <Property Name="DEDICACION" Type="real" />
+    <Property Name="OBSERVACIONES" Type="varchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="DETALLE_FACTURA_ITEM">
+    <Key>
+      <PropertyRef Name="COD_DETALLE_FACTURA_ITEM" />
+    </Key>
+    <Property Name="COD_DETALLE_FACTURA_ITEM" Type="bigint" Nullable="false" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
+    <Property Name="COD_ITEM" Type="bigint" />
+    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
+    <Property Name="VALOR_SIN_IMPUESTOS" Type="real" />
+  </EntityType>
+  <EntityType Name="DETALLE_FACTURA_PERS">
+    <Key>
+      <PropertyRef Name="COD_DETALLE_FACTURA_PERS" />
+    </Key>
+    <Property Name="COD_DETALLE_FACTURA_PERS" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
+    <Property Name="COD_COLABORADOR" Type="bigint" />
+    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
+    <Property Name="VALOR_SIN_IMPUESTOS" Type="real" />
+  </EntityType>
+  <EntityType Name="ENTREGABLES">
+    <Key>
+      <PropertyRef Name="COD_ENTREGABLE" />
+    </Key>
+    <Property Name="COD_ENTREGABLE" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COD_CONTRATO_CONDICION" Type="bigint" />
+    <Property Name="COD_COLABORADOR" Type="bigint" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="ESTUDIOS_COLABORADOR">
+    <Key>
+      <PropertyRef Name="COD_ESTUDIOS" />
+    </Key>
+    <Property Name="COD_ESTUDIOS" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COD_COLABORADOR" Type="bigint" />
+    <Property Name="NIVEL_ESTUDIO" Type="varchar" MaxLength="300" />
+    <Property Name="TITULO_ESTUDIO" Type="varchar" MaxLength="300" />
+    <Property Name="FECHA_GRADO" Type="date" />
+    <Property Name="INSTITUCION_GRADO" Type="varchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="FACTURAS">
+    <Key>
+      <PropertyRef Name="COD_FACTURA" />
+    </Key>
+    <Property Name="COD_FACTURA" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
+    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
+    <Property Name="FECHA_FACTURA" Type="date" />
+    <Property Name="ESTADO_FACTURA" Type="varchar" MaxLength="300" />
+    <Property Name="VALOR_SIN_IMPUESTOS" Type="real" />
+  </EntityType>
+  <EntityType Name="FLUJO_INGRESOS_ITEMS">
+    <Key>
+      <PropertyRef Name="COD_FLUJO_INGRESOS_ITEMS" />
+    </Key>
+    <Property Name="COD_FLUJO_INGRESOS_ITEMS" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
+    <Property Name="COD_ITEM" Type="bigint" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
+    <Property Name="ETAPA" Type="varchar" MaxLength="200" />
+    <Property Name="VALOR_FIJO" Type="real" />
+    <Property Name="VALOR_VARIABLE" Type="real" />
+    <Property Name="VALOR_TOTAL" Type="real" />
+  </EntityType>
+  <EntityType Name="FLUJO_INGRESOS_ROL">
+    <Key>
+      <PropertyRef Name="COD_FLUJO_INGRESOS_ROL" />
+    </Key>
+    <Property Name="COD_FLUJO_INGRESOS_ROL" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
+    <Property Name="COD_ROL" Type="bigint" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
+    <Property Name="ETAPA" Type="varchar" MaxLength="200" />
+    <Property Name="VALOR_SIN_PRESTACIONES" Type="real" />
+    <Property Name="VALOR_CON_PRESTACIONES" Type="real" />
+    <Property Name="VALOR_FACTOR_MULTIPLICADOR" Type="real" />
+  </EntityType>
+  <EntityType Name="FORMAS_PAGO">
+    <Key>
+      <PropertyRef Name="COD_FORMA_PAGO" />
+    </Key>
+    <Property Name="COD_FORMA_PAGO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="FORMAS_PAGO_FECHAS">
+    <Key>
+      <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+    </Key>
+    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COD_FORMA_PAGO" Type="bigint" />
+    <Property Name="FECHA_FORMA_PAGO" Type="date" />
+    <Property Name="FECHA_INICIO" Type="date" />
+    <Property Name="FECHA_FIN" Type="date" />
+    <Property Name="PERIODO_TEXTO" Type="varchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="GESTION_CARTERA">
+    <Key>
+      <PropertyRef Name="COD_GESTION" />
+    </Key>
+    <Property Name="COD_GESTION" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COD_CARTERA" Type="bigint" />
+    <Property Name="COD_COLABORADOR" Type="bigint" />
+    <Property Name="TIPO_GESTION" Type="varchar" MaxLength="300" />
+    <Property Name="FECHA_GESTION" Type="date" />
+  </EntityType>
+  <EntityType Name="ITEMS_CONTRATO">
+    <Key>
+      <PropertyRef Name="COD_ITEM" />
+    </Key>
+    <Property Name="COD_ITEM" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" Nullable="false" />
+    <Property Name="ITEM_REEMBOLZABLE" Type="varchar" MaxLength="50" />
+    <Property Name="REUTILIZABLE" Type="varchar" MaxLength="50" />
+    <Property Name="COSTO_INICIAL_UNITARIO" Type="real" />
+    <Property Name="COSTO_MENSUAL_UNITARIO" Type="real" />
+    <Property Name="CANTIDAD" Type="bigint" />
+    <Property Name="FECHA_INI_USO" Type="date" />
+    <Property Name="MESES_USO" Type="bigint" />
+    <Property Name="OBSERVACIONES" Type="varchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="PROYECTOS">
+    <Key>
+      <PropertyRef Name="COD_PROYECTO" />
+    </Key>
+    <Property Name="COD_PROYECTO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CENTRO_COSTOS" Type="varchar" MaxLength="300" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
+    <Property Name="AREA" Type="real" />
+    <Property Name="PLAZO_PREVIA" Type="bigint" />
+    <Property Name="FECHA_INI_PREVIA" Type="date" />
+    <Property Name="PLAZO_OBRA" Type="bigint" />
+    <Property Name="FECHA_INI_OBRA" Type="date" />
+    <Property Name="PLAZO_LIQUIDACION" Type="bigint" />
+    <Property Name="FECHA_INI_LIQUIDACION" Type="date" />
+    <Property Name="ESTRUCTURA" Type="varchar" MaxLength="200" />
+    <Property Name="CIMENTACION" Type="varchar" MaxLength="200" />
+    <Property Name="SOTANOS" Type="bigint" />
+    <Property Name="PISOS" Type="bigint" />
+    <Property Name="VALOR_PROYECTO" Type="real" />
+    <Property Name="TIPO_OBRA" Type="varchar" MaxLength="200" />
+    <Property Name="DIRECCION" Type="varchar" MaxLength="200" />
+    <Property Name="TIPO_SERVICIO" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="REGISTRO_ITEMS_OTROS_COSTOS">
+    <Key>
+      <PropertyRef Name="COD_REGISTRO_ITEMS" />
+    </Key>
+    <Property Name="COD_REGISTRO_ITEMS" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COD_ITEM" Type="bigint" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
+    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
+    <Property Name="VALOR_COMERCIAL" Type="real" />
+    <Property Name="CANTIDAD" Type="real" />
+    <Property Name="PARAMETRO1" Type="varchar" MaxLength="50" />
+    <Property Name="PARAMETRO2" Type="varchar" MaxLength="50" />
+    <Property Name="PARAMETRO3" Type="varchar" MaxLength="50" />
+    <Property Name="PARAMETRO4" Type="varchar" MaxLength="50" />
+    <Property Name="PARAMETRON" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="REGISTRO_NOVEDADES">
+    <Key>
+      <PropertyRef Name="COD_REGISTRO_NOVEDADES" />
+    </Key>
+    <Property Name="COD_REGISTRO_NOVEDADES" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COD_COLABORADOR" Type="bigint" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
+    <Property Name="COD_TIPO_NOVEDAD" Type="bigint" />
+    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
+    <Property Name="FECHA_INICIO_NOVEDAD" Type="date" />
+    <Property Name="FECHA_FIN_NOVEDAD" Type="date" />
+  </EntityType>
+  <EntityType Name="ROLES">
+    <Key>
+      <PropertyRef Name="COD_ROL" />
+    </Key>
+    <Property Name="COD_ROL" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="SINO">
+    <Key>
+      <PropertyRef Name="COD_SINO" />
+    </Key>
+    <Property Name="COD_SINO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="TIPO_CONDICION_CONTRACTUAL">
+    <Key>
+      <PropertyRef Name="COD_TIPO_CONDICION" />
+    </Key>
+    <Property Name="COD_TIPO_CONDICION" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="TIPOS_NOVEDAD">
+    <Key>
+      <PropertyRef Name="COD_TIPO_NOVEDAD" />
+    </Key>
+    <Property Name="COD_TIPO_NOVEDAD" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="TIPOS_NOVEDAD_CONDICION">
+    <Key>
+      <PropertyRef Name="COD_TIPO_NOVEDAD_CONDICION" />
+    </Key>
+    <Property Name="COD_TIPO_NOVEDAD_CONDICION" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COD_TIPO_NOVEDAD" Type="bigint" />
+    <Property Name="COD_TIPO_CONDICION" Type="bigint" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATO_PROYECTO_DESCRIPCION' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="CONTRATO_PROYECTO_DESCRIPCION">
+    <Key>
+      <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+    </Key>
+    <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" Nullable="false" />
+    <Property Name="COD_CONTRATO" Type="bigint" />
+    <Property Name="COD_PROYECTO" Type="bigint" />
+    <Property Name="COD_FORMA_PAGO" Type="bigint" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="622" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS_ROL' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="GENERACION_FLUJOS_ROL">
+    <Key>
+      <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+      <PropertyRef Name="ETAPA" />
+    </Key>
+    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" Nullable="false" />
+    <Property Name="COD_ROL" Type="bigint" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
+    <Property Name="ETAPA" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="VALOR_MENSUAL_SIN_PRESTACIONES" Type="real" />
+    <Property Name="VALOR_MENSUAL_PRESTACIONES" Type="real" />
+    <Property Name="VALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR" Type="real" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FLUJO_INGRESOS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="VISTA_FLUJO_INGRESOS">
+    <Key>
+      <PropertyRef Name="COD_FLUJO_INGRESOS_ROL" />
+    </Key>
+    <Property Name="COD_FLUJO_INGRESOS_ROL" Type="bigint" Nullable="false" />
+    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
+    <Property Name="COD_ROL" Type="bigint" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
+    <Property Name="ETAPA" Type="varchar" MaxLength="200" />
+    <Property Name="VALOR_SIN_PRESTACIONES" Type="real" />
+    <Property Name="VALOR_CON_PRESTACIONES" Type="real" />
+    <Property Name="VALOR_FACTOR_MULTIPLICADOR" Type="real" />
+    <Property Name="FECHA_FORMA_PAGO" Type="date" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FLUJO_INGRESOS_ITEMS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="VISTA_FLUJO_INGRESOS_ITEMS">
+    <Key>
+      <PropertyRef Name="COD_FLUJO_INGRESOS_ITEMS" />
+      <PropertyRef Name="DESCRIPCION" />
+    </Key>
+    <Property Name="COD_FLUJO_INGRESOS_ITEMS" Type="bigint" Nullable="false" />
+    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
+    <Property Name="COD_ITEM" Type="bigint" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
+    <Property Name="ETAPA" Type="varchar" MaxLength="200" />
+    <Property Name="VALOR_FIJO" Type="real" />
+    <Property Name="VALOR_VARIABLE" Type="real" />
+    <Property Name="VALOR_TOTAL" Type="real" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" Nullable="false" />
+    <Property Name="FECHA_FORMA_PAGO" Type="date" />
+  </EntityType>
+  <Association Name="FK_COLABORADORES_CARGOS">
+    <End Role="CARGOS" Type="Self.CARGOS" Multiplicity="0..1" />
+    <End Role="COLABORADORES" Type="Self.COLABORADORES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CARGOS">
+        <PropertyRef Name="COD_CARGO" />
+      </Principal>
+      <Dependent Role="COLABORADORES">
+        <PropertyRef Name="COD_CARGO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_COMPROMISOS_ENTREGABLES_CARTERA">
+    <End Role="CARTERA" Type="Self.CARTERA" Multiplicity="0..1" />
+    <End Role="COMPROMISOS_ENTREGABLES" Type="Self.COMPROMISOS_ENTREGABLES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CARTERA">
+        <PropertyRef Name="COD_CARTERA" />
+      </Principal>
+      <Dependent Role="COMPROMISOS_ENTREGABLES">
+        <PropertyRef Name="COD_CARTERA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_COMPROMISOS_ENTREGABLES_ENTREGABLES">
+    <End Role="ENTREGABLES" Type="Self.ENTREGABLES" Multiplicity="0..1" />
+    <End Role="COMPROMISOS_ENTREGABLES" Type="Self.COMPROMISOS_ENTREGABLES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ENTREGABLES">
+        <PropertyRef Name="COD_ENTREGABLE" />
+      </Principal>
+      <Dependent Role="COMPROMISOS_ENTREGABLES">
+        <PropertyRef Name="COD_ENTREGABLE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_COMPROMISOS_PAGOS_CARTERA">
+    <End Role="CARTERA" Type="Self.CARTERA" Multiplicity="0..1" />
+    <End Role="COMPROMISOS_PAGOS" Type="Self.COMPROMISOS_PAGOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CARTERA">
+        <PropertyRef Name="COD_CARTERA" />
+      </Principal>
+      <Dependent Role="COMPROMISOS_PAGOS">
+        <PropertyRef Name="COD_CARTERA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONTRATO_COLABORADOR_COLABORADOR">
+    <End Role="COLABORADORES" Type="Self.COLABORADORES" Multiplicity="0..1" />
+    <End Role="CONTRATO_COLABORADOR" Type="Self.CONTRATO_COLABORADOR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COLABORADORES">
+        <PropertyRef Name="COD_COLABORADOR" />
+      </Principal>
+      <Dependent Role="CONTRATO_COLABORADOR">
+        <PropertyRef Name="COD_COLABORADOR" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONTRATO_COLABORADOR_ROL">
+    <End Role="ROLES" Type="Self.ROLES" Multiplicity="0..1" />
+    <End Role="CONTRATO_COLABORADOR" Type="Self.CONTRATO_COLABORADOR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ROLES">
+        <PropertyRef Name="COD_ROL" />
+      </Principal>
+      <Dependent Role="CONTRATO_COLABORADOR">
+        <PropertyRef Name="COD_ROL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONTRATO_PROYECTO_CONTRATOS">
+    <End Role="CONTRATOS" Type="Self.CONTRATOS" Multiplicity="0..1" />
+    <End Role="CONTRATO_PROYECTO" Type="Self.CONTRATO_PROYECTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTRATOS">
+        <PropertyRef Name="COD_CONTRATO" />
+      </Principal>
+      <Dependent Role="CONTRATO_PROYECTO">
+        <PropertyRef Name="COD_CONTRATO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONTRATO_PROYECTO_FORMAS_PAGO">
+    <End Role="FORMAS_PAGO" Type="Self.FORMAS_PAGO" Multiplicity="0..1" />
+    <End Role="CONTRATO_PROYECTO" Type="Self.CONTRATO_PROYECTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FORMAS_PAGO">
+        <PropertyRef Name="COD_FORMA_PAGO" />
+      </Principal>
+      <Dependent Role="CONTRATO_PROYECTO">
+        <PropertyRef Name="COD_FORMA_PAGO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONTRATO_PROYECTO_PROYECTOS">
+    <End Role="PROYECTOS" Type="Self.PROYECTOS" Multiplicity="0..1" />
+    <End Role="CONTRATO_PROYECTO" Type="Self.CONTRATO_PROYECTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PROYECTOS">
+        <PropertyRef Name="COD_PROYECTO" />
+      </Principal>
+      <Dependent Role="CONTRATO_PROYECTO">
+        <PropertyRef Name="COD_PROYECTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONTRATO_ROL_ROL">
+    <End Role="ROLES" Type="Self.ROLES" Multiplicity="0..1" />
+    <End Role="CONTRATOS_ROL" Type="Self.CONTRATOS_ROL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ROLES">
+        <PropertyRef Name="COD_ROL" />
+      </Principal>
+      <Dependent Role="CONTRATOS_ROL">
+        <PropertyRef Name="COD_ROL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONTRATOS_CLIENTES">
+    <End Role="CLIENTES" Type="Self.CLIENTES" Multiplicity="0..1" />
+    <End Role="CONTRATOS" Type="Self.CONTRATOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLIENTES">
+        <PropertyRef Name="COD_CLIENTE" />
+      </Principal>
+      <Dependent Role="CONTRATOS">
+        <PropertyRef Name="COD_CLIENTE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONTRATOS_CONDICIONES_CONTRATO_PROYECTO">
+    <End Role="CONTRATO_PROYECTO" Type="Self.CONTRATO_PROYECTO" Multiplicity="0..1" />
+    <End Role="CONTRATOS_CONDICIONES" Type="Self.CONTRATOS_CONDICIONES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTRATO_PROYECTO">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Principal>
+      <Dependent Role="CONTRATOS_CONDICIONES">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONTRATOS_CONDICIONES_TIPO_CONDICION_CONTRACTUAL">
+    <End Role="TIPO_CONDICION_CONTRACTUAL" Type="Self.TIPO_CONDICION_CONTRACTUAL" Multiplicity="0..1" />
+    <End Role="CONTRATOS_CONDICIONES" Type="Self.CONTRATOS_CONDICIONES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TIPO_CONDICION_CONTRACTUAL">
+        <PropertyRef Name="COD_TIPO_CONDICION" />
+      </Principal>
+      <Dependent Role="CONTRATOS_CONDICIONES">
+        <PropertyRef Name="COD_TIPO_CONDICION" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONTRATOS_ROL_CONTRATO_PROYECTO">
+    <End Role="CONTRATO_PROYECTO" Type="Self.CONTRATO_PROYECTO" Multiplicity="0..1" />
+    <End Role="CONTRATOS_ROL" Type="Self.CONTRATOS_ROL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTRATO_PROYECTO">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Principal>
+      <Dependent Role="CONTRATOS_ROL">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLE_FACTURA_ITEM_CONTRATO_PROYECTO">
+    <End Role="CONTRATO_PROYECTO" Type="Self.CONTRATO_PROYECTO" Multiplicity="0..1" />
+    <End Role="DETALLE_FACTURA_ITEM" Type="Self.DETALLE_FACTURA_ITEM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTRATO_PROYECTO">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Principal>
+      <Dependent Role="DETALLE_FACTURA_ITEM">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLE_FACTURA_ITEM_FECHAS">
+    <End Role="FORMAS_PAGO_FECHAS" Type="Self.FORMAS_PAGO_FECHAS" Multiplicity="0..1" />
+    <End Role="DETALLE_FACTURA_ITEM" Type="Self.DETALLE_FACTURA_ITEM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FORMAS_PAGO_FECHAS">
+        <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+      </Principal>
+      <Dependent Role="DETALLE_FACTURA_ITEM">
+        <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_detalle_factura_item_items">
+    <End Role="ITEMS_CONTRATO" Type="Self.ITEMS_CONTRATO" Multiplicity="0..1" />
+    <End Role="DETALLE_FACTURA_ITEM" Type="Self.DETALLE_FACTURA_ITEM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ITEMS_CONTRATO">
+        <PropertyRef Name="COD_ITEM" />
+      </Principal>
+      <Dependent Role="DETALLE_FACTURA_ITEM">
+        <PropertyRef Name="COD_ITEM" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLE_FACTURA_PERS_COLABORADOR">
+    <End Role="COLABORADORES" Type="Self.COLABORADORES" Multiplicity="0..1" />
+    <End Role="DETALLE_FACTURA_PERS" Type="Self.DETALLE_FACTURA_PERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COLABORADORES">
+        <PropertyRef Name="COD_COLABORADOR" />
+      </Principal>
+      <Dependent Role="DETALLE_FACTURA_PERS">
+        <PropertyRef Name="COD_COLABORADOR" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLE_FACTURA_PERS_CONTRATO_PROYECTO">
+    <End Role="CONTRATO_PROYECTO" Type="Self.CONTRATO_PROYECTO" Multiplicity="0..1" />
+    <End Role="DETALLE_FACTURA_PERS" Type="Self.DETALLE_FACTURA_PERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTRATO_PROYECTO">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Principal>
+      <Dependent Role="DETALLE_FACTURA_PERS">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLE_FACTURA_PERS_FECHAS">
+    <End Role="FORMAS_PAGO_FECHAS" Type="Self.FORMAS_PAGO_FECHAS" Multiplicity="0..1" />
+    <End Role="DETALLE_FACTURA_PERS" Type="Self.DETALLE_FACTURA_PERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FORMAS_PAGO_FECHAS">
+        <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+      </Principal>
+      <Dependent Role="DETALLE_FACTURA_PERS">
+        <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ENTREGABLES_COLABORADORES">
+    <End Role="COLABORADORES" Type="Self.COLABORADORES" Multiplicity="0..1" />
+    <End Role="ENTREGABLES" Type="Self.ENTREGABLES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COLABORADORES">
+        <PropertyRef Name="COD_COLABORADOR" />
+      </Principal>
+      <Dependent Role="ENTREGABLES">
+        <PropertyRef Name="COD_COLABORADOR" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ENTREGABLES_CONTRATOS_CONDICIONES">
+    <End Role="CONTRATOS_CONDICIONES" Type="Self.CONTRATOS_CONDICIONES" Multiplicity="0..1" />
+    <End Role="ENTREGABLES" Type="Self.ENTREGABLES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTRATOS_CONDICIONES">
+        <PropertyRef Name="COD_CONTRATO_CONDICION" />
+      </Principal>
+      <Dependent Role="ENTREGABLES">
+        <PropertyRef Name="COD_CONTRATO_CONDICION" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ESTUDIOS_COLABORADOR_COLABORADORES">
+    <End Role="COLABORADORES" Type="Self.COLABORADORES" Multiplicity="0..1" />
+    <End Role="ESTUDIOS_COLABORADOR" Type="Self.ESTUDIOS_COLABORADOR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COLABORADORES">
+        <PropertyRef Name="COD_COLABORADOR" />
+      </Principal>
+      <Dependent Role="ESTUDIOS_COLABORADOR">
+        <PropertyRef Name="COD_COLABORADOR" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FACTURAS_CONTRATO_PROYECTO">
+    <End Role="CONTRATO_PROYECTO" Type="Self.CONTRATO_PROYECTO" Multiplicity="0..1" />
+    <End Role="FACTURAS" Type="Self.FACTURAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTRATO_PROYECTO">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Principal>
+      <Dependent Role="FACTURAS">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FACTURAS_FORMAS_PAGO_FECHAS">
+    <End Role="FORMAS_PAGO_FECHAS" Type="Self.FORMAS_PAGO_FECHAS" Multiplicity="0..1" />
+    <End Role="FACTURAS" Type="Self.FACTURAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FORMAS_PAGO_FECHAS">
+        <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+      </Principal>
+      <Dependent Role="FACTURAS">
+        <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO">
+    <End Role="CONTRATO_PROYECTO" Type="Self.CONTRATO_PROYECTO" Multiplicity="0..1" />
+    <End Role="FLUJO_INGRESOS_ITEMS" Type="Self.FLUJO_INGRESOS_ITEMS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTRATO_PROYECTO">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Principal>
+      <Dependent Role="FLUJO_INGRESOS_ITEMS">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FLUJO_INGRESOS_ITEMS_FECHAS">
+    <End Role="FORMAS_PAGO_FECHAS" Type="Self.FORMAS_PAGO_FECHAS" Multiplicity="0..1" />
+    <End Role="FLUJO_INGRESOS_ITEMS" Type="Self.FLUJO_INGRESOS_ITEMS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FORMAS_PAGO_FECHAS">
+        <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+      </Principal>
+      <Dependent Role="FLUJO_INGRESOS_ITEMS">
+        <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO">
+    <End Role="CONTRATO_PROYECTO" Type="Self.CONTRATO_PROYECTO" Multiplicity="0..1" />
+    <End Role="FLUJO_INGRESOS_ROL" Type="Self.FLUJO_INGRESOS_ROL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTRATO_PROYECTO">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Principal>
+      <Dependent Role="FLUJO_INGRESOS_ROL">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FLUJO_INGRESOS_ROL_FECHAS">
+    <End Role="FORMAS_PAGO_FECHAS" Type="Self.FORMAS_PAGO_FECHAS" Multiplicity="0..1" />
+    <End Role="FLUJO_INGRESOS_ROL" Type="Self.FLUJO_INGRESOS_ROL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FORMAS_PAGO_FECHAS">
+        <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+      </Principal>
+      <Dependent Role="FLUJO_INGRESOS_ROL">
+        <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FLUJO_INGRESOS_ROL_FECHAS_TEMP1">
+    <End Role="FORMAS_PAGO_FECHAS" Type="Self.FORMAS_PAGO_FECHAS" Multiplicity="0..1" />
+    <End Role="FLUJO_INGRESOS_ROL" Type="Self.FLUJO_INGRESOS_ROL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FORMAS_PAGO_FECHAS">
+        <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+      </Principal>
+      <Dependent Role="FLUJO_INGRESOS_ROL">
+        <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FLUJO_INGRESOS_ROL_FECHAS_TEMP2">
+    <End Role="FORMAS_PAGO_FECHAS" Type="Self.FORMAS_PAGO_FECHAS" Multiplicity="0..1" />
+    <End Role="FLUJO_INGRESOS_ROL" Type="Self.FLUJO_INGRESOS_ROL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FORMAS_PAGO_FECHAS">
+        <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+      </Principal>
+      <Dependent Role="FLUJO_INGRESOS_ROL">
+        <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FLUJO_INGRESOS_ROL_ITEMS">
+    <End Role="ITEMS_CONTRATO" Type="Self.ITEMS_CONTRATO" Multiplicity="0..1" />
+    <End Role="FLUJO_INGRESOS_ITEMS" Type="Self.FLUJO_INGRESOS_ITEMS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ITEMS_CONTRATO">
+        <PropertyRef Name="COD_ITEM" />
+      </Principal>
+      <Dependent Role="FLUJO_INGRESOS_ITEMS">
+        <PropertyRef Name="COD_ITEM" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FLUJO_INGRESOS_ROL_ROL">
+    <End Role="ROLES" Type="Self.ROLES" Multiplicity="0..1" />
+    <End Role="FLUJO_INGRESOS_ROL" Type="Self.FLUJO_INGRESOS_ROL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ROLES">
+        <PropertyRef Name="COD_ROL" />
+      </Principal>
+      <Dependent Role="FLUJO_INGRESOS_ROL">
+        <PropertyRef Name="COD_ROL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FLUJO_INGRESOS_ROL_ROL_TEMP1">
+    <End Role="ROLES" Type="Self.ROLES" Multiplicity="0..1" />
+    <End Role="FLUJO_INGRESOS_ROL" Type="Self.FLUJO_INGRESOS_ROL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ROLES">
+        <PropertyRef Name="COD_ROL" />
+      </Principal>
+      <Dependent Role="FLUJO_INGRESOS_ROL">
+        <PropertyRef Name="COD_ROL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FLUJO_INGRESOS_ROL_ROL_TEMP2">
+    <End Role="ROLES" Type="Self.ROLES" Multiplicity="0..1" />
+    <End Role="FLUJO_INGRESOS_ROL" Type="Self.FLUJO_INGRESOS_ROL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ROLES">
+        <PropertyRef Name="COD_ROL" />
+      </Principal>
+      <Dependent Role="FLUJO_INGRESOS_ROL">
+        <PropertyRef Name="COD_ROL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FORMAS_PAGO_FECHAS_FORMA_PAGO">
+    <End Role="FORMAS_PAGO" Type="Self.FORMAS_PAGO" Multiplicity="0..1" />
+    <End Role="FORMAS_PAGO_FECHAS" Type="Self.FORMAS_PAGO_FECHAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FORMAS_PAGO">
+        <PropertyRef Name="COD_FORMA_PAGO" />
+      </Principal>
+      <Dependent Role="FORMAS_PAGO_FECHAS">
+        <PropertyRef Name="COD_FORMA_PAGO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GESTION_CARTERA_CARTERA">
+    <End Role="CARTERA" Type="Self.CARTERA" Multiplicity="0..1" />
+    <End Role="GESTION_CARTERA" Type="Self.GESTION_CARTERA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CARTERA">
+        <PropertyRef Name="COD_CARTERA" />
+      </Principal>
+      <Dependent Role="GESTION_CARTERA">
+        <PropertyRef Name="COD_CARTERA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GESTION_CARTERA_COLABORADORES">
+    <End Role="COLABORADORES" Type="Self.COLABORADORES" Multiplicity="0..1" />
+    <End Role="GESTION_CARTERA" Type="Self.GESTION_CARTERA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COLABORADORES">
+        <PropertyRef Name="COD_COLABORADOR" />
+      </Principal>
+      <Dependent Role="GESTION_CARTERA">
+        <PropertyRef Name="COD_COLABORADOR" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ITEMS_CONTRATO_CONTRATO_PROYECTO">
+    <End Role="CONTRATO_PROYECTO" Type="Self.CONTRATO_PROYECTO" Multiplicity="0..1" />
+    <End Role="ITEMS_CONTRATO" Type="Self.ITEMS_CONTRATO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTRATO_PROYECTO">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Principal>
+      <Dependent Role="ITEMS_CONTRATO">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_REGISTR_ITEMS_OTROS_COSTOS_FECHAS">
+    <End Role="FORMAS_PAGO_FECHAS" Type="Self.FORMAS_PAGO_FECHAS" Multiplicity="0..1" />
+    <End Role="REGISTRO_ITEMS_OTROS_COSTOS" Type="Self.REGISTRO_ITEMS_OTROS_COSTOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FORMAS_PAGO_FECHAS">
+        <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+      </Principal>
+      <Dependent Role="REGISTRO_ITEMS_OTROS_COSTOS">
+        <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_REGISTRO_ITEMS_OTROS_COSTOS_CONTRATO_CONDICION">
+    <End Role="CONTRATO_PROYECTO" Type="Self.CONTRATO_PROYECTO" Multiplicity="0..1" />
+    <End Role="REGISTRO_ITEMS_OTROS_COSTOS" Type="Self.REGISTRO_ITEMS_OTROS_COSTOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTRATO_PROYECTO">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Principal>
+      <Dependent Role="REGISTRO_ITEMS_OTROS_COSTOS">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_registro_items_otros_costos_items">
+    <End Role="ITEMS_CONTRATO" Type="Self.ITEMS_CONTRATO" Multiplicity="0..1" />
+    <End Role="REGISTRO_ITEMS_OTROS_COSTOS" Type="Self.REGISTRO_ITEMS_OTROS_COSTOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ITEMS_CONTRATO">
+        <PropertyRef Name="COD_ITEM" />
+      </Principal>
+      <Dependent Role="REGISTRO_ITEMS_OTROS_COSTOS">
+        <PropertyRef Name="COD_ITEM" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_REGISTRO_NOVEDADES_COLABORADOR">
+    <End Role="COLABORADORES" Type="Self.COLABORADORES" Multiplicity="0..1" />
+    <End Role="REGISTRO_NOVEDADES" Type="Self.REGISTRO_NOVEDADES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COLABORADORES">
+        <PropertyRef Name="COD_COLABORADOR" />
+      </Principal>
+      <Dependent Role="REGISTRO_NOVEDADES">
+        <PropertyRef Name="COD_COLABORADOR" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_REGISTRO_NOVEDADES_CONTRATO_PROYECTO">
+    <End Role="CONTRATO_PROYECTO" Type="Self.CONTRATO_PROYECTO" Multiplicity="0..1" />
+    <End Role="REGISTRO_NOVEDADES" Type="Self.REGISTRO_NOVEDADES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTRATO_PROYECTO">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Principal>
+      <Dependent Role="REGISTRO_NOVEDADES">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_REGISTRO_NOVEDADES_FORMAS_PAGO_FECHAS">
+    <End Role="FORMAS_PAGO_FECHAS" Type="Self.FORMAS_PAGO_FECHAS" Multiplicity="0..1" />
+    <End Role="REGISTRO_NOVEDADES" Type="Self.REGISTRO_NOVEDADES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FORMAS_PAGO_FECHAS">
+        <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+      </Principal>
+      <Dependent Role="REGISTRO_NOVEDADES">
+        <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_REGISTRO_NOVEDADES_TIPO_NOVEDAD">
+    <End Role="TIPOS_NOVEDAD" Type="Self.TIPOS_NOVEDAD" Multiplicity="0..1" />
+    <End Role="REGISTRO_NOVEDADES" Type="Self.REGISTRO_NOVEDADES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TIPOS_NOVEDAD">
+        <PropertyRef Name="COD_TIPO_NOVEDAD" />
+      </Principal>
+      <Dependent Role="REGISTRO_NOVEDADES">
+        <PropertyRef Name="COD_TIPO_NOVEDAD" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TIPOS_NOVEDAD_CONDICION_TIPO_CONDICION">
+    <End Role="TIPO_CONDICION_CONTRACTUAL" Type="Self.TIPO_CONDICION_CONTRACTUAL" Multiplicity="0..1" />
+    <End Role="TIPOS_NOVEDAD_CONDICION" Type="Self.TIPOS_NOVEDAD_CONDICION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TIPO_CONDICION_CONTRACTUAL">
+        <PropertyRef Name="COD_TIPO_CONDICION" />
+      </Principal>
+      <Dependent Role="TIPOS_NOVEDAD_CONDICION">
+        <PropertyRef Name="COD_TIPO_CONDICION" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TIPOS_NOVEDAD_CONDICION_TIPO_NOVEDAD">
+    <End Role="TIPOS_NOVEDAD" Type="Self.TIPOS_NOVEDAD" Multiplicity="0..1" />
+    <End Role="TIPOS_NOVEDAD_CONDICION" Type="Self.TIPOS_NOVEDAD_CONDICION" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TIPOS_NOVEDAD">
+        <PropertyRef Name="COD_TIPO_NOVEDAD" />
+      </Principal>
+      <Dependent Role="TIPOS_NOVEDAD_CONDICION">
+        <PropertyRef Name="COD_TIPO_NOVEDAD" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="f_tmp_func" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="_tmp_func" ReturnType="int">
+    <Parameter Name="orderID" Type="bigint" Mode="In" />
+  </Function>
+  <EntityContainer Name="test_payc_contabilidadModelStoreContainer">
+    <EntitySet Name="CARGOS" EntityType="Self.CARGOS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CARTERA" EntityType="Self.CARTERA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CLIENTES" EntityType="Self.CLIENTES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="COLABORADORES" EntityType="Self.COLABORADORES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="COMPROMISOS_ENTREGABLES" EntityType="Self.COMPROMISOS_ENTREGABLES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="COMPROMISOS_PAGOS" EntityType="Self.COMPROMISOS_PAGOS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CONTRATO_COLABORADOR" EntityType="Self.CONTRATO_COLABORADOR" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CONTRATO_PROYECTO" EntityType="Self.CONTRATO_PROYECTO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CONTRATOS" EntityType="Self.CONTRATOS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CONTRATOS_CONDICIONES" EntityType="Self.CONTRATOS_CONDICIONES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CONTRATOS_ROL" EntityType="Self.CONTRATOS_ROL" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DETALLE_FACTURA_ITEM" EntityType="Self.DETALLE_FACTURA_ITEM" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DETALLE_FACTURA_PERS" EntityType="Self.DETALLE_FACTURA_PERS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ENTREGABLES" EntityType="Self.ENTREGABLES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ESTUDIOS_COLABORADOR" EntityType="Self.ESTUDIOS_COLABORADOR" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FACTURAS" EntityType="Self.FACTURAS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FLUJO_INGRESOS_ITEMS" EntityType="Self.FLUJO_INGRESOS_ITEMS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FLUJO_INGRESOS_ROL" EntityType="Self.FLUJO_INGRESOS_ROL" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FORMAS_PAGO" EntityType="Self.FORMAS_PAGO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FORMAS_PAGO_FECHAS" EntityType="Self.FORMAS_PAGO_FECHAS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GESTION_CARTERA" EntityType="Self.GESTION_CARTERA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ITEMS_CONTRATO" EntityType="Self.ITEMS_CONTRATO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PROYECTOS" EntityType="Self.PROYECTOS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="REGISTRO_ITEMS_OTROS_COSTOS" EntityType="Self.REGISTRO_ITEMS_OTROS_COSTOS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="REGISTRO_NOVEDADES" EntityType="Self.REGISTRO_NOVEDADES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ROLES" EntityType="Self.ROLES" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SINO" EntityType="Self.SINO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TIPO_CONDICION_CONTRACTUAL" EntityType="Self.TIPO_CONDICION_CONTRACTUAL" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TIPOS_NOVEDAD" EntityType="Self.TIPOS_NOVEDAD" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TIPOS_NOVEDAD_CONDICION" EntityType="Self.TIPOS_NOVEDAD_CONDICION" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CONTRATO_PROYECTO_DESCRIPCION" EntityType="Self.CONTRATO_PROYECTO_DESCRIPCION" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [CONTRATO_PROYECTO_DESCRIPCION].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
+    [CONTRATO_PROYECTO_DESCRIPCION].[COD_CONTRATO] AS [COD_CONTRATO], 
+    [CONTRATO_PROYECTO_DESCRIPCION].[COD_PROYECTO] AS [COD_PROYECTO], 
+    [CONTRATO_PROYECTO_DESCRIPCION].[COD_FORMA_PAGO] AS [COD_FORMA_PAGO], 
+    [CONTRATO_PROYECTO_DESCRIPCION].[DESCRIPCION] AS [DESCRIPCION]
+    FROM [dbo].[CONTRATO_PROYECTO_DESCRIPCION] AS [CONTRATO_PROYECTO_DESCRIPCION]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="GENERACION_FLUJOS_ROL" EntityType="Self.GENERACION_FLUJOS_ROL" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [GENERACION_FLUJOS_ROL].[COD_FORMAS_PAGO_FECHAS] AS [COD_FORMAS_PAGO_FECHAS], 
+    [GENERACION_FLUJOS_ROL].[COD_ROL] AS [COD_ROL], 
+    [GENERACION_FLUJOS_ROL].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
+    [GENERACION_FLUJOS_ROL].[ETAPA] AS [ETAPA], 
+    [GENERACION_FLUJOS_ROL].[VALOR_MENSUAL_SIN_PRESTACIONES] AS [VALOR_MENSUAL_SIN_PRESTACIONES], 
+    [GENERACION_FLUJOS_ROL].[VALOR_MENSUAL_PRESTACIONES] AS [VALOR_MENSUAL_PRESTACIONES], 
+    [GENERACION_FLUJOS_ROL].[VALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR] AS [VALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR]
+    FROM [dbo].[GENERACION_FLUJOS_ROL] AS [GENERACION_FLUJOS_ROL]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="VISTA_FLUJO_INGRESOS" EntityType="Self.VISTA_FLUJO_INGRESOS" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [VISTA_FLUJO_INGRESOS].[COD_FLUJO_INGRESOS_ROL] AS [COD_FLUJO_INGRESOS_ROL], 
+    [VISTA_FLUJO_INGRESOS].[COD_FORMAS_PAGO_FECHAS] AS [COD_FORMAS_PAGO_FECHAS], 
+    [VISTA_FLUJO_INGRESOS].[COD_ROL] AS [COD_ROL], 
+    [VISTA_FLUJO_INGRESOS].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
+    [VISTA_FLUJO_INGRESOS].[ETAPA] AS [ETAPA], 
+    [VISTA_FLUJO_INGRESOS].[VALOR_SIN_PRESTACIONES] AS [VALOR_SIN_PRESTACIONES], 
+    [VISTA_FLUJO_INGRESOS].[VALOR_CON_PRESTACIONES] AS [VALOR_CON_PRESTACIONES], 
+    [VISTA_FLUJO_INGRESOS].[VALOR_FACTOR_MULTIPLICADOR] AS [VALOR_FACTOR_MULTIPLICADOR], 
+    [VISTA_FLUJO_INGRESOS].[FECHA_FORMA_PAGO] AS [FECHA_FORMA_PAGO], 
+    [VISTA_FLUJO_INGRESOS].[DESCRIPCION] AS [DESCRIPCION]
+    FROM [dbo].[VISTA_FLUJO_INGRESOS] AS [VISTA_FLUJO_INGRESOS]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="VISTA_FLUJO_INGRESOS_ITEMS" EntityType="Self.VISTA_FLUJO_INGRESOS_ITEMS" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [VISTA_FLUJO_INGRESOS_ITEMS].[COD_FLUJO_INGRESOS_ITEMS] AS [COD_FLUJO_INGRESOS_ITEMS], 
+    [VISTA_FLUJO_INGRESOS_ITEMS].[COD_FORMAS_PAGO_FECHAS] AS [COD_FORMAS_PAGO_FECHAS], 
+    [VISTA_FLUJO_INGRESOS_ITEMS].[COD_ITEM] AS [COD_ITEM], 
+    [VISTA_FLUJO_INGRESOS_ITEMS].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
+    [VISTA_FLUJO_INGRESOS_ITEMS].[ETAPA] AS [ETAPA], 
+    [VISTA_FLUJO_INGRESOS_ITEMS].[VALOR_FIJO] AS [VALOR_FIJO], 
+    [VISTA_FLUJO_INGRESOS_ITEMS].[VALOR_VARIABLE] AS [VALOR_VARIABLE], 
+    [VISTA_FLUJO_INGRESOS_ITEMS].[VALOR_TOTAL] AS [VALOR_TOTAL], 
+    [VISTA_FLUJO_INGRESOS_ITEMS].[DESCRIPCION] AS [DESCRIPCION], 
+    [VISTA_FLUJO_INGRESOS_ITEMS].[FECHA_FORMA_PAGO] AS [FECHA_FORMA_PAGO]
+    FROM [dbo].[VISTA_FLUJO_INGRESOS_ITEMS] AS [VISTA_FLUJO_INGRESOS_ITEMS]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_COLABORADORES_CARGOS" Association="Self.FK_COLABORADORES_CARGOS">
+      <End Role="CARGOS" EntitySet="CARGOS" />
+      <End Role="COLABORADORES" EntitySet="COLABORADORES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_COMPROMISOS_ENTREGABLES_CARTERA" Association="Self.FK_COMPROMISOS_ENTREGABLES_CARTERA">
+      <End Role="CARTERA" EntitySet="CARTERA" />
+      <End Role="COMPROMISOS_ENTREGABLES" EntitySet="COMPROMISOS_ENTREGABLES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_COMPROMISOS_ENTREGABLES_ENTREGABLES" Association="Self.FK_COMPROMISOS_ENTREGABLES_ENTREGABLES">
+      <End Role="ENTREGABLES" EntitySet="ENTREGABLES" />
+      <End Role="COMPROMISOS_ENTREGABLES" EntitySet="COMPROMISOS_ENTREGABLES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_COMPROMISOS_PAGOS_CARTERA" Association="Self.FK_COMPROMISOS_PAGOS_CARTERA">
+      <End Role="CARTERA" EntitySet="CARTERA" />
+      <End Role="COMPROMISOS_PAGOS" EntitySet="COMPROMISOS_PAGOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONTRATO_COLABORADOR_COLABORADOR" Association="Self.FK_CONTRATO_COLABORADOR_COLABORADOR">
+      <End Role="COLABORADORES" EntitySet="COLABORADORES" />
+      <End Role="CONTRATO_COLABORADOR" EntitySet="CONTRATO_COLABORADOR" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONTRATO_COLABORADOR_ROL" Association="Self.FK_CONTRATO_COLABORADOR_ROL">
+      <End Role="ROLES" EntitySet="ROLES" />
+      <End Role="CONTRATO_COLABORADOR" EntitySet="CONTRATO_COLABORADOR" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONTRATO_PROYECTO_CONTRATOS" Association="Self.FK_CONTRATO_PROYECTO_CONTRATOS">
+      <End Role="CONTRATOS" EntitySet="CONTRATOS" />
+      <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONTRATO_PROYECTO_FORMAS_PAGO" Association="Self.FK_CONTRATO_PROYECTO_FORMAS_PAGO">
+      <End Role="FORMAS_PAGO" EntitySet="FORMAS_PAGO" />
+      <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONTRATO_PROYECTO_PROYECTOS" Association="Self.FK_CONTRATO_PROYECTO_PROYECTOS">
+      <End Role="PROYECTOS" EntitySet="PROYECTOS" />
+      <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONTRATO_ROL_ROL" Association="Self.FK_CONTRATO_ROL_ROL">
+      <End Role="ROLES" EntitySet="ROLES" />
+      <End Role="CONTRATOS_ROL" EntitySet="CONTRATOS_ROL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONTRATOS_CLIENTES" Association="Self.FK_CONTRATOS_CLIENTES">
+      <End Role="CLIENTES" EntitySet="CLIENTES" />
+      <End Role="CONTRATOS" EntitySet="CONTRATOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONTRATOS_CONDICIONES_CONTRATO_PROYECTO" Association="Self.FK_CONTRATOS_CONDICIONES_CONTRATO_PROYECTO">
+      <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+      <End Role="CONTRATOS_CONDICIONES" EntitySet="CONTRATOS_CONDICIONES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONTRATOS_CONDICIONES_TIPO_CONDICION_CONTRACTUAL" Association="Self.FK_CONTRATOS_CONDICIONES_TIPO_CONDICION_CONTRACTUAL">
+      <End Role="TIPO_CONDICION_CONTRACTUAL" EntitySet="TIPO_CONDICION_CONTRACTUAL" />
+      <End Role="CONTRATOS_CONDICIONES" EntitySet="CONTRATOS_CONDICIONES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONTRATOS_ROL_CONTRATO_PROYECTO" Association="Self.FK_CONTRATOS_ROL_CONTRATO_PROYECTO">
+      <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+      <End Role="CONTRATOS_ROL" EntitySet="CONTRATOS_ROL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLE_FACTURA_ITEM_CONTRATO_PROYECTO" Association="Self.FK_DETALLE_FACTURA_ITEM_CONTRATO_PROYECTO">
+      <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+      <End Role="DETALLE_FACTURA_ITEM" EntitySet="DETALLE_FACTURA_ITEM" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLE_FACTURA_ITEM_FECHAS" Association="Self.FK_DETALLE_FACTURA_ITEM_FECHAS">
+      <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
+      <End Role="DETALLE_FACTURA_ITEM" EntitySet="DETALLE_FACTURA_ITEM" />
+    </AssociationSet>
+    <AssociationSet Name="FK_detalle_factura_item_items" Association="Self.FK_detalle_factura_item_items">
+      <End Role="ITEMS_CONTRATO" EntitySet="ITEMS_CONTRATO" />
+      <End Role="DETALLE_FACTURA_ITEM" EntitySet="DETALLE_FACTURA_ITEM" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLE_FACTURA_PERS_COLABORADOR" Association="Self.FK_DETALLE_FACTURA_PERS_COLABORADOR">
+      <End Role="COLABORADORES" EntitySet="COLABORADORES" />
+      <End Role="DETALLE_FACTURA_PERS" EntitySet="DETALLE_FACTURA_PERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLE_FACTURA_PERS_CONTRATO_PROYECTO" Association="Self.FK_DETALLE_FACTURA_PERS_CONTRATO_PROYECTO">
+      <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+      <End Role="DETALLE_FACTURA_PERS" EntitySet="DETALLE_FACTURA_PERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLE_FACTURA_PERS_FECHAS" Association="Self.FK_DETALLE_FACTURA_PERS_FECHAS">
+      <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
+      <End Role="DETALLE_FACTURA_PERS" EntitySet="DETALLE_FACTURA_PERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ENTREGABLES_COLABORADORES" Association="Self.FK_ENTREGABLES_COLABORADORES">
+      <End Role="COLABORADORES" EntitySet="COLABORADORES" />
+      <End Role="ENTREGABLES" EntitySet="ENTREGABLES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ENTREGABLES_CONTRATOS_CONDICIONES" Association="Self.FK_ENTREGABLES_CONTRATOS_CONDICIONES">
+      <End Role="CONTRATOS_CONDICIONES" EntitySet="CONTRATOS_CONDICIONES" />
+      <End Role="ENTREGABLES" EntitySet="ENTREGABLES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ESTUDIOS_COLABORADOR_COLABORADORES" Association="Self.FK_ESTUDIOS_COLABORADOR_COLABORADORES">
+      <End Role="COLABORADORES" EntitySet="COLABORADORES" />
+      <End Role="ESTUDIOS_COLABORADOR" EntitySet="ESTUDIOS_COLABORADOR" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FACTURAS_CONTRATO_PROYECTO" Association="Self.FK_FACTURAS_CONTRATO_PROYECTO">
+      <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+      <End Role="FACTURAS" EntitySet="FACTURAS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FACTURAS_FORMAS_PAGO_FECHAS" Association="Self.FK_FACTURAS_FORMAS_PAGO_FECHAS">
+      <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
+      <End Role="FACTURAS" EntitySet="FACTURAS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO" Association="Self.FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO">
+      <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+      <End Role="FLUJO_INGRESOS_ITEMS" EntitySet="FLUJO_INGRESOS_ITEMS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FLUJO_INGRESOS_ITEMS_FECHAS" Association="Self.FK_FLUJO_INGRESOS_ITEMS_FECHAS">
+      <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
+      <End Role="FLUJO_INGRESOS_ITEMS" EntitySet="FLUJO_INGRESOS_ITEMS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO" Association="Self.FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO">
+      <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+      <End Role="FLUJO_INGRESOS_ROL" EntitySet="FLUJO_INGRESOS_ROL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FLUJO_INGRESOS_ROL_FECHAS" Association="Self.FK_FLUJO_INGRESOS_ROL_FECHAS">
+      <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
+      <End Role="FLUJO_INGRESOS_ROL" EntitySet="FLUJO_INGRESOS_ROL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FLUJO_INGRESOS_ROL_FECHAS_TEMP1" Association="Self.FK_FLUJO_INGRESOS_ROL_FECHAS_TEMP1">
+      <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
+      <End Role="FLUJO_INGRESOS_ROL" EntitySet="FLUJO_INGRESOS_ROL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FLUJO_INGRESOS_ROL_FECHAS_TEMP2" Association="Self.FK_FLUJO_INGRESOS_ROL_FECHAS_TEMP2">
+      <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
+      <End Role="FLUJO_INGRESOS_ROL" EntitySet="FLUJO_INGRESOS_ROL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FLUJO_INGRESOS_ROL_ITEMS" Association="Self.FK_FLUJO_INGRESOS_ROL_ITEMS">
+      <End Role="ITEMS_CONTRATO" EntitySet="ITEMS_CONTRATO" />
+      <End Role="FLUJO_INGRESOS_ITEMS" EntitySet="FLUJO_INGRESOS_ITEMS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FLUJO_INGRESOS_ROL_ROL" Association="Self.FK_FLUJO_INGRESOS_ROL_ROL">
+      <End Role="ROLES" EntitySet="ROLES" />
+      <End Role="FLUJO_INGRESOS_ROL" EntitySet="FLUJO_INGRESOS_ROL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FLUJO_INGRESOS_ROL_ROL_TEMP1" Association="Self.FK_FLUJO_INGRESOS_ROL_ROL_TEMP1">
+      <End Role="ROLES" EntitySet="ROLES" />
+      <End Role="FLUJO_INGRESOS_ROL" EntitySet="FLUJO_INGRESOS_ROL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FLUJO_INGRESOS_ROL_ROL_TEMP2" Association="Self.FK_FLUJO_INGRESOS_ROL_ROL_TEMP2">
+      <End Role="ROLES" EntitySet="ROLES" />
+      <End Role="FLUJO_INGRESOS_ROL" EntitySet="FLUJO_INGRESOS_ROL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FORMAS_PAGO_FECHAS_FORMA_PAGO" Association="Self.FK_FORMAS_PAGO_FECHAS_FORMA_PAGO">
+      <End Role="FORMAS_PAGO" EntitySet="FORMAS_PAGO" />
+      <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GESTION_CARTERA_CARTERA" Association="Self.FK_GESTION_CARTERA_CARTERA">
+      <End Role="CARTERA" EntitySet="CARTERA" />
+      <End Role="GESTION_CARTERA" EntitySet="GESTION_CARTERA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GESTION_CARTERA_COLABORADORES" Association="Self.FK_GESTION_CARTERA_COLABORADORES">
+      <End Role="COLABORADORES" EntitySet="COLABORADORES" />
+      <End Role="GESTION_CARTERA" EntitySet="GESTION_CARTERA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ITEMS_CONTRATO_CONTRATO_PROYECTO" Association="Self.FK_ITEMS_CONTRATO_CONTRATO_PROYECTO">
+      <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+      <End Role="ITEMS_CONTRATO" EntitySet="ITEMS_CONTRATO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_REGISTR_ITEMS_OTROS_COSTOS_FECHAS" Association="Self.FK_REGISTR_ITEMS_OTROS_COSTOS_FECHAS">
+      <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
+      <End Role="REGISTRO_ITEMS_OTROS_COSTOS" EntitySet="REGISTRO_ITEMS_OTROS_COSTOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_REGISTRO_ITEMS_OTROS_COSTOS_CONTRATO_CONDICION" Association="Self.FK_REGISTRO_ITEMS_OTROS_COSTOS_CONTRATO_CONDICION">
+      <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+      <End Role="REGISTRO_ITEMS_OTROS_COSTOS" EntitySet="REGISTRO_ITEMS_OTROS_COSTOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_registro_items_otros_costos_items" Association="Self.FK_registro_items_otros_costos_items">
+      <End Role="ITEMS_CONTRATO" EntitySet="ITEMS_CONTRATO" />
+      <End Role="REGISTRO_ITEMS_OTROS_COSTOS" EntitySet="REGISTRO_ITEMS_OTROS_COSTOS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_REGISTRO_NOVEDADES_COLABORADOR" Association="Self.FK_REGISTRO_NOVEDADES_COLABORADOR">
+      <End Role="COLABORADORES" EntitySet="COLABORADORES" />
+      <End Role="REGISTRO_NOVEDADES" EntitySet="REGISTRO_NOVEDADES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_REGISTRO_NOVEDADES_CONTRATO_PROYECTO" Association="Self.FK_REGISTRO_NOVEDADES_CONTRATO_PROYECTO">
+      <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+      <End Role="REGISTRO_NOVEDADES" EntitySet="REGISTRO_NOVEDADES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_REGISTRO_NOVEDADES_FORMAS_PAGO_FECHAS" Association="Self.FK_REGISTRO_NOVEDADES_FORMAS_PAGO_FECHAS">
+      <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
+      <End Role="REGISTRO_NOVEDADES" EntitySet="REGISTRO_NOVEDADES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_REGISTRO_NOVEDADES_TIPO_NOVEDAD" Association="Self.FK_REGISTRO_NOVEDADES_TIPO_NOVEDAD">
+      <End Role="TIPOS_NOVEDAD" EntitySet="TIPOS_NOVEDAD" />
+      <End Role="REGISTRO_NOVEDADES" EntitySet="REGISTRO_NOVEDADES" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TIPOS_NOVEDAD_CONDICION_TIPO_CONDICION" Association="Self.FK_TIPOS_NOVEDAD_CONDICION_TIPO_CONDICION">
+      <End Role="TIPO_CONDICION_CONTRACTUAL" EntitySet="TIPO_CONDICION_CONTRACTUAL" />
+      <End Role="TIPOS_NOVEDAD_CONDICION" EntitySet="TIPOS_NOVEDAD_CONDICION" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TIPOS_NOVEDAD_CONDICION_TIPO_NOVEDAD" Association="Self.FK_TIPOS_NOVEDAD_CONDICION_TIPO_NOVEDAD">
+      <End Role="TIPOS_NOVEDAD" EntitySet="TIPOS_NOVEDAD" />
+      <End Role="TIPOS_NOVEDAD_CONDICION" EntitySet="TIPOS_NOVEDAD_CONDICION" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

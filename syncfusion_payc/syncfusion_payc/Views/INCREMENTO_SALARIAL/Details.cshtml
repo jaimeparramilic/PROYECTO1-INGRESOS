@@ -1,0 +1,34 @@
+﻿@model syncfusion_payc.Models.INCREMENTO_SALARIAL
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>INCREMENTO_SALARIAL</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FACTOR_INCREMENTO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FACTOR_INCREMENTO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FORMAS_PAGO_FECHAS.PERIODO_TEXTO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FORMAS_PAGO_FECHAS.PERIODO_TEXTO)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.COD_INCREMENTO }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

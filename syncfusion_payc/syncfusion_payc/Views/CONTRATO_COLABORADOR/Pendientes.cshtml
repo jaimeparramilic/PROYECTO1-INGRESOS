@@ -1,0 +1,380 @@
+﻿
+@model IEnumerable<syncfusion_payc.Models.PENDIENTES>
+
+@{
+    /**/
+
+    ViewBag.Title = "";
+}
+<h4>PENDIENTES DE ASIGNACIÓN</h4>
+<div class="control-section">
+    @if (User.Identity.IsAuthenticated)
+    {
+        @(Html.EJ().Grid<syncfusion_payc.Models.PENDIENTES>("Grid")
+                    .Datasource(ds => ds.URL("GetOrderData_pendientes").Adaptor(AdaptorType.UrlAdaptor))
+                    .AllowPaging()
+                    .AllowFiltering()
+                    .Locale("es-CO")
+                    .AllowResizeToFit(true)
+                    .AllowRowDragAndDrop(false)
+                    .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                    .ToolbarSettings(toolbar =>
+                    {
+                        toolbar.ShowToolbar().ToolbarItems(items =>
+                        {
+                            items.AddTool(ToolBarItems.Add);
+                            items.AddTool(ToolBarItems.Edit);
+                            items.AddTool(ToolBarItems.Delete);
+                            items.AddTool(ToolBarItems.Update);
+                            items.AddTool(ToolBarItems.Cancel);
+                        });
+                    }).Columns(col =>
+                    {
+                        col.Field("COD_CONTRATO_PROYECTO").HeaderText("COD CONTRATO PROYECTO").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                        col.Field("CENTRO_COSTOS").HeaderText("CENTRO COSTOS").ForeignKeyField("CENTRO_COSTOS").ForeignKeyValue("CENTRO_COSTOS").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().PROYECTOS.ToList()).EditType(EditingType.DropdownEdit).Add();
+                        col.Field("DESCRIPCION").HeaderText("DESCRIPCION").ForeignKeyField("DESCRIPCION").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().PROYECTOS.ToList()).EditType(EditingType.DropdownEdit).Add();
+                        col.Field("FECHA_INICIO_EJECUCION").HeaderText("FECHA INICIO EJECUCION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                        col.Field("FECHA_FIN_EJECUCION").HeaderText("FECHA FIN EJECUCION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                        col.Field("TIPO_SERVICIO").HeaderText("TIPO SERVICIO").ForeignKeyField("TIPO_SERVICIO").ForeignKeyValue("TIPO_SERVICIO").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().PROYECTOS.ToList()).EditType(EditingType.DropdownEdit).Add();
+                        col.Field("TIPO_OBRA").HeaderText("TIPO OBRA").ForeignKeyField("TIPO_OBRA").ForeignKeyValue("TIPO_OBRA").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().PROYECTOS.ToList()).EditType(EditingType.DropdownEdit).Add();
+                    }).ChildGrid(child =>
+                    {
+                        child.Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                        .AllowPaging()
+                        .QueryString("COD_CONTRATO_PROYECTO")
+
+                        .Locale("es-CO")
+                        .AllowRowDragAndDrop(false)
+                        .AllowResizeToFit(true)
+                        .AllowScrolling(true)
+                        .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                        .ClientSideEvents(eve => eve.ToolbarClick("clicked"))
+                        .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+                        .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
+                        .ToolbarSettings(toolbar =>
+                        {
+                            toolbar.ShowToolbar().CustomToolbarItems(new List<object>() {
+                                new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Pendientes",Tooltip="Generar pendientes de asignación" }
+                                ,new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Validar",Tooltip="Validar asignaciones" }
+                            }).ToolbarItems(items =>
+                            {
+                                items.AddTool(ToolBarItems.Add);
+                                items.AddTool(ToolBarItems.Edit);
+                                items.AddTool(ToolBarItems.Delete);
+                                items.AddTool(ToolBarItems.Update);
+                                items.AddTool(ToolBarItems.Cancel);
+                            });
+                        }).Columns(col =>
+                        {
+                            col.Field("COD_CONTRATO_COLABORADOR").HeaderText("CONTRATO_COLABORADOR").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).Add();
+                            col.Field("COD_ROL").ForeignKeyField("COD_ROL").ForeignKeyValue("DESCRIPCION").AllowEditing(false).DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").EditType(EditingType.DropdownEdit).Add();
+                            col.Field("COD_COLABORADOR").ForeignKeyField("COD_COLABORADOR").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().COLABORADORES.ToList()).HeaderText("COLABORADOR").ValidationRules(v => v.AddRule("test", true)).EditType(EditingType.DropdownEdit).Add();
+                            col.Field("COD_CONTRATO_PROYECTO").HeaderText("CONTRATO_COLABORADOR").Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).Add();
+                            col.Field("FECHA_INI").HeaderText("FECHA INICIO EN PROYECTO").ValidationRules(v => v.AddRule("required", true)).Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                            col.Field("FECHA_FIN").HeaderText("FECHA FIN").Format("{0:dd/MM/yyyy}").ValidationRules(v => v.AddRule("required", true).AddRule("comparacion_fechas", true)).EditType(EditingType.DateTimePicker).Add();
+                        })
+                            .DetailsTemplate("#tabGridContents");
+                    })
+        )
+    }
+
+</div>
+@{Html.EJ().Dialog("dialog_error")
+        .Title("Errores validación")
+        .ShowOnInit(false)
+        .ContentTemplate(@<p>This is a simple dialog</p>)
+        .Render();
+}
+<script>
+    $(document).ready(function () {
+        ej.Grid.Locale["es-CO"] = {
+            EmptyRecord: "No hay registros que mostrar",
+            GroupDropArea: "Arrastre un encabezado de columna aquí para agrupar su columna",
+            DeleteOperationAlert: "No hay registros seleccionados para la operación de eliminación",
+            EditOperationAlert: "No hay registros seleccionados para la operación de edición",
+            SaveButton: "Guardar",
+            OKButton: "DE ACUERDO",
+            CancelButton: "Cancelar",
+            EditFormTitle: "Detalles de ",
+            AddFormTitle: "Añadir nuevo registro",
+            GroupCaptionFormat: "{{:headerText}}: {{:key}} - {{:count}} {{if count == 1 }} ítem {{else}} artículos {{/if}} ",
+
+
+        };
+        ej.Pager.Locale["es-CO"] = {
+            pagerInfo: "{0} de {1} páginas ({2} artículos)",
+            firstPageTooltip: "Ir a la primera página",
+            lastPageTooltip: "Ir a la última página",
+            nextPageTooltip: "Ir a la página siguiente",
+            previousPageTooltip: "Ir a la página anterior",
+            nextPagerTooltip: "Ir al siguiente Pager",
+            previousPagerTooltip: "Ir a Pager anterior"
+        };
+
+        ej.ExcelFilter.Locale["es-CO"] = {
+            SortNoSmaller: "Ordenar de menor a mayor",
+            SortNoLarger: "Ordenar de mayor a menor",
+            SortTextAscending: "Ordenar de A a Z",
+            SortTextDescending: "Ordenar de Z a A",
+            SortDateOldest: "Ordenar por Más antiguos",
+            SortDateNewest: "Ordenar por Más reciente",
+            SortByColor: "Ordenar por color",
+            SortByCellColor: "Ordenar por color de la célula",
+            SortByFontColor: "Ordenar por Color de fuente",
+            FilterByColor: "Filtrar por color",
+            CustomSort: "Orden personalizado",
+            FilterByCellColor: "Filtrar por color de la célula",
+            FilterByFontColor: "Filtrar por color de fuente",
+            ClearFilter: "Borrar filtro",
+            NumberFilter: "Número Filtros",
+            GuidFilter: "Gud Filtros",
+            TextFilter: "Filtros de texto",
+            DateFilter: "Filtros de fecha",
+            DateTimeFilter: "Fecha filtros de tiempo",
+            SelectAll: "Seleccionar todo",
+            Blanks: "Los espacios en blanco",
+            Search: "Buscar",
+            Showrowswhere: "Mostrar filas",
+            NumericTextboxWaterMark: "introducir el valor",
+            StringMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Comienza con", value: "startswith" }, { text: "Termina con", value: "endswith" }, { text: "contiene", value: "contains" }, { text: "Filtro personalizado", value: "customfilter" },],
+            NumberMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Menos que", value: "lessthan" }, { text: "Menor o equal", value: "lessthanorequal" }, { text: "Mas grande que", value: "greaterthan" }, { text: "Mayor que o equal", value: "greaterthanorequal" }, { text: "Entre", value: "between" }, { text: "Filtro personalizado", value: "customfilter" },],
+            GuidMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Filtro personalizado", value: "customfilter" },],
+            DateMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Menos que", value: "lessthan" }, { text: "Menor o equal", value: "lessthanorequal" }, { text: "Mas grande que", value: "greaterthan" }, { text: "Mayor que o equal", value: "greaterthanorequal" }, { text: "Entre", value: "between" }, { text: "Filtro personalizado", value: "customfilter" },],
+            DatetimeMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Menos que", value: "lessthan" }, { text: "Menor o equal", value: "lessthanorequal" }, { text: "Mas grande que", value: "greaterthan" }, { text: "Mayor que o equal", value: "greaterthanorequal" }, { text: "Entre", value: "between" }, { text: "Filtro personalizado", value: "customfilter" },],
+            Top10MenuOptions: [{ text: "Parte superior", value: "top" }, { text: "Fondo", value: "bottom" },],
+            title: "Filtro personalizado",
+            PredicateAnd: "Y",
+            PredicateOr: "O",
+            Ok: "Aceptar",
+            MatchCase: "Coincidencia",
+            Cancel: "Cancelar",
+            NoResult: "No se encontraron coincidencias",
+            CheckBoxStatusMsg: "No todos los elementos que muestran",
+            DatePickerWaterMark: "Seleccione fecha",
+            DateTimePickerWaterMark: "Seleccionar fecha y hora",
+            True: "cierto",
+            False: "falso"
+        };
+    });
+    var temp;
+    //Función click en los elementos nuevos
+    function clicked(sender) {
+        temp = sender;
+        $target = $(sender.target);
+        if ($target.hasClass("validar")) {
+            validar_asignacion(sender.gridModel.parentDetails.parentKeyFieldValue, sender.currentTarget.id.replace("_Validar", ""))
+        }
+        else if ($target.hasClass("pendientes")) {
+            generar_colaboradores_pendientes(sender.gridModel.parentDetails.parentKeyFieldValue, sender.currentTarget.id.replace("_Pendientes", ""))
+        }
+    }
+
+    //Función para generar los colabores pendientes
+    function generar_colaboradores_pendientes(contrato_proyecto,id) {
+
+        var data = JSON.stringify({ COD_CONTRATO_PROYECTO: parseInt(contrato_proyecto) });
+        var url = "generar_colaboradores_pendientes";
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            dataFilter: function (data) { return data; },
+            success: function (data) {
+
+                var gridObj = $("#" + id).ejGrid("instance");
+                gridObj.refreshContent();
+            }
+        });
+    }
+
+    //Función para generar los colabores pendientes
+    function validar_asignacion(contrato_proyecto, id) {
+        var data = JSON.stringify({ COD_CONTRATO_PROYECTO: parseInt(contrato_proyecto) });
+        var url ="validar_asignacion";
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            dataFilter: function (data) { return data; },
+            success: function (data) {
+                var datos = data.data;
+                var contenido = "<table>";
+                var i = 1;
+                $.each(datos, function (index) {
+                    contenido = contenido + "<tr><th class='text-left'>" + i + ". " + datos[index] + "</tr></th>";
+                    i = i + 1;
+                });
+                if (i > 1) {
+                    contenido = contenido + "</table>";
+                    $("#dialog_error").ejDialog("setContent", contenido);
+                    $("#dialog_error").ejDialog("open");
+                }
+            }
+        });
+    }
+
+    //Funciones de validación JQUERY
+    $(function () {
+
+        //Serializar datos
+        $.fn.serializeAllArray = function () {
+            var data = $(this).serializeArray();//returns the form data 
+
+            $(':disabled[name]', this).each(function () {
+                data.push({ name: this.name, value: $(this).val() });//push the disabled elements values also to the JSON array 
+            });
+
+            return data;
+        }
+
+        //Adicionar a jquery validate la revisión de las fechas contra la firma del contrato
+        $.validator.addMethod("validacion_fecha_rol_contrato", function (value, element, params) {
+            var parts = global_fecha_firma.split("/");
+            var fin = new Date(parseInt(parts[2], 10),
+                parseInt(parts[1], 10) - 1,
+                parseInt(parts[0], 10));
+            parts = element.value.split("/");
+            var fecha = new Date(parseInt(parts[2], 10),
+                parseInt(parts[1], 10) - 1,
+                parseInt(parts[0], 10));
+            return fecha >= fin && global_fecha_firma != "";
+        }, "La fecha de inicio debe ser mayor o igual a la fecha de firma del contrato inicial");
+
+        //Adicionar a jquery validate la revisión de las fechas de inicio y fin de ejecución
+        $.validator.addMethod("validacion_fecha_rol_ejecucion", function (value, element, params) {
+            var parts = global_fecha_ini.split("/");
+            var ini = new Date(parseInt(parts[2], 10),
+                parseInt(parts[1], 10) - 1,
+                parseInt(parts[0], 10));
+            parts = global_fecha_fin.split("/");
+            var fin = new Date(parseInt(parts[2], 10),
+                parseInt(parts[1], 10) - 1,
+                parseInt(parts[0], 10));
+            parts = element.value.split("/");
+            var fecha = new Date(parseInt(parts[2], 10),
+                parseInt(parts[1], 10) - 1,
+                parseInt(parts[0], 10));
+            return fecha >= ini && global_fecha_ini != "" && fecha <= fin && global_fecha_fin != "";
+        }, "La fecha no es consistente con la fecha de inicio o fin de ejecución del contrato");
+
+        //Adicionar a jquery validate la revisión de las fechas de inicio y fin de ejecución y meses
+        $.validator.addMethod("validacion_meses", function (value, element, params) {
+            var parts = global_fecha_fin.split("/");
+            var fin = new Date(parseInt(parts[2], 10),
+                parseInt(parts[1], 10) - 1,
+                parseInt(parts[0], 10));
+
+            var meses = parseInt(element.value);
+            var fecha_texto = "";
+            if (params == "rol") {
+                fecha_texto = $("#GRID_ROLESFECHA_INI").val();
+            }
+            else if (params = "item") {
+                fecha_texto = $("#GRID_ITEMSFECHA_INI_USO").val();
+            }
+            parts = fecha_texto.split("/");
+            var fecha = new Date(parseInt(parts[2], 10),
+                parseInt(parts[1], 10) - 1,
+                parseInt(parts[0], 10));
+            fecha = fecha.setMonth(fecha.getMonth() + meses);
+            return fecha <= fin && global_fecha_fin != "";
+        }, "Inconsistencia entre los meses y la fecha de fin de ejecución del contrato");
+
+        //Requerido
+        $.validator.addMethod("test", function (value, element, params) {
+            
+            if ($("input.e-dropdownlist[name=COD_COLABORADOR]").val() == "") {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }, "Este campo es obligatorio");
+
+        //Validar consistencia de fechas de novedades
+        $.validator.addMethod("comparacion_fechas", function (value, element, params) {
+            var data = $(element.closest("form")).serializeAllArray();//holds the form data in name and value pair 
+            
+            var parts = search("FECHA_INI_COLABORADOR", data).value.split("/");
+            if (parts[2] == null) {
+                return 1 <= 1;
+            }
+            else {
+                dia = parts[2].split(" ")[0];
+                var ini = new Date(parseInt(dia, 10),
+                    parseInt(parts[1], 10) - 1,
+                    parseInt(parts[0], 10));
+                parts = search("FECHA_FIN", data).value.split("/");
+                if (parts[2] == null) {
+                    return 1 <= 1;
+                }
+                else {
+                    dia = parts[2].split(" ")[0];
+                    var fin = new Date(parseInt(dia, 10),
+                        parseInt(parts[1], 10) - 1,
+                        parseInt(parts[0], 10));
+                    return ini <= fin;
+                }
+            }
+        }, "La fecha de incio debe ser inferior o igual a la de finalización");
+    });
+
+     //Funcion para añadir el filtro a los drop downs
+    function inicio_grid(args) {
+        if (args.requestType == "beginedit" || args.requestType == "add") {
+            if (args.model.dataSource.dataSource.url == "GetOrderData") {
+                setTimeout(function () {
+                    var drop = $(".e-dropdownlist[name='COD_COLABORADOR']").ejDropDownList('instance');
+                    drop.option("enableFilterSearch", true);
+                }, 50);
+            }
+        }
+    }
+</script>
+
+<!--Modelos o templates para botones-->
+<script type="text/x-jsrender" id="Validar">
+    <a class="e-tooltxt validar e-icon e-righttick"></a>
+</script>
+<script type="text/x-jsrender" id="Pendientes">
+    <a class="e-tooltxt pendientes e-icon e-reload"></a>
+</script>
+<script id="tabGridContents" type="text/x-jsrender">
+    <div class="tabcontrol col-md-12" id="Test">
+        <table class="table-fill">
+            <tr>
+                <th class="text-left bold">FECHA INICIO EN PROPUESTA</th>
+                <th class="text-left">{{:FECHA_INI_COMERCIAL}}</th>
+            </tr>
+            <tr>
+                <th class="text-left bold">MESES EN PROPUESTA</th>
+                <th class="text-left">{{:MESES}}</th>
+
+            </tr>
+            <tr>
+                <th class="text-left bold">OBSERVACIONES</th>
+                <th class="text-left">{{:OBSERVACIONES}}</th>
+            </tr>
+            <tr>
+                <th class="text-left bold">DEDICACIÓN</th>
+                <th class="text-left">{{:DEDICACION}}</th>
+            </tr>
+            <tr>
+                <th class="text-left bold">VALOR MENSUAL SIN PRESTACIONES</th>
+                <th class="text-left">{{:VALOR_MENSUAL_SIN_PRESTACIONES}}</th>
+            </tr>
+            <tr>
+                <th class="text-left bold">VALOR MENSUAL CON PRESTACIONES</th>
+                <th class="text-left">{{:VALOR_MENSUAL_PRESTACIONES}}</th>
+            </tr>
+            <tr>
+                <th class="text-left bold">VALOR MENSUAL CON PRESTACIONES Y FACTOR MULTIPLICADOR</th>
+                <th class="text-left">{{:VALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR}}</th>
+            </tr>
+        </table>
+    </div>
+</script>

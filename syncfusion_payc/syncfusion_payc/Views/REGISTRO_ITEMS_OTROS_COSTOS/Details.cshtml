@@ -1,0 +1,98 @@
+﻿@model syncfusion_payc.Models.REGISTRO_ITEMS_OTROS_COSTOS
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>REGISTRO_ITEMS_OTROS_COSTOS</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.VALOR_COMERCIAL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VALOR_COMERCIAL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CANTIDAD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CANTIDAD)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PARAMETRO1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PARAMETRO1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PARAMETRO2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PARAMETRO2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PARAMETRO3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PARAMETRO3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PARAMETRO4)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PARAMETRO4)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PARAMETRON)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PARAMETRON)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FORMAS_PAGO_FECHAS.PERIODO_TEXTO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FORMAS_PAGO_FECHAS.PERIODO_TEXTO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ITEMS_CONTRATO.DESCRIPCION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ITEMS_CONTRATO.DESCRIPCION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CONTRATO_PROYECTO.COMPLETA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CONTRATO_PROYECTO.COMPLETA)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.COD_REGISTRO_ITEMS }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

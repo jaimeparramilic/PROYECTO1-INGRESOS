@@ -1,0 +1,58 @@
+﻿@model syncfusion_payc.Models.CONTRATOS_CONDICIONES
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CONTRATOS_CONDICIONES</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.VIGENTE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VIGENTE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA_INCLUSION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA_INCLUSION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA_EXCLUSION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA_EXCLUSION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CONTRATO_PROYECTO.COMPLETA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CONTRATO_PROYECTO.COMPLETA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TIPO_CONDICION_CONTRACTUAL.DESCRIPCION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TIPO_CONDICION_CONTRACTUAL.DESCRIPCION)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.COD_CONTRATO_CONDICION }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

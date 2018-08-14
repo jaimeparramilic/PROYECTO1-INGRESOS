@@ -1,0 +1,26 @@
+﻿@model syncfusion_payc.Models.CARGOS
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CARGOS</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DESCRIPCION_CARGO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DESCRIPCION_CARGO)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.COD_CARGO }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

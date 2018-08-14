@@ -1,0 +1,74 @@
+﻿@model syncfusion_payc.Models.FLUJO_INGRESOS_ROL
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>FLUJO_INGRESOS_ROL</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ETAPA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ETAPA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VALOR_SIN_PRESTACIONES)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VALOR_SIN_PRESTACIONES)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VALOR_CON_PRESTACIONES)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VALOR_CON_PRESTACIONES)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VALOR_FACTOR_MULTIPLICADOR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VALOR_FACTOR_MULTIPLICADOR)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CONTRATO_PROYECTO.COMPLETA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CONTRATO_PROYECTO.COMPLETA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FORMAS_PAGO_FECHAS.PERIODO_TEXTO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FORMAS_PAGO_FECHAS.PERIODO_TEXTO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ROLES.DESCRIPCION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ROLES.DESCRIPCION)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.COD_FLUJO_INGRESOS_ROL }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
