@@ -25,12 +25,21 @@ namespace syncfusion_payc.Controllers
         public ActionResult Index()
         {
             var cONTRATO_COLABORADOR = db.CONTRATO_COLABORADOR.Include(c => c.COLABORADORES).Include(c => c.ROLES);
+            string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority +
+            Request.ApplicationPath.TrimEnd('/') + "/";
+            ViewBag.urlbase = baseUrl + "/FlujoProyectos/anexos_roles/";
+            //Guardar lista con filtro cargos
+            ViewBag.FILTRO_CARGOS = db.VISTA_ORDENES_ROL_CARGO.ToList();
             return View(cONTRATO_COLABORADOR.ToList());
         }
         public ActionResult Pendientes()
         {
             var pENDIENTES = db.PENDIENTES;
-            
+            string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority +
+            Request.ApplicationPath.TrimEnd('/') + "/";
+            ViewBag.urlbase = baseUrl + "/FlujoProyectos/anexos_roles/";
+            //Guardar lista con filtro cargos
+            ViewBag.FILTRO_CARGOS = db.VISTA_ORDENES_ROL_CARGO.ToList();
             return View(pENDIENTES.ToList());
         }
         #endregion
@@ -157,6 +166,9 @@ namespace syncfusion_payc.Controllers
         {
             var DataSource2 = db.CONTRATO_COLABORADOR.ToList();
             ViewBag.dataSource2 = DataSource2;
+            string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority +
+            Request.ApplicationPath.TrimEnd('/') + "/";
+            ViewBag.urlbase = baseUrl + "/FlujoProyectos/anexos_roles/";
             return View();
         }
 
@@ -484,6 +496,15 @@ namespace syncfusion_payc.Controllers
             }
             
             return Json(new { success = true, responseText = "SI",data=mensaje_error }, "application/json", JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+        #region lista colaboradores
+        //Funcion para filtrar la lista de colaboradores
+        public ActionResult lista_colaboradores(long COD_CONTRATO_ROL)
+        {
+            IEnumerable DataSource = db.VISTA_ORDENES_ROL_CARGO.Where(o=>o.COD_CONTRATO_ROL==COD_CONTRATO_ROL).ToList();
+
+            return Json(new { success = true, responseText = "SI", data = DataSource}, "application/json", JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

@@ -29,5 +29,7 @@ namespace syncfusion_payc.Models
         public string OBSERVACIONES { get; set; }
         public string TIPO_SERVICIO { get; set; }
         public string TIPO_OBRA { get; set; }
+        public string RUTA_DOCUMENTO { get; set; }
+        public Nullable<long> COD_CONTRATO_ROL { get; set; }
     }
 }

@@ -18,7 +18,7 @@
     <AssemblyName>syncfusion_payc</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -234,6 +234,7 @@
     <Compile Include="Controllers\CONTRATOS_ROLController.cs" />
     <Compile Include="Controllers\CONTRATO_COLABORADORController.cs" />
     <Compile Include="Controllers\CONTRATO_PROYECTOController.cs" />
+    <Compile Include="Controllers\CONTRATO_ROL_CARGOController.cs" />
     <Compile Include="Controllers\ESTUDIOS_COLABORADORController.cs" />
     <Compile Include="Controllers\FlujoProyectosController.cs" />
     <Compile Include="Controllers\FLUJO_INGRESOS_ITEMSController.cs" />
@@ -253,6 +254,7 @@
     <Compile Include="Controllers\TIPO_CONDICION_CONTRACTUALController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController1.cs" />
+    <Compile Include="Controllers\VISTA_PENDIENTES_RETIROController.cs" />
     <Compile Include="Models\CARGOS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
@@ -299,6 +301,9 @@
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CONTRATO_PROYECTO_DESCRIPCION.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CONTRATO_ROL_CARGO.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DETALLE_FACTURA_ITEM.cs">
@@ -410,6 +415,12 @@
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VISTA_FLUJO_INGRESOS_ITEMS.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_ORDENES_ROL_CARGO.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_PENDIENTES_RETIRO.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="servicios\FlujoIngresosItems.svc.cs">
@@ -1330,6 +1341,17 @@
     <Content Include="Views\REGISTRO_ITEMS_OTROS_COSTOS\Details.cshtml" />
     <Content Include="Views\REGISTRO_ITEMS_OTROS_COSTOS\Edit.cshtml" />
     <Content Include="Views\REGISTRO_ITEMS_OTROS_COSTOS\Index.cshtml" />
+    <Content Include="Views\CONTRATO_ROL_CARGO\Create.cshtml" />
+    <Content Include="Views\CONTRATO_ROL_CARGO\Delete.cshtml" />
+    <Content Include="Views\CONTRATO_ROL_CARGO\Details.cshtml" />
+    <Content Include="Views\CONTRATO_ROL_CARGO\Edit.cshtml" />
+    <Content Include="Views\CONTRATO_ROL_CARGO\Index.cshtml" />
+    <Content Include="Views\VISTA_PENDIENTES_RETIRO\Create.cshtml" />
+    <Content Include="Views\VISTA_PENDIENTES_RETIRO\Delete.cshtml" />
+    <Content Include="Views\VISTA_PENDIENTES_RETIRO\Details.cshtml" />
+    <Content Include="Views\VISTA_PENDIENTES_RETIRO\Edit.cshtml" />
+    <Content Include="Views\VISTA_PENDIENTES_RETIRO\Index.cshtml" />
+    <Content Include="Views\COLABORADORES\Retiros.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -1899,7 +1921,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:57022/</IISUrl>
+          <IISUrl>http://localhost/syncfusion_payc</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -20,6 +20,7 @@ namespace syncfusion_payc.Models
             this.CONTRATO_COLABORADOR = new HashSet<CONTRATO_COLABORADOR>();
             this.FLUJO_INGRESOS_ROL = new HashSet<FLUJO_INGRESOS_ROL>();
             this.CONTRATOS_ROL = new HashSet<CONTRATOS_ROL>();
+            this.DETALLE_FACTURA_PERS = new HashSet<DETALLE_FACTURA_PERS>();
         }
     
         public long COD_ROL { get; set; }
@@ -37,5 +38,9 @@ namespace syncfusion_payc.Models
     	[System.Runtime.Serialization.IgnoreDataMember]
     	[Newtonsoft.Json.JsonIgnore]
         public virtual ICollection<CONTRATOS_ROL> CONTRATOS_ROL { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    	[System.Runtime.Serialization.IgnoreDataMember]
+    	[Newtonsoft.Json.JsonIgnore]
+        public virtual ICollection<DETALLE_FACTURA_PERS> DETALLE_FACTURA_PERS { get; set; }
     }
 }

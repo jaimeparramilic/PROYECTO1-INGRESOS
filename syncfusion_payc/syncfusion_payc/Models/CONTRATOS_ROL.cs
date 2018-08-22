@@ -14,6 +14,12 @@ namespace syncfusion_payc.Models
     
     public partial class CONTRATOS_ROL
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public CONTRATOS_ROL()
+        {
+            this.CONTRATO_ROL_CARGO = new HashSet<CONTRATO_ROL_CARGO>();
+        }
+    
         public long COD_CONTRATO_ROL { get; set; }
         public Nullable<long> COD_ROL { get; set; }
         public Nullable<long> COD_CONTRATO_PROYECTO { get; set; }
@@ -32,5 +38,9 @@ namespace syncfusion_payc.Models
     
         public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
         public virtual ROLES ROLES { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    	[System.Runtime.Serialization.IgnoreDataMember]
+    	[Newtonsoft.Json.JsonIgnore]
+        public virtual ICollection<CONTRATO_ROL_CARGO> CONTRATO_ROL_CARGO { get; set; }
     }
 }

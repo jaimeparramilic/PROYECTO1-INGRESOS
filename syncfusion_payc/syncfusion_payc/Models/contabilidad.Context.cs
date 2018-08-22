@@ -36,7 +36,6 @@ namespace syncfusion_payc.Models
         public virtual DbSet<CONTRATOS> CONTRATOS { get; set; }
         public virtual DbSet<CONTRATOS_CONDICIONES> CONTRATOS_CONDICIONES { get; set; }
         public virtual DbSet<DETALLE_FACTURA_ITEM> DETALLE_FACTURA_ITEM { get; set; }
-        public virtual DbSet<DETALLE_FACTURA_PERS> DETALLE_FACTURA_PERS { get; set; }
         public virtual DbSet<ENTREGABLES> ENTREGABLES { get; set; }
         public virtual DbSet<ESTUDIOS_COLABORADOR> ESTUDIOS_COLABORADOR { get; set; }
         public virtual DbSet<FACTURAS> FACTURAS { get; set; }
@@ -61,7 +60,6 @@ namespace syncfusion_payc.Models
         public virtual DbSet<GENERACION_FLUJOS_ROL3> GENERACION_FLUJOS_ROL3 { get; set; }
         public virtual DbSet<PENDIENTES> PENDIENTES { get; set; }
         public virtual DbSet<CONTRATO_COLABORADOR_INDEX> CONTRATO_COLABORADOR_INDEX { get; set; }
-        public virtual DbSet<CONTRATO_COLABORADOR_COMERCIAL> CONTRATO_COLABORADOR_COMERCIAL { get; set; }
         public virtual DbSet<GENEROS> GENEROS { get; set; }
         public virtual DbSet<TIPO_CONTRATO> TIPO_CONTRATO { get; set; }
         public virtual DbSet<COLARADORES_CONCAT_ESTUDIOS> COLARADORES_CONCAT_ESTUDIOS { get; set; }
@@ -80,5 +78,10 @@ namespace syncfusion_payc.Models
         public virtual DbSet<INCREMENTO_ORDEN> INCREMENTO_ORDEN { get; set; }
         public virtual DbSet<TIPOS_REEMBOLSO> TIPOS_REEMBOLSO { get; set; }
         public virtual DbSet<ORDENES_SERVICIO_INDEX> ORDENES_SERVICIO_INDEX { get; set; }
+        public virtual DbSet<CONTRATO_ROL_CARGO> CONTRATO_ROL_CARGO { get; set; }
+        public virtual DbSet<VISTA_ORDENES_ROL_CARGO> VISTA_ORDENES_ROL_CARGO { get; set; }
+        public virtual DbSet<DETALLE_FACTURA_PERS> DETALLE_FACTURA_PERS { get; set; }
+        public virtual DbSet<CONTRATO_COLABORADOR_COMERCIAL> CONTRATO_COLABORADOR_COMERCIAL { get; set; }
+        public virtual DbSet<VISTA_PENDIENTES_RETIRO> VISTA_PENDIENTES_RETIRO { get; set; }
     }
 }

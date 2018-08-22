@@ -52,7 +52,7 @@
                             col.Field("Estudios").HeaderText("ESTUDIOS").Visible(false).AllowEditing(false).Add();
 
                         }).ChildGrid(child =>
-                        child.Datasource(ds => ds.URL("../../ESTUDIOS_COLABORADOR/GetOrderData").InsertURL("../../ESTUDIOS_COLABORADOR/PerformInsert").UpdateURL("../../ESTUDIOS_COLABORADOR/PerformUpdate").RemoveURL("../../ESTUDIOS_COLABORADOR/PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                        child.Datasource(ds => ds.URL("../ESTUDIOS_COLABORADOR/GetOrderData").InsertURL("../ESTUDIOS_COLABORADOR/PerformInsert").UpdateURL("../ESTUDIOS_COLABORADOR/PerformUpdate").RemoveURL("../ESTUDIOS_COLABORADOR/PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
                         .AllowPaging()
 
                         .Locale("es-CO")

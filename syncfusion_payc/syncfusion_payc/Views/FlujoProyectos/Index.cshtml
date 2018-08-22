@@ -8,7 +8,7 @@
     ViewBag.Title = "Index";
 }
 @if (User.Identity.IsAuthenticated)
-{
+{<h4>ORDENES DE SERVICIO</h4>
     <div class="control-section">
         
         <div class="col-md-12">
@@ -38,12 +38,14 @@
 
     }).Columns(col =>
     {
-        col.Field("CENTRO_COSTOS").HeaderText("CENTRO COSTOS EN PSL").Add();
+        col.Field("CENTRO_COSTOS").HeaderText("CENTRO COSTOS").Add();
         col.Field("COD_CONTRATO_PROYECTO").HeaderText("CÓDIGO EN SISTEMA").IsPrimaryKey(true).AllowEditing(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
         col.Field("COMPLETA").HeaderText("COMPLETA EN SISTEMA").AllowEditing(false).Add();
+        col.HeaderText("ESTADO").Width(70).Template("<a class='e-icon e-warningmessage estado{{:COD_ESTADO_ORDEN_SERVICIO}} completa{{:COMPLETA}}' title='PENDIENTE DE FINALIZAR (CLICK PARA FINALIZAR)' href='#' onclick='finalizar({{:COD_CONTRATO_PROYECTO}})'/><a class='e-icon e-righttick estado{{:COD_ESTADO_ORDEN_SERVICIO}} completa{{:COMPLETA}}'  href='#' title='FINALIZADO (CLICK PARA REVERTIR FINALIZACIÓN)' onclick='revertir({{:COD_CONTRATO_PROYECTO}})' /><a  href='#' class='e-icon e-file-cancel completa1{{:COMPLETA}}' title='INCOMPLETA (CLICK PARA EDITAR)' onclick='editar_contrato_proyecto_click({{:COD_CONTRATO_PROYECTO}})' />").Add();
         col.Field("FECHA_CREACION").HeaderText("FECHA CREACIÓN").AllowEditing(false).Format("{0:dd/MM/yyyy}").Add();
         col.Field("DESCRIPCION").HeaderText("DESCRIPCION").AllowEditing(false).AllowFiltering(true).Add();
-        col.Field("COD_FORMA_PAGO").ForeignKeyField("COD_FORMA_PAGO").AllowEditing(false).AllowFiltering(true).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().FORMAS_PAGO.ToList()).HeaderText("PERIODO FORMA PAGO").EditType(EditingType.DropdownEdit).Add();
+        col.Field("COD_FORMA_PAGO").ForeignKeyField("COD_FORMA_PAGO").AllowEditing(false).AllowFiltering(true).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>
+            )new syncfusion_payc.Models.test_payc_contabilidadEntities().FORMAS_PAGO.ToList()).HeaderText("PERIODO FORMA PAGO").EditType(EditingType.DropdownEdit).Add();
     }))
 </div>
     </div>
@@ -130,6 +132,11 @@
         window.location = "Edit/" + args.primaryKeyValue[0];
     }
 
+    function editar_contrato_proyecto_click(cod_contrato_proyecto) {
+        
+        window.location = "Edit/" + cod_contrato_proyecto;
+    }
+
     //Funcion añadir contrato proyecto
     function añadir_contrato_proyecto(args) {
 
@@ -144,5 +151,54 @@
             window.location = "Add";
         }
     }
+
+    //Finalizar orden
+    function finalizar(cod_contrato_proyecto) {
+        var r = confirm("¿Desea finalizar la orden? Una vez finalice la orden de servicio las otras áreas podran ver la orden, facturar y asignar colaboradores");
+        if (r) {
+            var data = JSON.stringify({ COD_CONTRATO_PROYECTO: cod_contrato_proyecto });
+            var url = "finalizar";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                dataFilter: function (data) { return data; },
+                success: function (data) {
+                    var gridObj = $("#Grid").ejGrid("instance");
+
+                    gridObj.refreshContent();
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                }
+            });
+        }
+    }
+    //Revertir
+        function revertir(cod_contrato_proyecto) {
+            var r = confirm("¿Desea revertir la orden? Una vez revierta la orden de servicio las otras áreas no podran ver la orden, facturar o asignar colaboradores");
+            if (r) {
+                var data = JSON.stringify({ COD_CONTRATO_PROYECTO: cod_contrato_proyecto });
+                var url = "revertir";
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        var gridObj = $("#Grid").ejGrid("instance");
+
+                        gridObj.refreshContent();
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                    }
+                });
+            }
+        }
     </script>
 

@@ -74,7 +74,7 @@
                     @*RUTA ARVCHIVO*@
                     <div class="form-group ruta_contrato">
                         <label>ARCHIVO CONTRATO (MAX 10 MB)</label>
-                        @Html.EJ().Uploadbox("CARGUE_ARCHIVOS").AutoUpload(false).ExtensionsAllow(".doc, .docx,.pdf").FileSize(10000000).SaveUrl("/FlujoProyectos/Save_contrato").RemoveUrl("/FlujoProyectos/Remove_contrato").ClientSideEvents(c => c.Success("fileuploadSuccess_contratos").Remove("fileremovecomplete_contrato"))
+                        @Html.EJ().Uploadbox("CARGUE_ARCHIVOS").AutoUpload(false).ExtensionsAllow(".doc, .docx,.pdf").FileSize(10000000).SaveUrl("../../FlujoProyectos/Save_contrato").RemoveUrl("../../FlujoProyectos/Remove_contrato").ClientSideEvents(c => c.Success("fileuploadSuccess_contratos").Remove("fileremovecomplete_contrato"))
 
                     </div>
                     <div class="form-group ruta_contrato_display">
@@ -98,7 +98,7 @@
                     @*TIPO EVENTO INICIO*@
                     <div class="form-group ruta_acta_inicio">
                         <label>ARCHIVO ACTA EVENTO INICIO O ACTA (MAX 10 MB)</label>
-                        @Html.EJ().Uploadbox("CARGUE_ACTA").AutoUpload(false).ExtensionsAllow(".doc, .docx,.pdf").FileSize(10000000).SaveUrl("/FlujoProyectos/Save_acta").RemoveUrl("/FlujoProyectos/Remove_acta").ClientSideEvents(c => c.Success("fileuploadSuccess_actas").Remove("fileremovecomplete_acta"))
+                        @Html.EJ().Uploadbox("CARGUE_ACTA").AutoUpload(false).ExtensionsAllow(".doc, .docx,.pdf").FileSize(10000000).SaveUrl("../../FlujoProyectos/Save_acta").RemoveUrl("../../FlujoProyectos/Remove_acta").ClientSideEvents(c => c.Success("fileuploadSuccess_actas").Remove("fileremovecomplete_acta"))
                     </div>
                     <div class="form-group ruta_acta_display">
                         <input type="text" class="form-control" id="id_ruta_acta_display" value="@(ViewBag.contrato.RUTA_ACTA_INICIO == null ? "" : Html.Raw((String)ViewBag.contrato.RUTA_ACTA_INICIO.ToString()).ToString())" disabled>
@@ -135,7 +135,6 @@
                                 .AllowAddNew(true)
                                 .CaseSensitiveSearch(false)
                                 .ShowPopupButton(true)
-
                                 .WatermarkText("INTRODUZCA TAGS")
                                 .AutocompleteFields(f => f.Text("TAG").Key("TAG"))
                                 .SelectValueByKey(ViewBag.lista1)
@@ -309,48 +308,87 @@
                 <h2 class="title-etapas">ROLES Y SALARIOS</h2><br>
                 <div class="control-section col-md-12">
                     @(Html.EJ().Grid<object>
-                                ("GRID_ROLES")
-                                .Datasource(ds => ds.URL("../GetOrderData_rol").InsertURL("../PerformInsert_rol").UpdateURL("../PerformUpdate_rol").RemoveURL("../PerformDelete_rol").Adaptor(AdaptorType.UrlAdaptor))
-                                .AllowPaging()
-                                .AllowFiltering()
-                                .Locale("es-CO")
-                                .AllowResizeToFit(true)
-                                .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
-                                .ClientSideEvents(events => events.ActionComplete("grid_roles_complete"))
-                                .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.InlineForm); })
-                                .ToolbarSettings(toolbar =>
-                                {
+                                        ("GRID_ROLES")
+                                        .Datasource(ds => ds.URL("../GetOrderData_rol").InsertURL("../PerformInsert_rol").UpdateURL("../PerformUpdate_rol").RemoveURL("../PerformDelete_rol").Adaptor(AdaptorType.UrlAdaptor))
+                                        .AllowPaging()
+                                        .AllowFiltering()
+                                        .Locale("es-CO")
+                                        .AllowResizeToFit(true)
+                                        .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                                        .ClientSideEvents(events => events.ActionComplete("grid_roles_complete"))
+                                        .ClientSideEvents(eve => eve.ToolbarClick("clicked"))
+                                        .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+                                        .ToolbarSettings(toolbar =>
+                                        {
 
-                                    toolbar.ShowToolbar()
-                                    .CustomToolbarItems(new List<object>() {
-                                        new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Adjuntos",Tooltip="Adjuntar archivos" }
-                                    }).ToolbarItems(items =>
-                                    {
-                                        items.AddTool(ToolBarItems.Add);
-                                        items.AddTool(ToolBarItems.Edit);
-                                        items.AddTool(ToolBarItems.Delete);
-                                        items.AddTool(ToolBarItems.Update);
-                                        items.AddTool(ToolBarItems.Cancel);
+                                            toolbar.ShowToolbar()
+                                            .CustomToolbarItems(new List<object>() {
+                                                new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Adjuntar",Tooltip="Adjuntar archivos" }
+                                            }).ToolbarItems(items =>
+                                            {
+                                                items.AddTool(ToolBarItems.Add);
+                                                items.AddTool(ToolBarItems.Edit);
+                                                items.AddTool(ToolBarItems.Delete);
+                                                items.AddTool(ToolBarItems.Update);
+                                                items.AddTool(ToolBarItems.Cancel);
 
-                                    });
-                                }).Columns(col =>
-                                {
-                                    col.Field("COD_CONTRATO_PROYECTO").ForeignKeyField("COD_CONTRATO_PROYECTO").Visible(false).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONTRATO_PROYECTO_DESCRIPCION.ToList()).HeaderText("CONTRATO Y PROYECTO").EditType(EditingType.DropdownEdit).AllowEditing(false).Add();
-                                    col.Field("COD_ROL").ForeignKeyField("COD_ROL").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).Add();
-                                    col.Field("COD_CONTRATO_ROL").HeaderText("CONTRATO_ROL").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                                    col.Field("FECHA_INI").HeaderText("FECHA INICIO ROL").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).ValidationRules(v => v.AddRule("validacion_fecha_rol_contrato", 5).AddRule("validacion_fecha_rol_ejecucion", 5).AddRule("required", true)).Add();
-                                    col.Field("TIPO_TRIBUTACION").ForeignKeyField("DESCRIPCION").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().TIPOS_TRIBUTACION.ToList()).EditType(EditingType.DropdownEdit).HeaderText("TIPO").Add();
-                                    col.Field("MESES").HeaderText("MESES PERMANENCIA").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true).AddRule("validacion_meses", "rol").AddRule("required", true)).Add();
-                                    col.Field("DIAS_FRACCION").HeaderText("DIAS FRACCIÓN").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true).AddRule("validacion_meses", "rol").AddRule("required", true)).Add();
-                                    col.Field("VALOR_MENSUAL_SIN_PRESTACIONES").HeaderText("VALOR_MENSUAL SIN PRESTACIONES").Format("{0:n0}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { Locale = "es-CO", IncrementStep = 100000, PositivePattern = "$ n " }).ValidationRules(v => v.AddRule("number", true).AddRule("required", true)).Add();
-                                    col.Field("PRESTACIONES").HeaderText("PRESTACIONES").Format("{0:p2}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 2, Locale = "es-CO", MaxValue = 10, MinValue = -0.01, IncrementStep = 0.01 }).ValidationRules(v => v.AddRule("required", true)).Add();
-                                    col.Field("VALOR_MENSUAL_PRESTACIONES").HeaderText("VALOR MENSUAL CON PRESTACIONES").AllowEditing(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("required", true)).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { Locale = "es-CO", IncrementStep = 100000, PositivePattern = "$ n " }).Add();
-                                    col.Field("FACTOR_MULTIPLICADOR").HeaderText("FACTOR MULTIPLICADOR").Format("{0:p2}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 2, Locale = "es-CO", MaxValue = 10, MinValue = -0.01, IncrementStep = 0.01 }).ValidationRules(v => v.AddRule("required", true)).Add();
-                                    col.Field("VALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR").HeaderText("VALOR MENSUAL CON PRESTACIONES Y FACTOR MULTIPLICADOR").Format("{0:n0}").EditType(EditingType.NumericEdit).AllowEditing(false).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { Locale = "es-CO", IncrementStep = 100000, PositivePattern = "$ n " }).ValidationRules(v => v.AddRule("number", true).AddRule("required", true)).Add();
-                                    col.Field("DEDICACION").HeaderText("DEDICACION").Format("{0:p2}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 2, Locale = "es-CO", MaxValue = 10, MinValue = -0.01, IncrementStep = 0.01 }).Add();
-                                    col.Field("OBSERVACIONES").HeaderText("OBSERVACIONES").Add();
-                                }).ClientSideEvents(e => e.ActionBegin("inicio_rol").QueryCellInfo("calcular")))
+                                            });
+                                        }).Columns(col =>
+                                        {
+                                            col.Field("COD_CONTRATO_PROYECTO").ForeignKeyField("COD_CONTRATO_PROYECTO").Visible(false).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONTRATO_PROYECTO_DESCRIPCION.ToList()).HeaderText("CONTRATO Y PROYECTO").EditType(EditingType.DropdownEdit).AllowEditing(false).Add();
+                                            col.Field("COD_ROL").ForeignKeyField("COD_ROL").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).Add();
+                                            col.Field("RUTA_DOCUMENTO").HeaderText("RUTA DOCUMENTO ANEXO").AllowEditing(false).Add();
+                                            col.Field("COD_CONTRATO_ROL").HeaderText("CONTRATO_ROL").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                                            col.Field("FECHA_INI").HeaderText("FECHA INICIO ROL").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).ValidationRules(v => v.AddRule("validacion_fecha_rol_contrato", 5).AddRule("validacion_fecha_rol_ejecucion", 5).AddRule("required", true)).Add();
+                                            col.Field("TIPO_TRIBUTACION").ForeignKeyField("DESCRIPCION").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().TIPOS_TRIBUTACION.ToList()).EditType(EditingType.DropdownEdit).HeaderText("TIPO").Add();
+                                            col.Field("MESES").HeaderText("MESES PERMANENCIA").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true).AddRule("validacion_meses", "rol").AddRule("required", true)).Add();
+                                            col.Field("DIAS_FRACCION").HeaderText("DIAS FRACCIÓN").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true).AddRule("validacion_meses", "rol").AddRule("required", true)).Add();
+                                            col.Field("VALOR_MENSUAL_SIN_PRESTACIONES").HeaderText("VALOR_MENSUAL SIN PRESTACIONES").Format("{0:n0}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { Locale = "es-CO", IncrementStep = 100000, PositivePattern = "$ n " }).ValidationRules(v => v.AddRule("number", true).AddRule("required", true)).Add();
+                                            col.Field("PRESTACIONES").HeaderText("PRESTACIONES").Format("{0:p2}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 2, Locale = "es-CO", MaxValue = 10, MinValue = -0.01, IncrementStep = 0.01 }).ValidationRules(v => v.AddRule("required", true)).Add();
+                                            col.Field("VALOR_MENSUAL_PRESTACIONES").HeaderText("VALOR MENSUAL CON PRESTACIONES").AllowEditing(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("required", true)).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { Locale = "es-CO", IncrementStep = 100000, PositivePattern = "$ n " }).Add();
+                                            col.Field("FACTOR_MULTIPLICADOR").HeaderText("FACTOR MULTIPLICADOR").Format("{0:p2}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 2, Locale = "es-CO", MaxValue = 10, MinValue = -0.01, IncrementStep = 0.01 }).ValidationRules(v => v.AddRule("required", true)).Add();
+                                            col.Field("VALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR").HeaderText("VALOR MENSUAL CON PRESTACIONES Y FACTOR MULTIPLICADOR").Format("{0:n0}").EditType(EditingType.NumericEdit).AllowEditing(false).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { Locale = "es-CO", IncrementStep = 100000, PositivePattern = "$ n " }).ValidationRules(v => v.AddRule("number", true).AddRule("required", true)).Add();
+                                            col.Field("DEDICACION").HeaderText("DEDICACION").Format("{0:p2}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 2, Locale = "es-CO", MaxValue = 10, MinValue = -0.01, IncrementStep = 0.01 }).Add();
+                                            col.Field("OBSERVACIONES").HeaderText("OBSERVACIONES").Add();
+
+                                        }).ChildGrid(child =>
+                                        {
+                                            child.Datasource(ds => ds.URL("../../CONTRATO_ROL_CARGO/GetOrderData").InsertURL("../../CONTRATO_ROL_CARGO/PerformInsert").UpdateURL("../../CONTRATO_ROL_CARGO/PerformUpdate").RemoveURL("../../CONTRATO_ROL_CARGO/PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                                            .AllowPaging()
+                                            .QueryString("COD_CONTRATO_ROL")
+                                            .Locale("es-CO")
+                                            .AllowRowDragAndDrop(false)
+                                            .AllowScrolling(false)
+                                            .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Normal); })
+                                            .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
+                                            .ToolbarSettings(toolbar =>
+                                            {
+                                                toolbar.ShowToolbar().ToolbarItems(items =>
+                                                {
+                                                    items.AddTool(ToolBarItems.Add);
+                                                    items.AddTool(ToolBarItems.Edit);
+                                                    items.AddTool(ToolBarItems.Delete);
+                                                    items.AddTool(ToolBarItems.Update);
+                                                    items.AddTool(ToolBarItems.Cancel);
+                                                });
+                                            }).Columns(col =>
+                                            {
+                                                col.Field("COD_CARGO").ForeignKeyField("COD_CARGO").ForeignKeyValue("DESCRIPCION_CARGO").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CARGOS.ToList()).HeaderText("CARGO").ValidationRules(v => v.AddRule("required", true)).EditType(EditingType.DropdownEdit).Add();
+                                                col.Field("COD_CONTRATO_ROL").ForeignKeyField("COD_CONTRATO_ROL").Visible(false).ForeignKeyValue("COD_CONTRATO_ROL").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONTRATOS_ROL.ToList()).HeaderText("COD_CONTRATO_ROL").EditType(EditingType.DropdownEdit).Add();
+                                                col.Field("COD_CONTRATO_ROL_CARGO").HeaderText("COD_CONTRATO_ROL_CARGO").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                                            });
+
+                                        }).ClientSideEvents(e => e.ActionBegin("inicio_rol").QueryCellInfo("calcular").Create("create")))
                 </div>
+
+                <!--CARGUE ANEXOS 
+                <div class="col-md-12 oculta">
+                    @*ANEXO ROLES*@
+                    <div class="form-group ruta_acta_inicio">
+                        <label>CARGUE ANEXOS</label>
+                        @@Html.EJ().Uploadbox("CARGUE_ANEXOS").AutoUpload(false).ExtensionsAllow(".doc, .docx,.pdf").FileSize(10000000).SaveUrl("/FlujoProyectos/Save_anexos").RemoveUrl("/FlujoProyectos/Remove_anexos").ClientSideEvents(c => c.Success("fileuploadSuccess_anexos").Remove("fileremovecomplete_anexos"))
+                    </div>
+                </div>-->
             </div>
 
             <!-- Etapa 4 FLUJO DE INGRESOS DEBIDO A RECURSOS HUMANOS -->
@@ -491,6 +529,7 @@
                 <input autocomplete="off" type="hidden" class="form-control" id="errores1" placeholder="" value="0">
                 <span class="error"></span>
             </div>
+
             @*ETAPA2*@
             <div class="form-group oculta">
                 @*<label for="id_proyecto">ID CONTRATO</label>*@
@@ -532,13 +571,16 @@
 
     @*Javascript*@
     <script type="text/javascript">
+    
     var global_fecha_ini = "";
     var global_fecha_fin = "";
     var global_fecha_firma = "";
+    
     //Variables auxiliares para ingeniería inversa
     var preload_pivot = [];
     var obj = [];
     var contrato_proyecto = @(ViewBag.contrato_proyecto.COD_CONTRATO_PROYECTO == null ? "1" : Html.Raw((String)ViewBag.contrato_proyecto.COD_CONTRATO_PROYECTO.ToString()).ToString());
+
     //Variable indicadora que establece si existe o no edición para refrescar
     var flag_edicion = false;
     var flag_edicion_item = false;
@@ -1477,7 +1519,7 @@
         }
         if (args.requestType == "beginedit" || args.requestType == "add") {
 
-            if (args.model.dataSource.dataSource.url == "GetOrderData_rol") {
+            
 
                 setTimeout(function () {
                     var drop = $("#GRID_ROLESCOD_ROL").ejDropDownList('instance');
@@ -1487,7 +1529,7 @@
 
                 }, 50);
 
-            }
+            
             try {
                 setTimeout(function () {
                     var valor_prestaciones = $("#GRID_ROLESVALOR_MENSUAL_SIN_PRESTACIONES").ejNumericTextbox('instance');
@@ -1496,23 +1538,7 @@
                     prestaciones.model.focusOut = "generar_valores_prestaciones";
                     var factor =$("#GRID_ROLESFACTOR_MULTIPLICADOR").ejNumericTextbox('instance');
                     factor.model.focusOut = "generar_valores_prestaciones";
-                    window.uploadData = {};
-
-                    window.uploadData.url = args.requestType == "add" ? "PerformInsert" : "PerformUpdate";
-
-                    //Render upload control
-                    $("#EmployeeGridPhoto").ejUploadbox({
-                        saveUrl: "/Home/SaveDefault",
-                        removeUrl: "/Home/RemoveDefault",
-                        dialogAction: { closeOnComplete: true },
-                        fileSelect: function (args) {
-                            //Get the file from fileSelect event
-                            uploadData["files"] = args["files"][0].rawFile; // for latest version
-                            //  if you are using older version 13.1.026 we suggest you to use  args[0].rawFile;
-                            var filename = args["files"][0].rawFile.name; // for latest version
-                            //  if you are using older version 13.1.026 we suggest you to use  args[0].rawFile.name;
-                        }
-                    });
+                    
 
 
                 }, 50);
@@ -1557,6 +1583,7 @@
             $("#GRID_ROLESVALOR_MENSUAL_PRESTACIONES").ejNumericTextbox({ value: valor_mensual_prestaciones });
             $("#GRID_ROLESVALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR").ejNumericTextbox({ value: valor_mensual_factor });
         }
+
     //Función para regenerar flujo rol
     function regenerar_flujo_rol() {
         $('.contenedor_loader').show();
@@ -1759,26 +1786,128 @@
        }
         }
 
-   //Funcion para detectar click de cargue de archivo
-   function clicked(sender) {
-        temp = sender;
-        $target = $(sender.target);
-        if ($target.hasClass("cargar")) {
-            cargar_archivo_rol(sender.gridModel.parentDetails.parentKeyFieldValue, sender.currentTarget.id.replace("_Validar", ""))
-        }
-   }
-
-   //Function para cargar los archivos asociados al rol
-   
+    //Function para cargar los archivos asociados al rol
     function cargar_archivo_rol(contrato_proyecto, id) {
         
         
+        }
+
+    //Evento creación grid roles para crear uploadbox
+    function create(args) { 
+        $("#boton_adjuntar").ejUploadbox({ 
+            saveUrl: "../../FlujoProyectos/Save_anexos",
+            removeUrl: "../../FlujoProyectos/Remove_anexos",
+            success: fileuploadSuccess_anexos,
+            remove: fileremovecomplete_anexos,
+            autoUpload: true, 
+            showFileDetails: false,
+            fileSize: 10000000,  
+            extensionsAllow: ".doc, .docx,.pdf",
+            uploadName: "CARGUE_ANEXOS",
+            cssClass: "custom",
+            buttonText: {
+                browse: ""
+            },
+            create: function (args) {
+                $(".custom .e-selectpart").prepend("<span class='e-icon e-upload'></span>");   
+            }
+        }); 
+    }
+
+    //Funcion para detectar click de cargue de archivo anexo a los roles
+    function clicked(sender) {
+        
+        //$target = $(sender.target);
+        //if ($target.hasClass("adjuntar")) {
+            //Instancia grid roles
+            //var instancia = $("#GRID_ROLES").ejGrid("instance");
+            //Verificar selección de filas
+            /*try {
+                var seleccionados = instancia.getSelectedRecords()[0].length;
+                if (instancia.getSelectedRecords().length > 1) {
+                    alert("Se detectó más de una fila seleccionada. Por favor seleccione una sola fila para adjuntar un archivo");
+                }
+                else {
+                    var fila = instancia.getSelectedRecords()[0];
+                    //Abrir uploadbox
+                    
+                }
+                
+            }
+            catch{
+           
+                alert("Por favor seleccione una fila para adjuntar un archivo");
+            }*/
+        //}
+        
+        }
+
+     /*Cargue de archivos - revisión duplicados*/
+    function onFileSelected_anexos(args) {
+            var archivo = args.filesData[0].name;
+
+        var url = "../Duplicados";
+
+            var data = "{archivo:'" + archivo + "'}";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                dataFilter: function (data) { return data; },
+                success: function (data) {
+                    if (data.responseText == "si") {
+                        $('.ruta_contrato .e-file-status').addClass("e-upload-fails");
+                        $('.ruta_contrato .e-file-status').text("Archivo duplicado, por favor renombrelo antes de cargalo");
+                    }
+                }
+            });
+
+        }
+
+    //Almacenaje de la ruta anexos
+    function fileuploadSuccess_anexos(e) {
+        var FileData = e.responseText;
+        //Guardar valor
+        var instancia = $("#GRID_ROLES").ejGrid("instance");
+            //Verificar selección de filas
+        try {
+            var seleccionados = instancia.getSelectedRecords()[0];
+            var fila = instancia.selectedRowsIndexes;
+            seleccionados.RUTA_DOCUMENTO = FileData;
+            instancia.updateRecord("COD_CONTRATO_ROL", seleccionados);
+            setTimeout(function () { instancia.refreshContent();},1000);
+        }
+        catch{
+            alert("Por favor seleccione una fila para adjuntar un archivo");
+        }
+    }
+
+    //Remove completo anexos
+    function fileremovecomplete_anexos(e) {
+        var instancia = $("#GRID_ROLES").ejGrid("instance");
+        var fila = instancia.selectedRowsIndexes;
+        //Guardar valor de la ruta en la fila seleccionada
+        instancia.setCellValue(fila, "RUTA_DOCUMENTO", ""); 
+        }
+
+    //Funcion para añadir buscador a los dropdown a la grid hijo
+	function inicio_grid(args) {
+        
+        if (args.requestType == "beginedit" || args.requestType == "add") {
+           
+                setTimeout(function () {
+                    var drop = $(".e-dropdownlist[name='COD_CARGO']").ejDropDownList('instance');
+                    drop.option("enableFilterSearch", true);
+                }, 50); 
+            }
+        
     }
     </script>
-
 }
 
 <!--Modelos o templates para botones-->
 <script type="text/x-jsrender" id="Adjuntar">
-    <a class="e-tooltxt cargar e-icon e-upload"></a>
+    <div id="boton_adjuntar" ></div>
 </script>

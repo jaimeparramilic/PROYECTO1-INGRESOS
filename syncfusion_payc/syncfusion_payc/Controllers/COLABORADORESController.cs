@@ -25,6 +25,13 @@ namespace syncfusion_payc.Controllers
             return View(cOLABORADORES.ToList());
         }
 
+        // VISTA RETIROS
+        public ActionResult Retiros()
+        {
+            
+            return View();
+        }
+
         // GET: COLABORADORES/Details/5
         public ActionResult Details(long? id)
         {
@@ -241,6 +248,45 @@ namespace syncfusion_payc.Controllers
             db.SaveChanges();
             return RedirectToAction("GetOrderData");
             
+        }
+
+        //Traer información proximos retiros
+        public ActionResult GetOrderData_retiros(DataManager dm)
+        {
+            IEnumerable DataSource = db.VISTA_PENDIENTES_RETIRO.ToList();
+            DataOperations ds = new DataOperations();
+            List<string> str = new List<string>();
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            if (dm.Search != null && dm.Search.Count > 0)
+            {
+                DataSource = ds.PerformSearching(DataSource, dm.Search);
+            }
+            if (dm.Sorted != null && dm.Sorted.Count > 0) //Sorting
+            {
+                DataSource = ds.PerformSorting(DataSource, dm.Sorted);
+            }
+            if (dm.Where != null && dm.Where.Count > 0) //Filtering
+            {
+                DataSource = ds.PerformWhereFilter(DataSource, dm.Where, dm.Where[0].Operator);
+            }
+            if (dm.Aggregates != null)
+            {
+                for (var i = 0; i < dm.Aggregates.Count; i++)
+                    str.Add(dm.Aggregates[i].Field);
+
+            }
+            IEnumerable aggregate = ds.PerformSelect(DataSource, str);
+            var count = DataSource.Cast<VISTA_PENDIENTES_RETIRO>().Count();
+            if (dm.Skip != 0)
+            {
+                DataSource = ds.PerformSkip(DataSource, dm.Skip);
+            }
+            if (dm.Take != 0)
+            {
+                DataSource = ds.PerformTake(DataSource, dm.Take);
+            }
+            return Json(new { result = DataSource, count = count }, JsonRequestBehavior.AllowGet);
         }
     }
 }

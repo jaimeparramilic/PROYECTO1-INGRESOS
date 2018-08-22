@@ -16,12 +16,12 @@ namespace syncfusion_payc.Models
     {
         public long COD_DETALLE_FACTURA_PERS { get; set; }
         public Nullable<long> COD_CONTRATO_PROYECTO { get; set; }
-        public Nullable<long> COD_COLABORADOR { get; set; }
+        public Nullable<long> COD_ROL { get; set; }
         public Nullable<long> COD_FORMAS_PAGO_FECHAS { get; set; }
         public Nullable<float> VALOR_SIN_IMPUESTOS { get; set; }
     
-        public virtual FORMAS_PAGO_FECHAS FORMAS_PAGO_FECHAS { get; set; }
         public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
-        public virtual COLABORADORES COLABORADORES { get; set; }
+        public virtual ROLES ROLES { get; set; }
+        public virtual FORMAS_PAGO_FECHAS FORMAS_PAGO_FECHAS { get; set; }
     }
 }

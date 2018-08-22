@@ -248,6 +248,51 @@ namespace syncfusion_payc.Controllers
             }
         }
 
+        //Almacenar archivo anexo
+        [AcceptVerbs("Post")]
+        public void Save_anexos()
+        {
+            if (System.Web.HttpContext.Current.Request.Files.AllKeys.Length > 0)
+            {
+                // Get the files using the name attribute as a key. 
+                var httpPostedFile = System.Web.HttpContext.Current.Request.Files["CARGUE_ANEXOS"];
+
+                if (httpPostedFile != null)
+                {
+                    var fileSave = System.Web.HttpContext.Current.Server.MapPath("anexos_roles");
+                    if (!Directory.Exists(fileSave))
+                    {
+                        Directory.CreateDirectory(fileSave);
+                    }
+
+                    var fileSavePath = Path.Combine(fileSave, httpPostedFile.FileName);
+                    if (!System.IO.File.Exists(fileSavePath))
+                    {    /*To save files at server*/
+                        httpPostedFile.SaveAs(fileSavePath);
+                        HttpResponse Response = System.Web.HttpContext.Current.Response;
+                        Response.Clear();
+                        Response.ContentType = "application/json; charset=utf-8";
+                        Response.StatusDescription = "Archivo cargado exitosamente";
+                        Response.Write(httpPostedFile.FileName);
+                        Response.End();
+                    }
+                    else
+                    {
+                        HttpResponse Response = System.Web.HttpContext.Current.Response;
+                        Response.Clear();
+                        //Aca va el tratamiento para duplicados
+                        //Response.Status = "400 ya existe un archivo con el mismo nombre, por favor renombrelo";
+                        //Response.StatusCode = 400;
+                        Response.ContentType = "application/json; charset=utf-8";
+                        Response.StatusDescription = "Ya existe un archivo con el mismo nombre";
+                        Response.Write(httpPostedFile.FileName);
+                        Response.End();
+
+                    }
+                }
+            }
+        }
+
         [HttpPost]
         public ActionResult Duplicados(string archivo)
         {
@@ -306,10 +351,32 @@ namespace syncfusion_payc.Controllers
                 return Json("SI", JsonRequestBehavior.AllowGet);
             }
         }
-        #endregion
-        #region cargue roles contrato proyecto
 
-    //Url adaptor ejemplo
+        //Eliminar Archivo anexo
+        public ActionResult Remove_anexos(string fileNames)
+        {
+
+            try
+            {
+                var fileSave = System.Web.HttpContext.Current.Server.MapPath("anexos_roles");
+
+                //var fileName = System.Web.HttpContext.Current.Request.Files["CARGUE_ARCHIVOS"].FileName;
+                var fileSavePath = Path.Combine(fileSave, fileNames);
+                if (System.IO.File.Exists(fileSavePath))
+                {
+                    System.IO.File.Delete(fileSavePath);
+                }
+                return Json("SI", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json("SI", JsonRequestBehavior.AllowGet);
+            }
+        }
+        #endregion
+        #region cargue datos roles
+
+        //Url adaptor ejemplo
         public ActionResult UrlAdaptor()
         {
             var DataSource2 = db.CONTRATOS_ROL.ToList();
@@ -368,9 +435,7 @@ namespace syncfusion_payc.Controllers
         //Actualizar grid rol
         public ActionResult PerformUpdate_rol(EditParams_CONTRATOS_ROL param)
         {
-            
-			CONTRATOS_ROL table = db.CONTRATOS_ROL.Single(o => o.COD_CONTRATO_ROL == param.value.COD_CONTRATO_ROL);
-
+            CONTRATOS_ROL table = db.CONTRATOS_ROL.Single(o => o.COD_CONTRATO_ROL == param.value.COD_CONTRATO_ROL);
             db.Entry(table).CurrentValues.SetValues(param.value);
             db.SaveChanges();
 			return RedirectToAction("GetOrderData_rol");
@@ -495,6 +560,7 @@ namespace syncfusion_payc.Controllers
             //Guardar el proyecto
             db.PROYECTOS.Add(PROYECTO);
             db.SaveChanges();
+
             //crear una string para guardar la respuesta
             string retornar = PROYECTO.COD_PROYECTO.ToString();
             //Guardar la relación contrato proyecto
@@ -502,6 +568,7 @@ namespace syncfusion_payc.Controllers
             cont_pro.COD_CONTRATO = COD_CONTRATO;
             cont_pro.COD_PROYECTO = PROYECTO.COD_PROYECTO;
             cont_pro.COD_FORMA_PAGO = COD_FORMA_PAGO;
+            cont_pro.COD_ESTADO_ORDEN_SERVICIO = 2;
             cont_pro.MODIFICADO_POR = User.Identity.GetUserName();
             DateTime hoy = DateTime.Today;
             cont_pro.FECHA_ULTIMA_MODIFICACION = hoy;
@@ -549,6 +616,7 @@ namespace syncfusion_payc.Controllers
             PROYECTOS table = db.PROYECTOS.Single(o => o.COD_PROYECTO == PROYECTO.COD_PROYECTO);
             db.Entry(table).CurrentValues.SetValues(PROYECTO);
             db.SaveChanges();
+
             //Actualizar contrato_proyecto
             try
             {
@@ -744,7 +812,7 @@ namespace syncfusion_payc.Controllers
 
         }
         #endregion
-        #region finalizar
+        #region completa
         public ActionResult cerrar_cargue(long COD_CONTRATO_PROYECTO)
         {
             //Buscar proyecto
@@ -758,6 +826,30 @@ namespace syncfusion_payc.Controllers
             
             db.SaveChanges();
 
+            return Json(new { success = true, responseText = "SI" }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+        #region finalizar o revertir
+        public ActionResult finalizar(long COD_CONTRATO_PROYECTO)
+        {
+            //Buscar proyecto
+            CONTRATO_PROYECTO tabletemp = db.CONTRATO_PROYECTO.Single(o => o.COD_CONTRATO_PROYECTO == COD_CONTRATO_PROYECTO);
+            tabletemp.COD_ESTADO_ORDEN_SERVICIO = 1;
+            tabletemp.MODIFICADO_POR = User.Identity.GetUserName();
+            DateTime hoy = DateTime.Today;
+            tabletemp.FECHA_ULTIMA_MODIFICACION = hoy;
+            db.SaveChanges();
+            return Json(new { success = true, responseText = "SI" }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult revertir(long COD_CONTRATO_PROYECTO)
+        {
+            //Buscar proyecto
+            CONTRATO_PROYECTO tabletemp = db.CONTRATO_PROYECTO.Single(o => o.COD_CONTRATO_PROYECTO == COD_CONTRATO_PROYECTO);
+            tabletemp.COD_ESTADO_ORDEN_SERVICIO = 2;
+            tabletemp.MODIFICADO_POR = User.Identity.GetUserName();
+            DateTime hoy = DateTime.Today;
+            tabletemp.FECHA_ULTIMA_MODIFICACION = hoy;
+            db.SaveChanges();
             return Json(new { success = true, responseText = "SI" }, JsonRequestBehavior.AllowGet);
         }
         #endregion

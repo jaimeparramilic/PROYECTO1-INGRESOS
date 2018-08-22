@@ -18,13 +18,13 @@ namespace syncfusion_payc.Models
         public FORMAS_PAGO_FECHAS()
         {
             this.DETALLE_FACTURA_ITEM = new HashSet<DETALLE_FACTURA_ITEM>();
-            this.DETALLE_FACTURA_PERS = new HashSet<DETALLE_FACTURA_PERS>();
             this.FACTURAS = new HashSet<FACTURAS>();
             this.FLUJO_INGRESOS_ITEMS = new HashSet<FLUJO_INGRESOS_ITEMS>();
             this.FLUJO_INGRESOS_ROL = new HashSet<FLUJO_INGRESOS_ROL>();
             this.REGISTRO_ITEMS_OTROS_COSTOS = new HashSet<REGISTRO_ITEMS_OTROS_COSTOS>();
             this.REGISTRO_NOVEDADES = new HashSet<REGISTRO_NOVEDADES>();
             this.INCREMENTO_SALARIAL = new HashSet<INCREMENTO_SALARIAL>();
+            this.DETALLE_FACTURA_PERS = new HashSet<DETALLE_FACTURA_PERS>();
         }
     
         public long COD_FORMAS_PAGO_FECHAS { get; set; }
@@ -38,10 +38,6 @@ namespace syncfusion_payc.Models
     	[System.Runtime.Serialization.IgnoreDataMember]
     	[Newtonsoft.Json.JsonIgnore]
         public virtual ICollection<DETALLE_FACTURA_ITEM> DETALLE_FACTURA_ITEM { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    	[System.Runtime.Serialization.IgnoreDataMember]
-    	[Newtonsoft.Json.JsonIgnore]
-        public virtual ICollection<DETALLE_FACTURA_PERS> DETALLE_FACTURA_PERS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     	[System.Runtime.Serialization.IgnoreDataMember]
     	[Newtonsoft.Json.JsonIgnore]
@@ -67,5 +63,9 @@ namespace syncfusion_payc.Models
     	[System.Runtime.Serialization.IgnoreDataMember]
     	[Newtonsoft.Json.JsonIgnore]
         public virtual ICollection<INCREMENTO_SALARIAL> INCREMENTO_SALARIAL { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    	[System.Runtime.Serialization.IgnoreDataMember]
+    	[Newtonsoft.Json.JsonIgnore]
+        public virtual ICollection<DETALLE_FACTURA_PERS> DETALLE_FACTURA_PERS { get; set; }
     }
 }

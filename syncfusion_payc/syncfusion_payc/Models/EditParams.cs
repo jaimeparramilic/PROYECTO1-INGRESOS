@@ -27,6 +27,36 @@ namespace syncfusion_payc.Models
         public IEnumerable<ROLES> deleted { get; set; }
     }
 
+    public class EditParams_VISTA_PENDIENTES_RETIRO
+    {
+        public int skip { get; set; }
+        public int take { get; set; }
+        public string action { get; set; }
+        public int key { get; set; }
+        public string keyColumn { get; set; }
+        public VISTA_PENDIENTES_RETIRO value { get; set; }
+
+        //Batch Edit Params
+        public IEnumerable<VISTA_PENDIENTES_RETIRO> added { get; set; }
+        public IEnumerable<VISTA_PENDIENTES_RETIRO> changed { get; set; }
+        public IEnumerable<VISTA_PENDIENTES_RETIRO> deleted { get; set; }
+    }
+
+    public class EditParams_CONTRATO_ROL_CARGO
+    {
+        public int skip { get; set; }
+        public int take { get; set; }
+        public string action { get; set; }
+        public int key { get; set; }
+        public string keyColumn { get; set; }
+        public CONTRATO_ROL_CARGO value { get; set; }
+
+        //Batch Edit Params
+        public IEnumerable<CONTRATO_ROL_CARGO> added { get; set; }
+        public IEnumerable<CONTRATO_ROL_CARGO> changed { get; set; }
+        public IEnumerable<CONTRATO_ROL_CARGO> deleted { get; set; }
+    }
+
     public class EditParams_INCREMENTO_ORDEN
     {
         public int skip { get; set; }

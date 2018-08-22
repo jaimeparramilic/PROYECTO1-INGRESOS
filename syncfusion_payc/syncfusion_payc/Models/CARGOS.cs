@@ -18,6 +18,7 @@ namespace syncfusion_payc.Models
         public CARGOS()
         {
             this.COLABORADORES = new HashSet<COLABORADORES>();
+            this.CONTRATO_ROL_CARGO = new HashSet<CONTRATO_ROL_CARGO>();
         }
     
         public long COD_CARGO { get; set; }
@@ -27,5 +28,9 @@ namespace syncfusion_payc.Models
     	[System.Runtime.Serialization.IgnoreDataMember]
     	[Newtonsoft.Json.JsonIgnore]
         public virtual ICollection<COLABORADORES> COLABORADORES { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    	[System.Runtime.Serialization.IgnoreDataMember]
+    	[Newtonsoft.Json.JsonIgnore]
+        public virtual ICollection<CONTRATO_ROL_CARGO> CONTRATO_ROL_CARGO { get; set; }
     }
 }

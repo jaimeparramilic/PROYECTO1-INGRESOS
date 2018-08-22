@@ -1,0 +1,170 @@
+﻿
+@model IEnumerable<syncfusion_payc.Models.COLABORADORES>
+
+@{
+    ViewBag.Title = "";
+	}
+<h4>COLABORADORES</h4>
+<div class="control-section">
+    @if (User.Identity.IsAuthenticated)
+    {
+        @(Html.EJ().Grid<syncfusion_payc.Models.VISTA_PENDIENTES_RETIRO>("Grid")
+                        .Datasource(ds => ds.URL("GetOrderData_retiros").Adaptor(AdaptorType.UrlAdaptor))
+                        .AllowPaging()
+                        .AllowFiltering()
+                        .Locale("es-CO")
+                        .AllowResizeToFit(true)
+                        .AllowMultiSorting()
+                        .AllowSorting()
+                         .AllowResizeToFit(true)
+                        .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                        .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
+                        .ToolbarSettings(toolbar =>
+                        {
+                            toolbar.ShowToolbar().ToolbarItems(items =>
+                            {
+                                items.AddTool(ToolBarItems.Add);
+                                items.AddTool(ToolBarItems.Edit);
+                                items.AddTool(ToolBarItems.Delete);
+                                items.AddTool(ToolBarItems.Update);
+                                items.AddTool(ToolBarItems.Cancel);
+                                items.AddTool(ToolBarItems.Search);
+
+                            });
+
+                        }).Columns(col =>
+                        {
+
+                            col.Field("COD_COLABORADOR").HeaderText("COLABORADOR").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                            col.Field("NOMBRES").HeaderText("NOMBRES").Add();
+
+                            col.Field("APELLIDOS").HeaderText("APELLIDOS").Add();
+                            col.Field("DESCRIPCION").HeaderText("ORDEN DE SERVICIO").Add();
+                            col.Field("CENTRO_COSTOS_PROYECTO").HeaderText("CENTRO DE COSTOS PROYECTO").Add();
+                            col.Field("COD_CARGO").ForeignKeyField("COD_CARGO").AllowFiltering(false).AllowSorting(false).ForeignKeyValue("DESCRIPCION_CARGO").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CARGOS.ToList()).HeaderText("CARGO").EditType(EditingType.DropdownEdit).Add();
+                            col.Field("DESCRIPCION_ROL").HeaderText("ROL EN PROYECTO").Add();
+                            col.Field("COD_ESTADO_COLABORADOR").ForeignKeyField("COD_ESTADO_COLABORADOR").AllowFiltering(false).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ESTADO_COLABORADOR.ToList()).HeaderText("ESTADO COLABORADOR").EditType(EditingType.DropdownEdit).Add();
+                            col.Field("CEDULA").HeaderText("CÉDULA").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                            col.Field("FECHA_INI").HeaderText("FECHA INICIO EN PROYECTO").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                            col.Field("FECHA_FIN").HeaderText("FECHA FIN EN PROYECTO").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                            col.Field("FECHA_FIN_PACTADA").HeaderText("FECHA FIN PACTADA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+
+                        }).ChildGrid(child =>
+                        child.Datasource(ds => ds.URL("../ESTUDIOS_COLABORADOR/GetOrderData").InsertURL("../ESTUDIOS_COLABORADOR/PerformInsert").UpdateURL("../ESTUDIOS_COLABORADOR/PerformUpdate").RemoveURL("../ESTUDIOS_COLABORADOR/PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                        .AllowPaging()
+
+                        .Locale("es-CO")
+                        .AllowResizeToFit(true)
+                        .QueryString("COD_COLABORADOR")
+                        .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+                        .ToolbarSettings(toolbar =>
+                        {
+                            toolbar.ShowToolbar().ToolbarItems(items =>
+                            {
+                                items.AddTool(ToolBarItems.Add);
+                                items.AddTool(ToolBarItems.Edit);
+                                items.AddTool(ToolBarItems.Delete);
+                                items.AddTool(ToolBarItems.Update);
+                                items.AddTool(ToolBarItems.Cancel);
+
+                            });
+
+                        }).Columns(col =>
+                        {
+                            col.Field("COD_COLABORADOR").Visible(false).ForeignKeyField("COD_COLABORADOR").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().COLABORADORES.ToList()).HeaderText("COLABORADOR").EditType(EditingType.DropdownEdit).Add();
+                            col.Field("COD_ESTUDIOS").HeaderText("ESTUDIOS").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                            col.Field("NIVEL_ESTUDIO").HeaderText("NIVEL ESTUDIO").Add();
+                            col.Field("TITULO_ESTUDIO").HeaderText("TITULO ESTUDIO").Add();
+                            col.Field("FECHA_GRADO").HeaderText("FECHA GRADO").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                            col.Field("INSTITUCION_GRADO").HeaderText("INSTITUCION GRADO").Add();
+
+                        })
+        ))
+    }
+    </div>
+
+<script>
+    
+    $(document).ready(function () {
+        ej.Grid.Locale["es-CO"] = {
+            EmptyRecord: "No hay registros que mostrar",
+            GroupDropArea: "Arrastre un encabezado de columna aquí para agrupar su columna",
+            DeleteOperationAlert: "No hay registros seleccionados para la operación de eliminación",
+            EditOperationAlert: "No hay registros seleccionados para la operación de edición",
+            SaveButton: "Guardar",
+            OKButton: "DE ACUERDO",
+            CancelButton: "Cancelar",
+            EditFormTitle: "Detalles de ",
+            AddFormTitle: "Añadir nuevo registro",
+            GroupCaptionFormat: "{{:headerText}}: {{:key}} - {{:count}} {{if count == 1 }} ítem {{else}} artículos {{/if}} ",
+            
+            
+        };
+        ej.Pager.Locale["es-CO"] = {
+            pagerInfo: "{0} de {1} páginas ({2} artículos)",
+            firstPageTooltip: "Ir a la primera página",
+            lastPageTooltip: "Ir a la última página",
+            nextPageTooltip: "Ir a la página siguiente",
+            previousPageTooltip: "Ir a la página anterior",
+            nextPagerTooltip: "Ir al siguiente Pager",
+            previousPagerTooltip: "Ir a Pager anterior"
+        };
+
+        ej.ExcelFilter.Locale["es-CO"] = {
+            SortNoSmaller: "Ordenar de menor a mayor",
+            SortNoLarger: "Ordenar de mayor a menor",
+            SortTextAscending: "Ordenar de A a Z",
+            SortTextDescending: "Ordenar de Z a A",
+            SortDateOldest: "Ordenar por Más antiguos",
+            SortDateNewest: "Ordenar por Más reciente",
+            SortByColor: "Ordenar por color",
+            SortByCellColor: "Ordenar por color de la célula",
+            SortByFontColor: "Ordenar por Color de fuente",
+            FilterByColor: "Filtrar por color",
+            CustomSort: "Orden personalizado",
+            FilterByCellColor: "Filtrar por color de la célula",
+            FilterByFontColor: "Filtrar por color de fuente",
+            ClearFilter: "Borrar filtro",
+            NumberFilter: "Número Filtros",
+            GuidFilter: "Gud Filtros",
+            TextFilter: "Filtros de texto",
+            DateFilter: "Filtros de fecha",
+            DateTimeFilter: "Fecha filtros de tiempo",
+            SelectAll: "Seleccionar todo",
+            Blanks: "Los espacios en blanco",
+            Search: "Buscar",
+            Showrowswhere: "Mostrar filas",
+            NumericTextboxWaterMark: "introducir el valor",
+            StringMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Comienza con", value: "startswith" }, { text: "Termina con", value: "endswith" }, { text: "contiene", value: "contains" }, { text: "Filtro personalizado", value: "customfilter" },],
+            NumberMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Menos que", value: "lessthan" }, { text: "Menor o equal", value: "lessthanorequal" }, { text: "Mas grande que", value: "greaterthan" }, { text: "Mayor que o equal", value: "greaterthanorequal" }, { text: "Entre", value: "between" }, { text: "Filtro personalizado", value: "customfilter" },],
+            GuidMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Filtro personalizado", value: "customfilter" },],
+            DateMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Menos que", value: "lessthan" }, { text: "Menor o equal", value: "lessthanorequal" }, { text: "Mas grande que", value: "greaterthan" }, { text: "Mayor que o equal", value: "greaterthanorequal" }, { text: "Entre", value: "between" }, { text: "Filtro personalizado", value: "customfilter" },],
+            DatetimeMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Menos que", value: "lessthan" }, { text: "Menor o equal", value: "lessthanorequal" }, { text: "Mas grande que", value: "greaterthan" }, { text: "Mayor que o equal", value: "greaterthanorequal" }, { text: "Entre", value: "between" }, { text: "Filtro personalizado", value: "customfilter" },],
+            Top10MenuOptions: [{ text: "Parte superior", value: "top" }, { text: "Fondo", value: "bottom" },],
+            title: "Filtro personalizado",
+            PredicateAnd: "Y",
+            PredicateOr: "O",
+            Ok: "Aceptar",
+            MatchCase: "Coincidencia",
+            Cancel: "Cancelar",
+            NoResult: "No se encontraron coincidencias",
+            CheckBoxStatusMsg: "No todos los elementos que muestran",
+            DatePickerWaterMark: "Seleccione fecha",
+            DateTimePickerWaterMark: "Seleccionar fecha y hora",
+            True: "cierto",
+            False: "falso"
+        };
+    });
+
+    //Funcion para añadir el filtro a los drop downs
+    function inicio_grid(args) {
+        if (args.requestType == "beginedit" || args.requestType == "add") {
+            if (args.model.dataSource.dataSource.url == "GetOrderData") {
+                setTimeout(function () {
+                    var drop = $("#GridCOD_CARGO").ejDropDownList('instance');
+                    drop.option("enableFilterSearch", true);
+                }, 50);
+            }
+        }
+    }
+</script>

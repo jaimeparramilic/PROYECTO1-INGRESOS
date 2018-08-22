@@ -25,5 +25,6 @@ namespace syncfusion_payc.Models
         public string CREADO_POR { get; set; }
         public Nullable<System.DateTime> FECHA_CREACION { get; set; }
         public string CENTRO_COSTOS { get; set; }
+        public Nullable<long> COD_ESTADO_ORDEN_SERVICIO { get; set; }
     }
 }

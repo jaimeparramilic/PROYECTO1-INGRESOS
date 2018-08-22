@@ -18,7 +18,6 @@ namespace syncfusion_payc.Models
         public COLABORADORES()
         {
             this.CONTRATO_COLABORADOR = new HashSet<CONTRATO_COLABORADOR>();
-            this.DETALLE_FACTURA_PERS = new HashSet<DETALLE_FACTURA_PERS>();
             this.ENTREGABLES = new HashSet<ENTREGABLES>();
             this.ESTUDIOS_COLABORADOR = new HashSet<ESTUDIOS_COLABORADOR>();
             this.GESTION_CARTERA = new HashSet<GESTION_CARTERA>();
@@ -49,10 +48,6 @@ namespace syncfusion_payc.Models
     	[System.Runtime.Serialization.IgnoreDataMember]
     	[Newtonsoft.Json.JsonIgnore]
         public virtual ICollection<CONTRATO_COLABORADOR> CONTRATO_COLABORADOR { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    	[System.Runtime.Serialization.IgnoreDataMember]
-    	[Newtonsoft.Json.JsonIgnore]
-        public virtual ICollection<DETALLE_FACTURA_PERS> DETALLE_FACTURA_PERS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     	[System.Runtime.Serialization.IgnoreDataMember]
     	[Newtonsoft.Json.JsonIgnore]

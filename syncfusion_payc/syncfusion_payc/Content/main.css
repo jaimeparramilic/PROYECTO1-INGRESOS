@@ -576,3 +576,43 @@ th[data-p="0,0"]{
 .check_etapas{
     margin-top:35px !important;
 }
+
+.custom .e-icon.e-upload {
+    line-height: 1.5; /*align icon in middle*/
+    
+}
+.custom .e-uploadinput, .custom .e-uploadinput:hover, .custom .e-uploadinput:active{
+    background: transparent !important;
+}
+.custom .e-selectpart {
+    background: transparent !important;
+    border-color: transparent !important;
+    width: 35px !important;
+}
+
+#boton_adjuntar {
+    width: 35px !important;
+}
+
+.e-righttick.estado2, .e-warningmessage.estado1, .e-icon.completaNO, .e-icon.completa{
+    display: none !important;
+}
+
+.e-righttick{
+    color: darkseagreen !important;
+}
+
+.e-warningmessage {
+    color: khaki !important;
+}
+
+.e-icon.completa1SI{
+    display:none;
+}
+.e-file-cancel{
+    color:crimson !important;
+}
+
+#GRID_ROLES .e-detailcell .e-grid {
+    width: 20% !important; 
+} 
