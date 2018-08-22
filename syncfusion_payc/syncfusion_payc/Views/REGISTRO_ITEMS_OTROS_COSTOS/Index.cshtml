@@ -35,8 +35,8 @@
 
         }).Columns(col =>
         {
-            col.Field("CENTRO_COSTOS").HeaderText("CENTRO DE COSTOS").EditType(EditingType.DropdownEdit).Add();
-            col.Field("DESCRIPCION").HeaderText("DESCRIPCION").EditType(EditingType.DropdownEdit).Add();
+            col.Field("CENTRO_COSTOS").HeaderText("CENTRO DE COSTOS").Width("20%").EditType(EditingType.DropdownEdit).Add();
+            col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Width("80%").EditType(EditingType.DropdownEdit).Add();
             col.Field("COD_CONTRATO_PROYECTO").HeaderText("CONTRATO_PROYECTO").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit);
 
         }).ChildGrid(child =>
@@ -67,10 +67,9 @@
 
             }).Columns(col =>
             {
-                col.Field("COD_FORMAS_PAGO_FECHAS").ForeignKeyField("COD_FORMAS_PAGO_FECHAS").ForeignKeyValue("FECHA_FORMA_PAGO").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().FORMAS_PAGO_FECHAS.ToList()).HeaderText("FECHAS").ValidationRules(v => v.AddRule("required", true)).EditType(EditingType.DropdownEdit).Add();
+                col.Field("COD_FORMAS_PAGO_FECHAS").ForeignKeyField("COD_FORMAS_PAGO_FECHAS").Format("{0:dd/MM/yyyy}").ForeignKeyValue("FECHA_FORMA_PAGO").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().FORMAS_PAGO_FECHAS.ToList()).HeaderText("FECHAS").ValidationRules(v => v.AddRule("required", true)).EditType(EditingType.DropdownEdit).Add();
                 col.Field("COD_ITEM").ForeignKeyField("COD_ITEM").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ITEMS_CONTRATO.ToList()).HeaderText("COD_ITEM").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).Add();
                 col.Field("COD_CONTRATO_PROYECTO").Visible(false).ForeignKeyField("COD_CONTRATO_PROYECTO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONTRATO_PROYECTO.ToList()).HeaderText("COD_CONTRATO_PROYECTO").EditType(EditingType.DropdownEdit).Add();
-
                 col.Field("COD_REGISTRO_ITEMS").HeaderText("COD_REGISTRO_ITEMS").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                 col.Field("VALOR_COMERCIAL").HeaderText("VALOR_COMERCIAL").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                 col.Field("CANTIDAD").HeaderText("CANTIDAD").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
@@ -154,15 +153,12 @@
 	//Funcion para añadir buscador a los dropdown
 	function inicio_grid(args) {
         if (args.requestType == "beginedit" || args.requestType == "add") {
-            if (args.model.dataSource.dataSource.url == "GetOrderData") {
                 setTimeout(function () {
                     var drop = $(".e-dropdownlist[name='COD_FORMAS_PAGO_FECHAS']").ejDropDownList('instance');
                     drop.option("enableFilterSearch", true);
                     drop = $(".e-dropdownlist[name='COD_ITEM']").ejDropDownList('instance');
                     drop.option("enableFilterSearch", true);
-			        
                 }, 50); 
-            }
         }
     }
 </script>
