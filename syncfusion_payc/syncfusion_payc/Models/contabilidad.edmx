@@ -700,6 +700,27 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_ORDENES_ROL
           <Property Name="DESCRIPCION_CARGO" Type="varchar" MaxLength="300" />
         </EntityType>
         <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_FACTURA' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="VISTA_PENDIENTES_FACTURA">
+          <Key>
+            <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+            <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+          </Key>
+          <Property Name="CENTRO_COSTOS" Type="varchar" MaxLength="300" />
+          <Property Name="FECHA_FORMA_PAGO" Type="date" />
+          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" Nullable="false" />
+          <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" Nullable="false" />
+          <Property Name="COD_CONTRATO" Type="bigint" />
+          <Property Name="COD_PROYECTO" Type="bigint" />
+          <Property Name="COD_FORMA_PAGO" Type="bigint" />
+          <Property Name="COMPLETA" Type="varchar" MaxLength="100" />
+          <Property Name="MODIFICADO_POR" Type="varchar" MaxLength="300" />
+          <Property Name="FECHA_ULTIMA_MODIFICACION" Type="date" />
+          <Property Name="CREADO_POR" Type="varchar" MaxLength="300" />
+          <Property Name="FECHA_CREACION" Type="date" />
+          <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="bigint" />
+        </EntityType>
+        <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_RETIRO' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="VISTA_PENDIENTES_RETIRO">
           <Key>
@@ -1599,6 +1620,23 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
     [VISTA_ORDENES_ROL_CARGO].[DESCRIPCION_CARGO] AS [DESCRIPCION_CARGO]
     FROM [dbo].[VISTA_ORDENES_ROL_CARGO] AS [VISTA_ORDENES_ROL_CARGO]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="VISTA_PENDIENTES_FACTURA" EntityType="Self.VISTA_PENDIENTES_FACTURA" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VISTA_PENDIENTES_FACTURA].[CENTRO_COSTOS] AS [CENTRO_COSTOS], 
+    [VISTA_PENDIENTES_FACTURA].[FECHA_FORMA_PAGO] AS [FECHA_FORMA_PAGO], 
+    [VISTA_PENDIENTES_FACTURA].[COD_FORMAS_PAGO_FECHAS] AS [COD_FORMAS_PAGO_FECHAS], 
+    [VISTA_PENDIENTES_FACTURA].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
+    [VISTA_PENDIENTES_FACTURA].[COD_CONTRATO] AS [COD_CONTRATO], 
+    [VISTA_PENDIENTES_FACTURA].[COD_PROYECTO] AS [COD_PROYECTO], 
+    [VISTA_PENDIENTES_FACTURA].[COD_FORMA_PAGO] AS [COD_FORMA_PAGO], 
+    [VISTA_PENDIENTES_FACTURA].[COMPLETA] AS [COMPLETA], 
+    [VISTA_PENDIENTES_FACTURA].[MODIFICADO_POR] AS [MODIFICADO_POR], 
+    [VISTA_PENDIENTES_FACTURA].[FECHA_ULTIMA_MODIFICACION] AS [FECHA_ULTIMA_MODIFICACION], 
+    [VISTA_PENDIENTES_FACTURA].[CREADO_POR] AS [CREADO_POR], 
+    [VISTA_PENDIENTES_FACTURA].[FECHA_CREACION] AS [FECHA_CREACION], 
+    [VISTA_PENDIENTES_FACTURA].[COD_ESTADO_ORDEN_SERVICIO] AS [COD_ESTADO_ORDEN_SERVICIO]
+    FROM [dbo].[VISTA_PENDIENTES_FACTURA] AS [VISTA_PENDIENTES_FACTURA]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="VISTA_PENDIENTES_RETIRO" EntityType="Self.VISTA_PENDIENTES_RETIRO" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [VISTA_PENDIENTES_RETIRO].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
@@ -2112,6 +2150,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           </AssociationSet>
           <EntitySet Name="CONTRATO_COLABORADOR_COMERCIAL" EntityType="test_payc_contabilidadModel.CONTRATO_COLABORADOR_COMERCIAL" />
           <EntitySet Name="VISTA_PENDIENTES_RETIRO" EntityType="test_payc_contabilidadModel.VISTA_PENDIENTES_RETIRO" />
+          <EntitySet Name="VISTA_PENDIENTES_FACTURA" EntityType="test_payc_contabilidadModel.VISTA_PENDIENTES_FACTURA" />
           </EntityContainer>
         <EntityType Name="CARGOS">
           <Key>
@@ -3569,6 +3608,25 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <Property Name="DESCRIPCION_ROL" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="HOY" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="VISTA_PENDIENTES_FACTURA">
+          <Key>
+            <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+            <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+          </Key>
+          <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_FORMA_PAGO" Type="DateTime" Precision="0" />
+          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" Nullable="false" />
+          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" />
+          <Property Name="COD_CONTRATO" Type="Int64" />
+          <Property Name="COD_PROYECTO" Type="Int64" />
+          <Property Name="COD_FORMA_PAGO" Type="Int64" />
+          <Property Name="COMPLETA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MODIFICADO_POR" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_ULTIMA_MODIFICACION" Type="DateTime" Precision="0" />
+          <Property Name="CREADO_POR" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_CREACION" Type="DateTime" Precision="0" />
+          <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="Int64" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4296,6 +4354,25 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
                 <ScalarProperty Name="FECHA_INI" ColumnName="FECHA_INI" />
                 <ScalarProperty Name="FECHA_FIN" ColumnName="FECHA_FIN" />
                 <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VISTA_PENDIENTES_FACTURA">
+            <EntityTypeMapping TypeName="test_payc_contabilidadModel.VISTA_PENDIENTES_FACTURA">
+              <MappingFragment StoreEntitySet="VISTA_PENDIENTES_FACTURA">
+                <ScalarProperty Name="COD_ESTADO_ORDEN_SERVICIO" ColumnName="COD_ESTADO_ORDEN_SERVICIO" />
+                <ScalarProperty Name="FECHA_CREACION" ColumnName="FECHA_CREACION" />
+                <ScalarProperty Name="CREADO_POR" ColumnName="CREADO_POR" />
+                <ScalarProperty Name="FECHA_ULTIMA_MODIFICACION" ColumnName="FECHA_ULTIMA_MODIFICACION" />
+                <ScalarProperty Name="MODIFICADO_POR" ColumnName="MODIFICADO_POR" />
+                <ScalarProperty Name="COMPLETA" ColumnName="COMPLETA" />
+                <ScalarProperty Name="COD_FORMA_PAGO" ColumnName="COD_FORMA_PAGO" />
+                <ScalarProperty Name="COD_PROYECTO" ColumnName="COD_PROYECTO" />
+                <ScalarProperty Name="COD_CONTRATO" ColumnName="COD_CONTRATO" />
+                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
+                <ScalarProperty Name="COD_FORMAS_PAGO_FECHAS" ColumnName="COD_FORMAS_PAGO_FECHAS" />
+                <ScalarProperty Name="FECHA_FORMA_PAGO" ColumnName="FECHA_FORMA_PAGO" />
+                <ScalarProperty Name="CENTRO_COSTOS" ColumnName="CENTRO_COSTOS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

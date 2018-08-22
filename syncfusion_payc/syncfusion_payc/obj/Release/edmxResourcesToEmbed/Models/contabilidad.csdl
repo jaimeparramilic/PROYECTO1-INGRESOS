@@ -277,6 +277,7 @@
     </AssociationSet>
     <EntitySet Name="CONTRATO_COLABORADOR_COMERCIAL" EntityType="test_payc_contabilidadModel.CONTRATO_COLABORADOR_COMERCIAL" />
     <EntitySet Name="VISTA_PENDIENTES_RETIRO" EntityType="test_payc_contabilidadModel.VISTA_PENDIENTES_RETIRO" />
+    <EntitySet Name="VISTA_PENDIENTES_FACTURA" EntityType="test_payc_contabilidadModel.VISTA_PENDIENTES_FACTURA" />
   </EntityContainer>
   <EntityType Name="CARGOS">
     <Key>
@@ -1733,5 +1734,24 @@
     <Property Name="FECHA_FIN_PACTADA" Type="DateTime" Precision="0" />
     <Property Name="DESCRIPCION_ROL" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
     <Property Name="HOY" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="VISTA_PENDIENTES_FACTURA">
+    <Key>
+      <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+      <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+    </Key>
+    <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="FECHA_FORMA_PAGO" Type="DateTime" Precision="0" />
+    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" Nullable="false" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" />
+    <Property Name="COD_CONTRATO" Type="Int64" />
+    <Property Name="COD_PROYECTO" Type="Int64" />
+    <Property Name="COD_FORMA_PAGO" Type="Int64" />
+    <Property Name="COMPLETA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="MODIFICADO_POR" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="FECHA_ULTIMA_MODIFICACION" Type="DateTime" Precision="0" />
+    <Property Name="CREADO_POR" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="FECHA_CREACION" Type="DateTime" Precision="0" />
+    <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="Int64" />
   </EntityType>
 </Schema>
