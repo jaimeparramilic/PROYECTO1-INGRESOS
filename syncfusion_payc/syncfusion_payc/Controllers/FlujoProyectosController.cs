@@ -13,6 +13,8 @@ using Syncfusion.JavaScript;
 using Syncfusion.JavaScript.DataSources;
 using System.Web.Script.Serialization;
 using System.Globalization;
+using System.IO;
+
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Diagnostics;
@@ -128,7 +130,7 @@ namespace syncfusion_payc.Controllers
             return View();
         }
 
-        public ActionResult pendientes_factura()
+        public ActionResult pendientes_facturar()
         {
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
@@ -954,19 +956,42 @@ namespace syncfusion_payc.Controllers
         #region ejecución R
         public ActionResult valor_facturar(long COD_CONTRATO_PROYECTO, long COD_FORMAS_PAGO_FECHAS)
         {
-            var rCodeFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Modelos_Matematicos") + @"valor_facturar.R";
+            //Script a ejecutar
+            var rCodeFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Modelos_Matematicos") + @"\valor_facturar.R";
 
+            //Ubicación ejecutable
             var rScriptExecutablePath = @"C:/Program Files/R/R-3.5.1/bin/Rscript.exe";
 
+            //Variable a retornar
             string result = string.Empty;
 
             try
             {
 
+                //Funcion
+                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Modelos_Matematicos") + @"\valor_facturar_temp.R";
+
+                //
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
+                //Escribir en archivo
+                if (!System.IO.File.Exists(path))
+                {
+                    System.IO.File.Copy(rCodeFilePath, path);
+                    using (StreamWriter sw = System.IO.File.AppendText(path))
+                    {
+                        sw.WriteLine("factura("+ COD_FORMAS_PAGO_FECHAS + ", " + COD_CONTRATO_PROYECTO + ")");
+                        
+                    }
+
+                }
+
                 var info = new ProcessStartInfo();
                 info.FileName = rScriptExecutablePath;
                 info.WorkingDirectory = Path.GetDirectoryName(rScriptExecutablePath);
-                info.Arguments = rCodeFilePath;
+                info.Arguments = path;
 
                 info.RedirectStandardInput = false;
                 info.RedirectStandardOutput = true;
@@ -981,11 +1006,17 @@ namespace syncfusion_payc.Controllers
                     proc.Close();
                 }
 
-                ViewBag.Result = result;
+                ViewBag.Result = result + "," + rCodeFilePath;
+                result= result + "," + rCodeFilePath;
+
+                
+
             }
             catch (Exception ex)
             {
+                
                 throw new Exception("R Script failed: " + result, ex);
+                result = ex.ToString() + "," + rCodeFilePath;
             }
             return Json(new { success = true, responseText = result }, JsonRequestBehavior.AllowGet);
         }
@@ -995,7 +1026,7 @@ namespace syncfusion_payc.Controllers
         // Traer datos facturas pendientes
         public ActionResult GetOrderData_pendientes_facturar(DataManager dm)
         {
-            IEnumerable DataSource = db.CONTRATOS_ROL.ToList();
+            IEnumerable DataSource = db.VISTA_PENDIENTES_FACTURA.ToList();
             DataOperations ds = new DataOperations();
             List<string> str = new List<string>();
             db.Configuration.ProxyCreationEnabled = false;
@@ -1019,7 +1050,7 @@ namespace syncfusion_payc.Controllers
 
             }
             IEnumerable aggregate = ds.PerformSelect(DataSource, str);
-            var count = DataSource.Cast<CONTRATOS_ROL>().Count();
+            var count = DataSource.Cast<VISTA_PENDIENTES_FACTURA>().Count();
             if (dm.Skip != 0)
             {
                 DataSource = ds.PerformSkip(DataSource, dm.Skip);

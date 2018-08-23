@@ -8,7 +8,7 @@
     ViewBag.Title = "Index";
 }
 @if (User.Identity.IsAuthenticated)
-{<h4>ORDENES DE SERVICIO</h4>
+{<h4>ORDENES DE SERVICIO PENDIENTES DE FACTURAR</h4>
     <div class="control-section">
         
         <div class="col-md-12">
@@ -22,7 +22,7 @@
                 .ClientSideEvents(e => e.ActionBegin("inicio_accion"))
                 .AllowResizeToFit(true)
                 .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
-                .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+                
                 .ToolbarSettings(toolbar =>
                 {
                     toolbar.ShowToolbar().ToolbarItems(items =>
@@ -38,11 +38,11 @@
                 }).Columns(col =>
                 {
                     col.Field("CENTRO_COSTOS").HeaderText("CENTRO COSTOS").Add();
-                    col.Field("COD_FECHA_FORMA_PAGO").HeaderText("FECHA").Add();
+                    col.Field("FECHA_FORMA_PAGO").HeaderText("FECHA").Format("{0:dd/MM/yyyy}").Add();
                     col.Field("COD_FORMAS_PAGO_FECHAS").HeaderText("COD_FECHA").Visible(false).Add();
                     col.Field("COD_CONTRATO_PROYECTO").HeaderText("CÓDIGO EN SISTEMA").IsPrimaryKey(true).AllowEditing(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                     col.Field("COMPLETA").HeaderText("COMPLETA EN SISTEMA").AllowEditing(false).Add();
-                    col.HeaderText("ESTADO").Width(70).Template("<a class='e-icon e-search' title='VERIFICAR' href='#' onclick='verificar_factura({{:COD_CONTRATO_PROYECTO}},{{:COD_FORMAS_PAGO_FECHAS}})'/><a class='e-icon e-dataexport'  href='#' title='generar_factura({{:COD_CONTRATO_PROYECTO}},{{:COD_FORMAS_PAGO_FECHAS}})' />").Add();
+                    col.HeaderText("OPERACIONES").Width(100).Template("<a class='e-icon e-search' title='VERIFICAR' href='#' onclick='verificar_factura({{:COD_CONTRATO_PROYECTO}},{{:COD_FORMAS_PAGO_FECHAS}})'/><a class='e-icon e-dataexport'  href='#' title='GENERAR FACTURA' onclick='generar_factura({{:COD_CONTRATO_PROYECTO}},{{:COD_FORMAS_PAGO_FECHAS}})' />").Add();
                     col.Field("FECHA_CREACION").HeaderText("FECHA CREACIÓN").AllowEditing(false).Format("{0:dd/MM/yyyy}").Add();
                     col.Field("DESCRIPCION").HeaderText("DESCRIPCION").AllowEditing(false).AllowFiltering(true).Add();
                     col.Field("COD_FORMA_PAGO").ForeignKeyField("COD_FORMA_PAGO").AllowEditing(false).AllowFiltering(true).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>
@@ -158,7 +158,7 @@
         var r = confirm("¿Desea generar el valor  facturar para este periodo? Se perderan los datos almacenados si aún no ha revisado y aprobado la revisión");
         if (r) {
             var data = JSON.stringify({ COD_CONTRATO_PROYECTO: cod_contrato_proyecto, COD_FORMAS_PAGO_FECHAS: cod_formas_pago_fechas });
-            var url = "finalizar";
+            var url = "valor_facturar";
             $.ajax({
                 type: "POST",
                 url: url,

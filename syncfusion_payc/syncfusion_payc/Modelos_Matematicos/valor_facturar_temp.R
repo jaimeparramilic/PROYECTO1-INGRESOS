@@ -39,3 +39,4 @@ factura <- function(fecha, proyecto) {
 }
 
 
+factura(210, 134)
