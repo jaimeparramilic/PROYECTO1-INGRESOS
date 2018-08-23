@@ -92,43 +92,53 @@
                                 </button>
                                 @if (Request.IsAuthenticated)
                                 {
-                                    <ul>
-                                        <li class="left-icons icon-entida dropdown-submenu">
-                                            <ul class="dropdown-menu derecha">
-                                                @*<h6>@Html.ActionLink("FLUJO PROYECTOS", "Index", "PROYECTOS")</h6>*@
-                                                <h6>@Html.ActionLink("ORDENES DE SERVICIO", "Index", "FlujoProyectos/Index")</h6>
-                                                <h6>@Html.ActionLink("PROYECTOS", "Index", "PROYECTOS/Index")</h6>
-                                                <h6>@Html.ActionLink("CLIENTES", "Index", "CLIENTES/Index")</h6>
-                                                <h6>@Html.ActionLink("CONTRATOS", "Index", "CONTRATOS/Index")</h6>
-                                                <h6>@Html.ActionLink("CONTRATOS CONDICIONES", "Index", "CONTRATOS_CONDICIONES/Index")</h6>
-                                                <h6>@Html.ActionLink("CONTRATOS ROL", "Index", "CONTRATOS_ROL/Index")</h6>
-                                                <h6>@Html.ActionLink("ITEMS CONTRATOS", "Index", "ITEMS_CONTRATO/Index")</h6>
-                                                <h6>@Html.ActionLink("FLUJO INGRESOS RRHH", "Index", "FLUJO_INGRESOS_ROL/Index")</h6>
-                                                <h6>@Html.ActionLink("FLUJO INGRESOS ITEMS OTROS COSTOS", "Index", "FLUJO_INGRESOS_ITEMS/Index")</h6>
-                                                <h6>@Html.ActionLink("TIPOS CONDICIONES", "Index", "TIPO_CONDICION_CONTRACTUAL/Index")</h6>
+                                <ul>
+                                    <!--COMERCIAL-->
+                                    <li class="left-icons icon-entida dropdown-submenu" title="GESTIÓN COMERCIAL">
+                                        <ul class="dropdown-menu derecha">
+                                            @*<h6>@Html.ActionLink("FLUJO PROYECTOS", "Index", "PROYECTOS")</h6>*@
+                                            <h6>@Html.ActionLink("ORDENES DE SERVICIO", "Index", "FlujoProyectos/Index")</h6>
+                                            <h6>@Html.ActionLink("PROYECTOS", "Index", "PROYECTOS/Index")</h6>
+                                            <h6>@Html.ActionLink("CLIENTES", "Index", "CLIENTES/Index")</h6>
+                                            <h6>@Html.ActionLink("CONTRATOS", "Index", "CONTRATOS/Index")</h6>
+                                            <h6>@Html.ActionLink("CONTRATOS CONDICIONES", "Index", "CONTRATOS_CONDICIONES/Index")</h6>
+                                            <h6>@Html.ActionLink("CONTRATOS ROL", "Index", "CONTRATOS_ROL/Index")</h6>
+                                            <h6>@Html.ActionLink("ITEMS CONTRATOS", "Index", "ITEMS_CONTRATO/Index")</h6>
+                                            <h6>@Html.ActionLink("FLUJO INGRESOS RRHH", "Index", "FLUJO_INGRESOS_ROL/Index")</h6>
+                                            <h6>@Html.ActionLink("FLUJO INGRESOS ITEMS OTROS COSTOS", "Index", "FLUJO_INGRESOS_ITEMS/Index")</h6>
+                                            <h6>@Html.ActionLink("TIPOS CONDICIONES", "Index", "TIPO_CONDICION_CONTRACTUAL/Index")</h6>
 
-                                            </ul>
-                                        </li>
-                                        <li class="left-icons icon-personaj dropdown-submenu">
-                                            <ul class="dropdown-menu derecha">
-                                                <h6>@Html.ActionLink("ASIGNACIONES PENDIENTES", "Index", "CONTRATO_COLABORADOR/Pendientes")</h6>
-                                                <h6>@Html.ActionLink("REGISTRO NOVEDADES", "Index", "REGISTRO_NOVEDADES/Index")</h6>
-                                                <h6>@Html.ActionLink("COLABORADORES", "Index", "COLABORADORES/Index")</h6>
-                                                <h6>@Html.ActionLink("ALERTA RETIROS", "Retiros", "COLABORADORES/Retiros")</h6>
-                                                <h6>@Html.ActionLink("ASIGNACIONES A PROYECTOS", "Index", "CONTRATO_COLABORADOR/Index")</h6>
-                                                <h6>@Html.ActionLink("CARGOS", "Index", "CARGOS/Index")</h6>
-                                                <h6>@Html.ActionLink("ROLES", "Index", "ROLES/Index")</h6>
-                                                <h6>@Html.ActionLink("TIPOS NOVEDADES", "Index", "TIPOS_NOVEDAD/Index")</h6>
-                                            </ul>
-                                        </li>
+                                        </ul>
+                                    </li>
+                                    <!--GESTION HUMANA-->
+                                    <li class="left-icons icon-personaj dropdown-submenu" title="GESTIÓN HUMANA">
+                                        <ul class="dropdown-menu derecha">
+                                            <h6>@Html.ActionLink("ASIGNACIONES PENDIENTES", "Index", "CONTRATO_COLABORADOR/Pendientes")</h6>
+                                            <h6>@Html.ActionLink("REGISTRO NOVEDADES", "Index", "REGISTRO_NOVEDADES/Index")</h6>
+                                            <h6>@Html.ActionLink("COLABORADORES", "Index", "COLABORADORES/Index")</h6>
+                                            <h6>@Html.ActionLink("ALERTA RETIROS", "Retiros", "COLABORADORES/Retiros")</h6>
+                                            <h6>@Html.ActionLink("ASIGNACIONES A PROYECTOS", "Index", "CONTRATO_COLABORADOR/Index")</h6>
+                                            <h6>@Html.ActionLink("CARGOS", "Index", "CARGOS/Index")</h6>
+                                            <h6>@Html.ActionLink("ROLES", "Index", "ROLES/Index")</h6>
+                                            <h6>@Html.ActionLink("TIPOS NOVEDADES", "Index", "TIPOS_NOVEDAD/Index")</h6>
+                                        </ul>
+                                    </li>
+                                    <!--FINANCIERA-->
+                                    <li class="left-icons icon-parrill dropdown-submenu" title="GESTIÓN FINANCIERA">
+                                        <ul class="dropdown-menu derecha">
+                                            <h6>@Html.ActionLink("PENDIENTES DE REVISAR", "pendientes_facturar", "FlujoProyectos/pendientes_facturar")</h6>
+                                            <h6>@Html.ActionLink("REGISTRO ITEMS REEMBOLSABLES", "index", "REGISTRO_ITEMS_OTROS_COSTOS/index")</h6>
 
-                                        <li class="left-icons icon-general dropdown-submenu">
+                                        </ul>
+                                    </li>
+                                    <!--ADMINSTRACIÓN USUARIOS-->
+                                    <li class="left-icons icon-general dropdown-submenu">
 
-                                            <ul class="dropdown-menu derecha">
-                                                <h6>@Html.ActionLink("REGISTRAR USUARIO", "Register", "Account")</h6>
-                                            </ul>
-                                        </li>
-                                    </ul>
+                                        <ul class="dropdown-menu derecha">
+                                            <h6>@Html.ActionLink("REGISTRAR USUARIO", "Register", "Account")</h6>
+                                        </ul>
+                                    </li>
+                                </ul>
                                 }
                             </div>
                         </div>

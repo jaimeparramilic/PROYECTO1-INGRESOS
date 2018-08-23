@@ -83,5 +83,6 @@ namespace syncfusion_payc.Models
         public virtual DbSet<DETALLE_FACTURA_PERS> DETALLE_FACTURA_PERS { get; set; }
         public virtual DbSet<CONTRATO_COLABORADOR_COMERCIAL> CONTRATO_COLABORADOR_COMERCIAL { get; set; }
         public virtual DbSet<VISTA_PENDIENTES_RETIRO> VISTA_PENDIENTES_RETIRO { get; set; }
+        public virtual DbSet<VISTA_PENDIENTES_FACTURA> VISTA_PENDIENTES_FACTURA { get; set; }
     }
 }

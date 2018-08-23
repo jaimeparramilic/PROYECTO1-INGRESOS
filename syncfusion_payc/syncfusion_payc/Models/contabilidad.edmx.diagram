@@ -116,6 +116,7 @@
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_FECHAS" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.CONTRATO_COLABORADOR_COMERCIAL" Width="1.5" PointX="24.625" PointY="6.125" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_PENDIENTES_RETIRO" Width="1.5" PointX="25.875" PointY="11" />
+        <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_PENDIENTES_FACTURA" Width="1.5" PointX="20.375" PointY="10.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
