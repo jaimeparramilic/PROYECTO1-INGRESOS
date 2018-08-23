@@ -67,11 +67,11 @@
 
             }).Columns(col =>
             {
-                col.Field("COD_FORMAS_PAGO_FECHAS").ForeignKeyField("COD_FORMAS_PAGO_FECHAS").Format("{0:dd/MM/yyyy}").ForeignKeyValue("FECHA_FORMA_PAGO").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().FORMAS_PAGO_FECHAS.ToList()).HeaderText("FECHAS").ValidationRules(v => v.AddRule("required", true)).EditType(EditingType.DropdownEdit).Add();
-                col.Field("COD_ITEM").ForeignKeyField("COD_ITEM").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ITEMS_CONTRATO.ToList()).HeaderText("COD_ITEM").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).Add();
+                col.Field("COD_FORMAS_PAGO_FECHAS").ForeignKeyField("COD_FORMAS_PAGO_FECHAS").Format("{0:dd/MM/yyyy}").ForeignKeyValue("FECHA_FORMA_PAGO").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().FORMAS_PAGO_FECHAS.ToList()).HeaderText("PERIODO FACTURACIÓN").ValidationRules(v => v.AddRule("required", true)).EditType(EditingType.DropdownEdit).Add();
+                col.Field("COD_ITEM").ForeignKeyField("COD_ITEM").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ITEMS_CONTRATO.ToList()).HeaderText("ITEM").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).Add();
                 col.Field("COD_CONTRATO_PROYECTO").Visible(false).ForeignKeyField("COD_CONTRATO_PROYECTO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONTRATO_PROYECTO.ToList()).HeaderText("COD_CONTRATO_PROYECTO").EditType(EditingType.DropdownEdit).Add();
                 col.Field("COD_REGISTRO_ITEMS").HeaderText("COD_REGISTRO_ITEMS").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                col.Field("VALOR_COMERCIAL").HeaderText("VALOR_COMERCIAL").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                col.Field("VALOR_COMERCIAL").HeaderText("VALOR COMERCIAL TOTAL").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                 col.Field("CANTIDAD").HeaderText("CANTIDAD").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
 
 
@@ -152,13 +152,82 @@
     });
 	//Funcion para añadir buscador a los dropdown
 	function inicio_grid(args) {
-        if (args.requestType == "beginedit" || args.requestType == "add") {
+        if (args.requestType == "beginedit") {
                 setTimeout(function () {
                     var drop = $(".e-dropdownlist[name='COD_FORMAS_PAGO_FECHAS']").ejDropDownList('instance');
                     drop.option("enableFilterSearch", true);
-                    drop = $(".e-dropdownlist[name='COD_ITEM']").ejDropDownList('instance');
-                    drop.option("enableFilterSearch", true);
-                }, 50); 
+                    
+                    
+
+            }, 50); 
+            //FIltro items
+            setTimeout(function () {
+
+                //Cargar valor del items para la orden de servicio dada
+                var COD_CONTRATO_PROYECTO = args.model.selectedRecords[0].COD_CONTRATO_PROYECTO;
+                var data = JSON.stringify({ COD_CONTRATO_PROYECTO: parseInt(COD_CONTRATO_PROYECTO) });
+                var url = "lista_items_otros_costos";
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        //Instanciar dropdown
+                        var drop1 = drop = $(".e-dropdownlist[name='COD_ITEM']").ejDropDownList('instance');
+                        //Cargar lista de items
+                        //temp1 = data.data;
+                        var lista_colaboradores = data.data;
+                        var dataManager = ej.DataManager(lista_colaboradores);
+                        drop1.option("dataSource", dataManager);
+                        drop1.option("fields", { text: "DESCRIPCION", value: "COD_ITEM" });
+                        drop1.option("enableFilterSearch", true);
+                    }
+                });
+
+            }, 50);
+        }
+        if (args.requestType == "add") {
+            setTimeout(function () {
+                var drop = $(".e-dropdownlist[name='COD_FORMAS_PAGO_FECHAS']").ejDropDownList('instance');
+                drop.option("enableFilterSearch", true);
+
+
+
+            }, 50);
+            //FIltro items
+            setTimeout(function () {
+
+                //Cargar valor del items para la orden de servicio dada
+                var COD_CONTRATO_PROYECTO = args.model.parentDetails.parentKeyFieldValue;
+                var data = JSON.stringify({ COD_CONTRATO_PROYECTO: parseInt(COD_CONTRATO_PROYECTO) });
+                var url = "lista_items_otros_costos";
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        //Instanciar dropdown
+                        var drop1 = drop = $(".e-dropdownlist[name='COD_ITEM']").ejDropDownList('instance');
+                        //Cargar lista de items
+                        //temp1 = data.data;
+                        var lista_colaboradores = data.data;
+                        var dataManager = ej.DataManager(lista_colaboradores);
+                        drop1.option("dataSource", dataManager);
+                        drop1.option("fields", { text: "DESCRIPCION", value: "COD_ITEM" });
+                        drop1.option("enableFilterSearch", true);
+                    }
+                });
+
+            }, 50);
         }
     }
+
+    //Grid padre
+    
 </script>

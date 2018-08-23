@@ -8,8 +8,6 @@ using Syncfusion.JavaScript;
 using Syncfusion.JavaScript.DataSources;
 using System.Data.Entity;
 using System.Net;
-using System.Web;
-using System.Web.Mvc;
 using syncfusion_payc.Models;
 
 namespace syncfusion_payc.Controllers

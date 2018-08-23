@@ -220,5 +220,16 @@ namespace syncfusion_payc.Controllers
             return RedirectToAction("GetOrderData");
             
         }
+
+        //Traer 
+        #region lista items_otros_costos
+        //Funcion para filtrar la lista de colaboradores
+        public ActionResult lista_items_otros_costos(long COD_CONTRATO_PROYECTO)
+        {
+            IEnumerable DataSource = db.ITEMS_CONTRATO.Where(o => o.COD_CONTRATO_PROYECTO == COD_CONTRATO_PROYECTO).ToList();
+
+            return Json(new { success = true, responseText = "SI", data = DataSource }, "application/json", JsonRequestBehavior.AllowGet);
+        }
+        #endregion
     }
 }

@@ -13,8 +13,11 @@ using Syncfusion.JavaScript;
 using Syncfusion.JavaScript.DataSources;
 using System.Web.Script.Serialization;
 using System.Globalization;
+using System.IO;
+
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Diagnostics;
 using Microsoft.AspNet.Identity;
 
 namespace syncfusion_payc.Controllers
@@ -127,7 +130,16 @@ namespace syncfusion_payc.Controllers
             return View();
         }
 
-        
+        public ActionResult pendientes_facturar()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            ViewBag.datasource = db.PROYECTOS.ToList();
+            ViewBag.datasource_clientes = db.CLIENTES.ToList();
+            ViewBag.datasource_forma_pago = db.FORMAS_PAGO.ToList();
+            ViewBag.datasource_contratos = db.CONTRATOS.ToList();
+            return View();
+        }
 
         // POST: CONTRATOS_ROL/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -937,6 +949,119 @@ namespace syncfusion_payc.Controllers
             return RedirectToAction("GetOrderData_incrementos");
 
         }
+        #endregion
+
+        #region pendientes facturar
+
+        #region ejecución R
+        public ActionResult valor_facturar(long COD_CONTRATO_PROYECTO, long COD_FORMAS_PAGO_FECHAS)
+        {
+            //Script a ejecutar
+            var rCodeFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Modelos_Matematicos") + @"\valor_facturar.R";
+
+            //Ubicación ejecutable
+            var rScriptExecutablePath = @"C:/Program Files/R/R-3.5.1/bin/Rscript.exe";
+
+            //Variable a retornar
+            string result = string.Empty;
+
+            try
+            {
+
+                //Funcion
+                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Modelos_Matematicos") + @"\valor_facturar_temp.R";
+
+                //
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
+                //Escribir en archivo
+                if (!System.IO.File.Exists(path))
+                {
+                    System.IO.File.Copy(rCodeFilePath, path);
+                    using (StreamWriter sw = System.IO.File.AppendText(path))
+                    {
+                        sw.WriteLine("factura("+ COD_FORMAS_PAGO_FECHAS + ", " + COD_CONTRATO_PROYECTO + ")");
+                        
+                    }
+
+                }
+
+                var info = new ProcessStartInfo();
+                info.FileName = rScriptExecutablePath;
+                info.WorkingDirectory = Path.GetDirectoryName(rScriptExecutablePath);
+                info.Arguments = path;
+
+                info.RedirectStandardInput = false;
+                info.RedirectStandardOutput = true;
+                info.UseShellExecute = false;
+                info.CreateNoWindow = true;
+
+                using (var proc = new Process())
+                {
+                    proc.StartInfo = info;
+                    proc.Start();
+                    result = proc.StandardOutput.ReadToEnd();
+                    proc.Close();
+                }
+
+                ViewBag.Result = result + "," + rCodeFilePath;
+                result= result + "," + rCodeFilePath;
+
+                
+
+            }
+            catch (Exception ex)
+            {
+                
+                throw new Exception("R Script failed: " + result, ex);
+                result = ex.ToString() + "," + rCodeFilePath;
+            }
+            return Json(new { success = true, responseText = result }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region grid
+        // Traer datos facturas pendientes
+        public ActionResult GetOrderData_pendientes_facturar(DataManager dm)
+        {
+            IEnumerable DataSource = db.VISTA_PENDIENTES_FACTURA.ToList();
+            DataOperations ds = new DataOperations();
+            List<string> str = new List<string>();
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            if (dm.Search != null && dm.Search.Count > 0)
+            {
+                DataSource = ds.PerformSearching(DataSource, dm.Search);
+            }
+            if (dm.Sorted != null && dm.Sorted.Count > 0) //Sorting
+            {
+                DataSource = ds.PerformSorting(DataSource, dm.Sorted);
+            }
+            if (dm.Where != null && dm.Where.Count > 0) //Filtering
+            {
+                DataSource = ds.PerformWhereFilter(DataSource, dm.Where, dm.Where[0].Operator);
+            }
+            if (dm.Aggregates != null)
+            {
+                for (var i = 0; i < dm.Aggregates.Count; i++)
+                    str.Add(dm.Aggregates[i].Field);
+
+            }
+            IEnumerable aggregate = ds.PerformSelect(DataSource, str);
+            var count = DataSource.Cast<VISTA_PENDIENTES_FACTURA>().Count();
+            if (dm.Skip != 0)
+            {
+                DataSource = ds.PerformSkip(DataSource, dm.Skip);
+            }
+            if (dm.Take != 0)
+            {
+                DataSource = ds.PerformTake(DataSource, dm.Take);
+            }
+            return Json(new { result = DataSource, count = count }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion pendientes
         #endregion
     }
 }
