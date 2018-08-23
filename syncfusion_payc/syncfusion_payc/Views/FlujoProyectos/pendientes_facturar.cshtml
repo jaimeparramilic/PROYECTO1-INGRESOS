@@ -1,0 +1,206 @@
+﻿
+@using Syncfusion.JavaScript
+@using System.Collections.Generic
+@using System.Linq
+
+@model IEnumerable<syncfusion_payc.Models.FlujoProyectosViewModels>
+@{
+    ViewBag.Title = "Index";
+}
+@if (User.Identity.IsAuthenticated)
+{<h4>ORDENES DE SERVICIO PENDIENTES DE FACTURAR</h4>
+    <div class="control-section">
+        
+        <div class="col-md-12">
+            @(Html.EJ().Grid<syncfusion_payc.Models.VISTA_PENDIENTES_FACTURA>
+                ("Grid")
+                .Datasource(ds => ds.URL("GetOrderData_pendientes_facturar").Adaptor(AdaptorType.UrlAdaptor))
+                .AllowPaging()
+                .AllowFiltering()
+                .Locale("es-CO")
+                .AllowScrolling()
+                .ClientSideEvents(e => e.ActionBegin("inicio_accion"))
+                .AllowResizeToFit(true)
+                .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                
+                .ToolbarSettings(toolbar =>
+                {
+                    toolbar.ShowToolbar().ToolbarItems(items =>
+                    {
+                        items.AddTool(ToolBarItems.Add);
+                        items.AddTool(ToolBarItems.Edit);
+                        items.AddTool(ToolBarItems.Delete);
+                        items.AddTool(ToolBarItems.Update);
+                        items.AddTool(ToolBarItems.Cancel);
+                        items.AddTool(ToolBarItems.Search);
+                    });
+
+                }).Columns(col =>
+                {
+                    col.Field("CENTRO_COSTOS").HeaderText("CENTRO COSTOS").Add();
+                    col.Field("FECHA_FORMA_PAGO").HeaderText("FECHA").Format("{0:dd/MM/yyyy}").Add();
+                    col.Field("COD_FORMAS_PAGO_FECHAS").HeaderText("COD_FECHA").Visible(false).Add();
+                    col.Field("COD_CONTRATO_PROYECTO").HeaderText("CÓDIGO EN SISTEMA").IsPrimaryKey(true).AllowEditing(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                    col.Field("COMPLETA").HeaderText("COMPLETA EN SISTEMA").AllowEditing(false).Add();
+                    col.HeaderText("OPERACIONES").Width(100).Template("<a class='e-icon e-search' title='VERIFICAR' href='#' onclick='verificar_factura({{:COD_CONTRATO_PROYECTO}},{{:COD_FORMAS_PAGO_FECHAS}})'/><a class='e-icon e-dataexport'  href='#' title='GENERAR FACTURA' onclick='generar_factura({{:COD_CONTRATO_PROYECTO}},{{:COD_FORMAS_PAGO_FECHAS}})' />").Add();
+                    col.Field("FECHA_CREACION").HeaderText("FECHA CREACIÓN").AllowEditing(false).Format("{0:dd/MM/yyyy}").Add();
+                    col.Field("DESCRIPCION").HeaderText("DESCRIPCION").AllowEditing(false).AllowFiltering(true).Add();
+                    col.Field("COD_FORMA_PAGO").ForeignKeyField("COD_FORMA_PAGO").AllowEditing(false).AllowFiltering(true).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>
+                        )new syncfusion_payc.Models.test_payc_contabilidadEntities().FORMAS_PAGO.ToList()).HeaderText("PERIODO FORMA PAGO").EditType(EditingType.DropdownEdit).Add();
+                }))
+</div>
+    </div>
+}
+
+    <script>
+    //Traducción
+    $(document).ready(function () {
+        ej.Grid.Locale["es-CO"] = {
+            EmptyRecord: "No hay registros que mostrar",
+            GroupDropArea: "Arrastre un encabezado de columna aquí para agrupar su columna",
+            DeleteOperationAlert: "No hay registros seleccionados para la operación de eliminación",
+            EditOperationAlert: "No hay registros seleccionados para la operación de edición",
+            SaveButton: "Guardar",
+            OKButton: "DE ACUERDO",
+            CancelButton: "Cancelar",
+            EditFormTitle: "Detalles de ",
+            AddFormTitle: "Añadir nuevo registro",
+            GroupCaptionFormat: "{{:headerText}}: {{:key}} - {{:count}} {{if count == 1 }} ítem {{else}} artículos {{/if}} ",
+
+
+        };
+        ej.Pager.Locale["es-CO"] = {
+            pagerInfo: "{0} de {1} páginas ({2} artículos)",
+            firstPageTooltip: "Ir a la primera página",
+            lastPageTooltip: "Ir a la última página",
+            nextPageTooltip: "Ir a la página siguiente",
+            previousPageTooltip: "Ir a la página anterior",
+            nextPagerTooltip: "Ir al siguiente Pager",
+            previousPagerTooltip: "Ir a Pager anterior"
+        };
+
+        ej.ExcelFilter.Locale["es-CO"] = {
+            SortNoSmaller: "Ordenar de menor a mayor",
+            SortNoLarger: "Ordenar de mayor a menor",
+            SortTextAscending: "Ordenar de A a Z",
+            SortTextDescending: "Ordenar de Z a A",
+            SortDateOldest: "Ordenar por Más antiguos",
+            SortDateNewest: "Ordenar por Más reciente",
+            SortByColor: "Ordenar por color",
+            SortByCellColor: "Ordenar por color de la célula",
+            SortByFontColor: "Ordenar por Color de fuente",
+            FilterByColor: "Filtrar por color",
+            CustomSort: "Orden personalizado",
+            FilterByCellColor: "Filtrar por color de la célula",
+            FilterByFontColor: "Filtrar por color de fuente",
+            ClearFilter: "Borrar filtro",
+            NumberFilter: "Número Filtros",
+            GuidFilter: "Gud Filtros",
+            TextFilter: "Filtros de texto",
+            DateFilter: "Filtros de fecha",
+            DateTimeFilter: "Fecha filtros de tiempo",
+            SelectAll: "Seleccionar todo",
+            Blanks: "Los espacios en blanco",
+            Search: "Buscar",
+            Showrowswhere: "Mostrar filas",
+            NumericTextboxWaterMark: "introducir el valor",
+            StringMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Comienza con", value: "startswith" }, { text: "Termina con", value: "endswith" }, { text: "contiene", value: "contains" }, { text: "Filtro personalizado", value: "customfilter" },],
+            NumberMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Menos que", value: "lessthan" }, { text: "Menor o equal", value: "lessthanorequal" }, { text: "Mas grande que", value: "greaterthan" }, { text: "Mayor que o equal", value: "greaterthanorequal" }, { text: "Entre", value: "between" }, { text: "Filtro personalizado", value: "customfilter" },],
+            GuidMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Filtro personalizado", value: "customfilter" },],
+            DateMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Menos que", value: "lessthan" }, { text: "Menor o equal", value: "lessthanorequal" }, { text: "Mas grande que", value: "greaterthan" }, { text: "Mayor que o equal", value: "greaterthanorequal" }, { text: "Entre", value: "between" }, { text: "Filtro personalizado", value: "customfilter" },],
+            DatetimeMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Menos que", value: "lessthan" }, { text: "Menor o equal", value: "lessthanorequal" }, { text: "Mas grande que", value: "greaterthan" }, { text: "Mayor que o equal", value: "greaterthanorequal" }, { text: "Entre", value: "between" }, { text: "Filtro personalizado", value: "customfilter" },],
+            Top10MenuOptions: [{ text: "Parte superior", value: "top" }, { text: "Fondo", value: "bottom" },],
+            title: "Filtro personalizado",
+            PredicateAnd: "Y",
+            PredicateOr: "O",
+            Ok: "Aceptar",
+            MatchCase: "Coincidencia",
+            Cancel: "Cancelar",
+            NoResult: "No se encontraron coincidencias",
+            CheckBoxStatusMsg: "No todos los elementos que muestran",
+            DatePickerWaterMark: "Seleccione fecha",
+            DateTimePickerWaterMark: "Seleccionar fecha y hora",
+            True: "cierto",
+            False: "falso"
+        };
+    });
+
+
+    //Funcion editar contrato proyecto
+    function editar_contrato_proyecto(args) {
+
+        args.cancel = true;
+        window.location = "Edit/" + args.primaryKeyValue[0];
+    }
+
+    function editar_contrato_proyecto_click(cod_contrato_proyecto) {
+        
+        window.location = "Edit/" + cod_contrato_proyecto;
+    }
+
+    //Funcion añadir contrato proyecto
+    function añadir_contrato_proyecto(args) {
+
+        window.location = "Add";
+
+    }
+
+    //Funcion inicio accion grid
+    function inicio_accion(args) {
+        if (args.requestType == "add") {
+            args.cancel = true;
+            window.location = "Add";
+        }
+    }
+
+    //Finalizar orden
+    function generar_factura(cod_contrato_proyecto,cod_formas_pago_fechas) {
+        var r = confirm("¿Desea generar el valor  facturar para este periodo? Se perderan los datos almacenados si aún no ha revisado y aprobado la revisión");
+        if (r) {
+            var data = JSON.stringify({ COD_CONTRATO_PROYECTO: cod_contrato_proyecto, COD_FORMAS_PAGO_FECHAS: cod_formas_pago_fechas });
+            var url = "valor_facturar";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                dataFilter: function (data) { return data; },
+                success: function (data) {
+                    var gridObj = $("#Grid").ejGrid("instance");
+
+                    gridObj.refreshContent();
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                }
+            });
+        }
+        }
+
+    //Revertir
+    function revertir(cod_contrato_proyecto) {
+            var r = confirm("¿Desea revertir la orden? Una vez revierta la orden de servicio las otras áreas no podran ver la orden, facturar o asignar colaboradores");
+            if (r) {
+                var data = JSON.stringify({ COD_CONTRATO_PROYECTO: cod_contrato_proyecto });
+                var url = "revertir";
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        var gridObj = $("#Grid").ejGrid("instance");
+
+                        gridObj.refreshContent();
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                    }
+                });
+            }
+        }
+    </script>
+
