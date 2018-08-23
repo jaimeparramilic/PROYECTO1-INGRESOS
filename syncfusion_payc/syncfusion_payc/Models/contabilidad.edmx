@@ -160,11 +160,16 @@
           <Key>
             <PropertyRef Name="COD_DETALLE_FACTURA_ITEM" />
           </Key>
-          <Property Name="COD_DETALLE_FACTURA_ITEM" Type="bigint" Nullable="false" />
+          <Property Name="COD_DETALLE_FACTURA_ITEM" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
           <Property Name="COD_ITEM" Type="bigint" />
           <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
           <Property Name="VALOR_SIN_IMPUESTOS" Type="real" />
+          <Property Name="FECHA_REGISTRO" Type="datetime" />
+          <Property Name="USUARIO" Type="varchar" MaxLength="300" />
+          <Property Name="ESTADO_FACTURA" Type="varchar" MaxLength="300" />
+          <Property Name="COD_CAUSA_ESTADO" Type="bigint" />
+          <Property Name="OBSERVACIONES" Type="varchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="DETALLE_FACTURA_PERS">
           <Key>
@@ -228,6 +233,9 @@
           <Property Name="VALOR_FIJO" Type="real" />
           <Property Name="VALOR_VARIABLE" Type="real" />
           <Property Name="VALOR_TOTAL" Type="real" />
+          <Property Name="ESTADO" Type="varchar" MaxLength="50" />
+          <Property Name="FECHA_REGISTRO" Type="datetime" />
+          <Property Name="USUARIO_REGISTRO" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="FLUJO_INGRESOS_ROL">
           <Key>
@@ -241,6 +249,9 @@
           <Property Name="VALOR_SIN_PRESTACIONES" Type="real" />
           <Property Name="VALOR_CON_PRESTACIONES" Type="real" />
           <Property Name="VALOR_FACTOR_MULTIPLICADOR" Type="real" />
+          <Property Name="ESTADO" Type="varchar" MaxLength="50" />
+          <Property Name="FECHA_REGISTRO" Type="datetime" />
+          <Property Name="USUARIO_REGISTRO" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="FORMAS_PAGO">
           <Key>
@@ -516,6 +527,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATO_PROYECTO
           <Property Name="COD_PROYECTO" Type="bigint" />
           <Property Name="COD_FORMA_PAGO" Type="bigint" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="622" />
+          <Property Name="CENTRO_COSTOS" Type="varchar" MaxLength="300" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATOS_CONDICIONES_VISTA' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -666,6 +678,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FLUJO_INGRE
           <Property Name="VALOR_FACTOR_MULTIPLICADOR" Type="real" />
           <Property Name="FECHA_FORMA_PAGO" Type="date" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
+          <Property Name="ESTADO" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FLUJO_INGRESOS_ITEMS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -682,6 +695,9 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FLUJO_INGRE
           <Property Name="VALOR_FIJO" Type="real" />
           <Property Name="VALOR_VARIABLE" Type="real" />
           <Property Name="VALOR_TOTAL" Type="real" />
+          <Property Name="ESTADO" Type="varchar" MaxLength="50" />
+          <Property Name="FECHA_REGISTRO" Type="datetime" />
+          <Property Name="USUARIO_REGISTRO" Type="varchar" MaxLength="50" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="FECHA_FORMA_PAGO" Type="date" />
         </EntityType>
@@ -1483,7 +1499,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
     [CONTRATO_PROYECTO_DESCRIPCION].[COD_CONTRATO] AS [COD_CONTRATO], 
     [CONTRATO_PROYECTO_DESCRIPCION].[COD_PROYECTO] AS [COD_PROYECTO], 
     [CONTRATO_PROYECTO_DESCRIPCION].[COD_FORMA_PAGO] AS [COD_FORMA_PAGO], 
-    [CONTRATO_PROYECTO_DESCRIPCION].[DESCRIPCION] AS [DESCRIPCION]
+    [CONTRATO_PROYECTO_DESCRIPCION].[DESCRIPCION] AS [DESCRIPCION], 
+    [CONTRATO_PROYECTO_DESCRIPCION].[CENTRO_COSTOS] AS [CENTRO_COSTOS]
     FROM [dbo].[CONTRATO_PROYECTO_DESCRIPCION] AS [CONTRATO_PROYECTO_DESCRIPCION]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="CONTRATOS_CONDICIONES_VISTA" EntityType="Self.CONTRATOS_CONDICIONES_VISTA" store:Type="Views" store:Schema="dbo">
@@ -1593,7 +1610,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
     [VISTA_FLUJO_INGRESOS].[VALOR_CON_PRESTACIONES] AS [VALOR_CON_PRESTACIONES], 
     [VISTA_FLUJO_INGRESOS].[VALOR_FACTOR_MULTIPLICADOR] AS [VALOR_FACTOR_MULTIPLICADOR], 
     [VISTA_FLUJO_INGRESOS].[FECHA_FORMA_PAGO] AS [FECHA_FORMA_PAGO], 
-    [VISTA_FLUJO_INGRESOS].[DESCRIPCION] AS [DESCRIPCION]
+    [VISTA_FLUJO_INGRESOS].[DESCRIPCION] AS [DESCRIPCION], 
+    [VISTA_FLUJO_INGRESOS].[ESTADO] AS [ESTADO]
     FROM [dbo].[VISTA_FLUJO_INGRESOS] AS [VISTA_FLUJO_INGRESOS]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="VISTA_FLUJO_INGRESOS_ITEMS" EntityType="Self.VISTA_FLUJO_INGRESOS_ITEMS" store:Type="Views" store:Schema="dbo">
@@ -1606,6 +1624,9 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
     [VISTA_FLUJO_INGRESOS_ITEMS].[VALOR_FIJO] AS [VALOR_FIJO], 
     [VISTA_FLUJO_INGRESOS_ITEMS].[VALOR_VARIABLE] AS [VALOR_VARIABLE], 
     [VISTA_FLUJO_INGRESOS_ITEMS].[VALOR_TOTAL] AS [VALOR_TOTAL], 
+    [VISTA_FLUJO_INGRESOS_ITEMS].[ESTADO] AS [ESTADO], 
+    [VISTA_FLUJO_INGRESOS_ITEMS].[FECHA_REGISTRO] AS [FECHA_REGISTRO], 
+    [VISTA_FLUJO_INGRESOS_ITEMS].[USUARIO_REGISTRO] AS [USUARIO_REGISTRO], 
     [VISTA_FLUJO_INGRESOS_ITEMS].[DESCRIPCION] AS [DESCRIPCION], 
     [VISTA_FLUJO_INGRESOS_ITEMS].[FECHA_FORMA_PAGO] AS [FECHA_FORMA_PAGO]
     FROM [dbo].[VISTA_FLUJO_INGRESOS_ITEMS] AS [VISTA_FLUJO_INGRESOS_ITEMS]</DefiningQuery>
@@ -1886,8 +1907,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <EntitySet Name="ENTREGABLES" EntityType="test_payc_contabilidadModel.ENTREGABLES" />
           <EntitySet Name="ESTUDIOS_COLABORADOR" EntityType="test_payc_contabilidadModel.ESTUDIOS_COLABORADOR" />
           <EntitySet Name="FACTURAS" EntityType="test_payc_contabilidadModel.FACTURAS" />
-          <EntitySet Name="FLUJO_INGRESOS_ITEMS" EntityType="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS" />
-          <EntitySet Name="FLUJO_INGRESOS_ROL" EntityType="test_payc_contabilidadModel.FLUJO_INGRESOS_ROL" />
           <EntitySet Name="FORMAS_PAGO_FECHAS" EntityType="test_payc_contabilidadModel.FORMAS_PAGO_FECHAS" />
           <EntitySet Name="GESTION_CARTERA" EntityType="test_payc_contabilidadModel.GESTION_CARTERA" />
           <EntitySet Name="ITEMS_CONTRATO" EntityType="test_payc_contabilidadModel.ITEMS_CONTRATO" />
@@ -1941,22 +1960,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
             <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
             <End Role="FACTURAS" EntitySet="FACTURAS" />
           </AssociationSet>
-          <AssociationSet Name="FK_FLUJO_INGRESOS_ITEMS_FECHAS" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_FECHAS">
-            <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
-            <End Role="FLUJO_INGRESOS_ITEMS" EntitySet="FLUJO_INGRESOS_ITEMS" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FLUJO_INGRESOS_ROL_ITEMS" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ITEMS">
-            <End Role="ITEMS_CONTRATO" EntitySet="ITEMS_CONTRATO" />
-            <End Role="FLUJO_INGRESOS_ITEMS" EntitySet="FLUJO_INGRESOS_ITEMS" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FLUJO_INGRESOS_ROL_FECHAS" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_FECHAS">
-            <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
-            <End Role="FLUJO_INGRESOS_ROL" EntitySet="FLUJO_INGRESOS_ROL" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FLUJO_INGRESOS_ROL_ROL" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ROL">
-            <End Role="ROLES" EntitySet="ROLES" />
-            <End Role="FLUJO_INGRESOS_ROL" EntitySet="FLUJO_INGRESOS_ROL" />
-          </AssociationSet>
           <AssociationSet Name="FK_REGISTR_ITEMS_OTROS_COSTOS_FECHAS" Association="test_payc_contabilidadModel.FK_REGISTR_ITEMS_OTROS_COSTOS_FECHAS">
             <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
             <End Role="REGISTRO_ITEMS_OTROS_COSTOS" EntitySet="REGISTRO_ITEMS_OTROS_COSTOS" />
@@ -1981,9 +1984,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
             <End Role="TIPOS_NOVEDAD" EntitySet="TIPOS_NOVEDAD" />
             <End Role="TIPOS_NOVEDAD_CONDICION" EntitySet="TIPOS_NOVEDAD_CONDICION" />
           </AssociationSet>
-          <EntitySet Name="CONTRATO_PROYECTO_DESCRIPCION" EntityType="test_payc_contabilidadModel.CONTRATO_PROYECTO_DESCRIPCION" />
-          <EntitySet Name="VISTA_FLUJO_INGRESOS" EntityType="test_payc_contabilidadModel.VISTA_FLUJO_INGRESOS" />
-          <EntitySet Name="VISTA_FLUJO_INGRESOS_ITEMS" EntityType="test_payc_contabilidadModel.VISTA_FLUJO_INGRESOS_ITEMS" />
           <EntitySet Name="GENERACION_FLUJOS_ROL" EntityType="test_payc_contabilidadModel.GENERACION_FLUJOS_ROL" />
           <EntitySet Name="SINO" EntityType="test_payc_contabilidadModel.SINO" />
           <EntitySet Name="GENERACION_FLUJOS_ITEM" EntityType="test_payc_contabilidadModel.GENERACION_FLUJOS_ITEM" />
@@ -2013,14 +2013,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <AssociationSet Name="FK_FACTURAS_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_FACTURAS_CONTRATO_PROYECTO">
             <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
             <End Role="FACTURAS" EntitySet="FACTURAS" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO">
-            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
-            <End Role="FLUJO_INGRESOS_ITEMS" EntitySet="FLUJO_INGRESOS_ITEMS" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO">
-            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
-            <End Role="FLUJO_INGRESOS_ROL" EntitySet="FLUJO_INGRESOS_ROL" />
           </AssociationSet>
           <AssociationSet Name="FK_ITEMS_CONTRATO_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_CONTRATO_PROYECTO">
             <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
@@ -2151,6 +2143,27 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <EntitySet Name="CONTRATO_COLABORADOR_COMERCIAL" EntityType="test_payc_contabilidadModel.CONTRATO_COLABORADOR_COMERCIAL" />
           <EntitySet Name="VISTA_PENDIENTES_RETIRO" EntityType="test_payc_contabilidadModel.VISTA_PENDIENTES_RETIRO" />
           <EntitySet Name="VISTA_PENDIENTES_FACTURA" EntityType="test_payc_contabilidadModel.VISTA_PENDIENTES_FACTURA" />
+          <EntitySet Name="FLUJO_INGRESOS_ITEMS" EntityType="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS" />
+          <EntitySet Name="FLUJO_INGRESOS_ROL" EntityType="test_payc_contabilidadModel.FLUJO_INGRESOS_ROL" />
+          <AssociationSet Name="FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO">
+            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+            <End Role="FLUJO_INGRESOS_ITEMS" EntitySet="FLUJO_INGRESOS_ITEMS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO">
+            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+            <End Role="FLUJO_INGRESOS_ROL" EntitySet="FLUJO_INGRESOS_ROL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FLUJO_INGRESOS_ITEMS_FECHAS" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_FECHAS">
+            <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
+            <End Role="FLUJO_INGRESOS_ITEMS" EntitySet="FLUJO_INGRESOS_ITEMS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FLUJO_INGRESOS_ROL_ITEMS" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ITEMS">
+            <End Role="ITEMS_CONTRATO" EntitySet="ITEMS_CONTRATO" />
+            <End Role="FLUJO_INGRESOS_ITEMS" EntitySet="FLUJO_INGRESOS_ITEMS" />
+          </AssociationSet>
+          <EntitySet Name="CONTRATO_PROYECTO_DESCRIPCION" EntityType="test_payc_contabilidadModel.CONTRATO_PROYECTO_DESCRIPCION" />
+          <EntitySet Name="VISTA_FLUJO_INGRESOS" EntityType="test_payc_contabilidadModel.VISTA_FLUJO_INGRESOS" />
+          <EntitySet Name="VISTA_FLUJO_INGRESOS_ITEMS" EntityType="test_payc_contabilidadModel.VISTA_FLUJO_INGRESOS_ITEMS" />
           </EntityContainer>
         <EntityType Name="CARGOS">
           <Key>
@@ -2267,6 +2280,11 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <NavigationProperty Name="FORMAS_PAGO_FECHAS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FECHAS" FromRole="DETALLE_FACTURA_ITEM" ToRole="FORMAS_PAGO_FECHAS" />
           <NavigationProperty Name="ITEMS_CONTRATO" Relationship="test_payc_contabilidadModel.FK_detalle_factura_item_items" FromRole="DETALLE_FACTURA_ITEM" ToRole="ITEMS_CONTRATO" />
           <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_CONTRATO_PROYECTO" FromRole="DETALLE_FACTURA_ITEM" ToRole="CONTRATO_PROYECTO" />
+          <Property Name="FECHA_REGISTRO" Type="DateTime" Precision="3" />
+          <Property Name="USUARIO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO_FACTURA" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="COD_CAUSA_ESTADO" Type="Int64" />
+          <Property Name="OBSERVACIONES" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="ENTREGABLES">
           <Key>
@@ -2307,38 +2325,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <Property Name="VALOR_CON_IMPUESTOS" Type="Single" />
           <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_FACTURAS_CONTRATO_PROYECTO" FromRole="FACTURAS" ToRole="CONTRATO_PROYECTO" />
         </EntityType>
-        <EntityType Name="FLUJO_INGRESOS_ITEMS">
-          <Key>
-            <PropertyRef Name="COD_FLUJO_INGRESOS_ITEMS" />
-          </Key>
-          <Property Name="COD_FLUJO_INGRESOS_ITEMS" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
-          <Property Name="COD_ITEM" Type="Int64" />
-          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
-          <Property Name="ETAPA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="VALOR_FIJO" Type="Single" />
-          <Property Name="VALOR_VARIABLE" Type="Single" />
-          <Property Name="VALOR_TOTAL" Type="Single" />
-          <NavigationProperty Name="FORMAS_PAGO_FECHAS" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_FECHAS" FromRole="FLUJO_INGRESOS_ITEMS" ToRole="FORMAS_PAGO_FECHAS" />
-          <NavigationProperty Name="ITEMS_CONTRATO" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ITEMS" FromRole="FLUJO_INGRESOS_ITEMS" ToRole="ITEMS_CONTRATO" />
-          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO" FromRole="FLUJO_INGRESOS_ITEMS" ToRole="CONTRATO_PROYECTO" />
-        </EntityType>
-        <EntityType Name="FLUJO_INGRESOS_ROL">
-          <Key>
-            <PropertyRef Name="COD_FLUJO_INGRESOS_ROL" />
-          </Key>
-          <Property Name="COD_FLUJO_INGRESOS_ROL" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
-          <Property Name="COD_ROL" Type="Int64" />
-          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
-          <Property Name="ETAPA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="VALOR_SIN_PRESTACIONES" Type="Single" />
-          <Property Name="VALOR_CON_PRESTACIONES" Type="Single" />
-          <Property Name="VALOR_FACTOR_MULTIPLICADOR" Type="Single" />
-          <NavigationProperty Name="FORMAS_PAGO_FECHAS" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_FECHAS" FromRole="FLUJO_INGRESOS_ROL" ToRole="FORMAS_PAGO_FECHAS" />
-          <NavigationProperty Name="ROLES" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ROL" FromRole="FLUJO_INGRESOS_ROL" ToRole="ROLES" />
-          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO" FromRole="FLUJO_INGRESOS_ROL" ToRole="CONTRATO_PROYECTO" />
-        </EntityType>
         <EntityType Name="FORMAS_PAGO_FECHAS">
           <Key>
             <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
@@ -2351,13 +2337,12 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <Property Name="PERIODO_TEXTO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DETALLE_FACTURA_ITEM" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FECHAS" FromRole="FORMAS_PAGO_FECHAS" ToRole="DETALLE_FACTURA_ITEM" />
           <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_FACTURAS_FORMAS_PAGO_FECHAS" FromRole="FORMAS_PAGO_FECHAS" ToRole="FACTURAS" />
-          <NavigationProperty Name="FLUJO_INGRESOS_ITEMS" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_FECHAS" FromRole="FORMAS_PAGO_FECHAS" ToRole="FLUJO_INGRESOS_ITEMS" />
-          <NavigationProperty Name="FLUJO_INGRESOS_ROL" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_FECHAS" FromRole="FORMAS_PAGO_FECHAS" ToRole="FLUJO_INGRESOS_ROL" />
           <NavigationProperty Name="REGISTRO_ITEMS_OTROS_COSTOS" Relationship="test_payc_contabilidadModel.FK_REGISTR_ITEMS_OTROS_COSTOS_FECHAS" FromRole="FORMAS_PAGO_FECHAS" ToRole="REGISTRO_ITEMS_OTROS_COSTOS" />
           <NavigationProperty Name="REGISTRO_NOVEDADES" Relationship="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_FORMAS_PAGO_FECHAS" FromRole="FORMAS_PAGO_FECHAS" ToRole="REGISTRO_NOVEDADES" />
           <NavigationProperty Name="FORMAS_PAGO" Relationship="test_payc_contabilidadModel.FK_FORMAS_PAGO_FECHAS_FORMA_PAGO" FromRole="FORMAS_PAGO_FECHAS" ToRole="FORMAS_PAGO" />
           <NavigationProperty Name="INCREMENTO_SALARIAL" Relationship="test_payc_contabilidadModel.FK_INCREMENTO_SALARIAL_FORMAS_PAGO_FECHAS" FromRole="FORMAS_PAGO_FECHAS" ToRole="INCREMENTO_SALARIAL" />
           <NavigationProperty Name="DETALLE_FACTURA_PERS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_FECHAS" FromRole="FORMAS_PAGO_FECHAS" ToRole="DETALLE_FACTURA_PERS" />
+          <NavigationProperty Name="FLUJO_INGRESOS_ITEMS" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_FECHAS" FromRole="FORMAS_PAGO_FECHAS" ToRole="FLUJO_INGRESOS_ITEMS" />
         </EntityType>
         <EntityType Name="GESTION_CARTERA">
           <Key>
@@ -2387,12 +2372,12 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <Property Name="MESES_USO" Type="Int64" />
           <Property Name="OBSERVACIONES" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DETALLE_FACTURA_ITEM" Relationship="test_payc_contabilidadModel.FK_detalle_factura_item_items" FromRole="ITEMS_CONTRATO" ToRole="DETALLE_FACTURA_ITEM" />
-          <NavigationProperty Name="FLUJO_INGRESOS_ITEMS" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ITEMS" FromRole="ITEMS_CONTRATO" ToRole="FLUJO_INGRESOS_ITEMS" />
           <NavigationProperty Name="REGISTRO_ITEMS_OTROS_COSTOS" Relationship="test_payc_contabilidadModel.FK_registro_items_otros_costos_items" FromRole="ITEMS_CONTRATO" ToRole="REGISTRO_ITEMS_OTROS_COSTOS" />
           <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_CONTRATO_PROYECTO" FromRole="ITEMS_CONTRATO" ToRole="CONTRATO_PROYECTO" />
           <Property Name="DIAS_FRACCION" Type="Int64" />
           <Property Name="COD_TIPO_REEMBOLSO" Type="Int64" />
           <NavigationProperty Name="TIPOS_REEMBOLSO" Relationship="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_TIPOS_REEMBOLSO" FromRole="ITEMS_CONTRATO" ToRole="TIPOS_REEMBOLSO" />
+          <NavigationProperty Name="FLUJO_INGRESOS_ITEMS" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ITEMS" FromRole="ITEMS_CONTRATO" ToRole="FLUJO_INGRESOS_ITEMS" />
         </EntityType>
         <EntityType Name="REGISTRO_ITEMS_OTROS_COSTOS">
           <Key>
@@ -2436,7 +2421,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <Property Name="COD_ROL" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CONTRATO_COLABORADOR" Relationship="test_payc_contabilidadModel.FK_CONTRATO_COLABORADOR_ROL" FromRole="ROLES" ToRole="CONTRATO_COLABORADOR" />
-          <NavigationProperty Name="FLUJO_INGRESOS_ROL" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ROL" FromRole="ROLES" ToRole="FLUJO_INGRESOS_ROL" />
           <NavigationProperty Name="CONTRATOS_ROL" Relationship="test_payc_contabilidadModel.FK_CONTRATO_ROL_ROL" FromRole="ROLES" ToRole="CONTRATOS_ROL" />
           <NavigationProperty Name="DETALLE_FACTURA_PERS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_COLABORADOR" FromRole="ROLES" ToRole="DETALLE_FACTURA_PERS" />
         </EntityType>
@@ -2600,54 +2584,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FLUJO_INGRESOS_ITEMS_FECHAS">
-          <End Type="test_payc_contabilidadModel.FORMAS_PAGO_FECHAS" Role="FORMAS_PAGO_FECHAS" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS" Role="FLUJO_INGRESOS_ITEMS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FORMAS_PAGO_FECHAS">
-              <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
-            </Principal>
-            <Dependent Role="FLUJO_INGRESOS_ITEMS">
-              <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FLUJO_INGRESOS_ROL_ITEMS">
-          <End Type="test_payc_contabilidadModel.ITEMS_CONTRATO" Role="ITEMS_CONTRATO" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS" Role="FLUJO_INGRESOS_ITEMS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ITEMS_CONTRATO">
-              <PropertyRef Name="COD_ITEM" />
-            </Principal>
-            <Dependent Role="FLUJO_INGRESOS_ITEMS">
-              <PropertyRef Name="COD_ITEM" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FLUJO_INGRESOS_ROL_FECHAS">
-          <End Type="test_payc_contabilidadModel.FORMAS_PAGO_FECHAS" Role="FORMAS_PAGO_FECHAS" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ROL" Role="FLUJO_INGRESOS_ROL" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FORMAS_PAGO_FECHAS">
-              <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
-            </Principal>
-            <Dependent Role="FLUJO_INGRESOS_ROL">
-              <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FLUJO_INGRESOS_ROL_ROL">
-          <End Type="test_payc_contabilidadModel.ROLES" Role="ROLES" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ROL" Role="FLUJO_INGRESOS_ROL" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ROLES">
-              <PropertyRef Name="COD_ROL" />
-            </Principal>
-            <Dependent Role="FLUJO_INGRESOS_ROL">
-              <PropertyRef Name="COD_ROL" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_REGISTR_ITEMS_OTROS_COSTOS_FECHAS">
           <End Type="test_payc_contabilidadModel.FORMAS_PAGO_FECHAS" Role="FORMAS_PAGO_FECHAS" Multiplicity="0..1" />
           <End Type="test_payc_contabilidadModel.REGISTRO_ITEMS_OTROS_COSTOS" Role="REGISTRO_ITEMS_OTROS_COSTOS" Multiplicity="*" />
@@ -2720,47 +2656,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="CONTRATO_PROYECTO_DESCRIPCION">
-          <Key>
-            <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-          </Key>
-          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" />
-          <Property Name="COD_CONTRATO" Type="Int64" />
-          <Property Name="COD_PROYECTO" Type="Int64" />
-          <Property Name="COD_FORMA_PAGO" Type="Int64" />
-          <Property Name="DESCRIPCION" Type="String" MaxLength="622" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="VISTA_FLUJO_INGRESOS">
-          <Key>
-            <PropertyRef Name="COD_FLUJO_INGRESOS_ROL" />
-          </Key>
-          <Property Name="COD_FLUJO_INGRESOS_ROL" Type="Int64" Nullable="false" />
-          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
-          <Property Name="COD_ROL" Type="Int64" />
-          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
-          <Property Name="ETAPA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="VALOR_SIN_PRESTACIONES" Type="Single" />
-          <Property Name="VALOR_CON_PRESTACIONES" Type="Single" />
-          <Property Name="VALOR_FACTOR_MULTIPLICADOR" Type="Single" />
-          <Property Name="FECHA_FORMA_PAGO" Type="DateTime" Precision="0" />
-          <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="VISTA_FLUJO_INGRESOS_ITEMS">
-          <Key>
-            <PropertyRef Name="COD_FLUJO_INGRESOS_ITEMS" />
-            <PropertyRef Name="DESCRIPCION" />
-          </Key>
-          <Property Name="COD_FLUJO_INGRESOS_ITEMS" Type="Int64" Nullable="false" />
-          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
-          <Property Name="COD_ITEM" Type="Int64" />
-          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
-          <Property Name="ETAPA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="VALOR_FIJO" Type="Single" />
-          <Property Name="VALOR_VARIABLE" Type="Single" />
-          <Property Name="VALOR_TOTAL" Type="Single" />
-          <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="FECHA_FORMA_PAGO" Type="DateTime" Precision="0" />
-        </EntityType>
         <EntityType Name="GENERACION_FLUJOS_ROL">
           <Key>
             <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
@@ -2955,8 +2850,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <NavigationProperty Name="CONTRATOS_CONDICIONES" Relationship="test_payc_contabilidadModel.FK_CONTRATOS_CONDICIONES_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="CONTRATOS_CONDICIONES" />
           <NavigationProperty Name="DETALLE_FACTURA_ITEM" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="DETALLE_FACTURA_ITEM" />
           <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_FACTURAS_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="FACTURAS" />
-          <NavigationProperty Name="FLUJO_INGRESOS_ITEMS" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="FLUJO_INGRESOS_ITEMS" />
-          <NavigationProperty Name="FLUJO_INGRESOS_ROL" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="FLUJO_INGRESOS_ROL" />
           <NavigationProperty Name="ITEMS_CONTRATO" Relationship="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="ITEMS_CONTRATO" />
           <NavigationProperty Name="REGISTRO_ITEMS_OTROS_COSTOS" Relationship="test_payc_contabilidadModel.FK_REGISTRO_ITEMS_OTROS_COSTOS_CONTRATO_CONDICION" FromRole="CONTRATO_PROYECTO" ToRole="REGISTRO_ITEMS_OTROS_COSTOS" />
           <NavigationProperty Name="REGISTRO_NOVEDADES" Relationship="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="REGISTRO_NOVEDADES" />
@@ -2966,6 +2859,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <NavigationProperty Name="TAG_ORDEN" Relationship="test_payc_contabilidadModel.FK_TAG_ORDEN_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="TAG_ORDEN" />
           <NavigationProperty Name="INCREMENTO_ORDEN" Relationship="test_payc_contabilidadModel.FK_INCREMENTO_ORDEN_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="INCREMENTO_ORDEN" />
           <NavigationProperty Name="DETALLE_FACTURA_PERS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="DETALLE_FACTURA_PERS" />
+          <NavigationProperty Name="FLUJO_INGRESOS_ITEMS" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="FLUJO_INGRESOS_ITEMS" />
+          <NavigationProperty Name="FLUJO_INGRESOS_ROL" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="FLUJO_INGRESOS_ROL" />
         </EntityType>
         <Association Name="FK_CONTRATO_PROYECTO_CONTRATOS">
           <End Type="test_payc_contabilidadModel.CONTRATOS" Role="CONTRATOS" Multiplicity="0..1" />
@@ -3011,30 +2906,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
               <PropertyRef Name="COD_CONTRATO_PROYECTO" />
             </Principal>
             <Dependent Role="FACTURAS">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO">
-          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS" Role="FLUJO_INGRESOS_ITEMS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CONTRATO_PROYECTO">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Principal>
-            <Dependent Role="FLUJO_INGRESOS_ITEMS">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO">
-          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ROL" Role="FLUJO_INGRESOS_ROL" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CONTRATO_PROYECTO">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Principal>
-            <Dependent Role="FLUJO_INGRESOS_ROL">
               <PropertyRef Name="COD_CONTRATO_PROYECTO" />
             </Dependent>
           </ReferentialConstraint>
@@ -3627,6 +3498,136 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <Property Name="FECHA_CREACION" Type="DateTime" Precision="0" />
           <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="Int64" />
         </EntityType>
+        <EntityType Name="FLUJO_INGRESOS_ITEMS">
+          <Key>
+            <PropertyRef Name="COD_FLUJO_INGRESOS_ITEMS" />
+          </Key>
+          <Property Name="COD_FLUJO_INGRESOS_ITEMS" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
+          <Property Name="COD_ITEM" Type="Int64" />
+          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
+          <Property Name="ETAPA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="VALOR_FIJO" Type="Single" />
+          <Property Name="VALOR_VARIABLE" Type="Single" />
+          <Property Name="VALOR_TOTAL" Type="Single" />
+          <Property Name="ESTADO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_REGISTRO" Type="DateTime" Precision="3" />
+          <Property Name="USUARIO_REGISTRO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO" FromRole="FLUJO_INGRESOS_ITEMS" ToRole="CONTRATO_PROYECTO" />
+          <NavigationProperty Name="FORMAS_PAGO_FECHAS" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_FECHAS" FromRole="FLUJO_INGRESOS_ITEMS" ToRole="FORMAS_PAGO_FECHAS" />
+          <NavigationProperty Name="ITEMS_CONTRATO" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ITEMS" FromRole="FLUJO_INGRESOS_ITEMS" ToRole="ITEMS_CONTRATO" />
+        </EntityType>
+        <EntityType Name="FLUJO_INGRESOS_ROL">
+          <Key>
+            <PropertyRef Name="COD_FLUJO_INGRESOS_ROL" />
+          </Key>
+          <Property Name="COD_FLUJO_INGRESOS_ROL" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
+          <Property Name="COD_ROL" Type="Int64" />
+          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
+          <Property Name="ETAPA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="VALOR_SIN_PRESTACIONES" Type="Single" />
+          <Property Name="VALOR_CON_PRESTACIONES" Type="Single" />
+          <Property Name="VALOR_FACTOR_MULTIPLICADOR" Type="Single" />
+          <Property Name="ESTADO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_REGISTRO" Type="DateTime" Precision="3" />
+          <Property Name="USUARIO_REGISTRO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO" FromRole="FLUJO_INGRESOS_ROL" ToRole="CONTRATO_PROYECTO" />
+        </EntityType>
+        <Association Name="FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO">
+          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS" Role="FLUJO_INGRESOS_ITEMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTRATO_PROYECTO">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Principal>
+            <Dependent Role="FLUJO_INGRESOS_ITEMS">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO">
+          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ROL" Role="FLUJO_INGRESOS_ROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTRATO_PROYECTO">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Principal>
+            <Dependent Role="FLUJO_INGRESOS_ROL">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FLUJO_INGRESOS_ITEMS_FECHAS">
+          <End Type="test_payc_contabilidadModel.FORMAS_PAGO_FECHAS" Role="FORMAS_PAGO_FECHAS" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS" Role="FLUJO_INGRESOS_ITEMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FORMAS_PAGO_FECHAS">
+              <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+            </Principal>
+            <Dependent Role="FLUJO_INGRESOS_ITEMS">
+              <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FLUJO_INGRESOS_ROL_ITEMS">
+          <End Type="test_payc_contabilidadModel.ITEMS_CONTRATO" Role="ITEMS_CONTRATO" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS" Role="FLUJO_INGRESOS_ITEMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ITEMS_CONTRATO">
+              <PropertyRef Name="COD_ITEM" />
+            </Principal>
+            <Dependent Role="FLUJO_INGRESOS_ITEMS">
+              <PropertyRef Name="COD_ITEM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CONTRATO_PROYECTO_DESCRIPCION">
+          <Key>
+            <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+          </Key>
+          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" />
+          <Property Name="COD_CONTRATO" Type="Int64" />
+          <Property Name="COD_PROYECTO" Type="Int64" />
+          <Property Name="COD_FORMA_PAGO" Type="Int64" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="622" FixedLength="false" Unicode="false" />
+          <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="VISTA_FLUJO_INGRESOS">
+          <Key>
+            <PropertyRef Name="COD_FLUJO_INGRESOS_ROL" />
+          </Key>
+          <Property Name="COD_FLUJO_INGRESOS_ROL" Type="Int64" Nullable="false" />
+          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
+          <Property Name="COD_ROL" Type="Int64" />
+          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
+          <Property Name="ETAPA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="VALOR_SIN_PRESTACIONES" Type="Single" />
+          <Property Name="VALOR_CON_PRESTACIONES" Type="Single" />
+          <Property Name="VALOR_FACTOR_MULTIPLICADOR" Type="Single" />
+          <Property Name="FECHA_FORMA_PAGO" Type="DateTime" Precision="0" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="VISTA_FLUJO_INGRESOS_ITEMS">
+          <Key>
+            <PropertyRef Name="COD_FLUJO_INGRESOS_ITEMS" />
+            <PropertyRef Name="DESCRIPCION" />
+          </Key>
+          <Property Name="COD_FLUJO_INGRESOS_ITEMS" Type="Int64" Nullable="false" />
+          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
+          <Property Name="COD_ITEM" Type="Int64" />
+          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
+          <Property Name="ETAPA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="VALOR_FIJO" Type="Single" />
+          <Property Name="VALOR_VARIABLE" Type="Single" />
+          <Property Name="VALOR_TOTAL" Type="Single" />
+          <Property Name="ESTADO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_REGISTRO" Type="DateTime" Precision="3" />
+          <Property Name="USUARIO_REGISTRO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_FORMA_PAGO" Type="DateTime" Precision="0" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3731,6 +3732,11 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <EntitySetMapping Name="DETALLE_FACTURA_ITEM">
             <EntityTypeMapping TypeName="test_payc_contabilidadModel.DETALLE_FACTURA_ITEM">
               <MappingFragment StoreEntitySet="DETALLE_FACTURA_ITEM">
+                <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+                <ScalarProperty Name="COD_CAUSA_ESTADO" ColumnName="COD_CAUSA_ESTADO" />
+                <ScalarProperty Name="ESTADO_FACTURA" ColumnName="ESTADO_FACTURA" />
+                <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+                <ScalarProperty Name="FECHA_REGISTRO" ColumnName="FECHA_REGISTRO" />
                 <ScalarProperty Name="VALOR_SIN_IMPUESTOS" ColumnName="VALOR_SIN_IMPUESTOS" />
                 <ScalarProperty Name="COD_FORMAS_PAGO_FECHAS" ColumnName="COD_FORMAS_PAGO_FECHAS" />
                 <ScalarProperty Name="COD_ITEM" ColumnName="COD_ITEM" />
@@ -3772,34 +3778,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
                 <ScalarProperty Name="COD_FORMAS_PAGO_FECHAS" ColumnName="COD_FORMAS_PAGO_FECHAS" />
                 <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
                 <ScalarProperty Name="COD_FACTURA" ColumnName="COD_FACTURA" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FLUJO_INGRESOS_ITEMS">
-            <EntityTypeMapping TypeName="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS">
-              <MappingFragment StoreEntitySet="FLUJO_INGRESOS_ITEMS">
-                <ScalarProperty Name="VALOR_TOTAL" ColumnName="VALOR_TOTAL" />
-                <ScalarProperty Name="VALOR_VARIABLE" ColumnName="VALOR_VARIABLE" />
-                <ScalarProperty Name="VALOR_FIJO" ColumnName="VALOR_FIJO" />
-                <ScalarProperty Name="ETAPA" ColumnName="ETAPA" />
-                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
-                <ScalarProperty Name="COD_ITEM" ColumnName="COD_ITEM" />
-                <ScalarProperty Name="COD_FORMAS_PAGO_FECHAS" ColumnName="COD_FORMAS_PAGO_FECHAS" />
-                <ScalarProperty Name="COD_FLUJO_INGRESOS_ITEMS" ColumnName="COD_FLUJO_INGRESOS_ITEMS" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FLUJO_INGRESOS_ROL">
-            <EntityTypeMapping TypeName="test_payc_contabilidadModel.FLUJO_INGRESOS_ROL">
-              <MappingFragment StoreEntitySet="FLUJO_INGRESOS_ROL">
-                <ScalarProperty Name="VALOR_FACTOR_MULTIPLICADOR" ColumnName="VALOR_FACTOR_MULTIPLICADOR" />
-                <ScalarProperty Name="VALOR_CON_PRESTACIONES" ColumnName="VALOR_CON_PRESTACIONES" />
-                <ScalarProperty Name="VALOR_SIN_PRESTACIONES" ColumnName="VALOR_SIN_PRESTACIONES" />
-                <ScalarProperty Name="ETAPA" ColumnName="ETAPA" />
-                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
-                <ScalarProperty Name="COD_ROL" ColumnName="COD_ROL" />
-                <ScalarProperty Name="COD_FORMAS_PAGO_FECHAS" ColumnName="COD_FORMAS_PAGO_FECHAS" />
-                <ScalarProperty Name="COD_FLUJO_INGRESOS_ROL" ColumnName="COD_FLUJO_INGRESOS_ROL" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3905,49 +3883,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
                 <ScalarProperty Name="COD_TIPO_CONDICION" ColumnName="COD_TIPO_CONDICION" />
                 <ScalarProperty Name="COD_TIPO_NOVEDAD" ColumnName="COD_TIPO_NOVEDAD" />
                 <ScalarProperty Name="COD_TIPO_NOVEDAD_CONDICION" ColumnName="COD_TIPO_NOVEDAD_CONDICION" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CONTRATO_PROYECTO_DESCRIPCION">
-            <EntityTypeMapping TypeName="test_payc_contabilidadModel.CONTRATO_PROYECTO_DESCRIPCION">
-              <MappingFragment StoreEntitySet="CONTRATO_PROYECTO_DESCRIPCION">
-                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
-                <ScalarProperty Name="COD_FORMA_PAGO" ColumnName="COD_FORMA_PAGO" />
-                <ScalarProperty Name="COD_PROYECTO" ColumnName="COD_PROYECTO" />
-                <ScalarProperty Name="COD_CONTRATO" ColumnName="COD_CONTRATO" />
-                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="VISTA_FLUJO_INGRESOS">
-            <EntityTypeMapping TypeName="test_payc_contabilidadModel.VISTA_FLUJO_INGRESOS">
-              <MappingFragment StoreEntitySet="VISTA_FLUJO_INGRESOS">
-                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
-                <ScalarProperty Name="FECHA_FORMA_PAGO" ColumnName="FECHA_FORMA_PAGO" />
-                <ScalarProperty Name="VALOR_FACTOR_MULTIPLICADOR" ColumnName="VALOR_FACTOR_MULTIPLICADOR" />
-                <ScalarProperty Name="VALOR_CON_PRESTACIONES" ColumnName="VALOR_CON_PRESTACIONES" />
-                <ScalarProperty Name="VALOR_SIN_PRESTACIONES" ColumnName="VALOR_SIN_PRESTACIONES" />
-                <ScalarProperty Name="ETAPA" ColumnName="ETAPA" />
-                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
-                <ScalarProperty Name="COD_ROL" ColumnName="COD_ROL" />
-                <ScalarProperty Name="COD_FORMAS_PAGO_FECHAS" ColumnName="COD_FORMAS_PAGO_FECHAS" />
-                <ScalarProperty Name="COD_FLUJO_INGRESOS_ROL" ColumnName="COD_FLUJO_INGRESOS_ROL" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="VISTA_FLUJO_INGRESOS_ITEMS">
-            <EntityTypeMapping TypeName="test_payc_contabilidadModel.VISTA_FLUJO_INGRESOS_ITEMS">
-              <MappingFragment StoreEntitySet="VISTA_FLUJO_INGRESOS_ITEMS">
-                <ScalarProperty Name="FECHA_FORMA_PAGO" ColumnName="FECHA_FORMA_PAGO" />
-                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
-                <ScalarProperty Name="VALOR_TOTAL" ColumnName="VALOR_TOTAL" />
-                <ScalarProperty Name="VALOR_VARIABLE" ColumnName="VALOR_VARIABLE" />
-                <ScalarProperty Name="VALOR_FIJO" ColumnName="VALOR_FIJO" />
-                <ScalarProperty Name="ETAPA" ColumnName="ETAPA" />
-                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
-                <ScalarProperty Name="COD_ITEM" ColumnName="COD_ITEM" />
-                <ScalarProperty Name="COD_FORMAS_PAGO_FECHAS" ColumnName="COD_FORMAS_PAGO_FECHAS" />
-                <ScalarProperty Name="COD_FLUJO_INGRESOS_ITEMS" ColumnName="COD_FLUJO_INGRESOS_ITEMS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -4373,6 +4308,88 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
                 <ScalarProperty Name="COD_FORMAS_PAGO_FECHAS" ColumnName="COD_FORMAS_PAGO_FECHAS" />
                 <ScalarProperty Name="FECHA_FORMA_PAGO" ColumnName="FECHA_FORMA_PAGO" />
                 <ScalarProperty Name="CENTRO_COSTOS" ColumnName="CENTRO_COSTOS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FLUJO_INGRESOS_ITEMS">
+            <EntityTypeMapping TypeName="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS">
+              <MappingFragment StoreEntitySet="FLUJO_INGRESOS_ITEMS">
+                <ScalarProperty Name="USUARIO_REGISTRO" ColumnName="USUARIO_REGISTRO" />
+                <ScalarProperty Name="FECHA_REGISTRO" ColumnName="FECHA_REGISTRO" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="VALOR_TOTAL" ColumnName="VALOR_TOTAL" />
+                <ScalarProperty Name="VALOR_VARIABLE" ColumnName="VALOR_VARIABLE" />
+                <ScalarProperty Name="VALOR_FIJO" ColumnName="VALOR_FIJO" />
+                <ScalarProperty Name="ETAPA" ColumnName="ETAPA" />
+                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
+                <ScalarProperty Name="COD_ITEM" ColumnName="COD_ITEM" />
+                <ScalarProperty Name="COD_FORMAS_PAGO_FECHAS" ColumnName="COD_FORMAS_PAGO_FECHAS" />
+                <ScalarProperty Name="COD_FLUJO_INGRESOS_ITEMS" ColumnName="COD_FLUJO_INGRESOS_ITEMS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FLUJO_INGRESOS_ROL">
+            <EntityTypeMapping TypeName="test_payc_contabilidadModel.FLUJO_INGRESOS_ROL">
+              <MappingFragment StoreEntitySet="FLUJO_INGRESOS_ROL">
+                <ScalarProperty Name="USUARIO_REGISTRO" ColumnName="USUARIO_REGISTRO" />
+                <ScalarProperty Name="FECHA_REGISTRO" ColumnName="FECHA_REGISTRO" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="VALOR_FACTOR_MULTIPLICADOR" ColumnName="VALOR_FACTOR_MULTIPLICADOR" />
+                <ScalarProperty Name="VALOR_CON_PRESTACIONES" ColumnName="VALOR_CON_PRESTACIONES" />
+                <ScalarProperty Name="VALOR_SIN_PRESTACIONES" ColumnName="VALOR_SIN_PRESTACIONES" />
+                <ScalarProperty Name="ETAPA" ColumnName="ETAPA" />
+                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
+                <ScalarProperty Name="COD_ROL" ColumnName="COD_ROL" />
+                <ScalarProperty Name="COD_FORMAS_PAGO_FECHAS" ColumnName="COD_FORMAS_PAGO_FECHAS" />
+                <ScalarProperty Name="COD_FLUJO_INGRESOS_ROL" ColumnName="COD_FLUJO_INGRESOS_ROL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CONTRATO_PROYECTO_DESCRIPCION">
+            <EntityTypeMapping TypeName="test_payc_contabilidadModel.CONTRATO_PROYECTO_DESCRIPCION">
+              <MappingFragment StoreEntitySet="CONTRATO_PROYECTO_DESCRIPCION">
+                <ScalarProperty Name="CENTRO_COSTOS" ColumnName="CENTRO_COSTOS" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="COD_FORMA_PAGO" ColumnName="COD_FORMA_PAGO" />
+                <ScalarProperty Name="COD_PROYECTO" ColumnName="COD_PROYECTO" />
+                <ScalarProperty Name="COD_CONTRATO" ColumnName="COD_CONTRATO" />
+                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VISTA_FLUJO_INGRESOS">
+            <EntityTypeMapping TypeName="test_payc_contabilidadModel.VISTA_FLUJO_INGRESOS">
+              <MappingFragment StoreEntitySet="VISTA_FLUJO_INGRESOS">
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="FECHA_FORMA_PAGO" ColumnName="FECHA_FORMA_PAGO" />
+                <ScalarProperty Name="VALOR_FACTOR_MULTIPLICADOR" ColumnName="VALOR_FACTOR_MULTIPLICADOR" />
+                <ScalarProperty Name="VALOR_CON_PRESTACIONES" ColumnName="VALOR_CON_PRESTACIONES" />
+                <ScalarProperty Name="VALOR_SIN_PRESTACIONES" ColumnName="VALOR_SIN_PRESTACIONES" />
+                <ScalarProperty Name="ETAPA" ColumnName="ETAPA" />
+                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
+                <ScalarProperty Name="COD_ROL" ColumnName="COD_ROL" />
+                <ScalarProperty Name="COD_FORMAS_PAGO_FECHAS" ColumnName="COD_FORMAS_PAGO_FECHAS" />
+                <ScalarProperty Name="COD_FLUJO_INGRESOS_ROL" ColumnName="COD_FLUJO_INGRESOS_ROL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VISTA_FLUJO_INGRESOS_ITEMS">
+            <EntityTypeMapping TypeName="test_payc_contabilidadModel.VISTA_FLUJO_INGRESOS_ITEMS">
+              <MappingFragment StoreEntitySet="VISTA_FLUJO_INGRESOS_ITEMS">
+                <ScalarProperty Name="FECHA_FORMA_PAGO" ColumnName="FECHA_FORMA_PAGO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="USUARIO_REGISTRO" ColumnName="USUARIO_REGISTRO" />
+                <ScalarProperty Name="FECHA_REGISTRO" ColumnName="FECHA_REGISTRO" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="VALOR_TOTAL" ColumnName="VALOR_TOTAL" />
+                <ScalarProperty Name="VALOR_VARIABLE" ColumnName="VALOR_VARIABLE" />
+                <ScalarProperty Name="VALOR_FIJO" ColumnName="VALOR_FIJO" />
+                <ScalarProperty Name="ETAPA" ColumnName="ETAPA" />
+                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
+                <ScalarProperty Name="COD_ITEM" ColumnName="COD_ITEM" />
+                <ScalarProperty Name="COD_FORMAS_PAGO_FECHAS" ColumnName="COD_FORMAS_PAGO_FECHAS" />
+                <ScalarProperty Name="COD_FLUJO_INGRESOS_ITEMS" ColumnName="COD_FLUJO_INGRESOS_ITEMS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

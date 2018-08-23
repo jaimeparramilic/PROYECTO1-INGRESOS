@@ -13,8 +13,6 @@
     <EntitySet Name="ENTREGABLES" EntityType="test_payc_contabilidadModel.ENTREGABLES" />
     <EntitySet Name="ESTUDIOS_COLABORADOR" EntityType="test_payc_contabilidadModel.ESTUDIOS_COLABORADOR" />
     <EntitySet Name="FACTURAS" EntityType="test_payc_contabilidadModel.FACTURAS" />
-    <EntitySet Name="FLUJO_INGRESOS_ITEMS" EntityType="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS" />
-    <EntitySet Name="FLUJO_INGRESOS_ROL" EntityType="test_payc_contabilidadModel.FLUJO_INGRESOS_ROL" />
     <EntitySet Name="FORMAS_PAGO_FECHAS" EntityType="test_payc_contabilidadModel.FORMAS_PAGO_FECHAS" />
     <EntitySet Name="GESTION_CARTERA" EntityType="test_payc_contabilidadModel.GESTION_CARTERA" />
     <EntitySet Name="ITEMS_CONTRATO" EntityType="test_payc_contabilidadModel.ITEMS_CONTRATO" />
@@ -68,22 +66,6 @@
       <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
       <End Role="FACTURAS" EntitySet="FACTURAS" />
     </AssociationSet>
-    <AssociationSet Name="FK_FLUJO_INGRESOS_ITEMS_FECHAS" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_FECHAS">
-      <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
-      <End Role="FLUJO_INGRESOS_ITEMS" EntitySet="FLUJO_INGRESOS_ITEMS" />
-    </AssociationSet>
-    <AssociationSet Name="FK_FLUJO_INGRESOS_ROL_ITEMS" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ITEMS">
-      <End Role="ITEMS_CONTRATO" EntitySet="ITEMS_CONTRATO" />
-      <End Role="FLUJO_INGRESOS_ITEMS" EntitySet="FLUJO_INGRESOS_ITEMS" />
-    </AssociationSet>
-    <AssociationSet Name="FK_FLUJO_INGRESOS_ROL_FECHAS" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_FECHAS">
-      <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
-      <End Role="FLUJO_INGRESOS_ROL" EntitySet="FLUJO_INGRESOS_ROL" />
-    </AssociationSet>
-    <AssociationSet Name="FK_FLUJO_INGRESOS_ROL_ROL" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ROL">
-      <End Role="ROLES" EntitySet="ROLES" />
-      <End Role="FLUJO_INGRESOS_ROL" EntitySet="FLUJO_INGRESOS_ROL" />
-    </AssociationSet>
     <AssociationSet Name="FK_REGISTR_ITEMS_OTROS_COSTOS_FECHAS" Association="test_payc_contabilidadModel.FK_REGISTR_ITEMS_OTROS_COSTOS_FECHAS">
       <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
       <End Role="REGISTRO_ITEMS_OTROS_COSTOS" EntitySet="REGISTRO_ITEMS_OTROS_COSTOS" />
@@ -108,9 +90,6 @@
       <End Role="TIPOS_NOVEDAD" EntitySet="TIPOS_NOVEDAD" />
       <End Role="TIPOS_NOVEDAD_CONDICION" EntitySet="TIPOS_NOVEDAD_CONDICION" />
     </AssociationSet>
-    <EntitySet Name="CONTRATO_PROYECTO_DESCRIPCION" EntityType="test_payc_contabilidadModel.CONTRATO_PROYECTO_DESCRIPCION" />
-    <EntitySet Name="VISTA_FLUJO_INGRESOS" EntityType="test_payc_contabilidadModel.VISTA_FLUJO_INGRESOS" />
-    <EntitySet Name="VISTA_FLUJO_INGRESOS_ITEMS" EntityType="test_payc_contabilidadModel.VISTA_FLUJO_INGRESOS_ITEMS" />
     <EntitySet Name="GENERACION_FLUJOS_ROL" EntityType="test_payc_contabilidadModel.GENERACION_FLUJOS_ROL" />
     <EntitySet Name="SINO" EntityType="test_payc_contabilidadModel.SINO" />
     <EntitySet Name="GENERACION_FLUJOS_ITEM" EntityType="test_payc_contabilidadModel.GENERACION_FLUJOS_ITEM" />
@@ -140,14 +119,6 @@
     <AssociationSet Name="FK_FACTURAS_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_FACTURAS_CONTRATO_PROYECTO">
       <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
       <End Role="FACTURAS" EntitySet="FACTURAS" />
-    </AssociationSet>
-    <AssociationSet Name="FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO">
-      <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
-      <End Role="FLUJO_INGRESOS_ITEMS" EntitySet="FLUJO_INGRESOS_ITEMS" />
-    </AssociationSet>
-    <AssociationSet Name="FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO">
-      <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
-      <End Role="FLUJO_INGRESOS_ROL" EntitySet="FLUJO_INGRESOS_ROL" />
     </AssociationSet>
     <AssociationSet Name="FK_ITEMS_CONTRATO_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_CONTRATO_PROYECTO">
       <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
@@ -278,6 +249,27 @@
     <EntitySet Name="CONTRATO_COLABORADOR_COMERCIAL" EntityType="test_payc_contabilidadModel.CONTRATO_COLABORADOR_COMERCIAL" />
     <EntitySet Name="VISTA_PENDIENTES_RETIRO" EntityType="test_payc_contabilidadModel.VISTA_PENDIENTES_RETIRO" />
     <EntitySet Name="VISTA_PENDIENTES_FACTURA" EntityType="test_payc_contabilidadModel.VISTA_PENDIENTES_FACTURA" />
+    <EntitySet Name="FLUJO_INGRESOS_ITEMS" EntityType="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS" />
+    <EntitySet Name="FLUJO_INGRESOS_ROL" EntityType="test_payc_contabilidadModel.FLUJO_INGRESOS_ROL" />
+    <AssociationSet Name="FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO">
+      <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+      <End Role="FLUJO_INGRESOS_ITEMS" EntitySet="FLUJO_INGRESOS_ITEMS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO">
+      <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+      <End Role="FLUJO_INGRESOS_ROL" EntitySet="FLUJO_INGRESOS_ROL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FLUJO_INGRESOS_ITEMS_FECHAS" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_FECHAS">
+      <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
+      <End Role="FLUJO_INGRESOS_ITEMS" EntitySet="FLUJO_INGRESOS_ITEMS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FLUJO_INGRESOS_ROL_ITEMS" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ITEMS">
+      <End Role="ITEMS_CONTRATO" EntitySet="ITEMS_CONTRATO" />
+      <End Role="FLUJO_INGRESOS_ITEMS" EntitySet="FLUJO_INGRESOS_ITEMS" />
+    </AssociationSet>
+    <EntitySet Name="CONTRATO_PROYECTO_DESCRIPCION" EntityType="test_payc_contabilidadModel.CONTRATO_PROYECTO_DESCRIPCION" />
+    <EntitySet Name="VISTA_FLUJO_INGRESOS" EntityType="test_payc_contabilidadModel.VISTA_FLUJO_INGRESOS" />
+    <EntitySet Name="VISTA_FLUJO_INGRESOS_ITEMS" EntityType="test_payc_contabilidadModel.VISTA_FLUJO_INGRESOS_ITEMS" />
   </EntityContainer>
   <EntityType Name="CARGOS">
     <Key>
@@ -394,6 +386,11 @@
     <NavigationProperty Name="FORMAS_PAGO_FECHAS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FECHAS" FromRole="DETALLE_FACTURA_ITEM" ToRole="FORMAS_PAGO_FECHAS" />
     <NavigationProperty Name="ITEMS_CONTRATO" Relationship="test_payc_contabilidadModel.FK_detalle_factura_item_items" FromRole="DETALLE_FACTURA_ITEM" ToRole="ITEMS_CONTRATO" />
     <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_CONTRATO_PROYECTO" FromRole="DETALLE_FACTURA_ITEM" ToRole="CONTRATO_PROYECTO" />
+    <Property Name="FECHA_REGISTRO" Type="DateTime" Precision="3" />
+    <Property Name="USUARIO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="ESTADO_FACTURA" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="COD_CAUSA_ESTADO" Type="Int64" />
+    <Property Name="OBSERVACIONES" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="ENTREGABLES">
     <Key>
@@ -434,38 +431,6 @@
     <Property Name="VALOR_CON_IMPUESTOS" Type="Single" />
     <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_FACTURAS_CONTRATO_PROYECTO" FromRole="FACTURAS" ToRole="CONTRATO_PROYECTO" />
   </EntityType>
-  <EntityType Name="FLUJO_INGRESOS_ITEMS">
-    <Key>
-      <PropertyRef Name="COD_FLUJO_INGRESOS_ITEMS" />
-    </Key>
-    <Property Name="COD_FLUJO_INGRESOS_ITEMS" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
-    <Property Name="COD_ITEM" Type="Int64" />
-    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
-    <Property Name="ETAPA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="VALOR_FIJO" Type="Single" />
-    <Property Name="VALOR_VARIABLE" Type="Single" />
-    <Property Name="VALOR_TOTAL" Type="Single" />
-    <NavigationProperty Name="FORMAS_PAGO_FECHAS" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_FECHAS" FromRole="FLUJO_INGRESOS_ITEMS" ToRole="FORMAS_PAGO_FECHAS" />
-    <NavigationProperty Name="ITEMS_CONTRATO" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ITEMS" FromRole="FLUJO_INGRESOS_ITEMS" ToRole="ITEMS_CONTRATO" />
-    <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO" FromRole="FLUJO_INGRESOS_ITEMS" ToRole="CONTRATO_PROYECTO" />
-  </EntityType>
-  <EntityType Name="FLUJO_INGRESOS_ROL">
-    <Key>
-      <PropertyRef Name="COD_FLUJO_INGRESOS_ROL" />
-    </Key>
-    <Property Name="COD_FLUJO_INGRESOS_ROL" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
-    <Property Name="COD_ROL" Type="Int64" />
-    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
-    <Property Name="ETAPA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="VALOR_SIN_PRESTACIONES" Type="Single" />
-    <Property Name="VALOR_CON_PRESTACIONES" Type="Single" />
-    <Property Name="VALOR_FACTOR_MULTIPLICADOR" Type="Single" />
-    <NavigationProperty Name="FORMAS_PAGO_FECHAS" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_FECHAS" FromRole="FLUJO_INGRESOS_ROL" ToRole="FORMAS_PAGO_FECHAS" />
-    <NavigationProperty Name="ROLES" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ROL" FromRole="FLUJO_INGRESOS_ROL" ToRole="ROLES" />
-    <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO" FromRole="FLUJO_INGRESOS_ROL" ToRole="CONTRATO_PROYECTO" />
-  </EntityType>
   <EntityType Name="FORMAS_PAGO_FECHAS">
     <Key>
       <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
@@ -478,13 +443,12 @@
     <Property Name="PERIODO_TEXTO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="DETALLE_FACTURA_ITEM" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FECHAS" FromRole="FORMAS_PAGO_FECHAS" ToRole="DETALLE_FACTURA_ITEM" />
     <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_FACTURAS_FORMAS_PAGO_FECHAS" FromRole="FORMAS_PAGO_FECHAS" ToRole="FACTURAS" />
-    <NavigationProperty Name="FLUJO_INGRESOS_ITEMS" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_FECHAS" FromRole="FORMAS_PAGO_FECHAS" ToRole="FLUJO_INGRESOS_ITEMS" />
-    <NavigationProperty Name="FLUJO_INGRESOS_ROL" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_FECHAS" FromRole="FORMAS_PAGO_FECHAS" ToRole="FLUJO_INGRESOS_ROL" />
     <NavigationProperty Name="REGISTRO_ITEMS_OTROS_COSTOS" Relationship="test_payc_contabilidadModel.FK_REGISTR_ITEMS_OTROS_COSTOS_FECHAS" FromRole="FORMAS_PAGO_FECHAS" ToRole="REGISTRO_ITEMS_OTROS_COSTOS" />
     <NavigationProperty Name="REGISTRO_NOVEDADES" Relationship="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_FORMAS_PAGO_FECHAS" FromRole="FORMAS_PAGO_FECHAS" ToRole="REGISTRO_NOVEDADES" />
     <NavigationProperty Name="FORMAS_PAGO" Relationship="test_payc_contabilidadModel.FK_FORMAS_PAGO_FECHAS_FORMA_PAGO" FromRole="FORMAS_PAGO_FECHAS" ToRole="FORMAS_PAGO" />
     <NavigationProperty Name="INCREMENTO_SALARIAL" Relationship="test_payc_contabilidadModel.FK_INCREMENTO_SALARIAL_FORMAS_PAGO_FECHAS" FromRole="FORMAS_PAGO_FECHAS" ToRole="INCREMENTO_SALARIAL" />
     <NavigationProperty Name="DETALLE_FACTURA_PERS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_FECHAS" FromRole="FORMAS_PAGO_FECHAS" ToRole="DETALLE_FACTURA_PERS" />
+    <NavigationProperty Name="FLUJO_INGRESOS_ITEMS" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_FECHAS" FromRole="FORMAS_PAGO_FECHAS" ToRole="FLUJO_INGRESOS_ITEMS" />
   </EntityType>
   <EntityType Name="GESTION_CARTERA">
     <Key>
@@ -514,12 +478,12 @@
     <Property Name="MESES_USO" Type="Int64" />
     <Property Name="OBSERVACIONES" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="DETALLE_FACTURA_ITEM" Relationship="test_payc_contabilidadModel.FK_detalle_factura_item_items" FromRole="ITEMS_CONTRATO" ToRole="DETALLE_FACTURA_ITEM" />
-    <NavigationProperty Name="FLUJO_INGRESOS_ITEMS" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ITEMS" FromRole="ITEMS_CONTRATO" ToRole="FLUJO_INGRESOS_ITEMS" />
     <NavigationProperty Name="REGISTRO_ITEMS_OTROS_COSTOS" Relationship="test_payc_contabilidadModel.FK_registro_items_otros_costos_items" FromRole="ITEMS_CONTRATO" ToRole="REGISTRO_ITEMS_OTROS_COSTOS" />
     <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_CONTRATO_PROYECTO" FromRole="ITEMS_CONTRATO" ToRole="CONTRATO_PROYECTO" />
     <Property Name="DIAS_FRACCION" Type="Int64" />
     <Property Name="COD_TIPO_REEMBOLSO" Type="Int64" />
     <NavigationProperty Name="TIPOS_REEMBOLSO" Relationship="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_TIPOS_REEMBOLSO" FromRole="ITEMS_CONTRATO" ToRole="TIPOS_REEMBOLSO" />
+    <NavigationProperty Name="FLUJO_INGRESOS_ITEMS" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ITEMS" FromRole="ITEMS_CONTRATO" ToRole="FLUJO_INGRESOS_ITEMS" />
   </EntityType>
   <EntityType Name="REGISTRO_ITEMS_OTROS_COSTOS">
     <Key>
@@ -563,7 +527,6 @@
     <Property Name="COD_ROL" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="CONTRATO_COLABORADOR" Relationship="test_payc_contabilidadModel.FK_CONTRATO_COLABORADOR_ROL" FromRole="ROLES" ToRole="CONTRATO_COLABORADOR" />
-    <NavigationProperty Name="FLUJO_INGRESOS_ROL" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ROL" FromRole="ROLES" ToRole="FLUJO_INGRESOS_ROL" />
     <NavigationProperty Name="CONTRATOS_ROL" Relationship="test_payc_contabilidadModel.FK_CONTRATO_ROL_ROL" FromRole="ROLES" ToRole="CONTRATOS_ROL" />
     <NavigationProperty Name="DETALLE_FACTURA_PERS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_COLABORADOR" FromRole="ROLES" ToRole="DETALLE_FACTURA_PERS" />
   </EntityType>
@@ -727,54 +690,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_FLUJO_INGRESOS_ITEMS_FECHAS">
-    <End Type="test_payc_contabilidadModel.FORMAS_PAGO_FECHAS" Role="FORMAS_PAGO_FECHAS" Multiplicity="0..1" />
-    <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS" Role="FLUJO_INGRESOS_ITEMS" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="FORMAS_PAGO_FECHAS">
-        <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
-      </Principal>
-      <Dependent Role="FLUJO_INGRESOS_ITEMS">
-        <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_FLUJO_INGRESOS_ROL_ITEMS">
-    <End Type="test_payc_contabilidadModel.ITEMS_CONTRATO" Role="ITEMS_CONTRATO" Multiplicity="0..1" />
-    <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS" Role="FLUJO_INGRESOS_ITEMS" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ITEMS_CONTRATO">
-        <PropertyRef Name="COD_ITEM" />
-      </Principal>
-      <Dependent Role="FLUJO_INGRESOS_ITEMS">
-        <PropertyRef Name="COD_ITEM" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_FLUJO_INGRESOS_ROL_FECHAS">
-    <End Type="test_payc_contabilidadModel.FORMAS_PAGO_FECHAS" Role="FORMAS_PAGO_FECHAS" Multiplicity="0..1" />
-    <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ROL" Role="FLUJO_INGRESOS_ROL" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="FORMAS_PAGO_FECHAS">
-        <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
-      </Principal>
-      <Dependent Role="FLUJO_INGRESOS_ROL">
-        <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_FLUJO_INGRESOS_ROL_ROL">
-    <End Type="test_payc_contabilidadModel.ROLES" Role="ROLES" Multiplicity="0..1" />
-    <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ROL" Role="FLUJO_INGRESOS_ROL" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ROLES">
-        <PropertyRef Name="COD_ROL" />
-      </Principal>
-      <Dependent Role="FLUJO_INGRESOS_ROL">
-        <PropertyRef Name="COD_ROL" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_REGISTR_ITEMS_OTROS_COSTOS_FECHAS">
     <End Type="test_payc_contabilidadModel.FORMAS_PAGO_FECHAS" Role="FORMAS_PAGO_FECHAS" Multiplicity="0..1" />
     <End Type="test_payc_contabilidadModel.REGISTRO_ITEMS_OTROS_COSTOS" Role="REGISTRO_ITEMS_OTROS_COSTOS" Multiplicity="*" />
@@ -847,47 +762,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityType Name="CONTRATO_PROYECTO_DESCRIPCION">
-    <Key>
-      <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-    </Key>
-    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" />
-    <Property Name="COD_CONTRATO" Type="Int64" />
-    <Property Name="COD_PROYECTO" Type="Int64" />
-    <Property Name="COD_FORMA_PAGO" Type="Int64" />
-    <Property Name="DESCRIPCION" Type="String" MaxLength="622" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="VISTA_FLUJO_INGRESOS">
-    <Key>
-      <PropertyRef Name="COD_FLUJO_INGRESOS_ROL" />
-    </Key>
-    <Property Name="COD_FLUJO_INGRESOS_ROL" Type="Int64" Nullable="false" />
-    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
-    <Property Name="COD_ROL" Type="Int64" />
-    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
-    <Property Name="ETAPA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="VALOR_SIN_PRESTACIONES" Type="Single" />
-    <Property Name="VALOR_CON_PRESTACIONES" Type="Single" />
-    <Property Name="VALOR_FACTOR_MULTIPLICADOR" Type="Single" />
-    <Property Name="FECHA_FORMA_PAGO" Type="DateTime" Precision="0" />
-    <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="VISTA_FLUJO_INGRESOS_ITEMS">
-    <Key>
-      <PropertyRef Name="COD_FLUJO_INGRESOS_ITEMS" />
-      <PropertyRef Name="DESCRIPCION" />
-    </Key>
-    <Property Name="COD_FLUJO_INGRESOS_ITEMS" Type="Int64" Nullable="false" />
-    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
-    <Property Name="COD_ITEM" Type="Int64" />
-    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
-    <Property Name="ETAPA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-    <Property Name="VALOR_FIJO" Type="Single" />
-    <Property Name="VALOR_VARIABLE" Type="Single" />
-    <Property Name="VALOR_TOTAL" Type="Single" />
-    <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
-    <Property Name="FECHA_FORMA_PAGO" Type="DateTime" Precision="0" />
-  </EntityType>
   <EntityType Name="GENERACION_FLUJOS_ROL">
     <Key>
       <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
@@ -1082,8 +956,6 @@
     <NavigationProperty Name="CONTRATOS_CONDICIONES" Relationship="test_payc_contabilidadModel.FK_CONTRATOS_CONDICIONES_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="CONTRATOS_CONDICIONES" />
     <NavigationProperty Name="DETALLE_FACTURA_ITEM" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="DETALLE_FACTURA_ITEM" />
     <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_FACTURAS_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="FACTURAS" />
-    <NavigationProperty Name="FLUJO_INGRESOS_ITEMS" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="FLUJO_INGRESOS_ITEMS" />
-    <NavigationProperty Name="FLUJO_INGRESOS_ROL" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="FLUJO_INGRESOS_ROL" />
     <NavigationProperty Name="ITEMS_CONTRATO" Relationship="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="ITEMS_CONTRATO" />
     <NavigationProperty Name="REGISTRO_ITEMS_OTROS_COSTOS" Relationship="test_payc_contabilidadModel.FK_REGISTRO_ITEMS_OTROS_COSTOS_CONTRATO_CONDICION" FromRole="CONTRATO_PROYECTO" ToRole="REGISTRO_ITEMS_OTROS_COSTOS" />
     <NavigationProperty Name="REGISTRO_NOVEDADES" Relationship="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="REGISTRO_NOVEDADES" />
@@ -1093,6 +965,8 @@
     <NavigationProperty Name="TAG_ORDEN" Relationship="test_payc_contabilidadModel.FK_TAG_ORDEN_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="TAG_ORDEN" />
     <NavigationProperty Name="INCREMENTO_ORDEN" Relationship="test_payc_contabilidadModel.FK_INCREMENTO_ORDEN_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="INCREMENTO_ORDEN" />
     <NavigationProperty Name="DETALLE_FACTURA_PERS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="DETALLE_FACTURA_PERS" />
+    <NavigationProperty Name="FLUJO_INGRESOS_ITEMS" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="FLUJO_INGRESOS_ITEMS" />
+    <NavigationProperty Name="FLUJO_INGRESOS_ROL" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="FLUJO_INGRESOS_ROL" />
   </EntityType>
   <Association Name="FK_CONTRATO_PROYECTO_CONTRATOS">
     <End Type="test_payc_contabilidadModel.CONTRATOS" Role="CONTRATOS" Multiplicity="0..1" />
@@ -1138,30 +1012,6 @@
         <PropertyRef Name="COD_CONTRATO_PROYECTO" />
       </Principal>
       <Dependent Role="FACTURAS">
-        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO">
-    <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
-    <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS" Role="FLUJO_INGRESOS_ITEMS" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CONTRATO_PROYECTO">
-        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-      </Principal>
-      <Dependent Role="FLUJO_INGRESOS_ITEMS">
-        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO">
-    <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
-    <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ROL" Role="FLUJO_INGRESOS_ROL" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CONTRATO_PROYECTO">
-        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-      </Principal>
-      <Dependent Role="FLUJO_INGRESOS_ROL">
         <PropertyRef Name="COD_CONTRATO_PROYECTO" />
       </Dependent>
     </ReferentialConstraint>
@@ -1753,5 +1603,135 @@
     <Property Name="CREADO_POR" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
     <Property Name="FECHA_CREACION" Type="DateTime" Precision="0" />
     <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="Int64" />
+  </EntityType>
+  <EntityType Name="FLUJO_INGRESOS_ITEMS">
+    <Key>
+      <PropertyRef Name="COD_FLUJO_INGRESOS_ITEMS" />
+    </Key>
+    <Property Name="COD_FLUJO_INGRESOS_ITEMS" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
+    <Property Name="COD_ITEM" Type="Int64" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
+    <Property Name="ETAPA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="VALOR_FIJO" Type="Single" />
+    <Property Name="VALOR_VARIABLE" Type="Single" />
+    <Property Name="VALOR_TOTAL" Type="Single" />
+    <Property Name="ESTADO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FECHA_REGISTRO" Type="DateTime" Precision="3" />
+    <Property Name="USUARIO_REGISTRO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO" FromRole="FLUJO_INGRESOS_ITEMS" ToRole="CONTRATO_PROYECTO" />
+    <NavigationProperty Name="FORMAS_PAGO_FECHAS" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_FECHAS" FromRole="FLUJO_INGRESOS_ITEMS" ToRole="FORMAS_PAGO_FECHAS" />
+    <NavigationProperty Name="ITEMS_CONTRATO" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ITEMS" FromRole="FLUJO_INGRESOS_ITEMS" ToRole="ITEMS_CONTRATO" />
+  </EntityType>
+  <EntityType Name="FLUJO_INGRESOS_ROL">
+    <Key>
+      <PropertyRef Name="COD_FLUJO_INGRESOS_ROL" />
+    </Key>
+    <Property Name="COD_FLUJO_INGRESOS_ROL" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
+    <Property Name="COD_ROL" Type="Int64" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
+    <Property Name="ETAPA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="VALOR_SIN_PRESTACIONES" Type="Single" />
+    <Property Name="VALOR_CON_PRESTACIONES" Type="Single" />
+    <Property Name="VALOR_FACTOR_MULTIPLICADOR" Type="Single" />
+    <Property Name="ESTADO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FECHA_REGISTRO" Type="DateTime" Precision="3" />
+    <Property Name="USUARIO_REGISTRO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO" FromRole="FLUJO_INGRESOS_ROL" ToRole="CONTRATO_PROYECTO" />
+  </EntityType>
+  <Association Name="FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO">
+    <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
+    <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS" Role="FLUJO_INGRESOS_ITEMS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTRATO_PROYECTO">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Principal>
+      <Dependent Role="FLUJO_INGRESOS_ITEMS">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO">
+    <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
+    <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ROL" Role="FLUJO_INGRESOS_ROL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTRATO_PROYECTO">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Principal>
+      <Dependent Role="FLUJO_INGRESOS_ROL">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FLUJO_INGRESOS_ITEMS_FECHAS">
+    <End Type="test_payc_contabilidadModel.FORMAS_PAGO_FECHAS" Role="FORMAS_PAGO_FECHAS" Multiplicity="0..1" />
+    <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS" Role="FLUJO_INGRESOS_ITEMS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FORMAS_PAGO_FECHAS">
+        <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+      </Principal>
+      <Dependent Role="FLUJO_INGRESOS_ITEMS">
+        <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FLUJO_INGRESOS_ROL_ITEMS">
+    <End Type="test_payc_contabilidadModel.ITEMS_CONTRATO" Role="ITEMS_CONTRATO" Multiplicity="0..1" />
+    <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS" Role="FLUJO_INGRESOS_ITEMS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ITEMS_CONTRATO">
+        <PropertyRef Name="COD_ITEM" />
+      </Principal>
+      <Dependent Role="FLUJO_INGRESOS_ITEMS">
+        <PropertyRef Name="COD_ITEM" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="CONTRATO_PROYECTO_DESCRIPCION">
+    <Key>
+      <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+    </Key>
+    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" />
+    <Property Name="COD_CONTRATO" Type="Int64" />
+    <Property Name="COD_PROYECTO" Type="Int64" />
+    <Property Name="COD_FORMA_PAGO" Type="Int64" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="622" FixedLength="false" Unicode="false" />
+    <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="VISTA_FLUJO_INGRESOS">
+    <Key>
+      <PropertyRef Name="COD_FLUJO_INGRESOS_ROL" />
+    </Key>
+    <Property Name="COD_FLUJO_INGRESOS_ROL" Type="Int64" Nullable="false" />
+    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
+    <Property Name="COD_ROL" Type="Int64" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
+    <Property Name="ETAPA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="VALOR_SIN_PRESTACIONES" Type="Single" />
+    <Property Name="VALOR_CON_PRESTACIONES" Type="Single" />
+    <Property Name="VALOR_FACTOR_MULTIPLICADOR" Type="Single" />
+    <Property Name="FECHA_FORMA_PAGO" Type="DateTime" Precision="0" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="ESTADO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="VISTA_FLUJO_INGRESOS_ITEMS">
+    <Key>
+      <PropertyRef Name="COD_FLUJO_INGRESOS_ITEMS" />
+      <PropertyRef Name="DESCRIPCION" />
+    </Key>
+    <Property Name="COD_FLUJO_INGRESOS_ITEMS" Type="Int64" Nullable="false" />
+    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
+    <Property Name="COD_ITEM" Type="Int64" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
+    <Property Name="ETAPA" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="VALOR_FIJO" Type="Single" />
+    <Property Name="VALOR_VARIABLE" Type="Single" />
+    <Property Name="VALOR_TOTAL" Type="Single" />
+    <Property Name="ESTADO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FECHA_REGISTRO" Type="DateTime" Precision="3" />
+    <Property Name="USUARIO_REGISTRO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="FECHA_FORMA_PAGO" Type="DateTime" Precision="0" />
   </EntityType>
 </Schema>

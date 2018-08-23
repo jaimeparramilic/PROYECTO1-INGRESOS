@@ -31,12 +31,13 @@
                         });
                     }).Columns(col =>
                     {
-                        col.Field("COD_CONTRATO_PROYECTO").ForeignKeyField("COD_CONTRATO_PROYECTO").ForeignKeyValue("COD_CONTRATO_PROYECTO").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONTRATO_PROYECTO.ToList()).HeaderText("ÓRDEN SERVICIO").Add();
-                        col.Field("COD_PROYECTO").ForeignKeyField("COD_PROYECTO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().PROYECTOS.ToList()).HeaderText("DESCRIPCION").Add();
+                        col.Field("COD_CONTRATO_PROYECTO").AllowEditing(false).ForeignKeyField("COD_CONTRATO_PROYECTO").ForeignKeyValue("CENTRO_COSTOS").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONTRATO_PROYECTO_DESCRIPCION.ToList()).HeaderText("CENTRO COSTOS").EditType(EditingType.DropdownEdit).Add();
+                        col.Field("COD_CONTRATO_PROYECTO").AllowEditing(false).ForeignKeyField("COD_CONTRATO_PROYECTO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONTRATO_PROYECTO_DESCRIPCION.ToList()).HeaderText("ORDEN SERVICIO").EditType(EditingType.DropdownEdit).Add();
                         col.Field("COD_FORMAS_PAGO_FECHAS").ForeignKeyField("COD_FORMAS_PAGO_FECHAS").ForeignKeyValue("FECHA_FORMA_PAGO").Format("{0:dd/MM/yyyy}").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().FORMAS_PAGO_FECHAS.ToList()).HeaderText("FECHA").EditType(EditingType.DropdownEdit).Add();
-                        col.Field("COD_ROL").ForeignKeyField("COD_ROL").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").EditType(EditingType.DropdownEdit).Add();
+                        col.Field("COD_ROL").AllowEditing(false).ForeignKeyField("COD_ROL").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").EditType(EditingType.DropdownEdit).Add();
+                        col.Field("ESTADO").AllowEditing(false).HeaderText("¿VIGENTE?").Add();
                         col.Field("COD_FLUJO_INGRESOS_ROL").HeaderText("FLUJO_INGRESOS_ROL").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                        col.Field("ETAPA").HeaderText("ETAPA").Add();
+                        col.Field("ETAPA").Visible(false).HeaderText("ETAPA").Add();
                         col.Field("VALOR_SIN_PRESTACIONES").HeaderText("VALOR SIN PRESTACIONES").Format("{0:c2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                         col.Field("VALOR_CON_PRESTACIONES").HeaderText("VALOR CON PRESTACIONES").Format("{0:c2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                         col.Field("VALOR_FACTOR_MULTIPLICADOR").HeaderText("VALOR FACTOR MULTIPLICADOR").Format("{0:c2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();

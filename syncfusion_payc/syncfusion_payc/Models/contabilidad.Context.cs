@@ -39,8 +39,6 @@ namespace syncfusion_payc.Models
         public virtual DbSet<ENTREGABLES> ENTREGABLES { get; set; }
         public virtual DbSet<ESTUDIOS_COLABORADOR> ESTUDIOS_COLABORADOR { get; set; }
         public virtual DbSet<FACTURAS> FACTURAS { get; set; }
-        public virtual DbSet<FLUJO_INGRESOS_ITEMS> FLUJO_INGRESOS_ITEMS { get; set; }
-        public virtual DbSet<FLUJO_INGRESOS_ROL> FLUJO_INGRESOS_ROL { get; set; }
         public virtual DbSet<FORMAS_PAGO_FECHAS> FORMAS_PAGO_FECHAS { get; set; }
         public virtual DbSet<GESTION_CARTERA> GESTION_CARTERA { get; set; }
         public virtual DbSet<ITEMS_CONTRATO> ITEMS_CONTRATO { get; set; }
@@ -50,9 +48,6 @@ namespace syncfusion_payc.Models
         public virtual DbSet<TIPO_CONDICION_CONTRACTUAL> TIPO_CONDICION_CONTRACTUAL { get; set; }
         public virtual DbSet<TIPOS_NOVEDAD> TIPOS_NOVEDAD { get; set; }
         public virtual DbSet<TIPOS_NOVEDAD_CONDICION> TIPOS_NOVEDAD_CONDICION { get; set; }
-        public virtual DbSet<CONTRATO_PROYECTO_DESCRIPCION> CONTRATO_PROYECTO_DESCRIPCION { get; set; }
-        public virtual DbSet<VISTA_FLUJO_INGRESOS> VISTA_FLUJO_INGRESOS { get; set; }
-        public virtual DbSet<VISTA_FLUJO_INGRESOS_ITEMS> VISTA_FLUJO_INGRESOS_ITEMS { get; set; }
         public virtual DbSet<GENERACION_FLUJOS_ROL> GENERACION_FLUJOS_ROL { get; set; }
         public virtual DbSet<SINO> SINO { get; set; }
         public virtual DbSet<GENERACION_FLUJOS_ITEM> GENERACION_FLUJOS_ITEM { get; set; }
@@ -84,5 +79,10 @@ namespace syncfusion_payc.Models
         public virtual DbSet<CONTRATO_COLABORADOR_COMERCIAL> CONTRATO_COLABORADOR_COMERCIAL { get; set; }
         public virtual DbSet<VISTA_PENDIENTES_RETIRO> VISTA_PENDIENTES_RETIRO { get; set; }
         public virtual DbSet<VISTA_PENDIENTES_FACTURA> VISTA_PENDIENTES_FACTURA { get; set; }
+        public virtual DbSet<FLUJO_INGRESOS_ITEMS> FLUJO_INGRESOS_ITEMS { get; set; }
+        public virtual DbSet<FLUJO_INGRESOS_ROL> FLUJO_INGRESOS_ROL { get; set; }
+        public virtual DbSet<CONTRATO_PROYECTO_DESCRIPCION> CONTRATO_PROYECTO_DESCRIPCION { get; set; }
+        public virtual DbSet<VISTA_FLUJO_INGRESOS> VISTA_FLUJO_INGRESOS { get; set; }
+        public virtual DbSet<VISTA_FLUJO_INGRESOS_ITEMS> VISTA_FLUJO_INGRESOS_ITEMS { get; set; }
     }
 }

@@ -24,5 +24,6 @@ namespace syncfusion_payc.Models
         public Nullable<float> VALOR_FACTOR_MULTIPLICADOR { get; set; }
         public Nullable<System.DateTime> FECHA_FORMA_PAGO { get; set; }
         public string DESCRIPCION { get; set; }
+        public string ESTADO { get; set; }
     }
 }

@@ -19,5 +19,6 @@ namespace syncfusion_payc.Models
         public Nullable<long> COD_PROYECTO { get; set; }
         public Nullable<long> COD_FORMA_PAGO { get; set; }
         public string DESCRIPCION { get; set; }
+        public string CENTRO_COSTOS { get; set; }
     }
 }
