@@ -2,25 +2,42 @@ factura <- function(fecha, proyecto) {
     #CONEXIÓN Y EXTRACCIÓN DE LA INFORMACIÓN DE LA BASE DE DATOS---------------
     library(DBI)
     #CREACION DE LA CONEXION A BASE DE DATOS
-    
     con <- dbConnect(odbc::odbc(), "PAYC_FACTURACION", uid = "sa", pwd = "1234JAMS*")
+    
     #EXTRACCION DE LA INFORMACION IMPORTANTE
     INGRESOS_PERSONAS <- dbGetQuery(con, "SELECT * FROM FLUJO_INGRESOS_ROL")
-    INGRESOS_ITEMS <- dbGetQuery(con, "SELECT * FROM FLUJO_INGRESOS_ITEMS")
-
+    ITEMS_CONTRATO <- dbGetQuery(con, "SELECT * FROM ITEMS_CONTRATO")
+    fijos<- paste0("SELECT DISTINCT FLUJO_INGRESOS_ITEMS.*, ITEMS_CONTRATO.COD_TIPO_REEMBOLSO
+                FROM FLUJO_INGRESOS_ITEMS, ITEMS_CONTRATO 
+                WHERE ITEMS_CONTRATO.COD_TIPO_REEMBOLSO=1 
+                AND FLUJO_INGRESOS_ITEMS.ESTADO='SI'
+                AND FLUJO_INGRESOS_ITEMS.COD_CONTRATO_PROYECTO=",proyecto,"
+                AND FLUJO_INGRESOS_ITEMS.COD_FORMAS_PAGO_FECHAS=",fecha)
+    variables<-paste0("SELECT DISTINCT REGISTRO_ITEMS_OTROS_COSTOS.*, ITEMS_CONTRATO.COD_TIPO_REEMBOLSO
+                FROM REGISTRO_ITEMS_OTROS_COSTOS, ITEMS_CONTRATO 
+                WHERE ITEMS_CONTRATO.COD_TIPO_REEMBOLSO=2
+                AND REGISTRO_ITEMS_OTROS_COSTOS.COD_CONTRATO_PROYECTO=",proyecto,"
+                AND REGISTRO_ITEMS_OTROS_COSTOS.COD_FORMAS_PAGO_FECHAS=",fecha)
+    ITEMS_FIJOS <- dbGetQuery(con, fijos)
+    ITEMS_VARIABLES<-dbGetQuery(con, variables)
+    
     #CALCULO DE LOS VALORES TOTALES HISTORICOS A FACTURAR POR PERSONA E ITEM------------
     TOTAL_PERSONAS <- aggregate(VALOR_CON_PRESTACIONES ~ COD_FORMAS_PAGO_FECHAS +
-                            COD_CONTRATO_PROYECTO + COD_ROL, data = INGRESOS_PERSONAS, sum)
-    TOTAL_ITEMS <- aggregate(VALOR_TOTAL ~ COD_FORMAS_PAGO_FECHAS + COD_CONTRATO_PROYECTO
-                       + COD_ITEM, data = INGRESOS_ITEMS, sum)
-
-    #CALCULO DEL VALOR TOTAL A FACTURAR POR CADA PROYECTO/MES
-    library(data.table)
-    FACTURADO <- rbindlist(list(TOTAL_ITEMS, TOTAL_PERSONAS))[, lapply(.SD, sum, na.rm = TRUE),
-                    by = c("COD_FORMAS_PAGO_FECHAS", "COD_CONTRATO_PROYECTO")]
-    FACTURADO <- FACTURADO[FACTURADO$VALOR_TOTAL > 0]
+                      COD_CONTRATO_PROYECTO + COD_ROL, data = INGRESOS_PERSONAS, sum)
+    TOTAL_ITEMS_FIJOS <- aggregate(VALOR_TOTAL ~ COD_FORMAS_PAGO_FECHAS + COD_CONTRATO_PROYECTO
+                      + COD_ITEM, data = ITEMS_FIJOS, sum)
+    if (nrow(ITEMS_VARIABLES)!=0){
+      TOTAL_ITEMS_VARIABLES <- aggregate(VALOR_COMERCIAL ~ COD_FORMAS_PAGO_FECHAS + COD_CONTRATO_PROYECTO
+                                         + COD_ITEM, data = ITEMS_VARIABLES, sum)
+    }
+    
+  #ELIMINAR LOS DATOS REPETIDOS DEL PROYECTO QUE SE ESTÁ CONSULTANDO
   eliminar<-paste0("DELETE FROM [dbo].[DETALLE_FACTURA_PERS] WHERE [COD_CONTRATO_PROYECTO] =", proyecto, "AND COD_FORMAS_PAGO_FECHAS=",fecha)
   dbExecute(con, eliminar)
+  eliminar<-paste0("DELETE FROM [dbo].[DETALLE_FACTURA_ITEM] WHERE [COD_CONTRATO_PROYECTO] =", proyecto, "AND COD_FORMAS_PAGO_FECHAS=",fecha)
+  dbExecute(con, eliminar)
+  
+  #CÁLCULO E INSERCIÓN DE LA INFORMACIÓN EN LAS TABLAS
   chunksize = 1000 # arbitrary chunk size
   TABLA_TEMPORAL<-TOTAL_PERSONAS[TOTAL_PERSONAS$COD_FORMAS_PAGO_FECHAS==fecha & TOTAL_PERSONAS$COD_CONTRATO_PROYECTO==proyecto,]
   for (i in 1:ceiling(nrow(TABLA_TEMPORAL)/chunksize)) {
@@ -35,7 +52,43 @@ factura <- function(fecha, proyecto) {
     query = paste0(query, paste0(vals,collapse=','))
     dbExecute(con, query)
   }
-    dbDisconnect(con)
+  
+  for (i in 1:ceiling(nrow(TOTAL_ITEMS_FIJOS)/chunksize)) {
+    query = paste0("INSERT INTO [dbo].[DETALLE_FACTURA_ITEM]
+           ([COD_CONTRATO_PROYECTO]
+           ,[COD_ITEM]
+           ,[COD_FORMAS_PAGO_FECHAS]
+           ,[VALOR_SIN_IMPUESTOS])
+            VALUES") 
+    vals = NULL
+    for (j in 1:chunksize) {
+      k = (i-1)*chunksize+j
+      if (k <= nrow(TOTAL_ITEMS_FIJOS)) {
+        vals[j] = paste0('(', paste0(TOTAL_ITEMS_FIJOS$COD_CONTRATO_PROYECTO[k],",",TOTAL_ITEMS_FIJOS$COD_ITEM[k],",",TOTAL_ITEMS_FIJOS$COD_FORMAS_PAGO_FECHAS[k],",",TOTAL_ITEMS_FIJOS$VALOR_TOTAL[k],")"),collapse = ',')
+      }
+    }
+    query = paste0(query, paste0(vals,collapse=','))
+    dbExecute(con, query)
+  }
+  
+  if (nrow(ITEMS_VARIABLES)!=0) {
+    for (i in 1:ceiling(nrow(TOTAL_ITEMS_VARIABLES)/chunksize)) {
+      query = paste0("INSERT INTO [dbo].[DETALLE_FACTURA_ITEM]
+           ([COD_CONTRATO_PROYECTO]
+           ,[COD_ITEM]
+           ,[COD_FORMAS_PAGO_FECHAS]
+           ,[VALOR_SIN_IMPUESTOS])
+            VALUES") 
+      vals = NULL
+      for (j in 1:chunksize) {
+        k = (i-1)*chunksize+j
+        if (k <= nrow(TOTAL_ITEMS_VARIABLES)) {
+          vals[j] = paste0('(', paste0(TOTAL_ITEMS_VARIABLES$COD_CONTRATO_PROYECTO[k],",",TOTAL_ITEMS_VARIABLES$COD_ITEM[k],",",TOTAL_ITEMS_VARIABLES$COD_FORMAS_PAGO_FECHAS[k],",",TOTAL_ITEMS_VARIABLES$VALOR_COMERCIAL[k],")"),collapse = ',')
+        }
+      }
+      query = paste0(query, paste0(vals,collapse=','))
+      dbExecute(con, query)
+    } }
+  
+  dbDisconnect(con)
 }
-
-
