@@ -23,7 +23,7 @@
                             {
                                 toolbar.ShowToolbar().ToolbarItems(items =>
                                 {
-                                    items.AddTool(ToolBarItems.Add);
+                                    
                                     items.AddTool(ToolBarItems.Edit);
                                     items.AddTool(ToolBarItems.Delete);
                                     items.AddTool(ToolBarItems.Update);
@@ -323,13 +323,13 @@
         }, "La fecha de incio debe ser inferior o igual a la de finalización");
     });
 
+    
     var temp1;
-
      //Funcion para añadir el filtro a los drop downs
     function inicio_grid(args) {
-        temp1 = args;
         
-        if (args.requestType == "beginedit" || args.requestType == "add") {
+        
+        if (args.requestType == "beginedit") {
 
                 setTimeout(function () {
 
@@ -360,6 +360,37 @@
                     
                 }, 50);
 
+        }
+        if (args.requestType == "add") {
+            setTimeout(function () {
+
+                //Cargar valor del rol para la orden de servicio dada
+                temp1 = args;
+                var COD_CONTRATO_ROL = args.model.parentDetails.parentKeyFieldValue;
+                var data = JSON.stringify({ COD_CONTRATO_ROL: parseInt(COD_CONTRATO_ROL) });
+                var url = "lista_colaboradores";
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        //Instanciar dropdown
+                        var drop = $(".e-dropdownlist[name='COD_COLABORADOR']").ejDropDownList('instance');
+
+                        //Cargar lista de colaboradores
+                        //temp1 = data.data;
+                        var lista_colaboradores = data.data;
+                        var dataManager = ej.DataManager(lista_colaboradores);
+                        drop.option("dataSource", dataManager);
+                        drop.option("fields", { text: "DESCRIPCION", value: "COD_COLABORADOR" });
+                        drop.option("enableFilterSearch", true);
+                    }
+                });
+
+            }, 50);
         }
     }
 
