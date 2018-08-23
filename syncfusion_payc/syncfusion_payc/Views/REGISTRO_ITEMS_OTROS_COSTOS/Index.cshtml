@@ -152,7 +152,7 @@
     });
 	//Funcion para añadir buscador a los dropdown
 	function inicio_grid(args) {
-        if (args.requestType == "beginedit" || args.requestType == "add") {
+        if (args.requestType == "beginedit") {
                 setTimeout(function () {
                     var drop = $(".e-dropdownlist[name='COD_FORMAS_PAGO_FECHAS']").ejDropDownList('instance');
                     drop.option("enableFilterSearch", true);
@@ -160,7 +160,7 @@
                     
 
             }, 50); 
-
+            //FIltro items
             setTimeout(function () {
 
                 //Cargar valor del items para la orden de servicio dada
@@ -189,5 +189,45 @@
 
             }, 50);
         }
+        if (args.requestType == "add") {
+            setTimeout(function () {
+                var drop = $(".e-dropdownlist[name='COD_FORMAS_PAGO_FECHAS']").ejDropDownList('instance');
+                drop.option("enableFilterSearch", true);
+
+
+
+            }, 50);
+            //FIltro items
+            setTimeout(function () {
+
+                //Cargar valor del items para la orden de servicio dada
+                var COD_CONTRATO_PROYECTO = args.model.parentDetails.parentKeyFieldValue;
+                var data = JSON.stringify({ COD_CONTRATO_PROYECTO: parseInt(COD_CONTRATO_PROYECTO) });
+                var url = "lista_items_otros_costos";
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        //Instanciar dropdown
+                        var drop1 = drop = $(".e-dropdownlist[name='COD_ITEM']").ejDropDownList('instance');
+                        //Cargar lista de items
+                        //temp1 = data.data;
+                        var lista_colaboradores = data.data;
+                        var dataManager = ej.DataManager(lista_colaboradores);
+                        drop1.option("dataSource", dataManager);
+                        drop1.option("fields", { text: "DESCRIPCION", value: "COD_ITEM" });
+                        drop1.option("enableFilterSearch", true);
+                    }
+                });
+
+            }, 50);
+        }
     }
+
+    //Grid padre
+    
 </script>
