@@ -61,9 +61,9 @@ namespace syncfusion_payc.servicios
             {
                 try
                 {
-                    Debug.WriteLine(contrato.ToString());
+                   
                     contrato = Convert.ToInt64(contrato);
-                    var flujo_contrato = db.VISTA_FLUJO_INGRESOS_ITEMS.Where(c => c.COD_CONTRATO_PROYECTO == contrato).ToList();
+                    var flujo_contrato = db.VISTA_FLUJO_INGRESOS_ITEMS.Where(c => c.COD_CONTRATO_PROYECTO == contrato && c.ESTADO == "SI").ToList();
                     dict = htmlHelper.GetJsonData(action, flujo_contrato);
                     refresh = true;
                 }
@@ -240,16 +240,31 @@ namespace syncfusion_payc.servicios
             //Debug.WriteLine(columna);
             DateTime temp = DateTime.ParseExact(customData["columna"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
             long id_contrato_proyecto = Convert.ToInt64(customData["id_contrato_proyecto"].ToString());
-            VISTA_FLUJO_INGRESOS_ITEMS table = db.VISTA_FLUJO_INGRESOS_ITEMS.Single(o => o.FECHA_FORMA_PAGO == temp && o.DESCRIPCION == columna && o.COD_CONTRATO_PROYECTO == id_contrato_proyecto);
+            VISTA_FLUJO_INGRESOS_ITEMS table = db.VISTA_FLUJO_INGRESOS_ITEMS.Single(o => o.FECHA_FORMA_PAGO == temp && o.DESCRIPCION == columna && o.COD_CONTRATO_PROYECTO == id_contrato_proyecto && o.ESTADO == "SI");
             long id_flujo_ingresos_rol = table.COD_FLUJO_INGRESOS_ITEMS;
-            FLUJO_INGRESOS_ITEMS table1 = db.FLUJO_INGRESOS_ITEMS.Single(o => o.COD_FLUJO_INGRESOS_ITEMS == id_flujo_ingresos_rol);
-            FLUJO_INGRESOS_ITEMS tabletemp = table1;
+            DateTime hoy = DateTime.Today;
+            FLUJO_INGRESOS_ITEMS table1 = db.FLUJO_INGRESOS_ITEMS.Single(o => o.COD_FLUJO_INGRESOS_ITEMS == id_flujo_ingresos_rol && o.ESTADO == "SI");
+            FLUJO_INGRESOS_ITEMS tabletemp = new FLUJO_INGRESOS_ITEMS();
+            table1.ESTADO = "NO";
+            table1.COD_FORMAS_PAGO_FECHAS = table1.COD_FORMAS_PAGO_FECHAS;
+            table1.USUARIO_REGISTRO = table1.USUARIO_REGISTRO;
+            table1.FECHA_REGISTRO = table1.FECHA_REGISTRO;
+            table1.ETAPA = table1.ETAPA;
+            db.Entry(table1).CurrentValues.SetValues(table1);
             tabletemp.VALOR_TOTAL = float.Parse(summaryValues.Replace("$", "").Replace(",", ""));
-            db.Entry(table1).CurrentValues.SetValues(tabletemp);
+            tabletemp.VALOR_FIJO = 0;
+            tabletemp.VALOR_VARIABLE = 0;
+            tabletemp.COD_CONTRATO_PROYECTO = table1.COD_CONTRATO_PROYECTO;
+            tabletemp.COD_FORMAS_PAGO_FECHAS = table1.COD_FORMAS_PAGO_FECHAS;
+            tabletemp.COD_ITEM = table1.COD_ITEM;
+            tabletemp.ETAPA = table1.ETAPA;
+            tabletemp.ESTADO = "SI";
+            tabletemp.USUARIO_REGISTRO = System.Web.HttpContext.Current.User.Identity.Name;
+            tabletemp.FECHA_REGISTRO = hoy;
+            db.FLUJO_INGRESOS_ITEMS.Add(tabletemp);
             db.SaveChanges();
             htmlHelper.PopulateData(currentReport);
-
-            var flujo_contrato = db.VISTA_FLUJO_INGRESOS_ITEMS.Where(c => c.COD_CONTRATO_PROYECTO == id_contrato_proyecto).ToList();
+            var flujo_contrato = db.VISTA_FLUJO_INGRESOS_ITEMS.Where(c => c.COD_CONTRATO_PROYECTO == id_contrato_proyecto && c.ESTADO == "SI").ToList();
             dict = htmlHelper.GetJsonData(action, flujo_contrato, index, summaryValues, valueHeaders);
             return dict;
         }
@@ -259,7 +274,7 @@ namespace syncfusion_payc.servicios
         {
             PivotReport pivotSetting = new PivotReport();
             SortElement sortElement = new SortElement(AxisPosition.Slicer, Syncfusion.Olap.Reports.SortOrder.DESC, true);
-            pivotSetting.PivotRows.Add(new PivotItem { FieldMappingName = "DESCRIPCION", FieldHeader = "ITEMS", TotalHeader = "TOTAL" });
+            pivotSetting.PivotRows.Add(new PivotItem { FieldMappingName = "DESCRIPCION", FieldHeader = "ITEMS", TotalHeader = "Total" });
             pivotSetting.PivotColumns.Add(new PivotItem { FieldMappingName = "FECHA_FORMA_PAGO", FieldHeader = "FECHAS", TotalHeader = "Total", Format = "dd/MM/yyyy", Comparer = new DateComparer("dd/MM/yyyy") });
             pivotSetting.PivotCalculations.Add(new PivotComputationInfo { CalculationName = "SUMA TOTAL", Description = "VALOR TOTAL", FieldName = "VALOR_TOTAL", Format = "c0", SummaryType = Syncfusion.PivotAnalysis.Base.SummaryType.DoubleTotalSum });
             return pivotSetting;

@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
-using System.Collections;
+
 using System.Data;
 using System.Data.Entity;
 using System.Net;
@@ -27,6 +28,8 @@ using Syncfusion.PivotAnalysis.Base;
 using syncfusion_payc;
 using System.Globalization;
 using System.Threading;
+using Microsoft.AspNet.Identity;
+
 namespace syncfusion_payc.servicios
 {
     // NOTA: puede usar el comando "Rename" del menú "Refactorizar" para cambiar el nombre de clase "FlujoIngresosRoles" en el código, en svc y en el archivo de configuración a la vez.
@@ -78,7 +81,7 @@ namespace syncfusion_payc.servicios
                 {
                     Debug.WriteLine(contrato.ToString());
                     contrato = Convert.ToInt64(contrato);
-                    var flujo_contrato = db.VISTA_FLUJO_INGRESOS.Where(c => c.COD_CONTRATO_PROYECTO == contrato).ToList();
+                    var flujo_contrato = db.VISTA_FLUJO_INGRESOS.Where(c => c.COD_CONTRATO_PROYECTO == contrato && c.ESTADO == "SI").ToList();
                     dict = htmlHelper.GetJsonData(action, flujo_contrato);
                     refresh = true;
                 }
@@ -254,22 +257,36 @@ namespace syncfusion_payc.servicios
             //Debug.WriteLine(columna);
             DateTime temp = DateTime.ParseExact(customData["columna"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
             long id_contrato_proyecto = Convert.ToInt64(customData["id_contrato_proyecto"].ToString());
-            try
-            {
-                VISTA_FLUJO_INGRESOS table = db.VISTA_FLUJO_INGRESOS.Single(o => o.FECHA_FORMA_PAGO == temp && o.DESCRIPCION == columna && o.COD_CONTRATO_PROYECTO == id_contrato_proyecto);
+            
+                
+
+                VISTA_FLUJO_INGRESOS table = db.VISTA_FLUJO_INGRESOS.Single(o => o.FECHA_FORMA_PAGO == temp && o.DESCRIPCION == columna && o.COD_CONTRATO_PROYECTO == id_contrato_proyecto && o.ESTADO=="SI");
                 long id_flujo_ingresos_rol = table.COD_FLUJO_INGRESOS_ROL;
-                FLUJO_INGRESOS_ROL table1 = db.FLUJO_INGRESOS_ROL.Single(o => o.COD_FLUJO_INGRESOS_ROL == id_flujo_ingresos_rol);
-                FLUJO_INGRESOS_ROL tabletemp = table1;
+                DateTime hoy = DateTime.Today;
+                FLUJO_INGRESOS_ROL table1 = db.FLUJO_INGRESOS_ROL.Single(o => o.COD_FLUJO_INGRESOS_ROL == id_flujo_ingresos_rol && o.ESTADO == "SI");
+                FLUJO_INGRESOS_ROL tabletemp = new FLUJO_INGRESOS_ROL();
+                table1.ESTADO = "NO";
+                table1.COD_FORMAS_PAGO_FECHAS = table1.COD_FORMAS_PAGO_FECHAS;
+                table1.USUARIO_REGISTRO = table1.USUARIO_REGISTRO;
+                table1.FECHA_REGISTRO = table1.FECHA_REGISTRO;
+                table1.ETAPA = table1.ETAPA;
+                db.Entry(table1).CurrentValues.SetValues(table1);
                 tabletemp.VALOR_FACTOR_MULTIPLICADOR = float.Parse(summaryValues.Replace("$", "").Replace(",", ""));
-                db.Entry(table1).CurrentValues.SetValues(tabletemp);
+                tabletemp.VALOR_CON_PRESTACIONES = 0;
+                tabletemp.VALOR_SIN_PRESTACIONES = 0;
+                tabletemp.COD_CONTRATO_PROYECTO = table1.COD_CONTRATO_PROYECTO;
+                tabletemp.COD_FORMAS_PAGO_FECHAS = table1.COD_FORMAS_PAGO_FECHAS;
+                tabletemp.COD_ROL = table1.COD_ROL;
+                 
+                tabletemp.ETAPA = table1.ETAPA;
+                tabletemp.ESTADO = "SI";
+                tabletemp.USUARIO_REGISTRO = System.Web.HttpContext.Current.User.Identity.Name;
+                tabletemp.FECHA_REGISTRO = hoy;
+                db.FLUJO_INGRESOS_ROL.Add(tabletemp);
                 db.SaveChanges();
                 htmlHelper.PopulateData(currentReport);
-            }
-            catch
-            {
-                
-            }
-            var flujo_contrato = db.VISTA_FLUJO_INGRESOS.Where(c => c.COD_CONTRATO_PROYECTO == id_contrato_proyecto).ToList();
+            
+            var flujo_contrato = db.VISTA_FLUJO_INGRESOS.Where(c => c.COD_CONTRATO_PROYECTO == id_contrato_proyecto && c.ESTADO == "SI").ToList();
             dict = htmlHelper.GetJsonData(action, flujo_contrato, index, summaryValues, valueHeaders);
             return dict;
         }

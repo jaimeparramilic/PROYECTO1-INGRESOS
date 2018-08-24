@@ -11,6 +11,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using syncfusion_payc.Models;
+using Microsoft.AspNet.Identity;
 
 namespace syncfusion_payc.Controllers
 {
@@ -193,6 +194,11 @@ namespace syncfusion_payc.Controllers
         //Perform file insertion 
         public ActionResult PerformInsert(EditParams_FLUJO_INGRESOS_ITEMS param)
         {
+            //Cargar datos de usuario y fecha
+            DateTime hoy = DateTime.Today;
+            param.value.ESTADO = "SI";
+            param.value.USUARIO_REGISTRO = User.Identity.GetUserName();
+            param.value.FECHA_REGISTRO = hoy;
             db.FLUJO_INGRESOS_ITEMS.Add(param.value);
             db.SaveChanges();
 			var data = db.FLUJO_INGRESOS_ITEMS.ToList();
@@ -203,19 +209,41 @@ namespace syncfusion_payc.Controllers
         //Actualizar grid
         public ActionResult PerformUpdate(EditParams_FLUJO_INGRESOS_ITEMS param)
         {
-            
-			FLUJO_INGRESOS_ITEMS table = db.FLUJO_INGRESOS_ITEMS.Single(o => o.COD_FLUJO_INGRESOS_ITEMS == param.value.COD_FLUJO_INGRESOS_ITEMS);
+            DateTime hoy = DateTime.Today;
+            //Deshabilitar el actual
+            FLUJO_INGRESOS_ITEMS table = db.FLUJO_INGRESOS_ITEMS.Single(o => o.COD_FLUJO_INGRESOS_ITEMS == param.value.COD_FLUJO_INGRESOS_ITEMS);
+            table.ESTADO = "NO";
+            table.COD_FORMAS_PAGO_FECHAS = table.COD_FORMAS_PAGO_FECHAS;
+            table.USUARIO_REGISTRO = table.USUARIO_REGISTRO;
+            table.FECHA_REGISTRO = table.FECHA_REGISTRO;
+            table.ETAPA= table.ETAPA;
+            db.Entry(table).CurrentValues.SetValues(table);
 
-            db.Entry(table).CurrentValues.SetValues(param.value);
+            //Hacer insert en nuevo y en el viejo deshabilitar en un nuevo elemento
+            FLUJO_INGRESOS_ITEMS temp = new FLUJO_INGRESOS_ITEMS();
+            temp.COD_CONTRATO_PROYECTO = param.value.COD_CONTRATO_PROYECTO;
+            temp.COD_FORMAS_PAGO_FECHAS = table.COD_FORMAS_PAGO_FECHAS;
+            temp.COD_ITEM = param.value.COD_ITEM;
+            temp.VALOR_FIJO = param.value.VALOR_FIJO;
+            temp.VALOR_VARIABLE = param.value.VALOR_VARIABLE;
+            temp.VALOR_TOTAL = param.value.VALOR_TOTAL;
+            temp.ETAPA = param.value.ETAPA;
+            temp.ESTADO = "SI";
+            temp.USUARIO_REGISTRO= User.Identity.GetUserName();
+            temp.FECHA_REGISTRO = hoy;
+            db.FLUJO_INGRESOS_ITEMS.Add(temp);
             db.SaveChanges();
-			return RedirectToAction("GetOrderData");
-			
+            var data = db.FLUJO_INGRESOS_ITEMS.ToList();
+            var value = data.Last();
+            return Json(value, JsonRequestBehavior.AllowGet);
         }
 
         //Borrar grid
         public ActionResult PerformDelete(int key, string keyColumn)
         {
-            db.FLUJO_INGRESOS_ITEMS.Remove(db.FLUJO_INGRESOS_ITEMS.Single(o => o.COD_FLUJO_INGRESOS_ITEMS== key));
+            //Dehabilitar
+            FLUJO_INGRESOS_ITEMS table = db.FLUJO_INGRESOS_ITEMS.Single(o => o.COD_FLUJO_INGRESOS_ITEMS == key);
+            table.ESTADO = "NO";
             db.SaveChanges();
             return RedirectToAction("GetOrderData");
             

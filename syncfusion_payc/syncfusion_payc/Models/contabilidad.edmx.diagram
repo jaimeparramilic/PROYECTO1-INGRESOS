@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d9d32a8db5f3424fb71f25fe58108d34" Name="Diagram1" ZoomLevel="34">
+      <Diagram DiagramId="d9d32a8db5f3424fb71f25fe58108d34" Name="Diagram1" ZoomLevel="65">
         <EntityTypeShape EntityType="test_payc_contabilidadModel.CARGOS" Width="1.5" PointX="6" PointY="13.875" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.CARTERA" Width="1.5" PointX="10.5" PointY="14.5" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.CLIENTES" Width="1.5" PointX="1.5" PointY="29.875" />
@@ -17,8 +17,6 @@
         <EntityTypeShape EntityType="test_payc_contabilidadModel.ENTREGABLES" Width="1.5" PointX="10.5" PointY="18.5" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.ESTUDIOS_COLABORADOR" Width="1.5" PointX="10.5" PointY="6.5" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.FACTURAS" Width="1.5" PointX="8.25" PointY="22.75" />
-        <EntityTypeShape EntityType="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS" Width="1.5" PointX="7.5" PointY="30.625" />
-        <EntityTypeShape EntityType="test_payc_contabilidadModel.FLUJO_INGRESOS_ROL" Width="1.5" PointX="8.25" PointY="26.5" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.FORMAS_PAGO_FECHAS" Width="1.5" PointX="3" PointY="24.875" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.GESTION_CARTERA" Width="1.5" PointX="12.75" PointY="11.5" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.ITEMS_CONTRATO" Width="1.5" PointX="5.25" PointY="40.875" />
@@ -39,19 +37,12 @@
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FECHAS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_detalle_factura_item_items" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_FACTURAS_FORMAS_PAGO_FECHAS" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_FECHAS" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ITEMS" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_FECHAS" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ROL" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_REGISTR_ITEMS_OTROS_COSTOS_FECHAS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_FORMAS_PAGO_FECHAS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_registro_items_otros_costos_items" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_TIPO_NOVEDAD" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_TIPOS_NOVEDAD_CONDICION_TIPO_CONDICION" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_TIPOS_NOVEDAD_CONDICION_TIPO_NOVEDAD" />
-        <EntityTypeShape EntityType="test_payc_contabilidadModel.CONTRATO_PROYECTO_DESCRIPCION" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_FLUJO_INGRESOS" Width="1.5" PointX="3.375" PointY="0.75" />
-        <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_FLUJO_INGRESOS_ITEMS" Width="1.5" PointX="0.75" PointY="3.75" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.GENERACION_FLUJOS_ROL" Width="1.5" PointX="3.375" PointY="6.75" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.SINO" Width="1.5" PointX="5.375" PointY="6.75" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.GENERACION_FLUJOS_ITEM" Width="1.5" PointX="7.75" PointY="0.75" />
@@ -70,8 +61,6 @@
         <AssociationConnector Association="test_payc_contabilidadModel.FK_CONTRATOS_CONDICIONES_CONTRATO_PROYECTO" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_CONTRATO_PROYECTO" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_FACTURAS_CONTRATO_PROYECTO" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_CONTRATO_PROYECTO" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_REGISTRO_ITEMS_OTROS_COSTOS_CONTRATO_CONDICION" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_CONTRATO_PROYECTO" />
@@ -117,6 +106,15 @@
         <EntityTypeShape EntityType="test_payc_contabilidadModel.CONTRATO_COLABORADOR_COMERCIAL" Width="1.5" PointX="24.625" PointY="6.125" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_PENDIENTES_RETIRO" Width="1.5" PointX="25.875" PointY="11" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_PENDIENTES_FACTURA" Width="1.5" PointX="20.375" PointY="10.75" />
+        <EntityTypeShape EntityType="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS" Width="1.5" PointX="20.875" PointY="31" />
+        <EntityTypeShape EntityType="test_payc_contabilidadModel.FLUJO_INGRESOS_ROL" Width="1.5" PointX="17.875" PointY="30.625" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_FECHAS" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ITEMS" />
+        <EntityTypeShape EntityType="test_payc_contabilidadModel.CONTRATO_PROYECTO_DESCRIPCION" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_FLUJO_INGRESOS" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_FLUJO_INGRESOS_ITEMS" Width="1.5" PointX="10.375" PointY="21.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

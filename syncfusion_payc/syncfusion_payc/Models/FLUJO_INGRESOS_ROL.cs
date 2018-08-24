@@ -22,9 +22,10 @@ namespace syncfusion_payc.Models
         public Nullable<float> VALOR_SIN_PRESTACIONES { get; set; }
         public Nullable<float> VALOR_CON_PRESTACIONES { get; set; }
         public Nullable<float> VALOR_FACTOR_MULTIPLICADOR { get; set; }
+        public string ESTADO { get; set; }
+        public Nullable<System.DateTime> FECHA_REGISTRO { get; set; }
+        public string USUARIO_REGISTRO { get; set; }
     
-        public virtual FORMAS_PAGO_FECHAS FORMAS_PAGO_FECHAS { get; set; }
-        public virtual ROLES ROLES { get; set; }
         public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
     }
 }

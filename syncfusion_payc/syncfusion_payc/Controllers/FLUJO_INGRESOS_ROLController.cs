@@ -11,7 +11,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using syncfusion_payc.Models;
-
+using Microsoft.AspNet.Identity;
 namespace syncfusion_payc.Controllers
 {
     public class FLUJO_INGRESOS_ROLController : Controller
@@ -21,7 +21,7 @@ namespace syncfusion_payc.Controllers
         // GET: FLUJO_INGRESOS_ROL
         public ActionResult Index()
         {
-            var fLUJO_INGRESOS_ROL = db.FLUJO_INGRESOS_ROL.Include(f => f.CONTRATO_PROYECTO).Include(f => f.FORMAS_PAGO_FECHAS).Include(f => f.ROLES);
+            var fLUJO_INGRESOS_ROL = db.FLUJO_INGRESOS_ROL.Include(f => f.CONTRATO_PROYECTO);
             return View(fLUJO_INGRESOS_ROL.ToList());
         }
 
@@ -193,6 +193,11 @@ namespace syncfusion_payc.Controllers
         //Perform file insertion 
         public ActionResult PerformInsert(EditParams_FLUJO_INGRESOS_ROL param)
         {
+            //Guardar datos de registro
+            DateTime hoy = DateTime.Today;
+            param.value.ESTADO = "SI";
+            param.value.USUARIO_REGISTRO = User.Identity.GetUserName();
+            param.value.FECHA_REGISTRO = hoy;
             db.FLUJO_INGRESOS_ROL.Add(param.value);
             db.SaveChanges();
 			var data = db.FLUJO_INGRESOS_ROL.ToList();
@@ -204,18 +209,42 @@ namespace syncfusion_payc.Controllers
         public ActionResult PerformUpdate(EditParams_FLUJO_INGRESOS_ROL param)
         {
             
-			FLUJO_INGRESOS_ROL table = db.FLUJO_INGRESOS_ROL.Single(o => o.COD_FLUJO_INGRESOS_ROL == param.value.COD_FLUJO_INGRESOS_ROL);
-
-            db.Entry(table).CurrentValues.SetValues(param.value);
-            db.SaveChanges();
-			return RedirectToAction("GetOrderData");
 			
+            DateTime hoy = DateTime.Today;
+            //Deshabilitar el actual
+            FLUJO_INGRESOS_ROL table = db.FLUJO_INGRESOS_ROL.Single(o => o.COD_FLUJO_INGRESOS_ROL == param.value.COD_FLUJO_INGRESOS_ROL);
+            table.ESTADO = "NO";
+            table.COD_FORMAS_PAGO_FECHAS = table.COD_FORMAS_PAGO_FECHAS;
+            table.USUARIO_REGISTRO = table.USUARIO_REGISTRO;
+            table.FECHA_REGISTRO = table.FECHA_REGISTRO;
+            table.ETAPA = table.ETAPA;
+            db.Entry(table).CurrentValues.SetValues(table);
+
+            //Hacer insert en nuevo y en el viejo deshabilitar en un nuevo elemento
+            FLUJO_INGRESOS_ROL temp = new FLUJO_INGRESOS_ROL();
+            temp.COD_CONTRATO_PROYECTO = param.value.COD_CONTRATO_PROYECTO;
+            temp.COD_FORMAS_PAGO_FECHAS = table.COD_FORMAS_PAGO_FECHAS;
+            temp.COD_ROL= param.value.COD_ROL;
+            temp.VALOR_CON_PRESTACIONES = param.value.VALOR_CON_PRESTACIONES;
+            temp.VALOR_FACTOR_MULTIPLICADOR = param.value.VALOR_FACTOR_MULTIPLICADOR;
+            temp.VALOR_SIN_PRESTACIONES= param.value.VALOR_SIN_PRESTACIONES;
+            temp.ETAPA = param.value.ETAPA;
+            temp.ESTADO = "SI";
+            temp.USUARIO_REGISTRO = User.Identity.GetUserName();
+            temp.FECHA_REGISTRO = hoy;
+            db.FLUJO_INGRESOS_ROL.Add(temp);
+            db.SaveChanges();
+            var data = db.FLUJO_INGRESOS_ROL.ToList();
+            var value = data.Last();
+            return Json(value, JsonRequestBehavior.AllowGet);
         }
 
         //Borrar grid
         public ActionResult PerformDelete(int key, string keyColumn)
         {
-            db.FLUJO_INGRESOS_ROL.Remove(db.FLUJO_INGRESOS_ROL.Single(o => o.COD_FLUJO_INGRESOS_ROL== key));
+            //Dehabilitar
+            FLUJO_INGRESOS_ROL table = db.FLUJO_INGRESOS_ROL.Single(o => o.COD_FLUJO_INGRESOS_ROL == key);
+            table.ESTADO = "NO";
             db.SaveChanges();
             return RedirectToAction("GetOrderData");
             

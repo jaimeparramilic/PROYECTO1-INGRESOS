@@ -22,6 +22,9 @@ namespace syncfusion_payc.Models
         public Nullable<float> VALOR_FIJO { get; set; }
         public Nullable<float> VALOR_VARIABLE { get; set; }
         public Nullable<float> VALOR_TOTAL { get; set; }
+        public string ESTADO { get; set; }
+        public Nullable<System.DateTime> FECHA_REGISTRO { get; set; }
+        public string USUARIO_REGISTRO { get; set; }
         public string DESCRIPCION { get; set; }
         public Nullable<System.DateTime> FECHA_FORMA_PAGO { get; set; }
     }

@@ -718,8 +718,10 @@ namespace syncfusion_payc.Controllers
         //Funcion para regenerar el flujo del rol
         public ActionResult regenerar_flujo_rol(long COD_CONTRATO_PROYECTO)
         {
+            DateTime hoy = DateTime.Today;
+            string usuario= User.Identity.GetUserName();
             //Query para recalcular
-            string queryString = @" DELETE FROM [test_payc_contabilidad].[dbo].[FLUJO_INGRESOS_ROL] WHERE COD_CONTRATO_PROYECTO=" + COD_CONTRATO_PROYECTO.ToString() + @";
+            string queryString = @" UPDATE [test_payc_contabilidad].[dbo].[FLUJO_INGRESOS_ROL] SET ESTADO='NO' WHERE COD_CONTRATO_PROYECTO=" + COD_CONTRATO_PROYECTO.ToString() + @";
                                     INSERT INTO [test_payc_contabilidad].[dbo].[FLUJO_INGRESOS_ROL]
                                             ([COD_FORMAS_PAGO_FECHAS]
                                             ,[COD_ROL]
@@ -727,13 +729,21 @@ namespace syncfusion_payc.Controllers
                                             ,[ETAPA]
                                             ,[VALOR_SIN_PRESTACIONES]
                                             ,[VALOR_CON_PRESTACIONES]
-                                            ,[VALOR_FACTOR_MULTIPLICADOR]) (SELECT [COD_FORMAS_PAGO_FECHAS]
+                                            ,[VALOR_FACTOR_MULTIPLICADOR]
+                                            ,[FECHA_REGISTRO]
+                                            ,[USUARIO_REGISTRO]
+                                            ,[ESTADO]
+                                            ) (SELECT [COD_FORMAS_PAGO_FECHAS]
                                             ,[COD_ROL]
                                             ,[COD_CONTRATO_PROYECTO]
                                             ,[ETAPA]
                                             ,[VALOR_SIN_PRESTACIONES]
                                             ,[VALOR_CON_PRESTACIONES]
-                                            ,[VALOR_FACTOR_MULTIPLICADOR] FROM [test_payc_contabilidad].[dbo].GENERACION_FLUJOS_ROL3 WHERE COD_CONTRATO_PROYECTO=" + COD_CONTRATO_PROYECTO.ToString() + @");";
+                                            ,[VALOR_FACTOR_MULTIPLICADOR], 
+                                             GETDATE() AS FECHA_REGISTRO,'"+
+                                             usuario + @"', 'SI' AS ESTADO" + 
+
+                                            @" FROM [test_payc_contabilidad].[dbo].GENERACION_FLUJOS_ROL3 WHERE COD_CONTRATO_PROYECTO=" + COD_CONTRATO_PROYECTO.ToString() + @");";
            
             //Ejecución del query
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -749,32 +759,51 @@ namespace syncfusion_payc.Controllers
         //Funcion para regenerar el flujo del item
         public ActionResult regenerar_flujo_item(long COD_CONTRATO_PROYECTO)
         {
+            
+            
+                //Datos base
+            DateTime hoy = DateTime.Today;
+            string usuario = User.Identity.GetUserName();
             //Query para recalcular
-            string queryString = @" DELETE FROM [test_payc_contabilidad].[dbo].[FLUJO_INGRESOS_ITEMS] WHERE COD_CONTRATO_PROYECTO=" + COD_CONTRATO_PROYECTO.ToString() + @";
+            string queryString = @"UPDATE [test_payc_contabilidad].[dbo].[FLUJO_INGRESOS_ITEMS] SET ESTADO='NO' WHERE COD_CONTRATO_PROYECTO=" + COD_CONTRATO_PROYECTO.ToString() + @";
                                     INSERT INTO [test_payc_contabilidad].[dbo].[FLUJO_INGRESOS_ITEMS]
-                                          ([COD_FORMAS_PAGO_FECHAS]
-                                          ,[COD_ITEM]
-                                          ,[COD_CONTRATO_PROYECTO]
-                                          ,[ETAPA]
-                                          ,[VALOR_FIJO]
-                                          ,[VALOR_VARIABLE]
-                                          ,[VALOR_TOTAL]) (SELECT [COD_FORMAS_PAGO_FECHAS]
-                                          ,[COD_ITEM]
-                                          ,[COD_CONTRATO_PROYECTO]
-                                          ,[ETAPA]
-                                          ,[VALOR_FIJO]
-                                          ,[VALOR_VARIABLE]
-                                          ,[VALOR_TOTAL] FROM [test_payc_contabilidad].[dbo].GENERACION_FLUJOS_ITEM3 WHERE COD_CONTRATO_PROYECTO=" + COD_CONTRATO_PROYECTO.ToString() + @");";
+                                              ([COD_FORMAS_PAGO_FECHAS]
+                                              ,[COD_ITEM]
+                                              ,[COD_CONTRATO_PROYECTO]
+                                              ,[ETAPA]
+                                              ,[VALOR_FIJO]
+                                              ,[VALOR_VARIABLE]
+                                              ,[VALOR_TOTAL]
+                                              ,[FECHA_REGISTRO]
+                                              ,[USUARIO_REGISTRO]
+                                              ,[ESTADO]
+                                            ) (SELECT [COD_FORMAS_PAGO_FECHAS]
+                                              ,[COD_ITEM]
+                                              ,[COD_CONTRATO_PROYECTO]
+                                              ,[ETAPA]
+                                              ,[VALOR_FIJO]
+                                              ,[VALOR_VARIABLE]
+                                              ,[VALOR_TOTAL] 
+                                              ,GETDATE() AS FECHA_REGISTRO,'" +
+                                              usuario + @"' AS USUARIO_REGISTRO, 'SI' AS ESTADO" +
 
-            //Ejecución del query
-            using (SqlConnection connection = new SqlConnection(connectionString))
+                                              @" FROM [test_payc_contabilidad].[dbo].GENERACION_FLUJOS_ITEM3 WHERE COD_CONTRATO_PROYECTO=" + COD_CONTRATO_PROYECTO.ToString() + @");";
+            try
             {
-                SqlCommand command = new SqlCommand(queryString, connection);
+                //Ejecución del query
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand command = new SqlCommand(queryString, connection);
 
-                connection.Open();
-                command.ExecuteNonQuery();
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
             }
-            return Json(new { success = true, responseText = "SI" }, JsonRequestBehavior.AllowGet);
+            catch(Exception ex)
+            {
+                queryString = queryString + ",--->" + ex.ToString();
+            }
+            return Json(new { success = true, responseText = queryString }, JsonRequestBehavior.AllowGet);
         }
         #endregion
         #region Index orden de servicio

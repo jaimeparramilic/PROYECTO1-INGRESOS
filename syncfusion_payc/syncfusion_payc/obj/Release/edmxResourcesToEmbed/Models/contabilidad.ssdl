@@ -155,11 +155,16 @@
     <Key>
       <PropertyRef Name="COD_DETALLE_FACTURA_ITEM" />
     </Key>
-    <Property Name="COD_DETALLE_FACTURA_ITEM" Type="bigint" Nullable="false" />
+    <Property Name="COD_DETALLE_FACTURA_ITEM" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
     <Property Name="COD_ITEM" Type="bigint" />
     <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
     <Property Name="VALOR_SIN_IMPUESTOS" Type="real" />
+    <Property Name="FECHA_REGISTRO" Type="datetime" />
+    <Property Name="USUARIO" Type="varchar" MaxLength="300" />
+    <Property Name="ESTADO_FACTURA" Type="varchar" MaxLength="300" />
+    <Property Name="COD_CAUSA_ESTADO" Type="bigint" />
+    <Property Name="OBSERVACIONES" Type="varchar" MaxLength="300" />
   </EntityType>
   <EntityType Name="DETALLE_FACTURA_PERS">
     <Key>
@@ -223,6 +228,9 @@
     <Property Name="VALOR_FIJO" Type="real" />
     <Property Name="VALOR_VARIABLE" Type="real" />
     <Property Name="VALOR_TOTAL" Type="real" />
+    <Property Name="ESTADO" Type="varchar" MaxLength="50" />
+    <Property Name="FECHA_REGISTRO" Type="datetime" />
+    <Property Name="USUARIO_REGISTRO" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="FLUJO_INGRESOS_ROL">
     <Key>
@@ -236,6 +244,9 @@
     <Property Name="VALOR_SIN_PRESTACIONES" Type="real" />
     <Property Name="VALOR_CON_PRESTACIONES" Type="real" />
     <Property Name="VALOR_FACTOR_MULTIPLICADOR" Type="real" />
+    <Property Name="ESTADO" Type="varchar" MaxLength="50" />
+    <Property Name="FECHA_REGISTRO" Type="datetime" />
+    <Property Name="USUARIO_REGISTRO" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="FORMAS_PAGO">
     <Key>
@@ -511,6 +522,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATO_PROYECTO
     <Property Name="COD_PROYECTO" Type="bigint" />
     <Property Name="COD_FORMA_PAGO" Type="bigint" />
     <Property Name="DESCRIPCION" Type="varchar" MaxLength="622" />
+    <Property Name="CENTRO_COSTOS" Type="varchar" MaxLength="300" />
   </EntityType>
   <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATOS_CONDICIONES_VISTA' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -661,6 +673,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FLUJO_INGRE
     <Property Name="VALOR_FACTOR_MULTIPLICADOR" Type="real" />
     <Property Name="FECHA_FORMA_PAGO" Type="date" />
     <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
+    <Property Name="ESTADO" Type="varchar" MaxLength="50" />
   </EntityType>
   <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FLUJO_INGRESOS_ITEMS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -677,6 +690,9 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FLUJO_INGRE
     <Property Name="VALOR_FIJO" Type="real" />
     <Property Name="VALOR_VARIABLE" Type="real" />
     <Property Name="VALOR_TOTAL" Type="real" />
+    <Property Name="ESTADO" Type="varchar" MaxLength="50" />
+    <Property Name="FECHA_REGISTRO" Type="datetime" />
+    <Property Name="USUARIO_REGISTRO" Type="varchar" MaxLength="50" />
     <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" Nullable="false" />
     <Property Name="FECHA_FORMA_PAGO" Type="date" />
   </EntityType>
@@ -1478,7 +1494,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
     [CONTRATO_PROYECTO_DESCRIPCION].[COD_CONTRATO] AS [COD_CONTRATO], 
     [CONTRATO_PROYECTO_DESCRIPCION].[COD_PROYECTO] AS [COD_PROYECTO], 
     [CONTRATO_PROYECTO_DESCRIPCION].[COD_FORMA_PAGO] AS [COD_FORMA_PAGO], 
-    [CONTRATO_PROYECTO_DESCRIPCION].[DESCRIPCION] AS [DESCRIPCION]
+    [CONTRATO_PROYECTO_DESCRIPCION].[DESCRIPCION] AS [DESCRIPCION], 
+    [CONTRATO_PROYECTO_DESCRIPCION].[CENTRO_COSTOS] AS [CENTRO_COSTOS]
     FROM [dbo].[CONTRATO_PROYECTO_DESCRIPCION] AS [CONTRATO_PROYECTO_DESCRIPCION]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="CONTRATOS_CONDICIONES_VISTA" EntityType="Self.CONTRATOS_CONDICIONES_VISTA" store:Type="Views" store:Schema="dbo">
@@ -1588,7 +1605,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
     [VISTA_FLUJO_INGRESOS].[VALOR_CON_PRESTACIONES] AS [VALOR_CON_PRESTACIONES], 
     [VISTA_FLUJO_INGRESOS].[VALOR_FACTOR_MULTIPLICADOR] AS [VALOR_FACTOR_MULTIPLICADOR], 
     [VISTA_FLUJO_INGRESOS].[FECHA_FORMA_PAGO] AS [FECHA_FORMA_PAGO], 
-    [VISTA_FLUJO_INGRESOS].[DESCRIPCION] AS [DESCRIPCION]
+    [VISTA_FLUJO_INGRESOS].[DESCRIPCION] AS [DESCRIPCION], 
+    [VISTA_FLUJO_INGRESOS].[ESTADO] AS [ESTADO]
     FROM [dbo].[VISTA_FLUJO_INGRESOS] AS [VISTA_FLUJO_INGRESOS]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="VISTA_FLUJO_INGRESOS_ITEMS" EntityType="Self.VISTA_FLUJO_INGRESOS_ITEMS" store:Type="Views" store:Schema="dbo">
@@ -1601,6 +1619,9 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
     [VISTA_FLUJO_INGRESOS_ITEMS].[VALOR_FIJO] AS [VALOR_FIJO], 
     [VISTA_FLUJO_INGRESOS_ITEMS].[VALOR_VARIABLE] AS [VALOR_VARIABLE], 
     [VISTA_FLUJO_INGRESOS_ITEMS].[VALOR_TOTAL] AS [VALOR_TOTAL], 
+    [VISTA_FLUJO_INGRESOS_ITEMS].[ESTADO] AS [ESTADO], 
+    [VISTA_FLUJO_INGRESOS_ITEMS].[FECHA_REGISTRO] AS [FECHA_REGISTRO], 
+    [VISTA_FLUJO_INGRESOS_ITEMS].[USUARIO_REGISTRO] AS [USUARIO_REGISTRO], 
     [VISTA_FLUJO_INGRESOS_ITEMS].[DESCRIPCION] AS [DESCRIPCION], 
     [VISTA_FLUJO_INGRESOS_ITEMS].[FECHA_FORMA_PAGO] AS [FECHA_FORMA_PAGO]
     FROM [dbo].[VISTA_FLUJO_INGRESOS_ITEMS] AS [VISTA_FLUJO_INGRESOS_ITEMS]</DefiningQuery>
