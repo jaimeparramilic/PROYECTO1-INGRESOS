@@ -1426,6 +1426,9 @@
     <Content Include="Views\ITEMS\Details.cshtml" />
     <Content Include="Views\ITEMS\Edit.cshtml" />
     <Content Include="Views\ITEMS\Index.cshtml" />
+    <Content Include="Documentación\Modelo de datos\Modelo de datos y flujos de uso V11.vsdx" />
+    <Content Include="Documentación\Modelo de datos\Modelo documentación modelo de datos.docx" />
+    <Content Include="Documentación\Modelos matemáticos\Formulación detallada valor a facturar v2.docx" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
