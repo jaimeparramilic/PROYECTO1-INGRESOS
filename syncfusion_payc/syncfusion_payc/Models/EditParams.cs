@@ -27,6 +27,21 @@ namespace syncfusion_payc.Models
         public IEnumerable<ROLES> deleted { get; set; }
     }
 
+    public class EditParams_ITEMS
+    {
+        public int skip { get; set; }
+        public int take { get; set; }
+        public string action { get; set; }
+        public int key { get; set; }
+        public string keyColumn { get; set; }
+        public ITEMS value { get; set; }
+
+        //Batch Edit Params
+        public IEnumerable<ITEMS> added { get; set; }
+        public IEnumerable<ITEMS> changed { get; set; }
+        public IEnumerable<ITEMS> deleted { get; set; }
+    }
+
     public class EditParams_VISTA_PENDIENTES_RETIRO
     {
         public int skip { get; set; }

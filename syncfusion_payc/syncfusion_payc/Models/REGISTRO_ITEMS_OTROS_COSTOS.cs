@@ -15,7 +15,7 @@ namespace syncfusion_payc.Models
     public partial class REGISTRO_ITEMS_OTROS_COSTOS
     {
         public long COD_REGISTRO_ITEMS { get; set; }
-        public Nullable<long> COD_ITEM { get; set; }
+        public Nullable<long> COD_ITEM_CONTRATO { get; set; }
         public Nullable<long> COD_CONTRATO_PROYECTO { get; set; }
         public Nullable<long> COD_FORMAS_PAGO_FECHAS { get; set; }
         public Nullable<float> VALOR_COMERCIAL { get; set; }
@@ -26,8 +26,8 @@ namespace syncfusion_payc.Models
         public string PARAMETRO4 { get; set; }
         public string PARAMETRON { get; set; }
     
+        public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
         public virtual FORMAS_PAGO_FECHAS FORMAS_PAGO_FECHAS { get; set; }
         public virtual ITEMS_CONTRATO ITEMS_CONTRATO { get; set; }
-        public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
     }
 }

@@ -25,11 +25,11 @@ namespace syncfusion_payc.Models
         public Nullable<long> COD_COLABORADOR { get; set; }
         public string DESCRIPCION { get; set; }
     
+        public virtual COLABORADORES COLABORADORES { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     	[System.Runtime.Serialization.IgnoreDataMember]
     	[Newtonsoft.Json.JsonIgnore]
         public virtual ICollection<COMPROMISOS_ENTREGABLES> COMPROMISOS_ENTREGABLES { get; set; }
         public virtual CONTRATOS_CONDICIONES CONTRATOS_CONDICIONES { get; set; }
-        public virtual COLABORADORES COLABORADORES { get; set; }
     }
 }

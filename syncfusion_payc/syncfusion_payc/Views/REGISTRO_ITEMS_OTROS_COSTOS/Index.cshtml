@@ -68,7 +68,7 @@
             }).Columns(col =>
             {
                 col.Field("COD_FORMAS_PAGO_FECHAS").ForeignKeyField("COD_FORMAS_PAGO_FECHAS").Format("{0:dd/MM/yyyy}").ForeignKeyValue("FECHA_FORMA_PAGO").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().FORMAS_PAGO_FECHAS.ToList()).HeaderText("PERIODO FACTURACIÓN").ValidationRules(v => v.AddRule("required", true)).EditType(EditingType.DropdownEdit).Add();
-                col.Field("COD_ITEM").ForeignKeyField("COD_ITEM").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ITEMS_CONTRATO.ToList()).HeaderText("ITEM").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).Add();
+                col.Field("COD_ITEM_CONTRATO").ForeignKeyField("COD_ITEM_CONTRATO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().VISTA_ITEMS_CONTRATO_DESCRIPCION.ToList()).HeaderText("ITEM").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).Add();
                 col.Field("COD_CONTRATO_PROYECTO").Visible(false).ForeignKeyField("COD_CONTRATO_PROYECTO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONTRATO_PROYECTO.ToList()).HeaderText("COD_CONTRATO_PROYECTO").EditType(EditingType.DropdownEdit).Add();
                 col.Field("COD_REGISTRO_ITEMS").HeaderText("COD_REGISTRO_ITEMS").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                 col.Field("VALOR_COMERCIAL").HeaderText("VALOR COMERCIAL TOTAL").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
@@ -176,13 +176,13 @@
                     dataFilter: function (data) { return data; },
                     success: function (data) {
                         //Instanciar dropdown
-                        var drop1 = drop = $(".e-dropdownlist[name='COD_ITEM']").ejDropDownList('instance');
+                        var drop1 = drop = $(".e-dropdownlist[name='COD_ITEM_CONTRATO']").ejDropDownList('instance');
                         //Cargar lista de items
                         //temp1 = data.data;
                         var lista_colaboradores = data.data;
                         var dataManager = ej.DataManager(lista_colaboradores);
                         drop1.option("dataSource", dataManager);
-                        drop1.option("fields", { text: "DESCRIPCION", value: "COD_ITEM" });
+                        drop1.option("fields", { text: "DESCRIPCION", value: "COD_ITEM_CONTRATO" });
                         drop1.option("enableFilterSearch", true);
                     }
                 });
@@ -213,13 +213,13 @@
                     dataFilter: function (data) { return data; },
                     success: function (data) {
                         //Instanciar dropdown
-                        var drop1 = drop = $(".e-dropdownlist[name='COD_ITEM']").ejDropDownList('instance');
+                        var drop1 = drop = $(".e-dropdownlist[name='COD_ITEM_CONTRATO']").ejDropDownList('instance');
                         //Cargar lista de items
                         //temp1 = data.data;
                         var lista_colaboradores = data.data;
                         var dataManager = ej.DataManager(lista_colaboradores);
                         drop1.option("dataSource", dataManager);
-                        drop1.option("fields", { text: "DESCRIPCION", value: "COD_ITEM" });
+                        drop1.option("fields", { text: "DESCRIPCION", value: "COD_ITEM_CONTRATO" });
                         drop1.option("enableFilterSearch", true);
                     }
                 });

@@ -25,10 +25,10 @@ factura <- function(fecha, proyecto) {
     TOTAL_PERSONAS <- aggregate(VALOR_CON_PRESTACIONES ~ COD_FORMAS_PAGO_FECHAS +
                       COD_CONTRATO_PROYECTO + COD_ROL, data = INGRESOS_PERSONAS, sum)
     TOTAL_ITEMS_FIJOS <- aggregate(VALOR_TOTAL ~ COD_FORMAS_PAGO_FECHAS + COD_CONTRATO_PROYECTO
-                      + COD_ITEM, data = ITEMS_FIJOS, sum)
+                      + COD_ITEM_CONTRATO, data = ITEMS_FIJOS, sum)
     if (nrow(ITEMS_VARIABLES)!=0){
       TOTAL_ITEMS_VARIABLES <- aggregate(VALOR_COMERCIAL ~ COD_FORMAS_PAGO_FECHAS + COD_CONTRATO_PROYECTO
-                                         + COD_ITEM, data = ITEMS_VARIABLES, sum)
+                                         + COD_ITEM_CONTRATO, data = ITEMS_VARIABLES, sum)
     }
     
   #ELIMINAR LOS DATOS REPETIDOS DEL PROYECTO QUE SE ESTÁ CONSULTANDO
@@ -56,7 +56,7 @@ factura <- function(fecha, proyecto) {
   for (i in 1:ceiling(nrow(TOTAL_ITEMS_FIJOS)/chunksize)) {
     query = paste0("INSERT INTO [dbo].[DETALLE_FACTURA_ITEM]
            ([COD_CONTRATO_PROYECTO]
-           ,[COD_ITEM]
+           ,[COD_ITEM_CONTRATO]
            ,[COD_FORMAS_PAGO_FECHAS]
            ,[VALOR_SIN_IMPUESTOS])
             VALUES") 
@@ -64,7 +64,7 @@ factura <- function(fecha, proyecto) {
     for (j in 1:chunksize) {
       k = (i-1)*chunksize+j
       if (k <= nrow(TOTAL_ITEMS_FIJOS)) {
-        vals[j] = paste0('(', paste0(TOTAL_ITEMS_FIJOS$COD_CONTRATO_PROYECTO[k],",",TOTAL_ITEMS_FIJOS$COD_ITEM[k],",",TOTAL_ITEMS_FIJOS$COD_FORMAS_PAGO_FECHAS[k],",",TOTAL_ITEMS_FIJOS$VALOR_TOTAL[k],")"),collapse = ',')
+        vals[j] = paste0('(', paste0(TOTAL_ITEMS_FIJOS$COD_CONTRATO_PROYECTO[k],",",TOTAL_ITEMS_FIJOS$COD_ITEM_CONTRATO[k],",",TOTAL_ITEMS_FIJOS$COD_FORMAS_PAGO_FECHAS[k],",",TOTAL_ITEMS_FIJOS$VALOR_TOTAL[k],")"),collapse = ',')
       }
     }
     query = paste0(query, paste0(vals,collapse=','))
@@ -75,7 +75,7 @@ factura <- function(fecha, proyecto) {
     for (i in 1:ceiling(nrow(TOTAL_ITEMS_VARIABLES)/chunksize)) {
       query = paste0("INSERT INTO [dbo].[DETALLE_FACTURA_ITEM]
            ([COD_CONTRATO_PROYECTO]
-           ,[COD_ITEM]
+           ,[COD_ITEM_CONTRATO]
            ,[COD_FORMAS_PAGO_FECHAS]
            ,[VALOR_SIN_IMPUESTOS])
             VALUES") 
@@ -83,7 +83,7 @@ factura <- function(fecha, proyecto) {
       for (j in 1:chunksize) {
         k = (i-1)*chunksize+j
         if (k <= nrow(TOTAL_ITEMS_VARIABLES)) {
-          vals[j] = paste0('(', paste0(TOTAL_ITEMS_VARIABLES$COD_CONTRATO_PROYECTO[k],",",TOTAL_ITEMS_VARIABLES$COD_ITEM[k],",",TOTAL_ITEMS_VARIABLES$COD_FORMAS_PAGO_FECHAS[k],",",TOTAL_ITEMS_VARIABLES$VALOR_COMERCIAL[k],")"),collapse = ',')
+          vals[j] = paste0('(', paste0(TOTAL_ITEMS_VARIABLES$COD_CONTRATO_PROYECTO[k],",",TOTAL_ITEMS_VARIABLES$COD_ITEM_CONTRATO[k],",",TOTAL_ITEMS_VARIABLES$COD_FORMAS_PAGO_FECHAS[k],",",TOTAL_ITEMS_VARIABLES$VALOR_COMERCIAL[k],")"),collapse = ',')
         }
       }
       query = paste0(query, paste0(vals,collapse=','))

@@ -52,7 +52,7 @@ namespace syncfusion_payc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "COD_ITEM,COD_CONTRATO_PROYECTO,DESCRIPCION,ITEM_REEMBOLZABLE,REUTILIZABLE,COSTO_INICIAL_UNITARIO,COSTO_MENSUAL_UNITARIO,CANTIDAD,FECHA_INI_USO,MESES_USO,OBSERVACIONES")] ITEMS_CONTRATO iTEMS_CONTRATO)
+        public ActionResult Create([Bind(Include = "COD_ITEM_CONTRATO,COD_CONTRATO_PROYECTO,DESCRIPCION,ITEM_REEMBOLZABLE,REUTILIZABLE,COSTO_INICIAL_UNITARIO,COSTO_MENSUAL_UNITARIO,CANTIDAD,FECHA_INI_USO,MESES_USO,OBSERVACIONES")] ITEMS_CONTRATO iTEMS_CONTRATO)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace syncfusion_payc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "COD_ITEM,COD_CONTRATO_PROYECTO,DESCRIPCION,ITEM_REEMBOLZABLE,REUTILIZABLE,COSTO_INICIAL_UNITARIO,COSTO_MENSUAL_UNITARIO,CANTIDAD,FECHA_INI_USO,MESES_USO,OBSERVACIONES")] ITEMS_CONTRATO iTEMS_CONTRATO)
+        public ActionResult Edit([Bind(Include = "COD_ITEM_CONTRATO,COD_CONTRATO_PROYECTO,DESCRIPCION,ITEM_REEMBOLZABLE,REUTILIZABLE,COSTO_INICIAL_UNITARIO,COSTO_MENSUAL_UNITARIO,CANTIDAD,FECHA_INI_USO,MESES_USO,OBSERVACIONES")] ITEMS_CONTRATO iTEMS_CONTRATO)
         {
             if (ModelState.IsValid)
             {
@@ -196,7 +196,7 @@ namespace syncfusion_payc.Controllers
         public ActionResult PerformUpdate(EditParams_ITEMS_CONTRATO param)
         {
             
-			ITEMS_CONTRATO table = db.ITEMS_CONTRATO.Single(o => o.COD_ITEM == param.value.COD_ITEM);
+			ITEMS_CONTRATO table = db.ITEMS_CONTRATO.Single(o => o.COD_ITEM_CONTRATO == param.value.COD_ITEM_CONTRATO);
 
             db.Entry(table).CurrentValues.SetValues(param.value);
             db.SaveChanges();
@@ -207,7 +207,7 @@ namespace syncfusion_payc.Controllers
         //Borrar grid
         public ActionResult PerformDelete(int key, string keyColumn)
         {
-            db.ITEMS_CONTRATO.Remove(db.ITEMS_CONTRATO.Single(o => o.COD_ITEM== key));
+            db.ITEMS_CONTRATO.Remove(db.ITEMS_CONTRATO.Single(o => o.COD_ITEM_CONTRATO== key));
             db.SaveChanges();
             return RedirectToAction("GetOrderData");
             

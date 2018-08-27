@@ -33,6 +33,6 @@ namespace syncfusion_payc.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     	[System.Runtime.Serialization.IgnoreDataMember]
     	[Newtonsoft.Json.JsonIgnore]
-        internal virtual ICollection<CONTRATOS> CONTRATOS { get; set; }
+        public virtual ICollection<CONTRATOS> CONTRATOS { get; set; }
     }
 }

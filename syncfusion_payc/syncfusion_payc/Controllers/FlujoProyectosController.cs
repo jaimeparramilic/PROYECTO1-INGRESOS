@@ -164,7 +164,7 @@ namespace syncfusion_payc.Controllers
         // Crear
         public ActionResult Create()
         {
-            ViewBag.datasource = new FlujoProyectosViewModels();
+           
             
             return View();
         }
@@ -518,7 +518,7 @@ namespace syncfusion_payc.Controllers
         public ActionResult PerformUpdate_item(EditParams_ITEMS_CONTRATO param)
         {
 
-            ITEMS_CONTRATO table = db.ITEMS_CONTRATO.Single(o => o.COD_ITEM == param.value.COD_ITEM);
+            ITEMS_CONTRATO table = db.ITEMS_CONTRATO.Single(o => o.COD_ITEM_CONTRATO == param.value.COD_ITEM_CONTRATO);
 
             db.Entry(table).CurrentValues.SetValues(param.value);
             db.SaveChanges();
@@ -529,7 +529,7 @@ namespace syncfusion_payc.Controllers
         //Borrar items
         public ActionResult PerformDelete_item(int key, string keyColumn)
         {
-            db.ITEMS_CONTRATO.Remove(db.ITEMS_CONTRATO.Single(o => o.COD_ITEM == key));
+            db.ITEMS_CONTRATO.Remove(db.ITEMS_CONTRATO.Single(o => o.COD_ITEM_CONTRATO == key));
             db.SaveChanges();
             return RedirectToAction("GetOrderData_item");
 
@@ -759,16 +759,14 @@ namespace syncfusion_payc.Controllers
         //Funcion para regenerar el flujo del item
         public ActionResult regenerar_flujo_item(long COD_CONTRATO_PROYECTO)
         {
-            
-            
-                //Datos base
+            //Datos base
             DateTime hoy = DateTime.Today;
             string usuario = User.Identity.GetUserName();
             //Query para recalcular
             string queryString = @"UPDATE [test_payc_contabilidad].[dbo].[FLUJO_INGRESOS_ITEMS] SET ESTADO='NO' WHERE COD_CONTRATO_PROYECTO=" + COD_CONTRATO_PROYECTO.ToString() + @";
                                     INSERT INTO [test_payc_contabilidad].[dbo].[FLUJO_INGRESOS_ITEMS]
                                               ([COD_FORMAS_PAGO_FECHAS]
-                                              ,[COD_ITEM]
+                                              ,[COD_ITEM_CONTRATO]
                                               ,[COD_CONTRATO_PROYECTO]
                                               ,[ETAPA]
                                               ,[VALOR_FIJO]
@@ -778,7 +776,7 @@ namespace syncfusion_payc.Controllers
                                               ,[USUARIO_REGISTRO]
                                               ,[ESTADO]
                                             ) (SELECT [COD_FORMAS_PAGO_FECHAS]
-                                              ,[COD_ITEM]
+                                              ,[COD_ITEM_CONTRATO]
                                               ,[COD_CONTRATO_PROYECTO]
                                               ,[ETAPA]
                                               ,[VALOR_FIJO]

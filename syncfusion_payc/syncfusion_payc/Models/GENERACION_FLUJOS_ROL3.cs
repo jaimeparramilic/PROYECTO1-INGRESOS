@@ -18,8 +18,8 @@ namespace syncfusion_payc.Models
         public long COD_FORMAS_PAGO_FECHAS { get; set; }
         public long COD_CONTRATO_PROYECTO { get; set; }
         public string ETAPA { get; set; }
-        public float VALOR_SIN_PRESTACIONES { get; set; }
-        public float VALOR_CON_PRESTACIONES { get; set; }
-        public float VALOR_FACTOR_MULTIPLICADOR { get; set; }
+        public Nullable<float> VALOR_SIN_PRESTACIONES { get; set; }
+        public Nullable<float> VALOR_CON_PRESTACIONES { get; set; }
+        public Nullable<float> VALOR_FACTOR_MULTIPLICADOR { get; set; }
     }
 }

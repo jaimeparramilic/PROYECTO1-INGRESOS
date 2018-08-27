@@ -36,7 +36,9 @@
                                     }).Columns(col =>
                                     {
                                         col.Field("COD_CONTRATO_PROYECTO").ForeignKeyField("COD_CONTRATO_PROYECTO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONTRATO_PROYECTO_DESCRIPCION.ToList()).HeaderText("ORDEN SERVICIO").EditType(EditingType.DropdownEdit).Add();
-                                        col.Field("COD_ITEM").HeaderText("ITEM").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.Numeric).ValidationRules(v => v.AddRule("number", true)).Add();
+                                        col.Field("COD_ITEM_CONTRATO").HeaderText("ITEM").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.Numeric).ValidationRules(v => v.AddRule("number", true)).Add();
+                                        col.Field("COD_ITEM").HeaderText("ITEM").ForeignKeyField("COD_ITEM").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>
+                                               )new syncfusion_payc.Models.test_payc_contabilidadEntities().ITEMS.ToList()).EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).Add();
                                         col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();
                                         col.Field("ITEM_REEMBOLZABLE").ForeignKeyField("DESCRIPCION").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().SINO.ToList()).HeaderText("¿ITEM REEMBOLZABLE?").Add();
                                         col.Field("REUTILIZABLE").ForeignKeyField("DESCRIPCION").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().SINO.ToList()).HeaderText("¿REUTILIZABLE?").Add();

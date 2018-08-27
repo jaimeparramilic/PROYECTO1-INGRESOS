@@ -49,7 +49,7 @@
                     @*CLIENTE*@
                     <div class="form-group div_cliente">
                         <label>CLIENTE</label>
-                        @(Html.EJ().DropDownList("CLIENTES").PopupHeight("auto").Datasource((IEnumerable<object>)ViewBag.datasource_clientes).ShowRoundedCorner(true).DropDownListFields(df => df.Text("DESCRIPCION").Value("COD_CLIENTE")).EnableIncrementalSearch(true).EnableFilterSearch(true).FilterType(SearchFilterType.StartsWith).CaseSensitiveSearch(false).WatermarkText("Seleccione un cliente"))
+                        @(Html.EJ().DropDownList("CLIENTES").PopupHeight("auto").Datasource((IEnumerable<syncfusion_payc.Models.CLIENTES>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CLIENTES.ToList()).ShowRoundedCorner(true).DropDownListFields(df => df.Text("DESCRIPCION").Value("COD_CLIENTE")).EnableIncrementalSearch(true).EnableFilterSearch(true).FilterType(SearchFilterType.StartsWith).CaseSensitiveSearch(false).WatermarkText("Seleccione un cliente"))
                     </div>
                     @*RUTA ARCHIVO*@
                     <div class="form-group oculta">
@@ -470,16 +470,19 @@
                             {
                                 col.Field("COD_CONTRATO_PROYECTO").ForeignKeyField("COD_CONTRATO_PROYECTO").Visible(false).AllowEditing(false).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>
                                                  )new syncfusion_payc.Models.test_payc_contabilidadEntities().CONTRATO_PROYECTO_DESCRIPCION.ToList()).HeaderText("CONTRATO_PROYECTO").EditType(EditingType.DropdownEdit).Add();
-                                col.Field("COD_ITEM").HeaderText("ITEM").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                                col.Field("DESCRIPCION").HeaderText("DESCRIPCION").ValidationRules(v => v.AddRule("required", true)).Add();
+                                col.Field("COD_ITEM_CONTRATO").HeaderText("ITEM").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                                col.Field("COD_ITEM").HeaderText("ITEM").ForeignKeyField("COD_ITEM").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>
+                                       )new syncfusion_payc.Models.test_payc_contabilidadEntities().ITEMS.ToList()).EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).Add();
                                 col.Field("ITEM_REEMBOLZABLE").HeaderText("¿ES REEMBOLZABLE?").ForeignKeyField("DESCRIPCION").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().SINO.ToList()).ValidationRules(v => v.AddRule("required", true)).Add();
                                 col.Field("REUTILIZABLE").HeaderText("¿ES REUTILIZABLE?").ValidationRules(v => v.AddRule("required", true)).Add();
+                                col.Field("COD_TIPO_REEMBOLSO").ForeignKeyField("COD_TIPO_REEMBOLSO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>
+                                       )new syncfusion_payc.Models.test_payc_contabilidadEntities().TIPOS_REEMBOLSO.ToList()).HeaderText("TIPOS REEMBOLSO").EditType(EditingType.DropdownEdit).Add();
                                 col.Field("COSTO_INICIAL_UNITARIO").HeaderText("COSTO INICIAL UNITARIO").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true).AddRule("required", true)).Add();
                                 col.Field("COSTO_MENSUAL_UNITARIO").HeaderText("COSTO MENSUAL UNITARIO").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true).AddRule("required", true)).Add();
                                 col.Field("CANTIDAD").HeaderText("CANTIDAD").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true).AddRule("required", true)).Add();
-                                col.Field("FECHA_INI_USO").HeaderText("FECHA_INI_USO").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).ValidationRules(v => v.AddRule("required", true).AddRule("validacion_fecha_rol_contrato", 5).AddRule("validacion_fecha_rol_ejecucion", 5)).Add();
-                                col.Field("MESES_USO").HeaderText("MESES_USO").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true).AddRule("validacion_meses", "item")).Add();
-                                col.Field("OBSERVACIONES").HeaderText("OBSERVACIONES").Add();
+                                col.Field("FECHA_INI_USO").HeaderText("FECHA INI USO").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).ValidationRules(v => v.AddRule("required", true).AddRule("validacion_fecha_rol_contrato", 5).AddRule("validacion_fecha_rol_ejecucion", 5)).Add();
+                                col.Field("MESES_USO").HeaderText("MESES USO").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true).AddRule("validacion_meses", "item")).Add();
+                                col.Field("DIAS_FRACCION").HeaderText("DIAS USO").Format("{0:n0}").EditType(EditingType.NumericEdit).Add();
 
                             }).ClientSideEvents(e => e.ActionBegin("inicio_rol")))
                 </div>

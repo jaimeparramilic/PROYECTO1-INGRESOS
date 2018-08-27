@@ -19,9 +19,20 @@ namespace syncfusion_payc.Models
         public Nullable<long> COD_ROL { get; set; }
         public Nullable<long> COD_FORMAS_PAGO_FECHAS { get; set; }
         public Nullable<float> VALOR_SIN_IMPUESTOS { get; set; }
+        public Nullable<System.DateTime> FECHA_REGISTRO { get; set; }
+        public string USUARIO { get; set; }
+        public Nullable<long> COD_ESTADO_FACTURA { get; set; }
+        public Nullable<long> COD_CAUSA_ESTADO { get; set; }
+        public string OBSERVACIONES { get; set; }
+        public Nullable<long> COD_FACTURA { get; set; }
+        public Nullable<long> COD_ESTADO_DETALLE { get; set; }
     
+        public virtual CAUSA_ESTADO CAUSA_ESTADO { get; set; }
         public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
         public virtual ROLES ROLES { get; set; }
+        public virtual ESTADOS_DETALLE ESTADOS_DETALLE { get; set; }
+        public virtual ESTADOS_FACTURAS ESTADOS_FACTURAS { get; set; }
+        public virtual FACTURAS FACTURAS { get; set; }
         public virtual FORMAS_PAGO_FECHAS FORMAS_PAGO_FECHAS { get; set; }
     }
 }

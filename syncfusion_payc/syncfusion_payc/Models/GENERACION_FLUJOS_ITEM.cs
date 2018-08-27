@@ -15,7 +15,7 @@ namespace syncfusion_payc.Models
     public partial class GENERACION_FLUJOS_ITEM
     {
         public long COD_FORMAS_PAGO_FECHAS { get; set; }
-        public long COD_ITEM { get; set; }
+        public long COD_ITEM_CONTRATO { get; set; }
         public Nullable<float> VALOR_VARIABLE_UNITARIO { get; set; }
         public Nullable<float> VALOR_VARIABLE { get; set; }
         public Nullable<float> VALOR_FIJO { get; set; }

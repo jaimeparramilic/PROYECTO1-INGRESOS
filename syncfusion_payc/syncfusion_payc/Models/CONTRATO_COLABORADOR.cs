@@ -21,7 +21,7 @@ namespace syncfusion_payc.Models
         public Nullable<System.DateTime> FECHA_INI { get; set; }
         public Nullable<System.DateTime> FECHA_FIN { get; set; }
     
-        public virtual ROLES ROLES { get; set; }
         public virtual COLABORADORES COLABORADORES { get; set; }
+        public virtual ROLES ROLES { get; set; }
     }
 }

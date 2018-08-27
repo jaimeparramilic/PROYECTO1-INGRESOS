@@ -1,18 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
 using System.Text;
-using System.Collections;
 using System.Data;
-using System.Data.Entity;
-
 using syncfusion_payc.Models;
-using System.IO;
 using Syncfusion.JavaScript;
-
-using System.Diagnostics;
 using System.Configuration;
 
 using System.Web.Script.Serialization;
@@ -256,7 +248,7 @@ namespace syncfusion_payc.servicios
             tabletemp.VALOR_VARIABLE = 0;
             tabletemp.COD_CONTRATO_PROYECTO = table1.COD_CONTRATO_PROYECTO;
             tabletemp.COD_FORMAS_PAGO_FECHAS = table1.COD_FORMAS_PAGO_FECHAS;
-            tabletemp.COD_ITEM = table1.COD_ITEM;
+            tabletemp.COD_ITEM_CONTRATO = table1.COD_ITEM_CONTRATO;
             tabletemp.ETAPA = table1.ETAPA;
             tabletemp.ESTADO = "SI";
             tabletemp.USUARIO_REGISTRO = System.Web.HttpContext.Current.User.Identity.Name;
