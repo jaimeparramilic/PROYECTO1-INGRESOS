@@ -1,0 +1,40 @@
+ El volumen de la unidad E es Datos
+ El n£mero de serie del volumen es: 7E13-885E
+
+ Directorio de E:\REPO_TEMP\syncfusion_payc\syncfusion_payc\Controllers
+
+24/08/2018  12:21 p. m.    <DIR>          .
+24/08/2018  12:21 p. m.    <DIR>          ..
+28/06/2018  04:26 p. m.            18.106 AccountController.cs
+22/08/2018  08:59 p. m.             6.690 CARGOSController.cs
+22/08/2018  09:01 p. m.             7.009 CLIENTESController.cs
+22/08/2018  09:27 p. m.            11.557 COLABORADORESController.cs
+22/08/2018  09:25 p. m.             7.586 CONTRATOSController.cs
+06/08/2018  04:32 p. m.             9.504 CONTRATOS_CONDICIONESController.cs
+22/08/2018  09:35 p. m.             8.570 CONTRATOS_ROLController.cs
+22/08/2018  12:37 p. m.            22.640 CONTRATO_COLABORADORController.cs
+22/08/2018  08:59 p. m.             8.937 CONTRATO_PROYECTOController.cs
+22/08/2018  09:00 p. m.             8.478 CONTRATO_ROL_CARGOController.cs
+24/08/2018  12:21 p. m.                 0 controladores.txt
+24/07/2018  11:59 a. m.             8.168 ESTUDIOS_COLABORADORController.cs
+24/08/2018  08:50 a. m.            46.546 FlujoProyectosController.cs
+23/08/2018  11:30 a. m.            11.082 FLUJO_INGRESOS_ITEMSController.cs
+23/08/2018  11:29 a. m.            10.976 FLUJO_INGRESOS_ROLController.cs
+28/06/2018  11:44 a. m.               505 HomeController.cs
+13/08/2018  12:09 p. m.             8.376 INCREMENTO_ORDENController.cs
+10/08/2018  12:50 p. m.             8.165 INCREMENTO_SALARIALController.cs
+16/07/2018  02:29 p. m.             8.110 ITEMS_CONTRATOController.cs
+28/06/2018  11:44 a. m.            14.463 ManageController.cs
+24/07/2018  09:53 p. m.             7.175 PENDIENTESController.cs
+09/08/2018  04:05 p. m.             7.220 PROYECTOSController.cs
+22/08/2018  10:21 p. m.            10.512 REGISTRO_ITEMS_OTROS_COSTOSController.cs
+24/07/2018  10:39 a. m.            10.085 REGISTRO_NOVEDADESController.cs
+28/06/2018  11:44 a. m.             2.169 RoleController.cs
+24/07/2018  11:04 a. m.             6.633 ROLESController.cs
+24/07/2018  11:57 a. m.             7.078 TIPOS_NOVEDADController.cs
+23/07/2018  10:27 p. m.             7.738 TIPO_CONDICION_CONTRACTUALController.cs
+03/07/2018  05:07 p. m.             1.482 UsersController.cs
+03/07/2018  11:10 p. m.               850 ValuesController1.cs
+22/08/2018  10:25 p. m.             7.881 VISTA_PENDIENTES_RETIROController.cs
+              31 archivos        294.291 bytes
+               2 dirs  468.961.554.432 bytes libres

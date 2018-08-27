@@ -20,8 +20,8 @@ namespace syncfusion_payc.Models
         public string CENTRO_COSTOS { get; set; }
         public Nullable<System.DateTime> FECHA_INICIO_EJECUCION { get; set; }
         public Nullable<System.DateTime> FECHA_FIN_EJECUCION { get; set; }
-        public string TIPO_SERVICIO { get; set; }
         public string DESCRIPCION { get; set; }
+        public string TIPO_SERVICIO { get; set; }
         public string TIPO_OBRA { get; set; }
     }
 }

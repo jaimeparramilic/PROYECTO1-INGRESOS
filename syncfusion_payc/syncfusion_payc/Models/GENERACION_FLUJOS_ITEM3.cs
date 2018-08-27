@@ -14,7 +14,7 @@ namespace syncfusion_payc.Models
     
     public partial class GENERACION_FLUJOS_ITEM3
     {
-        public long COD_ITEM { get; set; }
+        public long COD_ITEM_CONTRATO { get; set; }
         public long COD_FORMAS_PAGO_FECHAS { get; set; }
         public long COD_CONTRATO_PROYECTO { get; set; }
         public string ETAPA { get; set; }

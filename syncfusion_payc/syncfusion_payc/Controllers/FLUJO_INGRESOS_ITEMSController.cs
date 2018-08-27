@@ -46,7 +46,7 @@ namespace syncfusion_payc.Controllers
         {
             ViewBag.COD_CONTRATO_PROYECTO = new SelectList(db.CONTRATO_PROYECTO, "COD_CONTRATO_PROYECTO", "COMPLETA");
             ViewBag.COD_FORMAS_PAGO_FECHAS = new SelectList(db.FORMAS_PAGO_FECHAS, "COD_FORMAS_PAGO_FECHAS", "PERIODO_TEXTO");
-            ViewBag.COD_ITEM = new SelectList(db.ITEMS_CONTRATO, "COD_ITEM", "DESCRIPCION");
+            ViewBag.COD_ITEM_CONTRATO = new SelectList(db.ITEMS_CONTRATO, "COD_ITEM_CONTRATO", "DESCRIPCION");
             return View();
         }
 
@@ -55,7 +55,7 @@ namespace syncfusion_payc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "COD_FLUJO_INGRESOS_ITEMS,COD_FORMAS_PAGO_FECHAS,COD_ITEM,COD_CONTRATO_PROYECTO,ETAPA,VALOR_FIJO,VALOR_VARIABLE,VALOR_TOTAL")] FLUJO_INGRESOS_ITEMS fLUJO_INGRESOS_ITEMS)
+        public ActionResult Create([Bind(Include = "COD_FLUJO_INGRESOS_ITEMS,COD_FORMAS_PAGO_FECHAS,COD_ITEM_CONTRATO,COD_CONTRATO_PROYECTO,ETAPA,VALOR_FIJO,VALOR_VARIABLE,VALOR_TOTAL")] FLUJO_INGRESOS_ITEMS fLUJO_INGRESOS_ITEMS)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +66,7 @@ namespace syncfusion_payc.Controllers
 
             ViewBag.COD_CONTRATO_PROYECTO = new SelectList(db.CONTRATO_PROYECTO, "COD_CONTRATO_PROYECTO", "COMPLETA", fLUJO_INGRESOS_ITEMS.COD_CONTRATO_PROYECTO);
             ViewBag.COD_FORMAS_PAGO_FECHAS = new SelectList(db.FORMAS_PAGO_FECHAS, "COD_FORMAS_PAGO_FECHAS", "PERIODO_TEXTO", fLUJO_INGRESOS_ITEMS.COD_FORMAS_PAGO_FECHAS);
-            ViewBag.COD_ITEM = new SelectList(db.ITEMS_CONTRATO, "COD_ITEM", "DESCRIPCION", fLUJO_INGRESOS_ITEMS.COD_ITEM);
+            ViewBag.COD_ITEM_CONTRATO = new SelectList(db.ITEMS_CONTRATO, "COD_ITEM_CONTRATO", "DESCRIPCION", fLUJO_INGRESOS_ITEMS.COD_ITEM_CONTRATO);
             return View(fLUJO_INGRESOS_ITEMS);
         }
 
@@ -84,7 +84,7 @@ namespace syncfusion_payc.Controllers
             }
             ViewBag.COD_CONTRATO_PROYECTO = new SelectList(db.CONTRATO_PROYECTO, "COD_CONTRATO_PROYECTO", "COMPLETA", fLUJO_INGRESOS_ITEMS.COD_CONTRATO_PROYECTO);
             ViewBag.COD_FORMAS_PAGO_FECHAS = new SelectList(db.FORMAS_PAGO_FECHAS, "COD_FORMAS_PAGO_FECHAS", "PERIODO_TEXTO", fLUJO_INGRESOS_ITEMS.COD_FORMAS_PAGO_FECHAS);
-            ViewBag.COD_ITEM = new SelectList(db.ITEMS_CONTRATO, "COD_ITEM", "DESCRIPCION", fLUJO_INGRESOS_ITEMS.COD_ITEM);
+            ViewBag.COD_ITEM_CONTRATO = new SelectList(db.ITEMS_CONTRATO, "COD_ITEM_CONTRATO", "DESCRIPCION", fLUJO_INGRESOS_ITEMS.COD_ITEM_CONTRATO);
             return View(fLUJO_INGRESOS_ITEMS);
         }
 
@@ -93,7 +93,7 @@ namespace syncfusion_payc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "COD_FLUJO_INGRESOS_ITEMS,COD_FORMAS_PAGO_FECHAS,COD_ITEM,COD_CONTRATO_PROYECTO,ETAPA,VALOR_FIJO,VALOR_VARIABLE,VALOR_TOTAL")] FLUJO_INGRESOS_ITEMS fLUJO_INGRESOS_ITEMS)
+        public ActionResult Edit([Bind(Include = "COD_FLUJO_INGRESOS_ITEMS,COD_FORMAS_PAGO_FECHAS,COD_ITEM_CONTRATO,COD_CONTRATO_PROYECTO,ETAPA,VALOR_FIJO,VALOR_VARIABLE,VALOR_TOTAL")] FLUJO_INGRESOS_ITEMS fLUJO_INGRESOS_ITEMS)
         {
             if (ModelState.IsValid)
             {
@@ -103,7 +103,7 @@ namespace syncfusion_payc.Controllers
             }
             ViewBag.COD_CONTRATO_PROYECTO = new SelectList(db.CONTRATO_PROYECTO, "COD_CONTRATO_PROYECTO", "COMPLETA", fLUJO_INGRESOS_ITEMS.COD_CONTRATO_PROYECTO);
             ViewBag.COD_FORMAS_PAGO_FECHAS = new SelectList(db.FORMAS_PAGO_FECHAS, "COD_FORMAS_PAGO_FECHAS", "PERIODO_TEXTO", fLUJO_INGRESOS_ITEMS.COD_FORMAS_PAGO_FECHAS);
-            ViewBag.COD_ITEM = new SelectList(db.ITEMS_CONTRATO, "COD_ITEM", "DESCRIPCION", fLUJO_INGRESOS_ITEMS.COD_ITEM);
+            ViewBag.COD_ITEM_CONTRATO = new SelectList(db.ITEMS_CONTRATO, "COD_ITEM_CONTRATO", "DESCRIPCION", fLUJO_INGRESOS_ITEMS.COD_ITEM_CONTRATO);
             return View(fLUJO_INGRESOS_ITEMS);
         }
 
@@ -223,7 +223,7 @@ namespace syncfusion_payc.Controllers
             FLUJO_INGRESOS_ITEMS temp = new FLUJO_INGRESOS_ITEMS();
             temp.COD_CONTRATO_PROYECTO = param.value.COD_CONTRATO_PROYECTO;
             temp.COD_FORMAS_PAGO_FECHAS = table.COD_FORMAS_PAGO_FECHAS;
-            temp.COD_ITEM = param.value.COD_ITEM;
+            temp.COD_ITEM_CONTRATO = param.value.COD_ITEM_CONTRATO;
             temp.VALOR_FIJO = param.value.VALOR_FIJO;
             temp.VALOR_VARIABLE = param.value.VALOR_VARIABLE;
             temp.VALOR_TOTAL = param.value.VALOR_TOTAL;

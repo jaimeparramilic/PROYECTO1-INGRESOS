@@ -27,11 +27,11 @@ namespace syncfusion_payc.Models
         public Nullable<System.DateTime> FECHA_INCLUSION { get; set; }
         public Nullable<System.DateTime> FECHA_EXCLUSION { get; set; }
     
+        public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
         public virtual TIPO_CONDICION_CONTRACTUAL TIPO_CONDICION_CONTRACTUAL { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     	[System.Runtime.Serialization.IgnoreDataMember]
     	[Newtonsoft.Json.JsonIgnore]
         public virtual ICollection<ENTREGABLES> ENTREGABLES { get; set; }
-        public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
     }
 }

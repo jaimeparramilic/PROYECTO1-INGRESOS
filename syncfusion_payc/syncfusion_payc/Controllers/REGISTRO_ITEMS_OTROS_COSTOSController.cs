@@ -44,7 +44,7 @@ namespace syncfusion_payc.Controllers
         public ActionResult Create()
         {
             ViewBag.COD_FORMAS_PAGO_FECHAS = new SelectList(db.FORMAS_PAGO_FECHAS, "COD_FORMAS_PAGO_FECHAS", "PERIODO_TEXTO");
-            ViewBag.COD_ITEM = new SelectList(db.ITEMS_CONTRATO, "COD_ITEM", "DESCRIPCION");
+            ViewBag.COD_ITEM_CONTRATO = new SelectList(db.ITEMS_CONTRATO, "COD_ITEM_CONTRATO", "DESCRIPCION");
             ViewBag.COD_CONTRATO_PROYECTO = new SelectList(db.CONTRATO_PROYECTO, "COD_CONTRATO_PROYECTO", "COMPLETA");
             return View();
         }
@@ -54,7 +54,7 @@ namespace syncfusion_payc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "COD_REGISTRO_ITEMS,COD_ITEM,COD_CONTRATO_PROYECTO,COD_FORMAS_PAGO_FECHAS,VALOR_COMERCIAL,CANTIDAD,PARAMETRO1,PARAMETRO2,PARAMETRO3,PARAMETRO4,PARAMETRON")] REGISTRO_ITEMS_OTROS_COSTOS rEGISTRO_ITEMS_OTROS_COSTOS)
+        public ActionResult Create([Bind(Include = "COD_REGISTRO_ITEMS,COD_ITEM_CONTRATO,COD_CONTRATO_PROYECTO,COD_FORMAS_PAGO_FECHAS,VALOR_COMERCIAL,CANTIDAD,PARAMETRO1,PARAMETRO2,PARAMETRO3,PARAMETRO4,PARAMETRON")] REGISTRO_ITEMS_OTROS_COSTOS rEGISTRO_ITEMS_OTROS_COSTOS)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +64,7 @@ namespace syncfusion_payc.Controllers
             }
 
             ViewBag.COD_FORMAS_PAGO_FECHAS = new SelectList(db.FORMAS_PAGO_FECHAS, "COD_FORMAS_PAGO_FECHAS", "PERIODO_TEXTO", rEGISTRO_ITEMS_OTROS_COSTOS.COD_FORMAS_PAGO_FECHAS);
-            ViewBag.COD_ITEM = new SelectList(db.ITEMS_CONTRATO, "COD_ITEM", "DESCRIPCION", rEGISTRO_ITEMS_OTROS_COSTOS.COD_ITEM);
+            ViewBag.COD_ITEM_CONTRATO = new SelectList(db.ITEMS_CONTRATO, "COD_ITEM_CONTRATO", "DESCRIPCION", rEGISTRO_ITEMS_OTROS_COSTOS.COD_ITEM_CONTRATO);
             ViewBag.COD_CONTRATO_PROYECTO = new SelectList(db.CONTRATO_PROYECTO, "COD_CONTRATO_PROYECTO", "COMPLETA", rEGISTRO_ITEMS_OTROS_COSTOS.COD_CONTRATO_PROYECTO);
             return View(rEGISTRO_ITEMS_OTROS_COSTOS);
         }
@@ -82,7 +82,7 @@ namespace syncfusion_payc.Controllers
                 return HttpNotFound();
             }
             ViewBag.COD_FORMAS_PAGO_FECHAS = new SelectList(db.FORMAS_PAGO_FECHAS, "COD_FORMAS_PAGO_FECHAS", "PERIODO_TEXTO", rEGISTRO_ITEMS_OTROS_COSTOS.COD_FORMAS_PAGO_FECHAS);
-            ViewBag.COD_ITEM = new SelectList(db.ITEMS_CONTRATO, "COD_ITEM", "DESCRIPCION", rEGISTRO_ITEMS_OTROS_COSTOS.COD_ITEM);
+            ViewBag.COD_ITEM_CONTRATO = new SelectList(db.ITEMS_CONTRATO, "COD_ITEM_CONTRATO", "DESCRIPCION", rEGISTRO_ITEMS_OTROS_COSTOS.COD_ITEM_CONTRATO);
             ViewBag.COD_CONTRATO_PROYECTO = new SelectList(db.CONTRATO_PROYECTO, "COD_CONTRATO_PROYECTO", "COMPLETA", rEGISTRO_ITEMS_OTROS_COSTOS.COD_CONTRATO_PROYECTO);
             return View(rEGISTRO_ITEMS_OTROS_COSTOS);
         }
@@ -92,7 +92,7 @@ namespace syncfusion_payc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "COD_REGISTRO_ITEMS,COD_ITEM,COD_CONTRATO_PROYECTO,COD_FORMAS_PAGO_FECHAS,VALOR_COMERCIAL,CANTIDAD,PARAMETRO1,PARAMETRO2,PARAMETRO3,PARAMETRO4,PARAMETRON")] REGISTRO_ITEMS_OTROS_COSTOS rEGISTRO_ITEMS_OTROS_COSTOS)
+        public ActionResult Edit([Bind(Include = "COD_REGISTRO_ITEMS,COD_ITEM_CONTRATO,COD_CONTRATO_PROYECTO,COD_FORMAS_PAGO_FECHAS,VALOR_COMERCIAL,CANTIDAD,PARAMETRO1,PARAMETRO2,PARAMETRO3,PARAMETRO4,PARAMETRON")] REGISTRO_ITEMS_OTROS_COSTOS rEGISTRO_ITEMS_OTROS_COSTOS)
         {
             if (ModelState.IsValid)
             {
@@ -101,7 +101,7 @@ namespace syncfusion_payc.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.COD_FORMAS_PAGO_FECHAS = new SelectList(db.FORMAS_PAGO_FECHAS, "COD_FORMAS_PAGO_FECHAS", "PERIODO_TEXTO", rEGISTRO_ITEMS_OTROS_COSTOS.COD_FORMAS_PAGO_FECHAS);
-            ViewBag.COD_ITEM = new SelectList(db.ITEMS_CONTRATO, "COD_ITEM", "DESCRIPCION", rEGISTRO_ITEMS_OTROS_COSTOS.COD_ITEM);
+            ViewBag.COD_ITEM_CONTRATO = new SelectList(db.ITEMS_CONTRATO, "COD_ITEM_CONTRATO", "DESCRIPCION", rEGISTRO_ITEMS_OTROS_COSTOS.COD_ITEM_CONTRATO);
             ViewBag.COD_CONTRATO_PROYECTO = new SelectList(db.CONTRATO_PROYECTO, "COD_CONTRATO_PROYECTO", "COMPLETA", rEGISTRO_ITEMS_OTROS_COSTOS.COD_CONTRATO_PROYECTO);
             return View(rEGISTRO_ITEMS_OTROS_COSTOS);
         }
@@ -152,6 +152,7 @@ namespace syncfusion_payc.Controllers
             ViewBag.dataSource2 = DataSource2;
             return View();
         }	
+
 		public ActionResult GetOrderData(DataManager dm)
         {
             IEnumerable DataSource = db.REGISTRO_ITEMS_OTROS_COSTOS.ToList();
@@ -226,7 +227,7 @@ namespace syncfusion_payc.Controllers
         //Funcion para filtrar la lista de colaboradores
         public ActionResult lista_items_otros_costos(long COD_CONTRATO_PROYECTO)
         {
-            IEnumerable DataSource = db.ITEMS_CONTRATO.Where(o => o.COD_CONTRATO_PROYECTO == COD_CONTRATO_PROYECTO).ToList();
+            IEnumerable DataSource = db.VISTA_ITEMS_CONTRATO_DESCRIPCION.Where(o => o.COD_CONTRATO_PROYECTO == COD_CONTRATO_PROYECTO).ToList();
 
             return Json(new { success = true, responseText = "SI", data = DataSource }, "application/json", JsonRequestBehavior.AllowGet);
         }

@@ -16,7 +16,7 @@ namespace syncfusion_payc.Models
     {
         public long COD_FLUJO_INGRESOS_ITEMS { get; set; }
         public Nullable<long> COD_FORMAS_PAGO_FECHAS { get; set; }
-        public Nullable<long> COD_ITEM { get; set; }
+        public Nullable<long> COD_ITEM_CONTRATO { get; set; }
         public Nullable<long> COD_CONTRATO_PROYECTO { get; set; }
         public string ETAPA { get; set; }
         public Nullable<float> VALOR_FIJO { get; set; }

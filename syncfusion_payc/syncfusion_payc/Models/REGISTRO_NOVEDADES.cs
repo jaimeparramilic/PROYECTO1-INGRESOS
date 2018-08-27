@@ -22,9 +22,9 @@ namespace syncfusion_payc.Models
         public Nullable<System.DateTime> FECHA_INICIO_NOVEDAD { get; set; }
         public Nullable<System.DateTime> FECHA_FIN_NOVEDAD { get; set; }
     
+        public virtual COLABORADORES COLABORADORES { get; set; }
+        public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
         public virtual FORMAS_PAGO_FECHAS FORMAS_PAGO_FECHAS { get; set; }
         public virtual TIPOS_NOVEDAD TIPOS_NOVEDAD { get; set; }
-        public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
-        public virtual COLABORADORES COLABORADORES { get; set; }
     }
 }

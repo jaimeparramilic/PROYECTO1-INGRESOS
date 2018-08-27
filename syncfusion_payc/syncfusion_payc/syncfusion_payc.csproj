@@ -242,6 +242,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\INCREMENTO_ORDENController.cs" />
     <Compile Include="Controllers\INCREMENTO_SALARIALController.cs" />
+    <Compile Include="Controllers\ITEMSController.cs" />
     <Compile Include="Controllers\ITEMS_CONTRATOController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PENDIENTESController.cs" />
@@ -261,10 +262,19 @@
     <Compile Include="Models\CARTERA.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CAUSA_ESTADO.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CENTROS_COSTOS.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CLIENTES.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\COLABORADORES.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\COLABORADORES_CONTAR_ESTUDIOS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\COLARADORES_CONCAT_ESTUDIOS.cs">
@@ -306,6 +316,9 @@
     <Compile Include="Models\CONTRATO_ROL_CARGO.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CONTRATO_ROL_DESCRIPCION.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DETALLE_FACTURA_ITEM.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
@@ -313,6 +326,18 @@
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ENTREGABLES.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ESTADOS_CECO.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ESTADOS_DETALLE.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ESTADOS_FACTURAS.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ESTADOS_ORDEN_SERVICIO.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ESTADO_COLABORADOR.cs">
@@ -324,6 +349,7 @@
     <Compile Include="Models\FACTURAS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FlujoProyectosViewModels.cs" />
     <Compile Include="Models\FLUJO_INGRESOS_ITEMS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
@@ -336,13 +362,22 @@
     <Compile Include="Models\FORMAS_PAGO_FECHAS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GENERACION_COLABORADORES_PENDIENTES.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GENERACION_FLUJOS_ITEM.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GENERACION_FLUJOS_ITEM2.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GENERACION_FLUJOS_ITEM3.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GENERACION_FLUJOS_ROL.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GENERACION_FLUJOS_ROL2.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GENERACION_FLUJOS_ROL3.cs">
@@ -360,13 +395,25 @@
     <Compile Include="Models\INCREMENTO_SALARIAL.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ITEMS.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ITEMS_CONTRATO.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ORDENES_SERVICIO_INDEX.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ORDENES_SERVICIO_ROLES_COLABORADOR.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ORDEN_SERVICIO_ROLES_PERIODO.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PENDIENTES.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PENDIENTES_REPORTE.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PROYECTOS.cs">
@@ -378,10 +425,19 @@
     <Compile Include="Models\REGISTRO_NOVEDADES.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ReportsTable.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ROLES.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ROL_CARGO_ORDEN.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SINO.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TAG_ORDEN.cs">
@@ -415,6 +471,12 @@
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VISTA_FLUJO_INGRESOS_ITEMS.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_ITEMS_CONTRATO.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_ITEMS_CONTRATO_DESCRIPCION.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VISTA_ORDENES_ROL_CARGO.cs">
@@ -453,7 +515,6 @@
       <DependentUpon>contabilidad.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\EditParams.cs" />
-    <Compile Include="Models\FlujoProyectosViewModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -1360,6 +1421,11 @@
     <Content Include="Modelos_Matematicos\REPOSITORIO2.Rproj" />
     <Content Include="Modelos_Matematicos\TOTAL_PERSONAS.CSV" />
     <Content Include="Views\FlujoProyectos\pendientes_facturar.cshtml" />
+    <Content Include="Views\ITEMS\Create.cshtml" />
+    <Content Include="Views\ITEMS\Delete.cshtml" />
+    <Content Include="Views\ITEMS\Details.cshtml" />
+    <Content Include="Views\ITEMS\Edit.cshtml" />
+    <Content Include="Views\ITEMS\Index.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -1927,7 +1993,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>52616</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/syncfusion_payc</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

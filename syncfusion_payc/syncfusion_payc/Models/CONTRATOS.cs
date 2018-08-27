@@ -31,7 +31,7 @@ namespace syncfusion_payc.Models
         public string ORDEN_SERVICIO { get; set; }
         public string RUTA_DOCUMENTO { get; set; }
     
-        internal virtual CLIENTES CLIENTES { get; set; }
+        public virtual CLIENTES CLIENTES { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     	[System.Runtime.Serialization.IgnoreDataMember]
     	[Newtonsoft.Json.JsonIgnore]

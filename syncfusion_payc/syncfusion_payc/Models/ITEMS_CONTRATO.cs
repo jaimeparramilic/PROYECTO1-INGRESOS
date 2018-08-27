@@ -18,13 +18,13 @@ namespace syncfusion_payc.Models
         public ITEMS_CONTRATO()
         {
             this.DETALLE_FACTURA_ITEM = new HashSet<DETALLE_FACTURA_ITEM>();
-            this.REGISTRO_ITEMS_OTROS_COSTOS = new HashSet<REGISTRO_ITEMS_OTROS_COSTOS>();
             this.FLUJO_INGRESOS_ITEMS = new HashSet<FLUJO_INGRESOS_ITEMS>();
+            this.REGISTRO_ITEMS_OTROS_COSTOS = new HashSet<REGISTRO_ITEMS_OTROS_COSTOS>();
         }
     
-        public long COD_ITEM { get; set; }
+        public long COD_ITEM_CONTRATO { get; set; }
         public Nullable<long> COD_CONTRATO_PROYECTO { get; set; }
-        public string DESCRIPCION { get; set; }
+        public Nullable<long> COD_ITEM { get; set; }
         public string ITEM_REEMBOLZABLE { get; set; }
         public string REUTILIZABLE { get; set; }
         public Nullable<float> COSTO_INICIAL_UNITARIO { get; set; }
@@ -33,9 +33,10 @@ namespace syncfusion_payc.Models
         public Nullable<System.DateTime> FECHA_INI_USO { get; set; }
         public Nullable<long> MESES_USO { get; set; }
         public string OBSERVACIONES { get; set; }
-        public Nullable<long> DIAS_FRACCION { get; set; }
         public Nullable<long> COD_TIPO_REEMBOLSO { get; set; }
+        public Nullable<long> DIAS_FRACCION { get; set; }
     
+        public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     	[System.Runtime.Serialization.IgnoreDataMember]
     	[Newtonsoft.Json.JsonIgnore]
@@ -43,12 +44,12 @@ namespace syncfusion_payc.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     	[System.Runtime.Serialization.IgnoreDataMember]
     	[Newtonsoft.Json.JsonIgnore]
-        public virtual ICollection<REGISTRO_ITEMS_OTROS_COSTOS> REGISTRO_ITEMS_OTROS_COSTOS { get; set; }
-        public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
+        public virtual ICollection<FLUJO_INGRESOS_ITEMS> FLUJO_INGRESOS_ITEMS { get; set; }
+        public virtual ITEMS ITEMS { get; set; }
         public virtual TIPOS_REEMBOLSO TIPOS_REEMBOLSO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     	[System.Runtime.Serialization.IgnoreDataMember]
     	[Newtonsoft.Json.JsonIgnore]
-        public virtual ICollection<FLUJO_INGRESOS_ITEMS> FLUJO_INGRESOS_ITEMS { get; set; }
+        public virtual ICollection<REGISTRO_ITEMS_OTROS_COSTOS> REGISTRO_ITEMS_OTROS_COSTOS { get; set; }
     }
 }
