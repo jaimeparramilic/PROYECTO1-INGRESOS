@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\syncfusion_payc"
+    "\\syncfusion_payc",
+    "\\syncfusion_payc\\syncfusion_payc",
+    "\\syncfusion_payc\\syncfusion_payc\\Modelos_Matematicos"
   ],
-  "SelectedNode": "\\syncfusion_payc\\syncfusion_payc.sln",
+  "SelectedNode": "\\syncfusion_payc\\syncfusion_payc\\Modelos_Matematicos\\valor_facturar.R",
   "PreviewInSolutionExplorer": false
 }
