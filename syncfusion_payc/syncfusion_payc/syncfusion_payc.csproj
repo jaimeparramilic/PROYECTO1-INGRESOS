@@ -227,6 +227,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CARGOSController.cs" />
+    <Compile Include="Controllers\CENTROS_COSTOSController.cs" />
     <Compile Include="Controllers\CLIENTESController.cs" />
     <Compile Include="Controllers\COLABORADORESController.cs" />
     <Compile Include="Controllers\CONTRATOSController.cs" />
@@ -520,6 +521,14 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utilidades\Email.cs" />
+    <Compile Include="Utilidades\Probar_email.aspx.cs">
+      <DependentUpon>Probar_email.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Utilidades\Probar_email.aspx.designer.cs">
+      <DependentUpon>Probar_email.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="CodeTemplates\AssemblyVersions.xml" />
@@ -1315,6 +1324,7 @@
     <Content Include="CodeTemplates\ODataControllerWithActions\Controller.vb.t4" />
     <Content Include="CodeTemplates\ODataControllerWithContext\Controller.cs.t4" />
     <Content Include="CodeTemplates\ODataControllerWithContext\Controller.vb.t4" />
+    <Content Include="Utilidades\Probar_email.aspx" />
     <Content Include="Views\CONTRATOS\Create.cshtml" />
     <Content Include="Views\CONTRATOS\Delete.cshtml" />
     <Content Include="Views\CONTRATOS\Details.cshtml" />
@@ -1427,6 +1437,11 @@
     <Content Include="Documentación\Modelo de datos\Modelo de datos y flujos de uso V11.vsdx" />
     <Content Include="Documentación\Modelo de datos\Modelo documentación modelo de datos.docx" />
     <Content Include="Documentación\Modelos matemáticos\Formulación detallada valor a facturar v2.docx" />
+    <Content Include="Views\CENTROS_COSTOS\Create.cshtml" />
+    <Content Include="Views\CENTROS_COSTOS\Delete.cshtml" />
+    <Content Include="Views\CENTROS_COSTOS\Details.cshtml" />
+    <Content Include="Views\CENTROS_COSTOS\Edit.cshtml" />
+    <Content Include="Views\CENTROS_COSTOS\Index.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
