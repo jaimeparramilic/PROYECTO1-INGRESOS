@@ -36,10 +36,11 @@
                                                                     .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
                                                                     .AllowPaging()
                                                                     .AllowFiltering()
+                                                                    .AllowKeyboardNavigation(false)
                                                                     .Locale("es-CO")
                                                                     .QueryString("COD_CONTRATO_PROYECTO")
                                                                     .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
-                                                                    .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Normal); })
+                                                                    .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
                                                                     .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
                                                                     .ToolbarSettings(toolbar =>
                                                                     {
