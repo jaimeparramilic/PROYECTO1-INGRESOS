@@ -977,7 +977,6 @@ namespace syncfusion_payc.Controllers
 
         }
         #endregion
-
         #region pendientes facturar
 
         #region ejecución R
