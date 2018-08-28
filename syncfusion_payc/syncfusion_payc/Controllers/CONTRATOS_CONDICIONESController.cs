@@ -208,8 +208,16 @@ namespace syncfusion_payc.Controllers
            
             temp.COD_CONTRATO_PROYECTO = param.value.COD_CONTRATO_PROYECTO;
             temp.COD_TIPO_CONDICION = param.value.COD_TIPO_CONDICION;
-            temp.VIGENTE = "SI";
-            temp.FECHA_INCLUSION = DateTime.Today;
+            if (param.value.VIGENTE == "NO")
+            {
+                temp.VIGENTE = "NO";
+                temp.FECHA_EXCLUSION = DateTime.Today;
+            }
+            else
+            {
+                temp.VIGENTE = "SI";
+                temp.FECHA_INCLUSION= DateTime.Today;
+            }
       
             db.SaveChanges();
 			return RedirectToAction("GetOrderData");
