@@ -10,12 +10,46 @@ namespace importacion_noova
 {
     class Program
     {
+        
         static void Main(string[] args)
         {
+            //Decalaración del Database Context
+            repositorio_noovaEntities db = new repositorio_noovaEntities();
+
+            //Mensaje de inicio
             Console.WriteLine("Importando información Noova");
+
+            //Traer información del web service y deserializarla
             string details = CallRestMethod("http://polifonia.com.co:8080/servicios2/test.svc/asigna_informes");
-            Newtonsoft.Json.Linq.JObject jObject = Newtonsoft.Json.Linq.JObject.Parse(details);
-            Console.WriteLine(jObject["value"]);
+            dynamic results = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(details);
+
+
+            //Almanar la información que nos interesa para la prueba
+            var values = results.value;
+
+            //Recorrer elementos
+            foreach(var a in values)
+            {
+                Console.WriteLine(a);
+                pruebas p = new pruebas();
+                p.asignacion = a.asignacion;
+                p.color = a.color;
+                p.dias_envio= a.dia_envio;
+                p.dias_para_envio = a.dia_para_envio;
+                p.dia_envio_num = a.dia_envio_num;
+                p.estado = a.estado;
+                p.fecha_proximo_envio = a.fecha_proximo_envio;
+                p.fecha_ultimo_envio = a.fecha_ultimo_envio;
+                p.hora_envio = a.hora_envio;
+                p.nombre = a.nombre;
+                p.nombre_usuario = a.nombre_usuario;
+                p.periodicidad = a.periodicidad;
+                p.periodicidad_num = a.periodicidad_num;
+                p.ultimo_informe = a.ultimo_informe;
+                p.usuario = a.usuario;
+                db.pruebas.Add(p);
+                db.SaveChanges();
+            }
             Console.ReadLine();
         }
 
