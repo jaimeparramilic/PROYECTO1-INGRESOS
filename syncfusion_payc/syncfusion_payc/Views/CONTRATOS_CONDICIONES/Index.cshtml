@@ -15,7 +15,7 @@
                 .AllowFiltering()
                 .Locale("es-CO")
                 .AllowResizeToFit(true)
-
+                .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
                 .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
                 .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
                 .ToolbarSettings(toolbar =>
@@ -112,5 +112,17 @@
             True: "cierto",
             False: "falso"
         };
-    });
+        });
+
+     //Función para añadir buscador al drop down
+     function inicio_grid(args) {
+
+        
+        if (args.requestType == "beginedit" || args.requestType == "add") {
+                setTimeout(function () {
+                    var drop = $("#GridCOD_CONTRATO_PROYECTO").ejDropDownList('instance');
+                    drop.option("enableFilterSearch", true);
+                }, 50);
+        }
+    }
     </script>
