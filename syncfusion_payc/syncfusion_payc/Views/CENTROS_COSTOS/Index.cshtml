@@ -22,7 +22,7 @@
                     .AllowMultiSorting()
                     .AllowSorting()
                     .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
-                    .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+                    .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().ShowDeleteConfirmDialog().EditMode(EditMode.Dialog); })
                     .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
                     .ToolbarSettings(toolbar =>
                     {
@@ -43,7 +43,12 @@
                         col.Field("COD_ESTADO_CECO").ForeignKeyField("COD_ESTADO_CECO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ESTADOS_CECO.ToList()).HeaderText("ESTADO").EditType(EditingType.DropdownEdit).Add();
                         col.Field("CECO_PSL").HeaderText("CECO_PSL").Add();
 
-                    }))
+                    })
+                    .ClientSideEvents(eve =>
+                    {  // Definición de función para el evento
+                        eve.ActionComplete("actionComplete");
+                    })
+                    )
 </div>
 <script>  
     $(document).ready(function () {
@@ -121,11 +126,52 @@
         if (args.requestType == "beginedit" || args.requestType == "add") {
             if (args.model.dataSource.dataSource.url == "GetOrderData") {
                 setTimeout(function () {
-                   					var drop = $("#GRIDCOD_ESTADO_CECO").ejDropDownList('instance');
-                    drop.option("enableFilterSearch", true);
+                   					//var drop = $("#GRIDCOD_ESTADO_CECO").ejDropDownList('instance');
+                                    //drop.option("enableFilterSearch", true);
 			       
                 }, 50); 
             }
         }
     }
+    /*
+    // Función q se ejecuta en el evento ActionComplete de la grid
+    function actionComplete(args) {
+        // Enviar correo en caso q el estado del centro de costo, se haya cambiado a Cerrado
+        // En args.requestType detectas el tipo de evento de finalización: save, begin, beginedit, add
+        if (args.requestType == "save" && args.data.COD_ESTADO_CECO == 4) {
+            //window.alert("Entra a function actionComplete");
+            // Enviar correo avisando del CIERRE del centro de costo
+            var params = JSON.stringify({
+                smtp: String("smtp.gmail.com"),
+                port: parseInt(587),
+                usuario: String("centro.costo.estado.payc@gmail.com"),
+                passw: String("1234payc"),
+                from: String("centro.costo.estado.payc@gmail.com"),
+                para: String("desarrollo.analitica@payc.com.co"),
+                subject: String("Centro de costo CERRADO"),
+                body: String("El centro de costo: " + args.data.DESCRIPCION +
+                ", fue CERRADO en la aplicación del proyecto de articulación nómina-facturación-cartera: " +
+                    "IntegrApp")
+            });
+            var url = "../Utilidades/Email.EnviarEmail"; //syncfusion_payc/Utilidades/Email.EnviarEmail
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: params,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                dataFilter: function (params) { return params; },
+                success: function (params) {
+                    window.alert("Email enviado");
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert(textStatus + ": " + XMLHttpRequest.responseText);
+                }
+            });
+
+
+            
+        }
+
+    } */
 </script>

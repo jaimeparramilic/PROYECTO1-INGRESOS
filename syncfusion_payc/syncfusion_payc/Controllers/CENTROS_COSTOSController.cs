@@ -11,6 +11,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using syncfusion_payc.Models;
+using syncfusion_payc.Utilidades;
 
 namespace syncfusion_payc.Controllers
 {
@@ -189,6 +190,15 @@ namespace syncfusion_payc.Controllers
             db.SaveChanges();
 			var data = db.CENTROS_COSTOS.ToList();
 			var value = data.Last();
+            // Enviar correo avisando de la creación del centro de costo
+            //string nombre = ConsultaSQL.NombreEstadoCentroCosto(Convert.ToInt32(param.value.COD_ESTADO_CECO));
+            //Email.EnviarEmail("smtp.gmail.com", 587, "centro.costo.estado.payc@gmail.com",
+            //    "1234payc", "centro.costo.estado.payc@gmail.com",
+            //    "desarrollo.analitica@payc.com.co", "Creación de nuevo centro de costo",
+            //    "El centro de costo: "+ param.value.DESCRIPCION + 
+            //    ", fue creado en la aplicación del proyecto de articulación nómina-facturación-cartera: " +
+            //    "IntegrApp, con estado: "+ nombre);
+
             return Json(value, JsonRequestBehavior.AllowGet);
         }
 
