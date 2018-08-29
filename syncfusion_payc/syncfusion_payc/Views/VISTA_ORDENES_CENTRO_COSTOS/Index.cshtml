@@ -1,5 +1,5 @@
 ﻿
-@model IEnumerable<syncfusion_payc.Models.CENTROS_COSTOS>
+@model IEnumerable<syncfusion_payc.Models.VISTA_ORDENES_CENTRO_COSTOS>
 
 @{
     ViewBag.Title = "";
@@ -8,47 +8,50 @@
     
 	}
 
-<h2>CENTROS DE COSTO</h2>
+<h4>ESTADO CENTROS DE COSTO</h4>
 
 
 <div class="control-section">
 
-					@(Html.EJ().Grid<syncfusion_payc.Models.CENTROS_COSTOS>("Grid")
-                    .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
-                    .AllowPaging()
+					@(Html.EJ().Grid<syncfusion_payc.Models.VISTA_ORDENES_CENTRO_COSTOS>("Grid")
+					.Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+					.AllowPaging()
                     .AllowFiltering()
-                    .Locale("es-CO")
-                    .AllowResizeToFit(true)
-                    .AllowMultiSorting()
-                    .AllowSorting()
-                    .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
-                    .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().ShowDeleteConfirmDialog().EditMode(EditMode.Dialog); })
-                    .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
+					.Locale("es-CO")
+					.AllowResizeToFit(true)
+					.AllowMultiSorting()
+					.AllowSorting()
+					.FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                    .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+					.ClientSideEvents(e => e.ActionBegin("inicio_grid"))
                     .ToolbarSettings(toolbar =>
                     {
                         toolbar.ShowToolbar().ToolbarItems(items =>
                         {
-                            items.AddTool(ToolBarItems.Add);
+                            //items.AddTool(ToolBarItems.Add);
                             items.AddTool(ToolBarItems.Edit);
-                            items.AddTool(ToolBarItems.Delete);
-                            items.AddTool(ToolBarItems.Update);
+                            //items.AddTool(ToolBarItems.Delete);
+                            //items.AddTool(ToolBarItems.Update);
                             items.AddTool(ToolBarItems.Cancel);
                         });
 
                     }).Columns(col =>
-                    {
-
-                        col.Field("COD_CECO").HeaderText("COD.").IsPrimaryKey(true).Visible(false) .Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                        col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();
-                        col.Field("COD_ESTADO_CECO").ForeignKeyField("COD_ESTADO_CECO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ESTADOS_CECO.ToList()).HeaderText("ESTADO").EditType(EditingType.DropdownEdit).Add();
-                        col.Field("CECO_PSL").HeaderText("CECO_PSL").Add();
-
-                    })
-                    .ClientSideEvents(eve =>
-                    {  // Definición de función para el evento
-                        eve.ActionComplete("actionComplete");
-                    })
-                    )
+            {
+col.Field("COD_CONTRATO_PROYECTO").HeaderText("COD_CONTRATO_PROYECTO").IsPrimaryKey(true).Visible(true) .Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
+col.Field("COD_CONTRATO").HeaderText("COD_CONTRATO").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
+col.Field("COD_PROYECTO").HeaderText("COD_PROYECTO").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
+col.Field("COD_FORMA_PAGO").HeaderText("COD_FORMA_PAGO").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
+col.Field("COMPLETA").HeaderText("COMPLETA").Add();    
+col.Field("MODIFICADO_POR").HeaderText("MODIFICADO_POR").Add();    
+col.Field("FECHA_ULTIMA_MODIFICACION").HeaderText("FECHA_ULTIMA_MODIFICACION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();    
+col.Field("CREADO_POR").HeaderText("CREADO_POR").Add();    
+col.Field("FECHA_CREACION").HeaderText("FECHA_CREACION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();    
+col.Field("CENTRO_COSTOS").HeaderText("CENTRO_COSTOS").Add();    
+col.Field("COD_ESTADO_ORDEN_SERVICIO").HeaderText("COD_ESTADO_ORDEN_SERVICIO").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
+col.Field("ESTADO_PSL").HeaderText("ESTADO_PSL").IsPrimaryKey(true).Visible(true) .Add();    
+col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();    
+ 
+}))
 </div>
 <script>  
     $(document).ready(function () {
@@ -126,52 +129,9 @@
         if (args.requestType == "beginedit" || args.requestType == "add") {
             if (args.model.dataSource.dataSource.url == "GetOrderData") {
                 setTimeout(function () {
-                   					//var drop = $("#GRIDCOD_ESTADO_CECO").ejDropDownList('instance');
-                                    //drop.option("enableFilterSearch", true);
-			       
+                          
                 }, 50); 
             }
         }
     }
-    /*
-    // Función q se ejecuta en el evento ActionComplete de la grid
-    function actionComplete(args) {
-        // Enviar correo en caso q el estado del centro de costo, se haya cambiado a Cerrado
-        // En args.requestType detectas el tipo de evento de finalización: save, begin, beginedit, add
-        if (args.requestType == "save" && args.data.COD_ESTADO_CECO == 4) {
-            //window.alert("Entra a function actionComplete");
-            // Enviar correo avisando del CIERRE del centro de costo
-            var params = JSON.stringify({
-                smtp: String("smtp.gmail.com"),
-                port: parseInt(587),
-                usuario: String("centro.costo.estado.payc@gmail.com"),
-                passw: String("1234payc"),
-                from: String("centro.costo.estado.payc@gmail.com"),
-                para: String("desarrollo.analitica@payc.com.co"),
-                subject: String("Centro de costo CERRADO"),
-                body: String("El centro de costo: " + args.data.DESCRIPCION +
-                ", fue CERRADO en la aplicación del proyecto de articulación nómina-facturación-cartera: " +
-                    "IntegrApp")
-            });
-            var url = "../Utilidades/Email.EnviarEmail"; //syncfusion_payc/Utilidades/Email.EnviarEmail
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: params,
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                dataFilter: function (params) { return params; },
-                success: function (params) {
-                    window.alert("Email enviado");
-                },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    alert(textStatus + ": " + XMLHttpRequest.responseText);
-                }
-            });
-
-
-            
-        }
-
-    } */
 </script>

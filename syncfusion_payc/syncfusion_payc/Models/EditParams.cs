@@ -26,19 +26,19 @@ namespace syncfusion_payc.Models
         public IEnumerable<ROLES> changed { get; set; }
         public IEnumerable<ROLES> deleted { get; set; }
     }
-    public class EditParams_CENTROS_COSTOS
+    public class EditParams_VISTA_ORDENES_CENTRO_COSTOS
     {
         public int skip { get; set; }
         public int take { get; set; }
         public string action { get; set; }
         public int key { get; set; }
         public string keyColumn { get; set; }
-        public CENTROS_COSTOS value { get; set; }
+        public VISTA_ORDENES_CENTRO_COSTOS value { get; set; }
 
         //Batch Edit Params
-        public IEnumerable<CENTROS_COSTOS> added { get; set; }
-        public IEnumerable<CENTROS_COSTOS> changed { get; set; }
-        public IEnumerable<CENTROS_COSTOS> deleted { get; set; }
+        public IEnumerable<VISTA_ORDENES_CENTRO_COSTOS> added { get; set; }
+        public IEnumerable<VISTA_ORDENES_CENTRO_COSTOS> changed { get; set; }
+        public IEnumerable<VISTA_ORDENES_CENTRO_COSTOS> deleted { get; set; }
     }
     
 
