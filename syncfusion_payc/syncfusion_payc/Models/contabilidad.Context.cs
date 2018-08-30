@@ -104,5 +104,6 @@ namespace syncfusion_payc.Models
         public virtual DbSet<VISTA_FLUJO_INGRESOS_ITEMS> VISTA_FLUJO_INGRESOS_ITEMS { get; set; }
         public virtual DbSet<VISTA_ITEMS_CONTRATO> VISTA_ITEMS_CONTRATO { get; set; }
         public virtual DbSet<VISTA_ITEMS_CONTRATO_DESCRIPCION> VISTA_ITEMS_CONTRATO_DESCRIPCION { get; set; }
+        public virtual DbSet<VISTA_ORDENES_CENTRO_COSTOS> VISTA_ORDENES_CENTRO_COSTOS { get; set; }
     }
 }

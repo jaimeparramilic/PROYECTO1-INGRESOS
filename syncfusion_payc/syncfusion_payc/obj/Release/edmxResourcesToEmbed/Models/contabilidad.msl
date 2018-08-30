@@ -1022,5 +1022,24 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="VISTA_ORDENES_CENTRO_COSTOS">
+      <EntityTypeMapping TypeName="test_payc_contabilidadModel.VISTA_ORDENES_CENTRO_COSTOS">
+        <MappingFragment StoreEntitySet="VISTA_ORDENES_CENTRO_COSTOS">
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="ESTADO_PSL" ColumnName="ESTADO_PSL" />
+          <ScalarProperty Name="COD_ESTADO_ORDEN_SERVICIO" ColumnName="COD_ESTADO_ORDEN_SERVICIO" />
+          <ScalarProperty Name="CENTRO_COSTOS" ColumnName="CENTRO_COSTOS" />
+          <ScalarProperty Name="FECHA_CREACION" ColumnName="FECHA_CREACION" />
+          <ScalarProperty Name="CREADO_POR" ColumnName="CREADO_POR" />
+          <ScalarProperty Name="FECHA_ULTIMA_MODIFICACION" ColumnName="FECHA_ULTIMA_MODIFICACION" />
+          <ScalarProperty Name="MODIFICADO_POR" ColumnName="MODIFICADO_POR" />
+          <ScalarProperty Name="COMPLETA" ColumnName="COMPLETA" />
+          <ScalarProperty Name="COD_FORMA_PAGO" ColumnName="COD_FORMA_PAGO" />
+          <ScalarProperty Name="COD_PROYECTO" ColumnName="COD_PROYECTO" />
+          <ScalarProperty Name="COD_CONTRATO" ColumnName="COD_CONTRATO" />
+          <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

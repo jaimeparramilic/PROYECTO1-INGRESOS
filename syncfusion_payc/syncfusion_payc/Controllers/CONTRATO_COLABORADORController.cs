@@ -498,13 +498,22 @@ namespace syncfusion_payc.Controllers
             return Json(new { success = true, responseText = "SI",data=mensaje_error }, "application/json", JsonRequestBehavior.AllowGet);
         }
         #endregion
-        #region lista colaboradores
+        #region lista roles
         //Funcion para filtrar la lista de colaboradores
         public ActionResult lista_colaboradores(long COD_CONTRATO_ROL)
         {
             IEnumerable DataSource = db.VISTA_ORDENES_ROL_CARGO.Where(o=>o.COD_CONTRATO_ROL==COD_CONTRATO_ROL).ToList();
 
             return Json(new { success = true, responseText = "SI", data = DataSource}, "application/json", JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+        #region lista colaboradores
+        //Funcion para filtrar la lista de colaboradores
+        public ActionResult lista_colaboradores(long COD_CONTRATO_ROL)
+        {
+            IEnumerable DataSource = db.VISTA_ORDENES_ROL_CARGO.Where(o => o.COD_CONTRATO_ROL == COD_CONTRATO_ROL).ToList();
+
+            return Json(new { success = true, responseText = "SI", data = DataSource }, "application/json", JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

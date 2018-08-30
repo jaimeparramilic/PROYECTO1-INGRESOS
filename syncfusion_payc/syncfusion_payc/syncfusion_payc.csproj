@@ -480,6 +480,9 @@
     <Compile Include="Models\VISTA_ITEMS_CONTRATO_DESCRIPCION.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\VISTA_ORDENES_CENTRO_COSTOS.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\VISTA_ORDENES_ROL_CARGO.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
@@ -540,10 +543,6 @@
     <Content Include="CodeTemplates\PackageVersions5.2.2.xml" />
     <Content Include="CodeTemplates\PackageVersions5.2.3.xml" />
     <Content Include="CodeTemplates\PackageVersions5.2.4.xml" />
-    <Content Include="Content\bootstrap-grid.css" />
-    <Content Include="Content\bootstrap-grid.min.css" />
-    <Content Include="Content\bootstrap-reboot.css" />
-    <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\ej2\bootstrap.css" />

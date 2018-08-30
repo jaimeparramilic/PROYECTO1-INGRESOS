@@ -354,6 +354,7 @@
     <EntitySet Name="VISTA_FLUJO_INGRESOS_ITEMS" EntityType="test_payc_contabilidadModel.VISTA_FLUJO_INGRESOS_ITEMS" />
     <EntitySet Name="VISTA_ITEMS_CONTRATO" EntityType="test_payc_contabilidadModel.VISTA_ITEMS_CONTRATO" />
     <EntitySet Name="VISTA_ITEMS_CONTRATO_DESCRIPCION" EntityType="test_payc_contabilidadModel.VISTA_ITEMS_CONTRATO_DESCRIPCION" />
+    <EntitySet Name="VISTA_ORDENES_CENTRO_COSTOS" EntityType="test_payc_contabilidadModel.VISTA_ORDENES_CENTRO_COSTOS" />
   </EntityContainer>
   <EntityType Name="CARGOS">
     <Key>
@@ -898,8 +899,8 @@
     <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
     <Property Name="COD_TIPO_NOVEDAD" Type="Int64" />
     <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
-    <Property Name="FECHA_INICIO_NOVEDAD" Type="DateTime" Precision="0" />
-    <Property Name="FECHA_FIN_NOVEDAD" Type="DateTime" Precision="0" />
+    <Property Name="FECHA_INICIO_NOVEDAD" Type="DateTime" Precision="3" />
+    <Property Name="FECHA_FIN_NOVEDAD" Type="DateTime" Precision="3" />
     <NavigationProperty Name="COLABORADORES" Relationship="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_COLABORADOR" FromRole="REGISTRO_NOVEDADES" ToRole="COLABORADORES" />
     <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_CONTRATO_PROYECTO" FromRole="REGISTRO_NOVEDADES" ToRole="CONTRATO_PROYECTO" />
     <NavigationProperty Name="FORMAS_PAGO_FECHAS" Relationship="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_FORMAS_PAGO_FECHAS" FromRole="REGISTRO_NOVEDADES" ToRole="FORMAS_PAGO_FECHAS" />
@@ -2293,6 +2294,25 @@
     <Property Name="OBSERVACIONES" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
     <Property Name="COD_TIPO_REEMBOLSO" Type="Int64" />
     <Property Name="DIAS_FRACCION" Type="Int64" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="VISTA_ORDENES_CENTRO_COSTOS">
+    <Key>
+      <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      <PropertyRef Name="ESTADO_PSL" />
+    </Key>
+    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" />
+    <Property Name="COD_CONTRATO" Type="Int64" />
+    <Property Name="COD_PROYECTO" Type="Int64" />
+    <Property Name="COD_FORMA_PAGO" Type="Int64" />
+    <Property Name="COMPLETA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="MODIFICADO_POR" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="FECHA_ULTIMA_MODIFICACION" Type="DateTime" Precision="0" />
+    <Property Name="CREADO_POR" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="FECHA_CREACION" Type="DateTime" Precision="0" />
+    <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="Int64" />
+    <Property Name="ESTADO_PSL" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
     <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

@@ -151,6 +151,7 @@
         <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_FLUJO_INGRESOS_ITEMS" Width="1.5" PointX="19.375" PointY="17.75" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_ITEMS_CONTRATO" Width="1.5" PointX="16.375" PointY="20.75" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_ITEMS_CONTRATO_DESCRIPCION" Width="1.5" PointX="21.375" PointY="0.75" />
+        <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_ORDENES_CENTRO_COSTOS" Width="1.5" PointX="21.375" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

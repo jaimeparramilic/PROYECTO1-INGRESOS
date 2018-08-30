@@ -1139,7 +1139,7 @@
             if (tipo_servicio == "") {
                 $('#tipo_servicio').addClass("warning");
                 completos_paso2 = completos_paso2 - 1;
-                warnings_paso2 = warnings_paso2 + 1;
+                errores_paso2 = errores_paso2 + 1;
             }
             if (tipo_obra == "") {
                 $('#tipo_obra').addClass("warning");
@@ -1720,8 +1720,6 @@
                 }
             }
         }
-
-       
     //Cambio de checks
     function cambiar_check(element) {
     var id = element.attr("id");

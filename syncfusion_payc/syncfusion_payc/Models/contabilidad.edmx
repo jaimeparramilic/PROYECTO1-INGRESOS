@@ -432,8 +432,8 @@
           <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
           <Property Name="COD_TIPO_NOVEDAD" Type="bigint" />
           <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
-          <Property Name="FECHA_INICIO_NOVEDAD" Type="date" />
-          <Property Name="FECHA_FIN_NOVEDAD" Type="date" />
+          <Property Name="FECHA_INICIO_NOVEDAD" Type="datetime" />
+          <Property Name="FECHA_FIN_NOVEDAD" Type="datetime" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ReportsTable' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -974,6 +974,27 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_ITEMS_CONTR
           <Property Name="OBSERVACIONES" Type="varchar" MaxLength="300" />
           <Property Name="COD_TIPO_REEMBOLSO" Type="bigint" />
           <Property Name="DIAS_FRACCION" Type="bigint" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_ORDENES_CENTRO_COSTOS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="VISTA_ORDENES_CENTRO_COSTOS">
+          <Key>
+            <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            <PropertyRef Name="ESTADO_PSL" />
+          </Key>
+          <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" Nullable="false" />
+          <Property Name="COD_CONTRATO" Type="bigint" />
+          <Property Name="COD_PROYECTO" Type="bigint" />
+          <Property Name="COD_FORMA_PAGO" Type="bigint" />
+          <Property Name="COMPLETA" Type="varchar" MaxLength="100" />
+          <Property Name="MODIFICADO_POR" Type="varchar" MaxLength="300" />
+          <Property Name="FECHA_ULTIMA_MODIFICACION" Type="date" />
+          <Property Name="CREADO_POR" Type="varchar" MaxLength="300" />
+          <Property Name="FECHA_CREACION" Type="date" />
+          <Property Name="CENTRO_COSTOS" Type="varchar" MaxLength="300" />
+          <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="bigint" />
+          <Property Name="ESTADO_PSL" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
         </EntityType>
         <!--Errores durante la generación:
@@ -2258,6 +2279,23 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
     [VISTA_ITEMS_CONTRATO_DESCRIPCION].[DESCRIPCION] AS [DESCRIPCION]
     FROM [dbo].[VISTA_ITEMS_CONTRATO_DESCRIPCION] AS [VISTA_ITEMS_CONTRATO_DESCRIPCION]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="VISTA_ORDENES_CENTRO_COSTOS" EntityType="Self.VISTA_ORDENES_CENTRO_COSTOS" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VISTA_ORDENES_CENTRO_COSTOS].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
+    [VISTA_ORDENES_CENTRO_COSTOS].[COD_CONTRATO] AS [COD_CONTRATO], 
+    [VISTA_ORDENES_CENTRO_COSTOS].[COD_PROYECTO] AS [COD_PROYECTO], 
+    [VISTA_ORDENES_CENTRO_COSTOS].[COD_FORMA_PAGO] AS [COD_FORMA_PAGO], 
+    [VISTA_ORDENES_CENTRO_COSTOS].[COMPLETA] AS [COMPLETA], 
+    [VISTA_ORDENES_CENTRO_COSTOS].[MODIFICADO_POR] AS [MODIFICADO_POR], 
+    [VISTA_ORDENES_CENTRO_COSTOS].[FECHA_ULTIMA_MODIFICACION] AS [FECHA_ULTIMA_MODIFICACION], 
+    [VISTA_ORDENES_CENTRO_COSTOS].[CREADO_POR] AS [CREADO_POR], 
+    [VISTA_ORDENES_CENTRO_COSTOS].[FECHA_CREACION] AS [FECHA_CREACION], 
+    [VISTA_ORDENES_CENTRO_COSTOS].[CENTRO_COSTOS] AS [CENTRO_COSTOS], 
+    [VISTA_ORDENES_CENTRO_COSTOS].[COD_ESTADO_ORDEN_SERVICIO] AS [COD_ESTADO_ORDEN_SERVICIO], 
+    [VISTA_ORDENES_CENTRO_COSTOS].[ESTADO_PSL] AS [ESTADO_PSL], 
+    [VISTA_ORDENES_CENTRO_COSTOS].[DESCRIPCION] AS [DESCRIPCION]
+    FROM [dbo].[VISTA_ORDENES_CENTRO_COSTOS] AS [VISTA_ORDENES_CENTRO_COSTOS]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="VISTA_ORDENES_ROL_CARGO" EntityType="Self.VISTA_ORDENES_ROL_CARGO" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [VISTA_ORDENES_ROL_CARGO].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
@@ -2939,6 +2977,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <EntitySet Name="VISTA_FLUJO_INGRESOS_ITEMS" EntityType="test_payc_contabilidadModel.VISTA_FLUJO_INGRESOS_ITEMS" />
           <EntitySet Name="VISTA_ITEMS_CONTRATO" EntityType="test_payc_contabilidadModel.VISTA_ITEMS_CONTRATO" />
           <EntitySet Name="VISTA_ITEMS_CONTRATO_DESCRIPCION" EntityType="test_payc_contabilidadModel.VISTA_ITEMS_CONTRATO_DESCRIPCION" />
+          <EntitySet Name="VISTA_ORDENES_CENTRO_COSTOS" EntityType="test_payc_contabilidadModel.VISTA_ORDENES_CENTRO_COSTOS" />
         </EntityContainer>
         <EntityType Name="CARGOS">
           <Key>
@@ -3483,8 +3522,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
           <Property Name="COD_TIPO_NOVEDAD" Type="Int64" />
           <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
-          <Property Name="FECHA_INICIO_NOVEDAD" Type="DateTime" Precision="0" />
-          <Property Name="FECHA_FIN_NOVEDAD" Type="DateTime" Precision="0" />
+          <Property Name="FECHA_INICIO_NOVEDAD" Type="DateTime" Precision="3" />
+          <Property Name="FECHA_FIN_NOVEDAD" Type="DateTime" Precision="3" />
           <NavigationProperty Name="COLABORADORES" Relationship="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_COLABORADOR" FromRole="REGISTRO_NOVEDADES" ToRole="COLABORADORES" />
           <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_CONTRATO_PROYECTO" FromRole="REGISTRO_NOVEDADES" ToRole="CONTRATO_PROYECTO" />
           <NavigationProperty Name="FORMAS_PAGO_FECHAS" Relationship="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_FORMAS_PAGO_FECHAS" FromRole="REGISTRO_NOVEDADES" ToRole="FORMAS_PAGO_FECHAS" />
@@ -4880,6 +4919,25 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <Property Name="DIAS_FRACCION" Type="Int64" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="VISTA_ORDENES_CENTRO_COSTOS">
+          <Key>
+            <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            <PropertyRef Name="ESTADO_PSL" />
+          </Key>
+          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" />
+          <Property Name="COD_CONTRATO" Type="Int64" />
+          <Property Name="COD_PROYECTO" Type="Int64" />
+          <Property Name="COD_FORMA_PAGO" Type="Int64" />
+          <Property Name="COMPLETA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MODIFICADO_POR" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_ULTIMA_MODIFICACION" Type="DateTime" Precision="0" />
+          <Property Name="CREADO_POR" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_CREACION" Type="DateTime" Precision="0" />
+          <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="Int64" />
+          <Property Name="ESTADO_PSL" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5904,6 +5962,25 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
                 <ScalarProperty Name="COD_ITEM" ColumnName="COD_ITEM" />
                 <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
                 <ScalarProperty Name="COD_ITEM_CONTRATO" ColumnName="COD_ITEM_CONTRATO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VISTA_ORDENES_CENTRO_COSTOS">
+            <EntityTypeMapping TypeName="test_payc_contabilidadModel.VISTA_ORDENES_CENTRO_COSTOS">
+              <MappingFragment StoreEntitySet="VISTA_ORDENES_CENTRO_COSTOS">
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="ESTADO_PSL" ColumnName="ESTADO_PSL" />
+                <ScalarProperty Name="COD_ESTADO_ORDEN_SERVICIO" ColumnName="COD_ESTADO_ORDEN_SERVICIO" />
+                <ScalarProperty Name="CENTRO_COSTOS" ColumnName="CENTRO_COSTOS" />
+                <ScalarProperty Name="FECHA_CREACION" ColumnName="FECHA_CREACION" />
+                <ScalarProperty Name="CREADO_POR" ColumnName="CREADO_POR" />
+                <ScalarProperty Name="FECHA_ULTIMA_MODIFICACION" ColumnName="FECHA_ULTIMA_MODIFICACION" />
+                <ScalarProperty Name="MODIFICADO_POR" ColumnName="MODIFICADO_POR" />
+                <ScalarProperty Name="COMPLETA" ColumnName="COMPLETA" />
+                <ScalarProperty Name="COD_FORMA_PAGO" ColumnName="COD_FORMA_PAGO" />
+                <ScalarProperty Name="COD_PROYECTO" ColumnName="COD_PROYECTO" />
+                <ScalarProperty Name="COD_CONTRATO" ColumnName="COD_CONTRATO" />
+                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
