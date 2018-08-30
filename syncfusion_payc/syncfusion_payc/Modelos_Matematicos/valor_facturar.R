@@ -2,7 +2,6 @@ factura <- function(cod_factura) {
   #CONEXIÓN Y EXTRACCIÓN DE LA INFORMACIÓN DE LA BASE DE DATOS---------------
   library(DBI)
   #CREACION DE LA CONEXION A BASE DE DATOS
-    cod_factura=1
   con <- dbConnect(odbc::odbc(), "PAYC_FACTURACION", uid = "sa", pwd = "1234JAMS*")
   query<-paste0("SELECT * FROM FACTURAS WHERE COD_FACTURA=",cod_factura)
   FACTURAS<-dbGetQuery(con, query)
