@@ -1,19 +1,33 @@
 factura <- function(cod_factura) {
-#CONEXIÓN Y EXTRACCIÓN DE LA INFORMACIÓN DE LA BASE DE DATOS---------------
+  #FUNCIÓN QUE CÁLCULA EL NÚMERO DE HORAS DE ADICIÓN O DESCUENTO, DE ACUERDO CON EL REGISTRO DE NOVEDADES -----
+  funcion<-function(tabla,fecha_ini, fecha_fin){
+    library(lubridate)
+    if (nrow(tabla) != 0) {
+      if (day(fecha_ini)<day(fecha_fin)){
+        dias<-as.numeric(difftime(fecha_fin,fecha_ini,units = "days"))
+        horas<- (dias%%1)*24
+        Total<-floor(dias)*9+horas
+        return(Total)
+      } else {
+        return(difftime(fecha_fin,fecha_ini,units = "hours"))
+      } } }    
+  
+  #CONEXIÓN Y EXTRACCIÓN DE LA INFORMACIÓN DE LA BASE DE DATOS---------------
   #CONEXIÓN A LA BASE DE DATOS
   library(DBI)
   #cod_factura=1
   con <- dbConnect(odbc::odbc(), "PAYC_FACTURACION", uid = "sa", pwd = "1234JAMS*")
-  cod_factura=1
+  cod_factura=4
   #EXTRACCION DE LA INFORMACION IMPORTANTE DE LA BASE DE DATOS
-  query<-paste0("SELECT * FROM FACTURAS WHERE COD_FACTURA=",cod_factura)
-  FACTURAS<-dbGetQuery(con, query)
+  fact<-paste0("SELECT * FROM FACTURAS WHERE COD_FACTURA=",cod_factura)
+  FACTURAS<-dbGetQuery(con, fact)
+  
   fecha<-FACTURAS$COD_FORMAS_PAGO_FECHAS
   proyecto<-FACTURAS$COD_CONTRATO_PROYECTO
   estado<-FACTURAS$COD_ESTADO_FACTURA
-  
-  INGRESOS_PERSONAS <- dbGetQuery(con, "SELECT * FROM FLUJO_INGRESOS_ROL")
-  ITEMS_CONTRATO <- dbGetQuery(con, "SELECT * FROM ITEMS_CONTRATO")
+  personas<-paste0("SELECT * FROM FLUJO_INGRESOS_ROL
+                 WHERE COD_CONTRATO_PROYECTO=",proyecto,"
+                   AND COD_FORMAS_PAGO_FECHAS=",fecha)  
   fijos<- paste0("SELECT DISTINCT FLUJO_INGRESOS_ITEMS.*, ITEMS_CONTRATO.COD_TIPO_REEMBOLSO
                  FROM FLUJO_INGRESOS_ITEMS, ITEMS_CONTRATO 
                  WHERE ITEMS_CONTRATO.COD_TIPO_REEMBOLSO=1 
@@ -25,26 +39,50 @@ factura <- function(cod_factura) {
                     WHERE ITEMS_CONTRATO.COD_TIPO_REEMBOLSO=2
                     AND REGISTRO_ITEMS_OTROS_COSTOS.COD_CONTRATO_PROYECTO=",proyecto,"
                     AND REGISTRO_ITEMS_OTROS_COSTOS.COD_FORMAS_PAGO_FECHAS=",fecha)
-  ITEMS_FIJOS <- dbGetQuery(con, fijos)
+  items<-paste0("SELECT * FROM ITEMS_CONTRATO
+                WHERE COD_CONTRATO_PROYECTO=",proyecto)
   contrato<-paste0("SELECT COD_TIPO_CONDICION
                     FROM CONTRATOS_CONDICIONES
-                    WHERE COD_CONTRATO_PROYECTO=",proyecto)
+                   WHERE COD_CONTRATO_PROYECTO=",proyecto)
+  adicion<-paste0("SELECT *
+                  FROM VISTA_REGISTRO_NOVEDADES
+                  WHERE COD_CONTRATO_PROYECTO=",proyecto,"
+                  AND COD_TIPO_NOVEDAD BETWEEN 2 AND 5")
+  descuento<-paste0("SELECT *
+                    FROM VISTA_REGISTRO_NOVEDADES
+                    WHERE COD_CONTRATO_PROYECTO=",proyecto,"
+                    AND COD_TIPO_NOVEDAD IN (7,8,11,12)")
+  salario<-paste0("SELECT *
+                  FROM [test_payc_contabilidad].[dbo].[VISTA_SALARIO_COMERCIAL_INCREMENTOS]
+                  WHERE COD_CONTRATO_PROYECTO=",proyecto,
+                  "AND COD_FORMAS_PAGO_FECHAS=",fecha)
+  
+  INGRESOS_PERSONAS <- dbGetQuery(con, personas)
+  ITEMS_CONTRATO <- dbGetQuery(con, items)
+  ITEMS_FIJOS <- dbGetQuery(con, fijos)
+  ITEMS_VARIABLES <- dbGetQuery(con, variables)
   CONDICIONES_CONTRATO<-dbGetQuery(con, contrato)
+  NOVEDADES_ADICION<-dbGetQuery(con, adicion)
+  NOVEDADES_DESCUENTO<-dbGetQuery(con, descuento)
+  for (i in 1:nrow(NOVEDADES_ADICION)) {NOVEDADES_ADICION$HORAS[i]<-funcion(NOVEDADES_ADICION,NOVEDADES_ADICION$FECHA_INICIO_NOVEDAD[i],NOVEDADES_ADICION$FECHA_FIN_NOVEDAD[i]) }
+  for (i in 1:nrow(NOVEDADES_DESCUENTO)) {NOVEDADES_DESCUENTO$HORAS[i]<-  funcion(NOVEDADES_DESCUENTO,NOVEDADES_DESCUENTO$FECHA_INICIO_NOVEDAD[i],NOVEDADES_DESCUENTO$FECHA_FIN_NOVEDAD[i]) }  
+  SALARIO_COMERCIAL<-dbGetQuery(con, salario)
   
-  NOVEDADES_ADICION<-dbGetQuery(con, fijos)
-  NOVEDADES_DESCUENTO
-  
-
-  
+  #NOVEDADES_ADICION<-merge(NOVEDADES_ADICION[,c(NOVEDADES_ADICION$COD_ROL,NOVEDADES_ADICION$HORAS )],SALARIO_COMERCIAL[,SALARIO_COMERCIAL$COD_ROL])
   #CALCULO DE LOS VALORES TOTALES HISTORICOS A FACTURAR POR PERSONA E ITEM------------
-  TOTAL_PERSONAS <- aggregate(VALOR_CON_PRESTACIONES ~ COD_FORMAS_PAGO_FECHAS +
-                                COD_CONTRATO_PROYECTO + COD_ROL, data = INGRESOS_PERSONAS, sum)
+  if (nrow(INGRESOS_PERSONAS)!=0) {
+    TOTAL_PERSONAS <- aggregate(VALOR_CON_PRESTACIONES ~ COD_FORMAS_PAGO_FECHAS +
+                                  COD_CONTRATO_PROYECTO + COD_ROL, data = INGRESOS_PERSONAS, sum)   }
+  if (nrow(ITEMS_FIJOS)!=0){
   TOTAL_ITEMS_FIJOS <- aggregate(VALOR_TOTAL ~ COD_FORMAS_PAGO_FECHAS + COD_CONTRATO_PROYECTO
-                                 + COD_ITEM_CONTRATO, data = ITEMS_FIJOS, sum)
+                                + COD_ITEM_CONTRATO, data = ITEMS_FIJOS, sum) }
   if (nrow(ITEMS_VARIABLES)!=0){
     TOTAL_ITEMS_VARIABLES <- aggregate(VALOR_COMERCIAL ~ COD_FORMAS_PAGO_FECHAS + COD_CONTRATO_PROYECTO
-                                       + COD_ITEM_CONTRATO, data = ITEMS_VARIABLES, sum)
-  }
+                                + COD_ITEM_CONTRATO, data = ITEMS_VARIABLES, sum) }
+  
+  PRUEBA<-merge(NOVEDADES_ADICION,SALARIO_COMERCIAL,by.x = c("COD_ROL","COD_CONTRATO_PROYECTO"), by.y = c("COD_ROL","COD_CONTRATO_PROYECTO"), all.x = T,all.y = T)
+  
+  #TOTAL_PERSONAS$VALOR_TOTAL<-TOTAL_PERSONAS$VALOR_CON_PRESTACIONES+NOVEDADES_ADICION$
   
   #ELIMINAR LOS DATOS REPETIDOS DEL PROYECTO QUE SE ESTÁ CONSULTANDO
   eliminar<-paste0("DELETE FROM [dbo].[DETALLE_FACTURA_PERS] WHERE [COD_CONTRATO_PROYECTO] =", proyecto, "AND COD_FORMAS_PAGO_FECHAS=",fecha)
@@ -149,4 +187,6 @@ factura <- function(cod_factura) {
   
   
   dbDisconnect(con)
-}
+  }
+
+factura(3)
