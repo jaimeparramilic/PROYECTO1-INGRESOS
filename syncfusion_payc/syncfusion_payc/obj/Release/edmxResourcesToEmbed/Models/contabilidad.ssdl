@@ -427,8 +427,8 @@
     <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
     <Property Name="COD_TIPO_NOVEDAD" Type="bigint" />
     <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
-    <Property Name="FECHA_INICIO_NOVEDAD" Type="date" />
-    <Property Name="FECHA_FIN_NOVEDAD" Type="date" />
+    <Property Name="FECHA_INICIO_NOVEDAD" Type="datetime" />
+    <Property Name="FECHA_FIN_NOVEDAD" Type="datetime" />
   </EntityType>
   <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ReportsTable' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -969,6 +969,27 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_ITEMS_CONTR
     <Property Name="OBSERVACIONES" Type="varchar" MaxLength="300" />
     <Property Name="COD_TIPO_REEMBOLSO" Type="bigint" />
     <Property Name="DIAS_FRACCION" Type="bigint" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_ORDENES_CENTRO_COSTOS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="VISTA_ORDENES_CENTRO_COSTOS">
+    <Key>
+      <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      <PropertyRef Name="ESTADO_PSL" />
+    </Key>
+    <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" Nullable="false" />
+    <Property Name="COD_CONTRATO" Type="bigint" />
+    <Property Name="COD_PROYECTO" Type="bigint" />
+    <Property Name="COD_FORMA_PAGO" Type="bigint" />
+    <Property Name="COMPLETA" Type="varchar" MaxLength="100" />
+    <Property Name="MODIFICADO_POR" Type="varchar" MaxLength="300" />
+    <Property Name="FECHA_ULTIMA_MODIFICACION" Type="date" />
+    <Property Name="CREADO_POR" Type="varchar" MaxLength="300" />
+    <Property Name="FECHA_CREACION" Type="date" />
+    <Property Name="CENTRO_COSTOS" Type="varchar" MaxLength="300" />
+    <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="bigint" />
+    <Property Name="ESTADO_PSL" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
   </EntityType>
   <!--Errores durante la generación:
@@ -2252,6 +2273,23 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
     [VISTA_ITEMS_CONTRATO_DESCRIPCION].[DIAS_FRACCION] AS [DIAS_FRACCION], 
     [VISTA_ITEMS_CONTRATO_DESCRIPCION].[DESCRIPCION] AS [DESCRIPCION]
     FROM [dbo].[VISTA_ITEMS_CONTRATO_DESCRIPCION] AS [VISTA_ITEMS_CONTRATO_DESCRIPCION]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="VISTA_ORDENES_CENTRO_COSTOS" EntityType="Self.VISTA_ORDENES_CENTRO_COSTOS" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [VISTA_ORDENES_CENTRO_COSTOS].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
+    [VISTA_ORDENES_CENTRO_COSTOS].[COD_CONTRATO] AS [COD_CONTRATO], 
+    [VISTA_ORDENES_CENTRO_COSTOS].[COD_PROYECTO] AS [COD_PROYECTO], 
+    [VISTA_ORDENES_CENTRO_COSTOS].[COD_FORMA_PAGO] AS [COD_FORMA_PAGO], 
+    [VISTA_ORDENES_CENTRO_COSTOS].[COMPLETA] AS [COMPLETA], 
+    [VISTA_ORDENES_CENTRO_COSTOS].[MODIFICADO_POR] AS [MODIFICADO_POR], 
+    [VISTA_ORDENES_CENTRO_COSTOS].[FECHA_ULTIMA_MODIFICACION] AS [FECHA_ULTIMA_MODIFICACION], 
+    [VISTA_ORDENES_CENTRO_COSTOS].[CREADO_POR] AS [CREADO_POR], 
+    [VISTA_ORDENES_CENTRO_COSTOS].[FECHA_CREACION] AS [FECHA_CREACION], 
+    [VISTA_ORDENES_CENTRO_COSTOS].[CENTRO_COSTOS] AS [CENTRO_COSTOS], 
+    [VISTA_ORDENES_CENTRO_COSTOS].[COD_ESTADO_ORDEN_SERVICIO] AS [COD_ESTADO_ORDEN_SERVICIO], 
+    [VISTA_ORDENES_CENTRO_COSTOS].[ESTADO_PSL] AS [ESTADO_PSL], 
+    [VISTA_ORDENES_CENTRO_COSTOS].[DESCRIPCION] AS [DESCRIPCION]
+    FROM [dbo].[VISTA_ORDENES_CENTRO_COSTOS] AS [VISTA_ORDENES_CENTRO_COSTOS]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="VISTA_ORDENES_ROL_CARGO" EntityType="Self.VISTA_ORDENES_ROL_CARGO" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 

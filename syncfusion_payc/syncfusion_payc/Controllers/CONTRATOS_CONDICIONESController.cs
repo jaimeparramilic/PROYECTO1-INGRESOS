@@ -148,6 +148,7 @@ namespace syncfusion_payc.Controllers
             ViewBag.dataSource2 = DataSource2;
             return View();
         }	
+
 		public ActionResult GetOrderData(DataManager dm)
         {
             IEnumerable DataSource = db.CONTRATOS_CONDICIONES_VISTA.ToList();

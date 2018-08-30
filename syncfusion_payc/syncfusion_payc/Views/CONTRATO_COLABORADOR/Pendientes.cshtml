@@ -67,7 +67,7 @@
                                 }).Columns(col =>
                                 {
                                     col.Field("COD_CONTRATO_COLABORADOR").HeaderText("CONTRATO_COLABORADOR").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).Add();
-                                    col.Field("COD_ROL").ForeignKeyField("COD_ROL").ForeignKeyValue("DESCRIPCION").AllowEditing(false).DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").EditType(EditingType.DropdownEdit).Add();
+                                    col.Field("COD_ROL").ForeignKeyField("COD_ROL").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").EditType(EditingType.DropdownEdit).Add();
                                     col.Field("COD_COLABORADOR").ForeignKeyField("COD_COLABORADOR").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().COLABORADORES.ToList()).HeaderText("COLABORADOR").ValidationRules(v => v.AddRule("test", true)).EditType(EditingType.DropdownEdit).Add();
                                     col.Field("COD_CONTRATO_PROYECTO").HeaderText("CONTRATO_COLABORADOR").Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).Add();
                                     col.Field("FECHA_INI").HeaderText("FECHA INICIO EN PROYECTO").ValidationRules(v => v.AddRule("required", true)).Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
@@ -324,7 +324,7 @@
     });
 
     
-    var temp1;
+ 
      //Funcion para añadir el filtro a los drop downs
     function inicio_grid(args) {
         
