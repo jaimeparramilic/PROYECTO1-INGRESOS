@@ -23,6 +23,7 @@ namespace syncfusion_payc.Models
     
         public long COD_TIPO_NOVEDAD { get; set; }
         public string DESCRIPCION { get; set; }
+        public Nullable<float> FACTOR_MULTIPLICADOR { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     	[System.Runtime.Serialization.IgnoreDataMember]

@@ -17,5 +17,6 @@ namespace syncfusion_payc.Models
         public long COD_CONTRATO_PROYECTO { get; set; }
         public Nullable<long> COD_ROL { get; set; }
         public Nullable<System.DateTime> FECHA_FIN { get; set; }
+        public Nullable<System.DateTime> FECHA_INI { get; set; }
     }
 }

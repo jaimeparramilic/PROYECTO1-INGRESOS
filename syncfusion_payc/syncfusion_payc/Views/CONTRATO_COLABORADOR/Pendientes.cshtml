@@ -67,10 +67,11 @@
                                 }).Columns(col =>
                                 {
                                     col.Field("COD_CONTRATO_COLABORADOR").HeaderText("CONTRATO_COLABORADOR").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).Add();
-                                    col.Field("COD_ROL").ForeignKeyField("COD_ROL").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").EditType(EditingType.DropdownEdit).Add();
+                                    col.Field("COD_ROL").ForeignKeyField("COD_ROL").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").ValidationRules(v => v.AddRule("required", true)).EditType(EditingType.DropdownEdit).Add();
                                     col.Field("COD_COLABORADOR").ForeignKeyField("COD_COLABORADOR").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().COLABORADORES.ToList()).HeaderText("COLABORADOR").ValidationRules(v => v.AddRule("test", true)).EditType(EditingType.DropdownEdit).Add();
+                                    col.Field("DESCRIPCION_CARGO").HeaderText("CARGO").AllowEditing(false).EditType(EditingType.StringEdit).Add();
                                     col.Field("COD_CONTRATO_PROYECTO").HeaderText("CONTRATO_COLABORADOR").Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).Add();
-                                    col.Field("FECHA_INI").HeaderText("FECHA INICIO EN PROYECTO").ValidationRules(v => v.AddRule("required", true)).Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                                    col.Field("FECHA_INI_COLABORADOR").HeaderText("FECHA INICIO EN PROYECTO").ValidationRules(v => v.AddRule("required", true)).Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
                                     col.Field("FECHA_FIN").HeaderText("FECHA FIN").Format("{0:dd/MM/yyyy}").ValidationRules(v => v.AddRule("required", true).AddRule("comparacion_fechas", true)).EditType(EditingType.DateTimePicker).Add();
                                 })
                                     .DetailsTemplate("#tabGridContents");
@@ -323,16 +324,10 @@
         }, "La fecha de incio debe ser inferior o igual a la de finalización");
     });
 
-    
- 
      //Funcion para añadir el filtro a los drop downs
     function inicio_grid(args) {
-        
-        
         if (args.requestType == "beginedit") {
-
                 setTimeout(function () {
-
                     //Cargar valor del rol para la orden de servicio dada
                     var COD_CONTRATO_ROL = args.model.selectedRecords[0].COD_CONTRATO_ROL;
                     var data = JSON.stringify({ COD_CONTRATO_ROL: parseInt(COD_CONTRATO_ROL) });
@@ -347,7 +342,11 @@
                         success: function (data) {
                             //Instanciar dropdown
                             var drop = $(".e-dropdownlist[name='COD_COLABORADOR']").ejDropDownList('instance');
-                           
+                            drop.option({
+                                select: function (args) {
+                                    cargar_cargos(args.value);  
+                                }
+                            });
                             //Cargar lista de colaboradores
                             //temp1 = data.data;
                             var lista_colaboradores = data.data;
@@ -357,18 +356,48 @@
                             drop.option("enableFilterSearch", true);
                         }
                     });
-                    
-                }, 50);
+                               
+
+                //Cargar valor del rol para la orden de servicio dada
+               
+                 url = "lista_roles";
+                 var COD_CONTRATO_PROYECTO = args.model.parentDetails.parentKeyFieldValue;
+                 data = JSON.stringify({ COD_CONTRATO_PROYECTO: parseInt(COD_CONTRATO_PROYECTO) });
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        //Instanciar dropdown
+                        var drop = $(".e-dropdownlist[name='COD_ROL']").ejDropDownList('instance');
+
+                        //Cargar lista de colaboradores
+                        //temp1 = data.data;
+                        var lista_roles = data.data;
+                        var dataManager = ej.DataManager(lista_roles);
+                        drop.option("dataSource", dataManager);
+                        drop.option("fields", { text: "DESCRIPCION", value: "COD_CONTRATO_ROL" });
+                        drop.option("enableFilterSearch", true);
+                        drop.option({ value: COD_CONTRATO_ROL });
+                        drop.option({ enabled: false });
+                    }
+                });
+
+            }, 100);
 
         }
         if (args.requestType == "add") {
-            setTimeout(function () {
 
+            setTimeout(function () {
                 //Cargar valor del rol para la orden de servicio dada
-                temp1 = args;
-                var COD_CONTRATO_ROL = args.model.parentDetails.parentKeyFieldValue;
-                var data = JSON.stringify({ COD_CONTRATO_ROL: parseInt(COD_CONTRATO_ROL) });
-                var url = "lista_colaboradores";
+                var COD_CONTRATO_PROYECTO= args.model.parentDetails.parentKeyFieldValue;
+                
+                var data = JSON.stringify({ COD_CONTRATO_PROYECTO: parseInt(COD_CONTRATO_PROYECTO) });
+                var url = "lista_colaboradores_contrato_proyecto";
+
                 $.ajax({
                     type: "POST",
                     url: url,
@@ -379,7 +408,11 @@
                     success: function (data) {
                         //Instanciar dropdown
                         var drop = $(".e-dropdownlist[name='COD_COLABORADOR']").ejDropDownList('instance');
-
+                        drop.option({
+                            select: function (args) {
+                                cargar_cargos(args.value);
+                            }
+                        });
                         //Cargar lista de colaboradores
                         //temp1 = data.data;
                         var lista_colaboradores = data.data;
@@ -389,9 +422,80 @@
                         drop.option("enableFilterSearch", true);
                     }
                 });
+                url = "lista_roles";
+                $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                dataFilter: function (data) { return data; },
+                success: function (data) {
+                    //Instanciar dropdown
+                    var drop = $(".e-dropdownlist[name='COD_ROL']").ejDropDownList('instance');
+                    drop.option({
+                        select: function (args) {
+                            filtrar_colaboradores_rol(args.value,COD_CONTRATO_PROYECTO);
+                        }
+                    });
 
-            }, 50);
+                    //Cargar lista de colaboradores
+                    //temp1 = data.data;
+                    var lista_roles = data.data;
+                    var dataManager = ej.DataManager(lista_roles);
+                    drop.option("dataSource", dataManager);
+                    drop.option("fields", { text: "DESCRIPCION", value: "COD_CONTRATO_ROL" });
+                    drop.option("enableFilterSearch", true);
+                }
+            });
+
+        }, 100);
         }
+    }
+
+    //Función para filtrar colaboradores dependiendo del ROL
+    function filtrar_colaboradores_rol(COD_CONTRATO_ROL,COD_CONTRATO_PROYECTO) {
+        
+        var data = JSON.stringify({ COD_CONTRATO_ROL: parseInt(COD_CONTRATO_ROL),COD_CONTRATO_PROYECTO: parseInt(COD_CONTRATO_PROYECTO) });
+        var url = "lista_colaboradores_rol";
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            dataFilter: function (data) { return data; },
+            success: function (data) {
+                //Instanciar dropdown
+                var drop = $(".e-dropdownlist[name='COD_COLABORADOR']").ejDropDownList('instance');
+
+                //Cargar lista de colaboradores
+                //temp1 = data.data;
+                var lista_colaboradores = data.data;
+                var dataManager = ej.DataManager(lista_colaboradores);
+                drop.option("dataSource", dataManager);
+                drop.option("fields", { text: "DESCRIPCION", value: "COD_COLABORADOR" });
+                drop.option("enableFilterSearch", true);
+            }
+        });
+    }
+
+    //Función que permite
+    function cargar_cargos(COD_COLABORADOR) {
+        var data = JSON.stringify({ COD_COLABORADOR: parseInt(COD_COLABORADOR)});
+        var url = "cargar_cargos";
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            dataFilter: function (data) { return data; },
+            success: function (data) {
+                //Instanciar campo cargo
+                $("input[name='DESCRIPCION_CARGO']").val(data.data[0]);
+            }
+        });
     }
 
     //Funcion mostrar documento

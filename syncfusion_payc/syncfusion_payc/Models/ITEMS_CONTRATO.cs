@@ -17,9 +17,9 @@ namespace syncfusion_payc.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ITEMS_CONTRATO()
         {
-            this.DETALLE_FACTURA_ITEM = new HashSet<DETALLE_FACTURA_ITEM>();
             this.FLUJO_INGRESOS_ITEMS = new HashSet<FLUJO_INGRESOS_ITEMS>();
             this.REGISTRO_ITEMS_OTROS_COSTOS = new HashSet<REGISTRO_ITEMS_OTROS_COSTOS>();
+            this.DETALLE_FACTURA_ITEM = new HashSet<DETALLE_FACTURA_ITEM>();
         }
     
         public long COD_ITEM_CONTRATO { get; set; }
@@ -40,10 +40,6 @@ namespace syncfusion_payc.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     	[System.Runtime.Serialization.IgnoreDataMember]
     	[Newtonsoft.Json.JsonIgnore]
-        public virtual ICollection<DETALLE_FACTURA_ITEM> DETALLE_FACTURA_ITEM { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    	[System.Runtime.Serialization.IgnoreDataMember]
-    	[Newtonsoft.Json.JsonIgnore]
         public virtual ICollection<FLUJO_INGRESOS_ITEMS> FLUJO_INGRESOS_ITEMS { get; set; }
         public virtual ITEMS ITEMS { get; set; }
         public virtual TIPOS_REEMBOLSO TIPOS_REEMBOLSO { get; set; }
@@ -51,5 +47,9 @@ namespace syncfusion_payc.Models
     	[System.Runtime.Serialization.IgnoreDataMember]
     	[Newtonsoft.Json.JsonIgnore]
         public virtual ICollection<REGISTRO_ITEMS_OTROS_COSTOS> REGISTRO_ITEMS_OTROS_COSTOS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    	[System.Runtime.Serialization.IgnoreDataMember]
+    	[Newtonsoft.Json.JsonIgnore]
+        public virtual ICollection<DETALLE_FACTURA_ITEM> DETALLE_FACTURA_ITEM { get; set; }
     }
 }

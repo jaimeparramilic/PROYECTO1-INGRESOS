@@ -16,6 +16,7 @@ namespace syncfusion_payc.Models
     {
         public Nullable<long> COD_CONTRATO_PROYECTO { get; set; }
         public long COD_CONTRATO_ROL { get; set; }
+        public Nullable<long> COD_ROL { get; set; }
         public long COD_COLABORADOR { get; set; }
         public string DESCRIPCION { get; set; }
         public Nullable<long> COD_CARGO { get; set; }

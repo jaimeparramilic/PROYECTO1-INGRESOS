@@ -226,6 +226,7 @@ C:\Users\PROYECTO\source\repos\syncfusion_payc\syncfusion_payc\bin\Syncfusion.Xl
 C:\Users\PROYECTO\source\repos\syncfusion_payc\syncfusion_payc\bin\Syncfusion.DocIO.Helper.MVC.xml
 C:\Users\PROYECTO\source\repos\syncfusion_payc\syncfusion_payc\bin\Syncfusion.EJ.MVC.xml
 C:\Users\PROYECTO\source\repos\syncfusion_payc\syncfusion_payc\bin\Syncfusion.XlsIO.Helper.MVC.xml
+E:\REPO_TEMP\syncfusion_payc\syncfusion_payc\bin\Syncfusion.Shared.WPF.dll
 E:\REPO_TEMP\syncfusion_payc\syncfusion_payc\bin\syncfusion_payc.dll.config
 E:\REPO_TEMP\syncfusion_payc\syncfusion_payc\bin\syncfusion_payc.dll
 E:\REPO_TEMP\syncfusion_payc\syncfusion_payc\bin\syncfusion_payc.pdb
@@ -328,7 +329,6 @@ E:\REPO_TEMP\syncfusion_payc\syncfusion_payc\bin\Syncfusion.Linq.Base.dll
 E:\REPO_TEMP\syncfusion_payc\syncfusion_payc\bin\Syncfusion.Olap.Base.dll
 E:\REPO_TEMP\syncfusion_payc\syncfusion_payc\bin\Syncfusion.Pdf.Base.dll
 E:\REPO_TEMP\syncfusion_payc\syncfusion_payc\bin\Syncfusion.PivotAnalysis.Base.dll
-E:\REPO_TEMP\syncfusion_payc\syncfusion_payc\bin\Syncfusion.Shared.WPF.dll
 E:\REPO_TEMP\syncfusion_payc\syncfusion_payc\bin\Syncfusion.XlsIO.Base.dll
 E:\REPO_TEMP\syncfusion_payc\syncfusion_payc\bin\System.Data.SqlServerCe.dll
 E:\REPO_TEMP\syncfusion_payc\syncfusion_payc\bin\System.Data.SqlServerCe.Entity.dll

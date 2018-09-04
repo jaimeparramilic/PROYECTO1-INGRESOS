@@ -217,7 +217,8 @@ namespace syncfusion_payc.Controllers
 
             CONTRATO_COLABORADOR cont = new CONTRATO_COLABORADOR();
             cont.COD_CONTRATO_PROYECTO = param.value.COD_CONTRATO_PROYECTO;
-            cont.COD_ROL = param.value.COD_ROL;
+            CONTRATOS_ROL temp1 = db.CONTRATOS_ROL.Single(o => o.COD_CONTRATO_ROL == param.value.COD_ROL);
+            cont.COD_ROL = temp1.COD_ROL;
             cont.FECHA_FIN = param.value.FECHA_FIN;
             cont.FECHA_INI = param.value.FECHA_INI_COLABORADOR;
             cont.COD_COLABORADOR = param.value.COD_COLABORADOR;
@@ -235,7 +236,11 @@ namespace syncfusion_payc.Controllers
 			CONTRATO_COLABORADOR table = db.CONTRATO_COLABORADOR.Single(o => o.COD_CONTRATO_COLABORADOR == param.value.COD_CONTRATO_COLABORADOR);
             
             table.COD_CONTRATO_PROYECTO = param.value.COD_CONTRATO_PROYECTO;
-            table.COD_ROL = param.value.COD_ROL;
+            
+
+            //Correción COD_ROL
+            CONTRATOS_ROL temp1 = db.CONTRATOS_ROL.Single(o => o.COD_CONTRATO_ROL == param.value.COD_ROL);
+            table.COD_ROL = temp1.COD_ROL;
             table.FECHA_FIN = param.value.FECHA_FIN;
             table.FECHA_INI = param.value.FECHA_INI_COLABORADOR;
             table.COD_COLABORADOR = param.value.COD_COLABORADOR;
@@ -363,7 +368,7 @@ namespace syncfusion_payc.Controllers
 
         }
         #endregion
-        #region generacion de colaboradores pendientes
+        #region generacion de colaboradores pendientes y validar asignaciones
         //Query para recalcular
 
         //Funcion para regenerar el flujo del rol
@@ -373,10 +378,12 @@ namespace syncfusion_payc.Controllers
             string queryString = @"INSERT INTO [test_payc_contabilidad].[dbo].[CONTRATO_COLABORADOR]
                                     ([COD_CONTRATO_PROYECTO]
                                     ,[COD_ROL]
+                                    ,[FECHA_INI]
                                     ,[FECHA_FIN]) 
                                     (SELECT [COD_CONTRATO_PROYECTO]
                                     ,[COD_ROL]
-                                    ,[FECHA_FIN] 
+                                    ,[FECHA_INI]
+                                    ,[FECHA_FIN]
                                     FROM [test_payc_contabilidad].[dbo].[GENERACION_COLABORADORES_PENDIENTES] 
                                     WHERE COD_CONTRATO_PROYECTO=" + COD_CONTRATO_PROYECTO.ToString() + @"
                                     AND COD_ROL IS NOT NULL AND FECHA_FIN IS NOT NULL
@@ -498,7 +505,7 @@ namespace syncfusion_payc.Controllers
             return Json(new { success = true, responseText = "SI",data=mensaje_error }, "application/json", JsonRequestBehavior.AllowGet);
         }
         #endregion
-        #region lista roles
+        #region lista colaboradores
         //Funcion para filtrar la lista de colaboradores
         public ActionResult lista_colaboradores(long COD_CONTRATO_ROL)
         {
@@ -506,13 +513,34 @@ namespace syncfusion_payc.Controllers
 
             return Json(new { success = true, responseText = "SI", data = DataSource}, "application/json", JsonRequestBehavior.AllowGet);
         }
-        #endregion
-        #region lista colaboradores
-        //Funcion para filtrar la lista de colaboradores
-        public ActionResult lista_colaboradores(long COD_CONTRATO_ROL)
-        {
-            IEnumerable DataSource = db.VISTA_ORDENES_ROL_CARGO.Where(o => o.COD_CONTRATO_ROL == COD_CONTRATO_ROL).ToList();
 
+        //Funcion para filtrar la lista de colaboradores
+        public ActionResult lista_colaboradores_contrato_proyecto(long COD_CONTRATO_PROYECTO)
+        {
+            IEnumerable DataSource = db.VISTA_ORDENES_ROL_CARGO.Where(o => o.COD_CONTRATO_PROYECTO == COD_CONTRATO_PROYECTO).ToList();
+            return Json(new { success = true, responseText = "SI", data = DataSource }, "application/json", JsonRequestBehavior.AllowGet);
+        }
+
+        //Funcion para filtrar la lista de colaboradores
+        public ActionResult lista_colaboradores_rol(long COD_CONTRATO_ROL,long COD_CONTRATO_PROYECTO)
+        {
+            IEnumerable DataSource = db.VISTA_ORDENES_ROL_CARGO.Where(o => o.COD_CONTRATO_PROYECTO == COD_CONTRATO_PROYECTO && o.COD_CONTRATO_ROL == COD_CONTRATO_ROL).ToList();
+            return Json(new { success = true, responseText = "SI", data = DataSource }, "application/json", JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+        #region lista roles
+        //Funcion para filtrar la lista de colaboradores
+        public ActionResult lista_roles(long COD_CONTRATO_PROYECTO)
+        {
+            IEnumerable DataSource = db.VISTA_CONTRATOS_ROL_DESCRIPCION.Where(o => o.COD_CONTRATO_PROYECTO == COD_CONTRATO_PROYECTO).ToList();
+            return Json(new { success = true, responseText = "SI", data = DataSource }, "application/json", JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+        #region traer cargos
+        //Funcion para filtrar la lista de colaboradores
+        public ActionResult cargar_cargos(long COD_COLABORADOR)
+        {
+            IEnumerable DataSource = db.VISTA_ORDENES_ROL_CARGO.Where(o => o.COD_COLABORADOR == COD_COLABORADOR).Select(o=>o.DESCRIPCION_CARGO).ToList();
             return Json(new { success = true, responseText = "SI", data = DataSource }, "application/json", JsonRequestBehavior.AllowGet);
         }
         #endregion
