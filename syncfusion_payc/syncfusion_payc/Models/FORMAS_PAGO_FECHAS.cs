@@ -17,13 +17,13 @@ namespace syncfusion_payc.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public FORMAS_PAGO_FECHAS()
         {
-            this.DETALLE_FACTURA_ITEM = new HashSet<DETALLE_FACTURA_ITEM>();
-            this.DETALLE_FACTURA_PERS = new HashSet<DETALLE_FACTURA_PERS>();
             this.FACTURAS = new HashSet<FACTURAS>();
             this.FLUJO_INGRESOS_ITEMS = new HashSet<FLUJO_INGRESOS_ITEMS>();
             this.INCREMENTO_SALARIAL = new HashSet<INCREMENTO_SALARIAL>();
             this.REGISTRO_ITEMS_OTROS_COSTOS = new HashSet<REGISTRO_ITEMS_OTROS_COSTOS>();
             this.REGISTRO_NOVEDADES = new HashSet<REGISTRO_NOVEDADES>();
+            this.DETALLE_FACTURA_PERS = new HashSet<DETALLE_FACTURA_PERS>();
+            this.DETALLE_FACTURA_ITEM = new HashSet<DETALLE_FACTURA_ITEM>();
         }
     
         public long COD_FORMAS_PAGO_FECHAS { get; set; }
@@ -33,14 +33,6 @@ namespace syncfusion_payc.Models
         public Nullable<System.DateTime> FECHA_FIN { get; set; }
         public string PERIODO_TEXTO { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    	[System.Runtime.Serialization.IgnoreDataMember]
-    	[Newtonsoft.Json.JsonIgnore]
-        public virtual ICollection<DETALLE_FACTURA_ITEM> DETALLE_FACTURA_ITEM { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    	[System.Runtime.Serialization.IgnoreDataMember]
-    	[Newtonsoft.Json.JsonIgnore]
-        public virtual ICollection<DETALLE_FACTURA_PERS> DETALLE_FACTURA_PERS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     	[System.Runtime.Serialization.IgnoreDataMember]
     	[Newtonsoft.Json.JsonIgnore]
@@ -62,5 +54,13 @@ namespace syncfusion_payc.Models
     	[System.Runtime.Serialization.IgnoreDataMember]
     	[Newtonsoft.Json.JsonIgnore]
         public virtual ICollection<REGISTRO_NOVEDADES> REGISTRO_NOVEDADES { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    	[System.Runtime.Serialization.IgnoreDataMember]
+    	[Newtonsoft.Json.JsonIgnore]
+        public virtual ICollection<DETALLE_FACTURA_PERS> DETALLE_FACTURA_PERS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    	[System.Runtime.Serialization.IgnoreDataMember]
+    	[Newtonsoft.Json.JsonIgnore]
+        public virtual ICollection<DETALLE_FACTURA_ITEM> DETALLE_FACTURA_ITEM { get; set; }
     }
 }

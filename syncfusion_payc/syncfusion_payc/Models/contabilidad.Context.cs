@@ -41,13 +41,10 @@ namespace syncfusion_payc.Models
         public virtual DbSet<CONTRATOS> CONTRATOS { get; set; }
         public virtual DbSet<CONTRATOS_CONDICIONES> CONTRATOS_CONDICIONES { get; set; }
         public virtual DbSet<CONTRATOS_ROL> CONTRATOS_ROL { get; set; }
-        public virtual DbSet<DETALLE_FACTURA_ITEM> DETALLE_FACTURA_ITEM { get; set; }
-        public virtual DbSet<DETALLE_FACTURA_PERS> DETALLE_FACTURA_PERS { get; set; }
         public virtual DbSet<ENTREGABLES> ENTREGABLES { get; set; }
         public virtual DbSet<ESTADO_COLABORADOR> ESTADO_COLABORADOR { get; set; }
         public virtual DbSet<ESTADOS_CECO> ESTADOS_CECO { get; set; }
         public virtual DbSet<ESTADOS_DETALLE> ESTADOS_DETALLE { get; set; }
-        public virtual DbSet<ESTADOS_FACTURAS> ESTADOS_FACTURAS { get; set; }
         public virtual DbSet<ESTADOS_ORDEN_SERVICIO> ESTADOS_ORDEN_SERVICIO { get; set; }
         public virtual DbSet<ESTUDIOS_COLABORADOR> ESTUDIOS_COLABORADOR { get; set; }
         public virtual DbSet<FACTURAS> FACTURAS { get; set; }
@@ -80,7 +77,6 @@ namespace syncfusion_payc.Models
         public virtual DbSet<ReportsTable> ReportsTable { get; set; }
         public virtual DbSet<COLABORADORES_CONTAR_ESTUDIOS> COLABORADORES_CONTAR_ESTUDIOS { get; set; }
         public virtual DbSet<COLARADORES_CONCAT_ESTUDIOS> COLARADORES_CONCAT_ESTUDIOS { get; set; }
-        public virtual DbSet<CONTRATO_COLABORADOR_COMERCIAL> CONTRATO_COLABORADOR_COMERCIAL { get; set; }
         public virtual DbSet<CONTRATO_COLABORADOR_INDEX> CONTRATO_COLABORADOR_INDEX { get; set; }
         public virtual DbSet<CONTRATO_PROYECTO_DESCRIPCION> CONTRATO_PROYECTO_DESCRIPCION { get; set; }
         public virtual DbSet<CONTRATO_ROL_DESCRIPCION> CONTRATO_ROL_DESCRIPCION { get; set; }
@@ -94,7 +90,6 @@ namespace syncfusion_payc.Models
         public virtual DbSet<ORDENES_SERVICIO_ROLES_COLABORADOR> ORDENES_SERVICIO_ROLES_COLABORADOR { get; set; }
         public virtual DbSet<PENDIENTES> PENDIENTES { get; set; }
         public virtual DbSet<PENDIENTES_REPORTE> PENDIENTES_REPORTE { get; set; }
-        public virtual DbSet<VISTA_ORDENES_ROL_CARGO> VISTA_ORDENES_ROL_CARGO { get; set; }
         public virtual DbSet<VISTA_PENDIENTES_FACTURA> VISTA_PENDIENTES_FACTURA { get; set; }
         public virtual DbSet<VISTA_PENDIENTES_RETIRO> VISTA_PENDIENTES_RETIRO { get; set; }
         public virtual DbSet<GENERACION_FLUJOS_ITEM> GENERACION_FLUJOS_ITEM { get; set; }
@@ -105,5 +100,13 @@ namespace syncfusion_payc.Models
         public virtual DbSet<VISTA_ITEMS_CONTRATO> VISTA_ITEMS_CONTRATO { get; set; }
         public virtual DbSet<VISTA_ITEMS_CONTRATO_DESCRIPCION> VISTA_ITEMS_CONTRATO_DESCRIPCION { get; set; }
         public virtual DbSet<VISTA_ORDENES_CENTRO_COSTOS> VISTA_ORDENES_CENTRO_COSTOS { get; set; }
+        public virtual DbSet<VISTA_CONTRATOS_ROL_DESCRIPCION> VISTA_CONTRATOS_ROL_DESCRIPCION { get; set; }
+        public virtual DbSet<VISTA_ORDENES_ROL_CARGO> VISTA_ORDENES_ROL_CARGO { get; set; }
+        public virtual DbSet<CONTRATO_COLABORADOR_COMERCIAL> CONTRATO_COLABORADOR_COMERCIAL { get; set; }
+        public virtual DbSet<CONCEPTOS> CONCEPTOS { get; set; }
+        public virtual DbSet<ESTADOS_FACTURAS> ESTADOS_FACTURAS { get; set; }
+        public virtual DbSet<DETALLE_FACTURA_PERS> DETALLE_FACTURA_PERS { get; set; }
+        public virtual DbSet<DETALLE_FACTURA_ITEM> DETALLE_FACTURA_ITEM { get; set; }
+        public virtual DbSet<VISTA_CONTRATO_PROYECTO_FACTURAS> VISTA_CONTRATO_PROYECTO_FACTURAS { get; set; }
     }
 }

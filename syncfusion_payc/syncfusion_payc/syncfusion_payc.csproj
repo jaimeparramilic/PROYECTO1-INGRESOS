@@ -238,6 +238,7 @@
     <Compile Include="Controllers\CONTRATO_PROYECTOController.cs" />
     <Compile Include="Controllers\CONTRATO_ROL_CARGOController.cs" />
     <Compile Include="Controllers\ESTUDIOS_COLABORADORController.cs" />
+    <Compile Include="Controllers\FACTURASController.cs" />
     <Compile Include="Controllers\FlujoProyectosController.cs" />
     <Compile Include="Controllers\FLUJO_INGRESOS_ITEMSController.cs" />
     <Compile Include="Controllers\FLUJO_INGRESOS_ROLController.cs" />
@@ -287,6 +288,9 @@
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\COMPROMISOS_PAGOS.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CONCEPTOS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CONTRATOS.cs">
@@ -468,6 +472,12 @@
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TIPO_CONTRATO.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_CONTRATOS_ROL_DESCRIPCION.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_CONTRATO_PROYECTO_FACTURAS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VISTA_FLUJO_INGRESOS.cs">
@@ -1443,6 +1453,11 @@
     <Content Include="Views\VISTA_ORDENES_CENTRO_COSTOS\Details.cshtml" />
     <Content Include="Views\VISTA_ORDENES_CENTRO_COSTOS\Edit.cshtml" />
     <Content Include="Views\VISTA_ORDENES_CENTRO_COSTOS\Index.cshtml" />
+    <Content Include="Views\FACTURAS\Create.cshtml" />
+    <Content Include="Views\FACTURAS\Delete.cshtml" />
+    <Content Include="Views\FACTURAS\Details.cshtml" />
+    <Content Include="Views\FACTURAS\Edit.cshtml" />
+    <Content Include="Views\FACTURAS\Index.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />

@@ -17,18 +17,18 @@ namespace syncfusion_payc.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ESTADOS_FACTURAS()
         {
-            this.DETALLE_FACTURA_ITEM = new HashSet<DETALLE_FACTURA_ITEM>();
-            this.DETALLE_FACTURA_PERS = new HashSet<DETALLE_FACTURA_PERS>();
             this.FACTURAS = new HashSet<FACTURAS>();
+            this.DETALLE_FACTURA_PERS = new HashSet<DETALLE_FACTURA_PERS>();
+            this.DETALLE_FACTURA_ITEM = new HashSet<DETALLE_FACTURA_ITEM>();
         }
     
-        public long COD_ESTADOS_FACTURAS { get; set; }
+        public long COD_ESTADO_FACTURA { get; set; }
         public string DESCRIPCION { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     	[System.Runtime.Serialization.IgnoreDataMember]
     	[Newtonsoft.Json.JsonIgnore]
-        public virtual ICollection<DETALLE_FACTURA_ITEM> DETALLE_FACTURA_ITEM { get; set; }
+        public virtual ICollection<FACTURAS> FACTURAS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     	[System.Runtime.Serialization.IgnoreDataMember]
     	[Newtonsoft.Json.JsonIgnore]
@@ -36,6 +36,6 @@ namespace syncfusion_payc.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     	[System.Runtime.Serialization.IgnoreDataMember]
     	[Newtonsoft.Json.JsonIgnore]
-        public virtual ICollection<FACTURAS> FACTURAS { get; set; }
+        public virtual ICollection<DETALLE_FACTURA_ITEM> DETALLE_FACTURA_ITEM { get; set; }
     }
 }

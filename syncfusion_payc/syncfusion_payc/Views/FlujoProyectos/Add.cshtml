@@ -1109,17 +1109,17 @@
                 completos_paso2 = completos_paso2 - 1;
                 errores_paso2 = errores_paso2 + 1;
             }
-            if (fecha_ini_etapa_liquidacion == "") {
+            if (fecha_ini_etapa_liquidacion == "" && check_etapa_liquidacion) {
                 $("#FECHA_INI_ETAPA_LIQUIDACION").parent().addClass("error");
                 completos_paso2 = completos_paso2 - 1;
                 errores_paso2 = errores_paso2 + 1;
             }
-            if (fecha_ini_etapa_obra == "") {
+            if (fecha_ini_etapa_obra == "" && check_etapa_obra) {
                 $("#FECHA_INI_ETAPA_OBRA").parent().addClass("error");
                 completos_paso2 = completos_paso2 - 1;
                 errores_paso2 = errores_paso2 + 1;
             }
-            if (fecha_ini_etapa_previa == "") {
+            if (fecha_ini_etapa_previa == "" && check_etapa_previa) {
                 $("#FECHA_INI_ETAPA_PREVIA").parent().addClass("error");
                 completos_paso2 = completos_paso2 - 1;
                 errores_paso2 = errores_paso2 + 1;

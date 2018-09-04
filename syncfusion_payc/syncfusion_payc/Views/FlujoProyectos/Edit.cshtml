@@ -1133,7 +1133,7 @@
                 errores_paso2 = errores_paso2 + 1;
             }
             if (plazo_liquidacion == "" && check_etapa_liquidacion) {
-                alert(plazo_liquidacion)
+                
                 $(".div_plazo_liquidacion span.e-box").addClass("error");
                 completos_paso2 = completos_paso2 - 1;
                 errores_paso2 = errores_paso2 + 1;
@@ -1752,7 +1752,6 @@
             }
         }
 
-        var temp2;
    //Cambio de checks
     function cambiar_check(element) {
     var id = element.attr("id");
@@ -1775,7 +1774,7 @@
         meses_ej = $("#PLAZO_LIQUIDACION").ejNumericTextbox("instance");
             meses = $("#PLAZO_LIQUIDACION");
         }
-    temp2 = meses_ej;
+    
     if (!element.is(':checked')) {
         meses_ej.option({ value: null });
         meses_ej.disable();

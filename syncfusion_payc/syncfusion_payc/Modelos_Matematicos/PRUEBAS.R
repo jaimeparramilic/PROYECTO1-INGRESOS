@@ -53,7 +53,7 @@ factura <- function(cod_factura) {
                     WHERE COD_CONTRATO_PROYECTO=",proyecto,"
                     AND COD_TIPO_NOVEDAD IN (7,8,11,12)")
   salario<-paste0("SELECT *
-                  FROM [test_payc_contabilidad].[dbo].[VISTA_SALARIO_COMERCIAL_INCREMENTOS]
+                  FROM [test_payc_contabilidad].[dbo].[VISTA_SALARIO_INCREMENTOS_TEMP]
                   WHERE COD_CONTRATO_PROYECTO=",proyecto,
                   "AND COD_FORMAS_PAGO_FECHAS=",fecha)
   
@@ -83,14 +83,16 @@ if (any(CONDICIONES_CONTRATO$COD_TIPO_CONDICION>5)){
   #CALCULO DE LOS VALORES TOTALES HISTORICOS A FACTURAR POR PERSONA E ITEM------------
   if (nrow(INGRESOS_PERSONAS)!=0) {
     TOTAL_PERSONAS <- aggregate(VALOR_CON_PRESTACIONES ~ COD_FORMAS_PAGO_FECHAS +
-                                  COD_CONTRATO_PROYECTO + COD_ROL, data = INGRESOS_PERSONAS, sum)   }
+                                  COD_CONTRATO_PROYECTO + COD_ROL, data = INGRESOS_PERSONAS, sum)
+}
   if (nrow(ITEMS_FIJOS)!=0){
   TOTAL_ITEMS_FIJOS <- aggregate(VALOR_TOTAL ~ COD_FORMAS_PAGO_FECHAS + COD_CONTRATO_PROYECTO
-                                + COD_ITEM_CONTRATO, data = ITEMS_FIJOS, sum) }
+                                + COD_ITEM_CONTRATO, data = ITEMS_FIJOS, sum)
+    }
   if (nrow(ITEMS_VARIABLES)!=0){
     TOTAL_ITEMS_VARIABLES <- aggregate(VALOR_COMERCIAL ~ COD_FORMAS_PAGO_FECHAS + COD_CONTRATO_PROYECTO
-                                + COD_ITEM_CONTRATO, data = ITEMS_VARIABLES, sum) }
-  
+                                + COD_ITEM_CONTRATO, data = ITEMS_VARIABLES, sum)
+    }
   PRUEBA<-merge(NOVEDADES_ADICION,SALARIO_COMERCIAL,by.x = c("COD_ROL","COD_CONTRATO_PROYECTO"), by.y = c("COD_ROL","COD_CONTRATO_PROYECTO"), all.x = T,all.y = T)
   
   #TOTAL_PERSONAS$VALOR_TOTAL<-TOTAL_PERSONAS$VALOR_CON_PRESTACIONES+NOVEDADES_ADICION$
@@ -104,6 +106,7 @@ if (any(CONDICIONES_CONTRATO$COD_TIPO_CONDICION>5)){
   #CÁLCULO E INSERCIÓN DE LA INFORMACIÓN EN LAS TABLAS
   chunksize = 1000 # arbitrary chunk size
   TABLA_TEMPORAL<-TOTAL_PERSONAS[TOTAL_PERSONAS$COD_FORMAS_PAGO_FECHAS==fecha & TOTAL_PERSONAS$COD_CONTRATO_PROYECTO==proyecto,]
+  
   for (i in 1:ceiling(nrow(TABLA_TEMPORAL)/chunksize)) {
     query = paste0("INSERT INTO [dbo].[DETALLE_FACTURA_PERS] 
                    ([COD_CONTRATO_PROYECTO]

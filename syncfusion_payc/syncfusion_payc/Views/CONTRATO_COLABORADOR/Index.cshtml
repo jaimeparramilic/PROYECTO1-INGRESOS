@@ -2,9 +2,9 @@
 @model IEnumerable<syncfusion_payc.Models.CONTRATO_COLABORADOR>
 
 @{
-    /**/
+           
 
-    ViewBag.Title = "";
+                ViewBag.Title = "";
 }
 
 <h4>ASIGNACIONES A PROYECTOS</h4>
@@ -14,77 +14,79 @@
     {
 
         @(Html.EJ().Grid<syncfusion_payc.Models.CONTRATO_COLABORADOR_INDEX>("Grid")
-                                                                                .Datasource(ds => ds.URL("GetOrderData_contrato_proyecto").InsertURL("PerformInsert_contrato_proyecto").UpdateURL("PerformUpdate_contrato_proyecto").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
-                                                                                .AllowPaging()
-                                                                                .AllowFiltering()
-                                                                                .Locale("es-CO")
-                                                                                .AllowResizeToFit(true)
-                                                                                .FilterSettings(filter => { filter.FilterType(FilterType.Menu); })
-                                                                                .ToolbarSettings(toolbar =>
-                                                                                {
-                                                                                    toolbar.ShowToolbar().ToolbarItems(items =>
-                                                                                    {
-                                                                                        items.AddTool(ToolBarItems.Add);
-                                                                                        items.AddTool(ToolBarItems.Edit);
-                                                                                        items.AddTool(ToolBarItems.Delete);
-                                                                                        items.AddTool(ToolBarItems.Update);
-                                                                                        items.AddTool(ToolBarItems.Cancel);
+                         .Datasource(ds => ds.URL("GetOrderData_contrato_proyecto").InsertURL("PerformInsert_contrato_proyecto").UpdateURL("PerformUpdate_contrato_proyecto").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                                                                                                .AllowPaging()
+                                                                                                .AllowFiltering()
+                                                                                                .Locale("es-CO")
+                                                                                                .AllowResizeToFit(true)
+                                                                                                .FilterSettings(filter => { filter.FilterType(FilterType.Menu); })
+                                                                                                .ToolbarSettings(toolbar =>
+                                                                                                {
+                                                                                                    toolbar.ShowToolbar().ToolbarItems(items =>
+                                                                                                    {
+                                                                                                        items.AddTool(ToolBarItems.Add);
+                                                                                                        items.AddTool(ToolBarItems.Edit);
+                                                                                                        items.AddTool(ToolBarItems.Delete);
+                                                                                                        items.AddTool(ToolBarItems.Update);
+                                                                                                        items.AddTool(ToolBarItems.Cancel);
 
-                                                                                    });
+                                                                                                    });
 
-                                                                                }).Columns(col =>
-                                                                                {
-                                                                                    col.Field("CENTRO_COSTOS").HeaderText("CENTRO DE COSTOS").EditType(EditingType.DropdownEdit).Add();
-                                                                                    col.Field("DESCRIPCION").HeaderText("DESCRIPCION").EditType(EditingType.DropdownEdit).Add();
-                                                                                    col.Field("COD_CONTRATO_PROYECTO").HeaderText("CONTRATO_PROYECTO").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit);
+                                                                                                }).Columns(col =>
+                                                                                                {
+                                                                                                    col.Field("CENTRO_COSTOS").HeaderText("CENTRO DE COSTOS").EditType(EditingType.DropdownEdit).Add();
+                                                                                                    col.Field("DESCRIPCION").HeaderText("DESCRIPCION").EditType(EditingType.DropdownEdit).Add();
+                                                                                                    col.Field("COD_CONTRATO_PROYECTO").HeaderText("CONTRATO_PROYECTO").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit);
 
-                                                                                }).ChildGrid(child =>
-                                                                                {
-
-                                                                                    child.Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
-                                                                                   .AllowPaging()
-                                                                                   .QueryString("COD_CONTRATO_PROYECTO")
-
-                                                                                   .Locale("es-CO")
-                                                                                   .AllowResizeToFit(true)
-
-                                                                                   .ClientSideEvents(eve => eve.ToolbarClick("clicked"))
-                                                                                   .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
-                                                                                   .ToolbarSettings(toolbar =>
-                                                                                   {
-                                                                                       toolbar.ShowToolbar().CustomToolbarItems(new List<object>() {
-                                                       new Syncfusion.JavaScript.Models.CustomToolbarItem() { TemplateID = "#Validar" },
-                                                       new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Pendientes" }
-                                                                                       }).ToolbarItems(items =>
-                                                                                       {
-                                                                                           items.AddTool(ToolBarItems.Add);
-                                                                                           items.AddTool(ToolBarItems.Edit);
-                                                                                           items.AddTool(ToolBarItems.Delete);
-                                                                                           items.AddTool(ToolBarItems.Update);
-                                                                                           items.AddTool(ToolBarItems.Cancel);
-
-                                                                                       });
-
-                                                                                   }).Columns(col =>
-                                                                                   {
-                                                                                       col.Field("COD_CONTRATO_COLABORADOR").HeaderText("CONTRATO_COLABORADOR").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).Add();
-                                                                                       col.Field("COD_ROL").ForeignKeyField("COD_ROL").ForeignKeyValue("DESCRIPCION").AllowEditing(false).DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").EditType(EditingType.DropdownEdit).Add();
-                                                                                       col.Field("COD_COLABORADOR").ForeignKeyField("COD_COLABORADOR").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().COLABORADORES.ToList()).HeaderText("COLABORADOR").ValidationRules(v => v.AddRule("test", true)).EditType(EditingType.DropdownEdit).Add();
-                                                                                       col.Field("COD_CONTRATO_PROYECTO").HeaderText("CONTRATO_COLABORADOR").Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).Add();
-                                                                                       col.Field("FECHA_INI_COLABORADOR").HeaderText("FECHA INICIO EN PROYECTO").ValidationRules(v => v.AddRule("required", true)).Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
-                                                                                       col.Field("FECHA_FIN").HeaderText("FECHA FIN").Format("{0:dd/MM/yyyy}").ValidationRules(v => v.AddRule("required", true).AddRule("comparacion_fechas", true)).EditType(EditingType.DateTimePicker).Add();
-
-                                                                                   }).DetailsTemplate("#tabGridContents");
-                                                                                }))
+                                                                                                }).ChildGrid(child =>
+                                    {
+                                        child.Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                                        .AllowPaging()
+                                        .QueryString("COD_CONTRATO_PROYECTO")
+                                        .Locale("es-CO")
+                                        .AllowRowDragAndDrop(false)
+                                        .AllowResizeToFit(true)
+                                        .AllowScrolling(true)
+                                        .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                                        .ClientSideEvents(eve => eve.ToolbarClick("clicked"))
+                                        .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+                                        .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
+                                        .ToolbarSettings(toolbar =>
+                                        {
+                                            toolbar.ShowToolbar().CustomToolbarItems(new List<object>() {
+                        new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Pendientes",Tooltip="Generar pendientes de asignación" }
+                        ,new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Validar",Tooltip="Validar asignaciones" }
+                                            }).ToolbarItems(items =>
+                                            {
+                                                items.AddTool(ToolBarItems.Add);
+                                                items.AddTool(ToolBarItems.Edit);
+                                                items.AddTool(ToolBarItems.Delete);
+                                                items.AddTool(ToolBarItems.Update);
+                                                items.AddTool(ToolBarItems.Cancel);
+                                            });
+                                        }).Columns(col =>
+                                        {
+                                            col.Field("COD_CONTRATO_COLABORADOR").HeaderText("CONTRATO_COLABORADOR").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).Add();
+                                            col.Field("COD_ROL").ForeignKeyField("COD_ROL").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").ValidationRules(v => v.AddRule("required", true)).EditType(EditingType.DropdownEdit).Add();
+                                            col.Field("COD_COLABORADOR").ForeignKeyField("COD_COLABORADOR").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().COLABORADORES.ToList()).HeaderText("COLABORADOR").ValidationRules(v => v.AddRule("test", true)).EditType(EditingType.DropdownEdit).Add();
+                                            col.Field("DESCRIPCION_CARGO").HeaderText("CARGO").AllowEditing(false).EditType(EditingType.StringEdit).Add();
+                                            col.Field("COD_CONTRATO_PROYECTO").HeaderText("CONTRATO_COLABORADOR").Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).Add();
+                                            col.Field("FECHA_INI_COLABORADOR").HeaderText("FECHA INICIO EN PROYECTO").ValidationRules(v => v.AddRule("required", true)).Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                                            col.Field("FECHA_FIN").HeaderText("FECHA FIN").Format("{0:dd/MM/yyyy}").ValidationRules(v => v.AddRule("required", true).AddRule("comparacion_fechas", true)).EditType(EditingType.DateTimePicker).Add();
+                                        })
+                                            .DetailsTemplate("#tabGridContents");
+                                    })
+        )
     }
 </div>
 
 @{Html.EJ().Dialog("dialog_error")
-                    .Title("Errores validación")
-                    .ShowOnInit(false)
-                    .ContentTemplate(@<p>This is a simple dialog</p>)
-      .Render();
-    }
+            .Title("Errores validación")
+            .ShowOnInit(false)
+            .ContentTemplate(@<p></p>
+                                             )
+          .Render();
+}
 <script>
     $(document).ready(function () {
         ej.Grid.Locale["es-CO"] = {
@@ -156,11 +158,10 @@
             False: "falso"
         };
     });
-    var temp;
-
+    
     //Función click en los elementos nuevos
     function clicked(sender) {
-        temp = sender;
+
         $target = $(sender.target);
         if ($target.hasClass("validar")) {
             validar_asignacion(sender.gridModel.parentDetails.parentKeyFieldValue, sender.currentTarget.id.replace("_Validar", ""))
@@ -323,6 +324,188 @@
             }
         }, "La fecha de incio debe ser inferior o igual a la de finalización");
     });
+
+     //Funcion para añadir el filtro a los drop downs
+    function inicio_grid(args) {
+        if (args.requestType == "beginedit") {
+                setTimeout(function () {
+                    //Cargar valor del rol para la orden de servicio dada
+                    var COD_CONTRATO_ROL = args.model.selectedRecords[0].COD_CONTRATO_ROL;
+                    var data = JSON.stringify({ COD_CONTRATO_ROL: parseInt(COD_CONTRATO_ROL) });
+                    var url = "lista_colaboradores";
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: data,
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        dataFilter: function (data) { return data; },
+                        success: function (data) {
+                            //Instanciar dropdown
+                            var drop = $(".e-dropdownlist[name='COD_COLABORADOR']").ejDropDownList('instance');
+                            drop.option({
+                                select: function (args) {
+                                    cargar_cargos(args.value);
+                                }
+                            });
+                            //Cargar lista de colaboradores
+                            //temp1 = data.data;
+                            var lista_colaboradores = data.data;
+                            var dataManager = ej.DataManager(lista_colaboradores);
+                            drop.option("dataSource", dataManager);
+                            drop.option("fields", {text:"DESCRIPCION",value:"COD_COLABORADOR"});
+                            drop.option("enableFilterSearch", true);
+                        }
+                    });
+
+
+                //Cargar valor del rol para la orden de servicio dada
+
+                 url = "lista_roles";
+                 var COD_CONTRATO_PROYECTO = args.model.parentDetails.parentKeyFieldValue;
+                 data = JSON.stringify({ COD_CONTRATO_PROYECTO: parseInt(COD_CONTRATO_PROYECTO) });
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        //Instanciar dropdown
+                        var drop = $(".e-dropdownlist[name='COD_ROL']").ejDropDownList('instance');
+
+                        //Cargar lista de colaboradores
+                        //temp1 = data.data;
+                        var lista_roles = data.data;
+                        var dataManager = ej.DataManager(lista_roles);
+                        drop.option("dataSource", dataManager);
+                        drop.option("fields", { text: "DESCRIPCION", value: "COD_CONTRATO_ROL" });
+                        drop.option("enableFilterSearch", true);
+                        drop.option({ value: COD_CONTRATO_ROL });
+                        drop.option({ enabled: false });
+                    }
+                });
+
+            }, 100);
+
+        }
+        if (args.requestType == "add") {
+
+            setTimeout(function () {
+                //Cargar valor del rol para la orden de servicio dada
+                var COD_CONTRATO_PROYECTO= args.model.parentDetails.parentKeyFieldValue;
+
+                var data = JSON.stringify({ COD_CONTRATO_PROYECTO: parseInt(COD_CONTRATO_PROYECTO) });
+                var url = "lista_colaboradores_contrato_proyecto";
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        //Instanciar dropdown
+                        var drop = $(".e-dropdownlist[name='COD_COLABORADOR']").ejDropDownList('instance');
+                        drop.option({
+                            select: function (args) {
+                                cargar_cargos(args.value);
+                            }
+                        });
+                        //Cargar lista de colaboradores
+                        //temp1 = data.data;
+                        var lista_colaboradores = data.data;
+                        var dataManager = ej.DataManager(lista_colaboradores);
+                        drop.option("dataSource", dataManager);
+                        drop.option("fields", { text: "DESCRIPCION", value: "COD_COLABORADOR" });
+                        drop.option("enableFilterSearch", true);
+                    }
+                });
+                url = "lista_roles";
+                $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                dataFilter: function (data) { return data; },
+                success: function (data) {
+                    //Instanciar dropdown
+                    var drop = $(".e-dropdownlist[name='COD_ROL']").ejDropDownList('instance');
+                    drop.option({
+                        select: function (args) {
+                            filtrar_colaboradores_rol(args.value,COD_CONTRATO_PROYECTO);
+                        }
+                    });
+
+                    //Cargar lista de colaboradores
+                    //temp1 = data.data;
+                    var lista_roles = data.data;
+                    var dataManager = ej.DataManager(lista_roles);
+                    drop.option("dataSource", dataManager);
+                    drop.option("fields", { text: "DESCRIPCION", value: "COD_CONTRATO_ROL" });
+                    drop.option("enableFilterSearch", true);
+                }
+            });
+
+        }, 100);
+        }
+    }
+
+    //Función para filtrar colaboradores dependiendo del ROL
+    function filtrar_colaboradores_rol(COD_CONTRATO_ROL,COD_CONTRATO_PROYECTO) {
+
+        var data = JSON.stringify({ COD_CONTRATO_ROL: parseInt(COD_CONTRATO_ROL),COD_CONTRATO_PROYECTO: parseInt(COD_CONTRATO_PROYECTO) });
+        var url = "lista_colaboradores_rol";
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            dataFilter: function (data) { return data; },
+            success: function (data) {
+                //Instanciar dropdown
+                var drop = $(".e-dropdownlist[name='COD_COLABORADOR']").ejDropDownList('instance');
+
+                //Cargar lista de colaboradores
+                //temp1 = data.data;
+                var lista_colaboradores = data.data;
+                var dataManager = ej.DataManager(lista_colaboradores);
+                drop.option("dataSource", dataManager);
+                drop.option("fields", { text: "DESCRIPCION", value: "COD_COLABORADOR" });
+                drop.option("enableFilterSearch", true);
+            }
+        });
+    }
+
+    //Función que permite
+    function cargar_cargos(COD_COLABORADOR) {
+        var data = JSON.stringify({ COD_COLABORADOR: parseInt(COD_COLABORADOR)});
+        var url = "cargar_cargos";
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            dataFilter: function (data) { return data; },
+            success: function (data) {
+                //Instanciar campo cargo
+                $("input[name='DESCRIPCION_CARGO']").val(data.data[0]);
+            }
+        });
+    }
+
+    //Funcion mostrar documento
+    function click_documento(sender) {
+        var url = sender.attr("base") + sender.attr("download");
+        var win = window.open(url, '_blank');
+        win.focus();
+    }
+
 </script>
 
 <!--Modelos o templates para botones-->
@@ -363,6 +546,14 @@
             <tr>
                 <th class="text-left bold">VALOR MENSUAL CON PRESTACIONES Y FACTOR MULTIPLICADOR</th>
                 <th class="text-left">{{:VALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR}}</th>
+            </tr>
+            <tr>
+                <th class="text-left bold">OBSERVACIONES</th>
+                <th class="text-left">{{:OBSERVACIONES}}</th>
+            </tr>
+            <tr>
+                <th class="text-left bold">DOCUMENTO ANEXO</th>
+                <th class="text-left"><a href="#" base="@ViewBag.urlbase" onclick="click_documento($(this))" download="{{:RUTA_DOCUMENTO}}" documento="{{:RUTA_DOCUMENTO}}">{{:RUTA_DOCUMENTO}}</a></th>
             </tr>
         </table>
     </div>

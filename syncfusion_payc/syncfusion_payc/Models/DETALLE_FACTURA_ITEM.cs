@@ -26,8 +26,10 @@ namespace syncfusion_payc.Models
         public string OBSERVACIONES { get; set; }
         public Nullable<long> COD_FACTURA { get; set; }
         public Nullable<long> COD_ESTADO_DETALLE { get; set; }
+        public Nullable<long> COD_CONCEPTO_PSL { get; set; }
     
         public virtual CAUSA_ESTADO CAUSA_ESTADO { get; set; }
+        public virtual CONCEPTOS CONCEPTOS { get; set; }
         public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
         public virtual ESTADOS_DETALLE ESTADOS_DETALLE { get; set; }
         public virtual ESTADOS_FACTURAS ESTADOS_FACTURAS { get; set; }

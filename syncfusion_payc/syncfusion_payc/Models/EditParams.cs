@@ -26,6 +26,8 @@ namespace syncfusion_payc.Models
         public IEnumerable<ROLES> changed { get; set; }
         public IEnumerable<ROLES> deleted { get; set; }
     }
+
+
     public class EditParams_VISTA_ORDENES_CENTRO_COSTOS
     {
         public int skip { get; set; }
@@ -40,8 +42,21 @@ namespace syncfusion_payc.Models
         public IEnumerable<VISTA_ORDENES_CENTRO_COSTOS> changed { get; set; }
         public IEnumerable<VISTA_ORDENES_CENTRO_COSTOS> deleted { get; set; }
     }
-    
 
+    public class EditParams_FACTURAS
+    {
+        public int skip { get; set; }
+        public int take { get; set; }
+        public string action { get; set; }
+        public int key { get; set; }
+        public string keyColumn { get; set; }
+        public FACTURAS value { get; set; }
+
+        //Batch Edit Params
+        public IEnumerable<FACTURAS> added { get; set; }
+        public IEnumerable<FACTURAS> changed { get; set; }
+        public IEnumerable<FACTURAS> deleted { get; set; }
+    }
     public class EditParams_ITEMS
     {
         public int skip { get; set; }
