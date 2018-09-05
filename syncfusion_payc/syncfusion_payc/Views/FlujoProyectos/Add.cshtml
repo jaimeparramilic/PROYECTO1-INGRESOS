@@ -424,11 +424,28 @@
                         @(Html.EJ().Pivot().PivotGrid("PivotGrid1")
                                                             .Locale("es-CO")
                                                             .Url(Url.Content("~/servicios/FlujoIngresosRoles.svc"))
+                                                            .EnableColumnResizing(false)
+                                                            .EnableToolTip(false)
+                                                            .EnableCellContext(false)
+                                                            .EnableCellSelection(false)
+                                                            .EnableJSONRendering(false)
+                                                            .IsResponsive(false)
+                                                            .EnableVirtualScrolling(false)
+                                                            .EnableDefaultValue(false)
+                                                            .EnableCellClick(false)
+                                                            .EnableCellDoubleClick(false)
+                                                            .EnableCollapseByDefault(false)
+                                                            .EnableConditionalFormatting(false)
+                                                            .EnableDeferUpdate(false)
+                                                            .EnableDrillThrough(false)
+                                                            .EnableXHRCredentials(false)
+                                                            .EnableRTL(false)
+                                                            .EnableMemberEditorPaging(false)
                                                             .EnableCellEditing(true).ClientSideEvents(events => events
                                                             .CellEdit("editar_flujo_rol").Load("onLoad")
                                                             .BeforeServiceInvoke("beforeserviceinvoke")
                                                             .AfterServiceInvoke("flujo_rol_despues")
-                                                            .RenderSuccess("cargue_grid_rol")))
+                                                            ))
                     </div>
                 </div>
                 <!--Botones-->
@@ -747,24 +764,28 @@
 
     //Función que pasa los parámetros adecuados para la edición de los flujos de ingresos rol para
     function editar_flujo_rol(args) {
-
-        var a = { columna: args.editCellsInfo.columnHeader[0], fila: args.editCellsInfo.rowHeader[0], id_contrato_proyecto:contrato_proyecto}
-        args.customObject =a;
-        args.model.customObject = a;
         flag_edicion = true;
-
+        var a = { columna: args.editCellsInfo.columnHeader[0].replace("SIN ETAPA 1#", ""), fila: args.editCellsInfo.rowHeader[0].replace("SIN ETAPA 1#", ""), id_contrato_proyecto: contrato_proyecto };
+        args.customObject = a;
+        args.model.customObject = a;
+        }
+    
+    //Función que se ejecuta al dar click en la celda
+    function click_flujo_rol(args) {
+        //alert("click_editar_flujo_rol")
     }
 
     //Función que pasa los parámetros adecuados para la edición de los flujos de ingresos rol para
     function editar_flujo_item(args) {
 
-        var a = { columna: args.editCellsInfo.columnHeader[0], fila: args.editCellsInfo.rowHeader[0], id_contrato_proyecto: contrato_proyecto }
+        var a = { columna: args.editCellsInfo.columnHeader[0].replace("SIN ETAPA 1#", ""), fila: args.editCellsInfo.rowHeader[0].replace("SIN ETAPA 1#", ""), id_contrato_proyecto: contrato_proyecto }
+       
         args.customObject = a;
         args.model.customObject = a;
         flag_edicion_item = true;
 
-    }
-
+        }
+   
     //Función que refresca la pivotgrid después de la edición para roles
     function flujo_rol_despues(args) {
         if (flag_edicion) {

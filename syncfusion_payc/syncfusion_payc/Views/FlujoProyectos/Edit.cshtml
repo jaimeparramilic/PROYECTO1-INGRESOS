@@ -436,11 +436,30 @@
                         @(Html.EJ().Pivot().PivotGrid("PivotGrid1")
                                                     .Locale("es-CO")
                                                     .Url(Url.Content("~/servicios/FlujoIngresosRoles.svc"))
+                                                    .EnableColumnResizing(false)
+                                                    .EnableToolTip(false)
+                                                    .EnableCellContext(false)
+                                                    .EnableCellSelection(false)
+                                                    .EnableJSONRendering(false)
+                                                    .IsResponsive(false)
+                                                    .EnableVirtualScrolling(false)
+                                                    .EnableDefaultValue(false)
+                                                    .EnableCellClick(false)
+                                                    .EnableCellDoubleClick(false)
+                                                    .EnableCollapseByDefault(false)
+                                                    .EnableConditionalFormatting(false)
+                                                    .EnableDeferUpdate(false)
+                                                    .EnableDrillThrough(false)
+                                                    .EnableXHRCredentials(false)
+                                                    .EnableRTL(false)
+                                                    
+                                                    .EnableMemberEditorPaging(false)
                                                     .EnableCellEditing(true).ClientSideEvents(events => events
                                                     .CellEdit("editar_flujo_rol").Load("onLoad")
                                                     .BeforeServiceInvoke("beforeserviceinvoke")
+                                                    
                                                     .AfterServiceInvoke("flujo_rol_despues")
-                                                    .RenderSuccess("cargue_grid_rol")))
+                                                    ))
                     </div>
                 </div>
 
@@ -771,18 +790,22 @@
 
     //Función que pasa los parámetros adecuados para la edición de los flujos de ingresos rol para
     function editar_flujo_rol(args) {
-
-        var a = { columna: args.editCellsInfo.columnHeader[0], fila: args.editCellsInfo.rowHeader[0], id_contrato_proyecto:contrato_proyecto}
-        args.customObject =a;
-        args.model.customObject = a;
         flag_edicion = true;
-
+        var a = { columna: args.editCellsInfo.columnHeader[0].replace("SIN ETAPA 1#", ""), fila: args.editCellsInfo.rowHeader[0].replace("SIN ETAPA 1#", ""), id_contrato_proyecto: contrato_proyecto };
+        args.customObject = a;
+        args.model.customObject = a;
+        }
+    
+    //Función que se ejecuta al dar click en la celda
+    function click_flujo_rol(args) {
+        //alert("click_editar_flujo_rol")
     }
 
     //Función que pasa los parámetros adecuados para la edición de los flujos de ingresos rol para
     function editar_flujo_item(args) {
 
-        var a = { columna: args.editCellsInfo.columnHeader[0], fila: args.editCellsInfo.rowHeader[0], id_contrato_proyecto: contrato_proyecto }
+        var a = { columna: args.editCellsInfo.columnHeader[0].replace("SIN ETAPA 1#", ""), fila: args.editCellsInfo.rowHeader[0].replace("SIN ETAPA 1#", ""), id_contrato_proyecto: contrato_proyecto }
+       
         args.customObject = a;
         args.model.customObject = a;
         flag_edicion_item = true;
@@ -1630,6 +1653,7 @@
 
     //Antes de iniciar grids (Pendiente de descontinuar)
     function beforeserviceinvoke(args) {
+           
         if (args.action == "initialize") {
             var tot = parseInt($("#id_contrato_proyecto").val());
             args.model.customObject = {COD_CONTRATO_PROYECTO:tot };
@@ -1823,7 +1847,7 @@
             //var instancia = $("#GRID_ROLES").ejGrid("instance");
             //Verificar selección de filas
             /*try {
-                var seleccionados = instancia.getSelectedRecords()[0].length;
+                var seleccionados = instancia.getSelectedRecords()[0].COD_FACTURA
                 if (instancia.getSelectedRecords().length > 1) {
                     alert("Se detectó más de una fila seleccionada. Por favor seleccione una sola fila para adjuntar un archivo");
                 }

@@ -254,6 +254,7 @@ namespace syncfusion_payc.servicios
             
            
             string columna = customData["fila"].ToString();
+            
             //Debug.WriteLine(columna);
             DateTime temp = DateTime.ParseExact(customData["columna"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
             long id_contrato_proyecto = Convert.ToInt64(customData["id_contrato_proyecto"].ToString());
@@ -296,11 +297,10 @@ namespace syncfusion_payc.servicios
         {
             PivotReport pivotSetting = new PivotReport();
             SortElement sortElement = new SortElement(AxisPosition.Slicer, Syncfusion.Olap.Reports.SortOrder.DESC, true);
-            
             pivotSetting.PivotRows.Add(new PivotItem { FieldMappingName = "DESCRIPCION", FieldHeader = "ROLES", TotalHeader = "Total" });
-            
+            pivotSetting.PivotColumns.Add(new PivotItem { FieldMappingName = "ETAPA", FieldHeader = "DUMMY", TotalHeader = "Total", ShowSubTotal = false });
+            pivotSetting.PivotColumns.Add(new PivotItem { FieldMappingName = "ETAPA", FieldHeader = "DUMMY1", TotalHeader = "Total", ShowSubTotal = false });
             pivotSetting.PivotColumns.Add(new PivotItem { FieldMappingName = "FECHA_FORMA_PAGO", FieldHeader = "FECHAS", TotalHeader = "Total", Format = "dd/MM/yyyy",Comparer= new DateComparer("dd/MM/yyyy") });
-           
             pivotSetting.PivotCalculations.Add(new PivotComputationInfo { CalculationName = "SUMA TOTAL", Description = "VALOR TOTAL",FieldName = "VALOR_FACTOR_MULTIPLICADOR", Format = "c0", SummaryType = Syncfusion.PivotAnalysis.Base.SummaryType.DoubleTotalSum });
             return pivotSetting;
         }
@@ -425,7 +425,5 @@ namespace syncfusion_payc.servicios
         }
 
     }
-
-    
 
 }
