@@ -57,6 +57,7 @@ namespace syncfusion_payc.Models
         public IEnumerable<FACTURAS> changed { get; set; }
         public IEnumerable<FACTURAS> deleted { get; set; }
     }
+
     public class EditParams_ITEMS
     {
         public int skip { get; set; }

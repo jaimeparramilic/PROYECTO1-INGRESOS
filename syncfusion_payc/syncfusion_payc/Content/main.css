@@ -283,7 +283,7 @@
 }
 
 .sin-overflow {
-    overflow: auto !important;
+    overflow: hidden !important;
 }
 
 /*Display none del titulo de flujos*/
@@ -472,6 +472,8 @@ body,html{
 #PivotGrid1,#PivotGrid2{
     display:none;
     min-width:100% !important;
+    overflow-x:auto !important;
+
 }
 
 .contenedor_loader {
@@ -615,4 +617,15 @@ th[data-p="0,0"]{
 
 #GRID_ROLES .e-detailcell .e-grid {
     width: 20% !important; 
-} 
+}
+
+#PivotGrid1 .colheader[data-p='1,0'], #PivotGrid1 .colheader[data-p='1,1'], #PivotGrid2 .colheader[data-p='1,0'], #PivotGrid2 .colheader[data-p='1,1'] {
+    height: 0px !important;
+    line-height: 0px !important;
+    font-size: 0px !important;
+    border-top-color: transparent !important;
+    border-bottom-color: transparent !important;
+}
+#PivotGrid1 .e-collapse, #PivotGrid2 .e-collapse {
+    display: none !important;
+}
