@@ -108,5 +108,7 @@ namespace syncfusion_payc.Models
         public virtual DbSet<DETALLE_FACTURA_PERS> DETALLE_FACTURA_PERS { get; set; }
         public virtual DbSet<DETALLE_FACTURA_ITEM> DETALLE_FACTURA_ITEM { get; set; }
         public virtual DbSet<VISTA_CONTRATO_PROYECTO_FACTURAS> VISTA_CONTRATO_PROYECTO_FACTURAS { get; set; }
+        public virtual DbSet<DATOS_VERIFICAR_FACTURA> DATOS_VERIFICAR_FACTURA { get; set; }
+        public virtual DbSet<ITEMS_CONTRATO_DESCRIPCION> ITEMS_CONTRATO_DESCRIPCION { get; set; }
     }
 }

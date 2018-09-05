@@ -1097,5 +1097,42 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="DATOS_VERIFICAR_FACTURA">
+      <EntityTypeMapping TypeName="test_payc_contabilidadModel.DATOS_VERIFICAR_FACTURA">
+        <MappingFragment StoreEntitySet="DATOS_VERIFICAR_FACTURA">
+          <ScalarProperty Name="PERIODO_FACTURAR" ColumnName="PERIODO_FACTURAR" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="RANKING" ColumnName="RANKING" />
+          <ScalarProperty Name="VALOR_CON_IMPUESTOS" ColumnName="VALOR_CON_IMPUESTOS" />
+          <ScalarProperty Name="VALOR_SIN_IMPUESTOS" ColumnName="VALOR_SIN_IMPUESTOS" />
+          <ScalarProperty Name="COD_ESTADO_FACTURA" ColumnName="COD_ESTADO_FACTURA" />
+          <ScalarProperty Name="FECHA_FACTURA" ColumnName="FECHA_FACTURA" />
+          <ScalarProperty Name="NUMERO_FACTURA" ColumnName="NUMERO_FACTURA" />
+          <ScalarProperty Name="COD_FORMAS_PAGO_FECHAS" ColumnName="COD_FORMAS_PAGO_FECHAS" />
+          <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
+          <ScalarProperty Name="COD_FACTURA" ColumnName="COD_FACTURA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ITEMS_CONTRATO_DESCRIPCION">
+      <EntityTypeMapping TypeName="test_payc_contabilidadModel.ITEMS_CONTRATO_DESCRIPCION">
+        <MappingFragment StoreEntitySet="ITEMS_CONTRATO_DESCRIPCION">
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="DIAS_FRACCION" ColumnName="DIAS_FRACCION" />
+          <ScalarProperty Name="COD_TIPO_REEMBOLSO" ColumnName="COD_TIPO_REEMBOLSO" />
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+          <ScalarProperty Name="MESES_USO" ColumnName="MESES_USO" />
+          <ScalarProperty Name="FECHA_INI_USO" ColumnName="FECHA_INI_USO" />
+          <ScalarProperty Name="CANTIDAD" ColumnName="CANTIDAD" />
+          <ScalarProperty Name="COSTO_MENSUAL_UNITARIO" ColumnName="COSTO_MENSUAL_UNITARIO" />
+          <ScalarProperty Name="COSTO_INICIAL_UNITARIO" ColumnName="COSTO_INICIAL_UNITARIO" />
+          <ScalarProperty Name="REUTILIZABLE" ColumnName="REUTILIZABLE" />
+          <ScalarProperty Name="ITEM_REEMBOLZABLE" ColumnName="ITEM_REEMBOLZABLE" />
+          <ScalarProperty Name="COD_ITEM" ColumnName="COD_ITEM" />
+          <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
+          <ScalarProperty Name="COD_ITEM_CONTRATO" ColumnName="COD_ITEM_CONTRATO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

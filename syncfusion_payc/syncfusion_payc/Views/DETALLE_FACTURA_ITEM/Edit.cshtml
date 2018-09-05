@@ -1,0 +1,125 @@
+﻿@model syncfusion_payc.Models.DETALLE_FACTURA_ITEM
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>DETALLE_FACTURA_ITEM</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.COD_DETALLE_FACTURA_ITEM)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.COD_CONTRATO_PROYECTO, "COD_CONTRATO_PROYECTO", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("COD_CONTRATO_PROYECTO", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.COD_CONTRATO_PROYECTO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.COD_ITEM_CONTRATO, "COD_ITEM_CONTRATO", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("COD_ITEM_CONTRATO", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.COD_ITEM_CONTRATO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.COD_FORMAS_PAGO_FECHAS, "COD_FORMAS_PAGO_FECHAS", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("COD_FORMAS_PAGO_FECHAS", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.COD_FORMAS_PAGO_FECHAS, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.VALOR_SIN_IMPUESTOS, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.VALOR_SIN_IMPUESTOS, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.VALOR_SIN_IMPUESTOS, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FECHA_REGISTRO, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FECHA_REGISTRO, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FECHA_REGISTRO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.USUARIO, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.USUARIO, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.USUARIO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.COD_ESTADO_FACTURA, "COD_ESTADO_FACTURA", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("COD_ESTADO_FACTURA", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.COD_ESTADO_FACTURA, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.COD_CAUSA_ESTADO, "COD_CAUSA_ESTADO", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("COD_CAUSA_ESTADO", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.COD_CAUSA_ESTADO, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OBSERVACIONES, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.OBSERVACIONES, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.OBSERVACIONES, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.COD_FACTURA, "COD_FACTURA", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("COD_FACTURA", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.COD_FACTURA, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.COD_ESTADO_DETALLE, "COD_ESTADO_DETALLE", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("COD_ESTADO_DETALLE", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.COD_ESTADO_DETALLE, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.COD_CONCEPTO_PSL, "COD_CONCEPTO_PSL", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("COD_CONCEPTO_PSL", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.COD_CONCEPTO_PSL, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

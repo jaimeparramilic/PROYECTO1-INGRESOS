@@ -142,25 +142,25 @@ namespace syncfusion_payc.Controllers
             base.Dispose(disposing);
         }
 
-		//Aca inicia syncfusion
+        //Aca inicia syncfusion
 
         //Traer data
 
-        
-		public ActionResult UrlAdaptor()
+
+        public ActionResult UrlAdaptor()
         {
             var DataSource2 = db.FLUJO_INGRESOS_ITEMS.ToList();
             ViewBag.dataSource2 = DataSource2;
             return View();
-        }	
-		public ActionResult GetOrderData(DataManager dm)
+        }
+        public ActionResult GetOrderData(DataManager dm)
         {
             IEnumerable DataSource = db.FLUJO_INGRESOS_ITEMS.ToList();
             DataOperations ds = new DataOperations();
             List<string> str = new List<string>();
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
-			if (dm.Search != null && dm.Search.Count > 0)
+            if (dm.Search != null && dm.Search.Count > 0)
             {
                 DataSource = ds.PerformSearching(DataSource, dm.Search);
             }
@@ -176,7 +176,7 @@ namespace syncfusion_payc.Controllers
             {
                 for (var i = 0; i < dm.Aggregates.Count; i++)
                     str.Add(dm.Aggregates[i].Field);
-               
+
             }
             IEnumerable aggregate = ds.PerformSelect(DataSource, str);
             var count = DataSource.Cast<FLUJO_INGRESOS_ITEMS>().Count();
@@ -188,7 +188,7 @@ namespace syncfusion_payc.Controllers
             {
                 DataSource = ds.PerformTake(DataSource, dm.Take);
             }
-            return Json(new { result = DataSource, count = count}, JsonRequestBehavior.AllowGet);     
+            return Json(new { result = DataSource, count = count }, JsonRequestBehavior.AllowGet);
         }
 
         //Perform file insertion 
@@ -201,8 +201,8 @@ namespace syncfusion_payc.Controllers
             param.value.FECHA_REGISTRO = hoy;
             db.FLUJO_INGRESOS_ITEMS.Add(param.value);
             db.SaveChanges();
-			var data = db.FLUJO_INGRESOS_ITEMS.ToList();
-			var value = data.Last();
+            var data = db.FLUJO_INGRESOS_ITEMS.ToList();
+            var value = data.Last();
             return Json(value, JsonRequestBehavior.AllowGet);
         }
 
@@ -216,7 +216,7 @@ namespace syncfusion_payc.Controllers
             table.COD_FORMAS_PAGO_FECHAS = table.COD_FORMAS_PAGO_FECHAS;
             table.USUARIO_REGISTRO = table.USUARIO_REGISTRO;
             table.FECHA_REGISTRO = table.FECHA_REGISTRO;
-            table.ETAPA= table.ETAPA;
+            table.ETAPA = table.ETAPA;
             db.Entry(table).CurrentValues.SetValues(table);
 
             //Hacer insert en nuevo y en el viejo deshabilitar en un nuevo elemento
@@ -229,7 +229,7 @@ namespace syncfusion_payc.Controllers
             temp.VALOR_TOTAL = param.value.VALOR_TOTAL;
             temp.ETAPA = param.value.ETAPA;
             temp.ESTADO = "SI";
-            temp.USUARIO_REGISTRO= User.Identity.GetUserName();
+            temp.USUARIO_REGISTRO = User.Identity.GetUserName();
             temp.FECHA_REGISTRO = hoy;
             db.FLUJO_INGRESOS_ITEMS.Add(temp);
             db.SaveChanges();
@@ -246,7 +246,7 @@ namespace syncfusion_payc.Controllers
             table.ESTADO = "NO";
             db.SaveChanges();
             return RedirectToAction("GetOrderData");
-            
+
         }
     }
 }
