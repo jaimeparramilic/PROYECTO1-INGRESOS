@@ -8,8 +8,6 @@ using Syncfusion.JavaScript;
 using Syncfusion.JavaScript.DataSources;
 using System.Data.Entity;
 using System.Net;
-using System.Web;
-using System.Web.Mvc;
 using syncfusion_payc.Models;
 
 namespace syncfusion_payc.Controllers
@@ -18,6 +16,7 @@ namespace syncfusion_payc.Controllers
     {
         private test_payc_contabilidadEntities db = new test_payc_contabilidadEntities();
 
+        #region vistas / acciones default
         // GET: FACTURAS
         public ActionResult Index()
         {
@@ -141,7 +140,32 @@ namespace syncfusion_payc.Controllers
             base.Dispose(disposing);
         }
 
+        #endregion
+        #region verificar
+        public ActionResult Verificar(long? id)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            DATOS_VERIFICAR_FACTURA DatVerificarFactu = db.DATOS_VERIFICAR_FACTURA.Find(id);
+            if (DatVerificarFactu == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.COD_FACTURA = DatVerificarFactu.COD_FACTURA;
+            ViewBag.COD_CONTRATO_PROYECTO = DatVerificarFactu.COD_CONTRATO_PROYECTO;
+            ViewBag.COD_FORMAS_PAGO_FECHAS = DatVerificarFactu.COD_FORMAS_PAGO_FECHAS;
+            ViewBag.COD_ESTADO_FACTURA = DatVerificarFactu.COD_ESTADO_FACTURA;
+            ViewBag.DESCRIPCION_PROYECTO = DatVerificarFactu.DESCRIPCION;
+            ViewBag.PERIODO_FACTURAR = DatVerificarFactu.PERIODO_FACTURAR;
 
+            return View();
+        }
+
+        #endregion
         #region grid index
         //Aca inicia syncfusion
 

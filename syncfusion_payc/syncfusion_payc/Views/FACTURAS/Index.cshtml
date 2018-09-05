@@ -186,7 +186,9 @@
 
     //Función que permite verificar las facturas
     function verificar(indice, sender) {
-        
+        //alert("verificar");
+        var cod_fact = sender.gridModel.selectedRecords[0].COD_FACTURA
+        window.location = "Verificar/" + cod_fact;
     }
 
     //Función que permite agregar las facturas
@@ -200,7 +202,7 @@
     }
 
     //Función que permite facturar las facturas (enviar a PSL)
-    function verificar(indice, sender) {
+    function facturar(indice, sender) {
         alert("facturar y enviar a PSL");
     }
 
