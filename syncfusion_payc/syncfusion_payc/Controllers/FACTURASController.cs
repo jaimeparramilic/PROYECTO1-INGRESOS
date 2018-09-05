@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+
 using System.Web.Mvc;
 using Syncfusion.JavaScript;
 using Syncfusion.JavaScript.DataSources;
@@ -284,6 +284,50 @@ namespace syncfusion_payc.Controllers
             return Json(new { result = DataSource, count = count }, JsonRequestBehavior.AllowGet);
         }
 
+        #endregion
+
+        #region validar factura
+        //Funcion para regenerar el flujo del rol
+        public ActionResult validar_factura(long COD_CONTRATO_PROYECTO,long COD_FORMAS_PAGO_FECHAS, long COD_FACTURA)
+        {
+            string error = "NO";
+
+            try
+            {
+                IEnumerable items_sin_concepto = db.DETALLE_FACTURA_ITEM.Where(o => o.COD_FACTURA == COD_FACTURA && o.COD_CONTRATO_PROYECTO == COD_CONTRATO_PROYECTO && o.COD_FORMAS_PAGO_FECHAS == COD_FORMAS_PAGO_FECHAS && o.COD_ESTADO_DETALLE == 1 && o.COD_CONCEPTO_PSL == null).ToList();
+                var count=items_sin_concepto.Cast<DETALLE_FACTURA_ITEM>().Count();
+                if (count > 0)
+                {
+                    error = "SI";
+                }
+            }
+            catch
+            {
+
+            }
+
+            try
+            {
+                IEnumerable pers_sin_concepto = db.DETALLE_FACTURA_PERS.Where(o => o.COD_FACTURA == COD_FACTURA && o.COD_CONTRATO_PROYECTO == COD_CONTRATO_PROYECTO && o.COD_FORMAS_PAGO_FECHAS == COD_FORMAS_PAGO_FECHAS && o.COD_ESTADO_DETALLE == 1 && o.COD_CONCEPTO_PSL == null).ToList();
+                var count = pers_sin_concepto.Cast<DETALLE_FACTURA_PERS>().Count();
+                if (count > 0)
+                {
+                    error = "SI";
+                }
+            }
+            catch
+            {
+
+            }
+            if (error == "NO")
+            {
+                FACTURAS table = db.FACTURAS.Single(o => o.COD_FACTURA == COD_FACTURA);
+                table.COD_ESTADO_FACTURA = 2;
+                db.SaveChanges();
+            }
+
+            return Json(new { success = true, responseText = error }, JsonRequestBehavior.AllowGet);
+        }
         #endregion
     }
 }
