@@ -692,6 +692,24 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATOS_CONDICI
     <Property Name="FECHA_EXCLUSION" Type="date" />
   </EntityType>
   <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.DATOS_VERIFICAR_FACTURA' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="DATOS_VERIFICAR_FACTURA">
+    <Key>
+      <PropertyRef Name="COD_FACTURA" />
+    </Key>
+    <Property Name="COD_FACTURA" Type="bigint" Nullable="false" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
+    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
+    <Property Name="NUMERO_FACTURA" Type="varchar" MaxLength="10" />
+    <Property Name="FECHA_FACTURA" Type="date" />
+    <Property Name="COD_ESTADO_FACTURA" Type="bigint" />
+    <Property Name="VALOR_SIN_IMPUESTOS" Type="real" />
+    <Property Name="VALOR_CON_IMPUESTOS" Type="real" />
+    <Property Name="RANKING" Type="varchar" MaxLength="50" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
+    <Property Name="PERIODO_FACTURAR" Type="date" />
+  </EntityType>
+  <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_COLABORADORES_PENDIENTES' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="GENERACION_COLABORADORES_PENDIENTES">
     <Key>
@@ -817,6 +835,27 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS
     <Property Name="VALOR_SIN_PRESTACIONES" Type="real" />
     <Property Name="VALOR_CON_PRESTACIONES" Type="real" />
     <Property Name="VALOR_FACTOR_MULTIPLICADOR" Type="real" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ITEMS_CONTRATO_DESCRIPCION' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="ITEMS_CONTRATO_DESCRIPCION">
+    <Key>
+      <PropertyRef Name="COD_ITEM_CONTRATO" />
+    </Key>
+    <Property Name="COD_ITEM_CONTRATO" Type="bigint" Nullable="false" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
+    <Property Name="COD_ITEM" Type="bigint" />
+    <Property Name="ITEM_REEMBOLZABLE" Type="varchar" MaxLength="50" />
+    <Property Name="REUTILIZABLE" Type="varchar" MaxLength="50" />
+    <Property Name="COSTO_INICIAL_UNITARIO" Type="real" />
+    <Property Name="COSTO_MENSUAL_UNITARIO" Type="real" />
+    <Property Name="CANTIDAD" Type="bigint" />
+    <Property Name="FECHA_INI_USO" Type="date" />
+    <Property Name="MESES_USO" Type="bigint" />
+    <Property Name="OBSERVACIONES" Type="varchar" MaxLength="300" />
+    <Property Name="COD_TIPO_REEMBOLSO" Type="bigint" />
+    <Property Name="DIAS_FRACCION" Type="bigint" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
   </EntityType>
   <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ORDEN_SERVICIO_ROLES_PERIODO' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -2143,6 +2182,21 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
     [CONTRATOS_CONDICIONES_VISTA].[FECHA_EXCLUSION] AS [FECHA_EXCLUSION]
     FROM [dbo].[CONTRATOS_CONDICIONES_VISTA] AS [CONTRATOS_CONDICIONES_VISTA]</DefiningQuery>
     </EntitySet>
+    <EntitySet Name="DATOS_VERIFICAR_FACTURA" EntityType="Self.DATOS_VERIFICAR_FACTURA" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [DATOS_VERIFICAR_FACTURA].[COD_FACTURA] AS [COD_FACTURA], 
+    [DATOS_VERIFICAR_FACTURA].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
+    [DATOS_VERIFICAR_FACTURA].[COD_FORMAS_PAGO_FECHAS] AS [COD_FORMAS_PAGO_FECHAS], 
+    [DATOS_VERIFICAR_FACTURA].[NUMERO_FACTURA] AS [NUMERO_FACTURA], 
+    [DATOS_VERIFICAR_FACTURA].[FECHA_FACTURA] AS [FECHA_FACTURA], 
+    [DATOS_VERIFICAR_FACTURA].[COD_ESTADO_FACTURA] AS [COD_ESTADO_FACTURA], 
+    [DATOS_VERIFICAR_FACTURA].[VALOR_SIN_IMPUESTOS] AS [VALOR_SIN_IMPUESTOS], 
+    [DATOS_VERIFICAR_FACTURA].[VALOR_CON_IMPUESTOS] AS [VALOR_CON_IMPUESTOS], 
+    [DATOS_VERIFICAR_FACTURA].[RANKING] AS [RANKING], 
+    [DATOS_VERIFICAR_FACTURA].[DESCRIPCION] AS [DESCRIPCION], 
+    [DATOS_VERIFICAR_FACTURA].[PERIODO_FACTURAR] AS [PERIODO_FACTURAR]
+    FROM [dbo].[DATOS_VERIFICAR_FACTURA] AS [DATOS_VERIFICAR_FACTURA]</DefiningQuery>
+    </EntitySet>
     <EntitySet Name="GENERACION_COLABORADORES_PENDIENTES" EntityType="Self.GENERACION_COLABORADORES_PENDIENTES" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [GENERACION_COLABORADORES_PENDIENTES].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
@@ -2222,6 +2276,24 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
     [GENERACION_FLUJOS_ROL3].[VALOR_CON_PRESTACIONES] AS [VALOR_CON_PRESTACIONES], 
     [GENERACION_FLUJOS_ROL3].[VALOR_FACTOR_MULTIPLICADOR] AS [VALOR_FACTOR_MULTIPLICADOR]
     FROM [dbo].[GENERACION_FLUJOS_ROL3] AS [GENERACION_FLUJOS_ROL3]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="ITEMS_CONTRATO_DESCRIPCION" EntityType="Self.ITEMS_CONTRATO_DESCRIPCION" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ITEMS_CONTRATO_DESCRIPCION].[COD_ITEM_CONTRATO] AS [COD_ITEM_CONTRATO], 
+    [ITEMS_CONTRATO_DESCRIPCION].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
+    [ITEMS_CONTRATO_DESCRIPCION].[COD_ITEM] AS [COD_ITEM], 
+    [ITEMS_CONTRATO_DESCRIPCION].[ITEM_REEMBOLZABLE] AS [ITEM_REEMBOLZABLE], 
+    [ITEMS_CONTRATO_DESCRIPCION].[REUTILIZABLE] AS [REUTILIZABLE], 
+    [ITEMS_CONTRATO_DESCRIPCION].[COSTO_INICIAL_UNITARIO] AS [COSTO_INICIAL_UNITARIO], 
+    [ITEMS_CONTRATO_DESCRIPCION].[COSTO_MENSUAL_UNITARIO] AS [COSTO_MENSUAL_UNITARIO], 
+    [ITEMS_CONTRATO_DESCRIPCION].[CANTIDAD] AS [CANTIDAD], 
+    [ITEMS_CONTRATO_DESCRIPCION].[FECHA_INI_USO] AS [FECHA_INI_USO], 
+    [ITEMS_CONTRATO_DESCRIPCION].[MESES_USO] AS [MESES_USO], 
+    [ITEMS_CONTRATO_DESCRIPCION].[OBSERVACIONES] AS [OBSERVACIONES], 
+    [ITEMS_CONTRATO_DESCRIPCION].[COD_TIPO_REEMBOLSO] AS [COD_TIPO_REEMBOLSO], 
+    [ITEMS_CONTRATO_DESCRIPCION].[DIAS_FRACCION] AS [DIAS_FRACCION], 
+    [ITEMS_CONTRATO_DESCRIPCION].[DESCRIPCION] AS [DESCRIPCION]
+    FROM [dbo].[ITEMS_CONTRATO_DESCRIPCION] AS [ITEMS_CONTRATO_DESCRIPCION]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="ORDEN_SERVICIO_ROLES_PERIODO" EntityType="Self.ORDEN_SERVICIO_ROLES_PERIODO" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 

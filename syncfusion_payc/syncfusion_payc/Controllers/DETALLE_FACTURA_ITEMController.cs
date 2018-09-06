@@ -207,7 +207,7 @@ namespace syncfusion_payc.Controllers
             {
                 DataSource = ds.PerformTake(DataSource, dm.Take);
             }
-            return Json(new { result = DataSource, count = count}, JsonRequestBehavior.AllowGet);     
+            return Json(new { result = DataSource, count = count,  aggregate = aggregate }, JsonRequestBehavior.AllowGet);     
         }
 
         //Perform file insertion 

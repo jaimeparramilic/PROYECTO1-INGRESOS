@@ -5,55 +5,64 @@
     ViewBag.Title = "";
 
 
-    
-	}
+
+}
 
 <h4>ESTADO CENTROS DE COSTO</h4>
 
 
 <div class="control-section">
 
-					@(Html.EJ().Grid<syncfusion_payc.Models.VISTA_ORDENES_CENTRO_COSTOS>("Grid")
-					.Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
-					.AllowPaging()
-                    .AllowFiltering()
-					.Locale("es-CO")
-					.AllowResizeToFit(true)
-					.AllowMultiSorting()
-					.AllowSorting()
-					.FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
-                    .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
-					.ClientSideEvents(e => e.ActionBegin("inicio_grid"))
-                    .ToolbarSettings(toolbar =>
-                    {
-                        toolbar.ShowToolbar().ToolbarItems(items =>
-                        {
-                            //items.AddTool(ToolBarItems.Add);
-                            items.AddTool(ToolBarItems.Edit);
-                            //items.AddTool(ToolBarItems.Delete);
-                            //items.AddTool(ToolBarItems.Update);
-                            items.AddTool(ToolBarItems.Cancel);
-                        });
-
-                    }).Columns(col =>
+    @(Html.EJ().Grid<syncfusion_payc.Models.VISTA_ORDENES_CENTRO_COSTOS>("Grid")
+            .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+            .AllowPaging()
+            .AllowFiltering()
+            .Locale("es-CO")
+            .AllowResizeToFit(true)
+            .AllowMultiSorting()
+            .AllowSorting()
+            .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+            .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+            .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
+            .ClientSideEvents(eve => eve.ToolbarClick("clicked"))
+            .ToolbarSettings(toolbar =>
             {
-                col.Field("COD_CONTRATO_PROYECTO").HeaderText("COD_CONTRATO_PROYECTO").IsPrimaryKey(true).Visible(true) .Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
-                col.Field("COD_CONTRATO").HeaderText("COD_CONTRATO").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
-                col.Field("COD_PROYECTO").HeaderText("COD_PROYECTO").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
-                col.Field("COD_FORMA_PAGO").HeaderText("COD_FORMA_PAGO").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
-                col.Field("COMPLETA").HeaderText("COMPLETA").Add();    
-                col.Field("MODIFICADO_POR").HeaderText("MODIFICADO_POR").Add();    
-                col.Field("FECHA_ULTIMA_MODIFICACION").HeaderText("FECHA_ULTIMA_MODIFICACION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();    
-                col.Field("CREADO_POR").HeaderText("CREADO_POR").Add();    
-                col.Field("FECHA_CREACION").HeaderText("FECHA_CREACION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();    
-                col.Field("CENTRO_COSTOS").HeaderText("CENTRO_COSTOS").Add();    
-                col.Field("COD_ESTADO_ORDEN_SERVICIO").HeaderText("COD_ESTADO_ORDEN_SERVICIO").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
-                col.Field("ESTADO_PSL").HeaderText("ESTADO_PSL").IsPrimaryKey(true).Visible(true) .Add();    
-                col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();    
- 
-}))
+                toolbar.ShowToolbar().ToolbarItems(items =>
+                {
+                        //items.AddTool(ToolBarItems.Add);
+                        items.AddTool(ToolBarItems.Edit);
+                        //items.AddTool(ToolBarItems.Delete);
+                        //items.AddTool(ToolBarItems.Update);
+                        items.AddTool(ToolBarItems.Cancel);
+                }).CustomToolbarItems(new List<object>() {
+                new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Crear",Tooltip="Crear centro de costos" }
+                ,new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Cerrar",Tooltip="CERRAR centro de costos" }
+                                            });
+
+            }).Columns(col =>
+            {
+                col.Field("COD_CONTRATO_PROYECTO").HeaderText("COD_CONTRATO_PROYECTO").IsPrimaryKey(true).Visible(true).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                col.Field("COD_CONTRATO").HeaderText("COD_CONTRATO").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                col.Field("COD_PROYECTO").HeaderText("COD_PROYECTO").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                col.Field("COD_FORMA_PAGO").HeaderText("COD_FORMA_PAGO").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                col.Field("COMPLETA").HeaderText("COMPLETA").Add();
+                col.Field("MODIFICADO_POR").HeaderText("MODIFICADO_POR").Add();
+                col.Field("FECHA_ULTIMA_MODIFICACION").HeaderText("FECHA_ULTIMA_MODIFICACION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                col.Field("CREADO_POR").HeaderText("CREADO_POR").Add();
+                col.Field("FECHA_CREACION").HeaderText("FECHA_CREACION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                col.Field("CENTRO_COSTOS").HeaderText("CENTRO_COSTOS").Add();
+                col.Field("COD_ESTADO_ORDEN_SERVICIO").HeaderText("COD_ESTADO_ORDEN_SERVICIO").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                col.Field("ESTADO_PSL").HeaderText("ESTADO_PSL").IsPrimaryKey(true).Visible(true).Add();
+                col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();
+                col.Field("FECHA_INICIO_EJECUCION").HeaderText("INICIO EJECUCION").Format("{0:dd/MM/yyyy}").Add();
+                col.Field("FECHA_FIN_EJECUCION").HeaderText("FIN EJECUCION").Format("{0:dd/MM/yyyy}").Add();
+                col.Field("ESTADO_CENTRO_COSTO").HeaderText("ESTADO CENTRO COSTO").Add();
+
+
+            }))
 </div>
-<script>  
+<script>
+
     $(document).ready(function () {
         ej.Grid.Locale["es-CO"] = {
             EmptyRecord: "No hay registros que mostrar",
@@ -66,8 +75,8 @@
             EditFormTitle: "Detalles de ",
             AddFormTitle: "Añadir nuevo registro",
             GroupCaptionFormat: "{{:headerText}}: {{:key}} - {{:count}} {{if count == 1 }} ítem {{else}} artículos {{/if}} ",
-            
-            
+
+
         };
         ej.Pager.Locale["es-CO"] = {
             pagerInfo: "{0} de {1} páginas ({2} artículos)",
@@ -129,9 +138,79 @@
         if (args.requestType == "beginedit" || args.requestType == "add") {
             if (args.model.dataSource.dataSource.url == "GetOrderData") {
                 setTimeout(function () {
-                          
-                }, 50); 
+
+                }, 50);
             }
         }
     }
+    //Función click para botones custom de la toolbar
+    function clicked(sender) {
+
+        $target = $(sender.target);
+        if ($target.hasClass("Crear")) {
+            crear(sender.gridModel.selectedRecords[0].COD_CONTRATO_PROYECTO,
+                    sender, sender.gridModel.selectedRecords[0].DESCRIPCION)
+        }
+        else if ($target.hasClass("Cerrar")) {
+            cerrar(sender.gridModel.selectedRecords[0].COD_CONTRATO_PROYECTO,
+                    sender, sender.gridModel.selectedRecords[0].DESCRIPCION)
+        }
+    }
+
+    //Función que permite crear centros de costo
+    function crear(indice, sender, descripcion) {
+        //alert("crear CeCo para cod_contrat_proy: " + indice);
+        var param = JSON.stringify({
+                        COD_CONTRATO_PROYECTO: parseInt(indice),
+                        descrip_contrato: descripcion});
+        var url = "crear_centro_costo"; // En el controller //"Default.aspx/GetCiudadesByPais"
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: param,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            dataFilter: function (data) { return data; },
+            success: function (data) {
+                alert("Ok. Se creó centro de costos, para contr_proy: " + indice);
+            },
+            error: function (data) {
+                alert("ERROR al intentar crear centro de costos, para contr_proy: " + indice)
+            }
+        });
+
+        
+    }
+    //Función que permite CERRAR centros de costo
+    function cerrar(indice, sender, descripcion) {
+        //alert("CERRAR CeCo para cod_contrat_proy: " + indice);
+        var param = JSON.stringify({
+            COD_CONTRATO_PROYECTO: parseInt(indice),
+            descrip_contrato: descripcion
+        });
+        var url = "cerrar_centro_costo"; // En el controller //"Default.aspx/GetCiudadesByPais"
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: param,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            dataFilter: function (data) { return data; },
+            success: function (data) {
+                alert("Ok. Se CERRÓ centro de costos, para contr_proy: " + indice);
+            },
+            error: function (data) {
+                alert("ERROR al intentar CERRAR centro de costos, para contr_proy: " + indice)
+            }
+        });
+
+
+    }
+</script>
+<!--Modelos o templates para botones-->
+<script type="text/x-jsrender" id="Crear">
+    <a class="e-tooltxt Crear e-icon e-star"></a>
+</script>
+<script type="text/x-jsrender" id="Cerrar">
+    <a class="e-tooltxt Cerrar e-icon e-dataexport"></a>
 </script>

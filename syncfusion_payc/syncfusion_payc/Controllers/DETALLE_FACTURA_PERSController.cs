@@ -8,9 +8,9 @@ using Syncfusion.JavaScript;
 using Syncfusion.JavaScript.DataSources;
 using System.Data.Entity;
 using System.Net;
-using System.Web;
-using System.Web.Mvc;
+
 using syncfusion_payc.Models;
+using Microsoft.AspNet.Identity;
 
 namespace syncfusion_payc.Controllers
 {
@@ -207,29 +207,59 @@ namespace syncfusion_payc.Controllers
             {
                 DataSource = ds.PerformTake(DataSource, dm.Take);
             }
-            return Json(new { result = DataSource, count = count}, JsonRequestBehavior.AllowGet);     
+            return Json(new { result = DataSource, count = count, aggregate = aggregate }, JsonRequestBehavior.AllowGet);     
         }
 
         //Perform file insertion 
         public ActionResult PerformInsert(EditParams_DETALLE_FACTURA_PERS param)
         {
-            db.DETALLE_FACTURA_PERS.Add(param.value);
+            DateTime hoy = DateTime.Today;
+            string usuario = User.Identity.GetUserName();
+            DETALLE_FACTURA_PERS table = db.DETALLE_FACTURA_PERS.Single(o => o.COD_DETALLE_FACTURA_PERS == param.value.COD_DETALLE_FACTURA_PERS);
+            if (table.VALOR_SIN_IMPUESTOS != param.value.VALOR_SIN_IMPUESTOS)
+            {
+                param.value.FECHA_REGISTRO = hoy;
+                param.value.USUARIO = usuario;
+                db.DETALLE_FACTURA_PERS.Add(param.value);
+                table.COD_ESTADO_DETALLE = 2;
+
+            }
+            else
+            {
+                table.FECHA_REGISTRO = hoy;
+                table.USUARIO = usuario;
+                table.COD_ESTADO_DETALLE = 1;
+                table.COD_CONCEPTO_PSL = param.value.COD_CONCEPTO_PSL;
+            }
             db.SaveChanges();
-			var data = db.DETALLE_FACTURA_PERS.ToList();
-			var value = data.Last();
-            return Json(value, JsonRequestBehavior.AllowGet);
+            return RedirectToAction("GetOrderData");
         }
 
         //Actualizar grid
         public ActionResult PerformUpdate(EditParams_DETALLE_FACTURA_PERS param)
         {
-            
-			DETALLE_FACTURA_PERS table = db.DETALLE_FACTURA_PERS.Single(o => o.COD_DETALLE_FACTURA_PERS == param.value.COD_DETALLE_FACTURA_PERS);
 
-            db.Entry(table).CurrentValues.SetValues(param.value);
+            DateTime hoy = DateTime.Today;
+            string usuario = User.Identity.GetUserName();
+            DETALLE_FACTURA_PERS table = db.DETALLE_FACTURA_PERS.Single(o => o.COD_DETALLE_FACTURA_PERS== param.value.COD_DETALLE_FACTURA_PERS);
+            if (table.VALOR_SIN_IMPUESTOS != param.value.VALOR_SIN_IMPUESTOS)
+            {
+                param.value.FECHA_REGISTRO = hoy;
+                param.value.USUARIO = usuario;
+                db.DETALLE_FACTURA_PERS.Add(param.value);
+                table.COD_ESTADO_DETALLE = 2;
+
+            }
+            else
+            {
+                table.FECHA_REGISTRO = hoy;
+                table.USUARIO = usuario;
+                table.COD_ESTADO_DETALLE = 1;
+                table.COD_CONCEPTO_PSL = param.value.COD_CONCEPTO_PSL;
+            }
             db.SaveChanges();
-			return RedirectToAction("GetOrderData");
-			
+            return RedirectToAction("GetOrderData");
+
         }
 
         //Borrar grid

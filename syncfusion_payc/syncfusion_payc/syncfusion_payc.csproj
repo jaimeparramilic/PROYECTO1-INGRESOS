@@ -1254,6 +1254,7 @@
     <Content Include="Content\main2.css" />
     <Content Include="Content\Site2.css" />
     <Content Include="favicon.ico" />
+    <Content Include="images\logopayc.png" />
     <Content Include="servicios\FlujoIngresosItems.svc" />
     <Content Include="servicios\FlujoIngresosRoles.svc" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -1477,6 +1478,7 @@
     <Content Include="Views\DETALLE_FACTURA_PERS\Details.cshtml" />
     <Content Include="Views\DETALLE_FACTURA_PERS\Edit.cshtml" />
     <Content Include="Views\DETALLE_FACTURA_PERS\Index.cshtml" />
+    <Content Include="Modelos_Matematicos\PRUEBAS.R" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />

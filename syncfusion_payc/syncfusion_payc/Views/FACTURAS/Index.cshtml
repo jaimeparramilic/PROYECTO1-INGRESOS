@@ -44,40 +44,47 @@
 
             }).ChildGrid(child =>
             {
-                child.Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                child.Datasource(ds => ds.URL("GetOrderData").InsertURL("valor_facturar").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
                 .AllowPaging()
-                .AllowFiltering()
+                .AllowFiltering(false)
                 .Locale("es-CO")
                 .QueryString("COD_CONTRATO_PROYECTO")
                 .AllowResizeToFit(false)
-                .AllowMultiSorting()
-                .AllowSorting()
+                
+                .AllowMultiSorting(false)
+                .AllowSorting(false)
+                .AllowRowDragAndDrop(false)
                 .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
                 .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
                 .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
                 .ClientSideEvents(eve => eve.ToolbarClick("clicked"))
+                .ClientSideEvents(e=> e.ActionComplete("finalizar_accion")) 
                 .ToolbarSettings(toolbar =>
                 {
-                    toolbar.ShowToolbar().CustomToolbarItems(new List<object>() {
-                    new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Agregar",Tooltip="Agregar nueva factura" }
-                    ,new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Verificar",Tooltip="Verificar factura" }
+                    toolbar.ShowToolbar().ToolbarItems(items =>
+                    {
+                        items.AddTool(ToolBarItems.Add);
+                        items.AddTool(ToolBarItems.Delete);
+
+                    })
+                    .CustomToolbarItems(new List<object>() {
+                    
+                    new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Verificar",Tooltip="Verificar factura" }
                     ,new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Facturar",Tooltip="Facturar y enviar factura a PSL" }
-                    ,new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Eliminar",Tooltip="Eliminar" }
+                    
                                                     });
 
                 }).Columns(col =>
                 {
-                    col.Field("COD_CONTRATO_PROYECTO").IsPrimaryKey(true).Visible(false).Add();
-                    col.Field("COD_ESTADO_FACTURA").ForeignKeyField("COD_ESTADO_FACTURA").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>
-                        )new syncfusion_payc.Models.test_payc_contabilidadEntities().ESTADOS_FACTURAS.ToList()).HeaderText("ESTADO FACTURA").EditType(EditingType.DropdownEdit).Add();
-                    col.Field("COD_FORMAS_PAGO_FECHAS").ForeignKeyField("COD_FORMAS_PAGO_FECHAS").ForeignKeyValue("FECHA_FORMA_PAGO").Format("{0:dd/MM/yyyy}").DataSource((IEnumerable<object>
-                    )new syncfusion_payc.Models.test_payc_contabilidadEntities().FORMAS_PAGO_FECHAS.ToList()).HeaderText("PERIODO FACTUACIÓN").EditType(EditingType.DropdownEdit).Add();
+                    col.Field("COD_FORMAS_PAGO_FECHAS").AllowEditing(false).Format("{0:dd/MM/yyyy}").ForeignKeyField("COD_FORMAS_PAGO_FECHAS").ForeignKeyValue("FECHA_FORMA_PAGO").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().FORMAS_PAGO_FECHAS.ToList()).HeaderText("PERIODO FACTUACIÓN").EditType(EditingType.DropdownEdit).Add();
+                    col.Field("COD_CONTRATO_PROYECTO").Visible(false).Add();
+                    col.Field("COD_ESTADO_FACTURA").AllowEditing(false).ForeignKeyField("COD_ESTADO_FACTURA").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ESTADOS_FACTURAS.ToList()).HeaderText("ESTADO FACTURA").EditType(EditingType.DropdownEdit).Add();
                     col.Field("COD_FACTURA").HeaderText("COD_FACTURA").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                    col.Field("NUMERO_FACTURA").HeaderText("NUMERO FACTURA").Add();
+                    col.Field("NUMERO_FACTURA").AllowEditing(false).HeaderText("NUMERO FACTURA").Add();
                     col.Field("FECHA_FACTURA").HeaderText("FECHA FACTURA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
-                    col.Field("VALOR_SIN_IMPUESTOS").HeaderText("VALOR SIN IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                    col.Field("VALOR_CON_IMPUESTOS").HeaderText("VALOR CON IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                    col.Field("RANKING").HeaderText("RANKING").Visible(false).Add();
+                    col.Field("VALOR_SIN_IMPUESTOS").AllowEditing(false).HeaderText("VALOR SIN IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                    col.Field("VALOR_CON_IMPUESTOS").AllowEditing(false).HeaderText("VALOR CON IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                    col.Field("RANKING").AllowEditing(false).HeaderText("RANKING").Visible(false).Add();
                 });
             })
     )
@@ -162,7 +169,7 @@
 
         }
         else if (args.requestType == "add") {
-            alert("agregar");
+            
         }
     }
 
@@ -174,7 +181,7 @@
             verificar(sender.gridModel.parentDetails.parentKeyFieldValue, sender)
         }
         else if ($target.hasClass("Agregar")) {
-            agregar(sender.gridModel.parentDetails.parentKeyFieldValue, sender)
+            //agregar(sender.gridModel.parentDetails.parentKeyFieldValue, sender)
         }
         else if ($target.hasClass("Eliminar")) {
             eliminar(sender.gridModel.parentDetails.parentKeyFieldValue, sender)
@@ -193,17 +200,27 @@
 
     //Función que permite agregar las facturas
     function agregar(indice, sender) {
-        alert("agregar");
+        //alert("agregar");
     }   
 
     //Función que permite eliminar las facturas
     function eliminar(indice, sender) {
-        alert("eliminar");
+        alert("anular factura");
     }
 
     //Función que permite facturar las facturas (enviar a PSL)
     function facturar(indice, sender) {
         alert("facturar y enviar a PSL");
+    }
+
+    //Función que refresca la grid hijo de facturas después
+    function finalizar_accion(args) {
+        if (args.requestType == "save") {
+            
+            pivotgrid = $("#" + args.target.id).ejGrid("instance");
+            pivotgrid.refreshContent();
+            
+        }
     }
 
 </script>
