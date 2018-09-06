@@ -9,12 +9,17 @@ using Syncfusion.JavaScript.DataSources;
 using System.Data.Entity;
 using System.Net;
 using syncfusion_payc.Models;
+using System.Data.SqlClient;
+using System.Configuration;
+using Microsoft.AspNet.Identity;
+using syncfusion_payc.Utilidades;
 
 namespace syncfusion_payc.Controllers
 {
     public class VISTA_ORDENES_CENTRO_COSTOSController : Controller
     {
         private test_payc_contabilidadEntities db = new test_payc_contabilidadEntities();
+        static string connecString = ConfigurationManager.ConnectionStrings["DefaultConnection1"].ConnectionString;
 
         // GET: VISTA_ORDENES_CENTRO_COSTOS
         public ActionResult Index()
@@ -48,7 +53,7 @@ namespace syncfusion_payc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "COD_CONTRATO_PROYECTO,COD_CONTRATO,COD_PROYECTO,COD_FORMA_PAGO,COMPLETA,MODIFICADO_POR,FECHA_ULTIMA_MODIFICACION,CREADO_POR,FECHA_CREACION,CENTRO_COSTOS,COD_ESTADO_ORDEN_SERVICIO,ESTADO_PSL,DESCRIPCION")] VISTA_ORDENES_CENTRO_COSTOS vISTA_ORDENES_CENTRO_COSTOS)
+        public ActionResult Create([Bind(Include = "COD_CONTRATO_PROYECTO,COD_CONTRATO,COD_PROYECTO,COD_FORMA_PAGO,COMPLETA,MODIFICADO_POR,FECHA_ULTIMA_MODIFICACION,CREADO_POR,FECHA_CREACION,CENTRO_COSTOS,COD_ESTADO_ORDEN_SERVICIO,ESTADO_PSL,DESCRIPCION,FECHA_INICIO_EJECUCION, FECHA_FIN_EJECUCION, ESTADO_CENTRO_COSTO")] VISTA_ORDENES_CENTRO_COSTOS vISTA_ORDENES_CENTRO_COSTOS)
         {
             if (ModelState.IsValid)
             {
@@ -80,7 +85,7 @@ namespace syncfusion_payc.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "COD_CONTRATO_PROYECTO,COD_CONTRATO,COD_PROYECTO,COD_FORMA_PAGO,COMPLETA,MODIFICADO_POR,FECHA_ULTIMA_MODIFICACION,CREADO_POR,FECHA_CREACION,CENTRO_COSTOS,COD_ESTADO_ORDEN_SERVICIO,ESTADO_PSL,DESCRIPCION")] VISTA_ORDENES_CENTRO_COSTOS vISTA_ORDENES_CENTRO_COSTOS)
+        public ActionResult Edit([Bind(Include = "COD_CONTRATO_PROYECTO,COD_CONTRATO,COD_PROYECTO,COD_FORMA_PAGO,COMPLETA,MODIFICADO_POR,FECHA_ULTIMA_MODIFICACION,CREADO_POR,FECHA_CREACION,CENTRO_COSTOS,COD_ESTADO_ORDEN_SERVICIO,ESTADO_PSL,DESCRIPCION,FECHA_INICIO_EJECUCION, FECHA_FIN_EJECUCION, ESTADO_CENTRO_COSTO")] VISTA_ORDENES_CENTRO_COSTOS vISTA_ORDENES_CENTRO_COSTOS)
         {
             if (ModelState.IsValid)
             {
@@ -115,6 +120,35 @@ namespace syncfusion_payc.Controllers
             db.VISTA_ORDENES_CENTRO_COSTOS.Remove(vISTA_ORDENES_CENTRO_COSTOS);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult crear_centro_costo(long COD_CONTRATO_PROYECTO, 
+                                                string descrip_contrato)
+        {
+            //DateTime hoy = DateTime.Today;
+            string usuario = User.Identity.GetUserName();
+            string queryString = " UPDATE CONTRATO_PROYECTO SET "
+                +"COD_ESTADO_ORDEN_SERVICIO = 1 WHERE COD_CONTRATO_PROYECTO = " 
+                + COD_CONTRATO_PROYECTO.ToString() + ";";
+
+            //Ejecución del query
+            using (SqlConnection connection = new SqlConnection(connecString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+
+            //Enviar correo avisando de la creación del centro de costo
+            Email.EnviarEmail("smtp.gmail.com", 587, "centro.costo.estado.payc@gmail.com",
+                "1234payc", "centro.costo.estado.payc@gmail.com",
+                "desarrollo.analitica@payc.com.co", "Creación de nuevo centro de costo",
+                "El contrato proyecto con código: " + COD_CONTRATO_PROYECTO +
+                " "+ descrip_contrato
+                +", fue actualizado en su estado de orden de servicio, como APROBADA");
+
+            return Json(new { success = true, responseText = "SI" }, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)
