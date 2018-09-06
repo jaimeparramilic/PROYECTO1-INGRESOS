@@ -145,8 +145,36 @@ namespace syncfusion_payc.Controllers
                 "1234payc", "centro.costo.estado.payc@gmail.com",
                 "desarrollo.analitica@payc.com.co", "Creación de nuevo centro de costo",
                 "El contrato proyecto con código: " + COD_CONTRATO_PROYECTO +
-                " "+ descrip_contrato
+                "-"+ descrip_contrato
                 +", fue actualizado en su estado de orden de servicio, como APROBADA");
+
+            return Json(new { success = true, responseText = "SI" }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult cerrar_centro_costo(long COD_CONTRATO_PROYECTO,
+                                                string descrip_contrato)
+        {
+            //DateTime hoy = DateTime.Today;
+            string usuario = User.Identity.GetUserName();
+            string queryString = " UPDATE CONTRATO_PROYECTO SET "
+                + "COD_ESTADO_ORDEN_SERVICIO = 4 WHERE COD_CONTRATO_PROYECTO = "
+                + COD_CONTRATO_PROYECTO.ToString() + ";";
+
+            //Ejecución del query
+            using (SqlConnection connection = new SqlConnection(connecString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+
+            //Enviar correo avisando del CIERRE del centro de costo
+            Email.EnviarEmail("smtp.gmail.com", 587, "centro.costo.estado.payc@gmail.com",
+                "1234payc", "centro.costo.estado.payc@gmail.com",
+                "desarrollo.analitica@payc.com.co", "CIERRE centro de costo",
+                "El contrato proyecto con código: " + COD_CONTRATO_PROYECTO +
+                "-" + descrip_contrato
+                + ", fue actualizado en su estado de orden de servicio, como FINALIZADA");
 
             return Json(new { success = true, responseText = "SI" }, JsonRequestBehavior.AllowGet);
         }

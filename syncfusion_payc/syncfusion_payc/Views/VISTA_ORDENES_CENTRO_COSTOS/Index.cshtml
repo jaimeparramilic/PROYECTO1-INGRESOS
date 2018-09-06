@@ -152,7 +152,8 @@
                     sender, sender.gridModel.selectedRecords[0].DESCRIPCION)
         }
         else if ($target.hasClass("Cerrar")) {
-            cerrar(sender.gridModel.selectedRecords[0].COD_CONTRATO_PROYECTO, sender)
+            cerrar(sender.gridModel.selectedRecords[0].COD_CONTRATO_PROYECTO,
+                    sender, sender.gridModel.selectedRecords[0].DESCRIPCION)
         }
     }
 
@@ -174,11 +175,36 @@
                 alert("Ok. Se creó centro de costos, para contr_proy: " + indice);
             },
             error: function (data) {
-                alert("Error al intentar crear centro de costos, para contr_proy: " + indice)
+                alert("ERROR al intentar crear centro de costos, para contr_proy: " + indice)
             }
         });
 
         
+    }
+    //Función que permite CERRAR centros de costo
+    function cerrar(indice, sender, descripcion) {
+        //alert("CERRAR CeCo para cod_contrat_proy: " + indice);
+        var param = JSON.stringify({
+            COD_CONTRATO_PROYECTO: parseInt(indice),
+            descrip_contrato: descripcion
+        });
+        var url = "cerrar_centro_costo"; // En el controller //"Default.aspx/GetCiudadesByPais"
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: param,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            dataFilter: function (data) { return data; },
+            success: function (data) {
+                alert("Ok. Se CERRÓ centro de costos, para contr_proy: " + indice);
+            },
+            error: function (data) {
+                alert("ERROR al intentar CERRAR centro de costos, para contr_proy: " + indice)
+            }
+        });
+
+
     }
 </script>
 <!--Modelos o templates para botones-->
