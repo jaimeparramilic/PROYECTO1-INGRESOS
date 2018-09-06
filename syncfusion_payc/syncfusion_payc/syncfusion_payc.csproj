@@ -1254,6 +1254,7 @@
     <Content Include="Content\main2.css" />
     <Content Include="Content\Site2.css" />
     <Content Include="favicon.ico" />
+    <Content Include="images\logopayc.png" />
     <Content Include="servicios\FlujoIngresosItems.svc" />
     <Content Include="servicios\FlujoIngresosRoles.svc" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
