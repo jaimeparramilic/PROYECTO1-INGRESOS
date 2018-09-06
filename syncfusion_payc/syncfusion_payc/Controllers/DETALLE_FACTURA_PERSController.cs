@@ -8,7 +8,9 @@ using Syncfusion.JavaScript;
 using Syncfusion.JavaScript.DataSources;
 using System.Data.Entity;
 using System.Net;
-
+using System.Data.SqlClient;
+using System.Data;
+using System.Configuration;
 using syncfusion_payc.Models;
 using Microsoft.AspNet.Identity;
 
@@ -17,7 +19,7 @@ namespace syncfusion_payc.Controllers
     public class DETALLE_FACTURA_PERSController : Controller
     {
         private test_payc_contabilidadEntities db = new test_payc_contabilidadEntities();
-
+        static string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection1"].ConnectionString;
         // GET: DETALLE_FACTURA_PERS
         public ActionResult Index()
         {
@@ -258,6 +260,29 @@ namespace syncfusion_payc.Controllers
                 table.COD_CONCEPTO_PSL = param.value.COD_CONCEPTO_PSL;
             }
             db.SaveChanges();
+            try
+            {
+                string query = @"SELECT [TOTAL_FACTURA] FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS] WHERE COD_FACTURA=" + param.value.COD_FACTURA.ToString();
+                string valor_factura = "0";
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand command = new SqlCommand(query, connection);
+                    connection.Open();
+                    SqlDataReader dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        valor_factura = dr.GetValue(0).ToString();
+                    }
+                    connection.Close();
+                }
+                FACTURAS table1 = db.FACTURAS.Single(o => o.COD_FACTURA == param.value.COD_FACTURA);
+                table1.VALOR_SIN_IMPUESTOS = float.Parse(valor_factura);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+            }
             return RedirectToAction("GetOrderData");
 
         }

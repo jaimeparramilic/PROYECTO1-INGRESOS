@@ -35,12 +35,12 @@
                 col.Field("COD_CONTRATO_PROYECTO").HeaderText("ID").IsPrimaryKey(true).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                 col.Field("CENTRO_COSTOS").HeaderText("CENTRO COSTOS").Add();
                 col.Field("DESCRIPCION").HeaderText("DESCRIPCIÓN").Add();
-                col.Field("ESTADO_ULTIMA_FACTURA").HeaderText("ESTADO ULTIMA FACTURA").Add();
-                col.Field("ESTADO_ORDEN").HeaderText("ESTADO ORDEN DE SERVICIO").Add();
-                col.Field("DIAS_SIN_FACTURAR").HeaderText("DÍAS SIN FACTURAR").Add();
-                col.Field("MESES_SIN_FACTURAR").HeaderText("MESES SIN FACTURAR").Add();
-                col.Field("FECHA_ULTIMA_FACTURA").HeaderText("FECHA ÚLTIMA FACTURA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
-                col.Field("FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO").HeaderText("FECHA INICIO ÚLTIMO CONTRATO").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                col.Field("ESTADO_ULTIMA_FACTURA").HeaderText("ESTADO ÚLTIMA F.").Add();
+                col.Field("ESTADO_ORDEN").HeaderText("ESTADO ORDEN").Add();
+                col.Field("DIAS_SIN_FACTURAR").HeaderText("DÍAS SIN F.").Add();
+                col.Field("MESES_SIN_FACTURAR").HeaderText("MESES SIN F.").Add();
+                col.Field("FECHA_ULTIMA_FACTURA").HeaderText("FECHA ÚLTIMA F.").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                col.Field("FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO").HeaderText("FECHA INI").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
 
             }).ChildGrid(child =>
             {
@@ -68,7 +68,6 @@
 
                     })
                     .CustomToolbarItems(new List<object>() {
-                    
                     new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Verificar",Tooltip="Verificar factura" }
                     ,new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Facturar",Tooltip="Facturar y enviar factura a PSL" }
                     
@@ -80,10 +79,10 @@
                     col.Field("COD_CONTRATO_PROYECTO").Visible(false).Add();
                     col.Field("COD_ESTADO_FACTURA").AllowEditing(false).ForeignKeyField("COD_ESTADO_FACTURA").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ESTADOS_FACTURAS.ToList()).HeaderText("ESTADO FACTURA").EditType(EditingType.DropdownEdit).Add();
                     col.Field("COD_FACTURA").HeaderText("COD_FACTURA").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                    col.Field("NUMERO_FACTURA").AllowEditing(false).HeaderText("NUMERO FACTURA").Add();
+                    col.Field("NUMERO_FACTURA").Visible(false).AllowEditing(false).HeaderText("NUMERO FACTURA").Add();
                     col.Field("FECHA_FACTURA").HeaderText("FECHA FACTURA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
                     col.Field("VALOR_SIN_IMPUESTOS").AllowEditing(false).HeaderText("VALOR SIN IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                    col.Field("VALOR_CON_IMPUESTOS").AllowEditing(false).HeaderText("VALOR CON IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                    col.Field("VALOR_CON_IMPUESTOS").Visible(false).AllowEditing(false).HeaderText("VALOR CON IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                     col.Field("RANKING").AllowEditing(false).HeaderText("RANKING").Visible(false).Add();
                 });
             })
@@ -116,7 +115,6 @@
             nextPagerTooltip: "Ir al siguiente Pager",
             previousPagerTooltip: "Ir a Pager anterior"
         };
-
         ej.ExcelFilter.Locale["es-CO"] = {
             SortNoSmaller: "Ordenar de menor a mayor",
             SortNoLarger: "Ordenar de mayor a menor",
@@ -161,6 +159,7 @@
             True: "cierto",
             False: "falso"
         };
+
     });
 	//Funcion para añadir buscador a los dropdown
 	function inicio_grid(args) {

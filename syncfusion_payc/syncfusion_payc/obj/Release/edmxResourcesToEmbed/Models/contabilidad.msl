@@ -948,6 +948,7 @@
     <EntitySetMapping Name="VISTA_ORDENES_CENTRO_COSTOS">
       <EntityTypeMapping TypeName="test_payc_contabilidadModel.VISTA_ORDENES_CENTRO_COSTOS">
         <MappingFragment StoreEntitySet="VISTA_ORDENES_CENTRO_COSTOS">
+          <ScalarProperty Name="ESTADO_CENTRO_COSTO" ColumnName="ESTADO_CENTRO_COSTO" />
           <ScalarProperty Name="FECHA_FIN_EJECUCION" ColumnName="FECHA_FIN_EJECUCION" />
           <ScalarProperty Name="FECHA_INICIO_EJECUCION" ColumnName="FECHA_INICIO_EJECUCION" />
           <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
