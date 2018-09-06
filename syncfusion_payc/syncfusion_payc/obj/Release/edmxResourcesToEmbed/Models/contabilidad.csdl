@@ -366,6 +366,8 @@
       <End Role="DETALLE_FACTURA_ITEM" EntitySet="DETALLE_FACTURA_ITEM" />
     </AssociationSet>
     <EntitySet Name="VISTA_CONTRATO_PROYECTO_FACTURAS" EntityType="test_payc_contabilidadModel.VISTA_CONTRATO_PROYECTO_FACTURAS" />
+    <EntitySet Name="DATOS_VERIFICAR_FACTURA" EntityType="test_payc_contabilidadModel.DATOS_VERIFICAR_FACTURA" />
+    <EntitySet Name="ITEMS_CONTRATO_DESCRIPCION" EntityType="test_payc_contabilidadModel.ITEMS_CONTRATO_DESCRIPCION" />
   </EntityContainer>
   <EntityType Name="CARGOS">
     <Key>
@@ -2409,5 +2411,40 @@
     <Property Name="FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="ESTADO_ULTIMA_FACTURA" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
     <Property Name="ESTADO_ORDEN" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="DATOS_VERIFICAR_FACTURA">
+    <Key>
+      <PropertyRef Name="COD_FACTURA" />
+    </Key>
+    <Property Name="COD_FACTURA" Type="Int64" Nullable="false" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
+    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
+    <Property Name="NUMERO_FACTURA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="FECHA_FACTURA" Type="DateTime" Precision="0" />
+    <Property Name="COD_ESTADO_FACTURA" Type="Int64" />
+    <Property Name="VALOR_SIN_IMPUESTOS" Type="Single" />
+    <Property Name="VALOR_CON_IMPUESTOS" Type="Single" />
+    <Property Name="RANKING" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="PERIODO_FACTURAR" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="ITEMS_CONTRATO_DESCRIPCION">
+    <Key>
+      <PropertyRef Name="COD_ITEM_CONTRATO" />
+    </Key>
+    <Property Name="COD_ITEM_CONTRATO" Type="Int64" Nullable="false" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
+    <Property Name="COD_ITEM" Type="Int64" />
+    <Property Name="ITEM_REEMBOLZABLE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="REUTILIZABLE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="COSTO_INICIAL_UNITARIO" Type="Single" />
+    <Property Name="COSTO_MENSUAL_UNITARIO" Type="Single" />
+    <Property Name="CANTIDAD" Type="Int64" />
+    <Property Name="FECHA_INI_USO" Type="DateTime" Precision="0" />
+    <Property Name="MESES_USO" Type="Int64" />
+    <Property Name="OBSERVACIONES" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="COD_TIPO_REEMBOLSO" Type="Int64" />
+    <Property Name="DIAS_FRACCION" Type="Int64" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

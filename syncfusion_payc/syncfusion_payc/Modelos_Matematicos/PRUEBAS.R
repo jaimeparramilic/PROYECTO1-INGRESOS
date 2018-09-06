@@ -251,5 +251,5 @@ factura <- function(cod_factura) {
     #sum(TOTAL_ITEMS_VARIABLES$VALOR_COMERCIAL,na.rm = T)
     #sum(NOVEDADES_ADICION$TOTAL,na.rm=T)
     #VALOR_FACTURAR
-    return(VALOR_FACTURAR)
+    #return(VALOR_FACTURAR)
 }

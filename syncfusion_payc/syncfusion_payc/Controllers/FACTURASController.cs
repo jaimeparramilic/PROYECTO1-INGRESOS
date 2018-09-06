@@ -2,13 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-
 using System.Web.Mvc;
 using Syncfusion.JavaScript;
 using Syncfusion.JavaScript.DataSources;
 using System.Data.Entity;
 using System.Net;
 using syncfusion_payc.Models;
+using System.IO;
+using Microsoft.AspNet.Identity;
+using System.Diagnostics;
 
 namespace syncfusion_payc.Controllers
 {
@@ -177,6 +179,7 @@ namespace syncfusion_payc.Controllers
             ViewBag.dataSource2 = DataSource2;
             return View();
         }	
+
 		public ActionResult GetOrderData(DataManager dm)
         {
             IEnumerable DataSource = db.FACTURAS.ToList();
@@ -285,7 +288,6 @@ namespace syncfusion_payc.Controllers
         }
 
         #endregion
-
         #region validar factura
         //Funcion para regenerar el flujo del rol
         public ActionResult validar_factura(long COD_CONTRATO_PROYECTO,long COD_FORMAS_PAGO_FECHAS, long COD_FACTURA)
@@ -329,5 +331,95 @@ namespace syncfusion_payc.Controllers
             return Json(new { success = true, responseText = error }, JsonRequestBehavior.AllowGet);
         }
         #endregion
+        #region ejecución R
+        public ActionResult valor_facturar(EditParams_FACTURAS param)
+        {
+            //Cargar formas pago fechas
+            DateTime temp_fecha = new DateTime(param.value.FECHA_FACTURA.Value.Year, param.value.FECHA_FACTURA.Value.Month, 1);
+            FORMAS_PAGO_FECHAS table = db.FORMAS_PAGO_FECHAS.Single(o => o.FECHA_FORMA_PAGO == temp_fecha);
+            param.value.COD_ESTADO_FACTURA = 1;
+            param.value.COD_FORMAS_PAGO_FECHAS = table.COD_FORMAS_PAGO_FECHAS;
+            //Crear factura
+            DateTime hoy = DateTime.Today;
+            string usuario = User.Identity.GetUserName();
+            FACTURAS factura = new FACTURAS();
+            factura.COD_CONTRATO_PROYECTO = param.value.COD_CONTRATO_PROYECTO;
+            factura.COD_ESTADO_FACTURA = 1;
+            factura.COD_FORMAS_PAGO_FECHAS = param.value.COD_FORMAS_PAGO_FECHAS;
+            factura.VALOR_SIN_IMPUESTOS = param.value.VALOR_SIN_IMPUESTOS;
+            db.FACTURAS.Add(factura);
+            db.SaveChanges();
+
+            //Guardar ID de la factura recien creada
+            var data = db.FACTURAS.ToList();
+            var value = data.Last();
+
+            long COD_FACTURA = value.COD_FACTURA;
+            //Script a ejecutar
+            var rCodeFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Modelos_Matematicos") + @"\valor_facturar.R";
+
+            //Ubicación ejecutable
+            var rScriptExecutablePath = @"C:/Program Files/R/R-3.5.1/bin/Rscript.exe";
+
+            //Variable a retornar
+            string result = string.Empty;
+
+            try
+            {
+
+                //Funcion
+                string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Modelos_Matematicos") + @"\valor_facturar_temp.R";
+
+                //
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
+                //Escribir en archivo
+                if (!System.IO.File.Exists(path))
+                {
+                    System.IO.File.Copy(rCodeFilePath, path);
+                    using (StreamWriter sw = System.IO.File.AppendText(path))
+                    {
+                        sw.WriteLine("factura(" +COD_FACTURA+ ")");
+
+                    }
+
+                }
+
+                var info = new ProcessStartInfo();
+                info.FileName = rScriptExecutablePath;
+                info.WorkingDirectory = Path.GetDirectoryName(rScriptExecutablePath);
+                info.Arguments = path;
+
+                info.RedirectStandardInput = false;
+                info.RedirectStandardOutput = true;
+                info.UseShellExecute =false;
+                info.CreateNoWindow = true;
+                info.RedirectStandardOutput = true;
+                info.RedirectStandardError = true;
+                //Process.Start(rScriptExecutablePath, path);
+                using (var proc = new Process())
+                {
+                    proc.StartInfo = info;
+                    proc.Start();
+                    result = proc.StandardOutput.ReadToEnd();
+                    proc.WaitForExit();
+                    proc.Close();
+                }
+
+                //ViewBag.Result = result + "," + rCodeFilePath;
+                result = result + "," + rCodeFilePath + "," + path;
+            }
+            catch (Exception ex)
+            {
+
+                //throw new Exception("R Script failed: " + result, ex);
+                result = ex.ToString() + "," + rCodeFilePath ;
+            }
+            return Json(new { success = true, responseText = result }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
     }
 }
