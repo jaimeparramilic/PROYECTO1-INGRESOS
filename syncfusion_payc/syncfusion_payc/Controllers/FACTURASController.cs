@@ -11,13 +11,16 @@ using syncfusion_payc.Models;
 using System.IO;
 using Microsoft.AspNet.Identity;
 using System.Diagnostics;
-
+using System.Data.SqlClient;
+using System.Data;
+using System.Configuration;
+using System.Globalization;
 namespace syncfusion_payc.Controllers
 {
     public class FACTURASController : Controller
     {
         private test_payc_contabilidadEntities db = new test_payc_contabilidadEntities();
-
+        static string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection1"].ConnectionString;
         #region vistas / acciones default
         // GET: FACTURAS
         public ActionResult Index()
@@ -153,6 +156,7 @@ namespace syncfusion_payc.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             DATOS_VERIFICAR_FACTURA DatVerificarFactu = db.DATOS_VERIFICAR_FACTURA.Find(id);
+            
             if (DatVerificarFactu == null)
             {
                 return HttpNotFound();
@@ -163,6 +167,21 @@ namespace syncfusion_payc.Controllers
             ViewBag.COD_ESTADO_FACTURA = DatVerificarFactu.COD_ESTADO_FACTURA;
             ViewBag.DESCRIPCION_PROYECTO = DatVerificarFactu.DESCRIPCION;
             ViewBag.PERIODO_FACTURAR = DatVerificarFactu.PERIODO_FACTURAR;
+
+            //Consulta para traer total
+            ViewBag.TOTAL_FACTURA = "0";
+            string query = @"SELECT FORMAT([TOTAL_FACTURA],'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS] WHERE COD_FACTURA=" + id.ToString();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                connection.Open();
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    ViewBag.TOTAL_FACTURA = dr.GetValue(0).ToString();
+                }
+                connection.Close();
+            }
 
             return View();
         }
@@ -417,8 +436,54 @@ namespace syncfusion_payc.Controllers
                 //throw new Exception("R Script failed: " + result, ex);
                 result = ex.ToString() + "," + rCodeFilePath ;
             }
+            try
+            {
+                string query = @"SELECT [TOTAL_FACTURA] FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS] WHERE COD_FACTURA=" + COD_FACTURA.ToString();
+                string valor_factura = "0";
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand command = new SqlCommand(query, connection);
+                    connection.Open();
+                    SqlDataReader dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        valor_factura = dr.GetValue(0).ToString();
+                    }
+                    connection.Close();
+                }
+                FACTURAS table1 = db.FACTURAS.Single(o => o.COD_FACTURA == COD_FACTURA);
+                table1.VALOR_SIN_IMPUESTOS = float.Parse(valor_factura);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+            }
             return Json(new { success = true, responseText = result }, JsonRequestBehavior.AllowGet);
         }
+
+        #endregion
+        #region totales factura
+        //Funcion para refrescar totales
+        public ActionResult refrescar_total(long COD_FACTURA)
+        {
+            string result = "";
+            string query = @"SELECT FORMAT([TOTAL_FACTURA],'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS] WHERE COD_FACTURA=" + COD_FACTURA.ToString();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                connection.Open();
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    result = dr.GetValue(0).ToString();
+                }
+                connection.Close();
+            }
+
+            return Json(new { success = true, responseText = result }, JsonRequestBehavior.AllowGet);
+        }
+
         #endregion
 
     }

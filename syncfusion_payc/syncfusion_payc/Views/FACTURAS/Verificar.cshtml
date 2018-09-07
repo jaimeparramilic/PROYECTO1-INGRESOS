@@ -9,26 +9,69 @@
 }
 
 
-<h4>VERIFICAR FACTURA</h4>
-<h4>DESCRIPCION PROYECTO: @Html.ViewBag.DESCRIPCION_PROYECTO</h4>
-<h4>PERIODO:              @Html.ViewBag.PERIODO_FACTURAR</h4>
+<h4>DESCRIPCION PROYECTO: @Html.ViewBag.DESCRIPCION_PROYECTO - PERIODO:@Html.ViewBag.PERIODO_FACTURAR</h4>
+
 <!--FILA GRIDS-->
 <div class="row">
     <!--GRID ROLES-->
     <div class="col-md-6">
         <div class="control-section">
             @(Html.EJ().Grid<object>
-                                                            ("GRID_ROLES")
-                                                            .Datasource(ds => ds.URL("../../DETALLE_FACTURA_PERS/GetOrderData").InsertURL("../../DETALLE_FACTURA_PERS/PerformInsert").UpdateURL("../../DETALLE_FACTURA_PERS/PerformUpdate").RemoveURL("../../DETALLE_FACTURA_PERS/PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                                                                    ("GRID_ROLES")
+                                                                    .Datasource(ds => ds.URL("../../DETALLE_FACTURA_PERS/GetOrderData").InsertURL("../../DETALLE_FACTURA_PERS/PerformInsert").UpdateURL("../../DETALLE_FACTURA_PERS/PerformUpdate").RemoveURL("../../DETALLE_FACTURA_PERS/PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                                                                    .AllowPaging()
+                                                                    .AllowFiltering()
+                                                                    .Locale("es-CO")
+                                                                    .AllowResizeToFit(true)
+                                                                    .AllowMultiSorting()
+                                                                    .AllowSorting()
+                                                                    .ClientSideEvents(e => e.ActionComplete("finalizar_accion"))
+                                                                    .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                                                                    .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+                                                                    .ClientSideEvents(e => e.ActionBegin("inicio_acción_roles").Load("inicio_grid_roles"))
+                                                                    .ShowSummary()
+                                                                    .SummaryRow(row =>
+                                                                    {
+                                                                        row.Title("Total").SummaryColumns(col => { col.SummaryType(SummaryType.Sum).Format("{0:c2}").DisplayColumn("VALOR_SIN_IMPUESTOS").DataMember("VALOR_SIN_IMPUESTOS").Add(); }).Add();
+                                                                    })
+                                                                    .ToolbarSettings(toolbar =>
+                                                                    {
+                                                                        toolbar.ShowToolbar().ToolbarItems(items =>
+                                                                        {
+                                                                            items.AddTool(ToolBarItems.Edit);
+
+                                                                        });
+
+                                                                    }).Columns(col =>
+                                                                    {
+                                                                        col.Field("COD_DETALLE_FACTURA_PERS").HeaderText("COD_DETALLE_FACTURA_PERS").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                                                                        col.Field("COD_CONTRATO_PROYECTO").Visible(false).HeaderText("COD_CONTRATO_PROYECTO").Add();
+                                                                        col.Field("COD_ROL").ForeignKeyField("COD_ROL").AllowEditing(false).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").EditType(EditingType.DropdownEdit).Add();
+                                                                        col.Field("COD_FORMAS_PAGO_FECHAS").Visible(false).HeaderText("FORMAS PAGO FECHAS").Add();
+                                                                        col.Field("VALOR_SIN_IMPUESTOS").HeaderText("VALOR_SIN_IMPUESTOS").Format("{0:c2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                                                                        col.Field("COD_CAUSA_ESTADO").ForeignKeyField("COD_CAUSA_ESTADO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CAUSA_ESTADO.ToList()).HeaderText("CAUSA ESTADO").EditType(EditingType.DropdownEdit).Add();
+                                                                        col.Field("COD_FACTURA").Visible(false).ForeignKeyField("COD_FACTURA").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().FACTURAS.ToList()).HeaderText("COD_FACTURA").EditType(EditingType.DropdownEdit).Add();
+                                                                        col.Field("COD_ESTADO_DETALLE").Visible(false).ForeignKeyField("COD_ESTADO_DETALLE").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ESTADOS_DETALLE.ToList()).HeaderText("ESTADO_DETALLE").EditType(EditingType.DropdownEdit).Add();
+                                                                        col.Field("COD_CONCEPTO_PSL").ForeignKeyField("COD_CONCEPTO_PSL").ForeignKeyValue("TEXTO_EN_PSL").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONCEPTOS.ToList()).HeaderText("CONCEPTO").EditType(EditingType.DropdownEdit).Add();
+                                                                    }))
+        </div>
+    </div>
+    <!--GRID ITEMS-->
+    <div class="col-md-6">
+        <div class="control-section">
+            @(Html.EJ().Grid<object>
+                                                            ("GRID_ITEMS")
+                                                            .Datasource(ds => ds.URL("../../DETALLE_FACTURA_ITEM/GetOrderData").InsertURL("../../DETALLE_FACTURA_ITEM/PerformInsert").UpdateURL("../../DETALLE_FACTURA_ITEM/PerformUpdate").RemoveURL("../../DETALLE_FACTURA_ITEM/PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
                                                             .AllowPaging()
                                                             .AllowFiltering()
                                                             .Locale("es-CO")
                                                             .AllowResizeToFit(true)
                                                             .AllowMultiSorting()
                                                             .AllowSorting()
+                                                            .ClientSideEvents(e => e.ActionComplete("finalizar_accion"))
                                                             .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
                                                             .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
-                                                            .ClientSideEvents(e => e.ActionBegin("inicio_acción_roles").Load("inicio_grid_roles"))
+                                                            .ClientSideEvents(e => e.ActionBegin("inicio_acción_items").Load("inicio_grid_items"))
                                                             .ShowSummary()
                                                             .SummaryRow(row =>
                                                             {
@@ -44,11 +87,11 @@
 
                                                             }).Columns(col =>
                                                             {
-                                                                col.Field("COD_DETALLE_FACTURA_PERS").HeaderText("COD_DETALLE_FACTURA_PERS").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                                                                col.Field("COD_DETALLE_FACTURA_ITEM").HeaderText("COD_DETALLE_FACTURA_ITEM").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                                                                 col.Field("COD_CONTRATO_PROYECTO").Visible(false).HeaderText("COD_CONTRATO_PROYECTO").Add();
-                                                                col.Field("COD_ROL").ForeignKeyField("COD_ROL").AllowEditing(false).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").EditType(EditingType.DropdownEdit).Add();
+                                                                col.Field("COD_ITEM_CONTRATO").ForeignKeyField("COD_ITEM_CONTRATO").AllowEditing(false).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().VISTA_ITEMS_CONTRATO_DESCRIPCION.ToList()).HeaderText("ITEM").EditType(EditingType.DropdownEdit).Add();
                                                                 col.Field("COD_FORMAS_PAGO_FECHAS").Visible(false).HeaderText("FORMAS PAGO FECHAS").Add();
-                                                                col.Field("VALOR_SIN_IMPUESTOS").HeaderText("VALOR_SIN_IMPUESTOS").Format("{0:c2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                                                                col.Field("VALOR_SIN_IMPUESTOS").HeaderText("VALOR SIN IMPUESTOS").Format("{0:c2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                                                                 col.Field("COD_CAUSA_ESTADO").ForeignKeyField("COD_CAUSA_ESTADO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CAUSA_ESTADO.ToList()).HeaderText("CAUSA ESTADO").EditType(EditingType.DropdownEdit).Add();
                                                                 col.Field("COD_FACTURA").Visible(false).ForeignKeyField("COD_FACTURA").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().FACTURAS.ToList()).HeaderText("COD_FACTURA").EditType(EditingType.DropdownEdit).Add();
                                                                 col.Field("COD_ESTADO_DETALLE").Visible(false).ForeignKeyField("COD_ESTADO_DETALLE").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ESTADOS_DETALLE.ToList()).HeaderText("ESTADO_DETALLE").EditType(EditingType.DropdownEdit).Add();
@@ -56,49 +99,23 @@
                                                             }))
         </div>
     </div>
-    <!--GRID ITEMS-->
-    <div class="col-md-6">
-        <div class="control-section">
-            @(Html.EJ().Grid<object>
-                                                    ("GRID_ITEMS")
-                                                    .Datasource(ds => ds.URL("../../DETALLE_FACTURA_ITEM/GetOrderData").InsertURL("../../DETALLE_FACTURA_ITEM/PerformInsert").UpdateURL("../../DETALLE_FACTURA_ITEM/PerformUpdate").RemoveURL("../../DETALLE_FACTURA_ITEM/PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
-                                                    .AllowPaging()
-                                                    .AllowFiltering()
-                                                    .Locale("es-CO")
-                                                    .AllowResizeToFit(true)
-                                                    .AllowMultiSorting()
-                                                    .AllowSorting()
-                                                    .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
-                                                    .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
-                                                    .ClientSideEvents(e => e.ActionBegin("inicio_acción_items").Load("inicio_grid_items"))
-                                                    .ShowSummary()
-                                                    .SummaryRow(row =>
-                                                    {
-                                                        row.Title("Total").SummaryColumns(col => { col.SummaryType(SummaryType.Sum).Format("{0:c2}").DisplayColumn("VALOR_SIN_IMPUESTOS").DataMember("VALOR_SIN_IMPUESTOS").Add(); }).Add();
-                                                    })
-                                                    .ToolbarSettings(toolbar =>
-                                                    {
-                                                        toolbar.ShowToolbar().ToolbarItems(items =>
-                                                        {
-                                                            items.AddTool(ToolBarItems.Edit);
+</div>
 
-                                                        });
+<!--FILA TOTAL-->
+<div class="row">
+    <div class="col-md-12">
+        <table class="col-md-12">
 
-                                                    }).Columns(col =>
-                                                    {
-                                                        col.Field("COD_DETALLE_FACTURA_ITEM").HeaderText("COD_DETALLE_FACTURA_ITEM").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                                                        col.Field("COD_CONTRATO_PROYECTO").Visible(false).HeaderText("COD_CONTRATO_PROYECTO").Add();
-                                                        col.Field("COD_ITEM_CONTRATO").ForeignKeyField("COD_ITEM_CONTRATO").AllowEditing(false).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().VISTA_ITEMS_CONTRATO_DESCRIPCION.ToList()).HeaderText("ITEM").EditType(EditingType.DropdownEdit).Add();
-                                                        col.Field("COD_FORMAS_PAGO_FECHAS").Visible(false).HeaderText("FORMAS PAGO FECHAS").Add();
-                                                        col.Field("VALOR_SIN_IMPUESTOS").HeaderText("VALOR SIN IMPUESTOS").Format("{0:c2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                                                        col.Field("COD_CAUSA_ESTADO").ForeignKeyField("COD_CAUSA_ESTADO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CAUSA_ESTADO.ToList()).HeaderText("CAUSA ESTADO").EditType(EditingType.DropdownEdit).Add();
-                                                        col.Field("COD_FACTURA").Visible(false).ForeignKeyField("COD_FACTURA").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().FACTURAS.ToList()).HeaderText("COD_FACTURA").EditType(EditingType.DropdownEdit).Add();
-                                                        col.Field("COD_ESTADO_DETALLE").Visible(false).ForeignKeyField("COD_ESTADO_DETALLE").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ESTADOS_DETALLE.ToList()).HeaderText("ESTADO_DETALLE").EditType(EditingType.DropdownEdit).Add();
-                                                        col.Field("COD_CONCEPTO_PSL").ForeignKeyField("COD_CONCEPTO_PSL").ForeignKeyValue("TEXTO_EN_PSL").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONCEPTOS.ToList()).HeaderText("CONCEPTO").EditType(EditingType.DropdownEdit).Add();
-                                                    }))
-        </div>
+            <tbody>
+                <tr class="fila_total">
+                    <th class="titulo_total"><b>Total</b></th>
+                    <th class="total"><span class="valor">@(ViewBag.TOTAL_FACTURA == null ? "" : Html.Raw((String)ViewBag.TOTAL_FACTURA.ToString()).ToString())</span></th>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
+
 <!--FILA BOTONES-->
 <div class="row">
     <div class="col-md-6">
@@ -106,10 +123,7 @@
     </div>
 </div>
 
-
-
-
-<script>
+<script type="text/javascript">
     //Traducción
     $(document).ready(function () {
         ej.Grid.Locale["es-CO"] = {
@@ -259,4 +273,31 @@
         });
     }
 
+    //Función que refresca la grid hijo de facturas después
+    function finalizar_accion(args) {
+        if (args.requestType == "save") {
+
+            refrescar_total();
+
+        }
+    }
+
+    //Funcion para refrescar total
+    function refrescar_total() {
+        var cod_factura =@(ViewBag.COD_FACTURA == null ? "" : Html.Raw((String)ViewBag.COD_FACTURA.ToString()).ToString());
+        var data = JSON.stringify({ COD_FACTURA: parseInt(cod_factura) });
+        var url = "../refrescar_total";
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            dataFilter: function (data) { return data; },
+            success: function (data) {
+                $('.valor').text(data.responseText);
+            }
+        });
+
+    }
 </script>

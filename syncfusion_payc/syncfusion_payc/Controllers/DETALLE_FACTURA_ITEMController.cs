@@ -2,22 +2,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-
 using System.Web.Mvc;
 using Syncfusion.JavaScript;
 using Syncfusion.JavaScript.DataSources;
 using System.Data.Entity;
 using System.Net;
-
 using syncfusion_payc.Models;
-
+using System.Data.SqlClient;
+using System.Data;
+using System.Configuration;
 using Microsoft.AspNet.Identity;
 namespace syncfusion_payc.Controllers
 {
     public class DETALLE_FACTURA_ITEMController : Controller
     {
         private test_payc_contabilidadEntities db = new test_payc_contabilidadEntities();
+        static string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection1"].ConnectionString;
 
+        #region generado tradicional scaffold
         // GET: DETALLE_FACTURA_ITEM
         public ActionResult Index()
         {
@@ -160,13 +162,9 @@ namespace syncfusion_payc.Controllers
             }
             base.Dispose(disposing);
         }
-
-		//Aca inicia syncfusion
-
-        //Traer data
-
-        
-		public ActionResult UrlAdaptor()
+        #endregion
+        //Aca inicia syncfusion
+        public ActionResult UrlAdaptor()
         {
             var DataSource2 = db.DETALLE_FACTURA_ITEM.ToList();
             ViewBag.dataSource2 = DataSource2;
@@ -258,6 +256,29 @@ namespace syncfusion_payc.Controllers
                 table.COD_CONCEPTO_PSL = param.value.COD_CONCEPTO_PSL;
             }
             db.SaveChanges();
+            try
+            {
+                string query = @"SELECT [TOTAL_FACTURA] FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS] WHERE COD_FACTURA=" + param.value.COD_FACTURA.ToString();
+                string valor_factura = "0";
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand command = new SqlCommand(query, connection);
+                    connection.Open();
+                    SqlDataReader dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        valor_factura = dr.GetValue(0).ToString();
+                    }
+                    connection.Close();
+                }
+                FACTURAS table1 = db.FACTURAS.Single(o => o.COD_FACTURA == param.value.COD_FACTURA);
+                table1.VALOR_SIN_IMPUESTOS = float.Parse(valor_factura);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+            }
             return RedirectToAction("GetOrderData");
 
         }

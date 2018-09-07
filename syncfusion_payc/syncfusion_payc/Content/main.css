@@ -629,3 +629,38 @@ th[data-p="0,0"]{
 #PivotGrid1 .e-collapse, #PivotGrid2 .e-collapse {
     display: none !important;
 }
+.total {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    text-align: right;
+    width: 50% !important;
+    float: right;
+    border-bottom-color: #C3C3C3;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-top-style: solid;
+    border-top-color: #C3C3C3;
+    border-top-width: 1px;
+    margin-bottom: 10px;
+    background-color: #FAFAFA;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.titulo_total {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    text-align: left;
+    width: 50%!important;
+    float: left;
+    border-bottom-color: #C3C3C3;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-top-style: solid;
+    border-top-color: #C3C3C3;
+    border-top-width: 1px;
+    margin-bottom: 10px;
+    background-color: #FAFAFA;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
