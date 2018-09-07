@@ -1,6 +1,6 @@
 factura <- function(cod_factura) {
     library(DBI)
-
+    options(digits = 15)
     #CONEXIÓN Y EXTRACCIÓN DE LA INFORMACIÓN DE LA BASE DE DATOS---------------
     #CONEXIÓN A LA BASE DE DATOS
 
@@ -13,7 +13,17 @@ factura <- function(cod_factura) {
     fecha <- FACTURAS$COD_FORMAS_PAGO_FECHAS
     proyecto <- FACTURAS$COD_CONTRATO_PROYECTO
     estado <- FACTURAS$COD_ESTADO_FACTURA
-    personas <- paste0("SELECT * FROM FLUJO_INGRESOS_ROL
+    personas <- paste0("SELECT     [COD_FLUJO_INGRESOS_ROL]
+                                  ,[COD_FORMAS_PAGO_FECHAS]
+                                  ,[COD_ROL]
+                                  ,[COD_CONTRATO_PROYECTO]
+                                  ,[ETAPA]
+                                  ,[VALOR_SIN_PRESTACIONES]
+                                  ,CAST([VALOR_CON_PRESTACIONES] AS float) AS VALOR_CON_PRESTACIONES
+                                  ,CAST([VALOR_FACTOR_MULTIPLICADOR] as float) AS VALOR_FACTOR_MULTIPLICADOR
+                                  ,[ESTADO]
+                                  ,[FECHA_REGISTRO]
+                                  ,[USUARIO_REGISTRO] FROM FLUJO_INGRESOS_ROL
                  WHERE COD_CONTRATO_PROYECTO=", proyecto, "
                    AND COD_FORMAS_PAGO_FECHAS=", fecha, "
                    AND ESTADO='SI'")
@@ -243,4 +253,4 @@ factura <- function(cod_factura) {
 
 
 
-factura(83)
+factura(108)

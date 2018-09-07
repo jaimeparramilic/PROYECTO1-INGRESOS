@@ -7,8 +7,8 @@
 <h4>REGISTRO DE NOVEDADES</h4>
 <div class="control-section">
 
-					@(Html.EJ().Grid<syncfusion_payc.Models.CONTRATO_PROYECTO>("Grid")
-                                                                .Datasource(ds => ds.URL("../CONTRATO_PROYECTO/GetOrderData").InsertURL("../CONTRATO_PROYECTO/PerformInsert_contrato_proyecto").UpdateURL("../CONTRATO_PROYECTO/PerformUpdate_contrato_proyecto").RemoveURL("../CONTRATO_PROYECTO/PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+					@(Html.EJ().Grid<syncfusion_payc.Models.ORDENES_SERVICIO_INDEX>("Grid")
+                                                                .Datasource(ds => ds.URL("../FlujoProyectos/GetOrderData_contrato_proyecto").InsertURL("../FlujoProyectos/PerformInsert_contrato_proyecto").UpdateURL("../FlujoProyectos/PerformUpdate_contrato_proyecto").RemoveURL("../FlujoProyectos/PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
                                                                 .AllowPaging()
                                                                 .AllowFiltering()
                                                                 .Locale("es-CO")
@@ -28,9 +28,10 @@
 
                                                                 }).Columns(col =>
                                                                 {
-                                                                    col.Field("COD_PROYECTO").ForeignKeyField("COD_PROYECTO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().PROYECTOS.ToList()).HeaderText("PROYECTO").EditType(EditingType.DropdownEdit).Add();
-                                                                    col.Field("COD_FORMA_PAGO").ForeignKeyField("COD_FORMA_PAGO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().FORMAS_PAGO.ToList()).HeaderText("FORMA PAGO").EditType(EditingType.DropdownEdit).Add();
-                                                                    col.Field("COD_CONTRATO_PROYECTO").HeaderText("CONTRATO_PROYECTO").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit);
+                                                                    col.Field("COD_CONTRATO_PROYECTO").HeaderText("CONTRATO_PROYECTO").IsPrimaryKey(true).Format("{0:n0}").EditType(EditingType.NumericEdit).Add();
+                                                                    col.Field("CENTRO_COSTOS").HeaderText("CENTRO COSTOS").Add();
+                                                                    col.Field("DESCRIPCION").HeaderText("DESCRIPCION").AllowEditing(false).AllowFiltering(true).Add();
+                                                                    
 
                                                                 }).ChildGrid(child => child
                                                                     .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
