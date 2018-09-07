@@ -243,4 +243,4 @@ factura <- function(cod_factura) {
 
 
 
-factura(76)
+factura(103)
