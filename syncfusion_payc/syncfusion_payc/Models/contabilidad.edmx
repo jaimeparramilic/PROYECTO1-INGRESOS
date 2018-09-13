@@ -284,6 +284,7 @@
           <Property Name="VALOR_SIN_IMPUESTOS" Type="real" />
           <Property Name="VALOR_CON_IMPUESTOS" Type="real" />
           <Property Name="RANKING" Type="varchar" MaxLength="50" />
+          <Property Name="COD_CONCEPTO_PSL" Type="bigint" />
         </EntityType>
         <EntityType Name="FLUJO_INGRESOS_ITEMS">
           <Key>
@@ -445,8 +446,8 @@
           <Property Name="FECHA_INICIO_NOVEDAD" Type="datetime" />
           <Property Name="FECHA_FIN_NOVEDAD" Type="datetime" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ReportsTable' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.ReportsTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ReportsTable">
           <Key>
             <PropertyRef Name="ReportName" />
@@ -554,8 +555,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ReportsTable' no 
           <Property Name="COD_TIPO_TRIBUTACION" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.COLABORADORES_CONTAR_ESTUDIOS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.COLABORADORES_CONTAR_ESTUDIOS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="COLABORADORES_CONTAR_ESTUDIOS">
           <Key>
             <PropertyRef Name="COD_COLABORADOR" />
@@ -575,8 +576,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.COLABORADORES_CON
           <Property Name="ESTADO" Type="varchar" MaxLength="20" />
           <Property Name="Estudios" Type="varchar(max)" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.COLARADORES_CONCAT_ESTUDIOS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.COLARADORES_CONCAT_ESTUDIOS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="COLARADORES_CONCAT_ESTUDIOS">
           <Key>
             <PropertyRef Name="COD_COLABORADOR" />
@@ -598,8 +599,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.COLARADORES_CONCA
           <Property Name="COD_ESTADO_COLABORADOR" Type="bigint" />
           <Property Name="Estudios" Type="varchar(max)" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATO_COLABORADOR_COMERCIAL' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.CONTRATO_COLABORADOR_COMERCIAL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CONTRATO_COLABORADOR_COMERCIAL">
           <Key>
             <PropertyRef Name="COD_CONTRATO_COLABORADOR" />
@@ -623,8 +624,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATO_COLABORA
           <Property Name="COD_CONTRATO_ROL" Type="bigint" />
           <Property Name="DESCRIPCION_CARGO" Type="varchar" MaxLength="300" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATO_COLABORADOR_INDEX' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.CONTRATO_COLABORADOR_INDEX' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CONTRATO_COLABORADOR_INDEX">
           <Key>
             <PropertyRef Name="COD_CONTRATO_PROYECTO" />
@@ -639,8 +640,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATO_COLABORA
           <Property Name="TIPO_OBRA" Type="varchar" MaxLength="300" />
           <Property Name="TIPO_SERVICIO" Type="varchar" MaxLength="300" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATO_PROYECTO_DESCRIPCION' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.CONTRATO_PROYECTO_DESCRIPCION' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CONTRATO_PROYECTO_DESCRIPCION">
           <Key>
             <PropertyRef Name="COD_CONTRATO_PROYECTO" />
@@ -652,8 +653,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATO_PROYECTO
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="622" />
           <Property Name="CENTRO_COSTOS" Type="varchar" MaxLength="300" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATO_ROL_DESCRIPCION' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.CONTRATO_ROL_DESCRIPCION' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CONTRATO_ROL_DESCRIPCION">
           <Key>
             <PropertyRef Name="COD_CONTRATO_ROL" />
@@ -673,8 +674,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATO_ROL_DESC
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
           <Property Name="TIPO_TRIBUTACION" Type="varchar" MaxLength="300" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATOS_CONDICIONES_VISTA' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.CONTRATOS_CONDICIONES_VISTA' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="CONTRATOS_CONDICIONES_VISTA">
           <Key>
             <PropertyRef Name="COD_CONTRATO_CONDICION" />
@@ -696,8 +697,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATOS_CONDICI
           <Property Name="FECHA_INCLUSION" Type="date" />
           <Property Name="FECHA_EXCLUSION" Type="date" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.DATOS_VERIFICAR_FACTURA' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.DATOS_VERIFICAR_FACTURA' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="DATOS_VERIFICAR_FACTURA">
           <Key>
             <PropertyRef Name="COD_FACTURA" />
@@ -714,8 +715,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.DATOS_VERIFICAR_F
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
           <Property Name="PERIODO_FACTURAR" Type="date" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_COLABORADORES_PENDIENTES' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.GENERACION_COLABORADORES_PENDIENTES' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="GENERACION_COLABORADORES_PENDIENTES">
           <Key>
             <PropertyRef Name="COD_CONTRATO_PROYECTO" />
@@ -725,8 +726,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_COLABO
           <Property Name="FECHA_FIN" Type="date" />
           <Property Name="FECHA_INI" Type="date" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS_ITEM' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.GENERACION_FLUJOS_ITEM' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="GENERACION_FLUJOS_ITEM">
           <Key>
             <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
@@ -742,8 +743,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS
           <Property Name="VALOR_TOTAL" Type="real" />
           <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS_ITEM2' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.GENERACION_FLUJOS_ITEM2' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="GENERACION_FLUJOS_ITEM2">
           <Key>
             <PropertyRef Name="COD_ITEM_CONTRATO" />
@@ -766,8 +767,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS
           <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" Nullable="false" />
           <Property Name="ETAPA" Type="varchar" MaxLength="11" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS_ITEM3' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.GENERACION_FLUJOS_ITEM3' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="GENERACION_FLUJOS_ITEM3">
           <Key>
             <PropertyRef Name="COD_ITEM_CONTRATO" />
@@ -790,8 +791,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS
           <Property Name="VALOR_FIJO_UNITARIO" Type="real" Nullable="false" />
           <Property Name="VALOR_TOTAL" Type="real" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS_ROL' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.GENERACION_FLUJOS_ROL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="GENERACION_FLUJOS_ROL">
           <Key>
             <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
@@ -805,8 +806,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS
           <Property Name="VALOR_MENSUAL_PRESTACIONES" Type="real" />
           <Property Name="VALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR" Type="real" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS_ROL2' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.GENERACION_FLUJOS_ROL2' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="GENERACION_FLUJOS_ROL2">
           <Key>
             <PropertyRef Name="VALOR_FACTOR_MULTIPLICADOR" />
@@ -825,8 +826,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS
           <Property Name="ETAPA" Type="varchar" MaxLength="11" Nullable="false" />
           <Property Name="FECHA_FORMA_PAGO" Type="date" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS_ROL3' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.GENERACION_FLUJOS_ROL3' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="GENERACION_FLUJOS_ROL3">
           <Key>
             <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
@@ -841,8 +842,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS
           <Property Name="VALOR_CON_PRESTACIONES" Type="real" />
           <Property Name="VALOR_FACTOR_MULTIPLICADOR" Type="real" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ITEMS_CONTRATO_DESCRIPCION' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.ITEMS_CONTRATO_DESCRIPCION' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ITEMS_CONTRATO_DESCRIPCION">
           <Key>
             <PropertyRef Name="COD_ITEM_CONTRATO" />
@@ -862,8 +863,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ITEMS_CONTRATO_DE
           <Property Name="DIAS_FRACCION" Type="bigint" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ORDEN_SERVICIO_ROLES_PERIODO' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.ORDEN_SERVICIO_ROLES_PERIODO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ORDEN_SERVICIO_ROLES_PERIODO">
           <Key>
             
@@ -883,8 +884,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ORDEN_SERVICIO_RO
           <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" Nullable="false" />
           <Property Name="FECHA_FORMA_PAGO" Type="date" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ORDENES_SERVICIO_INDEX' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.ORDENES_SERVICIO_INDEX' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ORDENES_SERVICIO_INDEX">
           <Key>
             <PropertyRef Name="COD_CONTRATO_PROYECTO" />
@@ -902,8 +903,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ORDENES_SERVICIO_
           <Property Name="CENTRO_COSTOS" Type="varchar" MaxLength="300" />
           <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="bigint" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ORDENES_SERVICIO_ROLES_COLABORADOR' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.ORDENES_SERVICIO_ROLES_COLABORADOR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ORDENES_SERVICIO_ROLES_COLABORADOR">
           <Key>
             <PropertyRef Name="COD_CONTRATO_PROYECTO" />
@@ -924,8 +925,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ORDENES_SERVICIO_
           <Property Name="NOMBRE" Type="varchar" MaxLength="300" />
           <Property Name="ROL_TEXTO" Type="varchar" MaxLength="300" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.PENDIENTES' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.PENDIENTES' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PENDIENTES">
           <Key>
             <PropertyRef Name="COD_CONTRATO_PROYECTO" />
@@ -940,8 +941,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.PENDIENTES' no ti
           <Property Name="TIPO_SERVICIO" Type="varchar" MaxLength="300" />
           <Property Name="TIPO_OBRA" Type="varchar" MaxLength="300" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.PENDIENTES_REPORTE' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.PENDIENTES_REPORTE' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PENDIENTES_REPORTE">
           <Key>
             <PropertyRef Name="COD_CONTRATO" />
@@ -956,22 +957,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.PENDIENTES_REPORT
           <Property Name="TIPO_OBRA" Type="varchar" MaxLength="300" />
           <Property Name="Expr1" Type="varchar" MaxLength="200" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.TOTAL_FACTURAS_ITEM' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="TOTAL_FACTURAS_ITEM">
-          <Property Name="COD_FACTURA" Type="bigint" />
-          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
-          <Property Name="TOTAL" Type="float" />
-        </EntityType>-->
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.TOTAL_FACTURAS_PERS' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="TOTAL_FACTURAS_PERS">
-          <Property Name="COD_FACTURA" Type="bigint" />
-          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
-          <Property Name="TOTAL" Type="float" />
-        </EntityType>-->
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_CONTRATO_PROYECTO_FACTURAS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.VISTA_CONTRATO_PROYECTO_FACTURAS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VISTA_CONTRATO_PROYECTO_FACTURAS">
           <Key>
             <PropertyRef Name="COD_CONTRATO_PROYECTO" />
@@ -982,7 +969,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_CONTRATO_PR
           <Property Name="CENTRO_COSTOS" Type="varchar" MaxLength="300" />
           <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="bigint" />
           <Property Name="COMPLETA" Type="varchar" MaxLength="100" />
-          <Property Name="DESCRIPCION" Type="varchar" MaxLength="622" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
           <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" Nullable="false" />
           <Property Name="FECHA_ULTIMA_FACTURA" Type="date" Nullable="false" />
           <Property Name="DIAS_SIN_FACTURAR" Type="int" />
@@ -991,8 +978,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_CONTRATO_PR
           <Property Name="ESTADO_ULTIMA_FACTURA" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="ESTADO_ORDEN" Type="varchar" MaxLength="300" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_CONTRATOS_ROL_DESCRIPCION' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.VISTA_CONTRATOS_ROL_DESCRIPCION' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VISTA_CONTRATOS_ROL_DESCRIPCION">
           <Key>
             <PropertyRef Name="COD_CONTRATO_ROL" />
@@ -1014,8 +1001,25 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_CONTRATOS_R
           <Property Name="DIAS_FRACCION" Type="bigint" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FLUJO_INGRESOS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.VISTA_FACTURAS_FECHA_PERIODO_FACTURACION' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VISTA_FACTURAS_FECHA_PERIODO_FACTURACION">
+          <Key>
+            <PropertyRef Name="COD_FACTURA" />
+          </Key>
+          <Property Name="COD_FACTURA" Type="bigint" Nullable="false" />
+          <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
+          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
+          <Property Name="NUMERO_FACTURA" Type="varchar" MaxLength="10" />
+          <Property Name="FECHA_FACTURA" Type="date" />
+          <Property Name="COD_ESTADO_FACTURA" Type="bigint" />
+          <Property Name="VALOR_SIN_IMPUESTOS" Type="real" />
+          <Property Name="VALOR_CON_IMPUESTOS" Type="real" />
+          <Property Name="RANKING" Type="varchar" MaxLength="50" />
+          <Property Name="FECHA_FORMA_PAGO" Type="date" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.VISTA_FLUJO_INGRESOS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VISTA_FLUJO_INGRESOS">
           <Key>
             <PropertyRef Name="COD_FLUJO_INGRESOS_ROL" />
@@ -1032,8 +1036,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FLUJO_INGRE
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
           <Property Name="ESTADO" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FLUJO_INGRESOS_ITEMS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.VISTA_FLUJO_INGRESOS_ITEMS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VISTA_FLUJO_INGRESOS_ITEMS">
           <Key>
             <PropertyRef Name="COD_FLUJO_INGRESOS_ITEMS" />
@@ -1052,8 +1056,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FLUJO_INGRE
           <Property Name="FECHA_FORMA_PAGO" Type="date" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_ITEMS_CONTRATO' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.VISTA_ITEMS_CONTRATO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VISTA_ITEMS_CONTRATO">
           <Key>
             <PropertyRef Name="COD_ITEM_CONTRATO" />
@@ -1067,8 +1071,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_ITEMS_CONTR
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
           <Property Name="COD_ITEM" Type="bigint" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_ITEMS_CONTRATO_DESCRIPCION' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.VISTA_ITEMS_CONTRATO_DESCRIPCION' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VISTA_ITEMS_CONTRATO_DESCRIPCION">
           <Key>
             <PropertyRef Name="COD_ITEM_CONTRATO" />
@@ -1088,8 +1092,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_ITEMS_CONTR
           <Property Name="DIAS_FRACCION" Type="bigint" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_ORDENES_CENTRO_COSTOS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.VISTA_ORDENES_CENTRO_COSTOS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VISTA_ORDENES_CENTRO_COSTOS">
           <Key>
             <PropertyRef Name="COD_CONTRATO_PROYECTO" />
@@ -1112,8 +1116,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_ORDENES_CEN
           <Property Name="FECHA_FIN_EJECUCION" Type="date" />
           <Property Name="ESTADO_CENTRO_COSTO" Type="varchar" MaxLength="16" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_ORDENES_ROL_CARGO' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.VISTA_ORDENES_ROL_CARGO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VISTA_ORDENES_ROL_CARGO">
           <Key>
             <PropertyRef Name="COD_CONTRATO_ROL" />
@@ -1127,8 +1131,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_ORDENES_ROL
           <Property Name="COD_CARGO" Type="bigint" />
           <Property Name="DESCRIPCION_CARGO" Type="varchar" MaxLength="300" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_FACTURA' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_FACTURA' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VISTA_PENDIENTES_FACTURA">
           <Key>
             <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
@@ -1148,8 +1152,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <Property Name="FECHA_CREACION" Type="date" />
           <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="bigint" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_RETIRO' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_RETIRO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VISTA_PENDIENTES_RETIRO">
           <Key>
             <PropertyRef Name="COD_COLABORADOR" />
@@ -1659,6 +1663,18 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
             </Principal>
             <Dependent Role="ESTUDIOS_COLABORADOR">
               <PropertyRef Name="COD_COLABORADOR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURAS_CONCEPTOS">
+          <End Role="CONCEPTOS" Type="Self.CONCEPTOS" Multiplicity="0..1" />
+          <End Role="FACTURAS" Type="Self.FACTURAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONCEPTOS">
+              <PropertyRef Name="COD_CONCEPTO_PSL" />
+            </Principal>
+            <Dependent Role="FACTURAS">
+              <PropertyRef Name="COD_CONCEPTO_PSL" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2429,6 +2445,20 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
     [VISTA_CONTRATOS_ROL_DESCRIPCION].[DESCRIPCION] AS [DESCRIPCION]
     FROM [dbo].[VISTA_CONTRATOS_ROL_DESCRIPCION] AS [VISTA_CONTRATOS_ROL_DESCRIPCION]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="VISTA_FACTURAS_FECHA_PERIODO_FACTURACION" EntityType="Self.VISTA_FACTURAS_FECHA_PERIODO_FACTURACION" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VISTA_FACTURAS_FECHA_PERIODO_FACTURACION].[COD_FACTURA] AS [COD_FACTURA], 
+    [VISTA_FACTURAS_FECHA_PERIODO_FACTURACION].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
+    [VISTA_FACTURAS_FECHA_PERIODO_FACTURACION].[COD_FORMAS_PAGO_FECHAS] AS [COD_FORMAS_PAGO_FECHAS], 
+    [VISTA_FACTURAS_FECHA_PERIODO_FACTURACION].[NUMERO_FACTURA] AS [NUMERO_FACTURA], 
+    [VISTA_FACTURAS_FECHA_PERIODO_FACTURACION].[FECHA_FACTURA] AS [FECHA_FACTURA], 
+    [VISTA_FACTURAS_FECHA_PERIODO_FACTURACION].[COD_ESTADO_FACTURA] AS [COD_ESTADO_FACTURA], 
+    [VISTA_FACTURAS_FECHA_PERIODO_FACTURACION].[VALOR_SIN_IMPUESTOS] AS [VALOR_SIN_IMPUESTOS], 
+    [VISTA_FACTURAS_FECHA_PERIODO_FACTURACION].[VALOR_CON_IMPUESTOS] AS [VALOR_CON_IMPUESTOS], 
+    [VISTA_FACTURAS_FECHA_PERIODO_FACTURACION].[RANKING] AS [RANKING], 
+    [VISTA_FACTURAS_FECHA_PERIODO_FACTURACION].[FECHA_FORMA_PAGO] AS [FECHA_FORMA_PAGO]
+    FROM [dbo].[VISTA_FACTURAS_FECHA_PERIODO_FACTURACION] AS [VISTA_FACTURAS_FECHA_PERIODO_FACTURACION]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="VISTA_FLUJO_INGRESOS" EntityType="Self.VISTA_FLUJO_INGRESOS" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [VISTA_FLUJO_INGRESOS].[COD_FLUJO_INGRESOS_ROL] AS [COD_FLUJO_INGRESOS_ROL], 
@@ -2721,6 +2751,10 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
             <End Role="COLABORADORES" EntitySet="COLABORADORES" />
             <End Role="ESTUDIOS_COLABORADOR" EntitySet="ESTUDIOS_COLABORADOR" />
           </AssociationSet>
+          <AssociationSet Name="FK_FACTURAS_CONCEPTOS" Association="Self.FK_FACTURAS_CONCEPTOS">
+            <End Role="CONCEPTOS" EntitySet="CONCEPTOS" />
+            <End Role="FACTURAS" EntitySet="FACTURAS" />
+          </AssociationSet>
           <AssociationSet Name="FK_FACTURAS_CONTRATO_PROYECTO" Association="Self.FK_FACTURAS_CONTRATO_PROYECTO">
             <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
             <End Role="FACTURAS" EntitySet="FACTURAS" />
@@ -2867,7 +2901,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <EntitySet Name="ESTADOS_DETALLE" EntityType="test_payc_contabilidadModel.ESTADOS_DETALLE" />
           <EntitySet Name="ESTADOS_ORDEN_SERVICIO" EntityType="test_payc_contabilidadModel.ESTADOS_ORDEN_SERVICIO" />
           <EntitySet Name="ESTUDIOS_COLABORADOR" EntityType="test_payc_contabilidadModel.ESTUDIOS_COLABORADOR" />
-          <EntitySet Name="FACTURAS" EntityType="test_payc_contabilidadModel.FACTURAS" />
           <EntitySet Name="FLUJO_INGRESOS_ITEMS" EntityType="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS" />
           <EntitySet Name="FLUJO_INGRESOS_ROL" EntityType="test_payc_contabilidadModel.FLUJO_INGRESOS_ROL" />
           <EntitySet Name="FORMAS_PAGO" EntityType="test_payc_contabilidadModel.FORMAS_PAGO" />
@@ -2991,10 +3024,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
             <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
             <End Role="CONTRATOS_ROL" EntitySet="CONTRATOS_ROL" />
           </AssociationSet>
-          <AssociationSet Name="FK_FACTURAS_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_FACTURAS_CONTRATO_PROYECTO">
-            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
-            <End Role="FACTURAS" EntitySet="FACTURAS" />
-          </AssociationSet>
           <AssociationSet Name="FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO">
             <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
             <End Role="FLUJO_INGRESOS_ITEMS" EntitySet="FLUJO_INGRESOS_ITEMS" />
@@ -3046,10 +3075,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <AssociationSet Name="FK_ESTADO_ORDEN_SERVICIO_ESTADO_ORDEN_SERVICIO" Association="test_payc_contabilidadModel.FK_ESTADO_ORDEN_SERVICIO_ESTADO_ORDEN_SERVICIO">
             <End Role="ESTADOS_ORDEN_SERVICIO" EntitySet="ESTADOS_ORDEN_SERVICIO" />
             <End Role="ESTADOS_ORDEN_SERVICIO1" EntitySet="ESTADOS_ORDEN_SERVICIO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FACTURAS_FORMAS_PAGO_FECHAS" Association="test_payc_contabilidadModel.FK_FACTURAS_FORMAS_PAGO_FECHAS">
-            <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
-            <End Role="FACTURAS" EntitySet="FACTURAS" />
           </AssociationSet>
           <AssociationSet Name="FK_FLUJO_INGRESOS_ITEMS_FECHAS" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_FECHAS">
             <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
@@ -3141,10 +3166,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <EntitySet Name="CONTRATO_COLABORADOR_COMERCIAL" EntityType="test_payc_contabilidadModel.CONTRATO_COLABORADOR_COMERCIAL" />
           <EntitySet Name="CONCEPTOS" EntityType="test_payc_contabilidadModel.CONCEPTOS" />
           <EntitySet Name="ESTADOS_FACTURAS" EntityType="test_payc_contabilidadModel.ESTADOS_FACTURAS" />
-          <AssociationSet Name="FK_FACTURAS_ESTADOS_FACTURAS" Association="test_payc_contabilidadModel.FK_FACTURAS_ESTADOS_FACTURAS">
-            <End Role="ESTADOS_FACTURAS" EntitySet="ESTADOS_FACTURAS" />
-            <End Role="FACTURAS" EntitySet="FACTURAS" />
-          </AssociationSet>
           <EntitySet Name="DETALLE_FACTURA_PERS" EntityType="test_payc_contabilidadModel.DETALLE_FACTURA_PERS" />
           <AssociationSet Name="FK_DETALLE_FACTURA_PERS_CAUSA_ESTADO" Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_CAUSA_ESTADO">
             <End Role="CAUSA_ESTADO" EntitySet="CAUSA_ESTADO" />
@@ -3168,10 +3189,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           </AssociationSet>
           <AssociationSet Name="FK_DETALLE_FACTURA_PERS_ESTADOS_FACTURAS" Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_ESTADOS_FACTURAS">
             <End Role="ESTADOS_FACTURAS" EntitySet="ESTADOS_FACTURAS" />
-            <End Role="DETALLE_FACTURA_PERS" EntitySet="DETALLE_FACTURA_PERS" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DETALLE_FACTURA_PERS_FACTURAS" Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_FACTURAS">
-            <End Role="FACTURAS" EntitySet="FACTURAS" />
             <End Role="DETALLE_FACTURA_PERS" EntitySet="DETALLE_FACTURA_PERS" />
           </AssociationSet>
           <AssociationSet Name="FK_DETALLE_FACTURA_PERS_FECHAS" Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_FECHAS">
@@ -3199,10 +3216,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
             <End Role="ESTADOS_FACTURAS" EntitySet="ESTADOS_FACTURAS" />
             <End Role="DETALLE_FACTURA_ITEM" EntitySet="DETALLE_FACTURA_ITEM" />
           </AssociationSet>
-          <AssociationSet Name="FK_DETALLE_FACTURA_ITEM_FACTURAS" Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FACTURAS">
-            <End Role="FACTURAS" EntitySet="FACTURAS" />
-            <End Role="DETALLE_FACTURA_ITEM" EntitySet="DETALLE_FACTURA_ITEM" />
-          </AssociationSet>
           <AssociationSet Name="FK_DETALLE_FACTURA_ITEM_FECHAS" Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FECHAS">
             <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
             <End Role="DETALLE_FACTURA_ITEM" EntitySet="DETALLE_FACTURA_ITEM" />
@@ -3211,9 +3224,35 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
             <End Role="ITEMS_CONTRATO" EntitySet="ITEMS_CONTRATO" />
             <End Role="DETALLE_FACTURA_ITEM" EntitySet="DETALLE_FACTURA_ITEM" />
           </AssociationSet>
-          <EntitySet Name="VISTA_CONTRATO_PROYECTO_FACTURAS" EntityType="test_payc_contabilidadModel.VISTA_CONTRATO_PROYECTO_FACTURAS" />
           <EntitySet Name="DATOS_VERIFICAR_FACTURA" EntityType="test_payc_contabilidadModel.DATOS_VERIFICAR_FACTURA" />
           <EntitySet Name="ITEMS_CONTRATO_DESCRIPCION" EntityType="test_payc_contabilidadModel.ITEMS_CONTRATO_DESCRIPCION" />
+          <EntitySet Name="FACTURAS" EntityType="test_payc_contabilidadModel.FACTURAS" />
+          <AssociationSet Name="FK_FACTURAS_CONCEPTOS" Association="test_payc_contabilidadModel.FK_FACTURAS_CONCEPTOS">
+            <End Role="CONCEPTOS" EntitySet="CONCEPTOS" />
+            <End Role="FACTURAS" EntitySet="FACTURAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURAS_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_FACTURAS_CONTRATO_PROYECTO">
+            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+            <End Role="FACTURAS" EntitySet="FACTURAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLE_FACTURA_ITEM_FACTURAS" Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FACTURAS">
+            <End Role="FACTURAS" EntitySet="FACTURAS" />
+            <End Role="DETALLE_FACTURA_ITEM" EntitySet="DETALLE_FACTURA_ITEM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLE_FACTURA_PERS_FACTURAS" Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_FACTURAS">
+            <End Role="FACTURAS" EntitySet="FACTURAS" />
+            <End Role="DETALLE_FACTURA_PERS" EntitySet="DETALLE_FACTURA_PERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURAS_ESTADOS_FACTURAS" Association="test_payc_contabilidadModel.FK_FACTURAS_ESTADOS_FACTURAS">
+            <End Role="ESTADOS_FACTURAS" EntitySet="ESTADOS_FACTURAS" />
+            <End Role="FACTURAS" EntitySet="FACTURAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURAS_FORMAS_PAGO_FECHAS" Association="test_payc_contabilidadModel.FK_FACTURAS_FORMAS_PAGO_FECHAS">
+            <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
+            <End Role="FACTURAS" EntitySet="FACTURAS" />
+          </AssociationSet>
+          <EntitySet Name="VISTA_CONTRATO_PROYECTO_FACTURAS" EntityType="test_payc_contabilidadModel.VISTA_CONTRATO_PROYECTO_FACTURAS" />
+          <EntitySet Name="VISTA_FACTURAS_FECHA_PERIODO_FACTURACION" EntityType="test_payc_contabilidadModel.VISTA_FACTURAS_FECHA_PERIODO_FACTURACION" />
         </EntityContainer>
         <EntityType Name="CARGOS">
           <Key>
@@ -3357,7 +3396,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <NavigationProperty Name="PROYECTOS" Relationship="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_PROYECTOS" FromRole="CONTRATO_PROYECTO" ToRole="PROYECTOS" />
           <NavigationProperty Name="CONTRATOS_CONDICIONES" Relationship="test_payc_contabilidadModel.FK_CONTRATOS_CONDICIONES_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="CONTRATOS_CONDICIONES" />
           <NavigationProperty Name="CONTRATOS_ROL" Relationship="test_payc_contabilidadModel.FK_CONTRATOS_ROL_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="CONTRATOS_ROL" />
-          <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_FACTURAS_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="FACTURAS" />
           <NavigationProperty Name="FLUJO_INGRESOS_ITEMS" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="FLUJO_INGRESOS_ITEMS" />
           <NavigationProperty Name="FLUJO_INGRESOS_ROL" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="FLUJO_INGRESOS_ROL" />
           <NavigationProperty Name="INCREMENTO_ORDEN" Relationship="test_payc_contabilidadModel.FK_INCREMENTO_ORDEN_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="INCREMENTO_ORDEN" />
@@ -3368,6 +3406,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <NavigationProperty Name="TAG_ORDEN" Relationship="test_payc_contabilidadModel.FK_TAG_ORDEN_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="TAG_ORDEN" />
           <NavigationProperty Name="DETALLE_FACTURA_PERS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="DETALLE_FACTURA_PERS" />
           <NavigationProperty Name="DETALLE_FACTURA_ITEM" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="DETALLE_FACTURA_ITEM" />
+          <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_FACTURAS_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="FACTURAS" />
         </EntityType>
         <EntityType Name="CONTRATO_ROL_CARGO">
           <Key>
@@ -3492,25 +3531,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <Property Name="INSTITUCION_GRADO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="COLABORADORES" Relationship="test_payc_contabilidadModel.FK_ESTUDIOS_COLABORADOR_COLABORADORES" FromRole="ESTUDIOS_COLABORADOR" ToRole="COLABORADORES" />
         </EntityType>
-        <EntityType Name="FACTURAS">
-          <Key>
-            <PropertyRef Name="COD_FACTURA" />
-          </Key>
-          <Property Name="COD_FACTURA" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
-          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
-          <Property Name="NUMERO_FACTURA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="FECHA_FACTURA" Type="DateTime" Precision="0" />
-          <Property Name="COD_ESTADO_FACTURA" Type="Int64" />
-          <Property Name="VALOR_SIN_IMPUESTOS" Type="Single" />
-          <Property Name="VALOR_CON_IMPUESTOS" Type="Single" />
-          <Property Name="RANKING" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_FACTURAS_CONTRATO_PROYECTO" FromRole="FACTURAS" ToRole="CONTRATO_PROYECTO" />
-          <NavigationProperty Name="FORMAS_PAGO_FECHAS" Relationship="test_payc_contabilidadModel.FK_FACTURAS_FORMAS_PAGO_FECHAS" FromRole="FACTURAS" ToRole="FORMAS_PAGO_FECHAS" />
-          <NavigationProperty Name="ESTADOS_FACTURAS" Relationship="test_payc_contabilidadModel.FK_FACTURAS_ESTADOS_FACTURAS" FromRole="FACTURAS" ToRole="ESTADOS_FACTURAS" />
-          <NavigationProperty Name="DETALLE_FACTURA_PERS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_FACTURAS" FromRole="FACTURAS" ToRole="DETALLE_FACTURA_PERS" />
-          <NavigationProperty Name="DETALLE_FACTURA_ITEM" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FACTURAS" FromRole="FACTURAS" ToRole="DETALLE_FACTURA_ITEM" />
-        </EntityType>
         <EntityType Name="FLUJO_INGRESOS_ITEMS">
           <Key>
             <PropertyRef Name="COD_FLUJO_INGRESOS_ITEMS" />
@@ -3566,7 +3586,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <Property Name="FECHA_INICIO" Type="DateTime" Precision="0" />
           <Property Name="FECHA_FIN" Type="DateTime" Precision="0" />
           <Property Name="PERIODO_TEXTO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_FACTURAS_FORMAS_PAGO_FECHAS" FromRole="FORMAS_PAGO_FECHAS" ToRole="FACTURAS" />
           <NavigationProperty Name="FLUJO_INGRESOS_ITEMS" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_FECHAS" FromRole="FORMAS_PAGO_FECHAS" ToRole="FLUJO_INGRESOS_ITEMS" />
           <NavigationProperty Name="FORMAS_PAGO" Relationship="test_payc_contabilidadModel.FK_FORMAS_PAGO_FECHAS_FORMA_PAGO" FromRole="FORMAS_PAGO_FECHAS" ToRole="FORMAS_PAGO" />
           <NavigationProperty Name="INCREMENTO_SALARIAL" Relationship="test_payc_contabilidadModel.FK_INCREMENTO_SALARIAL_FORMAS_PAGO_FECHAS" FromRole="FORMAS_PAGO_FECHAS" ToRole="INCREMENTO_SALARIAL" />
@@ -3574,6 +3593,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <NavigationProperty Name="REGISTRO_NOVEDADES" Relationship="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_FORMAS_PAGO_FECHAS" FromRole="FORMAS_PAGO_FECHAS" ToRole="REGISTRO_NOVEDADES" />
           <NavigationProperty Name="DETALLE_FACTURA_PERS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_FECHAS" FromRole="FORMAS_PAGO_FECHAS" ToRole="DETALLE_FACTURA_PERS" />
           <NavigationProperty Name="DETALLE_FACTURA_ITEM" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FECHAS" FromRole="FORMAS_PAGO_FECHAS" ToRole="DETALLE_FACTURA_ITEM" />
+          <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_FACTURAS_FORMAS_PAGO_FECHAS" FromRole="FORMAS_PAGO_FECHAS" ToRole="FACTURAS" />
         </EntityType>
         <EntityType Name="GENEROS">
           <Key>
@@ -4120,18 +4140,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FACTURAS_CONTRATO_PROYECTO">
-          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.FACTURAS" Role="FACTURAS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CONTRATO_PROYECTO">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Principal>
-            <Dependent Role="FACTURAS">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO">
           <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
           <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS" Role="FLUJO_INGRESOS_ITEMS" Multiplicity="*" />
@@ -4285,18 +4293,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
             </Principal>
             <Dependent Role="ESTADOS_ORDEN_SERVICIO1">
               <PropertyRef Name="COD_ESTADO_ORDEN_SERVICIO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FACTURAS_FORMAS_PAGO_FECHAS">
-          <End Type="test_payc_contabilidadModel.FORMAS_PAGO_FECHAS" Role="FORMAS_PAGO_FECHAS" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.FACTURAS" Role="FACTURAS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FORMAS_PAGO_FECHAS">
-              <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
-            </Principal>
-            <Dependent Role="FACTURAS">
-              <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4973,6 +4969,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <Property Name="TEXTO_EN_PSL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="DETALLE_FACTURA_PERS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_CONCEPTOS" FromRole="CONCEPTOS" ToRole="DETALLE_FACTURA_PERS" />
           <NavigationProperty Name="DETALLE_FACTURA_ITEM" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_CONCEPTOS" FromRole="CONCEPTOS" ToRole="DETALLE_FACTURA_ITEM" />
+          <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_FACTURAS_CONCEPTOS" FromRole="CONCEPTOS" ToRole="FACTURAS" />
         </EntityType>
         <EntityType Name="ESTADOS_FACTURAS">
           <Key>
@@ -4980,22 +4977,10 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           </Key>
           <Property Name="COD_ESTADO_FACTURA" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_FACTURAS_ESTADOS_FACTURAS" FromRole="ESTADOS_FACTURAS" ToRole="FACTURAS" />
           <NavigationProperty Name="DETALLE_FACTURA_PERS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_ESTADOS_FACTURAS" FromRole="ESTADOS_FACTURAS" ToRole="DETALLE_FACTURA_PERS" />
           <NavigationProperty Name="DETALLE_FACTURA_ITEM" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_ESTADOS_FACTURAS" FromRole="ESTADOS_FACTURAS" ToRole="DETALLE_FACTURA_ITEM" />
+          <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_FACTURAS_ESTADOS_FACTURAS" FromRole="ESTADOS_FACTURAS" ToRole="FACTURAS" />
         </EntityType>
-        <Association Name="FK_FACTURAS_ESTADOS_FACTURAS">
-          <End Type="test_payc_contabilidadModel.ESTADOS_FACTURAS" Role="ESTADOS_FACTURAS" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.FACTURAS" Role="FACTURAS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ESTADOS_FACTURAS">
-              <PropertyRef Name="COD_ESTADO_FACTURA" />
-            </Principal>
-            <Dependent Role="FACTURAS">
-              <PropertyRef Name="COD_ESTADO_FACTURA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="DETALLE_FACTURA_PERS">
           <Key>
             <PropertyRef Name="COD_DETALLE_FACTURA_PERS" />
@@ -5019,8 +5004,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <NavigationProperty Name="ROLES" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_COLABORADOR" FromRole="DETALLE_FACTURA_PERS" ToRole="ROLES" />
           <NavigationProperty Name="ESTADOS_DETALLE" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_ESTADO_DETALLE" FromRole="DETALLE_FACTURA_PERS" ToRole="ESTADOS_DETALLE" />
           <NavigationProperty Name="ESTADOS_FACTURAS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_ESTADOS_FACTURAS" FromRole="DETALLE_FACTURA_PERS" ToRole="ESTADOS_FACTURAS" />
-          <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_FACTURAS" FromRole="DETALLE_FACTURA_PERS" ToRole="FACTURAS" />
           <NavigationProperty Name="FORMAS_PAGO_FECHAS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_FECHAS" FromRole="DETALLE_FACTURA_PERS" ToRole="FORMAS_PAGO_FECHAS" />
+          <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_FACTURAS" FromRole="DETALLE_FACTURA_PERS" ToRole="FACTURAS" />
         </EntityType>
         <Association Name="FK_DETALLE_FACTURA_PERS_CAUSA_ESTADO">
           <End Type="test_payc_contabilidadModel.CAUSA_ESTADO" Role="CAUSA_ESTADO" Multiplicity="0..1" />
@@ -5094,18 +5079,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DETALLE_FACTURA_PERS_FACTURAS">
-          <End Type="test_payc_contabilidadModel.FACTURAS" Role="FACTURAS" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.DETALLE_FACTURA_PERS" Role="DETALLE_FACTURA_PERS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FACTURAS">
-              <PropertyRef Name="COD_FACTURA" />
-            </Principal>
-            <Dependent Role="DETALLE_FACTURA_PERS">
-              <PropertyRef Name="COD_FACTURA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DETALLE_FACTURA_PERS_FECHAS">
           <End Type="test_payc_contabilidadModel.FORMAS_PAGO_FECHAS" Role="FORMAS_PAGO_FECHAS" Multiplicity="0..1" />
           <End Type="test_payc_contabilidadModel.DETALLE_FACTURA_PERS" Role="DETALLE_FACTURA_PERS" Multiplicity="*" />
@@ -5140,9 +5113,9 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_CONTRATO_PROYECTO" FromRole="DETALLE_FACTURA_ITEM" ToRole="CONTRATO_PROYECTO" />
           <NavigationProperty Name="ESTADOS_DETALLE" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_ESTADO_DETALLE" FromRole="DETALLE_FACTURA_ITEM" ToRole="ESTADOS_DETALLE" />
           <NavigationProperty Name="ESTADOS_FACTURAS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_ESTADOS_FACTURAS" FromRole="DETALLE_FACTURA_ITEM" ToRole="ESTADOS_FACTURAS" />
-          <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FACTURAS" FromRole="DETALLE_FACTURA_ITEM" ToRole="FACTURAS" />
           <NavigationProperty Name="FORMAS_PAGO_FECHAS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FECHAS" FromRole="DETALLE_FACTURA_ITEM" ToRole="FORMAS_PAGO_FECHAS" />
           <NavigationProperty Name="ITEMS_CONTRATO" Relationship="test_payc_contabilidadModel.FK_detalle_factura_item_items" FromRole="DETALLE_FACTURA_ITEM" ToRole="ITEMS_CONTRATO" />
+          <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FACTURAS" FromRole="DETALLE_FACTURA_ITEM" ToRole="FACTURAS" />
         </EntityType>
         <Association Name="FK_DETALLE_FACTURA_ITEM_CAUSA_ESTADO">
           <End Type="test_payc_contabilidadModel.CAUSA_ESTADO" Role="CAUSA_ESTADO" Multiplicity="0..1" />
@@ -5204,18 +5177,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DETALLE_FACTURA_ITEM_FACTURAS">
-          <End Type="test_payc_contabilidadModel.FACTURAS" Role="FACTURAS" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.DETALLE_FACTURA_ITEM" Role="DETALLE_FACTURA_ITEM" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FACTURAS">
-              <PropertyRef Name="COD_FACTURA" />
-            </Principal>
-            <Dependent Role="DETALLE_FACTURA_ITEM">
-              <PropertyRef Name="COD_FACTURA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DETALLE_FACTURA_ITEM_FECHAS">
           <End Type="test_payc_contabilidadModel.FORMAS_PAGO_FECHAS" Role="FORMAS_PAGO_FECHAS" Multiplicity="0..1" />
           <End Type="test_payc_contabilidadModel.DETALLE_FACTURA_ITEM" Role="DETALLE_FACTURA_ITEM" Multiplicity="*" />
@@ -5240,25 +5201,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="VISTA_CONTRATO_PROYECTO_FACTURAS">
-          <Key>
-            <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            <PropertyRef Name="FECHA_ULTIMA_FACTURA" />
-            <PropertyRef Name="FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO" />
-            <PropertyRef Name="ESTADO_ULTIMA_FACTURA" />
-          </Key>
-          <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="Int64" />
-          <Property Name="COMPLETA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="DESCRIPCION" Type="String" MaxLength="622" FixedLength="false" Unicode="false" />
-          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" />
-          <Property Name="FECHA_ULTIMA_FACTURA" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="DIAS_SIN_FACTURAR" Type="Int32" />
-          <Property Name="MESES_SIN_FACTURAR" Type="Int32" />
-          <Property Name="FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ESTADO_ULTIMA_FACTURA" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="ESTADO_ORDEN" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="DATOS_VERIFICAR_FACTURA">
           <Key>
             <PropertyRef Name="COD_FACTURA" />
@@ -5293,6 +5235,133 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
           <Property Name="COD_TIPO_REEMBOLSO" Type="Int64" />
           <Property Name="DIAS_FRACCION" Type="Int64" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="FACTURAS">
+          <Key>
+            <PropertyRef Name="COD_FACTURA" />
+          </Key>
+          <Property Name="COD_FACTURA" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
+          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
+          <Property Name="NUMERO_FACTURA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_FACTURA" Type="DateTime" Precision="0" />
+          <Property Name="COD_ESTADO_FACTURA" Type="Int64" />
+          <Property Name="VALOR_SIN_IMPUESTOS" Type="Single" />
+          <Property Name="VALOR_CON_IMPUESTOS" Type="Single" />
+          <Property Name="RANKING" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="COD_CONCEPTO_PSL" Type="Int64" />
+          <NavigationProperty Name="CONCEPTOS" Relationship="test_payc_contabilidadModel.FK_FACTURAS_CONCEPTOS" FromRole="FACTURAS" ToRole="CONCEPTOS" />
+          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_FACTURAS_CONTRATO_PROYECTO" FromRole="FACTURAS" ToRole="CONTRATO_PROYECTO" />
+          <NavigationProperty Name="DETALLE_FACTURA_ITEM" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FACTURAS" FromRole="FACTURAS" ToRole="DETALLE_FACTURA_ITEM" />
+          <NavigationProperty Name="DETALLE_FACTURA_PERS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_FACTURAS" FromRole="FACTURAS" ToRole="DETALLE_FACTURA_PERS" />
+          <NavigationProperty Name="ESTADOS_FACTURAS" Relationship="test_payc_contabilidadModel.FK_FACTURAS_ESTADOS_FACTURAS" FromRole="FACTURAS" ToRole="ESTADOS_FACTURAS" />
+          <NavigationProperty Name="FORMAS_PAGO_FECHAS" Relationship="test_payc_contabilidadModel.FK_FACTURAS_FORMAS_PAGO_FECHAS" FromRole="FACTURAS" ToRole="FORMAS_PAGO_FECHAS" />
+        </EntityType>
+        <Association Name="FK_FACTURAS_CONCEPTOS">
+          <End Type="test_payc_contabilidadModel.CONCEPTOS" Role="CONCEPTOS" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.FACTURAS" Role="FACTURAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONCEPTOS">
+              <PropertyRef Name="COD_CONCEPTO_PSL" />
+            </Principal>
+            <Dependent Role="FACTURAS">
+              <PropertyRef Name="COD_CONCEPTO_PSL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURAS_CONTRATO_PROYECTO">
+          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.FACTURAS" Role="FACTURAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTRATO_PROYECTO">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Principal>
+            <Dependent Role="FACTURAS">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE_FACTURA_ITEM_FACTURAS">
+          <End Type="test_payc_contabilidadModel.FACTURAS" Role="FACTURAS" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.DETALLE_FACTURA_ITEM" Role="DETALLE_FACTURA_ITEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FACTURAS">
+              <PropertyRef Name="COD_FACTURA" />
+            </Principal>
+            <Dependent Role="DETALLE_FACTURA_ITEM">
+              <PropertyRef Name="COD_FACTURA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE_FACTURA_PERS_FACTURAS">
+          <End Type="test_payc_contabilidadModel.FACTURAS" Role="FACTURAS" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.DETALLE_FACTURA_PERS" Role="DETALLE_FACTURA_PERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FACTURAS">
+              <PropertyRef Name="COD_FACTURA" />
+            </Principal>
+            <Dependent Role="DETALLE_FACTURA_PERS">
+              <PropertyRef Name="COD_FACTURA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURAS_ESTADOS_FACTURAS">
+          <End Type="test_payc_contabilidadModel.ESTADOS_FACTURAS" Role="ESTADOS_FACTURAS" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.FACTURAS" Role="FACTURAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESTADOS_FACTURAS">
+              <PropertyRef Name="COD_ESTADO_FACTURA" />
+            </Principal>
+            <Dependent Role="FACTURAS">
+              <PropertyRef Name="COD_ESTADO_FACTURA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURAS_FORMAS_PAGO_FECHAS">
+          <End Type="test_payc_contabilidadModel.FORMAS_PAGO_FECHAS" Role="FORMAS_PAGO_FECHAS" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.FACTURAS" Role="FACTURAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FORMAS_PAGO_FECHAS">
+              <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+            </Principal>
+            <Dependent Role="FACTURAS">
+              <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="VISTA_CONTRATO_PROYECTO_FACTURAS">
+          <Key>
+            <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            <PropertyRef Name="FECHA_ULTIMA_FACTURA" />
+            <PropertyRef Name="FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO" />
+            <PropertyRef Name="ESTADO_ULTIMA_FACTURA" />
+          </Key>
+          <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="Int64" />
+          <Property Name="COMPLETA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" />
+          <Property Name="FECHA_ULTIMA_FACTURA" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DIAS_SIN_FACTURAR" Type="Int32" />
+          <Property Name="MESES_SIN_FACTURAR" Type="Int32" />
+          <Property Name="FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ESTADO_ULTIMA_FACTURA" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO_ORDEN" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="VISTA_FACTURAS_FECHA_PERIODO_FACTURACION">
+          <Key>
+            <PropertyRef Name="COD_FACTURA" />
+          </Key>
+          <Property Name="COD_FACTURA" Type="Int64" Nullable="false" />
+          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
+          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
+          <Property Name="NUMERO_FACTURA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_FACTURA" Type="DateTime" Precision="0" />
+          <Property Name="COD_ESTADO_FACTURA" Type="Int64" />
+          <Property Name="VALOR_SIN_IMPUESTOS" Type="Single" />
+          <Property Name="VALOR_CON_IMPUESTOS" Type="Single" />
+          <Property Name="RANKING" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_FORMA_PAGO" Type="DateTime" Precision="0" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -5532,21 +5601,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
                 <ScalarProperty Name="NIVEL_ESTUDIO" ColumnName="NIVEL_ESTUDIO" />
                 <ScalarProperty Name="COD_COLABORADOR" ColumnName="COD_COLABORADOR" />
                 <ScalarProperty Name="COD_ESTUDIOS" ColumnName="COD_ESTUDIOS" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FACTURAS">
-            <EntityTypeMapping TypeName="test_payc_contabilidadModel.FACTURAS">
-              <MappingFragment StoreEntitySet="FACTURAS">
-                <ScalarProperty Name="RANKING" ColumnName="RANKING" />
-                <ScalarProperty Name="VALOR_CON_IMPUESTOS" ColumnName="VALOR_CON_IMPUESTOS" />
-                <ScalarProperty Name="VALOR_SIN_IMPUESTOS" ColumnName="VALOR_SIN_IMPUESTOS" />
-                <ScalarProperty Name="COD_ESTADO_FACTURA" ColumnName="COD_ESTADO_FACTURA" />
-                <ScalarProperty Name="FECHA_FACTURA" ColumnName="FECHA_FACTURA" />
-                <ScalarProperty Name="NUMERO_FACTURA" ColumnName="NUMERO_FACTURA" />
-                <ScalarProperty Name="COD_FORMAS_PAGO_FECHAS" ColumnName="COD_FORMAS_PAGO_FECHAS" />
-                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
-                <ScalarProperty Name="COD_FACTURA" ColumnName="COD_FACTURA" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -6380,23 +6434,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="VISTA_CONTRATO_PROYECTO_FACTURAS">
-            <EntityTypeMapping TypeName="test_payc_contabilidadModel.VISTA_CONTRATO_PROYECTO_FACTURAS">
-              <MappingFragment StoreEntitySet="VISTA_CONTRATO_PROYECTO_FACTURAS">
-                <ScalarProperty Name="ESTADO_ORDEN" ColumnName="ESTADO_ORDEN" />
-                <ScalarProperty Name="ESTADO_ULTIMA_FACTURA" ColumnName="ESTADO_ULTIMA_FACTURA" />
-                <ScalarProperty Name="FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO" ColumnName="FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO" />
-                <ScalarProperty Name="MESES_SIN_FACTURAR" ColumnName="MESES_SIN_FACTURAR" />
-                <ScalarProperty Name="DIAS_SIN_FACTURAR" ColumnName="DIAS_SIN_FACTURAR" />
-                <ScalarProperty Name="FECHA_ULTIMA_FACTURA" ColumnName="FECHA_ULTIMA_FACTURA" />
-                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
-                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
-                <ScalarProperty Name="COMPLETA" ColumnName="COMPLETA" />
-                <ScalarProperty Name="COD_ESTADO_ORDEN_SERVICIO" ColumnName="COD_ESTADO_ORDEN_SERVICIO" />
-                <ScalarProperty Name="CENTRO_COSTOS" ColumnName="CENTRO_COSTOS" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="DATOS_VERIFICAR_FACTURA">
             <EntityTypeMapping TypeName="test_payc_contabilidadModel.DATOS_VERIFICAR_FACTURA">
               <MappingFragment StoreEntitySet="DATOS_VERIFICAR_FACTURA">
@@ -6431,6 +6468,55 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
                 <ScalarProperty Name="COD_ITEM" ColumnName="COD_ITEM" />
                 <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
                 <ScalarProperty Name="COD_ITEM_CONTRATO" ColumnName="COD_ITEM_CONTRATO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FACTURAS">
+            <EntityTypeMapping TypeName="test_payc_contabilidadModel.FACTURAS">
+              <MappingFragment StoreEntitySet="FACTURAS">
+                <ScalarProperty Name="COD_CONCEPTO_PSL" ColumnName="COD_CONCEPTO_PSL" />
+                <ScalarProperty Name="RANKING" ColumnName="RANKING" />
+                <ScalarProperty Name="VALOR_CON_IMPUESTOS" ColumnName="VALOR_CON_IMPUESTOS" />
+                <ScalarProperty Name="VALOR_SIN_IMPUESTOS" ColumnName="VALOR_SIN_IMPUESTOS" />
+                <ScalarProperty Name="COD_ESTADO_FACTURA" ColumnName="COD_ESTADO_FACTURA" />
+                <ScalarProperty Name="FECHA_FACTURA" ColumnName="FECHA_FACTURA" />
+                <ScalarProperty Name="NUMERO_FACTURA" ColumnName="NUMERO_FACTURA" />
+                <ScalarProperty Name="COD_FORMAS_PAGO_FECHAS" ColumnName="COD_FORMAS_PAGO_FECHAS" />
+                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
+                <ScalarProperty Name="COD_FACTURA" ColumnName="COD_FACTURA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VISTA_CONTRATO_PROYECTO_FACTURAS">
+            <EntityTypeMapping TypeName="test_payc_contabilidadModel.VISTA_CONTRATO_PROYECTO_FACTURAS">
+              <MappingFragment StoreEntitySet="VISTA_CONTRATO_PROYECTO_FACTURAS">
+                <ScalarProperty Name="ESTADO_ORDEN" ColumnName="ESTADO_ORDEN" />
+                <ScalarProperty Name="ESTADO_ULTIMA_FACTURA" ColumnName="ESTADO_ULTIMA_FACTURA" />
+                <ScalarProperty Name="FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO" ColumnName="FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO" />
+                <ScalarProperty Name="MESES_SIN_FACTURAR" ColumnName="MESES_SIN_FACTURAR" />
+                <ScalarProperty Name="DIAS_SIN_FACTURAR" ColumnName="DIAS_SIN_FACTURAR" />
+                <ScalarProperty Name="FECHA_ULTIMA_FACTURA" ColumnName="FECHA_ULTIMA_FACTURA" />
+                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="COMPLETA" ColumnName="COMPLETA" />
+                <ScalarProperty Name="COD_ESTADO_ORDEN_SERVICIO" ColumnName="COD_ESTADO_ORDEN_SERVICIO" />
+                <ScalarProperty Name="CENTRO_COSTOS" ColumnName="CENTRO_COSTOS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VISTA_FACTURAS_FECHA_PERIODO_FACTURACION">
+            <EntityTypeMapping TypeName="test_payc_contabilidadModel.VISTA_FACTURAS_FECHA_PERIODO_FACTURACION">
+              <MappingFragment StoreEntitySet="VISTA_FACTURAS_FECHA_PERIODO_FACTURACION">
+                <ScalarProperty Name="FECHA_FORMA_PAGO" ColumnName="FECHA_FORMA_PAGO" />
+                <ScalarProperty Name="RANKING" ColumnName="RANKING" />
+                <ScalarProperty Name="VALOR_CON_IMPUESTOS" ColumnName="VALOR_CON_IMPUESTOS" />
+                <ScalarProperty Name="VALOR_SIN_IMPUESTOS" ColumnName="VALOR_SIN_IMPUESTOS" />
+                <ScalarProperty Name="COD_ESTADO_FACTURA" ColumnName="COD_ESTADO_FACTURA" />
+                <ScalarProperty Name="FECHA_FACTURA" ColumnName="FECHA_FACTURA" />
+                <ScalarProperty Name="NUMERO_FACTURA" ColumnName="NUMERO_FACTURA" />
+                <ScalarProperty Name="COD_FORMAS_PAGO_FECHAS" ColumnName="COD_FORMAS_PAGO_FECHAS" />
+                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
+                <ScalarProperty Name="COD_FACTURA" ColumnName="COD_FACTURA" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

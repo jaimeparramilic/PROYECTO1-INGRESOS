@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d9d32a8db5f3424fb71f25fe58108d34" Name="Diagram1" ZoomLevel="63">
+      <Diagram DiagramId="d9d32a8db5f3424fb71f25fe58108d34" Name="Diagram1" ZoomLevel="72">
         <EntityTypeShape EntityType="test_payc_contabilidadModel.CARGOS" Width="1.5" PointX="5.25" PointY="20.5" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.CARTERA" Width="1.5" PointX="10.5" PointY="24.375" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.CAUSA_ESTADO" Width="1.5" PointX="8.25" PointY="43.5" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.CENTROS_COSTOS" Width="1.5" PointX="3" PointY="0.875" />
-        <EntityTypeShape EntityType="test_payc_contabilidadModel.CLIENTES" Width="1.5" PointX="1.5" PointY="42.5" />
+        <EntityTypeShape EntityType="test_payc_contabilidadModel.CLIENTES" Width="1.5" PointX="2.625" PointY="42.625" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.COLABORADORES" Width="1.5" PointX="8.25" PointY="13.75" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.COMPROMISOS_ENTREGABLES" Width="1.5" PointX="12.75" PointY="28.25" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.COMPROMISOS_PAGOS" Width="1.5" PointX="12.75" PointY="15.5" />
@@ -25,7 +25,6 @@
         <EntityTypeShape EntityType="test_payc_contabilidadModel.ESTADOS_DETALLE" Width="1.5" PointX="8.25" PointY="22" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.ESTADOS_ORDEN_SERVICIO" Width="1.5" PointX="0.75" PointY="24.625" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.ESTUDIOS_COLABORADOR" Width="1.5" PointX="10.5" PointY="18.625" />
-        <EntityTypeShape EntityType="test_payc_contabilidadModel.FACTURAS" Width="1.5" PointX="8.25" PointY="38.625" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS" Width="1.5" PointX="13.5" PointY="32.625" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.FLUJO_INGRESOS_ROL" Width="1.5" PointX="5.25" PointY="43.5" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.FORMAS_PAGO" Width="1.5" PointX="0.75" PointY="29.625" />
@@ -77,7 +76,6 @@
         <AssociationConnector Association="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_PROYECTOS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_CONTRATOS_CONDICIONES_CONTRATO_PROYECTO" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_CONTRATOS_ROL_CONTRATO_PROYECTO" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_FACTURAS_CONTRATO_PROYECTO" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_INCREMENTO_ORDEN_CONTRATO_PROYECTO" />
@@ -91,7 +89,6 @@
         <AssociationConnector Association="test_payc_contabilidadModel.FK_ENTREGABLES_CONTRATOS_CONDICIONES" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_CONTRATO_ROL_ROL" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_ESTADO_ORDEN_SERVICIO_ESTADO_ORDEN_SERVICIO" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_FACTURAS_FORMAS_PAGO_FECHAS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_FECHAS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ITEMS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_FORMAS_PAGO_FECHAS_FORMA_PAGO" />
@@ -135,9 +132,8 @@
         <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_CONTRATOS_ROL_DESCRIPCION" Width="1.5" PointX="21.375" PointY="10.75" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_ORDENES_ROL_CARGO" Width="1.5" PointX="21.375" PointY="15.75" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.CONTRATO_COLABORADOR_COMERCIAL" Width="1.5" PointX="21.375" PointY="19.75" />
-        <EntityTypeShape EntityType="test_payc_contabilidadModel.CONCEPTOS" Width="1.5" PointX="1" PointY="45.375" />
+        <EntityTypeShape EntityType="test_payc_contabilidadModel.CONCEPTOS" Width="1.5" PointX="3.125" PointY="45.375" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.ESTADOS_FACTURAS" Width="1.5" PointX="0.75" PointY="42.375" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_FACTURAS_ESTADOS_FACTURAS" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.DETALLE_FACTURA_PERS" Width="1.5" PointX="13.5" PointY="37.125" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_CAUSA_ESTADO" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_CONCEPTOS" />
@@ -145,7 +141,6 @@
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_COLABORADOR" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_ESTADO_DETALLE" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_ESTADOS_FACTURAS" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_FACTURAS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_FECHAS" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.DETALLE_FACTURA_ITEM" Width="1.5" PointX="16.5" PointY="33.125" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_CAUSA_ESTADO" />
@@ -153,12 +148,19 @@
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_CONTRATO_PROYECTO" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_ESTADO_DETALLE" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_ESTADOS_FACTURAS" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FACTURAS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FECHAS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_detalle_factura_item_items" />
-        <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_CONTRATO_PROYECTO_FACTURAS" Width="1.5" PointX="18.375" PointY="22.75" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.DATOS_VERIFICAR_FACTURA" Width="1.5" PointX="23.375" PointY="0.75" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.ITEMS_CONTRATO_DESCRIPCION" Width="1.5" PointX="23.375" PointY="4.75" />
+        <EntityTypeShape EntityType="test_payc_contabilidadModel.FACTURAS" Width="1.5" PointX="14.375" PointY="43.375" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_FACTURAS_CONCEPTOS" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_FACTURAS_CONTRATO_PROYECTO" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FACTURAS" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_FACTURAS" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_FACTURAS_ESTADOS_FACTURAS" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_FACTURAS_FORMAS_PAGO_FECHAS" />
+        <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_CONTRATO_PROYECTO_FACTURAS" Width="1.5" PointX="18.375" PointY="22.75" />
+        <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_FACTURAS_FECHA_PERIODO_FACTURACION" Width="1.5" PointX="23.375" PointY="9.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
