@@ -500,6 +500,9 @@
     <Compile Include="Models\VISTA_CONTRATO_PROYECTO_FACTURAS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\VISTA_FACTURAS_FECHA_PERIODO_FACTURACION.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\VISTA_FLUJO_INGRESOS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>

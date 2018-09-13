@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d9d32a8db5f3424fb71f25fe58108d34" Name="Diagram1" ZoomLevel="63">
+      <Diagram DiagramId="d9d32a8db5f3424fb71f25fe58108d34" Name="Diagram1" ZoomLevel="72">
         <EntityTypeShape EntityType="test_payc_contabilidadModel.CARGOS" Width="1.5" PointX="5.25" PointY="20.5" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.CARTERA" Width="1.5" PointX="10.5" PointY="24.375" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.CAUSA_ESTADO" Width="1.5" PointX="8.25" PointY="43.5" />
@@ -152,14 +152,14 @@
         <AssociationConnector Association="test_payc_contabilidadModel.FK_detalle_factura_item_items" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.DATOS_VERIFICAR_FACTURA" Width="1.5" PointX="23.375" PointY="0.75" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.ITEMS_CONTRATO_DESCRIPCION" Width="1.5" PointX="23.375" PointY="4.75" />
-        <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_CONTRATO_PROYECTO_FACTURAS" Width="1.5" PointX="18.375" PointY="22.75" />
-        <EntityTypeShape EntityType="test_payc_contabilidadModel.FACTURAS" Width="1.5" PointX="8.25" PointY="38.375" />
+        <EntityTypeShape EntityType="test_payc_contabilidadModel.FACTURAS" Width="1.5" PointX="14.375" PointY="43.375" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_FACTURAS_CONCEPTOS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_FACTURAS_CONTRATO_PROYECTO" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FACTURAS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_FACTURAS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_FACTURAS_ESTADOS_FACTURAS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_FACTURAS_FORMAS_PAGO_FECHAS" />
+        <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_CONTRATO_PROYECTO_FACTURAS" Width="1.5" PointX="18.375" PointY="22.75" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_FACTURAS_FECHA_PERIODO_FACTURACION" Width="1.5" PointX="23.375" PointY="9.75" />
       </Diagram>
     </edmx:Diagrams>
