@@ -1805,8 +1805,8 @@
     <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
     <Property Name="ORDEN_SERVICIO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
     <Property Name="PROYECTO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-    <Property Name="TIPO_SERVICIO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-    <Property Name="TIPO_OBRA" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="TIPO_SERVICIO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TIPO_OBRA" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" />
     <Property Name="FECHA_FORMA_PAGO" Type="DateTime" Precision="0" />
   </EntityType>
@@ -2059,6 +2059,7 @@
     <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
     <Property Name="FECHA_INICIO_EJECUCION" Type="DateTime" Precision="0" />
     <Property Name="FECHA_FIN_EJECUCION" Type="DateTime" Precision="0" />
+    <Property Name="ESTADO_CENTRO_COSTO" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="VISTA_CONTRATOS_ROL_DESCRIPCION">
     <Key>
