@@ -21,6 +21,7 @@ namespace syncfusion_payc.Controllers
     {
         private test_payc_contabilidadEntities db = new test_payc_contabilidadEntities();
         static string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection1"].ConnectionString;
+        static string connectionString1 = ConfigurationManager.ConnectionStrings["DefaultConnection3"].ConnectionString;
         #region vistas / acciones default
         // GET: FACTURAS
         public ActionResult Index()
@@ -366,6 +367,8 @@ namespace syncfusion_payc.Controllers
             factura.COD_ESTADO_FACTURA = 1;
             factura.COD_FORMAS_PAGO_FECHAS = param.value.COD_FORMAS_PAGO_FECHAS;
             factura.VALOR_SIN_IMPUESTOS = param.value.VALOR_SIN_IMPUESTOS;
+            factura.FECHA_FACTURA = param.value.FECHA_FACTURA;
+            factura.COD_CONCEPTO_PSL= param.value.COD_CONCEPTO_PSL;
             db.FACTURAS.Add(factura);
             db.SaveChanges();
 
@@ -485,6 +488,165 @@ namespace syncfusion_payc.Controllers
         }
 
         #endregion
+        #region enviar a psl
+        public ActionResult facturar(long COD_FACTURA)
+        {
+            string result = "SI";
+            //Consulta para importar encabezado factura
+            try
+            {
+                //Traer codigo factura
+                string query = @"SELECT MAX(CAST([edvnumedocuclie] AS INT)) AS MAX_CODIGO
+                                 FROM [ssf_pruebas].[dbo].[ca_encdocvta] WHERE (edvtipoconsclie='F00' OR edvtipoconsclie='FI00') AND edvcompania='01' AND edvdivision='01'";
 
+                string maxnumfac = "0";
+                using (SqlConnection connection = new SqlConnection(connectionString1))
+                {
+                    SqlCommand command = new SqlCommand(query, connection);
+                    connection.Open();
+                    SqlDataReader dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        maxnumfac = dr.GetValue(0).ToString(); 
+                    }
+                    connection.Close();
+                }
+
+                //Si se logró traer el número de factura
+                if (maxnumfac != "0")
+                {
+                    query = @"UPDATE [104.196.158.138].[test_payc_contabilidad].[dbo].[SECUENCIA_NUM_FACT_PSL] 
+	                        SET [SECUENCIA_PSL] = (SELECT TOP 1 MAX(CAST([edvnumedocuclie] AS INT)) + 1 AS MAX_CODIGO
+	                        FROM [ssf_pruebas].[dbo].[VISTA_MAXIMO_FACTURAS] 
+	                        WHERE (edvtipoconsclie='F00' OR edvtipoconsclie='FI00') AND edvcompania='01' AND edvdivision='01')";
+                    //Insertar encabezado factura
+                    using (SqlConnection connection = new SqlConnection(connectionString1))
+                    {
+                        SqlCommand command = new SqlCommand(query, connection);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                    string query1 = @"INSERT INTO [ssf_pruebas].[dbo].[ca_encdocvtaentra] ([edvconseingre]
+                  ,[edvcontrol]
+                  ,[edvvaloconimp]
+                  ,[edvnumedocuclie]
+                  ,[edvtipoconsclie]
+                  ,[edvcompania]
+                  ,[edvtipodocuclie]
+                  ,[edvclasdocuclie]
+                  ,[edvdivision]
+                  ,[edvcliente]
+                  ,[edvconcepto]
+                  ,[edvmoneda]
+                  ,[edvtotamoneloca]
+                  ,[edvtotamonenego]
+                  ,[edvcentroresp]
+                  ,[eobusuario]
+                  ,[edvfechexpe]
+                  ,[edvfechaconta]
+                  ,[edvvalobruto]
+                  ,[edvvaloneto]
+                  ,[edvfechinteobra]
+                  ,[edvformapago]
+                  ,[edvidentificador])
+	              (SELECT 
+	              [edvconseingre]
+                  ,[edvcontrol]
+                  ,[edvvaloconimp]
+                  ,[edvnumedocuclie]
+                  ,[edvtipoconsclie]
+                  ,[edvcompania]
+                  ,[edvtipodocuclie]
+                  ,[edvclasdocuclie]
+                  ,[edvdivision]
+                  ,[edvcliente]
+                  ,[edvconcepto]
+                  ,[edvmoneda]
+                  ,[edvtotamoneloca]
+                  ,[edvtotamonenego]
+                  ,[edvcentroresp]
+                  ,[eobusuario]
+                  ,[edvfechexpe]
+                  ,[edvfechaconta]
+                  ,[edvvalobruto]
+                  ,[edvvaloneto]
+                  ,[edvfechinteobra]
+                  ,[edvformapago]
+                  ,[edvidentificador] FROM [104.196.158.138].[test_payc_contabilidad].[dbo].[VISTA_ENCDOCVTAENTRA] 
+                                      WHERE edvconseingre=" + COD_FACTURA.ToString() + @")";
+
+                    //Consulta para importar detalle factura
+                    string query2 = @"INSERT INTO [ssf_pruebas].[dbo].[ca_detdocvtaentra] 
+                   ([ddvconseingre]
+                  ,[ddvcontrol]
+                  ,[ddvcompania]
+                  ,[ddvnumedocu]
+                  ,[ddvtipocons]
+                  ,[ddvconseregis]
+                  ,[ddvconcecxc]
+                  ,[ddvunidaventa]
+                  ,[ddvunidaempaq]
+                  ,[ddvcanfacunivta]
+                  ,[ddvcanfacuniemp]
+                  ,[ddvprecunitbrut]
+                  ,[ddvprecunitneto]
+                  ,[ddvprectotabrut]
+                  ,[ddvprectotaneto]
+                  ,[ddvdivision]
+                  ,[ddvcentrorespo])
+                   (SELECT [ddvconseregis]
+                  ,[ddvcontrol]
+                  ,[ddvcompania]
+                  ,[ddvnumedocu]
+                  ,[ddvtipocons]
+                  ,[ddvconseregis] AS ddvconseregis1
+                  ,[ddvconcecxc]
+                  ,[ddvunidaventa]
+                  ,[ddvunidaempaq]
+                  ,[ddvcanfacunivta]
+                  ,[ddvcanfacuniemp]
+                  ,[ddvprecunitbrut]
+                  ,[ddvprecunitneto]
+                  ,[ddvprectotabrut]
+                  ,[ddvprectotaneto]
+                  ,[ddvdivision]
+                  ,[ddvcentrorespo] FROM [104.196.158.138].[test_payc_contabilidad].[dbo].[VISTA_DETDOCVTAENTRA] 
+                                    WHERE ddvconseingre=" + COD_FACTURA.ToString() + @")";
+                    //Insertar encabezado factura
+                    using (SqlConnection connection = new SqlConnection(connectionString1))
+                    {
+                        SqlCommand command = new SqlCommand(query1, connection);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                        connection.Close();
+                    }
+
+                    //Insertar detalle factura
+                    using (SqlConnection connection = new SqlConnection(connectionString1))
+                    {
+                        SqlCommand command = new SqlCommand(query2, connection);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                        connection.Close();
+                    }
+
+                    //Cambiar estado factura
+                    FACTURAS factura = db.FACTURAS.Find(COD_FACTURA);
+                    long cod = 3;
+                    factura.COD_ESTADO_FACTURA = cod;
+                }
+                else
+                {
+                    result = "Error de identificación de maximo numero factura";
+                }
+            }
+            catch (Exception ex)
+            {
+                result = ex.ToString();
+            }
+            return Json(new { success = true, responseText = result }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
     }
 }

@@ -19,7 +19,6 @@ namespace syncfusion_payc.Models
         {
             this.CONTRATOS_CONDICIONES = new HashSet<CONTRATOS_CONDICIONES>();
             this.CONTRATOS_ROL = new HashSet<CONTRATOS_ROL>();
-            this.FACTURAS = new HashSet<FACTURAS>();
             this.FLUJO_INGRESOS_ITEMS = new HashSet<FLUJO_INGRESOS_ITEMS>();
             this.FLUJO_INGRESOS_ROL = new HashSet<FLUJO_INGRESOS_ROL>();
             this.INCREMENTO_ORDEN = new HashSet<INCREMENTO_ORDEN>();
@@ -30,6 +29,7 @@ namespace syncfusion_payc.Models
             this.TAG_ORDEN = new HashSet<TAG_ORDEN>();
             this.DETALLE_FACTURA_PERS = new HashSet<DETALLE_FACTURA_PERS>();
             this.DETALLE_FACTURA_ITEM = new HashSet<DETALLE_FACTURA_ITEM>();
+            this.FACTURAS = new HashSet<FACTURAS>();
         }
     
         public long COD_CONTRATO_PROYECTO { get; set; }
@@ -56,10 +56,6 @@ namespace syncfusion_payc.Models
     	[System.Runtime.Serialization.IgnoreDataMember]
     	[Newtonsoft.Json.JsonIgnore]
         public virtual ICollection<CONTRATOS_ROL> CONTRATOS_ROL { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    	[System.Runtime.Serialization.IgnoreDataMember]
-    	[Newtonsoft.Json.JsonIgnore]
-        public virtual ICollection<FACTURAS> FACTURAS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     	[System.Runtime.Serialization.IgnoreDataMember]
     	[Newtonsoft.Json.JsonIgnore]
@@ -100,5 +96,9 @@ namespace syncfusion_payc.Models
     	[System.Runtime.Serialization.IgnoreDataMember]
     	[Newtonsoft.Json.JsonIgnore]
         public virtual ICollection<DETALLE_FACTURA_ITEM> DETALLE_FACTURA_ITEM { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    	[System.Runtime.Serialization.IgnoreDataMember]
+    	[Newtonsoft.Json.JsonIgnore]
+        public virtual ICollection<FACTURAS> FACTURAS { get; set; }
     }
 }

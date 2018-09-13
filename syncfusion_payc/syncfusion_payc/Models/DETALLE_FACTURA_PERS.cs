@@ -29,12 +29,12 @@ namespace syncfusion_payc.Models
         public Nullable<long> COD_CONCEPTO_PSL { get; set; }
     
         public virtual CAUSA_ESTADO CAUSA_ESTADO { get; set; }
-        public virtual CONCEPTOS CONCEPTOS { get; set; }
         public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
         public virtual ROLES ROLES { get; set; }
         public virtual ESTADOS_DETALLE ESTADOS_DETALLE { get; set; }
         public virtual ESTADOS_FACTURAS ESTADOS_FACTURAS { get; set; }
-        public virtual FACTURAS FACTURAS { get; set; }
         public virtual FORMAS_PAGO_FECHAS FORMAS_PAGO_FECHAS { get; set; }
+        public virtual FACTURAS FACTURAS { get; set; }
+        public virtual CONCEPTOS CONCEPTOS { get; set; }
     }
 }
