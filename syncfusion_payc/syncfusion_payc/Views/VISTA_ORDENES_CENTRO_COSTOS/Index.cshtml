@@ -160,9 +160,10 @@
     //Función que permite crear centros de costo
     function crear(indice, sender, descripcion) {
         //alert("crear CeCo para cod_contrat_proy: " + indice);
+        var centro_costos = sender.gridModel.selectedRecords[0].CENTRO_COSTOS;
         var param = JSON.stringify({
                         COD_CONTRATO_PROYECTO: parseInt(indice),
-                        descrip_contrato: descripcion});
+                        descrip_contrato: descripcion,CENTRO_COSTOS:parseInt(centro_costos)});
         var url = "crear_centro_costo"; // En el controller //"Default.aspx/GetCiudadesByPais"
         $.ajax({
             type: "POST",
@@ -184,9 +185,11 @@
     //Función que permite CERRAR centros de costo
     function cerrar(indice, sender, descripcion) {
         //alert("CERRAR CeCo para cod_contrat_proy: " + indice);
+        var centro_costos = sender.gridModel.selectedRecords[0].CENTRO_COSTOS;
         var param = JSON.stringify({
             COD_CONTRATO_PROYECTO: parseInt(indice),
-            descrip_contrato: descripcion
+            descrip_contrato: descripcion,
+            CENTRO_COSTOS: parseInt(centro_costos)
         });
         var url = "cerrar_centro_costo"; // En el controller //"Default.aspx/GetCiudadesByPais"
         $.ajax({

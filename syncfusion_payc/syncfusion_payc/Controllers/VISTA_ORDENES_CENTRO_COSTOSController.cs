@@ -20,7 +20,8 @@ namespace syncfusion_payc.Controllers
     {
         private test_payc_contabilidadEntities db = new test_payc_contabilidadEntities();
         static string connecString = ConfigurationManager.ConnectionStrings["DefaultConnection1"].ConnectionString;
-
+        static string connectionString1 = ConfigurationManager.ConnectionStrings["DefaultConnection3"].ConnectionString;
+        #region acciones default scaffolding
         // GET: VISTA_ORDENES_CENTRO_COSTOS
         public ActionResult Index()
         {
@@ -95,7 +96,7 @@ namespace syncfusion_payc.Controllers
             }
             return View(vISTA_ORDENES_CENTRO_COSTOS);
         }
-
+        
         // GET: VISTA_ORDENES_CENTRO_COSTOS/Delete/5
         public ActionResult Delete(long? id)
         {
@@ -122,36 +123,108 @@ namespace syncfusion_payc.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult crear_centro_costo(long COD_CONTRATO_PROYECTO, 
-                                                string descrip_contrato)
+        protected override void Dispose(bool disposing)
         {
-            //DateTime hoy = DateTime.Today;
-            string usuario = User.Identity.GetUserName();
-            string queryString = " UPDATE CONTRATO_PROYECTO SET "
-                +"COD_ESTADO_ORDEN_SERVICIO = 1 WHERE COD_CONTRATO_PROYECTO = " 
-                + COD_CONTRATO_PROYECTO.ToString() + ";";
-
-            //Ejecución del query
-            using (SqlConnection connection = new SqlConnection(connecString))
+            if (disposing)
             {
-                SqlCommand command = new SqlCommand(queryString, connection);
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+        #endregion
+        #region acciones crear o cerrar centros de costos
+        public ActionResult crear_centro_costo(long COD_CONTRATO_PROYECTO, string descrip_contrato,string CENTRO_COSTOS)
+        {
+           
+            //Query para revisar que no exista el centor de costos
+            string query = @"SELECT  [igecodigo] FROM [ssf_pruebas].[dbo].[co_ingeeleimp] " +
+                @"           WHERE igecompania='01' AND igedivision='01' AND igecodigo = '" +CENTRO_COSTOS.ToString()+ @"'";
 
+            string existececo = "NO";
+            using (SqlConnection connection = new SqlConnection(connectionString1))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
                 connection.Open();
-                command.ExecuteNonQuery();
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    existececo = dr.GetValue(0).ToString();
+                }
+                connection.Close();
+            }
+            bool success = true;
+            if (existececo == "NO")
+            {
+                //Query para modificar estado del centro de costos
+                string queryString = " UPDATE CONTRATO_PROYECTO SET "
+                    + "COD_ESTADO_ORDEN_SERVICIO = 1 WHERE COD_CONTRATO_PROYECTO = "
+                    + COD_CONTRATO_PROYECTO.ToString() + ";";
+
+                //Ejecución del query
+                using (SqlConnection connection = new SqlConnection(connecString))
+                {
+                    SqlCommand command = new SqlCommand(queryString, connection);
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+
+                //Query para insertar el centro de costos
+
+                
+                string query1 = @"INSERT INTO [ssf_pruebas].[dbo].[co_ingeeleimp] ([igecodigo]
+                                  ,[igeidentificador]
+                                  ,[igecompania]
+                                  ,[igedivision]
+                                  ,[igenombcort]
+                                  ,[igenomblarg]
+                                  ,[igeimpuesto]
+                                  ,[eobcodigo]
+                                  ,[eobnombre]
+                                  ,[eobfecha]
+                                  ,[eobusuario]
+                                  ,[igedivisconta]
+                                  ,[igecodalter]
+                                  ,[igedesactivadepre]) 
+	                              (SELECT [igecodigo]
+                                  ,[igeidentificador]
+                                  ,[igecompania]
+                                  ,[igedivision]
+                                  ,[igenombcort]
+                                  ,[igenomblarg]
+                                  ,[igeimpuesto]
+                                  ,[eobcodigo]
+                                  ,[eobnombre]
+                                  ,[eobfecha]
+                                  ,[eobusuario]
+                                  ,[igedivisconta]
+                                  ,[igecodalter]
+                                  ,[igedesactivadepre]
+                              FROM [104.196.158.138].[test_payc_contabilidad].[dbo].[VISTA_INGEELIMP] WHERE COD_CONTRATO_PROYECTO=" + COD_CONTRATO_PROYECTO.ToString()+")";
+
+                //Correr query
+                using (SqlConnection connection = new SqlConnection(connectionString1))
+                {
+                    SqlCommand command = new SqlCommand(query1, connection);
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+
+                //Enviar correo avisando de la creación del centro de costo
+                Email.EnviarEmail("smtp.gmail.com", 587, "centro.costo.estado.payc@gmail.com",
+                    "1234payc", "centro.costo.estado.payc@gmail.com",
+                    "director.analitica@payc.com.co", "Creación de nuevo centro de costo",
+                    "El contrato proyecto con código: " + CENTRO_COSTOS+
+                    "-" + descrip_contrato
+                    + ", fue actualizado en su estado de orden de servicio");
+            }
+            else
+            {
+                success = false;
             }
 
-            //Enviar correo avisando de la creación del centro de costo
-            Email.EnviarEmail("smtp.gmail.com", 587, "centro.costo.estado.payc@gmail.com",
-                "1234payc", "centro.costo.estado.payc@gmail.com",
-                "desarrollo.analitica@payc.com.co", "Creación de nuevo centro de costo",
-                "El contrato proyecto con código: " + COD_CONTRATO_PROYECTO +
-                "-"+ descrip_contrato
-                +", fue actualizado en su estado de orden de servicio, como APROBADA");
-
-            return Json(new { success = true, responseText = "SI" }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = success, responseText = existececo }, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult cerrar_centro_costo(long COD_CONTRATO_PROYECTO,
-                                                string descrip_contrato)
+        public ActionResult cerrar_centro_costo(long COD_CONTRATO_PROYECTO, string descrip_contrato, string CENTRO_COSTOS)
         {
             //DateTime hoy = DateTime.Today;
             string usuario = User.Identity.GetUserName();
@@ -168,32 +241,41 @@ namespace syncfusion_payc.Controllers
                 command.ExecuteNonQuery();
             }
 
+            string result = "SI";
+            bool success = true;
+            //modificar centro de costos en PSL
+            try
+            {
+                string query1 = " UPDATE [ssf_pruebas].[dbo].[co_ingeeleimp] SET eobnombre='Suspendido', eobcodigo='SU' WHERE igecodigo='" + CENTRO_COSTOS + "'";
+
+                using (SqlConnection connection = new SqlConnection(connectionString1))
+                {
+                    SqlCommand command = new SqlCommand(query1, connection);
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch
+            {
+                result = "NO";
+                success = false;
+            }
             //Enviar correo avisando del CIERRE del centro de costo
             Email.EnviarEmail("smtp.gmail.com", 587, "centro.costo.estado.payc@gmail.com",
                 "1234payc", "centro.costo.estado.payc@gmail.com",
-                "desarrollo.analitica@payc.com.co", "CIERRE centro de costo",
+                "director.analitica@payc.com.co", "CIERRE centro de costo",
                 "El contrato proyecto con código: " + COD_CONTRATO_PROYECTO +
                 "-" + descrip_contrato
                 + ", fue actualizado en su estado de orden de servicio, como FINALIZADA");
 
-            return Json(new { success = true, responseText = "SI" }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = success, responseText = result }, JsonRequestBehavior.AllowGet);
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-		//Aca inicia syncfusion
+        #endregion
+        #region acciones grid
+        //Aca inicia syncfusion
 
         //Traer data
-
-        
-		public ActionResult UrlAdaptor()
+        public ActionResult UrlAdaptor()
         {
             var DataSource2 = db.VISTA_ORDENES_CENTRO_COSTOS.ToList();
             ViewBag.dataSource2 = DataSource2;
@@ -267,5 +349,6 @@ namespace syncfusion_payc.Controllers
             return RedirectToAction("GetOrderData");
             
         }
+        #endregion
     }
 }
