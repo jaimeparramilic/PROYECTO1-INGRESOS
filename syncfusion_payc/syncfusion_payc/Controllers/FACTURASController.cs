@@ -384,15 +384,12 @@ namespace syncfusion_payc.Controllers
             var rScriptExecutablePath = @"C:/Program Files/R/R-3.5.1/bin/Rscript.exe";
 
             //Variable a retornar
-            string result = string.Empty;
-
+            string result = "";
+            bool success1 = true;
             try
             {
 
-                //Funcion
                 string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Modelos_Matematicos") + @"\valor_facturar_temp.R";
-
-                //
                 if (System.IO.File.Exists(path))
                 {
                     System.IO.File.Delete(path);
@@ -404,16 +401,13 @@ namespace syncfusion_payc.Controllers
                     using (StreamWriter sw = System.IO.File.AppendText(path))
                     {
                         sw.WriteLine("factura(" +COD_FACTURA+ ")");
-
                     }
-
                 }
 
                 var info = new ProcessStartInfo();
                 info.FileName = rScriptExecutablePath;
                 info.WorkingDirectory = Path.GetDirectoryName(rScriptExecutablePath);
                 info.Arguments = path;
-
                 info.RedirectStandardInput = false;
                 info.RedirectStandardOutput = true;
                 info.UseShellExecute =false;
@@ -430,14 +424,24 @@ namespace syncfusion_payc.Controllers
                     proc.Close();
                 }
 
-                //ViewBag.Result = result + "," + rCodeFilePath;
-                result = result + "," + rCodeFilePath + "," + path;
+                if (result == "")
+                {
+                    success1 = false;
+                    result = "Existe algún problema con la asignación de profesionales, roles al proyecto o no existen flujos de ingresos";
+                }
+                else
+                {
+                    //ViewBag.Result = result + "," + rCodeFilePath;
+                    result = result + "," + rCodeFilePath + "," + path;
+                }
             }
             catch (Exception ex)
             {
 
                 //throw new Exception("R Script failed: " + result, ex);
-                result = ex.ToString() + "," + rCodeFilePath ;
+                result = "Existe algún problema con la asignación de profesionales, roles al proyecto o no existen flujos de ingresos";
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Existe algún problema con la asignación de profesionales o roles al proyecto, revice las asignaciones");
+                success1 = false;
             }
             try
             {
@@ -461,8 +465,13 @@ namespace syncfusion_payc.Controllers
             catch (Exception ex)
             {
 
+                result = "Ocurrio un error durante el cálculo del total, por favor vuelva a intentarlo";
+                success1 = false;
+
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "Ocurrio un error durante el cálculo del total, por favor vuelva a intentarlo");
             }
-            return Json(new { success = true, responseText = result }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = success1, responseText = result }, JsonRequestBehavior.AllowGet);
+
         }
 
         #endregion
@@ -527,6 +536,21 @@ namespace syncfusion_payc.Controllers
                         command.ExecuteNonQuery();
                         connection.Close();
                     }
+
+                    //Extraer numero factura
+                    query = "SELECT * FROM [test_payc_contabilidad].[dbo].[SECUENCIA_NUM_FACT_PSL]";
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        SqlCommand command = new SqlCommand(query, connection);
+                        connection.Open();
+                        SqlDataReader dr = command.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            maxnumfac = dr.GetValue(0).ToString();
+                        }
+                        connection.Close();
+                    }
+
                     string query1 = @"INSERT INTO [ssf_pruebas].[dbo].[ca_encdocvtaentra] ([edvconseingre]
                   ,[edvcontrol]
                   ,[edvvaloconimp]
@@ -635,6 +659,8 @@ namespace syncfusion_payc.Controllers
                     FACTURAS factura = db.FACTURAS.Find(COD_FACTURA);
                     long cod = 3;
                     factura.COD_ESTADO_FACTURA = cod;
+                    factura.NUMERO_FACTURA = maxnumfac.ToString();
+                    db.SaveChanges();
                 }
                 else
                 {

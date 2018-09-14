@@ -48,8 +48,8 @@
                                 col.Field("COD_CONTRATO_PROYECTO").Visible(false).HeaderText("COD_CONTRATO_PROYECTO").Add();
                                 col.Field("COD_ROL").ForeignKeyField("COD_ROL").AllowEditing(false).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").EditType(EditingType.DropdownEdit).Add();
                                 col.Field("COD_FORMAS_PAGO_FECHAS").Visible(false).HeaderText("FORMAS PAGO FECHAS").Add();
-                                col.Field("VALOR_SIN_IMPUESTOS").HeaderText("VALOR_SIN_IMPUESTOS").Format("{0:c2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                                col.Field("COD_CAUSA_ESTADO").ForeignKeyField("COD_CAUSA_ESTADO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CAUSA_ESTADO.ToList()).HeaderText("CAUSA ESTADO").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("validacion_causa", true)).Add();
+                                col.Field("VALOR_SIN_IMPUESTOS").HeaderText("VALOR SIN IMPUESTOS").Format("{0:c2}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 2, Locale = "es-CO",IncrementStep = 0.01 }).Add();
+                                col.Field("COD_CAUSA_ESTADO").ForeignKeyField("COD_CAUSA_ESTADO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CAUSA_ESTADO.ToList()).HeaderText("CAUSA MODIFICACIÓN").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("validacion_causa", true)).Add();
                                 col.Field("COD_FACTURA").Visible(false).ForeignKeyField("COD_FACTURA").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().FACTURAS.ToList()).HeaderText("COD_FACTURA").EditType(EditingType.DropdownEdit).Add();
                                 col.Field("COD_ESTADO_DETALLE").Visible(false).ForeignKeyField("COD_ESTADO_DETALLE").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ESTADOS_DETALLE.ToList()).HeaderText("ESTADO_DETALLE").EditType(EditingType.DropdownEdit).Add();
                                 col.Field("COD_CONCEPTO_PSL").ForeignKeyField("COD_CONCEPTO_PSL").ForeignKeyValue("TEXTO_EN_PSL").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONCEPTOS.ToList()).HeaderText("CONCEPTO").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("validar_concepto_roles", true).AddRule("number", true)).Add();
@@ -92,8 +92,8 @@
             col.Field("COD_CONTRATO_PROYECTO").Visible(false).HeaderText("COD_CONTRATO_PROYECTO").Add();
             col.Field("COD_ITEM_CONTRATO").ForeignKeyField("COD_ITEM_CONTRATO").AllowEditing(false).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().VISTA_ITEMS_CONTRATO_DESCRIPCION.ToList()).HeaderText("ITEM").EditType(EditingType.DropdownEdit).Add();
             col.Field("COD_FORMAS_PAGO_FECHAS").Visible(false).HeaderText("FORMAS PAGO FECHAS").Add();
-            col.Field("VALOR_SIN_IMPUESTOS").HeaderText("VALOR SIN IMPUESTOS").Format("{0:c2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-            col.Field("COD_CAUSA_ESTADO").ForeignKeyField("COD_CAUSA_ESTADO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CAUSA_ESTADO.ToList()).HeaderText("CAUSA ESTADO").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("validacion_causa_items", true)).Add();
+            col.Field("VALOR_SIN_IMPUESTOS").HeaderText("VALOR SIN IMPUESTOS").Format("{0:c2}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 2, Locale = "es-CO", IncrementStep = 0.01 }).Add();
+            col.Field("COD_CAUSA_ESTADO").ForeignKeyField("COD_CAUSA_ESTADO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CAUSA_ESTADO.ToList()).HeaderText("CAUSA MODIFICACIÓN").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("validacion_causa_items", true)).Add();
             col.Field("COD_FACTURA").Visible(false).ForeignKeyField("COD_FACTURA").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().FACTURAS.ToList()).HeaderText("COD_FACTURA").EditType(EditingType.DropdownEdit).Add();
             col.Field("COD_ESTADO_DETALLE").Visible(false).ForeignKeyField("COD_ESTADO_DETALLE").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ESTADOS_DETALLE.ToList()).HeaderText("ESTADO_DETALLE").EditType(EditingType.DropdownEdit).Add();
             col.Field("COD_CONCEPTO_PSL").ForeignKeyField("COD_CONCEPTO_PSL").ForeignKeyValue("TEXTO_EN_PSL").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONCEPTOS.ToList()).HeaderText("CONCEPTO").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("validar_concepto_items", true).AddRule("number", true)).Add();
@@ -305,12 +305,12 @@
     // Obtener valor a facturar inicial R.E.V.
     function inicio_accion_roles(args) {
         if (args.requestType == "beginedit") {
-            //window.alert("Entro en: inicio_accion_roles");
+            
             // Create grid object.
             var gridObj = $("#GRID_ROLES").ejGrid("instance");
             // Gets the selected row element list
             var vlr = gridObj.getSelectedRecords()[0].VALOR_SIN_IMPUESTOS;
-            //window.alert("VALOR_SIN_IMPUESTOS - inicio_accion_roles:" + vlr);
+            
             // Poner en un input hidden
             document.getElementById("h_vlr_sin_impu").value = vlr;
         }
@@ -343,12 +343,12 @@
             var vr_sin_impu = 0; var vr_sin_impu_antes = 0; var causa = 0;
             vr_sin_impu = $("#GRID_ROLESVALOR_SIN_IMPUESTOS").val();
             //window.alert("Valor en la GRID: " + vr_sin_impu);
-            vr_sin_impu_antes = document.getElementById("h_vlr_sin_impu").value;
+            vr_sin_impu_antes = document.getElementById("h_vlr_sin_impu").value.replace(".",",");
             //window.alert("Ultimo valor sin imp ANTES: " + vr_sin_impu_antes);
             causa = $("#GRID_ROLESCOD_CAUSA_ESTADO").val(); //; 
             if ((vr_sin_impu_antes != vr_sin_impu) && (causa == null || causa == 0 || causa == 1)) { return false }
             else { return true };
-        }, "El valor a facturar cambió, por lo tanto se debe indicar la CAUSA.");
+        }, "El valor a facturar cambió, por lo tanto se debe indicar la CAUSA por la cual se modificó el valor.");
 
         //Adicionar a jquery VALIDATION, la revisión del concepto para GRID_ITEMS
         $.validator.addMethod("validar_concepto_items", function (value, element, params) {
@@ -362,12 +362,12 @@
             var vr_sin_impu = 0; var vr_sin_impu_antes = 0; var causa = 0;
             vr_sin_impu = $("#GRID_ITEMSVALOR_SIN_IMPUESTOS").val();
             //window.alert("Valor en la GRID: " + vr_sin_impu);
-            vr_sin_impu_antes = document.getElementById("h_vlr_sin_impu").value;
+            vr_sin_impu_antes = document.getElementById("h_vlr_sin_impu").value.replace(".", ",");
             //window.alert("Ultimo valor sin imp ANTES: " + vr_sin_impu_antes);
             causa = $("#GRID_ITEMSCOD_CAUSA_ESTADO").val(); //; 
             if ((vr_sin_impu_antes != vr_sin_impu) && (causa == null || causa == 0 || causa == 1)) { return false }
             else { return true };
-        }, "El valor a facturar cambió, por lo tanto se debe indicar la CAUSA.");
+        }, "El valor a facturar cambió, por lo tanto se debe indicar la CAUSA por la cual se modificó el valor.");
 
     });
 </script>

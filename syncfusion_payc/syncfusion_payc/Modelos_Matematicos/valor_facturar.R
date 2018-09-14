@@ -142,6 +142,7 @@ factura <- function(cod_factura) {
                      ,[COD_CAUSA_ESTADO]
                      ,[OBSERVACIONES]
                      ,[COD_FACTURA]
+                     ,[COD_CONCEPTO_PSL]
                      ,[COD_ESTADO_DETALLE]) 
                      VALUES")
       vals = NULL
@@ -153,7 +154,7 @@ factura <- function(cod_factura) {
                                        TABLA_TEMPORAL$COD_FORMAS_PAGO_FECHAS[k], ",",
                                        TABLA_TEMPORAL$FINAL[k], ",'",
                                        Sys.time(), "','GENERADO','",
-                                       estado, "',1,'',", cod_factura, ",1)"), collapse = ',')
+                                       estado, "',1,'',", cod_factura, ",1026,1)"), collapse = ',')
         }
       }
       query = paste0(query, paste0(vals, collapse = ','))
@@ -174,6 +175,7 @@ factura <- function(cod_factura) {
                      ,[COD_CAUSA_ESTADO]
                      ,[OBSERVACIONES]
                      ,[COD_FACTURA]
+                     ,[COD_CONCEPTO_PSL]
                      ,[COD_ESTADO_DETALLE])
                      VALUES")
       vals = NULL
@@ -185,7 +187,7 @@ factura <- function(cod_factura) {
                                        TOTAL_ITEMS_FIJOS$COD_FORMAS_PAGO_FECHAS[k], ",",
                                        TOTAL_ITEMS_FIJOS$VALOR_TOTAL[k], ",'",
                                        Sys.time(), "','GENERADO','",
-                                       estado, "',1,'',", cod_factura, ",1)"), collapse = ',')
+                                       estado, "',1,'',", cod_factura, ",1027,1)"), collapse = ',')
         }
       }
       query = paste0(query, paste0(vals, collapse = ','))
@@ -206,6 +208,7 @@ factura <- function(cod_factura) {
                      ,[COD_CAUSA_ESTADO]
                      ,[OBSERVACIONES]
                      ,[COD_FACTURA]
+                     ,[COD_CONCEPTO_PSL]
                      ,[COD_ESTADO_DETALLE])
                      VALUES")
       vals = NULL
@@ -217,7 +220,7 @@ factura <- function(cod_factura) {
                                        TOTAL_ITEMS_VARIABLES$COD_FORMAS_PAGO_FECHAS[k], ",",
                                        TOTAL_ITEMS_VARIABLES$VALOR_COMERCIAL[k], ",'",
                                        Sys.time(), "','GENERADO','",
-                                       estado, "',1,'',", cod_factura, ",1)"), collapse = ',')
+                                       estado, "',1,'',", cod_factura, ",1027,1)"), collapse = ',')
         }
       }
       query = paste0(query, paste0(vals, collapse = ','))

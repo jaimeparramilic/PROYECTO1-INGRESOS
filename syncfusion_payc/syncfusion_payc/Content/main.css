@@ -664,3 +664,26 @@ th[data-p="0,0"]{
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
 }
+
+
+
+
+.contenedor_loader1 {
+    left: 0px !important;
+    top: 0px !important;
+    opacity: 0.3 !important;
+    background-color: darkgrey !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    position: absolute;
+    z-index: 999999;
+    display:none;
+}
+
+
+    .contenedor_loader1 .e-image {
+        top: 50vh !important;
+        
+        left: 50vw;
+        position: relative;
+    }

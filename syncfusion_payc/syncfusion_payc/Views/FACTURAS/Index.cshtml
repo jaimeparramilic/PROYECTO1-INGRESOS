@@ -37,8 +37,8 @@
                 col.Field("DESCRIPCION").HeaderText("DESCRIPCIÓN").Add();
                 col.Field("ESTADO_ULTIMA_FACTURA").HeaderText("ESTADO ÚLTIMA F.").Add();
                 col.Field("ESTADO_ORDEN").HeaderText("ESTADO ORDEN").Add();
-                col.Field("DIAS_SIN_FACTURAR").HeaderText("DÍAS SIN F.").Add();
-                col.Field("MESES_SIN_FACTURAR").HeaderText("MESES SIN F.").Add();
+                col.Field("DIAS_SIN_FACTURAR").HeaderText("DÍAS").Add();
+                col.Field("MESES_SIN_FACTURAR").HeaderText("MESES").Add();
                 col.Field("FECHA_ULTIMA_FACTURA").HeaderText("FECHA ÚLTIMA F.").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
                 col.Field("FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO").HeaderText("FECHA INI").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
 
@@ -58,6 +58,7 @@
                 .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
                 .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
                 .ClientSideEvents(eve => eve.ToolbarClick("clicked"))
+                .ClientSideEvents(e => e.ActionFailure("failure"))
                 .ClientSideEvents(e=> e.ActionComplete("finalizar_accion")) 
                 .ToolbarSettings(toolbar =>
                 {
@@ -75,14 +76,14 @@
 
                 }).Columns(col =>
                 {
-                    col.Field("COD_FORMAS_PAGO_FECHAS").AllowEditing(false).Format("{0:dd/MM/yyyy}").ForeignKeyField("COD_FORMAS_PAGO_FECHAS").ForeignKeyValue("FECHA_FORMA_PAGO").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().FORMAS_PAGO_FECHAS.ToList()).HeaderText("PERIODO FACTURACIÓN").EditType(EditingType.DropdownEdit).Add();
+                    col.Field("COD_FORMAS_PAGO_FECHAS").AllowEditing(false).Format("{0:dd/MM/yyyy}").ForeignKeyField("COD_FORMAS_PAGO_FECHAS").ForeignKeyValue("FECHA_FORMA_PAGO").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().FORMAS_PAGO_FECHAS.ToList()).HeaderText("PERIODO").EditType(EditingType.DropdownEdit).Width(120).Add();
                     col.Field("COD_CONTRATO_PROYECTO").Visible(false).Add();
-                    col.Field("COD_ESTADO_FACTURA").AllowEditing(false).ForeignKeyField("COD_ESTADO_FACTURA").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ESTADOS_FACTURAS.ToList()).HeaderText("ESTADO FACTURA").EditType(EditingType.DropdownEdit).Add();
-                    col.Field("COD_CONCEPTO_PSL").ForeignKeyField("COD_CONCEPTO_PSL").ForeignKeyValue("CODIGO_EN_PSL").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONCEPTOS.ToList()).HeaderText("CONCEPTO").EditType(EditingType.DropdownEdit).Add();
+                    col.Field("COD_ESTADO_FACTURA").Width(120).AllowEditing(false).ForeignKeyField("COD_ESTADO_FACTURA").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ESTADOS_FACTURAS.ToList()).HeaderText("ESTADO").EditType(EditingType.DropdownEdit).Add();
+                    col.Field("COD_CONCEPTO_PSL").Width(120).ForeignKeyField("COD_CONCEPTO_PSL").ForeignKeyValue("CODIGO_EN_PSL").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONCEPTOS.ToList()).HeaderText("CONCEPTO").EditType(EditingType.DropdownEdit).Add();
                     col.Field("COD_FACTURA").HeaderText("COD_FACTURA").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                    col.Field("NUMERO_FACTURA").Visible(false).AllowEditing(false).HeaderText("NÚMERO FACTURA").Add();
-                    col.Field("FECHA_FACTURA").HeaderText("FECHA FACTURA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
-                    col.Field("VALOR_SIN_IMPUESTOS").AllowEditing(false).HeaderText("VALOR SIN IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                    col.Field("NUMERO_FACTURA").Width(120).AllowEditing(false).HeaderText("NÚMERO FACTURA").Add();
+                    col.Field("FECHA_FACTURA").Width(120).HeaderText("FECHA FACTURA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                    col.Field("VALOR_SIN_IMPUESTOS").Width(120).AllowEditing(false).HeaderText("VALOR SIN IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                     col.Field("VALOR_CON_IMPUESTOS").Visible(false).AllowEditing(false).HeaderText("VALOR CON IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                     col.Field("RANKING").AllowEditing(false).HeaderText("RANKING").Visible(false).Add();
                 });
@@ -156,21 +157,28 @@
             NoResult: "No se encontraron coincidencias",
             CheckBoxStatusMsg: "No todos los elementos que muestran",
             DatePickerWaterMark: "Seleccione fecha",
-            DateTimePickerWaterMark: "Seleccionar fecha y hora",
+            DateTimePickerWaterMark: "Fecha",
             True: "cierto",
             False: "falso"
         };
 
     });
 	//Funcion para añadir buscador a los dropdown
-
 	function inicio_grid(args) {
         if (args.requestType == "beginedit") {
             //alert("editar");
 
         }
         else if (args.requestType == "add") {
-            
+            setTimeout(function () {
+                $('.e-addedrow tr:not(".e-hide"):nth-child(1)').hide();
+                $('.e-addedrow tr:not(".e-hide"):nth-child(2)').hide();
+                $('.e-addedrow tr:not(".e-hide"):nth-child(3)').hide();
+                
+                $('.e-addedrow tr:not(".e-hide"):nth-child(6)').hide();
+                $('.e-addedrow tr:not(".e-hide"):nth-child(8)').hide();
+            },50);
+
         }
     }
 
@@ -212,44 +220,67 @@
 
     //Función que permite facturar las facturas (enviar a PSL)
     function facturar(indice, sender) {
-        //Validar que el estado sea correcto para enviar
-
-        $('.contenedor_loader').show();
-        var cod_fact = sender.gridModel.selectedRecords[0].COD_FACTURA
-        var data = JSON.stringify({ COD_FACTURA: parseInt(cod_fact) });
-        var url = "facturar";
-        var r = confirm("¿Desea enviar la factura a PSL?");
-        if (r == true) {
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: data,
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                dataFilter: function (data) { return data; },
-                success: function (data) {
-                    $('.contenedor_loader').hide();
-                    $("#PivotGrid1").show();
-                    var gridObj = $("#PivotGrid1").data("ejPivotGrid");
-                    gridObj.refreshPivotGrid();
+        try {
+            //Verificar estado factura
+            var estado_factura = sender.gridModel.selectedRecords[0].COD_ESTADO_FACTURA
+            if (estado_factura == "2") {
+                //Validar que el estado sea correcto para enviar
+                $('.contenedor_loader1').show();
+                var cod_fact = sender.gridModel.selectedRecords[0].COD_FACTURA
+                var data = JSON.stringify({ COD_FACTURA: parseInt(cod_fact) });
+                var url = "facturar";
+                var r = confirm("¿Desea enviar la factura a PSL?");
+                if (r == true) {
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: data,
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        dataFilter: function (data) { return data; },
+                        success: function (data) {
+                            var gridObj = $("#Grid").ejGrid("instance");
+                            gridObj.refreshContent();
+                            $('.contenedor_loader1').hide();
+                            
+                        }
+                    });
+                } else {
+                    $('.contenedor_loader1').hide();
                 }
-            });
-        } else {
-            
+            }
+            else {
+                $('.contenedor_loader1').hide();
+                alert("La factura no se puede enviar debido a que no se encuentra pendiente de enviar");
+            }
+        }
+        catch{
+            $('.contenedor_loader1').hide();
+            alert("Por favor seleccione una factura para enviar");
         }
         
     }
 
+    var temp10;
     //Función que refresca la grid hijo de facturas después
     function finalizar_accion(args) {
         if (args.requestType == "save") {
-            
+            temp10 = args;
             pivotgrid = $("#" + args.target.id).ejGrid("instance");
             pivotgrid.refreshContent();
-            
+            if (args.data.success) {
+                alert("Factura con código interno creada con exito");
+            }
+            else {
+                alert(args.data.responseText);
+            }
         }
     }
-
+    
+    function failure(args) {
+        
+        //alert("llegue");
+    }
 </script>
 
 <!--Modelos o templates para botones-->
