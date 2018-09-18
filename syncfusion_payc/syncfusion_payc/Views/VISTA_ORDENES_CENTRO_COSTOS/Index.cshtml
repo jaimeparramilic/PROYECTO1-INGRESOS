@@ -12,7 +12,6 @@
 
 
 <div class="control-section">
-
     @(Html.EJ().Grid<syncfusion_payc.Models.VISTA_ORDENES_CENTRO_COSTOS>("Grid")
             .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
             .AllowPaging()
@@ -162,55 +161,82 @@
 
     //Función que permite crear centros de costo
     function crear(indice, sender, descripcion) {
-        //alert("crear CeCo para cod_contrat_proy: " + indice);
-        var centro_costos = sender.gridModel.selectedRecords[0].CENTRO_COSTOS;
-        var param = JSON.stringify({
-                        COD_CONTRATO_PROYECTO: parseInt(indice),
-                        descrip_contrato: descripcion,CENTRO_COSTOS:parseInt(centro_costos)});
-        var url = "crear_centro_costo"; // En el controller //"Default.aspx/GetCiudadesByPais"
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: param,
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            dataFilter: function (data) { return data; },
-            success: function (data) {
-                alert("Ok. Se creó centro de costos, para contr_proy: " + indice);
-            },
-            error: function (data) {
-                alert("ERROR al intentar crear centro de costos, para contr_proy: " + indice)
+        $('.contenedor_loader1').show();
+        var estado_orden = sender.gridModel.selectedRecords[0].COD_ESTADO_ORDEN_SERVICIO;
+        var estado_psl= sender.gridModel.selectedRecords[0].ESTADO_PSL;
+        if (estado_orden == "1") {
+            if (estado_psl != 'Activo') {
+                var centro_costos = sender.gridModel.selectedRecords[0].CENTRO_COSTOS;
+                var param = JSON.stringify({
+                    COD_CONTRATO_PROYECTO: parseInt(indice),
+                    descrip_contrato: descripcion, CENTRO_COSTOS: parseInt(centro_costos)
+                });
+                var url = "crear_centro_costo";
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: param,
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        alert("Ok. Se creó centro de costos: " + centro_costos);
+                        $('.contenedor_loader1').hide();
+                    },
+                    error: function (data) {
+                        alert("ERROR al intentar crear centro de costos: " + centro_costos);
+                        $('.contenedor_loader1').hide();
+                    }
+                });
             }
-        });
+            else {
+                alert("Error al crear el centro de costos. El centro de costos ya fue creado en PSL");
+                $('.contenedor_loader1').hide();
+            }
+        }
+        else {
+            alert("Error al crear el centro de costos. El estado de la orden de servicio no es liberado y por lo tanto no se puede crear un centro de costos");
+            $('.contenedor_loader1').hide();
+        }
 
         
     }
 
     //Función que permite CERRAR centros de costo
     function cerrar(indice, sender, descripcion) {
-        //alert("CERRAR CeCo para cod_contrat_proy: " + indice);
-        var centro_costos = sender.gridModel.selectedRecords[0].CENTRO_COSTOS;
-        var param = JSON.stringify({
-            COD_CONTRATO_PROYECTO: parseInt(indice),
-            descrip_contrato: descripcion,
-            CENTRO_COSTOS: parseInt(centro_costos)
-        });
-        var url = "cerrar_centro_costo"; // En el controller //"Default.aspx/GetCiudadesByPais"
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: param,
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            dataFilter: function (data) { return data; },
-            success: function (data) {
-                alert("Ok. Se CERRÓ centro de costos, para contr_proy: " + indice);
-            },
-            error: function (data) {
-                alert("ERROR al intentar CERRAR centro de costos, para contr_proy: " + indice)
-            }
-        });
-
+        $('.contenedor_loader1').show();
+        var estado_orden = sender.gridModel.selectedRecords[0].COD_ESTADO_ORDEN_SERVICIO;
+        var estado_psl = sender.gridModel.selectedRecords[0].ESTADO_PSL;
+        if (estado_orden == "1" || estado_orden=="4") {
+            
+            var centro_costos = sender.gridModel.selectedRecords[0].CENTRO_COSTOS;
+            var param = JSON.stringify({
+                COD_CONTRATO_PROYECTO: parseInt(indice),
+                descrip_contrato: descripcion,
+                CENTRO_COSTOS: parseInt(centro_costos)
+            });
+            var url = "cerrar_centro_costo"; // En el controller //"Default.aspx/GetCiudadesByPais"
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: param,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                dataFilter: function (data) { return data; },
+                success: function (data) {
+                    alert("Ok. Se CERRÓ centro de costos:" + centro_costos);
+                    $('.contenedor_loader1').hide();
+                },
+                error: function (data) {
+                    alert("ERROR al intentar CERRAR centro de costos: " + centro_costos);
+                    $('.contenedor_loader1').hide();
+                }
+            });
+        }
+        else {
+            alert("El proyecto no esta en el estado correcto");
+            $('.contenedor_loader1').hide();
+        }
 
     }
 

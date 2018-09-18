@@ -261,15 +261,14 @@
         
     }
 
-    var temp10;
     //Función que refresca la grid hijo de facturas después
     function finalizar_accion(args) {
         if (args.requestType == "save") {
-            temp10 = args;
+            
             pivotgrid = $("#" + args.target.id).ejGrid("instance");
             pivotgrid.refreshContent();
             if (args.data.success) {
-                alert("Factura con código interno creada con exito");
+                alert("Factura creada con exito");
             }
             else {
                 alert(args.data.responseText);

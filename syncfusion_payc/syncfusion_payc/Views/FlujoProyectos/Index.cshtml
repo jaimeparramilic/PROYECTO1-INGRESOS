@@ -176,8 +176,9 @@
             });
         }
     }
+
     //Revertir
-        function revertir(cod_contrato_proyecto) {
+    function revertir(cod_contrato_proyecto) {
             var r = confirm("¿Desea revertir la orden? Una vez revierta la orden de servicio las otras áreas no podran ver la orden, facturar o asignar colaboradores");
             if (r) {
                 var data = JSON.stringify({ COD_CONTRATO_PROYECTO: cod_contrato_proyecto });

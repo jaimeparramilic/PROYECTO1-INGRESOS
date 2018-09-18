@@ -213,9 +213,9 @@ namespace syncfusion_payc.Controllers
                 Email.EnviarEmail("smtp.gmail.com", 587, "centro.costo.estado.payc@gmail.com",
                     "1234payc", "centro.costo.estado.payc@gmail.com",
                     "director.analitica@payc.com.co", "Creación de nuevo centro de costo",
-                    "El contrato proyecto con código: " + CENTRO_COSTOS+
+                    "La orden de servicio con centro de costos: " + CENTRO_COSTOS+
                     "-" + descrip_contrato
-                    + ", fue actualizado en su estado de orden de servicio");
+                    + ", fue creado");
             }
             else
             {
@@ -264,9 +264,9 @@ namespace syncfusion_payc.Controllers
             Email.EnviarEmail("smtp.gmail.com", 587, "centro.costo.estado.payc@gmail.com",
                 "1234payc", "centro.costo.estado.payc@gmail.com",
                 "director.analitica@payc.com.co", "CIERRE centro de costo",
-                "El contrato proyecto con código: " + COD_CONTRATO_PROYECTO +
+                "El centro de costos con código: " + CENTRO_COSTOS +
                 "-" + descrip_contrato
-                + ", fue actualizado en su estado de orden de servicio, como FINALIZADA");
+                + " se a sido cerrado");
 
             return Json(new { success = success, responseText = result }, JsonRequestBehavior.AllowGet);
         }

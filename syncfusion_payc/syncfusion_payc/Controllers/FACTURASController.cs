@@ -15,6 +15,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Configuration;
 using System.Globalization;
+using syncfusion_payc.Utilidades;
 namespace syncfusion_payc.Controllers
 {
     public class FACTURASController : Controller
@@ -168,6 +169,7 @@ namespace syncfusion_payc.Controllers
             ViewBag.COD_ESTADO_FACTURA = DatVerificarFactu.COD_ESTADO_FACTURA;
             ViewBag.DESCRIPCION_PROYECTO = DatVerificarFactu.DESCRIPCION;
             ViewBag.PERIODO_FACTURAR = DatVerificarFactu.PERIODO_FACTURAR;
+            ViewBag.ESTADO_FACTURA = DatVerificarFactu.COD_ESTADO_FACTURA;
 
             //Consulta para traer total
             ViewBag.TOTAL_FACTURA = "0";
@@ -661,6 +663,26 @@ namespace syncfusion_payc.Controllers
                     factura.COD_ESTADO_FACTURA = cod;
                     factura.NUMERO_FACTURA = maxnumfac.ToString();
                     db.SaveChanges();
+
+                    //Enviar correo avisando el envío de facturas
+                    Email.EnviarEmail("smtp.gmail.com", 587, "centro.costo.estado.payc@gmail.com",
+                        "1234payc", "centro.costo.estado.payc@gmail.com",
+                        "director.analitica@payc.com.co", "Factura importada",
+                        "La factura con código " + maxnumfac.ToString() +
+                        
+                         " ha sido enviada para importación");
+
+                    //Modificar consecutivo de tipo consecutivos en PSL
+                    query = @"UPDATE [PAYC_REMOTO].[ssf_pruebas].[dbo].[un_tiposconse] 
+                            SET [icculticonsasig] = '" + maxnumfac.ToString()
+                            + @"' WHERE icccompania='01' AND icccodigo='F00'";
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        SqlCommand command = new SqlCommand(query, connection);
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                        connection.Close();
+                    }
                 }
                 else
                 {
