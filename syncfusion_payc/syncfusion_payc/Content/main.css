@@ -619,16 +619,6 @@ th[data-p="0,0"]{
     width: 20% !important; 
 }
 
-#PivotGrid1 .colheader[data-p='1,0'], #PivotGrid1 .colheader[data-p='1,1'], #PivotGrid2 .colheader[data-p='1,0'], #PivotGrid2 .colheader[data-p='1,1'] {
-    height: 0px !important;
-    line-height: 0px !important;
-    font-size: 0px !important;
-    border-top-color: transparent !important;
-    border-bottom-color: transparent !important;
-}
-#PivotGrid1 .e-collapse, #PivotGrid2 .e-collapse {
-    display: none !important;
-}
 .total {
     padding-top: 10px !important;
     padding-bottom: 10px !important;
@@ -651,7 +641,7 @@ th[data-p="0,0"]{
     padding-top: 10px !important;
     padding-bottom: 10px !important;
     text-align: left;
-    width: 50%!important;
+    width: 50% !important;
     float: left;
     border-bottom-color: #C3C3C3;
     border-bottom-style: solid;
@@ -665,9 +655,6 @@ th[data-p="0,0"]{
     border-bottom-left-radius: 3px;
 }
 
-
-
-
 .contenedor_loader1 {
     left: 0px !important;
     top: 0px !important;
@@ -677,13 +664,30 @@ th[data-p="0,0"]{
     height: 100vh !important;
     position: absolute;
     z-index: 999999;
-    display:none;
+    display: none;
 }
-
 
     .contenedor_loader1 .e-image {
         top: 50vh !important;
-        
         left: 50vw;
         position: relative;
     }
+
+/*Aca empieza el theme para ocultar las columnas adicionales de las pivot*/
+
+
+#PivotGrid1 .colheader[data-p='1,0'], #PivotGrid1 .colheader[data-p='1,1'], #PivotGrid2 .colheader[data-p='1,0'], #PivotGrid2 .colheader[data-p='1,1'] {
+    height: 0px !important;
+    line-height: 0px !important;
+    font-size: 0px !important;
+    border-top-color: transparent !important;
+    border-bottom-color: transparent !important;
+}
+#PivotGrid1 .e-collapse, #PivotGrid2 .e-collapse {
+    display: none !important;
+}
+
+.grid_costos .e-grid .e-edit:before {
+    content: "\e609"; /*Change custom icons for the built in icons*/
+}
+

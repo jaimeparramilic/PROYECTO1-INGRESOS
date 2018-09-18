@@ -332,10 +332,10 @@ namespace syncfusion_payc.Controllers
         //Actualizar grid
         public ActionResult PerformUpdate(EditParams_VISTA_ORDENES_CENTRO_COSTOS param)
         {
-            
-			VISTA_ORDENES_CENTRO_COSTOS table = db.VISTA_ORDENES_CENTRO_COSTOS.Single(o => o.COD_CONTRATO_PROYECTO == param.value.COD_CONTRATO_PROYECTO);
 
-            db.Entry(table).CurrentValues.SetValues(param.value);
+            CONTRATO_PROYECTO table = db.CONTRATO_PROYECTO.Single(o => o.COD_CONTRATO_PROYECTO == param.value.COD_CONTRATO_PROYECTO);
+
+            table.CENTRO_COSTOS = param.value.CENTRO_COSTOS;
             db.SaveChanges();
 			return RedirectToAction("GetOrderData");
 			

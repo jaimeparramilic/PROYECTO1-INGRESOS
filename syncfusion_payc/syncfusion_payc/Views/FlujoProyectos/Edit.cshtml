@@ -529,7 +529,26 @@
                 <h2 class="title-etapas">MENSUALIDADES PACTADAS Y FLUJO INGRESOS ITEMS</h2><br>
                 <div class="control-section col-md-12">
                     <div class="col-md-12 sin-overflow">
-                        @(Html.EJ().Pivot().PivotGrid("PivotGrid2").Locale("es-CO").Url(Url.Content("~/servicios/FlujoIngresosItems.svc")).EnableCellEditing(true).ClientSideEvents(events => events.CellEdit("editar_flujo_item").Load("onLoad").BeforeServiceInvoke("beforeserviceinvoke").AfterServiceInvoke("flujo_item_despues")))
+                        @(Html.EJ().Pivot().PivotGrid("PivotGrid2").Locale("es-CO").Url(Url.Content("~/servicios/FlujoIngresosItems.svc"))
+                                 .EnableColumnResizing(false)
+                                                    .EnableToolTip(false)
+                                                    .EnableCellContext(false)
+                                                    .EnableCellSelection(false)
+                                                    .EnableJSONRendering(false)
+                                                    .IsResponsive(false)
+                                                    .EnableVirtualScrolling(false)
+                                                    .EnableDefaultValue(false)
+                                                    .EnableCellClick(false)
+                                                    .EnableCellDoubleClick(false)
+                                                    .EnableCollapseByDefault(false)
+                                                    .EnableConditionalFormatting(false)
+                                                    .EnableDeferUpdate(false)
+                                                    .EnableDrillThrough(false)
+                                                    .EnableXHRCredentials(false)
+                                                    .EnableRTL(false)
+
+                                                    .EnableMemberEditorPaging(false)
+                                                    .EnableCellEditing(true).ClientSideEvents(events => events.CellEdit("editar_flujo_item").Load("onLoad").BeforeServiceInvoke("beforeserviceinvoke").AfterServiceInvoke("flujo_item_despues")))
                     </div>
                     @*<div class="col-md-5 oculta">
                             @(Html.EJ().Pivot().PivotSchemaDesigner("PivotSchemaDesigner").Layout(PivotSchemaDesignerLayout.Excel))
@@ -1928,6 +1947,7 @@
             }
         
     }
+
     </script>
 }
 

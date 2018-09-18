@@ -73,7 +73,7 @@
                     @*RUTA ARVCHIVO*@
                     <div class="form-group ruta_contrato">
                         <label>ARCHIVO CONTRATO (MAX 10 MB)</label>
-                        @Html.EJ().Uploadbox("CARGUE_ARCHIVOS").AutoUpload(false).ExtensionsAllow(".doc, .docx,.pdf").FileSize(10000000).SaveUrl("/FlujoProyectos/Save_contrato").RemoveUrl("/FlujoProyectos/Remove_contrato").ClientSideEvents(c => c.Success("fileuploadSuccess_contratos"))
+                        @Html.EJ().Uploadbox("CARGUE_ARCHIVOS").AutoUpload(false).ExtensionsAllow(".doc, .docx,.pdf").FileSize(10000000).SaveUrl("../FlujoProyectos/Save_contrato").RemoveUrl("../FlujoProyectos/Remove_contrato").ClientSideEvents(c => c.Success("fileuploadSuccess_contratos"))
                     </div>
                     <div class="form-group ruta_contrato_display oculta">
                         <input type="text" class="form-control" id="id_ruta_contrato_display" value="" disabled>
@@ -96,7 +96,7 @@
                     @*TIPO EVENTO INICIO*@
                     <div class="form-group ruta_acta_inicio">
                         <label>ARCHIVO ACTA EVENTO INICIO O ACTA (MAX 10 MB)</label>
-                        @Html.EJ().Uploadbox("CARGUE_ACTA").AutoUpload(false).ExtensionsAllow(".doc, .docx,.pdf").FileSize(10000000).SaveUrl("/FlujoProyectos/Save_acta").RemoveUrl("/FlujoProyectos/Remove_acta").ClientSideEvents(c => c.Success("fileuploadSuccess_actas"))
+                        @Html.EJ().Uploadbox("CARGUE_ACTA").AutoUpload(false).ExtensionsAllow(".doc, .docx,.pdf").FileSize(10000000).SaveUrl("../FlujoProyectos/Save_acta").RemoveUrl("../FlujoProyectos/Remove_acta").ClientSideEvents(c => c.Success("fileuploadSuccess_actas"))
                     </div>
                     <div class="form-group ruta_acta_display oculta">
                         <input type="text" class="form-control" id="id_ruta_acta_display" value="" disabled>
@@ -510,7 +510,25 @@
                 <h2 class="title-etapas">MENSUALIDADES PACTADAS Y FLUJO INGRESOS ITEMS</h2><br>
                 <div class="control-section col-md-12">
                     <div class="col-md-12 sin-overflow">
-                        @(Html.EJ().Pivot().PivotGrid("PivotGrid2").Locale("es-CO").Url(Url.Content("~/servicios/FlujoIngresosItems.svc")).EnableCellEditing(true).ClientSideEvents(events => events.CellEdit("editar_flujo_item").Load("onLoad").BeforeServiceInvoke("beforeserviceinvoke").AfterServiceInvoke("flujo_item_despues")))
+                        @(Html.EJ().Pivot().PivotGrid("PivotGrid2").Locale("es-CO").Url(Url.Content("~/servicios/FlujoIngresosItems.svc"))
+                                .EnableColumnResizing(false)
+                                                            .EnableToolTip(false)
+                                                            .EnableCellContext(false)
+                                                            .EnableCellSelection(false)
+                                                            .EnableJSONRendering(false)
+                                                            .IsResponsive(false)
+                                                            .EnableVirtualScrolling(false)
+                                                            .EnableDefaultValue(false)
+                                                            .EnableCellClick(false)
+                                                            .EnableCellDoubleClick(false)
+                                                            .EnableCollapseByDefault(false)
+                                                            .EnableConditionalFormatting(false)
+                                                            .EnableDeferUpdate(false)
+                                                            .EnableDrillThrough(false)
+                                                            .EnableXHRCredentials(false)
+                                                            .EnableRTL(false)
+                                                            .EnableMemberEditorPaging(false)
+                                .ClientSideEvents(events => events.CellEdit("editar_flujo_item").Load("onLoad").BeforeServiceInvoke("beforeserviceinvoke").AfterServiceInvoke("flujo_item_despues")))
                     </div>
                     @*<div class="col-md-5 oculta">
                         @(Html.EJ().Pivot().PivotSchemaDesigner("PivotSchemaDesigner").Layout(PivotSchemaDesignerLayout.Excel))

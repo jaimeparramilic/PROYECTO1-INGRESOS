@@ -8,10 +8,10 @@
 
 }
 
-<h4>ESTADO CENTROS DE COSTO</h4>
+<h4>CENTROS DE COSTO</h4>
 
 
-<div class="control-section">
+<div class="control-section grid_costos">
     @(Html.EJ().Grid<syncfusion_payc.Models.VISTA_ORDENES_CENTRO_COSTOS>("Grid")
             .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
             .AllowPaging()
@@ -24,39 +24,39 @@
             .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
             .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
             .ClientSideEvents(eve => eve.ToolbarClick("clicked"))
+            .ClientSideEvents(e => e.ActionComplete("finalizar_accion"))
             .ToolbarSettings(toolbar =>
             {
                 toolbar.ShowToolbar().ToolbarItems(items =>
                 {
-                        //items.AddTool(ToolBarItems.Add);
-                        items.AddTool(ToolBarItems.Edit);
-                        //items.AddTool(ToolBarItems.Delete);
-                        //items.AddTool(ToolBarItems.Update);
-                        items.AddTool(ToolBarItems.Cancel);
+                   
+                    items.AddTool(ToolBarItems.Edit);
+                    
+                    items.AddTool(ToolBarItems.Cancel);
                 }).CustomToolbarItems(new List<object>() {
-                new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Crear",Tooltip="Crear centro de costos" }
-                ,new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Cerrar",Tooltip="CERRAR centro de costos" }
+                
+                new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Cerrar",Tooltip="CERRAR centro de costos" }
                                             });
 
             }).Columns(col =>
             {
-                col.Field("CENTRO_COSTOS").HeaderText("CENTRO DE COSTOS").Add();
-                col.Field("ESTADO_PSL").HeaderText("ESTADO PSL").Visible(true).Add();
-                col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();
-                col.Field("FECHA_INICIO_EJECUCION").HeaderText("INICIO EJECUCION").Format("{0:dd/MM/yyyy}").Add();
-                col.Field("FECHA_FIN_EJECUCION").HeaderText("FIN EJECUCION").Format("{0:dd/MM/yyyy}").Add();
-                col.Field("ESTADO_CENTRO_COSTO").HeaderText("ESTADO CENTRO COSTO").Add();
-                col.Field("FECHA_CREACION").HeaderText("FECHA ORDEN").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
-                col.Field("COD_CONTRATO_PROYECTO").HeaderText("COD_CONTRATO_PROYECTO").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                col.Field("COD_CONTRATO").HeaderText("COD_CONTRATO").Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                col.Field("COD_PROYECTO").HeaderText("COD_PROYECTO").Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                col.Field("COD_FORMA_PAGO").HeaderText("COD_FORMA_PAGO").Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                col.Field("COMPLETA").Visible(false).HeaderText("COMPLETA").Add();
-                col.Field("MODIFICADO_POR").Visible(false).HeaderText("MODIFICADO_POR").Add();
-                col.Field("FECHA_ULTIMA_MODIFICACION").Visible(false).HeaderText("FECHA_ULTIMA_MODIFICACION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
-                col.Field("CREADO_POR").Visible(false).HeaderText("CREADO_POR").Add();
-                col.Field("FECHA_CREACION").HeaderText("FECHA_CREACION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
-                
+                col.Field("CENTRO_COSTOS").HeaderText("CENTRO DE COSTOS").ValidationRules(v => v.AddRule("required", true)).Add();
+                col.Field("ESTADO_PSL").AllowEditing(false).HeaderText("ESTADO PSL").Visible(true).Add();
+                col.Field("DESCRIPCION").AllowEditing(false).HeaderText("DESCRIPCION").Add();
+                col.Field("FECHA_INICIO_EJECUCION").AllowEditing(false).HeaderText("INICIO EJECUCION").Format("{0:dd/MM/yyyy}").Add();
+                col.Field("FECHA_FIN_EJECUCION").AllowEditing(false).HeaderText("FIN EJECUCION").Format("{0:dd/MM/yyyy}").Add();
+                col.Field("ESTADO_CENTRO_COSTO").AllowEditing(false).HeaderText("ESTADO CENTRO COSTO").Add();
+                col.Field("FECHA_CREACION").AllowEditing(false).HeaderText("FECHA ORDEN").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                col.Field("COD_CONTRATO_PROYECTO").AllowEditing(false).HeaderText("COD_CONTRATO_PROYECTO").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                col.Field("COD_CONTRATO").AllowEditing(false).HeaderText("COD_CONTRATO").Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                col.Field("COD_PROYECTO").AllowEditing(false).HeaderText("COD_PROYECTO").Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                col.Field("COD_FORMA_PAGO").AllowEditing(false).HeaderText("COD_FORMA_PAGO").Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                col.Field("COMPLETA").AllowEditing(false).Visible(false).HeaderText("COMPLETA").Add();
+                col.Field("MODIFICADO_POR").AllowEditing(false).Visible(false).HeaderText("MODIFICADO_POR").Add();
+                col.Field("FECHA_ULTIMA_MODIFICACION").AllowEditing(false).Visible(false).HeaderText("FECHA_ULTIMA_MODIFICACION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                col.Field("CREADO_POR").Visible(false).AllowEditing(false).HeaderText("CREADO_POR").Add();
+                col.Field("FECHA_CREACION").AllowEditing(false).HeaderText("FECHA_CREACION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+
 
 
             }))
@@ -75,7 +75,7 @@
             EditFormTitle: "Detalles de ",
             AddFormTitle: "Añadir nuevo registro",
             GroupCaptionFormat: "{{:headerText}}: {{:key}} - {{:count}} {{if count == 1 }} ítem {{else}} artículos {{/if}} ",
-
+            Edit: "Crear centro de costos",
 
         };
         ej.Pager.Locale["es-CO"] = {
@@ -137,11 +137,18 @@
 	//Funcion para añadir buscador a los dropdown
 	function inicio_grid(args) {
         if (args.requestType == "beginedit" || args.requestType == "add") {
-            if (args.model.dataSource.dataSource.url == "GetOrderData") {
-                setTimeout(function () {
-
-                }, 50);
-            }
+            setTimeout(function () {
+                args.data.ESTADO_PSL = "";
+                $('.gridform tr:not(".e-hide"):nth-child(2)').hide();
+                $('.gridform tr:not(".e-hide"):nth-child(3)').hide();
+                $('.gridform tr:not(".e-hide"):nth-child(4)').hide();
+                $('.gridform tr:not(".e-hide"):nth-child(5)').hide();
+                $('.gridform tr:not(".e-hide"):nth-child(6)').hide();
+                $('.gridform tr:not(".e-hide"):nth-child(7)').hide();
+                $('.gridform tr:not(".e-hide"):nth-child(8)').hide();
+                $('.gridform tr:not(".e-hide"):nth-child(9)').hide();
+                $('.gridform tr:not(".e-hide"):nth-child(16)').hide();
+            }, 50);
         }
     }
 
@@ -162,11 +169,11 @@
     //Función que permite crear centros de costo
     function crear(indice, sender, descripcion) {
         $('.contenedor_loader1').show();
-        var estado_orden = sender.gridModel.selectedRecords[0].COD_ESTADO_ORDEN_SERVICIO;
-        var estado_psl= sender.gridModel.selectedRecords[0].ESTADO_PSL;
+        var estado_orden = sender.model.selectedRecords[0].COD_ESTADO_ORDEN_SERVICIO;
+        var estado_psl= sender.model.selectedRecords[0].ESTADO_PSL;
         if (estado_orden == "1") {
             if (estado_psl != 'Activo') {
-                var centro_costos = sender.gridModel.selectedRecords[0].CENTRO_COSTOS;
+                var centro_costos = sender.model.selectedRecords[0].CENTRO_COSTOS;
                 var param = JSON.stringify({
                     COD_CONTRATO_PROYECTO: parseInt(indice),
                     descrip_contrato: descripcion, CENTRO_COSTOS: parseInt(centro_costos)
@@ -239,7 +246,16 @@
         }
 
     }
-
+        
+    //Función que hace trigger para la creación del centro de costos en PSL
+    function finalizar_accion(args) {
+        if (args.requestType == "save") {
+            pivotgrid = $("#" + args.target.id).ejGrid("instance");
+            
+            //Crear centro de costos
+            crear(pivotgrid.model.selectedRecords[0].COD_CONTRATO_PROYECTO, pivotgrid, pivotgrid.model.selectedRecords[0].DESCRIPCION);           
+        }
+    }
 </script>
 
 <!--Modelos o templates para botones-->
