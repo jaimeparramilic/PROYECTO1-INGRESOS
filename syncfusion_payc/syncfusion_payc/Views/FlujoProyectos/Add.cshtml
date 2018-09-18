@@ -344,14 +344,14 @@
                                     col.Field("MESES").HeaderText("MESES PERMANENCIA").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true).AddRule("validacion_meses", "rol").AddRule("required", true)).Add();
                                     col.Field("DIAS_FRACCION").HeaderText("DIAS FRACCIÓN").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true).AddRule("validacion_meses", "rol").AddRule("required", true)).Add();
                                     col.Field("VALOR_MENSUAL_SIN_PRESTACIONES").HeaderText("VALOR_MENSUAL SIN PRESTACIONES").Format("{0:n0}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { Locale = "es-CO", IncrementStep = 100000, PositivePattern = "$ n " }).ValidationRules(v => v.AddRule("number", true).AddRule("required", true)).Add();
-                                    col.Field("PRESTACIONES").HeaderText("PRESTACIONES").Format("{0:p2}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 2, Locale = "es-CO", MaxValue = 10, MinValue = -0.01, IncrementStep = 0.01 }).ValidationRules(v => v.AddRule("required", true)).Add();
-                                    col.Field("VALOR_MENSUAL_PRESTACIONES").HeaderText("VALOR MENSUAL CON PRESTACIONES").AllowEditing(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("required", true)).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { Locale = "es-CO", IncrementStep = 100000, PositivePattern = "$ n " }).Add();
-                                    col.Field("FACTOR_MULTIPLICADOR").HeaderText("FACTOR MULTIPLICADOR").Format("{0:p2}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 2, Locale = "es-CO", MaxValue = 10, MinValue = -0.01, IncrementStep = 0.01 }).ValidationRules(v => v.AddRule("required", true)).Add();
-                                    col.Field("VALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR").HeaderText("VALOR MENSUAL CON PRESTACIONES Y FACTOR MULTIPLICADOR").Format("{0:n0}").EditType(EditingType.NumericEdit).AllowEditing(false).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { Locale = "es-CO", IncrementStep = 100000, PositivePattern = "$ n " }).ValidationRules(v => v.AddRule("number", true).AddRule("required", true)).Add();
-                                    col.Field("DEDICACION").HeaderText("DEDICACION").Format("{0:p2}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 2, Locale = "es-CO", MaxValue = 10, MinValue = -0.01, IncrementStep = 0.01 }).Add();
+                                    col.Field("PRESTACIONES").HeaderText("PRESTACIONES").Format("{0:p5}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 5, Locale = "es-CO", MaxValue = 10, MinValue = -0.01, IncrementStep = 0.01 }).ValidationRules(v => v.AddRule("required", true)).Add();
+                                    col.Field("VALOR_MENSUAL_PRESTACIONES").HeaderText("VALOR MENSUAL CON PRESTACIONES").AllowEditing(false).Format("{0:n5}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("required", true)).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 5, Locale = "es-CO", IncrementStep = 100000, PositivePattern = "$ n " }).Add();
+                                    col.Field("FACTOR_MULTIPLICADOR").HeaderText("FACTOR MULTIPLICADOR").Format("{0:p5}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 5, Locale = "es-CO", MaxValue = 10, MinValue = -0.01, IncrementStep = 0.01 }).ValidationRules(v => v.AddRule("required", true)).Add();
+                                    col.Field("VALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR").HeaderText("VALOR MENSUAL CON PRESTACIONES Y FACTOR MULTIPLICADOR").Format("{0:n5}").EditType(EditingType.NumericEdit).AllowEditing(false).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 5, Locale = "es-CO", IncrementStep = 100000, PositivePattern = "$ n " }).ValidationRules(v => v.AddRule("number", true).AddRule("required", true)).Add();
+                                    col.Field("DEDICACION").HeaderText("DEDICACION").Format("{0:p2}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 2, Locale = "es-CO", MaxValue = 2, MinValue = -0.01, IncrementStep = 0.01 }).Add();
                                     col.Field("OBSERVACIONES").HeaderText("OBSERVACIONES").Add();
                                 }).ChildGrid(child =>
-                                    {
+                                {
                                     child.Datasource(ds => ds.URL("../CONTRATO_ROL_CARGO/GetOrderData").InsertURL("../CONTRATO_ROL_CARGO/PerformInsert").UpdateURL("../CONTRATO_ROL_CARGO/PerformUpdate").RemoveURL("../CONTRATO_ROL_CARGO/PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
                                     .AllowPaging()
                                     .QueryString("COD_CONTRATO_ROL")
@@ -362,22 +362,22 @@
                                     .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
                                     .ToolbarSettings(toolbar =>
                                     {
-                                              toolbar.ShowToolbar().ToolbarItems(items =>
-                                              {
-                                                  items.AddTool(ToolBarItems.Add);
-                                                  items.AddTool(ToolBarItems.Edit);
-                                                  items.AddTool(ToolBarItems.Delete);
-                                                  items.AddTool(ToolBarItems.Update);
-                                                  items.AddTool(ToolBarItems.Cancel);
-                                              });
+                                        toolbar.ShowToolbar().ToolbarItems(items =>
+                                        {
+                                            items.AddTool(ToolBarItems.Add);
+                                            items.AddTool(ToolBarItems.Edit);
+                                            items.AddTool(ToolBarItems.Delete);
+                                            items.AddTool(ToolBarItems.Update);
+                                            items.AddTool(ToolBarItems.Cancel);
+                                        });
                                     }).Columns(col =>
                                     {
-                                              col.Field("COD_CARGO").ForeignKeyField("COD_CARGO").ForeignKeyValue("DESCRIPCION_CARGO").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CARGOS.ToList()).HeaderText("CARGO").ValidationRules(v => v.AddRule("required", true)).EditType(EditingType.DropdownEdit).Add();
-                                              col.Field("COD_CONTRATO_ROL").ForeignKeyField("COD_CONTRATO_ROL").Visible(false).ForeignKeyValue("COD_CONTRATO_ROL").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONTRATOS_ROL.ToList()).HeaderText("COD_CONTRATO_ROL").EditType(EditingType.DropdownEdit).Add();
-                                              col.Field("COD_CONTRATO_ROL_CARGO").HeaderText("COD_CONTRATO_ROL_CARGO").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                                        col.Field("COD_CARGO").ForeignKeyField("COD_CARGO").ForeignKeyValue("DESCRIPCION_CARGO").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CARGOS.ToList()).HeaderText("CARGO").ValidationRules(v => v.AddRule("required", true)).EditType(EditingType.DropdownEdit).Add();
+                                        col.Field("COD_CONTRATO_ROL").ForeignKeyField("COD_CONTRATO_ROL").Visible(false).ForeignKeyValue("COD_CONTRATO_ROL").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONTRATOS_ROL.ToList()).HeaderText("COD_CONTRATO_ROL").EditType(EditingType.DropdownEdit).Add();
+                                        col.Field("COD_CONTRATO_ROL_CARGO").HeaderText("COD_CONTRATO_ROL_CARGO").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                                     });
 
-                                    }).ClientSideEvents(e => e.ActionBegin("inicio_rol").QueryCellInfo("calcular").Create("create")))
+                                }).ClientSideEvents(e => e.ActionBegin("inicio_rol").QueryCellInfo("calcular").Create("create")))
                 </div>
             </div>
 
@@ -415,7 +415,7 @@
                                                     col.Field("COD_CONTRATO_PROYECTO").Visible(false).AllowEditing(false).Add();
                                                     col.Field("FECHA_INCREMENTO").HeaderText("FECHA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
                                                     col.Field("COD_INCREMENTO_ORDEN").HeaderText("COD_INCREMENTO_ORDEN").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                                                    col.Field("FACTOR_INCREMENTO").HeaderText("FACTOR INCREMENTO").Format("{0:n3}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 3, Locale = "es-CO", MaxValue = 10, MinValue = -0.01, IncrementStep = 0.001 }).Add();
+                                                    col.Field("FACTOR_INCREMENTO").HeaderText("FACTOR INCREMENTO").Format("{0:n5}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 5, Locale = "es-CO", MaxValue = 10, MinValue = -0.01, IncrementStep = 0.001 }).Add();
                                                 }))
                         <button type="button" class="btn btn-purple boton_incrementos regenerar" onclick="abrir_incrementos()" style="margin-top:15px;margin-bottom:15px;">MOSTRAR INCREMENTOS SALARIALES</button>
                     </div>

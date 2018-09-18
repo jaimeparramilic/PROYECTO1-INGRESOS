@@ -47,7 +47,7 @@ var relatedProperties = ModelMetadata.RelatedEntities.ToDictionary(item => item.
 <#
 foreach (var property in relatedProperties.Values) {
 #>
-				col.Field("<#= property.PrimaryKeyNames[0] #>").ForeignKeyField("<#= property.PrimaryKeyNames[0] #>").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().<#= property.EntitySetName #>.ToList()).HeaderText("<#= property.PrimaryKeyNames[0] #>").EditType(EditingType.DropdownEdit).Add();	
+				col.Field("<#= property.PrimaryKeyNames[0] #>").ForeignKeyField("<#= property.PrimaryKeyNames[0] #>").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().<#= property.EntitySetName #>.ToList()).HeaderText("<#= property.PrimaryKeyNames[0] #>").EditType(EditingType.DropdownEdit).Add();	
 			<# } 
 foreach (PropertyMetadata property in properties) {
 var tipo=property.TypeName.ToString();
