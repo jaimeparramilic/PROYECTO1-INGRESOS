@@ -33,7 +33,7 @@
 
                                     }).Columns(col =>
                                     {
-                                        col.Field("COD_CLIENTE").ForeignKeyField("COD_CLIENTE").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CLIENTES.ToList()).HeaderText("CLIENTE").EditType(EditingType.Dropdown).Add();
+                                        col.Field("COD_CLIENTE").ForeignKeyField("COD_CLIENTE").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CLIENTES.ToList()).HeaderText("CLIENTE").EditType(EditingType.Dropdown).Add();
                                         col.Field("COD_CONTRATO").HeaderText("CONTRATO").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.Numeric).ValidationRules(v => v.AddRule("number", true)).Add();
                                         col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();
                                         col.Field("FECHA_FIRMA").HeaderText("FECHA_FIRMA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();

@@ -33,7 +33,7 @@
                 {
                     col.Field("CENTRO_COSTOS").HeaderText("CENTRO COSTOS").AllowEditing(false).Add();
                     col.Field("COD_CONTRATO_PROYECTO").ForeignKeyField("COD_CONTRATO_PROYECTO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONTRATO_PROYECTO_DESCRIPCION.ToList()).HeaderText("ORDEN SERVICIO").EditType(EditingType.DropdownEdit).Add();
-                    col.Field("COD_TIPO_CONDICION").ForeignKeyField("COD_TIPO_CONDICION").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().TIPO_CONDICION_CONTRACTUAL.ToList()).HeaderText("TIPO CONDICIÓN").EditType(EditingType.DropdownEdit).Add();
+                    col.Field("COD_TIPO_CONDICION").ForeignKeyField("COD_TIPO_CONDICION").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().TIPO_CONDICION_CONTRACTUAL.ToList()).HeaderText("TIPO CONDICIÓN").EditType(EditingType.DropdownEdit).Add();
                     col.Field("COD_CONTRATO_CONDICION").HeaderText("CONTRATO_CONDICION").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                     col.Field("VIGENTE").ForeignKeyField("DESCRIPCION").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().SINO.ToList()).HeaderText("¿VIGENTE?").Add();
                     col.Field("FECHA_INCLUSION").AllowEditing(false).HeaderText("FECHA INCLUSION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
