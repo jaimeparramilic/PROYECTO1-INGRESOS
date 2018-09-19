@@ -38,7 +38,6 @@ namespace syncfusion_payc.Models
         public virtual DbSet<CONTRATO_COLABORADOR> CONTRATO_COLABORADOR { get; set; }
         public virtual DbSet<CONTRATO_PROYECTO> CONTRATO_PROYECTO { get; set; }
         public virtual DbSet<CONTRATO_ROL_CARGO> CONTRATO_ROL_CARGO { get; set; }
-        public virtual DbSet<CONTRATOS> CONTRATOS { get; set; }
         public virtual DbSet<CONTRATOS_CONDICIONES> CONTRATOS_CONDICIONES { get; set; }
         public virtual DbSet<CONTRATOS_ROL> CONTRATOS_ROL { get; set; }
         public virtual DbSet<ENTREGABLES> ENTREGABLES { get; set; }
@@ -111,5 +110,6 @@ namespace syncfusion_payc.Models
         public virtual DbSet<VISTA_CONTRATO_PROYECTO_FACTURAS> VISTA_CONTRATO_PROYECTO_FACTURAS { get; set; }
         public virtual DbSet<VISTA_FACTURAS_FECHA_PERIODO_FACTURACION> VISTA_FACTURAS_FECHA_PERIODO_FACTURACION { get; set; }
         public virtual DbSet<CONCEPTOS> CONCEPTOS { get; set; }
+        public virtual DbSet<CONTRATOS> CONTRATOS { get; set; }
     }
 }

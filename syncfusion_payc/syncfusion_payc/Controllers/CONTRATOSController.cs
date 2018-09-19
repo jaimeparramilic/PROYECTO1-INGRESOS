@@ -185,7 +185,27 @@ namespace syncfusion_payc.Controllers
         public ActionResult PerformInsert(EditParams_CONTRATOS param)
         {
             db.CONTRATOS.Add(param.value);
+
+            //Modificar fechas de contrato principal
+            CONTRATO_PROYECTO table = db.CONTRATO_PROYECTO.Single(o => o.COD_CONTRATO_PROYECTO == param.value.COD_CONTRATO_PROYECTO_1);
+            CONTRATOS table1 = db.CONTRATOS.Single(o => o.COD_CONTRATO == table.COD_CONTRATO);
+            if (table1.FECHA_INICIO_EJECUCION <=param.value.FECHA_INICIO_EJECUCION) {
+                table1.FECHA_INICIO_EJECUCION = table1.FECHA_INICIO_EJECUCION;
+            }
+            else
+            {
+                table1.FECHA_INICIO_EJECUCION = param.value.FECHA_INICIO_EJECUCION;
+            }
+            if (table1.FECHA_FIN_EJECUCION <= param.value.FECHA_FIN_EJECUCION)
+            {
+                table1.FECHA_FIN_EJECUCION = param.value.FECHA_FIN_EJECUCION;
+            }
+            else
+            {
+                table1.FECHA_FIN_EJECUCION = table1.FECHA_FIN_EJECUCION;
+            }
             db.SaveChanges();
+
 			var data = db.CONTRATOS.ToList();
 			var value = data.Last();
             return Json(value, JsonRequestBehavior.AllowGet);
@@ -198,6 +218,25 @@ namespace syncfusion_payc.Controllers
 			CONTRATOS table = db.CONTRATOS.Single(o => o.COD_CONTRATO == param.value.COD_CONTRATO);
 
             db.Entry(table).CurrentValues.SetValues(param.value);
+            //Modificar fechas de contrato principal
+            CONTRATO_PROYECTO table2 = db.CONTRATO_PROYECTO.Single(o => o.COD_CONTRATO_PROYECTO == param.value.COD_CONTRATO_PROYECTO_1);
+            CONTRATOS table1 = db.CONTRATOS.Single(o => o.COD_CONTRATO == table2.COD_CONTRATO);
+            if (table1.FECHA_INICIO_EJECUCION <= param.value.FECHA_INICIO_EJECUCION)
+            {
+                table1.FECHA_INICIO_EJECUCION = table1.FECHA_INICIO_EJECUCION;
+            }
+            else
+            {
+                table1.FECHA_INICIO_EJECUCION = param.value.FECHA_INICIO_EJECUCION;
+            }
+            if (table1.FECHA_FIN_EJECUCION <= param.value.FECHA_FIN_EJECUCION)
+            {
+                table1.FECHA_FIN_EJECUCION = param.value.FECHA_FIN_EJECUCION;
+            }
+            else
+            {
+                table1.FECHA_FIN_EJECUCION = table1.FECHA_FIN_EJECUCION;
+            }
             db.SaveChanges();
 			return RedirectToAction("GetOrderData");
 			

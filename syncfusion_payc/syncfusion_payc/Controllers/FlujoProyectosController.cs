@@ -215,6 +215,53 @@ namespace syncfusion_payc.Controllers
             }
         }
 
+        //Almacenar archivo contrato adicional
+        [AcceptVerbs("Post")]
+        public void Save_contrato1()
+        {
+            if (System.Web.HttpContext.Current.Request.Files.AllKeys.Length > 0)
+            {
+                // Get the files using the name attribute as a key. 
+                var httpPostedFile = System.Web.HttpContext.Current.Request.Files["CARGUE_ANEXOS"];
+
+                if (httpPostedFile != null)
+                {
+                    var fileSave = System.Web.HttpContext.Current.Server.MapPath("contratos");
+                    if (!Directory.Exists(fileSave))
+                    {
+                        Directory.CreateDirectory(fileSave);
+                    }
+
+                    var fileSavePath = Path.Combine(fileSave, httpPostedFile.FileName);
+                    if (!System.IO.File.Exists(fileSavePath))
+                    {    /*To save files at server*/
+                        httpPostedFile.SaveAs(fileSavePath);
+                        HttpResponse Response = System.Web.HttpContext.Current.Response;
+                        Response.Clear();
+                        Response.ContentType = "application/json; charset=utf-8";
+                        Response.StatusDescription = "Archivo cargado exitosamente";
+                        Response.Write(httpPostedFile.FileName);
+                        Response.End();
+                    }
+                    else
+                    {
+                        HttpResponse Response = System.Web.HttpContext.Current.Response;
+                        Response.Clear();
+                        //Aca va el tratamiento para duplicados
+                        //Response.Status = "400 ya existe un archivo con el mismo nombre, por favor renombrelo";
+                        //Response.StatusCode = 400;
+                        Response.ContentType = "application/json; charset=utf-8";
+                        Response.StatusDescription = "Ya existe un archivo con el mismo nombre";
+                        Response.Write(httpPostedFile.FileName);
+                        Response.End();
+
+                    }
+                }
+            }
+        }
+
+
+
         //Almacenar archivo contrato
         [AcceptVerbs("Post")]
         public void Save_acta()
@@ -338,6 +385,29 @@ namespace syncfusion_payc.Controllers
             catch (Exception e)
             {
                 
+                return Json("SI", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        //Eliminar Archivo contrato
+        public ActionResult remove_contrato1(string fileNames)
+        {
+            try
+            {
+                var fileSave = System.Web.HttpContext.Current.Server.MapPath("contratos");
+
+                //var fileName = System.Web.HttpContext.Current.Request.Files["CARGUE_ARCHIVOS"].FileName;
+                var fileSavePath = Path.Combine(fileSave, fileNames);
+                if (System.IO.File.Exists(fileSavePath))
+                {
+                    System.IO.File.Delete(fileSavePath);
+                }
+
+                return Json("SI", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+
                 return Json("SI", JsonRequestBehavior.AllowGet);
             }
         }
@@ -612,6 +682,9 @@ namespace syncfusion_payc.Controllers
                     db.TAG_ORDEN.Add(TEMP);
                 }
             }
+            //Modificar el contrato proyecto del contrato principal
+            CONTRATOS table = db.CONTRATOS.Single(o => o.COD_CONTRATO ==COD_CONTRATO);
+            table.COD_CONTRATO_PROYECTO_1 = cont_pro.COD_CONTRATO_PROYECTO;
             db.SaveChanges();
             //Realizar cargue inicial de incrementos
             if (db.INCREMENTO_ORDEN.Where(o => o.COD_CONTRATO_PROYECTO == cont_pro.COD_CONTRATO_PROYECTO).ToList().Count() == 0)
@@ -701,6 +774,9 @@ namespace syncfusion_payc.Controllers
                 }
             }
             //Guardar cambios
+            //Modificar el contrato proyecto del contrato principal
+            CONTRATOS table1 = db.CONTRATOS.Single(o => o.COD_CONTRATO == COD_CONTRATO);
+            table1.COD_CONTRATO_PROYECTO_1 = COD_CONTRATO_PROYECTO;
             db.SaveChanges();
             //Realizar cargue inicial de incrementos
             if (db.INCREMENTO_ORDEN.Where(o => o.COD_CONTRATO_PROYECTO == COD_CONTRATO_PROYECTO).ToList().Count() == 0)

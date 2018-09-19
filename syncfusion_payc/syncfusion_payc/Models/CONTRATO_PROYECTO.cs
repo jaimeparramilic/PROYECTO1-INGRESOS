@@ -44,7 +44,6 @@ namespace syncfusion_payc.Models
         public string CENTRO_COSTOS { get; set; }
         public Nullable<long> COD_ESTADO_ORDEN_SERVICIO { get; set; }
     
-        public virtual CONTRATOS CONTRATOS { get; set; }
         public virtual ESTADOS_ORDEN_SERVICIO ESTADOS_ORDEN_SERVICIO { get; set; }
         public virtual FORMAS_PAGO FORMAS_PAGO { get; set; }
         public virtual PROYECTOS PROYECTOS { get; set; }
@@ -100,5 +99,6 @@ namespace syncfusion_payc.Models
     	[System.Runtime.Serialization.IgnoreDataMember]
     	[Newtonsoft.Json.JsonIgnore]
         public virtual ICollection<FACTURAS> FACTURAS { get; set; }
+        public virtual CONTRATOS CONTRATOS { get; set; }
     }
 }

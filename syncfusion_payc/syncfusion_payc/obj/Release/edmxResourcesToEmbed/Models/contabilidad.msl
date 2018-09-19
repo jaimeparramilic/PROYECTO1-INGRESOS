@@ -133,22 +133,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="CONTRATOS">
-      <EntityTypeMapping TypeName="test_payc_contabilidadModel.CONTRATOS">
-        <MappingFragment StoreEntitySet="CONTRATOS">
-          <ScalarProperty Name="RUTA_DOCUMENTO" ColumnName="RUTA_DOCUMENTO" />
-          <ScalarProperty Name="ORDEN_SERVICIO" ColumnName="ORDEN_SERVICIO" />
-          <ScalarProperty Name="VALOR_CONTRATO" ColumnName="VALOR_CONTRATO" />
-          <ScalarProperty Name="FECHA_FIN_EJECUCION" ColumnName="FECHA_FIN_EJECUCION" />
-          <ScalarProperty Name="FECHA_INICIO_EJECUCION" ColumnName="FECHA_INICIO_EJECUCION" />
-          <ScalarProperty Name="RUTA_ACTA_INICIO" ColumnName="RUTA_ACTA_INICIO" />
-          <ScalarProperty Name="FECHA_FIRMA" ColumnName="FECHA_FIRMA" />
-          <ScalarProperty Name="COD_CLIENTE" ColumnName="COD_CLIENTE" />
-          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
-          <ScalarProperty Name="COD_CONTRATO" ColumnName="COD_CONTRATO" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="CONTRATOS_CONDICIONES">
       <EntityTypeMapping TypeName="test_payc_contabilidadModel.CONTRATOS_CONDICIONES">
         <MappingFragment StoreEntitySet="CONTRATOS_CONDICIONES">
@@ -1149,6 +1133,23 @@
           <ScalarProperty Name="TEXTO_EN_PSL" ColumnName="TEXTO_EN_PSL" />
           <ScalarProperty Name="CODIGO_EN_PSL" ColumnName="CODIGO_EN_PSL" />
           <ScalarProperty Name="COD_CONCEPTO_PSL" ColumnName="COD_CONCEPTO_PSL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CONTRATOS">
+      <EntityTypeMapping TypeName="test_payc_contabilidadModel.CONTRATOS">
+        <MappingFragment StoreEntitySet="CONTRATOS">
+          <ScalarProperty Name="COD_CONTRATO_PROYECTO_1" ColumnName="COD_CONTRATO_PROYECTO_1" />
+          <ScalarProperty Name="RUTA_DOCUMENTO" ColumnName="RUTA_DOCUMENTO" />
+          <ScalarProperty Name="ORDEN_SERVICIO" ColumnName="ORDEN_SERVICIO" />
+          <ScalarProperty Name="VALOR_CONTRATO" ColumnName="VALOR_CONTRATO" />
+          <ScalarProperty Name="FECHA_FIN_EJECUCION" ColumnName="FECHA_FIN_EJECUCION" />
+          <ScalarProperty Name="FECHA_INICIO_EJECUCION" ColumnName="FECHA_INICIO_EJECUCION" />
+          <ScalarProperty Name="RUTA_ACTA_INICIO" ColumnName="RUTA_ACTA_INICIO" />
+          <ScalarProperty Name="FECHA_FIRMA" ColumnName="FECHA_FIRMA" />
+          <ScalarProperty Name="COD_CLIENTE" ColumnName="COD_CLIENTE" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="COD_CONTRATO" ColumnName="COD_CONTRATO" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

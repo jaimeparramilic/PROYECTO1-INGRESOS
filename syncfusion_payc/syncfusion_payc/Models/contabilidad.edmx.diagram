@@ -16,7 +16,6 @@
         <EntityTypeShape EntityType="test_payc_contabilidadModel.CONTRATO_COLABORADOR" Width="1.5" PointX="13.5" PointY="18.375" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.CONTRATO_PROYECTO" Width="1.5" PointX="3" PointY="27.25" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.CONTRATO_ROL_CARGO" Width="1.5" PointX="7.5" PointY="24.5" />
-        <EntityTypeShape EntityType="test_payc_contabilidadModel.CONTRATOS" Width="1.5" PointX="0.75" PointY="32.25" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.CONTRATOS_CONDICIONES" Width="1.5" PointX="5.25" PointY="29.125" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.CONTRATOS_ROL" Width="1.5" PointX="5.25" PointY="23.25" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.ENTREGABLES" Width="1.5" PointX="10.5" PointY="28.375" />
@@ -59,7 +58,6 @@
         <AssociationConnector Association="test_payc_contabilidadModel.FK_COMPROMISOS_PAGOS_CARTERA" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_GESTION_CARTERA_CARTERA" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_CENTROS_COSTOS_ESTADOS_CECO" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_CONTRATOS_CLIENTES" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_COLABORADORES_ESTADO_COLABORADOR" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_COLABORADORES_GENEROS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_COLABORADORES_TIPO_CONTRATO" />
@@ -70,7 +68,6 @@
         <AssociationConnector Association="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_COLABORADOR" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_COMPROMISOS_ENTREGABLES_ENTREGABLES" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_CONTRATO_COLABORADOR_ROL" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_CONTRATOS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_ESTADO_ORDEN_SERVICIO" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_FORMAS_PAGO" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_PROYECTOS" />
@@ -161,6 +158,9 @@
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_CONCEPTOS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_CONCEPTOS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_FACTURAS_CONCEPTOS" />
+        <EntityTypeShape EntityType="test_payc_contabilidadModel.CONTRATOS" Width="1.5" PointX="4.875" PointY="54.375" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_CONTRATOS_CLIENTES" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_CONTRATOS" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

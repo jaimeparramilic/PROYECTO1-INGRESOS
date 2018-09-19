@@ -40,7 +40,8 @@
                                                 .AllowPaging()
                                                 .AllowFiltering()
                                                 .Locale("es-CO")
-                                                .QueryString("COD_CONTRATO")
+                                                .QueryString("COD_CONTRATO_PROYECTO")
+                                                .ForeignKeyField("COD_CONTRATO_PROYECTO_1")
                                                 .AllowResizeToFit(true)
                                                 .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
                                                 .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
@@ -57,6 +58,7 @@
                                                            items.AddTool(ToolBarItems.Cancel);
                                                        });
                                                 }).ClientSideEvents(e => e.Create("create").RowSelected("rowSelected"))
+                                                .ClientSideEvents(eve => eve.ToolbarClick("clicked"))
                                                 .Columns(col =>
                                                 {
                                                     col.Field("COD_CLIENTE").ForeignKeyField("COD_CLIENTE").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CLIENTES.ToList()).HeaderText("CLIENTE").EditType(EditingType.DropdownEdit).Add();
@@ -67,7 +69,7 @@
                                                     col.Field("FECHA_INICIO_EJECUCION").HeaderText("FECHA INI EJECUCIÓN").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
                                                     col.Field("FECHA_FIN_EJECUCION").HeaderText("FECHA FIN EJECUCIÓN").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
                                                     col.Field("VALOR_CONTRATO").HeaderText("VALOR CONTRATO").Format("{0:c2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                                                    col.Field("ORDEN_SERVICIO").HeaderText("ORDEN SERVICIO").Add();
+                                                    
 
                                                 });
                                                     })
@@ -163,14 +165,16 @@
     //Almacenaje de la ruta en contratos
     function fileuploadSuccess_anexos(e) {
         var FileData = e.responseText;
+        var COD_CONTRATO = $("#fila_elegida").val();
         //Guardar valor
-        var instancia = $("#GRID_ROLES").ejGrid("instance");
+        var instancia = $("#" + $("#grid_elegida").val()).ejGrid("instance");
         //Verificar selección de filas
         try {
             var seleccionados = instancia.getSelectedRecords()[0];
             var fila = instancia.selectedRowsIndexes;
             seleccionados.RUTA_DOCUMENTO = FileData;
-            instancia.updateRecord("COD_CONTRATO_ROL", seleccionados);
+            alert("llegue");
+            instancia.updateRecord("COD_CONTRATO", seleccionados);
             setTimeout(function () { instancia.refreshContent(); }, 1000);
         }
         catch{
@@ -178,9 +182,15 @@
         }
     }
 
+        
+        //Función click en los elementos nuevos
+        function clicked(sender) {
+            $("#grid_elegida").val(sender.itemId.replace("_Adjuntar", ""));
+            
+        }
     //Remove completo contratos
     function fileremovecomplete_anexos(e) {
-        var instancia = $("#GRID_ROLES").ejGrid("instance");
+        var instancia = $("#" + $("#grid_elegida").val()).ejGrid("instance");
         var fila = instancia.selectedRowsIndexes;
         //Guardar valor de la ruta en la fila seleccionada
         instancia.setCellValue(fila, "RUTA_DOCUMENTO", "");
@@ -189,8 +199,8 @@
     //Función que crea el uploadbox para la grid de contratos
     function create(args) {
         $("#boton_adjuntar").ejUploadbox({
-            saveUrl: "../FlujoProyectos/Save_contrato",
-            removeUrl: "../FlujoProyectos/Remove_contrato",
+            saveUrl: "../FlujoProyectos/Save_contrato1",
+            removeUrl: "../FlujoProyectos/Remove_contrato1",
             success: fileuploadSuccess_anexos,
             remove: fileremovecomplete_anexos,
             autoUpload: true,
@@ -208,11 +218,11 @@
         });
     }
 
-    var temp10;
+    
     //función que se activa al seleccionar una fila para poder almacenar la fila actual en una variable
-    function rowSelected(args) {
-        $("#fila_elegida").val(args.data.COD_CONTRATO);
-
+        function rowSelected(args) {
+            
+            $("#fila_elegida").val(args.data.COD_CONTRATO);
     }
     </script>
 

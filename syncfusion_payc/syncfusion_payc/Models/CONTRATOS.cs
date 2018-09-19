@@ -30,6 +30,7 @@ namespace syncfusion_payc.Models
         public Nullable<float> VALOR_CONTRATO { get; set; }
         public string ORDEN_SERVICIO { get; set; }
         public string RUTA_DOCUMENTO { get; set; }
+        public Nullable<long> COD_CONTRATO_PROYECTO_1 { get; set; }
     
         public virtual CLIENTES CLIENTES { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

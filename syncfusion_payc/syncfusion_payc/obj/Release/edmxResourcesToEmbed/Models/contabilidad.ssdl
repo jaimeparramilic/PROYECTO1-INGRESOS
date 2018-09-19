@@ -143,6 +143,7 @@
     <Property Name="VALOR_CONTRATO" Type="real" />
     <Property Name="ORDEN_SERVICIO" Type="varchar" MaxLength="300" />
     <Property Name="RUTA_DOCUMENTO" Type="varchar" MaxLength="300" />
+    <Property Name="COD_CONTRATO_PROYECTO_1" Type="bigint" />
   </EntityType>
   <EntityType Name="CONTRATOS_CONDICIONES">
     <Key>
@@ -645,7 +646,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATO_PROYECTO
     <Property Name="COD_CONTRATO" Type="bigint" />
     <Property Name="COD_PROYECTO" Type="bigint" />
     <Property Name="COD_FORMA_PAGO" Type="bigint" />
-    <Property Name="DESCRIPCION" Type="varchar" MaxLength="622" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
     <Property Name="CENTRO_COSTOS" Type="varchar" MaxLength="300" />
   </EntityType>
   <!--Errores durante la generación:
@@ -1107,7 +1108,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_ORDENES_CEN
     <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
     <Property Name="FECHA_INICIO_EJECUCION" Type="date" />
     <Property Name="FECHA_FIN_EJECUCION" Type="date" />
-    <Property Name="ESTADO_CENTRO_COSTO" Type="varchar" MaxLength="16" />
+    <Property Name="ESTADO_CENTRO_COSTO" Type="varchar" MaxLength="20" />
   </EntityType>
   <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_ORDENES_ROL_CARGO' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->

@@ -611,6 +611,7 @@ th[data-p="0,0"]{
 .e-icon.completa1SI{
     display:none;
 }
+
 .e-file-cancel{
     color:crimson !important;
 }
@@ -673,6 +674,12 @@ th[data-p="0,0"]{
         position: relative;
     }
 
+
+
+.grid_costos .e-grid .e-edit:before {
+    content: "\e609"; /*Change custom icons for the built in icons*/
+}
+
 /*Aca empieza el theme para ocultar las columnas adicionales de las pivot*/
 
 
@@ -683,11 +690,7 @@ th[data-p="0,0"]{
     border-top-color: transparent !important;
     border-bottom-color: transparent !important;
 }
+
 #PivotGrid1 .e-collapse, #PivotGrid2 .e-collapse {
     display: none !important;
 }
-
-.grid_costos .e-grid .e-edit:before {
-    content: "\e609"; /*Change custom icons for the built in icons*/
-}
-
