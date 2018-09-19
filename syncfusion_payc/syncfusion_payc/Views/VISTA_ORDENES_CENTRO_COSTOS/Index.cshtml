@@ -189,11 +189,17 @@
                     contentType: "application/json; charset=utf-8",
                     dataFilter: function (data) { return data; },
                     success: function (data) {
+                        var gridObj = $("#Grid").ejGrid("instance");
+                        gridObj.refreshContent();
+                        
                         alert("Ok. Se creó centro de costos: " + centro_costos);
                         $('.contenedor_loader1').hide();
                     },
                     error: function (data) {
                         alert("ERROR al intentar crear centro de costos: " + centro_costos);
+                        var gridObj = $("#Grid").ejGrid("instance");
+                        gridObj.refreshContent();
+
                         $('.contenedor_loader1').hide();
                     }
                 });
@@ -233,6 +239,8 @@
                 contentType: "application/json; charset=utf-8",
                 dataFilter: function (data) { return data; },
                 success: function (data) {
+                    var gridObj = $("#Grid").ejGrid("instance");
+                    gridObj.refreshContent();
                     alert("Ok. Se CERRÓ centro de costos:" + centro_costos);
                     $('.contenedor_loader1').hide();
                 },
