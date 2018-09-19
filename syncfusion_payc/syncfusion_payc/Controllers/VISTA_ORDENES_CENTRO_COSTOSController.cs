@@ -219,7 +219,28 @@ namespace syncfusion_payc.Controllers
             }
             else
             {
-                success = false;
+                //Query para modificar estado del centro de costos
+                string queryString = " UPDATE CONTRATO_PROYECTO SET "
+                    + "COD_ESTADO_ORDEN_SERVICIO = 1 WHERE COD_CONTRATO_PROYECTO = "
+                    + COD_CONTRATO_PROYECTO.ToString() + ";";
+
+                //Ejecución del query
+                using (SqlConnection connection = new SqlConnection(connecString))
+                {
+                    SqlCommand command = new SqlCommand(queryString, connection);
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+
+                string query1 = " UPDATE [ssf_pruebas].[dbo].[co_ingeeleimp] SET eobnombre='Activo', eobcodigo='AC' WHERE igecodigo='" + CENTRO_COSTOS + "'";
+
+                using (SqlConnection connection = new SqlConnection(connectionString1))
+                {
+                    SqlCommand command = new SqlCommand(query1, connection);
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+
             }
 
             return Json(new { success = success, responseText = existececo }, JsonRequestBehavior.AllowGet);

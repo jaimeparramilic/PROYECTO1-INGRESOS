@@ -5,7 +5,7 @@ factura <- function(cod_factura) {
   #CONEXIÓN A LA BASE DE DATOS
   
   con <- dbConnect(odbc::odbc(), "PAYC_FACTURACION", uid = "sa", pwd = "1234JAMS*")
-  cod_factura = 10163
+  #cod_factura = 10163
   #EXTRACCION DE LA INFORMACION IMPORTANTE DE LA BASE DE DATOS
   fact <- paste0("SELECT * FROM FACTURAS WHERE COD_FACTURA=", cod_factura)
   FACTURAS <- dbGetQuery(con, fact)
@@ -241,3 +241,4 @@ factura <- function(cod_factura) {
   #VALOR_FACTURAR
   return(VALOR_FACTURAR)
 }
+
