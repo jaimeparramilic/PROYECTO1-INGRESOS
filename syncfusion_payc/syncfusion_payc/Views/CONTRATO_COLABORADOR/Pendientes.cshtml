@@ -32,7 +32,7 @@
                             }).Columns(col =>
                             {
                                 col.Field("COD_CONTRATO_PROYECTO").HeaderText("COD CONTRATO PROYECTO").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                                col.Field("CENTRO_COSTOS").HeaderText("CENTRO COSTOS").ForeignKeyField("CENTRO_COSTOS").ForeignKeyValue("CENTRO_COSTOS").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().PROYECTOS.ToList()).EditType(EditingType.DropdownEdit).Add();
+                                col.Field("CENTRO_COSTOS").HeaderText("CENTRO COSTOS").EditType(EditingType.DropdownEdit).Add();
                                 col.Field("DESCRIPCION").HeaderText("DESCRIPCION").ForeignKeyField("DESCRIPCION").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().PROYECTOS.ToList()).EditType(EditingType.DropdownEdit).Add();
                                 col.Field("FECHA_INICIO_EJECUCION").HeaderText("FECHA INICIO EJECUCION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
                                 col.Field("FECHA_FIN_EJECUCION").HeaderText("FECHA FIN EJECUCION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();

@@ -9,36 +9,63 @@
 {
     <div class="control-section">
 
-        @(Html.EJ().Grid<syncfusion_payc.Models.CONTRATOS_CONDICIONES_VISTA>("Grid")
-                .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
-                .AllowPaging()
-                .AllowFiltering()
-                .Locale("es-CO")
-                .AllowResizeToFit(true)
-                .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
-                .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
-                .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
-                .ToolbarSettings(toolbar =>
-                {
-                    toolbar.ShowToolbar().ToolbarItems(items =>
-                    {
-                        items.AddTool(ToolBarItems.Add);
-                        items.AddTool(ToolBarItems.Edit);
-                        items.AddTool(ToolBarItems.Delete);
-                        items.AddTool(ToolBarItems.Update);
-                        items.AddTool(ToolBarItems.Cancel);
-                    });
+        @(Html.EJ().Grid<syncfusion_payc.Models.CONTRATO_COLABORADOR_INDEX>("Grid")
+                                               .Datasource(ds => ds.URL("../CONTRATO_COLABORADOR/GetOrderData_contrato_proyecto").InsertURL("../CONTRATO_COLABORADOR/PerformInsert_contrato_proyecto").UpdateURL("../CONTRATO_COLABORADOR/PerformUpdate_contrato_proyecto").RemoveURL("../CONTRATO_COLABORADOR/PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                                               .AllowPaging()
+                                               .AllowFiltering()
+                                               .Locale("es-CO")
+                                               .AllowResizeToFit(true)
+                                               .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                                               .ToolbarSettings(toolbar =>
+                                               {
+                                                   toolbar.ShowToolbar().ToolbarItems(items =>
+                                               {
+                                                   items.AddTool(ToolBarItems.Add);
+                                                   items.AddTool(ToolBarItems.Edit);
+                                                   items.AddTool(ToolBarItems.Delete);
+                                                   items.AddTool(ToolBarItems.Update);
+                                                   items.AddTool(ToolBarItems.Cancel);
+                                               });
+                                               }).Columns(col =>
+                                               {
+                                                   col.Field("CENTRO_COSTOS").HeaderText("CENTRO DE COSTOS").EditType(EditingType.DropdownEdit).Add();
+                                                   col.Field("DESCRIPCION").HeaderText("DESCRIPCION").EditType(EditingType.DropdownEdit).Add();
+                                                   col.Field("COD_CONTRATO_PROYECTO").HeaderText("CONTRATO_PROYECTO").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit);
+                                                   col.Field("COD_CONTRATO").HeaderText("CONTRATO_PROYECTO").Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit);
+                                               }).ChildGrid(child =>
+                                                    {
+                                                        child.Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                                                        .AllowPaging()
+                                                        .AllowFiltering()
+                                                        .Locale("es-CO")
+                                                        .QueryString("COD_CONTRATO_PROYECTO")
+                                                        .AllowResizeToFit(true)
+                                                        .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
+                                                        .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                                                        .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+                                                        .ToolbarSettings(toolbar =>
+                                                        {
+                                                            toolbar.ShowToolbar().ToolbarItems(items =>
+                                                            {
+                                                                items.AddTool(ToolBarItems.Add);
+                                                                items.AddTool(ToolBarItems.Edit);
+                                                                items.AddTool(ToolBarItems.Delete);
+                                                                items.AddTool(ToolBarItems.Update);
+                                                                items.AddTool(ToolBarItems.Cancel);
+                                                            });
 
-                }).Columns(col =>
-                {
-                    col.Field("CENTRO_COSTOS").HeaderText("CENTRO COSTOS").AllowEditing(false).Add();
-                    col.Field("COD_CONTRATO_PROYECTO").ForeignKeyField("COD_CONTRATO_PROYECTO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONTRATO_PROYECTO_DESCRIPCION.ToList()).HeaderText("ORDEN SERVICIO").EditType(EditingType.DropdownEdit).Add();
-                    col.Field("COD_TIPO_CONDICION").ForeignKeyField("COD_TIPO_CONDICION").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().TIPO_CONDICION_CONTRACTUAL.ToList()).HeaderText("TIPO CONDICIÓN").EditType(EditingType.DropdownEdit).Add();
-                    col.Field("COD_CONTRATO_CONDICION").HeaderText("CONTRATO_CONDICION").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                    col.Field("VIGENTE").ForeignKeyField("DESCRIPCION").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().SINO.ToList()).HeaderText("¿VIGENTE?").Add();
-                    col.Field("FECHA_INCLUSION").AllowEditing(false).HeaderText("FECHA INCLUSION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
-                    col.Field("FECHA_EXCLUSION").AllowEditing(false).HeaderText("FECHA EXCLUSION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
-                }))
+                                                        }).Columns(col =>
+                                                        {
+                                                            
+                                                            
+                                                            col.Field("COD_TIPO_CONDICION").ForeignKeyField("COD_TIPO_CONDICION").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().TIPO_CONDICION_CONTRACTUAL.ToList()).HeaderText("TIPO CONDICIÓN").EditType(EditingType.DropdownEdit).Add();
+                                                            col.Field("COD_CONTRATO_CONDICION").HeaderText("CONTRATO_CONDICION").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                                                            col.Field("VIGENTE").ForeignKeyField("DESCRIPCION").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().SINO.ToList()).HeaderText("¿VIGENTE?").Add();
+                                                            col.Field("FECHA_INCLUSION").AllowEditing(false).HeaderText("FECHA INCLUSION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                                                            col.Field("FECHA_EXCLUSION").AllowEditing(false).HeaderText("FECHA EXCLUSION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                                                        }); 
+                                                })
+       )
     </div>
 }
     <script>

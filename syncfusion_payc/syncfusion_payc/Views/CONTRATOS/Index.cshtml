@@ -11,46 +11,84 @@
 <div class="control-section">
     @if (User.Identity.IsAuthenticated)
     {
-        @(Html.EJ().Grid<syncfusion_payc.Models.CONTRATOS>("Grid")
-                .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
-                                    .AllowPaging()
-                                    .AllowFiltering()
-                                    .Locale("es-CO")
-                                    .AllowResizeToFit(true)
-                                    .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
-                                    .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
-                                    .ToolbarSettings(toolbar =>
-                                    {
-                                        toolbar.ShowToolbar().ToolbarItems(items =>
-                                        {
-                                            items.AddTool(ToolBarItems.Add);
-                                            items.AddTool(ToolBarItems.Edit);
-                                            items.AddTool(ToolBarItems.Delete);
-                                            items.AddTool(ToolBarItems.Update);
-                                            items.AddTool(ToolBarItems.Cancel);
+        @(Html.EJ().Grid<syncfusion_payc.Models.CONTRATO_COLABORADOR_INDEX>("Grid")
+                                               .Datasource(ds => ds.URL("../CONTRATO_COLABORADOR/GetOrderData_contrato_proyecto").InsertURL("../CONTRATO_COLABORADOR/PerformInsert_contrato_proyecto").UpdateURL("../CONTRATO_COLABORADOR/PerformUpdate_contrato_proyecto").RemoveURL("../CONTRATO_COLABORADOR/PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                                               .AllowPaging()
+                                               .AllowFiltering()
+                                               .Locale("es-CO")
+                                               .AllowResizeToFit(true)
+                                               .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                                               .ToolbarSettings(toolbar =>
+                                               {
+                                                   toolbar.ShowToolbar().ToolbarItems(items =>
+                                               {
+                                                   items.AddTool(ToolBarItems.Add);
+                                                   items.AddTool(ToolBarItems.Edit);
+                                                   items.AddTool(ToolBarItems.Delete);
+                                                   items.AddTool(ToolBarItems.Update);
+                                                   items.AddTool(ToolBarItems.Cancel);
+                                               });
+                                               }).Columns(col =>
+                                               {
+                                                   col.Field("CENTRO_COSTOS").HeaderText("CENTRO DE COSTOS").EditType(EditingType.DropdownEdit).Add();
+                                                   col.Field("DESCRIPCION").HeaderText("DESCRIPCION").EditType(EditingType.DropdownEdit).Add();
+                                                   col.Field("COD_CONTRATO_PROYECTO").HeaderText("CONTRATO_PROYECTO").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit);
+                                                   col.Field("COD_CONTRATO").HeaderText("CONTRATO_PROYECTO").Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit);
+                                               }).ChildGrid(child =>
+                                                    {
+                                                        child.Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                                                .AllowPaging()
+                                                .AllowFiltering()
+                                                .Locale("es-CO")
+                                                .QueryString("COD_CONTRATO")
+                                                .AllowResizeToFit(true)
+                                                .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                                                .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+                                                .ToolbarSettings(toolbar =>
+                                                {
+                                                    toolbar.ShowToolbar().CustomToolbarItems(new List<object>() {
+                                        new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Adjuntar",Tooltip="Adjuntar contratos" }
+                                                        }).ToolbarItems(items =>
+                                                       {
+                                                           items.AddTool(ToolBarItems.Add);
+                                                           items.AddTool(ToolBarItems.Edit);
+                                                           items.AddTool(ToolBarItems.Delete);
+                                                           items.AddTool(ToolBarItems.Update);
+                                                           items.AddTool(ToolBarItems.Cancel);
+                                                       });
+                                                }).ClientSideEvents(e => e.Create("create").RowSelected("rowSelected"))
+                                                .Columns(col =>
+                                                {
+                                                    col.Field("COD_CLIENTE").ForeignKeyField("COD_CLIENTE").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CLIENTES.ToList()).HeaderText("CLIENTE").EditType(EditingType.DropdownEdit).Add();
+                                                    col.Field("COD_CONTRATO").HeaderText("CONTRATO").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                                                    col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();
+                                                    col.Field("FECHA_FIRMA").HeaderText("FECHA FIRMA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                                                    col.Field("RUTA_DOCUMENTO").HeaderText("RUTA DOCUMENTO").AllowEditing(false).Template("<a class='contrato' title='Ver contrato' href='../FlujoProyectos/contratos/{{:RUTA_DOCUMENTO}}'>{{:RUTA_DOCUMENTO}}</a>").Add();
+                                                    col.Field("FECHA_INICIO_EJECUCION").HeaderText("FECHA INI EJECUCIÓN").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                                                    col.Field("FECHA_FIN_EJECUCION").HeaderText("FECHA FIN EJECUCIÓN").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                                                    col.Field("VALOR_CONTRATO").HeaderText("VALOR CONTRATO").Format("{0:c2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                                                    col.Field("ORDEN_SERVICIO").HeaderText("ORDEN SERVICIO").Add();
 
-                                        });
-
-                                    }).Columns(col =>
-                                    {
-                                        col.Field("COD_CLIENTE").ForeignKeyField("COD_CLIENTE").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CLIENTES.ToList()).HeaderText("CLIENTE").EditType(EditingType.Dropdown).Add();
-                                        col.Field("COD_CONTRATO").HeaderText("CONTRATO").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.Numeric).ValidationRules(v => v.AddRule("number", true)).Add();
-                                        col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();
-                                        col.Field("FECHA_FIRMA").HeaderText("FECHA_FIRMA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
-                                        col.Field("RUTA_ACTA_INICIO").HeaderText("RUTA_ACTA_INICIO").Add();
-                                        col.Field("FECHA_INICIO_EJECUCION").HeaderText("FECHA_INICIO_EJECUCION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
-                                        col.Field("FECHA_FIN_EJECUCION").HeaderText("FECHA_FIN_EJECUCION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
-                                        col.Field("VALOR_CONTRATO").HeaderText("VALOR_CONTRATO").Format("{0:n2}").EditType(EditingType.Numeric).ValidationRules(v => v.AddRule("number", true)).Add();
-                                        col.Field("ORDEN_SERVICIO").HeaderText("ORDEN_SERVICIO").Add();
-                                        col.Field("RUTA_DOCUMENTO").HeaderText("RUTA_DOCUMENTO").Add();
-
-                                    }))
+                                                });
+                                                    })
+        )
     }
+
+    @*ALMACENAJE DE INFORMACIÓN TEMPORAL DEL CONTRATO ELEGIDO PARA CARGUE DE DOCUMENTOS*@
+    <div class="ocultas">
+        @*ERRORES*@
+        @*ETAPA1*@
+        <div class="form-group oculta">
+
+            <input autocomplete="off" type="hidden" class="form-control" id="fila_elegida" placeholder="" value="">
+            <input autocomplete="off" type="hidden" class="form-control" id="grid_elegida" placeholder="" value="">
+        </div>
     </div>
+</div>
 
 
-<script>
-    
+    <script>
+
     $(document).ready(function () {
         ej.Grid.Locale["es-CO"] = {
             EmptyRecord: "No hay registros que mostrar",
@@ -63,8 +101,8 @@
             EditFormTitle: "Detalles de ",
             AddFormTitle: "Añadir nuevo registro",
             GroupCaptionFormat: "{{:headerText}}: {{:key}} - {{:count}} {{if count == 1 }} ítem {{else}} artículos {{/if}} ",
-            
-            
+
+
         };
         ej.Pager.Locale["es-CO"] = {
             pagerInfo: "{0} de {1} páginas ({2} artículos)",
@@ -121,4 +159,63 @@
             False: "falso"
         };
     });
-</script>
+
+    //Almacenaje de la ruta en contratos
+    function fileuploadSuccess_anexos(e) {
+        var FileData = e.responseText;
+        //Guardar valor
+        var instancia = $("#GRID_ROLES").ejGrid("instance");
+        //Verificar selección de filas
+        try {
+            var seleccionados = instancia.getSelectedRecords()[0];
+            var fila = instancia.selectedRowsIndexes;
+            seleccionados.RUTA_DOCUMENTO = FileData;
+            instancia.updateRecord("COD_CONTRATO_ROL", seleccionados);
+            setTimeout(function () { instancia.refreshContent(); }, 1000);
+        }
+        catch{
+            alert("Por favor seleccione una fila para adjuntar un archivo");
+        }
+    }
+
+    //Remove completo contratos
+    function fileremovecomplete_anexos(e) {
+        var instancia = $("#GRID_ROLES").ejGrid("instance");
+        var fila = instancia.selectedRowsIndexes;
+        //Guardar valor de la ruta en la fila seleccionada
+        instancia.setCellValue(fila, "RUTA_DOCUMENTO", "");
+    }
+
+    //Función que crea el uploadbox para la grid de contratos
+    function create(args) {
+        $("#boton_adjuntar").ejUploadbox({
+            saveUrl: "../FlujoProyectos/Save_contrato",
+            removeUrl: "../FlujoProyectos/Remove_contrato",
+            success: fileuploadSuccess_anexos,
+            remove: fileremovecomplete_anexos,
+            autoUpload: true,
+            showFileDetails: false,
+            fileSize: 10000000,
+            extensionsAllow: ".doc, .docx,.pdf",
+            uploadName: "CARGUE_ANEXOS",
+            cssClass: "custom",
+            buttonText: {
+                browse: ""
+            },
+            create: function (args) {
+                $(".custom .e-selectpart").prepend("<span class='e-icon e-upload'></span>");
+            }
+        });
+    }
+
+    var temp10;
+    //función que se activa al seleccionar una fila para poder almacenar la fila actual en una variable
+    function rowSelected(args) {
+        $("#fila_elegida").val(args.data.COD_CONTRATO);
+
+    }
+    </script>
+
+    <script type="text/x-jsrender" id="Adjuntar">
+        <div id="boton_adjuntar"></div>
+    </script>

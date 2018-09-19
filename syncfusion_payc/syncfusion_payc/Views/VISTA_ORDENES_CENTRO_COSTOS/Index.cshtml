@@ -35,7 +35,7 @@
                     items.AddTool(ToolBarItems.Cancel);
                 }).CustomToolbarItems(new List<object>() {
                 
-                new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Cerrar",Tooltip="CERRAR centro de costos" }
+                new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Cerrar",Tooltip="Cerrar centro de costos" }
                                             });
 
             }).Columns(col =>
@@ -135,10 +135,12 @@
     });
 
 	//Funcion para añadir buscador a los dropdown
+    var temp10;
 	function inicio_grid(args) {
         if (args.requestType == "beginedit" || args.requestType == "add") {
             setTimeout(function () {
-                args.data.ESTADO_PSL = "";
+                temp10 = args; 
+                args.rowData.ESTADO_PSL = "";
                 $('.gridform tr:not(".e-hide"):nth-child(2)').hide();
                 $('.gridform tr:not(".e-hide"):nth-child(3)').hide();
                 $('.gridform tr:not(".e-hide"):nth-child(4)').hide();
@@ -256,6 +258,7 @@
             crear(pivotgrid.model.selectedRecords[0].COD_CONTRATO_PROYECTO, pivotgrid, pivotgrid.model.selectedRecords[0].DESCRIPCION);           
         }
     }
+
 </script>
 
 <!--Modelos o templates para botones-->

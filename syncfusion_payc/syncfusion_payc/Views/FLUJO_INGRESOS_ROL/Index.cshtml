@@ -7,41 +7,69 @@
 <h4>FLUJO INGRESOS RECURSO HUMANO</h4>
 <div class="control-section">
 
-					@(Html.EJ().Grid<syncfusion_payc.Models.FLUJO_INGRESOS_ROL>("Grid")
-                    .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
-                    .AllowPaging()
-                    .AllowFiltering()
-                    .Locale("es-CO")
-                    .AllowResizeToFit(true)
-                    .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
-                    .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
-                    .ClientSideEvents(eve =>
-                    {
-                        eve.Create("create");
-                    })
-                    .ToolbarSettings(toolbar =>
-                    {
-                        toolbar.ShowToolbar().ToolbarItems(items =>
-                        {
-                            items.AddTool(ToolBarItems.Add);
-                            items.AddTool(ToolBarItems.Edit);
-                            items.AddTool(ToolBarItems.Delete);
-                            items.AddTool(ToolBarItems.Update);
-                            items.AddTool(ToolBarItems.Cancel);
-                        });
-                    }).Columns(col =>
-                    {
-                        col.Field("COD_CONTRATO_PROYECTO").AllowEditing(false).ForeignKeyField("COD_CONTRATO_PROYECTO").ForeignKeyValue("CENTRO_COSTOS").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONTRATO_PROYECTO_DESCRIPCION.ToList()).HeaderText("CENTRO COSTOS").EditType(EditingType.DropdownEdit).Add();
-                        col.Field("COD_CONTRATO_PROYECTO").AllowEditing(false).ForeignKeyField("COD_CONTRATO_PROYECTO").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONTRATO_PROYECTO_DESCRIPCION.ToList()).HeaderText("ORDEN SERVICIO").EditType(EditingType.DropdownEdit).Add();
-                        col.Field("COD_FORMAS_PAGO_FECHAS").ForeignKeyField("COD_FORMAS_PAGO_FECHAS").ForeignKeyValue("FECHA_FORMA_PAGO").Format("{0:dd/MM/yyyy}").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().FORMAS_PAGO_FECHAS.ToList()).HeaderText("FECHA").EditType(EditingType.DropdownEdit).Add();
-                        col.Field("COD_ROL").AllowEditing(false).ForeignKeyField("COD_ROL").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").EditType(EditingType.DropdownEdit).Add();
+    @(Html.EJ().Grid<syncfusion_payc.Models.CONTRATO_COLABORADOR_INDEX>
+        ("Grid")
+        .Datasource(ds => ds.URL("../CONTRATO_COLABORADOR/GetOrderData_contrato_proyecto").InsertURL("../CONTRATO_COLABORADOR/PerformInsert_contrato_proyecto").UpdateURL("../CONTRATO_COLABORADOR/PerformUpdate_contrato_proyecto").RemoveURL("../CONTRATO_COLABORADOR/PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+        .AllowPaging()
+        .AllowFiltering()
+        .Locale("es-CO")
+        .AllowResizeToFit(true)
+        .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+        .ToolbarSettings(toolbar =>
+        {
+        toolbar.ShowToolbar().ToolbarItems(items =>
+        {
+        items.AddTool(ToolBarItems.Add);
+        items.AddTool(ToolBarItems.Edit);
+        items.AddTool(ToolBarItems.Delete);
+        items.AddTool(ToolBarItems.Update);
+        items.AddTool(ToolBarItems.Cancel);
+        });
+        }).Columns(col =>
+        {
+        col.Field("CENTRO_COSTOS").HeaderText("CENTRO DE COSTOS").EditType(EditingType.DropdownEdit).Add();
+        col.Field("DESCRIPCION").HeaderText("DESCRIPCION").EditType(EditingType.DropdownEdit).Add();
+        col.Field("COD_CONTRATO_PROYECTO").HeaderText("CONTRATO_PROYECTO").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit);
+        col.Field("COD_CONTRATO").HeaderText("CONTRATO_PROYECTO").Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit);
+        }).ChildGrid(child =>
+        {
+        child.Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+        .AllowPaging()
+        .AllowFiltering()
+        .Locale("es-CO")
+        .QueryString("COD_CONTRATO_PROYECTO")
+        .AllowResizeToFit(true)
+        .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+        .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+        .ClientSideEvents(eve =>
+        {
+        eve.Create("create");
+        })
+        .ToolbarSettings(toolbar =>
+        {
+        toolbar.ShowToolbar().ToolbarItems(items =>
+        {
+        items.AddTool(ToolBarItems.Add);
+        items.AddTool(ToolBarItems.Edit);
+        items.AddTool(ToolBarItems.Delete);
+        items.AddTool(ToolBarItems.Update);
+        items.AddTool(ToolBarItems.Cancel);
+        });
+        }).Columns(col =>
+        {
+        
+                col.Field("COD_FORMAS_PAGO_FECHAS").ForeignKeyField("COD_FORMAS_PAGO_FECHAS").ForeignKeyValue("FECHA_FORMA_PAGO").Format("{0:dd/MM/yyyy}").DataSource((IEnumerable<object>
+                    )new syncfusion_payc.Models.test_payc_contabilidadEntities().FORMAS_PAGO_FECHAS.ToList()).HeaderText("FECHA").Type("string").EditType(EditingType.DropdownEdit).Add();
+                    col.Field("COD_ROL").AllowEditing(false).ForeignKeyField("COD_ROL").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>
+                        )new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").EditType(EditingType.DropdownEdit).Add();
                         col.Field("ESTADO").AllowEditing(false).HeaderText("¿VIGENTE?").Add();
                         col.Field("COD_FLUJO_INGRESOS_ROL").HeaderText("FLUJO_INGRESOS_ROL").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                         col.Field("ETAPA").Visible(false).HeaderText("ETAPA").Add();
-                        col.Field("VALOR_SIN_PRESTACIONES").HeaderText("VALOR SIN PRESTACIONES").Format("{0:c2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                        col.Field("VALOR_CON_PRESTACIONES").HeaderText("VALOR CON PRESTACIONES").Format("{0:c2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                        col.Field("VALOR_SIN_PRESTACIONES").HeaderText("VALOR SIN PRESTACIONES").Visible(false).AllowEditing(false).Format("{0:c2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                        col.Field("VALOR_CON_PRESTACIONES").HeaderText("VALOR CON PRESTACIONES").Visible(false).AllowEditing(false).Format("{0:c2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                         col.Field("VALOR_FACTOR_MULTIPLICADOR").HeaderText("VALOR FACTOR MULTIPLICADOR").Format("{0:c2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                    }))
+                        });})
+    )
 
 </div>
 
