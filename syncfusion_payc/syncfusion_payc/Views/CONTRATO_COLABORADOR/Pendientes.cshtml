@@ -192,6 +192,7 @@
 
     //Función para generar los colabores pendientes
     function validar_asignacion(contrato_proyecto, id) {
+        $('.contenedor_loader1').show();
         var data = JSON.stringify({ COD_CONTRATO_PROYECTO: parseInt(contrato_proyecto) });
         var url ="validar_asignacion";
         $.ajax({
@@ -214,6 +215,7 @@
                     $("#dialog_error").ejDialog("setContent", contenido);
                     $("#dialog_error").ejDialog("open");
                 }
+                $('.contenedor_loader1').hide();
             }
         });
     }
@@ -354,6 +356,14 @@
                             drop.option("dataSource", dataManager);
                             drop.option("fields", {text:"DESCRIPCION",value:"COD_COLABORADOR"});
                             drop.option("enableFilterSearch", true);
+                            try {
+                                drop.option({
+                                    value: COD_COLABORADOR,
+                                    select: function (args) {
+                                        cargar_cargos(args.value);
+                                    }
+                                });
+                            }
                         }
                     });
                                
