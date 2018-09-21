@@ -67,6 +67,7 @@
                                                     col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();
                                                     col.Field("FECHA_FIRMA").HeaderText("FECHA FIRMA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
                                                     col.Field("RUTA_DOCUMENTO").HeaderText("RUTA DOCUMENTO").AllowEditing(false).Template("<a class='contrato' title='Ver contrato' href='../FlujoProyectos/contratos/{{:RUTA_DOCUMENTO}}'>{{:RUTA_DOCUMENTO}}</a>").Add();
+                                                    col.HeaderText("RUTA ANEXOS").Template("<a class='contrato' title='Ver contrato' href='../FlujoProyectos/contratos/{{:RUTA_DOCUMENTO}}'>{{:RUTA_DOCUMENTO}}</a>").Add();
                                                     col.Field("FECHA_INICIO_EJECUCION").HeaderText("FECHA INI EJECUCIÓN").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
                                                     col.Field("FECHA_FIN_EJECUCION").HeaderText("FECHA FIN EJECUCIÓN").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
                                                     col.Field("VALOR_CONTRATO").HeaderText("VALOR CONTRATO").Format("{0:c2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
@@ -184,8 +185,8 @@
     }
 
         
-        //Función click en los elementos nuevos
-        function clicked(sender) {
+    //Función click en los elementos nuevos
+    function clicked(sender) {
             $("#grid_elegida").val(sender.itemId.replace("_Adjuntar", ""));
             
         }
@@ -221,13 +222,13 @@
 
     
     //función que se activa al seleccionar una fila para poder almacenar la fila actual en una variable
-        function rowSelected(args) {
+    function rowSelected(args) {
             
             $("#fila_elegida").val(args.data.COD_CONTRATO);
         }
 
     //función para drop_down de contratos
-      function inicio_grid(args) {
+    function inicio_grid(args) {
         if (args.requestType == "beginedit" || args.requestType == "add") {
             
                 setTimeout(function () {

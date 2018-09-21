@@ -326,53 +326,52 @@
         }, "La fecha de incio debe ser inferior o igual a la de finalización");
     });
 
-     //Funcion para añadir el filtro a los drop downs
+    //Funcion para añadir el filtro a los drop downs
     function inicio_grid(args) {
         if (args.requestType == "beginedit") {
-                setTimeout(function () {
-                    //Cargar valor del rol para la orden de servicio dada
-                    var COD_CONTRATO_ROL = args.model.selectedRecords[0].COD_CONTRATO_ROL;
-                    var data = JSON.stringify({ COD_CONTRATO_ROL: parseInt(COD_CONTRATO_ROL) });
-                    var url = "lista_colaboradores";
-                    $.ajax({
-                        type: "POST",
-                        url: url,
-                        data: data,
-                        dataType: "json",
-                        contentType: "application/json; charset=utf-8",
-                        dataFilter: function (data) { return data; },
-                        success: function (data) {
-                            //Instanciar dropdown
-                            var drop = $(".e-dropdownlist[name='COD_COLABORADOR']").ejDropDownList('instance');
-                            drop.option({
-                                select: function (args) {
-                                    cargar_cargos(args.value);  
-                                }
-                            });
-                            //Cargar lista de colaboradores
-                            //temp1 = data.data;
-                            var lista_colaboradores = data.data;
-                            var dataManager = ej.DataManager(lista_colaboradores);
-                            drop.option("dataSource", dataManager);
-                            drop.option("fields", {text:"DESCRIPCION",value:"COD_COLABORADOR"});
-                            drop.option("enableFilterSearch", true);
-                            try {
-                                drop.option({
-                                    value: COD_COLABORADOR,
-                                    select: function (args) {
-                                        cargar_cargos(args.value);
-                                    }
-                                });
+            setTimeout(function () {
+                //Cargar valor del rol para la orden de servicio dada
+                var COD_CONTRATO_ROL = args.model.selectedRecords[0].COD_CONTRATO_ROL;
+                var COD_COLABORADOR = args.model.selectedRecords[0].COD_COLABORADOR;
+                var data = JSON.stringify({ COD_CONTRATO_ROL: parseInt(COD_CONTRATO_ROL) });
+                var url = "lista_colaboradores";
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        //Instanciar dropdown
+                        var drop = $(".e-dropdownlist[name='COD_COLABORADOR']").ejDropDownList('instance');
+                        drop.option({
+                            select: function (args) {
+                                cargar_cargos(args.value);
                             }
-                        }
-                    });
-                               
+                        });
+                        //Cargar lista de colaboradores
+                        //temp1 = data.data;
+                        var lista_colaboradores = data.data;
+                        var dataManager = ej.DataManager(lista_colaboradores);
+                        drop.option("dataSource", dataManager);
+                        drop.option("fields", { text: "DESCRIPCION", value: "COD_COLABORADOR" });
+                        drop.option("enableFilterSearch", true);
+                        drop.option({
+                            
+                            select: function (args) {
+                                cargar_cargos(args.value);
+                            }
+                        });
+                    }
+                });
+
 
                 //Cargar valor del rol para la orden de servicio dada
-               
-                 url = "lista_roles";
-                 var COD_CONTRATO_PROYECTO = args.model.parentDetails.parentKeyFieldValue;
-                 data = JSON.stringify({ COD_CONTRATO_PROYECTO: parseInt(COD_CONTRATO_PROYECTO) });
+
+                url = "lista_roles";
+                var COD_CONTRATO_PROYECTO = args.model.parentDetails.parentKeyFieldValue;
+                data = JSON.stringify({ COD_CONTRATO_PROYECTO: parseInt(COD_CONTRATO_PROYECTO) });
                 $.ajax({
                     type: "POST",
                     url: url,
@@ -396,6 +395,7 @@
                     }
                 });
 
+
             }, 100);
 
         }
@@ -403,8 +403,8 @@
 
             setTimeout(function () {
                 //Cargar valor del rol para la orden de servicio dada
-                var COD_CONTRATO_PROYECTO= args.model.parentDetails.parentKeyFieldValue;
-                
+                var COD_CONTRATO_PROYECTO = args.model.parentDetails.parentKeyFieldValue;
+
                 var data = JSON.stringify({ COD_CONTRATO_PROYECTO: parseInt(COD_CONTRATO_PROYECTO) });
                 var url = "lista_colaboradores_contrato_proyecto";
 
@@ -434,39 +434,39 @@
                 });
                 url = "lista_roles";
                 $.ajax({
-                type: "POST",
-                url: url,
-                data: data,
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                dataFilter: function (data) { return data; },
-                success: function (data) {
-                    //Instanciar dropdown
-                    var drop = $(".e-dropdownlist[name='COD_ROL']").ejDropDownList('instance');
-                    drop.option({
-                        select: function (args) {
-                            filtrar_colaboradores_rol(args.value,COD_CONTRATO_PROYECTO);
-                        }
-                    });
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        //Instanciar dropdown
+                        var drop = $(".e-dropdownlist[name='COD_ROL']").ejDropDownList('instance');
+                        drop.option({
+                            select: function (args) {
+                                filtrar_colaboradores_rol(args.value, COD_CONTRATO_PROYECTO);
+                            }
+                        });
 
-                    //Cargar lista de colaboradores
-                    //temp1 = data.data;
-                    var lista_roles = data.data;
-                    var dataManager = ej.DataManager(lista_roles);
-                    drop.option("dataSource", dataManager);
-                    drop.option("fields", { text: "DESCRIPCION", value: "COD_CONTRATO_ROL" });
-                    drop.option("enableFilterSearch", true);
-                }
-            });
+                        //Cargar lista de colaboradores
+                        //temp1 = data.data;
+                        var lista_roles = data.data;
+                        var dataManager = ej.DataManager(lista_roles);
+                        drop.option("dataSource", dataManager);
+                        drop.option("fields", { text: "DESCRIPCION", value: "COD_CONTRATO_ROL" });
+                        drop.option("enableFilterSearch", true);
+                    }
+                });
 
-        }, 100);
+            }, 100);
         }
     }
 
     //Función para filtrar colaboradores dependiendo del ROL
-    function filtrar_colaboradores_rol(COD_CONTRATO_ROL,COD_CONTRATO_PROYECTO) {
-        
-        var data = JSON.stringify({ COD_CONTRATO_ROL: parseInt(COD_CONTRATO_ROL),COD_CONTRATO_PROYECTO: parseInt(COD_CONTRATO_PROYECTO) });
+    function filtrar_colaboradores_rol(COD_CONTRATO_ROL, COD_CONTRATO_PROYECTO) {
+
+        var data = JSON.stringify({ COD_CONTRATO_ROL: parseInt(COD_CONTRATO_ROL), COD_CONTRATO_PROYECTO: parseInt(COD_CONTRATO_PROYECTO) });
         var url = "lista_colaboradores_rol";
         $.ajax({
             type: "POST",
@@ -490,9 +490,9 @@
         });
     }
 
-    //Función que permite
+    //Función que permite cargar los cargos
     function cargar_cargos(COD_COLABORADOR) {
-        var data = JSON.stringify({ COD_COLABORADOR: parseInt(COD_COLABORADOR)});
+        var data = JSON.stringify({ COD_COLABORADOR: parseInt(COD_COLABORADOR) });
         var url = "cargar_cargos";
         $.ajax({
             type: "POST",
@@ -511,6 +511,9 @@
     //Funcion mostrar documento
     function click_documento(sender) {
         var url = sender.attr("base") + sender.attr("download");
+        url = url.replace("//", "/");
+        url = url.replace("//", "/");
+        url = url.replace("http:/", "http://");
         var win = window.open(url, '_blank');
         win.focus();
     }
