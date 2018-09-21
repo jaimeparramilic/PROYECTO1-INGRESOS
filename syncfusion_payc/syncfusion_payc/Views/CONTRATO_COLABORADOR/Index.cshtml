@@ -362,6 +362,7 @@
                                     }
                                 });
                             }
+                            catch{ }
 
                         }
                     });    
@@ -511,6 +512,9 @@
     //Funcion mostrar documento
     function click_documento(sender) {
         var url = sender.attr("base") + sender.attr("download");
+        url = url.replace("//", "/");
+        url = url.replace("//", "/");
+        url = url.replace("http:/", "http://");
         var win = window.open(url, '_blank');
         win.focus();
     }
