@@ -21,6 +21,7 @@
 
     .AllowScrolling()
     .ClientSideEvents(e => e.RecordDoubleClick("editar_contrato_proyecto").BeginEdit("editar_contrato_proyecto").ActionBegin("inicio_accion"))
+    .ClientSideEvents(eve => eve.ToolbarClick("clicked"))
     .AllowResizeToFit(true)
     .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
     .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
@@ -34,7 +35,9 @@
             items.AddTool(ToolBarItems.Update);
             items.AddTool(ToolBarItems.Cancel);
             items.AddTool(ToolBarItems.Search);
-        });
+        }).CustomToolbarItems(new List<object>
+                        () { new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Costos",Tooltip="Ver costos" }
+            });
 
     }).Columns(col =>
     {
@@ -200,6 +203,20 @@
                     }
                 });
             }
+        }
+        //Función click para botones custom de la toolbar
+        function clicked(sender) {
+
+            $target = $(sender.target);
+            if ($target.hasClass("Costos")) {
+                costos(sender.gridModel.selectedRecords[0].COD_CONTRATO_PROYECTO,
+                    sender)
+            }
+        }
+        //Función que permite mostrar costos
+        function costos(indice, sender) {
+            //window.alert("ENTRO COSTOS> : " + indice);
+            window.location = "Costos/" + indice;
         }
 
     
