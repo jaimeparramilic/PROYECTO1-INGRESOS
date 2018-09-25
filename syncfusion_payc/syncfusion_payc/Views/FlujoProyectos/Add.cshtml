@@ -336,7 +336,7 @@
                                 {
                                     col.Field("COD_CONTRATO_PROYECTO").ForeignKeyField("COD_CONTRATO_PROYECTO").Visible(false).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONTRATO_PROYECTO_DESCRIPCION.ToList()).HeaderText("CONTRATO Y PROYECTO").EditType(EditingType.DropdownEdit).AllowEditing(false).Add();
 
-                                    col.Field("COD_ROL").ForeignKeyField("COD_ROL").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).Add();
+                                    col.Field("COD_ROL").ForeignKeyField("COD_ROL").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true).AddRule("valid_rol_duplicado", true)).Add();
                                     col.Field("COD_CONTRATO_ROL").HeaderText("CONTRATO_ROL").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                                     col.Field("RUTA_DOCUMENTO").HeaderText("RUTA DOCUMENTO ANEXO").AllowEditing(false).Add();
                                     col.Field("FECHA_INI").HeaderText("FECHA INICIO ROL").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).ValidationRules(v => v.AddRule("validacion_fecha_rol_contrato", 5).AddRule("validacion_fecha_rol_ejecucion", 5).AddRule("required", true)).Add();
@@ -1463,60 +1463,79 @@
     }
 
     //Funciones de validación JQUERY
-    $(function () {
+        $(function () {
 
-        //Adicionar a jquery validate la revisión de las fechas contra la firma del contrato
-        $.validator.addMethod("validacion_fecha_rol_contrato", function (value, element, params) {
-            var parts = global_fecha_firma.split("/");
-            var fin = new Date(parseInt(parts[2], 10),
-                parseInt(parts[1], 10) - 1,
-                parseInt(parts[0], 10));
-            parts = element.value.split("/");
-            var fecha = new Date(parseInt(parts[2], 10),
-                parseInt(parts[1], 10) - 1,
-                parseInt(parts[0], 10));
-            return fecha >= fin && global_fecha_firma!="";
-        }, "La fecha de inicio debe ser mayor o igual a la fecha de firma del contrato inicial");
+            //Adicionar a jquery validate la revisión de las fechas contra la firma del contrato
+            $.validator.addMethod("validacion_fecha_rol_contrato", function (value, element, params) {
+                var parts = global_fecha_firma.split("/");
+                var fin = new Date(parseInt(parts[2], 10),
+                    parseInt(parts[1], 10) - 1,
+                    parseInt(parts[0], 10));
+                parts = element.value.split("/");
+                var fecha = new Date(parseInt(parts[2], 10),
+                    parseInt(parts[1], 10) - 1,
+                    parseInt(parts[0], 10));
+                return fecha >= fin && global_fecha_firma != "";
+            }, "La fecha de inicio debe ser mayor o igual a la fecha de firma del contrato inicial");
 
-        //Adicionar a jquery validate la revisión de las fechas de inicio y fin de ejecución
-        $.validator.addMethod("validacion_fecha_rol_ejecucion", function (value, element, params) {
-            var parts = global_fecha_ini.split("/");
-            var ini = new Date(parseInt(parts[2], 10),
-                parseInt(parts[1], 10) - 1,
-                parseInt(parts[0], 10));
-            parts = global_fecha_fin.split("/");
-            var fin = new Date(parseInt(parts[2], 10),
-                parseInt(parts[1], 10) - 1,
-                parseInt(parts[0], 10));
-            parts = element.value.split("/");
-            var fecha = new Date(parseInt(parts[2], 10),
-                parseInt(parts[1], 10) - 1,
-                parseInt(parts[0], 10));
-            return fecha >= ini && global_fecha_ini != "" && fecha <= fin && global_fecha_fin != "";
-        }, "La fecha no es consistente con la fecha de inicio o fin de ejecución del contrato");
+            //Adicionar a jquery validate la revisión de las fechas de inicio y fin de ejecución
+            $.validator.addMethod("validacion_fecha_rol_ejecucion", function (value, element, params) {
+                var parts = global_fecha_ini.split("/");
+                var ini = new Date(parseInt(parts[2], 10),
+                    parseInt(parts[1], 10) - 1,
+                    parseInt(parts[0], 10));
+                parts = global_fecha_fin.split("/");
+                var fin = new Date(parseInt(parts[2], 10),
+                    parseInt(parts[1], 10) - 1,
+                    parseInt(parts[0], 10));
+                parts = element.value.split("/");
+                var fecha = new Date(parseInt(parts[2], 10),
+                    parseInt(parts[1], 10) - 1,
+                    parseInt(parts[0], 10));
+                return fecha >= ini && global_fecha_ini != "" && fecha <= fin && global_fecha_fin != "";
+            }, "La fecha no es consistente con la fecha de inicio o fin de ejecución del contrato");
 
-        //Adicionar a jquery validate la revisión de las fechas de inicio y fin de ejecución y meses
-        $.validator.addMethod("validacion_meses", function (value, element, params) {
-            var parts = global_fecha_fin.split("/");
-            var fin = new Date(parseInt(parts[2], 10),
-                parseInt(parts[1], 10) - 1,
-                parseInt(parts[0], 10));
+            //Adicionar a jquery validate la revisión de las fechas de inicio y fin de ejecución y meses
+            $.validator.addMethod("validacion_meses", function (value, element, params) {
+                var parts = global_fecha_fin.split("/");
+                var fin = new Date(parseInt(parts[2], 10),
+                    parseInt(parts[1], 10) - 1,
+                    parseInt(parts[0], 10));
 
-            var meses = parseInt(element.value);
-            var fecha_texto = "";
-            if (params == "rol") {
-                 fecha_texto= $("#GRID_ROLESFECHA_INI").val();
-            }
-            else if (params="item") {
-                fecha_texto = $("#GRID_ITEMSFECHA_INI_USO").val();
-            }
-            parts = fecha_texto.split("/");
-            var fecha = new Date(parseInt(parts[2], 10),
-                parseInt(parts[1], 10) - 1,
-                parseInt(parts[0], 10));
-            fecha = fecha.setMonth(fecha.getMonth() + meses);
-            return fecha <=fin && global_fecha_fin != "";
-        }, "Inconsistencia entre los meses y la fecha de fin de ejecución del contrato");
+                var meses = parseInt(element.value);
+                var fecha_texto = "";
+                if (params == "rol") {
+                    fecha_texto = $("#GRID_ROLESFECHA_INI").val();
+                }
+                else if (params = "item") {
+                    fecha_texto = $("#GRID_ITEMSFECHA_INI_USO").val();
+                }
+                parts = fecha_texto.split("/");
+                var fecha = new Date(parseInt(parts[2], 10),
+                    parseInt(parts[1], 10) - 1,
+                    parseInt(parts[0], 10));
+                fecha = fecha.setMonth(fecha.getMonth() + meses);
+                return fecha <= fin && global_fecha_fin != "";
+            }, "Inconsistencia entre los meses y la fecha de fin de ejecución del contrato");
+            // Validar que no se incluyan roles duplicados para etapa 3 roles
+            $.validator.addMethod("valid_rol_duplicado", function (value, element, params) {
+                //window.alert("Entró a valid_rol_duplicado");
+                // Create grid object.
+                var gridObj = $("#GRID_ROLES").ejGrid("instance");
+                var cont = gridObj.getCurrentViewData().length;
+                if (cont == null) { cont = 0 };
+                var rol_ingresa = $("#GRID_ROLESCOD_ROL").val();
+                if (cont > 0) {
+                    var datos = gridObj.getCurrentViewData();
+                    for (j = 1; cont; j++) {
+                        if (j > cont) {break}
+                        k = j - 1;
+                        if (datos[k].COD_ROL == rol_ingresa) {return false}
+                    };
+                }
+            return true;
+            }, "El rol que está ingresando ya existe. No está permitido incluir roles duplicados");
+
     });
 
     //Funcion para añadir el codigo contrato proyecto generado a la tabla de roles por contrato
