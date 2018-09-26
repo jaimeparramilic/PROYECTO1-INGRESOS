@@ -18,14 +18,14 @@
     <AssemblyName>syncfusion_payc</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <Use64BitIISExpress />
     <UseGlobalApplicationHostFile />
-    <TypeScriptToolsVersion>2.8</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
@@ -33,11 +33,24 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptModuleKind />
+    <TypeScriptCompileOnSaveEnabled>False</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -500,6 +513,9 @@
     <Compile Include="Models\VISTA_CONTRATO_PROYECTO_FACTURAS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\VISTA_COSTOS_FLUJO_INGR.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\VISTA_FACTURAS_FECHA_PERIODO_FACTURACION.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
@@ -558,8 +574,20 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="servicios\IVistaCostosFlujoIngr.cs" />
+    <Compile Include="servicios\VistaCostosFlujoIngr.svc.cs">
+      <DependentUpon>VistaCostosFlujoIngr.svc</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="Utilidades\Email.cs" />
+    <Compile Include="Utilidades\ExecSQL.cs" />
+    <Compile Include="Utilidades\ProbarExecSQL.aspx.cs">
+      <DependentUpon>ProbarExecSQL.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Utilidades\ProbarExecSQL.aspx.designer.cs">
+      <DependentUpon>ProbarExecSQL.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Utilidades\Probar_email.aspx.cs">
       <DependentUpon>Probar_email.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1361,6 +1389,8 @@
     <Content Include="CodeTemplates\ODataControllerWithActions\Controller.vb.t4" />
     <Content Include="CodeTemplates\ODataControllerWithContext\Controller.cs.t4" />
     <Content Include="CodeTemplates\ODataControllerWithContext\Controller.vb.t4" />
+    <Content Include="servicios\VistaCostosFlujoIngr.svc" />
+    <Content Include="Utilidades\ProbarExecSQL.aspx" />
     <Content Include="Utilidades\Probar_email.aspx" />
     <Content Include="Views\CONTRATOS\Create.cshtml" />
     <Content Include="Views\CONTRATOS\Delete.cshtml" />
@@ -1497,6 +1527,7 @@
     <Content Include="Views\DETALLE_FACTURA_PERS\Index.cshtml" />
     <Content Include="Modelos_Matematicos\PRUEBAS.R" />
     <Content Include="Views\Home\Errores.cshtml" />
+    <Content Include="Views\FlujoProyectos\Costos.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -2045,7 +2076,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52616</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:49241/</IISUrl>
+          <IISUrl>http://localhost/syncfusion_payc</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

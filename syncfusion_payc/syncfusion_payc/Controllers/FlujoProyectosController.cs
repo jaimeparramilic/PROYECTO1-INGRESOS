@@ -168,6 +168,17 @@ namespace syncfusion_payc.Controllers
             
             return View();
         }
+        // Mostrar costos
+        public ActionResult Costos(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            CONTRATO_PROYECTO cont = db.CONTRATO_PROYECTO.Find(id);
+            ViewBag.COD_CONTRATO_PROYECTO = cont.COD_CONTRATO_PROYECTO;
+            return View();
+        }
         #endregion
         #region guardar elementos documentales
         //Almacenar archivo contrato
