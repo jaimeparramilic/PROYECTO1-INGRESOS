@@ -36,7 +36,6 @@ namespace syncfusion_payc.servicios
         public Dictionary<string, object> InitializeGrid(string action, object customObject)
         {
             dynamic customData = serializer.Deserialize<dynamic>(customObject.ToString());
-
             string customObject1 = customData["COD_CONTRATO_PROYECTO"].ToString();
             htmlHelper.PivotReport = BindDefaultData();
             if (customObject1.Contains("\""))

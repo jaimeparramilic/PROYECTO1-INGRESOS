@@ -373,6 +373,7 @@
       <End Role="CONTRATOS" EntitySet="CONTRATOS" />
       <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
     </AssociationSet>
+    <EntitySet Name="VISTA_COSTOS_FLUJO_INGR" EntityType="test_payc_contabilidadModel.VISTA_COSTOS_FLUJO_INGR" />
   </EntityContainer>
   <EntityType Name="CARGOS">
     <Key>
@@ -2484,4 +2485,13 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="VISTA_COSTOS_FLUJO_INGR">
+    <Key>
+      <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+    </Key>
+    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="FECHA_FORMA_PAGO" Type="DateTime" Precision="0" />
+    <Property Name="VALOR_TOTAL" Type="Single" />
+  </EntityType>
 </Schema>
