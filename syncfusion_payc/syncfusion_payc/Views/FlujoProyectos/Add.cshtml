@@ -336,7 +336,7 @@
                                 {
                                     col.Field("COD_CONTRATO_PROYECTO").ForeignKeyField("COD_CONTRATO_PROYECTO").Visible(false).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONTRATO_PROYECTO_DESCRIPCION.ToList()).HeaderText("CONTRATO Y PROYECTO").EditType(EditingType.DropdownEdit).AllowEditing(false).Add();
 
-                                    col.Field("COD_ROL").ForeignKeyField("COD_ROL").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).Add();
+                                    col.Field("COD_ROL").ForeignKeyField("COD_ROL").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true).AddRule("valid_rol_duplicado", true)).Add();
                                     col.Field("COD_CONTRATO_ROL").HeaderText("CONTRATO_ROL").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                                     col.Field("RUTA_DOCUMENTO").HeaderText("RUTA DOCUMENTO ANEXO").AllowEditing(false).Add();
                                     col.Field("FECHA_INI").HeaderText("FECHA INICIO ROL").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).ValidationRules(v => v.AddRule("validacion_fecha_rol_contrato", 5).AddRule("validacion_fecha_rol_ejecucion", 5).AddRule("required", true)).Add();
@@ -846,6 +846,19 @@
         var div_mensaje = "";
         var mensaje1 = "";
         var div_mensaje1 = "";
+        //Variable para capturar si es next o prev del botón de los pasos
+        var next_prev = "";
+        if (sender.hasClass("btn-next")) {
+            next_prev = "next";
+        }
+        //generación pivots
+        if ((paso == "3" && next_prev == "next") || (paso == "5" && next_prev == "prev")) {
+            cargar_pivot("roles");
+        }
+        if ((paso == "5" && next_prev == "next")) {
+            cargar_pivot("items");
+        }
+
         //Validación etapa 1
         if (paso == "1") {
 
@@ -1465,60 +1478,89 @@
     //Funciones de validación JQUERY
     $(function () {
 
-        //Adicionar a jquery validate la revisión de las fechas contra la firma del contrato
-        $.validator.addMethod("validacion_fecha_rol_contrato", function (value, element, params) {
-            var parts = global_fecha_firma.split("/");
-            var fin = new Date(parseInt(parts[2], 10),
-                parseInt(parts[1], 10) - 1,
-                parseInt(parts[0], 10));
-            parts = element.value.split("/");
-            var fecha = new Date(parseInt(parts[2], 10),
-                parseInt(parts[1], 10) - 1,
-                parseInt(parts[0], 10));
-            return fecha >= fin && global_fecha_firma!="";
-        }, "La fecha de inicio debe ser mayor o igual a la fecha de firma del contrato inicial");
+            //Adicionar a jquery validate la revisión de las fechas contra la firma del contrato
+            $.validator.addMethod("validacion_fecha_rol_contrato", function (value, element, params) {
+                var parts = global_fecha_firma.split("/");
+                var fin = new Date(parseInt(parts[2], 10),
+                    parseInt(parts[1], 10) - 1,
+                    parseInt(parts[0], 10));
+                parts = element.value.split("/");
+                var fecha = new Date(parseInt(parts[2], 10),
+                    parseInt(parts[1], 10) - 1,
+                    parseInt(parts[0], 10));
+                return fecha >= fin && global_fecha_firma != "";
+            }, "La fecha de inicio debe ser mayor o igual a la fecha de firma del contrato inicial");
 
-        //Adicionar a jquery validate la revisión de las fechas de inicio y fin de ejecución
-        $.validator.addMethod("validacion_fecha_rol_ejecucion", function (value, element, params) {
-            var parts = global_fecha_ini.split("/");
-            var ini = new Date(parseInt(parts[2], 10),
-                parseInt(parts[1], 10) - 1,
-                parseInt(parts[0], 10));
-            parts = global_fecha_fin.split("/");
-            var fin = new Date(parseInt(parts[2], 10),
-                parseInt(parts[1], 10) - 1,
-                parseInt(parts[0], 10));
-            parts = element.value.split("/");
-            var fecha = new Date(parseInt(parts[2], 10),
-                parseInt(parts[1], 10) - 1,
-                parseInt(parts[0], 10));
-            return fecha >= ini && global_fecha_ini != "" && fecha <= fin && global_fecha_fin != "";
-        }, "La fecha no es consistente con la fecha de inicio o fin de ejecución del contrato");
+            //Adicionar a jquery validate la revisión de las fechas de inicio y fin de ejecución
+            $.validator.addMethod("validacion_fecha_rol_ejecucion", function (value, element, params) {
+                var parts = global_fecha_ini.split("/");
+                var ini = new Date(parseInt(parts[2], 10),
+                    parseInt(parts[1], 10) - 1,
+                    parseInt(parts[0], 10));
+                parts = global_fecha_fin.split("/");
+                var fin = new Date(parseInt(parts[2], 10),
+                    parseInt(parts[1], 10) - 1,
+                    parseInt(parts[0], 10));
+                parts = element.value.split("/");
+                var fecha = new Date(parseInt(parts[2], 10),
+                    parseInt(parts[1], 10) - 1,
+                    parseInt(parts[0], 10));
+                return fecha >= ini && global_fecha_ini != "" && fecha <= fin && global_fecha_fin != "";
+            }, "La fecha no es consistente con la fecha de inicio o fin de ejecución del contrato");
 
-        //Adicionar a jquery validate la revisión de las fechas de inicio y fin de ejecución y meses
-        $.validator.addMethod("validacion_meses", function (value, element, params) {
-            var parts = global_fecha_fin.split("/");
-            var fin = new Date(parseInt(parts[2], 10),
-                parseInt(parts[1], 10) - 1,
-                parseInt(parts[0], 10));
+            //Adicionar a jquery validate la revisión de las fechas de inicio y fin de ejecución y meses
+            $.validator.addMethod("validacion_meses", function (value, element, params) {
+                var parts = global_fecha_fin.split("/");
+                var fin = new Date(parseInt(parts[2], 10),
+                    parseInt(parts[1], 10) - 1,
+                    parseInt(parts[0], 10));
 
-            var meses = parseInt(element.value);
-            var fecha_texto = "";
-            if (params == "rol") {
-                 fecha_texto= $("#GRID_ROLESFECHA_INI").val();
-            }
-            else if (params="item") {
-                fecha_texto = $("#GRID_ITEMSFECHA_INI_USO").val();
-            }
-            parts = fecha_texto.split("/");
-            var fecha = new Date(parseInt(parts[2], 10),
-                parseInt(parts[1], 10) - 1,
-                parseInt(parts[0], 10));
-            fecha = fecha.setMonth(fecha.getMonth() + meses);
-            return fecha <=fin && global_fecha_fin != "";
-        }, "Inconsistencia entre los meses y la fecha de fin de ejecución del contrato");
-    });
+                var meses = parseInt(element.value);
+                var fecha_texto = "";
+                if (params == "rol") {
+                    fecha_texto = $("#GRID_ROLESFECHA_INI").val();
+                }
+                else if (params = "item") {
+                    fecha_texto = $("#GRID_ITEMSFECHA_INI_USO").val();
+                }
+                parts = fecha_texto.split("/");
+                var fecha = new Date(parseInt(parts[2], 10),
+                    parseInt(parts[1], 10) - 1,
+                    parseInt(parts[0], 10));
+                fecha = fecha.setMonth(fecha.getMonth() + meses);
+                return fecha <= fin && global_fecha_fin != "";
+            }, "Inconsistencia entre los meses y la fecha de fin de ejecución del contrato");
 
+            // Validar que no se incluyan roles duplicados para etapa 3 roles
+            $.validator.addMethod("valid_rol_duplicado", function (value, element, params) {
+                //window.alert("Entró a valid_rol_duplicado");
+                // Create grid object.._editedData.COD_CONTRATO_ROL
+                var gridObj = $("#GRID_ROLES").ejGrid("instance");
+                var cod_contrato_rol = 0;
+
+                if (agregar_editar == "editar") {
+                    cod_contrato_rol = gridObj._editedData.COD_CONTRATO_ROL;
+                }
+                var cont = gridObj.getCurrentViewData().length;
+                var cont1 = 0;
+                if (cont == null) { cont = 0 };
+                var rol_ingresa = $("#GRID_ROLESCOD_ROL").val();
+                if (cont > 0) {
+                    var datos = gridObj.getCurrentViewData();
+                    for (j = 1; cont; j++) {
+                        if (j > cont) { break }
+                        k = j - 1;
+                        if (datos[k].COD_ROL == rol_ingresa && cod_contrato_rol != datos[k].COD_CONTRATO_ROL) { return false; }
+                    };
+                }
+
+                return true;
+            }, "El rol que está ingresando ya existe. No está permitido incluir roles duplicados");
+
+        });
+
+    //Variable para determinar si se edita o se agrega
+     var agregar_editar = "";
     //Funcion para añadir el codigo contrato proyecto generado a la tabla de roles por contrato
     function inicio_rol(args) {
 
@@ -1531,7 +1573,12 @@
                 args.data.COD_CONTRATO_PROYECTO = contrato_proyecto;
             }
             if (args.requestType == "beginedit" || args.requestType == "add") {
-
+                if (args.requestType == "beginedit") {
+                    agregar_editar = "editar";
+                }
+                else {
+                    agregar_editar = "agregar";
+                }
                 if (args.model.dataSource.dataSource.url == "GetOrderData_rol") {
 
                     setTimeout(function () {
@@ -1759,6 +1806,7 @@
                 }
             }
         }
+
     //Cambio de checks
     function cambiar_check(element) {
     var id = element.attr("id");
@@ -1781,10 +1829,11 @@
         meses_ej = $("#PLAZO_LIQUIDACION").ejNumericTextbox("instance");
             meses = $("#PLAZO_LIQUIDACION");
         }
-    temp2 = meses_ej;
+    
     if (!element.is(':checked')) {
         meses_ej.option({ value: null });
         meses_ej.disable();
+        fechas.option({ value: null });
         fechas.disable();
     }
     else {
@@ -1899,6 +1948,93 @@
         instancia.setCellValue(fila, "RUTA_DOCUMENTO", "");
         }
 
+    //Función para destruir y crear grids
+    function cargar_pivot(tipo){
+        if (tipo == "roles") {
+            try {
+                gridObj = $("#PivotGrid2").data("ejPivotGrid");
+                gridObj.destroy();
+
+            }
+            catch{
+
+            }
+            gridObj = $("#PivotGrid1").ejPivotGrid({
+                enableCompleteDataExport: true,
+                locale:"es-CO",
+                url:"../../servicios/FlujoIngresosRoles.svc",
+                enableColumnResizing:false,
+                enableToolTip:false,
+                enableCellContext:false,
+                enableCellSelection:false,
+                enableJSONRendering:false,
+                isResponsive:false,
+                enableVirtualScrolling:false,
+                enableDefaultValue:false,
+                enableCellClick:false,
+                enableCellDoubleClick:false,
+                enableCollapseByDefault:false,
+                enableConditionalFormatting:false,
+                enableDeferUpdate:false,
+                enableDrillThrough:false,
+                enableXHRCredentials:false,
+                enableRTL:false,
+
+                enableMemberEditorPaging:false,
+                enableCellEditing: true,
+                
+                cellEdit: "editar_flujo_rol",
+                load:"onLoad",
+                beforeServiceInvoke:"beforeserviceinvoke",
+
+                afterServiceInvoke:"flujo_rol_despues"
+
+            });
+            
+        }
+        if (tipo == "items") {
+            try {
+                gridObj = $("#PivotGrid1").data("ejPivotGrid");
+                gridObj.destroy();
+
+            }
+            catch{
+
+            }
+            gridObj = $("#PivotGrid2").ejPivotGrid({
+                enableCompleteDataExport: true,
+                locale: "es-CO",
+                url: "../servicios/FlujoIngresosItems.svc",
+                enableColumnResizing: false,
+                enableToolTip: false,
+                enableCellContext: false,
+                enableCellSelection: false,
+                enableJSONRendering: false,
+                isResponsive: false,
+                enableVirtualScrolling: false,
+                enableDefaultValue: false,
+                enableCellClick: false,
+                enableCellDoubleClick: false,
+                enableCollapseByDefault: false,
+                enableConditionalFormatting: false,
+                enableDeferUpdate: false,
+                enableDrillThrough: false,
+                enableXHRCredentials: false,
+                enableRTL: false,
+
+                enableMemberEditorPaging: false,
+                enableCellEditing: true,
+
+                cellEdit: "editar_flujo_item",
+                load: "onLoad",
+                beforeServiceInvoke: "beforeserviceinvoke",
+
+                afterServiceInvoke: "flujo_item_despues"
+
+            });
+
+        }
+    }
     </script>
 }
 

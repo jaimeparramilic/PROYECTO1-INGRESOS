@@ -68,7 +68,7 @@
                 )new syncfusion_payc.Models.test_payc_contabilidadEntities().CONTRATO_PROYECTO_DESCRIPCION.ToList()).HeaderText("ORDEN SERVICIO").EditType(EditingType.DropdownEdit).Add();
 
                 col.Field("COD_ROL").ForeignKeyField("COD_ROL").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>
-                    )new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").EditType(EditingType.DropdownEdit).Add();
+                    )new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("valid_rol_duplicado", true)).Add();
                 col.Field("COD_CONTRATO_ROL").HeaderText("CONTRATO_ROL").IsPrimaryKey(true).Visible(false) .Format("{0:n0}").EditType(EditingType.Numeric).ValidationRules(v => v.AddRule("number", true)).Add();
                 col.Field("FECHA_INI").HeaderText("FECHA_INI").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
                 col.Field("MESES").HeaderText("MESES").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
@@ -203,6 +203,30 @@
             }
         }
         //add the customized filter operator to default filters 
-       
+    //Funciones de validación JQUERY VALIDATION
+    $(function () {
+        // Validar que no se incluyan roles duplicados
+        $.validator.addMethod("valid_rol_duplicado", function (value, element, params) {
+            //window.alert("Entró a valid_rol_duplicado");
+            // Create grid object. para CHILD
+            // Traer id del CHILD
+            var id = $(".e-detailcell").children().attr("id"); 
+            var gridObj = $("#" + id).ejGrid("instance");
+            var cont = gridObj.getCurrentViewData().length;
+            if (cont == null) { cont = 0 };
+            var rol_ingresa = $("#" + id+"COD_ROL").val();
+            //window.alert("CONT: " + cont + "; rol_ingresa: " + rol_ingresa);
+            if (cont > 0) {
+                var datos = gridObj.getCurrentViewData();
+                for (j = 1; cont; j++) {
+                    if (j > cont) { break }
+                    k = j - 1;
+                    if (datos[k].COD_ROL == rol_ingresa) { return false }
+                    //window.alert("k: " + k + "; ROL GUARD: " + datos[k].COD_ROL);
+                };
+            }
+            return true;
+        }, "El rol que está ingresando ya existe. No está permitido incluir roles duplicados");
+    });
     
 </script>

@@ -161,6 +161,7 @@
         <EntityTypeShape EntityType="test_payc_contabilidadModel.CONTRATOS" Width="1.5" PointX="4.875" PointY="54.375" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_CONTRATOS_CLIENTES" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_CONTRATOS" />
+        <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_COSTOS_FLUJO_INGR" Width="1.5" PointX="5.375" PointY="10.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -10,48 +10,51 @@
 @if (User.Identity.IsAuthenticated)
 {<h4>ORDENES DE SERVICIO</h4>
     <div class="control-section">
-        
+
         <div class="col-md-12">
             @(Html.EJ().Grid<syncfusion_payc.Models.ORDENES_SERVICIO_INDEX>
-    ("Grid")
-    .Datasource(ds => ds.URL("GetOrderData_contrato_proyecto").RemoveURL("PerformDelete_contrato_proyecto").Adaptor(AdaptorType.UrlAdaptor))
-    .AllowPaging()
-    .AllowFiltering()
-    .Locale("es-CO")
+            ("Grid")
+            .Datasource(ds => ds.URL("GetOrderData_contrato_proyecto").RemoveURL("PerformDelete_contrato_proyecto").Adaptor(AdaptorType.UrlAdaptor))
+            .AllowPaging()
+            .AllowFiltering()
+            .Locale("es-CO")
 
-    .AllowScrolling()
-    .ClientSideEvents(e => e.RecordDoubleClick("editar_contrato_proyecto").BeginEdit("editar_contrato_proyecto").ActionBegin("inicio_accion"))
-    .AllowResizeToFit(true)
-    .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
-    .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
-    .ToolbarSettings(toolbar =>
-    {
-        toolbar.ShowToolbar().ToolbarItems(items =>
-        {
-            items.AddTool(ToolBarItems.Add);
-            items.AddTool(ToolBarItems.Edit);
-            items.AddTool(ToolBarItems.Delete);
-            items.AddTool(ToolBarItems.Update);
-            items.AddTool(ToolBarItems.Cancel);
-            items.AddTool(ToolBarItems.Search);
-        });
+            .AllowScrolling()
+            .ClientSideEvents(e => e.RecordDoubleClick("editar_contrato_proyecto").BeginEdit("editar_contrato_proyecto").ActionBegin("inicio_accion"))
+            .ClientSideEvents(eve => eve.ToolbarClick("clicked"))
+            .AllowResizeToFit(true)
+            .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+            .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+            .ToolbarSettings(toolbar =>
+            {
+                toolbar.ShowToolbar().ToolbarItems(items =>
+                {
+                    items.AddTool(ToolBarItems.Add);
+                    items.AddTool(ToolBarItems.Edit);
+                    items.AddTool(ToolBarItems.Delete);
+                    items.AddTool(ToolBarItems.Update);
+                    items.AddTool(ToolBarItems.Cancel);
+                    items.AddTool(ToolBarItems.Search);
+                }).CustomToolbarItems(new List<object>
+                                () { new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Costos",Tooltip="Ver costos" }
+                    });
 
-    }).Columns(col =>
-    {
-        col.Field("CENTRO_COSTOS").HeaderText("CENTRO COSTOS").Add();
-        col.Field("COD_CONTRATO_PROYECTO").HeaderText("CÓDIGO EN SISTEMA").IsPrimaryKey(true).AllowEditing(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-        col.Field("COMPLETA").HeaderText("COMPLETA EN SISTEMA").AllowEditing(false).Add();
-        col.HeaderText("ESTADO").Width(70).Template("<a class='e-icon e-warningmessage estado{{:COD_ESTADO_ORDEN_SERVICIO}} completa{{:COMPLETA}}' title='PENDIENTE DE FINALIZAR (CLICK PARA FINALIZAR)' href='#' onclick='finalizar({{:COD_CONTRATO_PROYECTO}})'/><a class='e-icon e-righttick estado{{:COD_ESTADO_ORDEN_SERVICIO}} completa{{:COMPLETA}}'  href='#' title='FINALIZADO (CLICK PARA REVERTIR FINALIZACIÓN)' onclick='revertir({{:COD_CONTRATO_PROYECTO}})' /><a  href='#' class='e-icon e-file-cancel completa1{{:COMPLETA}}' title='INCOMPLETA (CLICK PARA EDITAR)' onclick='editar_contrato_proyecto_click({{:COD_CONTRATO_PROYECTO}})' />").Add();
-        col.Field("FECHA_CREACION").HeaderText("FECHA CREACIÓN").AllowEditing(false).Format("{0:dd/MM/yyyy}").Add();
-        col.Field("DESCRIPCION").HeaderText("DESCRIPCION").AllowEditing(false).AllowFiltering(true).Add();
-        col.Field("COD_FORMA_PAGO").ForeignKeyField("COD_FORMA_PAGO").AllowEditing(false).AllowFiltering(true).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>
-            )new syncfusion_payc.Models.test_payc_contabilidadEntities().FORMAS_PAGO.ToList()).HeaderText("PERIODO FORMA PAGO").EditType(EditingType.DropdownEdit).Add();
-    }))
-</div>
+            }).Columns(col =>
+            {
+                col.Field("CENTRO_COSTOS").HeaderText("CENTRO COSTOS").Add();
+                col.Field("COD_CONTRATO_PROYECTO").HeaderText("CÓDIGO EN SISTEMA").IsPrimaryKey(true).AllowEditing(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                col.Field("COMPLETA").HeaderText("COMPLETA EN SISTEMA").AllowEditing(false).Add();
+                col.HeaderText("ESTADO").Width(70).Template("<a class='e-icon e-warningmessage estado{{:COD_ESTADO_ORDEN_SERVICIO}} completa{{:COMPLETA}}' title='PENDIENTE DE FINALIZAR (CLICK PARA FINALIZAR)' href='#' onclick='finalizar({{:COD_CONTRATO_PROYECTO}})'/><a class='e-icon e-righttick estado{{:COD_ESTADO_ORDEN_SERVICIO}} completa{{:COMPLETA}}'  href='#' title='FINALIZADO (CLICK PARA REVERTIR FINALIZACIÓN)' onclick='revertir({{:COD_CONTRATO_PROYECTO}})' /><a  href='#' class='e-icon e-file-cancel completa1{{:COMPLETA}}' title='INCOMPLETA (CLICK PARA EDITAR)' onclick='editar_contrato_proyecto_click({{:COD_CONTRATO_PROYECTO}})' />").Add();
+                col.Field("FECHA_CREACION").HeaderText("FECHA CREACIÓN").AllowEditing(false).Format("{0:dd/MM/yyyy}").Add();
+                col.Field("DESCRIPCION").HeaderText("DESCRIPCION").AllowEditing(false).AllowFiltering(true).Add();
+                col.Field("COD_FORMA_PAGO").ForeignKeyField("COD_FORMA_PAGO").AllowEditing(false).AllowFiltering(true).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>
+                    )new syncfusion_payc.Models.test_payc_contabilidadEntities().FORMAS_PAGO.ToList()).HeaderText("PERIODO FORMA PAGO").EditType(EditingType.DropdownEdit).Add();
+            }))
+        </div>
     </div>
 }
 
-    <script>
+<script>
     //Traducción
     $(document).ready(function () {
         ej.Grid.Locale["es-CO"] = {
@@ -133,7 +136,7 @@
     }
 
     function editar_contrato_proyecto_click(cod_contrato_proyecto) {
-        
+
         window.location = "Edit/" + cod_contrato_proyecto;
     }
 
@@ -201,7 +204,25 @@
                 });
             }
         }
+        //Función click para botones custom de la toolbar
+        function clicked(sender) {
 
-    
-    </script>
+            $target = $(sender.target);
+            if ($target.hasClass("Costos")) {
+                costos(sender.gridModel.selectedRecords[0].COD_CONTRATO_PROYECTO,
+                    sender)
+            }
+        }
+        //Función que permite mostrar costos
+        function costos(indice, sender) {
+            //window.alert("ENTRO COSTOS> : " + indice);
+            window.location = "Costos/" + indice;
+        }
+
+
+</script>
+<!--Modelos o templates para botones-->
+<script type="text/x-jsrender" id="Costos">
+    <a class="e-tooltxt Costos e-icon e-star"></a>
+</script>
 

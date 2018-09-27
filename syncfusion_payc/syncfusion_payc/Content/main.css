@@ -682,7 +682,7 @@ th[data-p="0,0"]{
 
 /*Aca empieza el theme para ocultar las columnas adicionales de las pivot*/
 
-/*
+
 #PivotGrid1 .colheader[data-p='1,0'], #PivotGrid1 .colheader[data-p='1,1'], #PivotGrid2 .colheader[data-p='1,0'], #PivotGrid2 .colheader[data-p='1,1'] {
     height: 0px !important;
     line-height: 0px !important;
@@ -694,4 +694,4 @@ th[data-p="0,0"]{
 #PivotGrid1 .e-collapse, #PivotGrid2 .e-collapse {
     display: none !important;
 }
-    */
+    
