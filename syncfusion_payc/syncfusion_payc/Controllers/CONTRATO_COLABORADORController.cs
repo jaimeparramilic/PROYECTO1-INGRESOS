@@ -471,6 +471,7 @@ namespace syncfusion_payc.Controllers
                         {
                             if (reader["FECHA_INI_VACIO"].ToString() != reader["FECHA_FIN_VACIO"].ToString()) {
                                 roles_pendientes = roles_pendientes + 1;
+                                //mensaje_error.Add(queryString);
                                 mensaje_error.Add("El rol " + reader["ROL_TEXTO"].ToString() + " no cuenta con colaboradores asignados para las fechas entre " + reader["FECHA_INI_VACIO"].ToString() + " y " + reader["FECHA_FIN_VACIO"].ToString());
                             }
                         }
@@ -492,6 +493,7 @@ namespace syncfusion_payc.Controllers
                         {
                             while (reader.Read())
                             {
+                                
                                 mensaje_error.Add("El rol " + reader["ROL_TEXTO"].ToString() + " Cuenta con más de un colaborador para la fecha: " + reader["FECHA_FORMA_PAGO"].ToString());
                             }
                         }

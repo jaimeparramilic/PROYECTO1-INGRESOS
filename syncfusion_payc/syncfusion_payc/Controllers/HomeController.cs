@@ -26,5 +26,12 @@ namespace syncfusion_payc.Controllers
 
 			return View();
 		}
-	}
+
+        public ActionResult Errores()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+    }
 }

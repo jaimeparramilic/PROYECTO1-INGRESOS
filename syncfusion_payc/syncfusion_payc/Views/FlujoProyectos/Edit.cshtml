@@ -336,7 +336,7 @@
                                         }).Columns(col =>
                                         {
                                             col.Field("COD_CONTRATO_PROYECTO").ForeignKeyField("COD_CONTRATO_PROYECTO").Visible(false).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONTRATO_PROYECTO_DESCRIPCION.ToList()).HeaderText("CONTRATO Y PROYECTO").EditType(EditingType.DropdownEdit).AllowEditing(false).Add();
-                                            col.Field("COD_ROL").ForeignKeyField("COD_ROL").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).Add();
+                                            col.Field("COD_ROL").ForeignKeyField("COD_ROL").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true).AddRule("valid_rol_duplicado", true)).Add();
                                             col.Field("RUTA_DOCUMENTO").HeaderText("RUTA DOCUMENTO ANEXO").AllowEditing(false).Add();
                                             col.Field("COD_CONTRATO_ROL").HeaderText("CONTRATO_ROL").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                                             col.Field("FECHA_INI").HeaderText("FECHA INICIO ROL").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).ValidationRules(v => v.AddRule("validacion_fecha_rol_contrato", 5).AddRule("validacion_fecha_rol_ejecucion", 5).AddRule("required", true)).Add();
@@ -433,33 +433,34 @@
 
                     <!--Pivot flujos de ingresos-->
                     <div class="col-md-12 sin-overflow">
-                        @(Html.EJ().Pivot().PivotGrid("PivotGrid1")
-                                                    .Locale("es-CO")
-                                                    .Url(Url.Content("~/servicios/FlujoIngresosRoles.svc"))
-                                                    .EnableColumnResizing(false)
-                                                    .EnableToolTip(false)
-                                                    .EnableCellContext(false)
-                                                    .EnableCellSelection(false)
-                                                    .EnableJSONRendering(false)
-                                                    .IsResponsive(false)
-                                                    .EnableVirtualScrolling(false)
-                                                    .EnableDefaultValue(false)
-                                                    .EnableCellClick(false)
-                                                    .EnableCellDoubleClick(false)
-                                                    .EnableCollapseByDefault(false)
-                                                    .EnableConditionalFormatting(false)
-                                                    .EnableDeferUpdate(false)
-                                                    .EnableDrillThrough(false)
-                                                    .EnableXHRCredentials(false)
-                                                    .EnableRTL(false)
-                                                    
-                                                    .EnableMemberEditorPaging(false)
-                                                    .EnableCellEditing(true).ClientSideEvents(events => events
-                                                    .CellEdit("editar_flujo_rol").Load("onLoad")
-                                                    .BeforeServiceInvoke("beforeserviceinvoke")
-                                                    
-                                                    .AfterServiceInvoke("flujo_rol_despues")
-                                                    ))
+                        <div id="PivotGrid1"></div>
+                        @*@(Html.EJ().Pivot().PivotGrid("PivotGrid1")
+        .Locale("es-CO")
+        .Url(Url.Content("~/servicios/FlujoIngresosRoles.svc"))
+        .EnableColumnResizing(false)
+        .EnableToolTip(false)
+        .EnableCellContext(false)
+        .EnableCellSelection(false)
+        .EnableJSONRendering(false)
+        .IsResponsive(false)
+        .EnableVirtualScrolling(false)
+        .EnableDefaultValue(false)
+        .EnableCellClick(false)
+        .EnableCellDoubleClick(false)
+        .EnableCollapseByDefault(false)
+        .EnableConditionalFormatting(false)
+        .EnableDeferUpdate(false)
+        .EnableDrillThrough(false)
+        .EnableXHRCredentials(false)
+        .EnableRTL(false)
+
+        .EnableMemberEditorPaging(false)
+        .EnableCellEditing(true).ClientSideEvents(events => events
+        .CellEdit("editar_flujo_rol").Load("onLoad")
+        .BeforeServiceInvoke("beforeserviceinvoke")
+
+        .AfterServiceInvoke("flujo_rol_despues")
+        ))*@
                     </div>
                 </div>
 
@@ -479,6 +480,7 @@
             <div data-Step="5">
                 <h2 class="title-etapas">ITEMS OTROS COSTOS</h2><br>
                 <div class="control-section col-md-12">
+
                     @(Html.EJ().Grid<syncfusion_payc.Models.ITEMS_CONTRATO>
                                     ("GRID_ITEMS")
                                     .Datasource(ds => ds.URL("../GetOrderData_item").InsertURL("../PerformInsert_item").UpdateURL("../PerformUpdate_item").RemoveURL("../PerformDelete_item").Adaptor(AdaptorType.UrlAdaptor))
@@ -529,31 +531,32 @@
                 <h2 class="title-etapas">MENSUALIDADES PACTADAS Y FLUJO INGRESOS ITEMS</h2><br>
                 <div class="control-section col-md-12">
                     <div class="col-md-12 sin-overflow">
-                        @(Html.EJ().Pivot().PivotGrid("PivotGrid2").Locale("es-CO").Url(Url.Content("~/servicios/FlujoIngresosItems.svc"))
-                                 .EnableColumnResizing(false)
-                                                    .EnableToolTip(false)
-                                                    .EnableCellContext(false)
-                                                    .EnableCellSelection(false)
-                                                    .EnableJSONRendering(false)
-                                                    .IsResponsive(false)
-                                                    .EnableVirtualScrolling(false)
-                                                    .EnableDefaultValue(false)
-                                                    .EnableCellClick(false)
-                                                    .EnableCellDoubleClick(false)
-                                                    .EnableCollapseByDefault(false)
-                                                    .EnableConditionalFormatting(false)
-                                                    .EnableDeferUpdate(false)
-                                                    .EnableDrillThrough(false)
-                                                    .EnableXHRCredentials(false)
-                                                    .EnableRTL(false)
+                        <div id="PivotGrid2"></div>
+                        @*@(Html.EJ().Pivot().PivotGrid("PivotGrid2").Locale("es-CO").Url(Url.Content("~/servicios/FlujoIngresosItems.svc"))
+                                        .EnableColumnResizing(false)
+                                        .EnableToolTip(false)
+                                        .EnableCellContext(false)
+                                        .EnableCellSelection(false)
+                                        .EnableJSONRendering(false)
+                                        .IsResponsive(false)
+                                        .EnableVirtualScrolling(false)
+                                        .EnableDefaultValue(false)
+                                        .EnableCellClick(false)
+                                        .EnableCellDoubleClick(false)
+                                        .EnableCollapseByDefault(false)
+                                        .EnableConditionalFormatting(false)
+                                        .EnableDeferUpdate(false)
+                                        .EnableDrillThrough(false)
+                                        .EnableXHRCredentials(false)
+                                        .EnableRTL(false)
 
-                                                    .EnableMemberEditorPaging(false)
-                                                    .EnableCellEditing(true).ClientSideEvents(events => events.CellEdit("editar_flujo_item").Load("onLoad").BeforeServiceInvoke("beforeserviceinvoke").AfterServiceInvoke("flujo_item_despues")))
+                                        .EnableMemberEditorPaging(false)
+                                        .EnableCellEditing(true).ClientSideEvents(events => events.CellEdit("editar_flujo_item").Load("onLoad").BeforeServiceInvoke("beforeserviceinvoke").AfterServiceInvoke("flujo_item_despues")))*@
+        </div>
+        @*<div class="col-md-5 oculta">
+                @(Html.EJ().Pivot().PivotSchemaDesigner("PivotSchemaDesigner").Layout(PivotSchemaDesignerLayout.Excel))
+            </div>*@
                     </div>
-                    @*<div class="col-md-5 oculta">
-                            @(Html.EJ().Pivot().PivotSchemaDesigner("PivotSchemaDesigner").Layout(PivotSchemaDesignerLayout.Excel))
-                        </div>*@
-                </div>
                 <div class="col-md-12" style="margin-top:15px;">
                     <button type="button" class="btn btn-purple regerenar" onclick="regenerar_flujo_item()">REGENERAR FLUJO</button>
                 </div>
@@ -858,8 +861,18 @@
     }
 
     /*Funcion que permite validar y guardar las intervenciones*/
-    function validar_intervencion(sender) {
+        
+        function validar_intervencion(sender) {
+            
         $('.contenedor_loader').show();
+        //Variable para capturar si es next o prev del botón de los pasos
+        var next_prev = "";
+        if (sender.hasClass("btn-next")) {
+            next_prev = "next";
+        }
+        else {
+            next_prev = "prev";
+        }
         var errorestot = 0;
         $(".alert").remove();
         if (!$('body').attr('errorestot')) {
@@ -873,6 +886,15 @@
         var div_mensaje = "";
         var mensaje1 = "";
         var div_mensaje1 = "";
+
+        //generación pivots
+        if ((paso == "3" && next_prev == "next") || (paso == "5" && next_prev == "prev")) {
+            cargar_pivot("roles");
+        }
+        if ((paso == "5" && next_prev == "next")) {
+            cargar_pivot("items");
+        }
+
         //Validación etapa 1
         if (paso == "1") {
 
@@ -1205,12 +1227,12 @@
             if (direccion == "") {
                 $('#direccion').addClass("warning");
                 completos_paso2 = completos_paso2 - 1;
-                errores_paso2 = errores_paso2 + 1;
+                warnings_paso2 = warnings_paso2 + 1;
             }
             if (tipo_servicio == "") {
                 $('#tipo_servicio').addClass("warning");
                 completos_paso2 = completos_paso2 - 1;
-                warnings_paso2 = warnings_paso2 + 1;
+                errores_paso2 = errores_paso2 + 1;
             }
             if (tipo_obra == "") {
                 $('#tipo_obra').addClass("warning");
@@ -1248,11 +1270,12 @@
                 warnings_paso2 = warnings_paso2 + 1;
             }
 
-            if (errores_paso2 > 0 || warnings_paso2 > 0) {
+            if (errores_paso2 > 0 && warnings_paso2 > 0) {
                 mensaje = "Corrija los errores en rojo y tome decisiones sobre advertencias las resaltadas en amarillo de la etapa " + paso;
                 div_mensaje = "<div class='alert mensajes'><span class='closebtn' onclick='$(this).parent().remove();'>&times;</span>"
                 div_mensaje = div_mensaje + mensaje + "</div > ";
             }
+
 
             //Mostrar resultados
             $('.steps .img-circle.active .percent').empty().prepend(Math.round(((completos_paso2) / 17) * 100) + "%");
@@ -1549,8 +1572,37 @@
             fecha = fecha.setMonth(fecha.getMonth() + meses);
             return fecha <=fin && global_fecha_fin != "";
         }, "Inconsistencia entre los meses y la fecha de fin de ejecución del contrato");
-    });
+        
+        // Validar que no se incluyan roles duplicados para etapa 3 roles
+        $.validator.addMethod("valid_rol_duplicado", function (value, element, params) {
+            //window.alert("Entró a valid_rol_duplicado");
+            // Create grid object.._editedData.COD_CONTRATO_ROL
+            var gridObj = $("#GRID_ROLES").ejGrid("instance");
+            var cod_contrato_rol = 0; 
+            
+            if (agregar_editar == "editar") {
+                cod_contrato_rol = gridObj._editedData.COD_CONTRATO_ROL;
+            }
+            var cont = gridObj.getCurrentViewData().length;
+            var cont1 = 0;
+            if (cont == null) { cont = 0 };
+            var rol_ingresa = $("#GRID_ROLESCOD_ROL").val();
+            if (cont > 0) {
+                var datos = gridObj.getCurrentViewData();
+                for (j = 1; cont; j++) {
+                    if (j > cont) { break }
+                    k = j - 1;
+                    
+                    if (datos[k].COD_ROL == rol_ingresa && cod_contrato_rol != datos[k].COD_CONTRATO_ROL) { return false; }
+                };
+            }
+            
+            return true;
+        }, "El rol que está ingresando ya existe. No está permitido incluir roles duplicados");
+        });
 
+     //Variable para determinar si se edita o se agrega
+     var agregar_editar = "";
     //Funcion para añadir el codigo contrato proyecto generado a la tabla de roles por contrato
     function inicio_rol(args) {
 
@@ -1562,8 +1614,13 @@
             args.data.COD_CONTRATO_PROYECTO = contrato_proyecto;
         }
         if (args.requestType == "beginedit" || args.requestType == "add") {
+            if (args.requestType == "beginedit") {
+                agregar_editar = "editar";
+            }
+            else {
+                agregar_editar = "agregar";
+            }
 
-            
 
                 setTimeout(function () {
                     var drop = $("#GRID_ROLESCOD_ROL").ejDropDownList('instance');
@@ -1821,6 +1878,7 @@
     if (!element.is(':checked')) {
         meses_ej.option({ value: null });
         meses_ej.disable();
+        fechas.option({ value: null });
         fechas.disable();
     }
     else {
@@ -1948,6 +2006,93 @@
         
     }
 
+    //Función para destruir y crear grids
+    function cargar_pivot(tipo){
+        if (tipo == "roles") {
+            try {
+                gridObj = $("#PivotGrid2").data("ejPivotGrid");
+                gridObj.destroy();
+
+            }
+            catch{
+
+            }
+            gridObj = $("#PivotGrid1").ejPivotGrid({
+                enableCompleteDataExport: true,
+                locale:"es-CO",
+                url:"../../servicios/FlujoIngresosRoles.svc",
+                enableColumnResizing:false,
+                enableToolTip:false,
+                enableCellContext:false,
+                enableCellSelection:false,
+                enableJSONRendering:false,
+                isResponsive:false,
+                enableVirtualScrolling:false,
+                enableDefaultValue:false,
+                enableCellClick:false,
+                enableCellDoubleClick:false,
+                enableCollapseByDefault:false,
+                enableConditionalFormatting:false,
+                enableDeferUpdate:false,
+                enableDrillThrough:false,
+                enableXHRCredentials:false,
+                enableRTL:false,
+
+                enableMemberEditorPaging:false,
+                enableCellEditing: true,
+                
+                cellEdit: "editar_flujo_rol",
+                load:"onLoad",
+                beforeServiceInvoke:"beforeserviceinvoke",
+
+                afterServiceInvoke:"flujo_rol_despues"
+
+            });
+            
+        }
+        if (tipo == "items") {
+            try {
+                gridObj = $("#PivotGrid1").data("ejPivotGrid");
+                gridObj.destroy();
+
+            }
+            catch{
+
+            }
+            gridObj = $("#PivotGrid2").ejPivotGrid({
+                enableCompleteDataExport: true,
+                locale: "es-CO",
+                url: "../../servicios/FlujoIngresosItems.svc",
+                enableColumnResizing: false,
+                enableToolTip: false,
+                enableCellContext: false,
+                enableCellSelection: false,
+                enableJSONRendering: false,
+                isResponsive: false,
+                enableVirtualScrolling: false,
+                enableDefaultValue: false,
+                enableCellClick: false,
+                enableCellDoubleClick: false,
+                enableCollapseByDefault: false,
+                enableConditionalFormatting: false,
+                enableDeferUpdate: false,
+                enableDrillThrough: false,
+                enableXHRCredentials: false,
+                enableRTL: false,
+
+                enableMemberEditorPaging: false,
+                enableCellEditing: true,
+
+                cellEdit: "editar_flujo_item",
+                load: "onLoad",
+                beforeServiceInvoke: "beforeserviceinvoke",
+
+                afterServiceInvoke: "flujo_item_despues"
+
+            });
+
+        }
+    }
     </script>
 }
 

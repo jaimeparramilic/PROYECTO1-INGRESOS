@@ -5,7 +5,7 @@ factura <- function(cod_factura) {
   #CONEXIÓN A LA BASE DE DATOS
   
   con <- dbConnect(odbc::odbc(), "PAYC_FACTURACION", uid = "sa", pwd = "1234JAMS*")
-  #cod_factura = 115
+  #cod_factura = 10163
   #EXTRACCION DE LA INFORMACION IMPORTANTE DE LA BASE DE DATOS
   fact <- paste0("SELECT * FROM FACTURAS WHERE COD_FACTURA=", cod_factura)
   FACTURAS <- dbGetQuery(con, fact)
@@ -13,7 +13,7 @@ factura <- function(cod_factura) {
   fecha <- FACTURAS$COD_FORMAS_PAGO_FECHAS
   proyecto <- FACTURAS$COD_CONTRATO_PROYECTO
   estado <- FACTURAS$COD_ESTADO_FACTURA
-  personas <- paste0("SELECT * FROM FLUJO_INGRESOS_ROL
+  personas <- paste0("SELECT * FROM VISTA_FLUJO_INGRESOS_ROL_CORREGIDA_REALIDAD
                      WHERE COD_CONTRATO_PROYECTO=", proyecto, "
                      AND COD_FORMAS_PAGO_FECHAS=", fecha, "
                      AND ESTADO='SI'")
@@ -22,12 +22,14 @@ factura <- function(cod_factura) {
                   WHERE ITEMS_CONTRATO.COD_TIPO_REEMBOLSO=1 
                   AND FLUJO_INGRESOS_ITEMS.ESTADO='SI'
                   AND FLUJO_INGRESOS_ITEMS.COD_CONTRATO_PROYECTO=", proyecto, "
-                  AND FLUJO_INGRESOS_ITEMS.COD_FORMAS_PAGO_FECHAS=", fecha)
+                  AND FLUJO_INGRESOS_ITEMS.COD_FORMAS_PAGO_FECHAS=", fecha,
+                  "	AND ITEMS_CONTRATO.COD_ITEM_CONTRATO=FLUJO_INGRESOS_ITEMS.COD_ITEM_CONTRATO")
   variables <- paste0("SELECT DISTINCT REGISTRO_ITEMS_OTROS_COSTOS.*, ITEMS_CONTRATO.COD_TIPO_REEMBOLSO
                       FROM REGISTRO_ITEMS_OTROS_COSTOS, ITEMS_CONTRATO 
                       WHERE ITEMS_CONTRATO.COD_TIPO_REEMBOLSO=2
                       AND REGISTRO_ITEMS_OTROS_COSTOS.COD_CONTRATO_PROYECTO=", proyecto, "
-                      AND REGISTRO_ITEMS_OTROS_COSTOS.COD_FORMAS_PAGO_FECHAS=", fecha)
+                      AND REGISTRO_ITEMS_OTROS_COSTOS.COD_FORMAS_PAGO_FECHAS=", fecha,
+                      "AND ITEMS_CONTRATO.COD_ITEM_CONTRATO=REGISTRO_ITEMS_OTROS_COSTOS.COD_ITEM_CONTRATO")
   items <- paste0("SELECT * FROM ITEMS_CONTRATO
                   WHERE COD_CONTRATO_PROYECTO=", proyecto)
   contrato <- paste0("SELECT COD_TIPO_CONDICION
@@ -59,7 +61,7 @@ factura <- function(cod_factura) {
   
   #CÁLCULO DEL NÚMERO DE HORAS EXTRA O DE VACACIONES QUE SE DEBEN COBRAR
   if (any(CONDICIONES_CONTRATO$COD_TIPO_CONDICION == 3) && nrow(NOVEDADES_ADICION) != 0) {
-    NOVEDADES_ADICION$HORAS <- difftime(NOVEDADES_ADICION$FECHA_FIN_NOVEDAD, NOVEDADES_ADICION$FECHA_INICIO_NOVEDAD, units="hours")
+    NOVEDADES_ADICION$HORAS <- difftime(NOVEDADES_ADICION$FECHA_FIN_NOVEDAD, NOVEDADES_ADICION$FECHA_INICIO_NOVEDAD, units = "hours")
     for (i in 1:nrow(NOVEDADES_ADICION)) {
       if (NOVEDADES_ADICION$COD_TIPO_NOVEDAD[i] == 2) {
         NOVEDADES_ADICION$FACTOR[i] <- 1.25
@@ -239,4 +241,5 @@ factura <- function(cod_factura) {
   #VALOR_FACTURAR
   return(VALOR_FACTURAR)
 }
-factura(10164)
+
+factura(10197)

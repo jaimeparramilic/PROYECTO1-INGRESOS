@@ -13,7 +13,7 @@ factura <- function(cod_factura) {
   fecha <- FACTURAS$COD_FORMAS_PAGO_FECHAS
   proyecto <- FACTURAS$COD_CONTRATO_PROYECTO
   estado <- FACTURAS$COD_ESTADO_FACTURA
-  personas <- paste0("SELECT * FROM FLUJO_INGRESOS_ROL
+  personas <- paste0("SELECT * FROM VISTA_FLUJO_INGRESOS_ROL_CORREGIDA_REALIDAD
                      WHERE COD_CONTRATO_PROYECTO=", proyecto, "
                      AND COD_FORMAS_PAGO_FECHAS=", fecha, "
                      AND ESTADO='SI'")

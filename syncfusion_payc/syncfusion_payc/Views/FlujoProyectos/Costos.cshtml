@@ -1,0 +1,50 @@
+﻿@model syncfusion_payc.Models.VISTA_COSTOS_FLUJO_INGR
+
+@{
+    ViewBag.Title = "Costos";
+}
+
+<h4>Costos</h4>
+@if (User.Identity.IsAuthenticated)
+{
+<div class="col-md-12 sin-overflow">
+    <div class="col-md-6">
+        @(Html.EJ().Pivot().PivotSchemaDesigner("PivotSchemaDesigner1").EnableRTL(true))
+    </div>
+    <div class="col-md-6">
+        @(Html.EJ().Pivot().PivotGrid("PivotGrid3").Locale("es-CO").Url(Url.Content("~/servicios/VistaCostosFlujoIngr.svc"))
+                                .EnableColumnResizing(false)
+                                .EnableToolTip(false)
+                                .EnableCellContext(false)
+                                .EnableCellSelection(false)
+                                .EnableJSONRendering(false)
+                                .IsResponsive(false)
+                                .EnableVirtualScrolling(false)
+                                .EnableDefaultValue(false)
+                                .EnableCellClick(false)
+                                .EnableCellDoubleClick(false)
+                                .EnableCollapseByDefault(false)
+                                .EnableConditionalFormatting(false)
+                                .EnableDeferUpdate(false)
+                                .EnableDrillThrough(false)
+                                .EnableXHRCredentials(false)
+                                .EnableRTL(false)
+
+                                .EnableMemberEditorPaging(false)
+                                .EnableCellEditing(true).ClientSideEvents(events => events.CellEdit("editar_flujo_item").Load("onLoad").BeforeServiceInvoke("beforeserviceinvoke").AfterServiceInvoke("flujo_item_despues"))
+                                .PivotTableFieldListID("PivotSchemaDesigner1")
+        )
+        </div>
+    </div>
+    }
+
+    <script type="text/javascript">
+    var cod_contr_proy = @(ViewBag.COD_CONTRATO_PROYECTO == null ? "1" : Html.Raw((String)ViewBag.COD_CONTRATO_PROYECTO.ToString()).ToString());
+    function onLoad(args) {
+        //window.alert("contr proy: " + cod_contr_proy);
+        args.customObject = { COD_CONTRATO_PROYECTO: cod_contr_proy };
+        args.model.customObject = { COD_CONTRATO_PROYECTO: cod_contr_proy };
+    }
+
+    </script>
+

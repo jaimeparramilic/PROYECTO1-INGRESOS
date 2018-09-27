@@ -59,17 +59,19 @@
                                                        });
                                                 }).ClientSideEvents(e => e.Create("create").RowSelected("rowSelected"))
                                                 .ClientSideEvents(eve => eve.ToolbarClick("clicked"))
+                                                .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
                                                 .Columns(col =>
                                                 {
-                                                    col.Field("COD_CLIENTE").ForeignKeyField("COD_CLIENTE").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CLIENTES.ToList()).HeaderText("CLIENTE").EditType(EditingType.DropdownEdit).Add();
+                                                    col.Field("COD_CLIENTE").ForeignKeyField("COD_CLIENTE").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CLIENTES.ToList()).ValidationRules(v => v.AddRule("required", true)).HeaderText("CLIENTE").EditType(EditingType.DropdownEdit).Add();
                                                     col.Field("COD_CONTRATO").HeaderText("CONTRATO").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                                                     col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();
                                                     col.Field("FECHA_FIRMA").HeaderText("FECHA FIRMA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
                                                     col.Field("RUTA_DOCUMENTO").HeaderText("RUTA DOCUMENTO").AllowEditing(false).Template("<a class='contrato' title='Ver contrato' href='../FlujoProyectos/contratos/{{:RUTA_DOCUMENTO}}'>{{:RUTA_DOCUMENTO}}</a>").Add();
+                                                    col.HeaderText("RUTA ANEXOS").Template("<a class='contrato' title='Ver contrato' href='../FlujoProyectos/contratos/{{:RUTA_DOCUMENTO}}'>{{:RUTA_DOCUMENTO}}</a>").Add();
                                                     col.Field("FECHA_INICIO_EJECUCION").HeaderText("FECHA INI EJECUCIÓN").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
                                                     col.Field("FECHA_FIN_EJECUCION").HeaderText("FECHA FIN EJECUCIÓN").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
                                                     col.Field("VALOR_CONTRATO").HeaderText("VALOR CONTRATO").Format("{0:c2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                                                    
+                                                    col.Field("COD_CONTRATO_PROYECTO_1").HeaderText("CONTRATO").Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
 
                                                 });
                                                     })
@@ -173,7 +175,7 @@
             var seleccionados = instancia.getSelectedRecords()[0];
             var fila = instancia.selectedRowsIndexes;
             seleccionados.RUTA_DOCUMENTO = FileData;
-            alert("llegue");
+            
             instancia.updateRecord("COD_CONTRATO", seleccionados);
             setTimeout(function () { instancia.refreshContent(); }, 1000);
         }
@@ -183,8 +185,8 @@
     }
 
         
-        //Función click en los elementos nuevos
-        function clicked(sender) {
+    //Función click en los elementos nuevos
+    function clicked(sender) {
             $("#grid_elegida").val(sender.itemId.replace("_Adjuntar", ""));
             
         }
@@ -220,9 +222,21 @@
 
     
     //función que se activa al seleccionar una fila para poder almacenar la fila actual en una variable
-        function rowSelected(args) {
+    function rowSelected(args) {
             
             $("#fila_elegida").val(args.data.COD_CONTRATO);
+        }
+
+    //función para drop_down de contratos
+    function inicio_grid(args) {
+        if (args.requestType == "beginedit" || args.requestType == "add") {
+            
+                setTimeout(function () {
+                    var drop = $(".e-dropdownlist[name='COD_CLIENTE']").ejDropDownList('instance');
+                    drop.option("enableFilterSearch", true);
+                }, 50);
+            
+        }
     }
     </script>
 

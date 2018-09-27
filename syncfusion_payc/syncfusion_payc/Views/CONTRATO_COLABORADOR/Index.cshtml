@@ -193,6 +193,7 @@
 
     //Función para generar los colabores pendientes
     function validar_asignacion(contrato_proyecto, id) {
+        $('.contenedor_loader1').show();
         var data = JSON.stringify({ COD_CONTRATO_PROYECTO: parseInt(contrato_proyecto) });
         var url ="validar_asignacion";
         $.ajax({
@@ -215,6 +216,7 @@
                     $("#dialog_error").ejDialog("setContent", contenido);
                     $("#dialog_error").ejDialog("open");
                 }
+                $('.contenedor_loader1').hide();
             }
         });
     }
@@ -331,6 +333,7 @@
                 setTimeout(function () {
                     //Cargar valor del rol para la orden de servicio dada
                     var COD_CONTRATO_ROL = args.model.selectedRecords[0].COD_CONTRATO_ROL;
+                    var COD_COLABORADOR = args.model.selectedRecords[0].COD_COLABORADOR;
                     var data = JSON.stringify({ COD_CONTRATO_ROL: parseInt(COD_CONTRATO_ROL) });
                     var url = "lista_colaboradores";
                     $.ajax({
@@ -343,20 +346,26 @@
                         success: function (data) {
                             //Instanciar dropdown
                             var drop = $(".e-dropdownlist[name='COD_COLABORADOR']").ejDropDownList('instance');
-                            drop.option({
-                                select: function (args) {
-                                    cargar_cargos(args.value);
-                                }
-                            });
+                            
                             //Cargar lista de colaboradores
                             //temp1 = data.data;
                             var lista_colaboradores = data.data;
                             var dataManager = ej.DataManager(lista_colaboradores);
                             drop.option("dataSource", dataManager);
-                            drop.option("fields", {text:"DESCRIPCION",value:"COD_COLABORADOR"});
+                            drop.option("fields", { text: "DESCRIPCION", value: "COD_COLABORADOR" });
                             drop.option("enableFilterSearch", true);
+                            try {
+                                drop.option({
+                                    value: COD_COLABORADOR,
+                                    select: function (args) {
+                                        cargar_cargos(args.value);
+                                    }
+                                });
+                            }
+                            catch{ }
+
                         }
-                    });
+                    });    
 
 
                 //Cargar valor del rol para la orden de servicio dada
@@ -385,7 +394,8 @@
                         drop.option({ value: COD_CONTRATO_ROL });
                         drop.option({ enabled: false });
                     }
-                });
+                    });
+                    
 
             }, 100);
 
@@ -481,7 +491,7 @@
         });
     }
 
-    //Función que permite
+    //Función que permite cargar los cargos
     function cargar_cargos(COD_COLABORADOR) {
         var data = JSON.stringify({ COD_COLABORADOR: parseInt(COD_COLABORADOR)});
         var url = "cargar_cargos";
@@ -502,6 +512,9 @@
     //Funcion mostrar documento
     function click_documento(sender) {
         var url = sender.attr("base") + sender.attr("download");
+        url = url.replace("//", "/");
+        url = url.replace("//", "/");
+        url = url.replace("http:/", "http://");
         var win = window.open(url, '_blank');
         win.focus();
     }

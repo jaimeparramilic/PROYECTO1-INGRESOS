@@ -442,8 +442,8 @@
     <Property Name="FECHA_INICIO_NOVEDAD" Type="datetime" />
     <Property Name="FECHA_FIN_NOVEDAD" Type="datetime" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ReportsTable' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.ReportsTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ReportsTable">
     <Key>
       <PropertyRef Name="ReportName" />
@@ -551,8 +551,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ReportsTable' no 
     <Property Name="COD_TIPO_TRIBUTACION" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.COLABORADORES_CONTAR_ESTUDIOS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.COLABORADORES_CONTAR_ESTUDIOS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="COLABORADORES_CONTAR_ESTUDIOS">
     <Key>
       <PropertyRef Name="COD_COLABORADOR" />
@@ -572,8 +572,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.COLABORADORES_CON
     <Property Name="ESTADO" Type="varchar" MaxLength="20" />
     <Property Name="Estudios" Type="varchar(max)" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.COLARADORES_CONCAT_ESTUDIOS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.COLARADORES_CONCAT_ESTUDIOS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="COLARADORES_CONCAT_ESTUDIOS">
     <Key>
       <PropertyRef Name="COD_COLABORADOR" />
@@ -595,8 +595,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.COLARADORES_CONCA
     <Property Name="COD_ESTADO_COLABORADOR" Type="bigint" />
     <Property Name="Estudios" Type="varchar(max)" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATO_COLABORADOR_COMERCIAL' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.CONTRATO_COLABORADOR_COMERCIAL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="CONTRATO_COLABORADOR_COMERCIAL">
     <Key>
       <PropertyRef Name="COD_CONTRATO_COLABORADOR" />
@@ -620,8 +620,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATO_COLABORA
     <Property Name="COD_CONTRATO_ROL" Type="bigint" />
     <Property Name="DESCRIPCION_CARGO" Type="varchar" MaxLength="300" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATO_COLABORADOR_INDEX' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.CONTRATO_COLABORADOR_INDEX' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="CONTRATO_COLABORADOR_INDEX">
     <Key>
       <PropertyRef Name="COD_CONTRATO_PROYECTO" />
@@ -636,8 +636,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATO_COLABORA
     <Property Name="TIPO_OBRA" Type="varchar" MaxLength="300" />
     <Property Name="TIPO_SERVICIO" Type="varchar" MaxLength="300" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATO_PROYECTO_DESCRIPCION' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.CONTRATO_PROYECTO_DESCRIPCION' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="CONTRATO_PROYECTO_DESCRIPCION">
     <Key>
       <PropertyRef Name="COD_CONTRATO_PROYECTO" />
@@ -649,8 +649,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATO_PROYECTO
     <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
     <Property Name="CENTRO_COSTOS" Type="varchar" MaxLength="300" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATO_ROL_DESCRIPCION' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.CONTRATO_ROL_DESCRIPCION' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="CONTRATO_ROL_DESCRIPCION">
     <Key>
       <PropertyRef Name="COD_CONTRATO_ROL" />
@@ -670,8 +670,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATO_ROL_DESC
     <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
     <Property Name="TIPO_TRIBUTACION" Type="varchar" MaxLength="300" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATOS_CONDICIONES_VISTA' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.CONTRATOS_CONDICIONES_VISTA' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="CONTRATOS_CONDICIONES_VISTA">
     <Key>
       <PropertyRef Name="COD_CONTRATO_CONDICION" />
@@ -693,8 +693,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATOS_CONDICI
     <Property Name="FECHA_INCLUSION" Type="date" />
     <Property Name="FECHA_EXCLUSION" Type="date" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.DATOS_VERIFICAR_FACTURA' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.DATOS_VERIFICAR_FACTURA' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="DATOS_VERIFICAR_FACTURA">
     <Key>
       <PropertyRef Name="COD_FACTURA" />
@@ -711,8 +711,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.DATOS_VERIFICAR_F
     <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
     <Property Name="PERIODO_FACTURAR" Type="date" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_COLABORADORES_PENDIENTES' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.GENERACION_COLABORADORES_PENDIENTES' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="GENERACION_COLABORADORES_PENDIENTES">
     <Key>
       <PropertyRef Name="COD_CONTRATO_PROYECTO" />
@@ -722,8 +722,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_COLABO
     <Property Name="FECHA_FIN" Type="date" />
     <Property Name="FECHA_INI" Type="date" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS_ITEM' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.GENERACION_FLUJOS_ITEM' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="GENERACION_FLUJOS_ITEM">
     <Key>
       <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
@@ -739,8 +739,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS
     <Property Name="VALOR_TOTAL" Type="real" />
     <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS_ITEM2' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.GENERACION_FLUJOS_ITEM2' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="GENERACION_FLUJOS_ITEM2">
     <Key>
       <PropertyRef Name="COD_ITEM_CONTRATO" />
@@ -763,8 +763,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS
     <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" Nullable="false" />
     <Property Name="ETAPA" Type="varchar" MaxLength="11" Nullable="false" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS_ITEM3' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.GENERACION_FLUJOS_ITEM3' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="GENERACION_FLUJOS_ITEM3">
     <Key>
       <PropertyRef Name="COD_ITEM_CONTRATO" />
@@ -787,8 +787,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS
     <Property Name="VALOR_FIJO_UNITARIO" Type="real" Nullable="false" />
     <Property Name="VALOR_TOTAL" Type="real" Nullable="false" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS_ROL' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.GENERACION_FLUJOS_ROL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="GENERACION_FLUJOS_ROL">
     <Key>
       <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
@@ -802,8 +802,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS
     <Property Name="VALOR_MENSUAL_PRESTACIONES" Type="real" />
     <Property Name="VALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR" Type="real" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS_ROL2' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.GENERACION_FLUJOS_ROL2' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="GENERACION_FLUJOS_ROL2">
     <Key>
       <PropertyRef Name="VALOR_FACTOR_MULTIPLICADOR" />
@@ -822,8 +822,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS
     <Property Name="ETAPA" Type="varchar" MaxLength="11" Nullable="false" />
     <Property Name="FECHA_FORMA_PAGO" Type="date" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS_ROL3' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.GENERACION_FLUJOS_ROL3' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="GENERACION_FLUJOS_ROL3">
     <Key>
       <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
@@ -838,8 +838,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS
     <Property Name="VALOR_CON_PRESTACIONES" Type="real" />
     <Property Name="VALOR_FACTOR_MULTIPLICADOR" Type="real" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ITEMS_CONTRATO_DESCRIPCION' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.ITEMS_CONTRATO_DESCRIPCION' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ITEMS_CONTRATO_DESCRIPCION">
     <Key>
       <PropertyRef Name="COD_ITEM_CONTRATO" />
@@ -859,8 +859,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ITEMS_CONTRATO_DE
     <Property Name="DIAS_FRACCION" Type="bigint" />
     <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ORDEN_SERVICIO_ROLES_PERIODO' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.ORDEN_SERVICIO_ROLES_PERIODO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ORDEN_SERVICIO_ROLES_PERIODO">
     <Key>
       <PropertyRef Name="COD_CONTRATO_PROYECTO" />
@@ -878,8 +878,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ORDEN_SERVICIO_RO
     <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" Nullable="false" />
     <Property Name="FECHA_FORMA_PAGO" Type="date" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ORDENES_SERVICIO_INDEX' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.ORDENES_SERVICIO_INDEX' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ORDENES_SERVICIO_INDEX">
     <Key>
       <PropertyRef Name="COD_CONTRATO_PROYECTO" />
@@ -897,8 +897,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ORDENES_SERVICIO_
     <Property Name="CENTRO_COSTOS" Type="varchar" MaxLength="300" />
     <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="bigint" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ORDENES_SERVICIO_ROLES_COLABORADOR' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.ORDENES_SERVICIO_ROLES_COLABORADOR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="ORDENES_SERVICIO_ROLES_COLABORADOR">
     <Key>
       <PropertyRef Name="COD_CONTRATO_PROYECTO" />
@@ -919,8 +919,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ORDENES_SERVICIO_
     <Property Name="NOMBRE" Type="varchar" MaxLength="300" />
     <Property Name="ROL_TEXTO" Type="varchar" MaxLength="300" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.PENDIENTES' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.PENDIENTES' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="PENDIENTES">
     <Key>
       <PropertyRef Name="COD_CONTRATO_PROYECTO" />
@@ -935,8 +935,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.PENDIENTES' no ti
     <Property Name="TIPO_SERVICIO" Type="varchar" MaxLength="300" />
     <Property Name="TIPO_OBRA" Type="varchar" MaxLength="300" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.PENDIENTES_REPORTE' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.PENDIENTES_REPORTE' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="PENDIENTES_REPORTE">
     <Key>
       <PropertyRef Name="COD_CONTRATO" />
@@ -951,8 +951,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.PENDIENTES_REPORT
     <Property Name="TIPO_OBRA" Type="varchar" MaxLength="300" />
     <Property Name="Expr1" Type="varchar" MaxLength="200" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_CONTRATO_PROYECTO_FACTURAS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.VISTA_CONTRATO_PROYECTO_FACTURAS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="VISTA_CONTRATO_PROYECTO_FACTURAS">
     <Key>
       <PropertyRef Name="COD_CONTRATO_PROYECTO" />
@@ -972,8 +972,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_CONTRATO_PR
     <Property Name="ESTADO_ULTIMA_FACTURA" Type="varchar" MaxLength="300" Nullable="false" />
     <Property Name="ESTADO_ORDEN" Type="varchar" MaxLength="300" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_CONTRATOS_ROL_DESCRIPCION' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.VISTA_CONTRATOS_ROL_DESCRIPCION' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="VISTA_CONTRATOS_ROL_DESCRIPCION">
     <Key>
       <PropertyRef Name="COD_CONTRATO_ROL" />
@@ -995,8 +995,19 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_CONTRATOS_R
     <Property Name="DIAS_FRACCION" Type="bigint" />
     <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FACTURAS_FECHA_PERIODO_FACTURACION' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.VISTA_COSTOS_FLUJO_INGR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="VISTA_COSTOS_FLUJO_INGR">
+    <Key>
+      <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+    </Key>
+    <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
+    <Property Name="FECHA_FORMA_PAGO" Type="date" />
+    <Property Name="VALOR_TOTAL" Type="real" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.VISTA_FACTURAS_FECHA_PERIODO_FACTURACION' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="VISTA_FACTURAS_FECHA_PERIODO_FACTURACION">
     <Key>
       <PropertyRef Name="COD_FACTURA" />
@@ -1012,8 +1023,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FACTURAS_FE
     <Property Name="RANKING" Type="varchar" MaxLength="50" />
     <Property Name="FECHA_FORMA_PAGO" Type="date" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FLUJO_INGRESOS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.VISTA_FLUJO_INGRESOS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="VISTA_FLUJO_INGRESOS">
     <Key>
       <PropertyRef Name="COD_FLUJO_INGRESOS_ROL" />
@@ -1030,8 +1041,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FLUJO_INGRE
     <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
     <Property Name="ESTADO" Type="varchar" MaxLength="50" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FLUJO_INGRESOS_ITEMS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.VISTA_FLUJO_INGRESOS_ITEMS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="VISTA_FLUJO_INGRESOS_ITEMS">
     <Key>
       <PropertyRef Name="COD_FLUJO_INGRESOS_ITEMS" />
@@ -1050,8 +1061,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FLUJO_INGRE
     <Property Name="FECHA_FORMA_PAGO" Type="date" />
     <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_ITEMS_CONTRATO' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.VISTA_ITEMS_CONTRATO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="VISTA_ITEMS_CONTRATO">
     <Key>
       <PropertyRef Name="COD_ITEM_CONTRATO" />
@@ -1065,8 +1076,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_ITEMS_CONTR
     <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
     <Property Name="COD_ITEM" Type="bigint" Nullable="false" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_ITEMS_CONTRATO_DESCRIPCION' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.VISTA_ITEMS_CONTRATO_DESCRIPCION' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="VISTA_ITEMS_CONTRATO_DESCRIPCION">
     <Key>
       <PropertyRef Name="COD_ITEM_CONTRATO" />
@@ -1086,8 +1097,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_ITEMS_CONTR
     <Property Name="DIAS_FRACCION" Type="bigint" />
     <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_ORDENES_CENTRO_COSTOS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.VISTA_ORDENES_CENTRO_COSTOS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="VISTA_ORDENES_CENTRO_COSTOS">
     <Key>
       <PropertyRef Name="COD_CONTRATO_PROYECTO" />
@@ -1110,8 +1121,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_ORDENES_CEN
     <Property Name="FECHA_FIN_EJECUCION" Type="date" />
     <Property Name="ESTADO_CENTRO_COSTO" Type="varchar" MaxLength="20" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_ORDENES_ROL_CARGO' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.VISTA_ORDENES_ROL_CARGO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="VISTA_ORDENES_ROL_CARGO">
     <Key>
       <PropertyRef Name="COD_CONTRATO_ROL" />
@@ -1125,8 +1136,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_ORDENES_ROL
     <Property Name="COD_CARGO" Type="bigint" />
     <Property Name="DESCRIPCION_CARGO" Type="varchar" MaxLength="300" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_FACTURA' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_FACTURA' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="VISTA_PENDIENTES_FACTURA">
     <Key>
       <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
@@ -1146,8 +1157,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
     <Property Name="FECHA_CREACION" Type="date" />
     <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="bigint" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_RETIRO' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_RETIRO' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="VISTA_PENDIENTES_RETIRO">
     <Key>
       <PropertyRef Name="COD_COLABORADOR" />
@@ -2438,6 +2449,14 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_
     [VISTA_CONTRATOS_ROL_DESCRIPCION].[DIAS_FRACCION] AS [DIAS_FRACCION], 
     [VISTA_CONTRATOS_ROL_DESCRIPCION].[DESCRIPCION] AS [DESCRIPCION]
     FROM [dbo].[VISTA_CONTRATOS_ROL_DESCRIPCION] AS [VISTA_CONTRATOS_ROL_DESCRIPCION]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="VISTA_COSTOS_FLUJO_INGR" EntityType="Self.VISTA_COSTOS_FLUJO_INGR" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [VISTA_COSTOS_FLUJO_INGR].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
+    [VISTA_COSTOS_FLUJO_INGR].[DESCRIPCION] AS [DESCRIPCION], 
+    [VISTA_COSTOS_FLUJO_INGR].[FECHA_FORMA_PAGO] AS [FECHA_FORMA_PAGO], 
+    [VISTA_COSTOS_FLUJO_INGR].[VALOR_TOTAL] AS [VALOR_TOTAL]
+    FROM [dbo].[VISTA_COSTOS_FLUJO_INGR] AS [VISTA_COSTOS_FLUJO_INGR]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="VISTA_FACTURAS_FECHA_PERIODO_FACTURACION" EntityType="Self.VISTA_FACTURAS_FECHA_PERIODO_FACTURACION" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 

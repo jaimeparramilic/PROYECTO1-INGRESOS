@@ -168,6 +168,17 @@ namespace syncfusion_payc.Controllers
             
             return View();
         }
+        // Mostrar costos
+        public ActionResult Costos(long? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            CONTRATO_PROYECTO cont = db.CONTRATO_PROYECTO.Find(id);
+            ViewBag.COD_CONTRATO_PROYECTO = cont.COD_CONTRATO_PROYECTO;
+            return View();
+        }
         #endregion
         #region guardar elementos documentales
         //Almacenar archivo contrato
@@ -972,7 +983,7 @@ namespace syncfusion_payc.Controllers
         //Funcion que realiza el cargue inicial de incrementos
         public void cargue_inicial_incrementos(long COD_CONTRATO_PROYECTO)
         {
-            string queryString = @"INSERT INTO[test_payc_contabilidad].[dbo].[INCREMENTO_ORDEN] (COD_CONTRATO_PROYECTO, FACTOR_INCREMENTO, FECHA_INCREMENTO) SELECT " + COD_CONTRATO_PROYECTO.ToString() + ", FACTOR_INCREMENTO, FECHA_FORMA_PAGO FROM[test_payc_contabilidad].[dbo].[INCREMENTOS_ANUALES_FECHA]";
+            string queryString = @"INSERT INTO[test_payc_contabilidad].[dbo].[INCREMENTO_ORDEN] (COD_CONTRATO_PROYECTO, FACTOR_INCREMENTO, FECHA_INCREMENTO) SELECT " + COD_CONTRATO_PROYECTO.ToString() + ", FACTOR_INCREMENTO, FECHA_FORMA_PAGO FROM [test_payc_contabilidad].[dbo].[INCREMENTOS_ANUALES_FECHA]";
             //Ejecución del query
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
