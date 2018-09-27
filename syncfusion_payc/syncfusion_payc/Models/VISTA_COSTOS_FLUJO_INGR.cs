@@ -14,9 +14,10 @@ namespace syncfusion_payc.Models
     
     public partial class VISTA_COSTOS_FLUJO_INGR
     {
+        public Nullable<long> FILA { get; set; }
         public long COD_CONTRATO_PROYECTO { get; set; }
         public string DESCRIPCION { get; set; }
-        public Nullable<System.DateTime> FECHA_FORMA_PAGO { get; set; }
+        public Nullable<System.DateTime> FECHA { get; set; }
         public Nullable<float> VALOR_TOTAL { get; set; }
     }
 }

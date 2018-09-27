@@ -44,5 +44,34 @@ namespace syncfusion_payc.Utilidades
             }
             return result;
         }
+        public static string ExecNoQuery (string comando, out int cod_ret)
+        {   // Ejecuta una sentencia q no devuelve datos (UPDATE, INSERT, or DELETE). R.E.V.
+            // Devuelve en cod_ret 0 si no hubo error y -1 si hubo error y en 
+            // retor el texto del error.
+            int filas;
+            string retor, connectString;
+            cod_ret = 0;
+            try
+            {
+                // Traer conexión
+                ConnectionStringSettings settings;
+                settings = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection1"];
+                connectString = settings.ConnectionString;
+                using (SqlConnection connection = new SqlConnection(connectString))
+                {
+                    SqlCommand command = new SqlCommand(comando, connection);
+                    command.Connection.Open();
+                    filas = command.ExecuteNonQuery();
+                }
+                retor = filas.ToString();
+            }
+            catch (Exception ex)
+            {
+                cod_ret = -1;
+                retor = ex.Message;
+            }
+
+            return retor;
+        }
     }
 }
