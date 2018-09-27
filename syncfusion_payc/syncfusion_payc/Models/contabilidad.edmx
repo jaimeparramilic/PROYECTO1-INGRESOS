@@ -1008,9 +1008,10 @@ warning 6002: The table/view 'test_payc_contabilidad.dbo.VISTA_COSTOS_FLUJO_INGR
           <Key>
             <PropertyRef Name="COD_CONTRATO_PROYECTO" />
           </Key>
+          <Property Name="FILA" Type="bigint" />
           <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" Nullable="false" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
-          <Property Name="FECHA_FORMA_PAGO" Type="date" />
+          <Property Name="FECHA" Type="date" />
           <Property Name="VALOR_TOTAL" Type="real" />
         </EntityType>
         <!--Errors Found During Generation:
@@ -2459,9 +2460,10 @@ warning 6002: The table/view 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_RETIRO
           </EntitySet>
           <EntitySet Name="VISTA_COSTOS_FLUJO_INGR" EntityType="Self.VISTA_COSTOS_FLUJO_INGR" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
+    [VISTA_COSTOS_FLUJO_INGR].[FILA] AS [FILA], 
     [VISTA_COSTOS_FLUJO_INGR].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
     [VISTA_COSTOS_FLUJO_INGR].[DESCRIPCION] AS [DESCRIPCION], 
-    [VISTA_COSTOS_FLUJO_INGR].[FECHA_FORMA_PAGO] AS [FECHA_FORMA_PAGO], 
+    [VISTA_COSTOS_FLUJO_INGR].[FECHA] AS [FECHA], 
     [VISTA_COSTOS_FLUJO_INGR].[VALOR_TOTAL] AS [VALOR_TOTAL]
     FROM [dbo].[VISTA_COSTOS_FLUJO_INGR] AS [VISTA_COSTOS_FLUJO_INGR]</DefiningQuery>
           </EntitySet>
@@ -5389,9 +5391,10 @@ warning 6002: The table/view 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_RETIRO
           <Key>
             <PropertyRef Name="COD_CONTRATO_PROYECTO" />
           </Key>
+          <Property Name="FILA" Type="Int64" />
           <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="FECHA_FORMA_PAGO" Type="DateTime" Precision="0" />
+          <Property Name="FECHA" Type="DateTime" Precision="0" />
           <Property Name="VALOR_TOTAL" Type="Single" />
         </EntityType>
         </Schema>
@@ -6556,9 +6559,10 @@ warning 6002: The table/view 'test_payc_contabilidad.dbo.VISTA_PENDIENTES_RETIRO
             <EntityTypeMapping TypeName="test_payc_contabilidadModel.VISTA_COSTOS_FLUJO_INGR">
               <MappingFragment StoreEntitySet="VISTA_COSTOS_FLUJO_INGR">
                 <ScalarProperty Name="VALOR_TOTAL" ColumnName="VALOR_TOTAL" />
-                <ScalarProperty Name="FECHA_FORMA_PAGO" ColumnName="FECHA_FORMA_PAGO" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
                 <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
                 <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
+                <ScalarProperty Name="FILA" ColumnName="FILA" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
