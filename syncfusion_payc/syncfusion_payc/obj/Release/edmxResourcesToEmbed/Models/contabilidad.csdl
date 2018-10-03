@@ -13,7 +13,6 @@
     <EntitySet Name="CONTRATO_PROYECTO" EntityType="test_payc_contabilidadModel.CONTRATO_PROYECTO" />
     <EntitySet Name="CONTRATO_ROL_CARGO" EntityType="test_payc_contabilidadModel.CONTRATO_ROL_CARGO" />
     <EntitySet Name="CONTRATOS_CONDICIONES" EntityType="test_payc_contabilidadModel.CONTRATOS_CONDICIONES" />
-    <EntitySet Name="CONTRATOS_ROL" EntityType="test_payc_contabilidadModel.CONTRATOS_ROL" />
     <EntitySet Name="ENTREGABLES" EntityType="test_payc_contabilidadModel.ENTREGABLES" />
     <EntitySet Name="ESTADO_COLABORADOR" EntityType="test_payc_contabilidadModel.ESTADO_COLABORADOR" />
     <EntitySet Name="ESTADOS_CECO" EntityType="test_payc_contabilidadModel.ESTADOS_CECO" />
@@ -29,7 +28,6 @@
     <EntitySet Name="INCREMENTO_ORDEN" EntityType="test_payc_contabilidadModel.INCREMENTO_ORDEN" />
     <EntitySet Name="INCREMENTO_SALARIAL" EntityType="test_payc_contabilidadModel.INCREMENTO_SALARIAL" />
     <EntitySet Name="ITEMS" EntityType="test_payc_contabilidadModel.ITEMS" />
-    <EntitySet Name="ITEMS_CONTRATO" EntityType="test_payc_contabilidadModel.ITEMS_CONTRATO" />
     <EntitySet Name="PROYECTOS" EntityType="test_payc_contabilidadModel.PROYECTOS" />
     <EntitySet Name="REGISTRO_ITEMS_OTROS_COSTOS" EntityType="test_payc_contabilidadModel.REGISTRO_ITEMS_OTROS_COSTOS" />
     <EntitySet Name="REGISTRO_NOVEDADES" EntityType="test_payc_contabilidadModel.REGISTRO_NOVEDADES" />
@@ -131,10 +129,6 @@
       <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
       <End Role="CONTRATOS_CONDICIONES" EntitySet="CONTRATOS_CONDICIONES" />
     </AssociationSet>
-    <AssociationSet Name="FK_CONTRATOS_ROL_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_CONTRATOS_ROL_CONTRATO_PROYECTO">
-      <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
-      <End Role="CONTRATOS_ROL" EntitySet="CONTRATOS_ROL" />
-    </AssociationSet>
     <AssociationSet Name="FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO">
       <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
       <End Role="FLUJO_INGRESOS_ITEMS" EntitySet="FLUJO_INGRESOS_ITEMS" />
@@ -146,10 +140,6 @@
     <AssociationSet Name="FK_INCREMENTO_ORDEN_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_INCREMENTO_ORDEN_CONTRATO_PROYECTO">
       <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
       <End Role="INCREMENTO_ORDEN" EntitySet="INCREMENTO_ORDEN" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ITEMS_CONTRATO_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_CONTRATO_PROYECTO">
-      <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
-      <End Role="ITEMS_CONTRATO" EntitySet="ITEMS_CONTRATO" />
     </AssociationSet>
     <AssociationSet Name="FK_REGISTRO_ITEMS_OTROS_COSTOS_CONTRATO_CONDICION" Association="test_payc_contabilidadModel.FK_REGISTRO_ITEMS_OTROS_COSTOS_CONTRATO_CONDICION">
       <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
@@ -167,10 +157,6 @@
       <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
       <End Role="TAG_ORDEN" EntitySet="TAG_ORDEN" />
     </AssociationSet>
-    <AssociationSet Name="FK_CONTRATO_ROL_CARGO_CONTRATOS_ROL" Association="test_payc_contabilidadModel.FK_CONTRATO_ROL_CARGO_CONTRATOS_ROL">
-      <End Role="CONTRATOS_ROL" EntitySet="CONTRATOS_ROL" />
-      <End Role="CONTRATO_ROL_CARGO" EntitySet="CONTRATO_ROL_CARGO" />
-    </AssociationSet>
     <AssociationSet Name="FK_CONTRATOS_CONDICIONES_TIPO_CONDICION_CONTRACTUAL" Association="test_payc_contabilidadModel.FK_CONTRATOS_CONDICIONES_TIPO_CONDICION_CONTRACTUAL">
       <End Role="TIPO_CONDICION_CONTRACTUAL" EntitySet="TIPO_CONDICION_CONTRACTUAL" />
       <End Role="CONTRATOS_CONDICIONES" EntitySet="CONTRATOS_CONDICIONES" />
@@ -179,20 +165,12 @@
       <End Role="CONTRATOS_CONDICIONES" EntitySet="CONTRATOS_CONDICIONES" />
       <End Role="ENTREGABLES" EntitySet="ENTREGABLES" />
     </AssociationSet>
-    <AssociationSet Name="FK_CONTRATO_ROL_ROL" Association="test_payc_contabilidadModel.FK_CONTRATO_ROL_ROL">
-      <End Role="ROLES" EntitySet="ROLES" />
-      <End Role="CONTRATOS_ROL" EntitySet="CONTRATOS_ROL" />
-    </AssociationSet>
     <AssociationSet Name="FK_ESTADO_ORDEN_SERVICIO_ESTADO_ORDEN_SERVICIO" Association="test_payc_contabilidadModel.FK_ESTADO_ORDEN_SERVICIO_ESTADO_ORDEN_SERVICIO">
       <End Role="ESTADOS_ORDEN_SERVICIO" EntitySet="ESTADOS_ORDEN_SERVICIO" />
       <End Role="ESTADOS_ORDEN_SERVICIO1" EntitySet="ESTADOS_ORDEN_SERVICIO" />
     </AssociationSet>
     <AssociationSet Name="FK_FLUJO_INGRESOS_ITEMS_FECHAS" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_FECHAS">
       <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
-      <End Role="FLUJO_INGRESOS_ITEMS" EntitySet="FLUJO_INGRESOS_ITEMS" />
-    </AssociationSet>
-    <AssociationSet Name="FK_FLUJO_INGRESOS_ROL_ITEMS" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ITEMS">
-      <End Role="ITEMS_CONTRATO" EntitySet="ITEMS_CONTRATO" />
       <End Role="FLUJO_INGRESOS_ITEMS" EntitySet="FLUJO_INGRESOS_ITEMS" />
     </AssociationSet>
     <AssociationSet Name="FK_FORMAS_PAGO_FECHAS_FORMA_PAGO" Association="test_payc_contabilidadModel.FK_FORMAS_PAGO_FECHAS_FORMA_PAGO">
@@ -210,18 +188,6 @@
     <AssociationSet Name="FK_REGISTRO_NOVEDADES_FORMAS_PAGO_FECHAS" Association="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_FORMAS_PAGO_FECHAS">
       <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
       <End Role="REGISTRO_NOVEDADES" EntitySet="REGISTRO_NOVEDADES" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ITEMS_CONTRATO_ITEMS" Association="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_ITEMS">
-      <End Role="ITEMS" EntitySet="ITEMS" />
-      <End Role="ITEMS_CONTRATO" EntitySet="ITEMS_CONTRATO" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ITEMS_CONTRATO_TIPOS_REEMBOLSO" Association="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_TIPOS_REEMBOLSO">
-      <End Role="TIPOS_REEMBOLSO" EntitySet="TIPOS_REEMBOLSO" />
-      <End Role="ITEMS_CONTRATO" EntitySet="ITEMS_CONTRATO" />
-    </AssociationSet>
-    <AssociationSet Name="FK_registro_items_otros_costos_items" Association="test_payc_contabilidadModel.FK_registro_items_otros_costos_items">
-      <End Role="ITEMS_CONTRATO" EntitySet="ITEMS_CONTRATO" />
-      <End Role="REGISTRO_ITEMS_OTROS_COSTOS" EntitySet="REGISTRO_ITEMS_OTROS_COSTOS" />
     </AssociationSet>
     <AssociationSet Name="FK_PROYECTOS_TIPOS_OBRA" Association="test_payc_contabilidadModel.FK_PROYECTOS_TIPOS_OBRA">
       <End Role="TIPOS_OBRA" EntitySet="TIPOS_OBRA" />
@@ -322,10 +288,6 @@
       <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
       <End Role="DETALLE_FACTURA_ITEM" EntitySet="DETALLE_FACTURA_ITEM" />
     </AssociationSet>
-    <AssociationSet Name="FK_detalle_factura_item_items" Association="test_payc_contabilidadModel.FK_detalle_factura_item_items">
-      <End Role="ITEMS_CONTRATO" EntitySet="ITEMS_CONTRATO" />
-      <End Role="DETALLE_FACTURA_ITEM" EntitySet="DETALLE_FACTURA_ITEM" />
-    </AssociationSet>
     <EntitySet Name="DATOS_VERIFICAR_FACTURA" EntityType="test_payc_contabilidadModel.DATOS_VERIFICAR_FACTURA" />
     <EntitySet Name="ITEMS_CONTRATO_DESCRIPCION" EntityType="test_payc_contabilidadModel.ITEMS_CONTRATO_DESCRIPCION" />
     <EntitySet Name="FACTURAS" EntityType="test_payc_contabilidadModel.FACTURAS" />
@@ -374,6 +336,52 @@
       <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
     </AssociationSet>
     <EntitySet Name="VISTA_COSTOS_FLUJO_INGR" EntityType="test_payc_contabilidadModel.VISTA_COSTOS_FLUJO_INGR" />
+    <EntitySet Name="CONTRATOS_ROL" EntityType="test_payc_contabilidadModel.CONTRATOS_ROL" />
+    <EntitySet Name="ITEMS_CONTRATO" EntityType="test_payc_contabilidadModel.ITEMS_CONTRATO" />
+    <AssociationSet Name="FK_CONTRATOS_ROL_CONCEPTOS" Association="test_payc_contabilidadModel.FK_CONTRATOS_ROL_CONCEPTOS">
+      <End Role="CONCEPTOS" EntitySet="CONCEPTOS" />
+      <End Role="CONTRATOS_ROL" EntitySet="CONTRATOS_ROL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ITEMS_CONTRATO_CONCEPTOS" Association="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_CONCEPTOS">
+      <End Role="CONCEPTOS" EntitySet="CONCEPTOS" />
+      <End Role="ITEMS_CONTRATO" EntitySet="ITEMS_CONTRATO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONTRATOS_ROL_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_CONTRATOS_ROL_CONTRATO_PROYECTO">
+      <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+      <End Role="CONTRATOS_ROL" EntitySet="CONTRATOS_ROL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ITEMS_CONTRATO_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_CONTRATO_PROYECTO">
+      <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+      <End Role="ITEMS_CONTRATO" EntitySet="ITEMS_CONTRATO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONTRATO_ROL_CARGO_CONTRATOS_ROL" Association="test_payc_contabilidadModel.FK_CONTRATO_ROL_CARGO_CONTRATOS_ROL">
+      <End Role="CONTRATOS_ROL" EntitySet="CONTRATOS_ROL" />
+      <End Role="CONTRATO_ROL_CARGO" EntitySet="CONTRATO_ROL_CARGO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CONTRATO_ROL_ROL" Association="test_payc_contabilidadModel.FK_CONTRATO_ROL_ROL">
+      <End Role="ROLES" EntitySet="ROLES" />
+      <End Role="CONTRATOS_ROL" EntitySet="CONTRATOS_ROL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_detalle_factura_item_items" Association="test_payc_contabilidadModel.FK_detalle_factura_item_items">
+      <End Role="ITEMS_CONTRATO" EntitySet="ITEMS_CONTRATO" />
+      <End Role="DETALLE_FACTURA_ITEM" EntitySet="DETALLE_FACTURA_ITEM" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FLUJO_INGRESOS_ROL_ITEMS" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ITEMS">
+      <End Role="ITEMS_CONTRATO" EntitySet="ITEMS_CONTRATO" />
+      <End Role="FLUJO_INGRESOS_ITEMS" EntitySet="FLUJO_INGRESOS_ITEMS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ITEMS_CONTRATO_ITEMS" Association="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_ITEMS">
+      <End Role="ITEMS" EntitySet="ITEMS" />
+      <End Role="ITEMS_CONTRATO" EntitySet="ITEMS_CONTRATO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ITEMS_CONTRATO_TIPOS_REEMBOLSO" Association="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_TIPOS_REEMBOLSO">
+      <End Role="TIPOS_REEMBOLSO" EntitySet="TIPOS_REEMBOLSO" />
+      <End Role="ITEMS_CONTRATO" EntitySet="ITEMS_CONTRATO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_registro_items_otros_costos_items" Association="test_payc_contabilidadModel.FK_registro_items_otros_costos_items">
+      <End Role="ITEMS_CONTRATO" EntitySet="ITEMS_CONTRATO" />
+      <End Role="REGISTRO_ITEMS_OTROS_COSTOS" EntitySet="REGISTRO_ITEMS_OTROS_COSTOS" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="CARGOS">
     <Key>
@@ -515,11 +523,9 @@
     <NavigationProperty Name="FORMAS_PAGO" Relationship="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_FORMAS_PAGO" FromRole="CONTRATO_PROYECTO" ToRole="FORMAS_PAGO" />
     <NavigationProperty Name="PROYECTOS" Relationship="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_PROYECTOS" FromRole="CONTRATO_PROYECTO" ToRole="PROYECTOS" />
     <NavigationProperty Name="CONTRATOS_CONDICIONES" Relationship="test_payc_contabilidadModel.FK_CONTRATOS_CONDICIONES_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="CONTRATOS_CONDICIONES" />
-    <NavigationProperty Name="CONTRATOS_ROL" Relationship="test_payc_contabilidadModel.FK_CONTRATOS_ROL_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="CONTRATOS_ROL" />
     <NavigationProperty Name="FLUJO_INGRESOS_ITEMS" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="FLUJO_INGRESOS_ITEMS" />
     <NavigationProperty Name="FLUJO_INGRESOS_ROL" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="FLUJO_INGRESOS_ROL" />
     <NavigationProperty Name="INCREMENTO_ORDEN" Relationship="test_payc_contabilidadModel.FK_INCREMENTO_ORDEN_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="INCREMENTO_ORDEN" />
-    <NavigationProperty Name="ITEMS_CONTRATO" Relationship="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="ITEMS_CONTRATO" />
     <NavigationProperty Name="REGISTRO_ITEMS_OTROS_COSTOS" Relationship="test_payc_contabilidadModel.FK_REGISTRO_ITEMS_OTROS_COSTOS_CONTRATO_CONDICION" FromRole="CONTRATO_PROYECTO" ToRole="REGISTRO_ITEMS_OTROS_COSTOS" />
     <NavigationProperty Name="REGISTRO_NOVEDADES" Relationship="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="REGISTRO_NOVEDADES" />
     <NavigationProperty Name="ROL_CARGO_ORDEN" Relationship="test_payc_contabilidadModel.FK_RELACION_ROL_CARGO_ORDEN_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="ROL_CARGO_ORDEN" />
@@ -528,6 +534,8 @@
     <NavigationProperty Name="DETALLE_FACTURA_ITEM" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="DETALLE_FACTURA_ITEM" />
     <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_FACTURAS_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="FACTURAS" />
     <NavigationProperty Name="CONTRATOS" Relationship="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_CONTRATOS" FromRole="CONTRATO_PROYECTO" ToRole="CONTRATOS" />
+    <NavigationProperty Name="CONTRATOS_ROL" Relationship="test_payc_contabilidadModel.FK_CONTRATOS_ROL_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="CONTRATOS_ROL" />
+    <NavigationProperty Name="ITEMS_CONTRATO" Relationship="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="ITEMS_CONTRATO" />
   </EntityType>
   <EntityType Name="CONTRATO_ROL_CARGO">
     <Key>
@@ -552,29 +560,6 @@
     <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_CONTRATOS_CONDICIONES_CONTRATO_PROYECTO" FromRole="CONTRATOS_CONDICIONES" ToRole="CONTRATO_PROYECTO" />
     <NavigationProperty Name="TIPO_CONDICION_CONTRACTUAL" Relationship="test_payc_contabilidadModel.FK_CONTRATOS_CONDICIONES_TIPO_CONDICION_CONTRACTUAL" FromRole="CONTRATOS_CONDICIONES" ToRole="TIPO_CONDICION_CONTRACTUAL" />
     <NavigationProperty Name="ENTREGABLES" Relationship="test_payc_contabilidadModel.FK_ENTREGABLES_CONTRATOS_CONDICIONES" FromRole="CONTRATOS_CONDICIONES" ToRole="ENTREGABLES" />
-  </EntityType>
-  <EntityType Name="CONTRATOS_ROL">
-    <Key>
-      <PropertyRef Name="COD_CONTRATO_ROL" />
-    </Key>
-    <Property Name="COD_CONTRATO_ROL" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="COD_ROL" Type="Int64" />
-    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
-    <Property Name="FECHA_INI" Type="DateTime" Precision="0" />
-    <Property Name="MESES" Type="Int64" />
-    <Property Name="VALOR_MENSUAL_SIN_PRESTACIONES" Type="Single" />
-    <Property Name="PRESTACIONES" Type="Single" />
-    <Property Name="VALOR_MENSUAL_PRESTACIONES" Type="Single" />
-    <Property Name="FACTOR_MULTIPLICADOR" Type="Single" />
-    <Property Name="VALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR" Type="Single" />
-    <Property Name="DEDICACION" Type="Single" />
-    <Property Name="OBSERVACIONES" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-    <Property Name="TIPO_TRIBUTACION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-    <Property Name="RUTA_DOCUMENTO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-    <Property Name="DIAS_FRACCION" Type="Int64" />
-    <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_CONTRATOS_ROL_CONTRATO_PROYECTO" FromRole="CONTRATOS_ROL" ToRole="CONTRATO_PROYECTO" />
-    <NavigationProperty Name="CONTRATO_ROL_CARGO" Relationship="test_payc_contabilidadModel.FK_CONTRATO_ROL_CARGO_CONTRATOS_ROL" FromRole="CONTRATOS_ROL" ToRole="CONTRATO_ROL_CARGO" />
-    <NavigationProperty Name="ROLES" Relationship="test_payc_contabilidadModel.FK_CONTRATO_ROL_ROL" FromRole="CONTRATOS_ROL" ToRole="ROLES" />
   </EntityType>
   <EntityType Name="ENTREGABLES">
     <Key>
@@ -746,30 +731,6 @@
     <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="ITEMS_CONTRATO" Relationship="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_ITEMS" FromRole="ITEMS" ToRole="ITEMS_CONTRATO" />
   </EntityType>
-  <EntityType Name="ITEMS_CONTRATO">
-    <Key>
-      <PropertyRef Name="COD_ITEM_CONTRATO" />
-    </Key>
-    <Property Name="COD_ITEM_CONTRATO" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
-    <Property Name="COD_ITEM" Type="Int64" />
-    <Property Name="ITEM_REEMBOLZABLE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="REUTILIZABLE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="COSTO_INICIAL_UNITARIO" Type="Single" />
-    <Property Name="COSTO_MENSUAL_UNITARIO" Type="Single" />
-    <Property Name="CANTIDAD" Type="Int64" />
-    <Property Name="FECHA_INI_USO" Type="DateTime" Precision="0" />
-    <Property Name="MESES_USO" Type="Int64" />
-    <Property Name="OBSERVACIONES" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-    <Property Name="COD_TIPO_REEMBOLSO" Type="Int64" />
-    <Property Name="DIAS_FRACCION" Type="Int64" />
-    <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_CONTRATO_PROYECTO" FromRole="ITEMS_CONTRATO" ToRole="CONTRATO_PROYECTO" />
-    <NavigationProperty Name="FLUJO_INGRESOS_ITEMS" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ITEMS" FromRole="ITEMS_CONTRATO" ToRole="FLUJO_INGRESOS_ITEMS" />
-    <NavigationProperty Name="ITEMS" Relationship="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_ITEMS" FromRole="ITEMS_CONTRATO" ToRole="ITEMS" />
-    <NavigationProperty Name="TIPOS_REEMBOLSO" Relationship="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_TIPOS_REEMBOLSO" FromRole="ITEMS_CONTRATO" ToRole="TIPOS_REEMBOLSO" />
-    <NavigationProperty Name="REGISTRO_ITEMS_OTROS_COSTOS" Relationship="test_payc_contabilidadModel.FK_registro_items_otros_costos_items" FromRole="ITEMS_CONTRATO" ToRole="REGISTRO_ITEMS_OTROS_COSTOS" />
-    <NavigationProperty Name="DETALLE_FACTURA_ITEM" Relationship="test_payc_contabilidadModel.FK_detalle_factura_item_items" FromRole="ITEMS_CONTRATO" ToRole="DETALLE_FACTURA_ITEM" />
-  </EntityType>
   <EntityType Name="PROYECTOS">
     <Key>
       <PropertyRef Name="COD_PROYECTO" />
@@ -850,9 +811,9 @@
     <Property Name="COD_ROL" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="CONTRATO_COLABORADOR" Relationship="test_payc_contabilidadModel.FK_CONTRATO_COLABORADOR_ROL" FromRole="ROLES" ToRole="CONTRATO_COLABORADOR" />
-    <NavigationProperty Name="CONTRATOS_ROL" Relationship="test_payc_contabilidadModel.FK_CONTRATO_ROL_ROL" FromRole="ROLES" ToRole="CONTRATOS_ROL" />
     <NavigationProperty Name="ROL_CARGO_ORDEN" Relationship="test_payc_contabilidadModel.FK_RELACION_ROL_CARGO_ORDEN_ROLES" FromRole="ROLES" ToRole="ROL_CARGO_ORDEN" />
     <NavigationProperty Name="DETALLE_FACTURA_PERS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_COLABORADOR" FromRole="ROLES" ToRole="DETALLE_FACTURA_PERS" />
+    <NavigationProperty Name="CONTRATOS_ROL" Relationship="test_payc_contabilidadModel.FK_CONTRATO_ROL_ROL" FromRole="ROLES" ToRole="CONTRATOS_ROL" />
   </EntityType>
   <EntityType Name="SINO">
     <Key>
@@ -1208,18 +1169,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_CONTRATOS_ROL_CONTRATO_PROYECTO">
-    <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
-    <End Type="test_payc_contabilidadModel.CONTRATOS_ROL" Role="CONTRATOS_ROL" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CONTRATO_PROYECTO">
-        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-      </Principal>
-      <Dependent Role="CONTRATOS_ROL">
-        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO">
     <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
     <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS" Role="FLUJO_INGRESOS_ITEMS" Multiplicity="*" />
@@ -1252,18 +1201,6 @@
         <PropertyRef Name="COD_CONTRATO_PROYECTO" />
       </Principal>
       <Dependent Role="INCREMENTO_ORDEN">
-        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ITEMS_CONTRATO_CONTRATO_PROYECTO">
-    <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
-    <End Type="test_payc_contabilidadModel.ITEMS_CONTRATO" Role="ITEMS_CONTRATO" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CONTRATO_PROYECTO">
-        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-      </Principal>
-      <Dependent Role="ITEMS_CONTRATO">
         <PropertyRef Name="COD_CONTRATO_PROYECTO" />
       </Dependent>
     </ReferentialConstraint>
@@ -1316,18 +1253,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_CONTRATO_ROL_CARGO_CONTRATOS_ROL">
-    <End Type="test_payc_contabilidadModel.CONTRATOS_ROL" Role="CONTRATOS_ROL" Multiplicity="0..1" />
-    <End Type="test_payc_contabilidadModel.CONTRATO_ROL_CARGO" Role="CONTRATO_ROL_CARGO" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CONTRATOS_ROL">
-        <PropertyRef Name="COD_CONTRATO_ROL" />
-      </Principal>
-      <Dependent Role="CONTRATO_ROL_CARGO">
-        <PropertyRef Name="COD_CONTRATO_ROL" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_CONTRATOS_CONDICIONES_TIPO_CONDICION_CONTRACTUAL">
     <End Type="test_payc_contabilidadModel.TIPO_CONDICION_CONTRACTUAL" Role="TIPO_CONDICION_CONTRACTUAL" Multiplicity="0..1" />
     <End Type="test_payc_contabilidadModel.CONTRATOS_CONDICIONES" Role="CONTRATOS_CONDICIONES" Multiplicity="*" />
@@ -1352,18 +1277,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_CONTRATO_ROL_ROL">
-    <End Type="test_payc_contabilidadModel.ROLES" Role="ROLES" Multiplicity="0..1" />
-    <End Type="test_payc_contabilidadModel.CONTRATOS_ROL" Role="CONTRATOS_ROL" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ROLES">
-        <PropertyRef Name="COD_ROL" />
-      </Principal>
-      <Dependent Role="CONTRATOS_ROL">
-        <PropertyRef Name="COD_ROL" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_ESTADO_ORDEN_SERVICIO_ESTADO_ORDEN_SERVICIO">
     <End Type="test_payc_contabilidadModel.ESTADOS_ORDEN_SERVICIO" Role="ESTADOS_ORDEN_SERVICIO" Multiplicity="1" />
     <End Type="test_payc_contabilidadModel.ESTADOS_ORDEN_SERVICIO" Role="ESTADOS_ORDEN_SERVICIO1" Multiplicity="0..1" />
@@ -1385,18 +1298,6 @@
       </Principal>
       <Dependent Role="FLUJO_INGRESOS_ITEMS">
         <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_FLUJO_INGRESOS_ROL_ITEMS">
-    <End Type="test_payc_contabilidadModel.ITEMS_CONTRATO" Role="ITEMS_CONTRATO" Multiplicity="0..1" />
-    <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS" Role="FLUJO_INGRESOS_ITEMS" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ITEMS_CONTRATO">
-        <PropertyRef Name="COD_ITEM_CONTRATO" />
-      </Principal>
-      <Dependent Role="FLUJO_INGRESOS_ITEMS">
-        <PropertyRef Name="COD_ITEM_CONTRATO" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1445,42 +1346,6 @@
       </Principal>
       <Dependent Role="REGISTRO_NOVEDADES">
         <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ITEMS_CONTRATO_ITEMS">
-    <End Type="test_payc_contabilidadModel.ITEMS" Role="ITEMS" Multiplicity="0..1" />
-    <End Type="test_payc_contabilidadModel.ITEMS_CONTRATO" Role="ITEMS_CONTRATO" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ITEMS">
-        <PropertyRef Name="COD_ITEM" />
-      </Principal>
-      <Dependent Role="ITEMS_CONTRATO">
-        <PropertyRef Name="COD_ITEM" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ITEMS_CONTRATO_TIPOS_REEMBOLSO">
-    <End Type="test_payc_contabilidadModel.TIPOS_REEMBOLSO" Role="TIPOS_REEMBOLSO" Multiplicity="0..1" />
-    <End Type="test_payc_contabilidadModel.ITEMS_CONTRATO" Role="ITEMS_CONTRATO" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TIPOS_REEMBOLSO">
-        <PropertyRef Name="COD_TIPO_REEMBOLSO" />
-      </Principal>
-      <Dependent Role="ITEMS_CONTRATO">
-        <PropertyRef Name="COD_TIPO_REEMBOLSO" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_registro_items_otros_costos_items">
-    <End Type="test_payc_contabilidadModel.ITEMS_CONTRATO" Role="ITEMS_CONTRATO" Multiplicity="0..1" />
-    <End Type="test_payc_contabilidadModel.REGISTRO_ITEMS_OTROS_COSTOS" Role="REGISTRO_ITEMS_OTROS_COSTOS" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ITEMS_CONTRATO">
-        <PropertyRef Name="COD_ITEM_CONTRATO" />
-      </Principal>
-      <Dependent Role="REGISTRO_ITEMS_OTROS_COSTOS">
-        <PropertyRef Name="COD_ITEM_CONTRATO" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1740,13 +1605,13 @@
     <Property Name="COD_CONTRATO" Type="Int64" />
     <Property Name="COD_PROYECTO" Type="Int64" />
     <Property Name="COD_FORMA_PAGO" Type="Int64" />
-    <Property Name="DESCRIPCION" Type="String" MaxLength="622" FixedLength="false" Unicode="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="COMPLETA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="MODIFICADO_POR" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
     <Property Name="FECHA_ULTIMA_MODIFICACION" Type="DateTime" Precision="0" />
     <Property Name="CREADO_POR" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
     <Property Name="FECHA_CREACION" Type="DateTime" Precision="0" />
-    <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="Int64" />
   </EntityType>
   <EntityType Name="ORDENES_SERVICIO_ROLES_COLABORADOR">
@@ -2170,9 +2035,9 @@
     <NavigationProperty Name="ESTADOS_DETALLE" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_ESTADO_DETALLE" FromRole="DETALLE_FACTURA_ITEM" ToRole="ESTADOS_DETALLE" />
     <NavigationProperty Name="ESTADOS_FACTURAS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_ESTADOS_FACTURAS" FromRole="DETALLE_FACTURA_ITEM" ToRole="ESTADOS_FACTURAS" />
     <NavigationProperty Name="FORMAS_PAGO_FECHAS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FECHAS" FromRole="DETALLE_FACTURA_ITEM" ToRole="FORMAS_PAGO_FECHAS" />
-    <NavigationProperty Name="ITEMS_CONTRATO" Relationship="test_payc_contabilidadModel.FK_detalle_factura_item_items" FromRole="DETALLE_FACTURA_ITEM" ToRole="ITEMS_CONTRATO" />
     <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FACTURAS" FromRole="DETALLE_FACTURA_ITEM" ToRole="FACTURAS" />
     <NavigationProperty Name="CONCEPTOS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_CONCEPTOS" FromRole="DETALLE_FACTURA_ITEM" ToRole="CONCEPTOS" />
+    <NavigationProperty Name="ITEMS_CONTRATO" Relationship="test_payc_contabilidadModel.FK_detalle_factura_item_items" FromRole="DETALLE_FACTURA_ITEM" ToRole="ITEMS_CONTRATO" />
   </EntityType>
   <Association Name="FK_DETALLE_FACTURA_ITEM_CAUSA_ESTADO">
     <End Type="test_payc_contabilidadModel.CAUSA_ESTADO" Role="CAUSA_ESTADO" Multiplicity="0..1" />
@@ -2231,18 +2096,6 @@
       </Principal>
       <Dependent Role="DETALLE_FACTURA_ITEM">
         <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_detalle_factura_item_items">
-    <End Type="test_payc_contabilidadModel.ITEMS_CONTRATO" Role="ITEMS_CONTRATO" Multiplicity="0..1" />
-    <End Type="test_payc_contabilidadModel.DETALLE_FACTURA_ITEM" Role="DETALLE_FACTURA_ITEM" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ITEMS_CONTRATO">
-        <PropertyRef Name="COD_ITEM_CONTRATO" />
-      </Principal>
-      <Dependent Role="DETALLE_FACTURA_ITEM">
-        <PropertyRef Name="COD_ITEM_CONTRATO" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2406,6 +2259,8 @@
     <NavigationProperty Name="DETALLE_FACTURA_ITEM" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_CONCEPTOS" FromRole="CONCEPTOS" ToRole="DETALLE_FACTURA_ITEM" />
     <NavigationProperty Name="DETALLE_FACTURA_PERS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_CONCEPTOS" FromRole="CONCEPTOS" ToRole="DETALLE_FACTURA_PERS" />
     <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_FACTURAS_CONCEPTOS" FromRole="CONCEPTOS" ToRole="FACTURAS" />
+    <NavigationProperty Name="CONTRATOS_ROL" Relationship="test_payc_contabilidadModel.FK_CONTRATOS_ROL_CONCEPTOS" FromRole="CONCEPTOS" ToRole="CONTRATOS_ROL" />
+    <NavigationProperty Name="ITEMS_CONTRATO" Relationship="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_CONCEPTOS" FromRole="CONCEPTOS" ToRole="ITEMS_CONTRATO" />
   </EntityType>
   <Association Name="FK_DETALLE_FACTURA_ITEM_CONCEPTOS">
     <End Type="test_payc_contabilidadModel.CONCEPTOS" Role="CONCEPTOS" Multiplicity="0..1" />
@@ -2489,9 +2344,194 @@
     <Key>
       <PropertyRef Name="COD_CONTRATO_PROYECTO" />
     </Key>
+    <Property Name="FILA" Type="Int64" />
     <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" />
     <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-    <Property Name="FECHA_FORMA_PAGO" Type="DateTime" Precision="0" />
+    <Property Name="FECHA" Type="DateTime" Precision="0" />
     <Property Name="VALOR_TOTAL" Type="Single" />
+    <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
   </EntityType>
+  <EntityType Name="CONTRATOS_ROL">
+    <Key>
+      <PropertyRef Name="COD_CONTRATO_ROL" />
+    </Key>
+    <Property Name="COD_CONTRATO_ROL" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="COD_ROL" Type="Int64" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
+    <Property Name="FECHA_INI" Type="DateTime" Precision="0" />
+    <Property Name="MESES" Type="Int64" />
+    <Property Name="VALOR_MENSUAL_SIN_PRESTACIONES" Type="Single" />
+    <Property Name="PRESTACIONES" Type="Single" />
+    <Property Name="VALOR_MENSUAL_PRESTACIONES" Type="Single" />
+    <Property Name="FACTOR_MULTIPLICADOR" Type="Single" />
+    <Property Name="VALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR" Type="Single" />
+    <Property Name="DEDICACION" Type="Single" />
+    <Property Name="OBSERVACIONES" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="TIPO_TRIBUTACION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="RUTA_DOCUMENTO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="DIAS_FRACCION" Type="Int64" />
+    <Property Name="COD_CONCEPTO_PSL" Type="Int64" />
+    <NavigationProperty Name="CONCEPTOS" Relationship="test_payc_contabilidadModel.FK_CONTRATOS_ROL_CONCEPTOS" FromRole="CONTRATOS_ROL" ToRole="CONCEPTOS" />
+    <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_CONTRATOS_ROL_CONTRATO_PROYECTO" FromRole="CONTRATOS_ROL" ToRole="CONTRATO_PROYECTO" />
+    <NavigationProperty Name="CONTRATO_ROL_CARGO" Relationship="test_payc_contabilidadModel.FK_CONTRATO_ROL_CARGO_CONTRATOS_ROL" FromRole="CONTRATOS_ROL" ToRole="CONTRATO_ROL_CARGO" />
+    <NavigationProperty Name="ROLES" Relationship="test_payc_contabilidadModel.FK_CONTRATO_ROL_ROL" FromRole="CONTRATOS_ROL" ToRole="ROLES" />
+  </EntityType>
+  <EntityType Name="ITEMS_CONTRATO">
+    <Key>
+      <PropertyRef Name="COD_ITEM_CONTRATO" />
+    </Key>
+    <Property Name="COD_ITEM_CONTRATO" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
+    <Property Name="COD_ITEM" Type="Int64" />
+    <Property Name="ITEM_REEMBOLZABLE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="REUTILIZABLE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="COSTO_INICIAL_UNITARIO" Type="Single" />
+    <Property Name="COSTO_MENSUAL_UNITARIO" Type="Single" />
+    <Property Name="CANTIDAD" Type="Int64" />
+    <Property Name="FECHA_INI_USO" Type="DateTime" Precision="0" />
+    <Property Name="MESES_USO" Type="Int64" />
+    <Property Name="OBSERVACIONES" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="COD_TIPO_REEMBOLSO" Type="Int64" />
+    <Property Name="DIAS_FRACCION" Type="Int64" />
+    <Property Name="COD_CONCEPTO_PSL" Type="Int64" />
+    <NavigationProperty Name="CONCEPTOS" Relationship="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_CONCEPTOS" FromRole="ITEMS_CONTRATO" ToRole="CONCEPTOS" />
+    <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_CONTRATO_PROYECTO" FromRole="ITEMS_CONTRATO" ToRole="CONTRATO_PROYECTO" />
+    <NavigationProperty Name="DETALLE_FACTURA_ITEM" Relationship="test_payc_contabilidadModel.FK_detalle_factura_item_items" FromRole="ITEMS_CONTRATO" ToRole="DETALLE_FACTURA_ITEM" />
+    <NavigationProperty Name="FLUJO_INGRESOS_ITEMS" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ITEMS" FromRole="ITEMS_CONTRATO" ToRole="FLUJO_INGRESOS_ITEMS" />
+    <NavigationProperty Name="ITEMS" Relationship="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_ITEMS" FromRole="ITEMS_CONTRATO" ToRole="ITEMS" />
+    <NavigationProperty Name="TIPOS_REEMBOLSO" Relationship="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_TIPOS_REEMBOLSO" FromRole="ITEMS_CONTRATO" ToRole="TIPOS_REEMBOLSO" />
+    <NavigationProperty Name="REGISTRO_ITEMS_OTROS_COSTOS" Relationship="test_payc_contabilidadModel.FK_registro_items_otros_costos_items" FromRole="ITEMS_CONTRATO" ToRole="REGISTRO_ITEMS_OTROS_COSTOS" />
+  </EntityType>
+  <Association Name="FK_CONTRATOS_ROL_CONCEPTOS">
+    <End Type="test_payc_contabilidadModel.CONCEPTOS" Role="CONCEPTOS" Multiplicity="0..1" />
+    <End Type="test_payc_contabilidadModel.CONTRATOS_ROL" Role="CONTRATOS_ROL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONCEPTOS">
+        <PropertyRef Name="COD_CONCEPTO_PSL" />
+      </Principal>
+      <Dependent Role="CONTRATOS_ROL">
+        <PropertyRef Name="COD_CONCEPTO_PSL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ITEMS_CONTRATO_CONCEPTOS">
+    <End Type="test_payc_contabilidadModel.CONCEPTOS" Role="CONCEPTOS" Multiplicity="0..1" />
+    <End Type="test_payc_contabilidadModel.ITEMS_CONTRATO" Role="ITEMS_CONTRATO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONCEPTOS">
+        <PropertyRef Name="COD_CONCEPTO_PSL" />
+      </Principal>
+      <Dependent Role="ITEMS_CONTRATO">
+        <PropertyRef Name="COD_CONCEPTO_PSL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONTRATOS_ROL_CONTRATO_PROYECTO">
+    <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
+    <End Type="test_payc_contabilidadModel.CONTRATOS_ROL" Role="CONTRATOS_ROL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTRATO_PROYECTO">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Principal>
+      <Dependent Role="CONTRATOS_ROL">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ITEMS_CONTRATO_CONTRATO_PROYECTO">
+    <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
+    <End Type="test_payc_contabilidadModel.ITEMS_CONTRATO" Role="ITEMS_CONTRATO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTRATO_PROYECTO">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Principal>
+      <Dependent Role="ITEMS_CONTRATO">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONTRATO_ROL_CARGO_CONTRATOS_ROL">
+    <End Type="test_payc_contabilidadModel.CONTRATOS_ROL" Role="CONTRATOS_ROL" Multiplicity="0..1" />
+    <End Type="test_payc_contabilidadModel.CONTRATO_ROL_CARGO" Role="CONTRATO_ROL_CARGO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTRATOS_ROL">
+        <PropertyRef Name="COD_CONTRATO_ROL" />
+      </Principal>
+      <Dependent Role="CONTRATO_ROL_CARGO">
+        <PropertyRef Name="COD_CONTRATO_ROL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CONTRATO_ROL_ROL">
+    <End Type="test_payc_contabilidadModel.ROLES" Role="ROLES" Multiplicity="0..1" />
+    <End Type="test_payc_contabilidadModel.CONTRATOS_ROL" Role="CONTRATOS_ROL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ROLES">
+        <PropertyRef Name="COD_ROL" />
+      </Principal>
+      <Dependent Role="CONTRATOS_ROL">
+        <PropertyRef Name="COD_ROL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_detalle_factura_item_items">
+    <End Type="test_payc_contabilidadModel.ITEMS_CONTRATO" Role="ITEMS_CONTRATO" Multiplicity="0..1" />
+    <End Type="test_payc_contabilidadModel.DETALLE_FACTURA_ITEM" Role="DETALLE_FACTURA_ITEM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ITEMS_CONTRATO">
+        <PropertyRef Name="COD_ITEM_CONTRATO" />
+      </Principal>
+      <Dependent Role="DETALLE_FACTURA_ITEM">
+        <PropertyRef Name="COD_ITEM_CONTRATO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FLUJO_INGRESOS_ROL_ITEMS">
+    <End Type="test_payc_contabilidadModel.ITEMS_CONTRATO" Role="ITEMS_CONTRATO" Multiplicity="0..1" />
+    <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS" Role="FLUJO_INGRESOS_ITEMS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ITEMS_CONTRATO">
+        <PropertyRef Name="COD_ITEM_CONTRATO" />
+      </Principal>
+      <Dependent Role="FLUJO_INGRESOS_ITEMS">
+        <PropertyRef Name="COD_ITEM_CONTRATO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ITEMS_CONTRATO_ITEMS">
+    <End Type="test_payc_contabilidadModel.ITEMS" Role="ITEMS" Multiplicity="0..1" />
+    <End Type="test_payc_contabilidadModel.ITEMS_CONTRATO" Role="ITEMS_CONTRATO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ITEMS">
+        <PropertyRef Name="COD_ITEM" />
+      </Principal>
+      <Dependent Role="ITEMS_CONTRATO">
+        <PropertyRef Name="COD_ITEM" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ITEMS_CONTRATO_TIPOS_REEMBOLSO">
+    <End Type="test_payc_contabilidadModel.TIPOS_REEMBOLSO" Role="TIPOS_REEMBOLSO" Multiplicity="0..1" />
+    <End Type="test_payc_contabilidadModel.ITEMS_CONTRATO" Role="ITEMS_CONTRATO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TIPOS_REEMBOLSO">
+        <PropertyRef Name="COD_TIPO_REEMBOLSO" />
+      </Principal>
+      <Dependent Role="ITEMS_CONTRATO">
+        <PropertyRef Name="COD_TIPO_REEMBOLSO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_registro_items_otros_costos_items">
+    <End Type="test_payc_contabilidadModel.ITEMS_CONTRATO" Role="ITEMS_CONTRATO" Multiplicity="0..1" />
+    <End Type="test_payc_contabilidadModel.REGISTRO_ITEMS_OTROS_COSTOS" Role="REGISTRO_ITEMS_OTROS_COSTOS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ITEMS_CONTRATO">
+        <PropertyRef Name="COD_ITEM_CONTRATO" />
+      </Principal>
+      <Dependent Role="REGISTRO_ITEMS_OTROS_COSTOS">
+        <PropertyRef Name="COD_ITEM_CONTRATO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

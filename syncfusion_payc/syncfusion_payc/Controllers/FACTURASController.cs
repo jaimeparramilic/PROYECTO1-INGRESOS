@@ -428,7 +428,7 @@ namespace syncfusion_payc.Controllers
 
                 if (result == "")
                 {
-                    success1 = true;
+                    success1 = false;
                     result = "Existe algún problema con la asignación de profesionales, roles al proyecto o no existen flujos de ingresos" + "," + rCodeFilePath + "," + path;
                 }
                 else

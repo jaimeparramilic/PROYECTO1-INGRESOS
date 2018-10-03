@@ -333,6 +333,21 @@
     <Compile Include="Models\CONCEPTOS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\contabilidad.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>contabilidad.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\contabilidad.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\contabilidad.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>contabilidad.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\CONTRATOS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
@@ -567,21 +582,6 @@
     </Compile>
     <Compile Include="servicios\IFlujoIngresosItems.cs" />
     <Compile Include="servicios\IFlujoIngresosRoles.cs" />
-    <Compile Include="Models\contabilidad.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>contabilidad.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\contabilidad.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\contabilidad.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>contabilidad.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\EditParams.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -1312,12 +1312,6 @@
     <Content Include="favicon.ico" />
     <Content Include="images\logopayc.png" />
     <Content Include="images\oops.jpg" />
-    <Content Include="Scripts\jsrender.min.js" />
-    <Content Include="servicios\FlujoIngresosItems.svc" />
-    <Content Include="servicios\FlujoIngresosRoles.svc" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Models\contabilidad.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>contabilidad.edmx</DependentUpon>
@@ -1328,6 +1322,12 @@
       <DependentUpon>contabilidad.edmx</DependentUpon>
       <LastGenOutput>contabilidad.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\jsrender.min.js" />
+    <Content Include="servicios\FlujoIngresosItems.svc" />
+    <Content Include="servicios\FlujoIngresosRoles.svc" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="CodeTemplates\ApiControllerEmpty\Controller.cs.t4" />
@@ -1541,6 +1541,13 @@
     <Content Include="Modelos_Matematicos\PRUEBAS.R" />
     <Content Include="Views\Home\Errores.cshtml" />
     <Content Include="Views\FlujoProyectos\Costos.cshtml" />
+    <EntityDeploy Include="Models\contabilidad.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>contabilidad.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\contabilidad.edmx.diagram">
+      <DependentUpon>contabilidad.edmx</DependentUpon>
+    </Content>
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -1557,13 +1564,6 @@
     <None Include="_bin_deployableAssemblies\amd64\sqlceca40.dll" />
     <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\README_ENU.txt" />
     <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\msvcr90.dll" />
-    <EntityDeploy Include="Models\contabilidad.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>contabilidad.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\contabilidad.edmx.diagram">
-      <DependentUpon>contabilidad.edmx</DependentUpon>
-    </Content>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\ej\bootstrap-theme\ej.theme.less" />
     <Content Include="Content\ej\common-images\ejicons.eot" />

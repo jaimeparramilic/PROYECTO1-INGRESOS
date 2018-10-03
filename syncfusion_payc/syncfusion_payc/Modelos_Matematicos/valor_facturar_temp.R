@@ -5,7 +5,7 @@ factura <- function(cod_factura) {
   #CONEXIÓN A LA BASE DE DATOS
   
   con <- dbConnect(odbc::odbc(), "PAYC_FACTURACION", uid = "sa", pwd = "1234JAMS*")
-  #cod_factura = 10163
+  #cod_factura = 10402
   #EXTRACCION DE LA INFORMACION IMPORTANTE DE LA BASE DE DATOS
   fact <- paste0("SELECT * FROM FACTURAS WHERE COD_FACTURA=", cod_factura)
   FACTURAS <- dbGetQuery(con, fact)
@@ -88,7 +88,7 @@ factura <- function(cod_factura) {
     TOTAL_PERSONAS <- aggregate(VALOR_FACTOR_MULTIPLICADOR ~ COD_FORMAS_PAGO_FECHAS +
                                   COD_CONTRATO_PROYECTO + COD_ROL, data = INGRESOS_PERSONAS, sum)
   } else {
-    TOTAL_PERSONAS <- cbind(TOTAL_PERSONAS, replicate(0))
+    TOTAL_PERSONAS <- cbind(INGRESOS_PERSONAS, replicate(0))
   }
   
   if (nrow(ITEMS_FIJOS) != 0) {
@@ -105,21 +105,23 @@ factura <- function(cod_factura) {
     TOTAL_ITEMS_VARIABLES <- cbind(ITEMS_VARIABLES, replicate(0))
   }
   
-  if (nrow(NOVEDADES_ADICION) != 0) {
-    TOTAL_NOVEDADES_ADICION <- aggregate(ADICION ~ COD_ROL, data = NOVEDADES_ADICION, sum)
-    TOTAL_PERSONAS <- merge(TOTAL_PERSONAS, TOTAL_NOVEDADES_ADICION, by.x = c("COD_ROL"), by.y = c("COD_ROL"), all.x = T, all.y = T, na.action)
-  } else {
-    TOTAL_PERSONAS$ADICION <- NA
+  if (nrow(TOTAL_PERSONAS)!=0) {
+    
+    if (nrow(NOVEDADES_ADICION) != 0 ) {
+      TOTAL_NOVEDADES_ADICION <- aggregate(ADICION ~ COD_ROL, data = NOVEDADES_ADICION, sum)
+      TOTAL_PERSONAS <- merge(TOTAL_PERSONAS, TOTAL_NOVEDADES_ADICION, by.x = c("COD_ROL"), by.y = c("COD_ROL"), all.x = T, all.y = T, na.action)
+    } else {
+      TOTAL_PERSONAS$ADICION <- NA
+    }
+    
+    if (nrow(NOVEDADES_DESCUENTO) != 0 ) {
+      TOTAL_NOVEDADES_DESCUENTO <- aggregate(DESCUENTO ~ COD_ROL, data = NOVEDADES_DESCUENTO, sum)
+      TOTAL_PERSONAS <- merge(TOTAL_PERSONAS, TOTAL_NOVEDADES_DESCUENTO, by.x = c("COD_ROL"), by.y = c("COD_ROL"), all.x = T, all.y = T, na.action)
+    } else {
+      TOTAL_PERSONAS$DESCUENTO <- NA
+    }
+    TOTAL_PERSONAS$FINAL <- as.double(rowSums(TOTAL_PERSONAS[, c("VALOR_FACTOR_MULTIPLICADOR", "ADICION", "DESCUENTO")], na.rm = T))
   }
-  
-  if (nrow(NOVEDADES_DESCUENTO) != 0) {
-    TOTAL_NOVEDADES_DESCUENTO <- aggregate(DESCUENTO ~ COD_ROL, data = NOVEDADES_DESCUENTO, sum)
-    TOTAL_PERSONAS <- merge(TOTAL_PERSONAS, TOTAL_NOVEDADES_DESCUENTO, by.x = c("COD_ROL"), by.y = c("COD_ROL"), all.x = T, all.y = T, na.action)
-  } else {
-    TOTAL_PERSONAS$DESCUENTO <- NA
-  }
-  
-  TOTAL_PERSONAS$FINAL <- as.double(rowSums(TOTAL_PERSONAS[, c("VALOR_FACTOR_MULTIPLICADOR", "ADICION", "DESCUENTO")], na.rm = T))
   
   #ELIMINAR LOS DATOS REPETIDOS DEL PROYECTO QUE SE ESTÁ CONSULTANDO
   eliminar <- paste0("DELETE FROM [dbo].[DETALLE_FACTURA_PERS] WHERE [COD_CONTRATO_PROYECTO] =", proyecto, "AND COD_FORMAS_PAGO_FECHAS=", fecha)
@@ -242,4 +244,4 @@ factura <- function(cod_factura) {
   return(VALOR_FACTURAR)
 }
 
-factura(10251)
+factura(10754)

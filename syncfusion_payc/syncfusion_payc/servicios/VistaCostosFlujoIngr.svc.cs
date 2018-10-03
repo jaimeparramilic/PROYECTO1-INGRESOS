@@ -51,18 +51,20 @@ namespace syncfusion_payc.servicios
             long contrato = Convert.ToInt64(customObject1);
             var refresh = false;
             int reintentos = 1;
+            
+            
             while (!refresh && reintentos < 10)
             {
                 try
                 {
                     contrato = Convert.ToInt64(contrato);
-                    //var costos_flujo = db.VISTA_COSTOS_FLUJO_INGR.Where(c => c.COD_CONTRATO_PROYECTO == contrato).ToList();
+                    var costos_flujo = db.VISTA_COSTOS_FLUJO_INGR.Where(c => c.COD_CONTRATO_PROYECTO == contrato).ToList();
                     // ****************
-                    List<VISTA_COSTOS_FLUJO_INGR> vista_cos = new List<VISTA_COSTOS_FLUJO_INGR>();
+                    /*List<VISTA_COSTOS_FLUJO_INGR> vista_cos = new List<VISTA_COSTOS_FLUJO_INGR>();
                     using (SqlConnection connection = new SqlConnection(connectionString) )
                     {
-                        string comSql = "SELECT DESCRIPCION, " + //FILA, COD_CONTRATO_PROYECTO
-                          "FECHA, VALOR_TOTAL FROM VISTA_COSTOS_FLUJO_INGR WHERE " +
+                        string comSql = "SELECT FILA,DESCRIPCION, " + //FILA, COD_CONTRATO_PROYECTO
+                          "FECHA, VALOR_TOTAL,CENTRO_COSTOS FROM VISTA_COSTOS_FLUJO_INGR WHERE " +
                           "COD_CONTRATO_PROYECTO = " + contrato + ";";
                         SqlCommand command = new SqlCommand(comSql, connection);
                         connection.Open();
@@ -79,9 +81,10 @@ namespace syncfusion_payc.servicios
                                 x = x + 1;
                                 vista_cos.Add(new VISTA_COSTOS_FLUJO_INGR()
                                 {
-                                    //FILA = (long)reader["FILA"],
+                                    FILA = (long)reader["FILA"],
                                     //COD_CONTRATO_PROYECTO = (long)reader["COD_CONTRATO_PROYECTO"],
                                     DESCRIPCION = (string)reader["DESCRIPCION"],
+                                    CENTRO_COSTOS = (string)reader["CENTRO_COSTOS"],
                                     FECHA = (DateTime)reader["FECHA"],
                                     VALOR_TOTAL = (float)reader["VALOR_TOTAL"]
                                 });
@@ -100,9 +103,9 @@ namespace syncfusion_payc.servicios
                         texto = texto + "DESCRIPCION ;" + fila.DESCRIPCION.ToString() + ";";
                         texto = texto + "FECHA ;" + fila.FECHA.ToString() + ";";
                         texto = texto + "VALOR_TOTAL ;" + fila.VALOR_TOTAL.ToString() + ";" + "*&";
-                    };
-                    string cuantos = Utilidades.ExecSQL.ExecNoQuery("INSERT INTO xTEMPO (texto) VALUES ('" + texto + "')", out cod_ret);
-                     */ //------------ 
+                    };*/
+                    //string cuantos = Utilidades.ExecSQL.ExecNoQuery("INSERT INTO xTEMPO (texto) VALUES ('" + texto + "')", out cod_ret);
+                    //------------ 
                     dict = htmlHelper.GetJsonData(action, costos_flujo);
                     refresh = true;
                 }

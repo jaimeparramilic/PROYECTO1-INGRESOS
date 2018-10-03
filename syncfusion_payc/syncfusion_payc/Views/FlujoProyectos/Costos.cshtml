@@ -4,32 +4,34 @@
     ViewBag.Title = "Costos";
 }
 
-<h4>Costos</h4>
+
 @if (User.Identity.IsAuthenticated)
 {
-<div class="col-md-12 sin-overflow">
+<div class="row sin-overflow">
+    <h4 style="padding-left:15px;">Costos</h4>
     <div class="col-md-8">
         @(Html.EJ().Pivot().PivotGrid("PivotGrid3").Locale("es-CO").Url(Url.Content("~/servicios/VistaCostosFlujoIngr.svc"))
-                                        .EnableColumnResizing(false)
-                                        .EnableToolTip(false)
-                                        .EnableCellContext(false)
-                                        .EnableCellSelection(false)
-                                        .EnableJSONRendering(false)
-                                        .IsResponsive(false)
-                                        .EnableVirtualScrolling(false)
-                                        .EnableDefaultValue(false)
-                                        .EnableCellClick(false)
-                                        .EnableCellDoubleClick(false)
-                                        .EnableCollapseByDefault(false)
-                                        .EnableConditionalFormatting(false)
-                                        .EnableDeferUpdate(false)
-                                        .EnableDrillThrough(false)
-                                        .EnableXHRCredentials(false)
-                                        .EnableRTL(false)
+                                                .EnableColumnResizing(false)
+                                                .EnableToolTip(true)
+                                                .EnableCellContext(true)
+                                                .EnableCellSelection(false)
+                                                .EnableJSONRendering(false)
+                                                .IsResponsive(false)
+                                                .EnableVirtualScrolling(true)
+                                                .EnableDefaultValue(false)
+                                                .EnableCellClick(false)
+                                                .EnableCellDoubleClick(false)
+                                                .EnableCollapseByDefault(false)
+                                                .EnableConditionalFormatting(false)
+                                                .EnableDeferUpdate(false)
+                                                .EnableDrillThrough(true)
+                                                .EnableXHRCredentials(false)
+                                                .EnableRTL(false)
+                                                
 
-                                        .EnableMemberEditorPaging(false)
-                                        .EnableCellEditing(true).ClientSideEvents(events => events.CellEdit("editar_flujo_item").Load("onLoad").BeforeServiceInvoke("beforeserviceinvoke").AfterServiceInvoke("after_service_invoke"))
-                                        .PivotTableFieldListID("PivotSchemaDesigner1")
+                                                .EnableMemberEditorPaging(false)
+                                                .EnableCellEditing(false).ClientSideEvents(events => events.CellEdit("editar_flujo_item").Load("onLoad").BeforeServiceInvoke("beforeserviceinvoke").AfterServiceInvoke("after_service_invoke"))
+                                                .PivotTableFieldListID("PivotSchemaDesigner1")
         )
     </div>
     <div class="col-md-4">
@@ -55,6 +57,10 @@
                 PivotSchemaDesigner.model.layout = "excel";
                 PivotSchemaDesigner.ShowDisplayFieldsOnly = true;
                 PivotSchemaDesigner._load();
+                try {
+                    setTimeout(function () { $("#VALOR_TOTAL .e-text").text("VALOR TOTAL") }, 1000);
+                }
+                catch{}
                 //PivotSchemaDesigner.centerHead = "Arrastre campos";
                 //PivotSchemaDesigner.e-text = "";
             }
