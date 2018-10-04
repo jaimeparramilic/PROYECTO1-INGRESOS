@@ -24,11 +24,11 @@ public partial class ROLES
 
         this.CONTRATO_COLABORADOR = new HashSet<CONTRATO_COLABORADOR>();
 
-        this.ROL_CARGO_ORDEN = new HashSet<ROL_CARGO_ORDEN>();
+        this.CONTRATOS_ROL = new HashSet<CONTRATOS_ROL>();
 
         this.DETALLE_FACTURA_PERS = new HashSet<DETALLE_FACTURA_PERS>();
 
-        this.CONTRATOS_ROL = new HashSet<CONTRATOS_ROL>();
+        this.ROL_CARGO_ORDEN = new HashSet<ROL_CARGO_ORDEN>();
 
     }
 
@@ -49,7 +49,7 @@ public partial class ROLES
 	[System.Runtime.Serialization.IgnoreDataMember]
 	[Newtonsoft.Json.JsonIgnore]
 
-    public virtual ICollection<ROL_CARGO_ORDEN> ROL_CARGO_ORDEN { get; set; }
+    public virtual ICollection<CONTRATOS_ROL> CONTRATOS_ROL { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 	[System.Runtime.Serialization.IgnoreDataMember]
@@ -61,7 +61,7 @@ public partial class ROLES
 	[System.Runtime.Serialization.IgnoreDataMember]
 	[Newtonsoft.Json.JsonIgnore]
 
-    public virtual ICollection<CONTRATOS_ROL> CONTRATOS_ROL { get; set; }
+    public virtual ICollection<ROL_CARGO_ORDEN> ROL_CARGO_ORDEN { get; set; }
 
 }
 

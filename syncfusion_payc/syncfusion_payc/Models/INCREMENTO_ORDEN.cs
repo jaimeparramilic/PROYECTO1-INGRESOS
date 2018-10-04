@@ -22,7 +22,7 @@ public partial class INCREMENTO_ORDEN
 
     public Nullable<long> COD_CONTRATO_PROYECTO { get; set; }
 
-    public Nullable<float> FACTOR_INCREMENTO { get; set; }
+    public Nullable<decimal> FACTOR_INCREMENTO { get; set; }
 
     public Nullable<System.DateTime> FECHA_INCREMENTO { get; set; }
 

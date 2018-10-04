@@ -28,9 +28,9 @@ public partial class VISTA_ITEMS_CONTRATO_DESCRIPCION
 
     public string REUTILIZABLE { get; set; }
 
-    public Nullable<float> COSTO_INICIAL_UNITARIO { get; set; }
+    public Nullable<decimal> COSTO_INICIAL_UNITARIO { get; set; }
 
-    public Nullable<float> COSTO_MENSUAL_UNITARIO { get; set; }
+    public Nullable<decimal> COSTO_MENSUAL_UNITARIO { get; set; }
 
     public Nullable<long> CANTIDAD { get; set; }
 
@@ -43,6 +43,8 @@ public partial class VISTA_ITEMS_CONTRATO_DESCRIPCION
     public Nullable<long> COD_TIPO_REEMBOLSO { get; set; }
 
     public Nullable<long> DIAS_FRACCION { get; set; }
+
+    public Nullable<long> COD_CONCEPTO_PSL { get; set; }
 
     public string DESCRIPCION { get; set; }
 

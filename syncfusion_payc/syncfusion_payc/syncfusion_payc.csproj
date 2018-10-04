@@ -18,7 +18,7 @@
     <AssemblyName>syncfusion_payc</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -312,6 +312,9 @@
     <Compile Include="Models\CENTROS_COSTOS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CHECK_COLABORADOR_MES.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CLIENTES.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
@@ -322,6 +325,9 @@
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\COLARADORES_CONCAT_ESTUDIOS.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\COMBINACIONES_GASTOS_ADMINISTRATIVOS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\COMPROMISOS_ENTREGABLES.cs">
@@ -375,6 +381,9 @@
     <Compile Include="Models\CONTRATO_PROYECTO_DESCRIPCION.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CONTRATO_PROYECTO_DESCRIPCION_ESTADOS.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CONTRATO_ROL_CARGO.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
@@ -382,6 +391,9 @@
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DATOS_VERIFICAR_FACTURA.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DEBUG.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DETALLE_FACTURA_ITEM.cs">
@@ -493,7 +505,7 @@
     <Compile Include="Models\REGISTRO_NOVEDADES.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ReportsTable.cs">
+    <Compile Include="Models\REGISTRO_NOVEDADES_FECHAS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ROLES.cs">
@@ -505,10 +517,10 @@
     <Compile Include="Models\SINO.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
+    <Compile Include="Models\TAG_ORDEN.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TAG_ORDEN.cs">
+    <Compile Include="Models\TEST_VISTA_FLUJOS_CORREGIDOS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TIPOS_NOVEDAD.cs">
@@ -544,13 +556,34 @@
     <Compile Include="Models\VISTA_COSTOS_FLUJO_INGR.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\VISTA_DETDOCVTAENTRA.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_ENCDOCVTAENTRA.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_ESTADOS_FINANCIEROS_PRUEBA1.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\VISTA_FACTURAS_FECHA_PERIODO_FACTURACION.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_FINANCIERA.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VISTA_FLUJO_INGRESOS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VISTA_FLUJO_INGRESOS_ITEMS.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_FLUJO_INGRESOS_ROL_CORREGIDA_REALIDAD.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_GENERACION_DATOS_REGISTRO_NOVEDADES.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_INGEELIMP.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VISTA_ITEMS_CONTRATO.cs">
@@ -569,6 +602,27 @@
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VISTA_PENDIENTES_RETIRO.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_PRUEBA_DECIMALES.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_PRUEBA_PARA_R.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_REGISTRO_NOVEDADES.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_SALARIO_COMERCIAL_INCREMENTOS.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_SALARIO_INCREMENTOS_TEMP.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_TEMP.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\xTEMPO.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="servicios\FlujoIngresosItems.svc.cs">
@@ -2089,7 +2143,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52616</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/syncfusion_payc</IISUrl>
+          <IISUrl>http://localhost:52616/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

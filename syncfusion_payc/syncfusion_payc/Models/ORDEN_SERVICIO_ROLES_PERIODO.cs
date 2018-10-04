@@ -22,11 +22,11 @@ public partial class ORDEN_SERVICIO_ROLES_PERIODO
 
     public string ETAPA { get; set; }
 
-    public Nullable<float> VALOR_SIN_PRESTACIONES { get; set; }
+    public Nullable<decimal> VALOR_SIN_PRESTACIONES { get; set; }
 
-    public Nullable<float> VALOR_CON_PRESTACIONES { get; set; }
+    public Nullable<decimal> VALOR_CON_PRESTACIONES { get; set; }
 
-    public Nullable<float> VALOR_FACTOR_MULTIPLICADOR { get; set; }
+    public Nullable<decimal> VALOR_FACTOR_MULTIPLICADOR { get; set; }
 
     public string DESCRIPCION { get; set; }
 

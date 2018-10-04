@@ -22,15 +22,15 @@ public partial class GENERACION_FLUJOS_ITEM
 
     public long COD_ITEM_CONTRATO { get; set; }
 
-    public Nullable<float> VALOR_VARIABLE_UNITARIO { get; set; }
+    public Nullable<decimal> VALOR_VARIABLE_UNITARIO { get; set; }
 
-    public Nullable<float> VALOR_VARIABLE { get; set; }
+    public Nullable<decimal> VALOR_VARIABLE { get; set; }
 
-    public Nullable<float> VALOR_FIJO { get; set; }
+    public Nullable<decimal> VALOR_FIJO { get; set; }
 
-    public float VALOR_FIJO_UNITARIO { get; set; }
+    public decimal VALOR_FIJO_UNITARIO { get; set; }
 
-    public Nullable<float> VALOR_TOTAL { get; set; }
+    public Nullable<decimal> VALOR_TOTAL { get; set; }
 
     public Nullable<long> COD_CONTRATO_PROYECTO { get; set; }
 

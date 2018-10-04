@@ -529,6 +529,7 @@ namespace syncfusion_payc.Controllers
         public ActionResult PerformUpdate_rol(EditParams_CONTRATOS_ROL param)
         {
             CONTRATOS_ROL table = db.CONTRATOS_ROL.Single(o => o.COD_CONTRATO_ROL == param.value.COD_CONTRATO_ROL);
+            CONTRATOS_ROL param1 = param.value;
             db.Entry(table).CurrentValues.SetValues(param.value);
             db.SaveChanges();
 			return RedirectToAction("GetOrderData_rol");

@@ -22,6 +22,12 @@ public partial class FORMAS_PAGO_FECHAS
     public FORMAS_PAGO_FECHAS()
     {
 
+        this.DETALLE_FACTURA_ITEM = new HashSet<DETALLE_FACTURA_ITEM>();
+
+        this.DETALLE_FACTURA_PERS = new HashSet<DETALLE_FACTURA_PERS>();
+
+        this.FACTURAS = new HashSet<FACTURAS>();
+
         this.FLUJO_INGRESOS_ITEMS = new HashSet<FLUJO_INGRESOS_ITEMS>();
 
         this.INCREMENTO_SALARIAL = new HashSet<INCREMENTO_SALARIAL>();
@@ -29,12 +35,6 @@ public partial class FORMAS_PAGO_FECHAS
         this.REGISTRO_ITEMS_OTROS_COSTOS = new HashSet<REGISTRO_ITEMS_OTROS_COSTOS>();
 
         this.REGISTRO_NOVEDADES = new HashSet<REGISTRO_NOVEDADES>();
-
-        this.DETALLE_FACTURA_PERS = new HashSet<DETALLE_FACTURA_PERS>();
-
-        this.DETALLE_FACTURA_ITEM = new HashSet<DETALLE_FACTURA_ITEM>();
-
-        this.FACTURAS = new HashSet<FACTURAS>();
 
     }
 
@@ -52,6 +52,24 @@ public partial class FORMAS_PAGO_FECHAS
     public string PERIODO_TEXTO { get; set; }
 
 
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+	[System.Runtime.Serialization.IgnoreDataMember]
+	[Newtonsoft.Json.JsonIgnore]
+
+    public virtual ICollection<DETALLE_FACTURA_ITEM> DETALLE_FACTURA_ITEM { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+	[System.Runtime.Serialization.IgnoreDataMember]
+	[Newtonsoft.Json.JsonIgnore]
+
+    public virtual ICollection<DETALLE_FACTURA_PERS> DETALLE_FACTURA_PERS { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+	[System.Runtime.Serialization.IgnoreDataMember]
+	[Newtonsoft.Json.JsonIgnore]
+
+    public virtual ICollection<FACTURAS> FACTURAS { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 	[System.Runtime.Serialization.IgnoreDataMember]
@@ -78,24 +96,6 @@ public partial class FORMAS_PAGO_FECHAS
 	[Newtonsoft.Json.JsonIgnore]
 
     public virtual ICollection<REGISTRO_NOVEDADES> REGISTRO_NOVEDADES { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-	[System.Runtime.Serialization.IgnoreDataMember]
-	[Newtonsoft.Json.JsonIgnore]
-
-    public virtual ICollection<DETALLE_FACTURA_PERS> DETALLE_FACTURA_PERS { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-	[System.Runtime.Serialization.IgnoreDataMember]
-	[Newtonsoft.Json.JsonIgnore]
-
-    public virtual ICollection<DETALLE_FACTURA_ITEM> DETALLE_FACTURA_ITEM { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-	[System.Runtime.Serialization.IgnoreDataMember]
-	[Newtonsoft.Json.JsonIgnore]
-
-    public virtual ICollection<FACTURAS> FACTURAS { get; set; }
 
 }
 

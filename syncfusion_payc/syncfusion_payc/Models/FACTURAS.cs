@@ -41,15 +41,17 @@ public partial class FACTURAS
 
     public Nullable<long> COD_ESTADO_FACTURA { get; set; }
 
-    public Nullable<float> VALOR_SIN_IMPUESTOS { get; set; }
+    public Nullable<decimal> VALOR_SIN_IMPUESTOS { get; set; }
 
-    public Nullable<float> VALOR_CON_IMPUESTOS { get; set; }
+    public Nullable<decimal> VALOR_CON_IMPUESTOS { get; set; }
 
     public string RANKING { get; set; }
 
     public Nullable<long> COD_CONCEPTO_PSL { get; set; }
 
 
+
+    public virtual CONCEPTOS CONCEPTOS { get; set; }
 
     public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
 
@@ -68,8 +70,6 @@ public partial class FACTURAS
     public virtual ESTADOS_FACTURAS ESTADOS_FACTURAS { get; set; }
 
     public virtual FORMAS_PAGO_FECHAS FORMAS_PAGO_FECHAS { get; set; }
-
-    public virtual CONCEPTOS CONCEPTOS { get; set; }
 
 }
 

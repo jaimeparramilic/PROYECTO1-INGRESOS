@@ -218,7 +218,7 @@
             this.model.filterSettings.filteredColumns.push({ field: "COD_ESTADO_DETALLE", operator: "equal", value: COD_ESTADO_DETALLE});
         }
 
-
+        refrescar_total();
     }
 
     //Función que se ejecuta al inicio de las acciones
@@ -245,7 +245,7 @@
         if (COD_ESTADO_DETALLE != "") {
             this.model.filterSettings.filteredColumns.push({ field: "COD_ESTADO_DETALLE", operator: "equal", value: COD_ESTADO_DETALLE});
         }
-
+        refrescar_total();
 
     }
 

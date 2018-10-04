@@ -28,11 +28,11 @@ public partial class VISTA_FLUJO_INGRESOS
 
     public string ETAPA { get; set; }
 
-    public Nullable<float> VALOR_SIN_PRESTACIONES { get; set; }
+    public Nullable<decimal> VALOR_SIN_PRESTACIONES { get; set; }
 
-    public Nullable<float> VALOR_CON_PRESTACIONES { get; set; }
+    public Nullable<decimal> VALOR_CON_PRESTACIONES { get; set; }
 
-    public Nullable<float> VALOR_FACTOR_MULTIPLICADOR { get; set; }
+    public Nullable<decimal> VALOR_FACTOR_MULTIPLICADOR { get; set; }
 
     public Nullable<System.DateTime> FECHA_FORMA_PAGO { get; set; }
 

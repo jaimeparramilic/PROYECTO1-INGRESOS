@@ -243,7 +243,7 @@ namespace syncfusion_payc.servicios
             table1.FECHA_REGISTRO = table1.FECHA_REGISTRO;
             table1.ETAPA = table1.ETAPA;
             db.Entry(table1).CurrentValues.SetValues(table1);
-            tabletemp.VALOR_TOTAL = float.Parse(summaryValues.Replace("$", "").Replace(",", ""));
+            tabletemp.VALOR_TOTAL = Decimal.Parse(summaryValues.Replace("$", "").Replace(",", ""));
             tabletemp.VALOR_FIJO = 0;
             tabletemp.VALOR_VARIABLE = 0;
             tabletemp.COD_CONTRATO_PROYECTO = table1.COD_CONTRATO_PROYECTO;

@@ -28,11 +28,11 @@ public partial class VISTA_FLUJO_INGRESOS_ITEMS
 
     public string ETAPA { get; set; }
 
-    public Nullable<float> VALOR_FIJO { get; set; }
+    public Nullable<decimal> VALOR_FIJO { get; set; }
 
-    public Nullable<float> VALOR_VARIABLE { get; set; }
+    public Nullable<decimal> VALOR_VARIABLE { get; set; }
 
-    public Nullable<float> VALOR_TOTAL { get; set; }
+    public Nullable<decimal> VALOR_TOTAL { get; set; }
 
     public string ESTADO { get; set; }
 

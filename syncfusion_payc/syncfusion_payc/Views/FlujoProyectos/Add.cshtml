@@ -343,12 +343,13 @@
                                     col.Field("TIPO_TRIBUTACION").ForeignKeyField("DESCRIPCION").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().TIPOS_TRIBUTACION.ToList()).EditType(EditingType.DropdownEdit).HeaderText("TIPO").Add();
                                     col.Field("MESES").HeaderText("MESES PERMANENCIA").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true).AddRule("validacion_meses", "rol").AddRule("required", true)).Add();
                                     col.Field("DIAS_FRACCION").HeaderText("DIAS FRACCIÓN").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true).AddRule("validacion_meses", "rol").AddRule("required", true)).Add();
-                                    col.Field("VALOR_MENSUAL_SIN_PRESTACIONES").HeaderText("VALOR_MENSUAL SIN PRESTACIONES").Format("{0:n0}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { Locale = "es-CO", IncrementStep = 100000, PositivePattern = "$ n " }).ValidationRules(v => v.AddRule("number", true).AddRule("required", true)).Add();
+                                    col.Field("VALOR_MENSUAL_SIN_PRESTACIONES").HeaderText("VALOR_MENSUAL SIN PRESTACIONES").Format("{0:n7}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 5, Locale = "es-CO", IncrementStep = 100000}).ValidationRules(v => v.AddRule("number", true).AddRule("required", true)).Add();
                                     col.Field("PRESTACIONES").HeaderText("PRESTACIONES").Format("{0:p5}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 5, Locale = "es-CO", MaxValue = 10, MinValue = -0.01, IncrementStep = 0.01 }).ValidationRules(v => v.AddRule("required", true)).Add();
+                                    col.Field("DEDICACION").HeaderText("DEDICACION").Format("{0:p2}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 2, Locale = "es-CO", MaxValue = 2, MinValue = -0.01, IncrementStep = 0.01 }).ValidationRules(v => v.AddRule("required", true)).Add();
                                     col.Field("VALOR_MENSUAL_PRESTACIONES").HeaderText("VALOR MENSUAL CON PRESTACIONES").AllowEditing(false).Format("{0:n5}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("required", true)).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 5, Locale = "es-CO", IncrementStep = 100000 }).Add();
                                     col.Field("FACTOR_MULTIPLICADOR").HeaderText("FACTOR MULTIPLICADOR").Format("{0:p5}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 5, Locale = "es-CO", MaxValue = 10, MinValue = -0.01, IncrementStep = 0.01 }).ValidationRules(v => v.AddRule("required", true)).Add();
-                                    col.Field("VALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR").HeaderText("VALOR MENSUAL CON PRESTACIONES Y FACTOR MULTIPLICADOR").Format("{0:n5}").EditType(EditingType.NumericEdit).AllowEditing(false).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 5, Locale = "es-CO", IncrementStep = 100000 }).ValidationRules(v => v.AddRule("number", true).AddRule("required", true)).Add();
-                                    col.Field("DEDICACION").HeaderText("DEDICACION").Format("{0:p2}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 2, Locale = "es-CO", MaxValue = 2, MinValue = -0.01, IncrementStep = 0.01 }).Add();
+                                    col.Field("VALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR").HeaderText("VALOR MENSUAL CON PRESTACIONES Y FACTOR MULTIPLICADOR").Format("{0:n5}").EditType(EditingType.NumericEdit).AllowEditing(false).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 5, Locale = "es-CO", IncrementStep = 100000 }).ValidationRules(v => v.AddRule("required", true)).Add();
+                                    col.Field("DEDICACION").HeaderText("DEDICACION").Format("{0:p7}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 7, Locale = "es-CO", MaxValue = 7, MinValue = -0.01, IncrementStep = 0.01 }).Add();
                                     col.Field("OBSERVACIONES").HeaderText("OBSERVACIONES").Add();
                                     col.Field("COD_CONCEPTO_PSL").ForeignKeyField("COD_CONCEPTO_PSL").ForeignKeyValue("TEXTO_EN_PSL").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONCEPTOS.ToList()).HeaderText("COD CONCEPTO PSL").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).Add();
                                 }).ChildGrid(child =>
@@ -1198,7 +1199,7 @@
             if (tipo_obra == "") {
                 $('#tipo_obra').addClass("warning");
                 completos_paso2 = completos_paso2 - 1;
-                errores_paso2 = errores_paso2 + 1;
+                warning_paso2 = warning_paso2 + 1;
             }
             if (tipo_estructura == "") {
                 $('#tipo_estructura').addClass("warning");
@@ -1372,7 +1373,7 @@
             var grid_roles= $("#GRID_ROLES").data("ejGrid");
             var cantidad_roles = grid_roles._currentJsonData.length;
 
-            if (cantidad_roles > 0) {
+            if (true) {
                 $('.steps .img-circle.active .percent').empty().prepend("100%");
                 //regenerar_flujo_rol();
                 $("#errores3").val(0);
@@ -1407,7 +1408,7 @@
             var grid_items = $("#GRID_ITEMS").data("ejGrid");
             var cantidad_items = grid_items._currentJsonData.length;
 
-            if (cantidad_items > 0) {
+            if (true) {
                 $('.steps .img-circle.active .percent').empty().prepend("100%");
                 //regenerar_flujo_item();
                 $("#errores5").val(0);
@@ -1600,6 +1601,8 @@
                         prestaciones.model.focusOut = "generar_valores_prestaciones";
                         var factor = $("#GRID_ROLESFACTOR_MULTIPLICADOR").ejNumericTextbox('instance');
                         factor.model.focusOut = "generar_valores_prestaciones";
+                        var dedicacion = $("#GRID_ROLESDEDICACION").ejNumericTextbox('instance');
+                        dedicacion.model.focusOut = "generar_valores_prestaciones";
                     }, 50);
                 }
                 catch{
@@ -1614,7 +1617,7 @@
             var valor_prestaciones;
             var factor;
             var prestaciones;
-            var valor1, valor2, valor3;
+            var valor1, valor2, valor3,valor4;
             try {
                 valor_prestaciones = $("#GRID_ROLESVALOR_MENSUAL_SIN_PRESTACIONES").data("ejNumericTextbox");
                 valor1 = valor_prestaciones.getValue();
@@ -1636,9 +1639,17 @@
             catch{
                 valor3 = 0;
             }
+            try {
+                factor = $("#GRID_ROLESDEDICACION").data("ejNumericTextbox");
+                valor4 = factor.getValue();
+            }
+            catch{
+               valor4 = 1;
+            }
 
-            var valor_mensual_prestaciones = valor1 * valor2;
+            var valor_mensual_prestaciones = valor1*valor2*valor4;
             var valor_mensual_factor = valor_mensual_prestaciones * valor3;
+            
             $("#GRID_ROLESVALOR_MENSUAL_PRESTACIONES").ejNumericTextbox({ value: valor_mensual_prestaciones });
             $("#GRID_ROLESVALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR").ejNumericTextbox({ value: valor_mensual_factor });
         }

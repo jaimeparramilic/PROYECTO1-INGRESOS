@@ -26,23 +26,23 @@ public partial class VISTA_CONTRATOS_ROL_DESCRIPCION
 
     public Nullable<System.DateTime> FECHA_INI { get; set; }
 
-    public Nullable<float> VALOR_MENSUAL_SIN_PRESTACIONES { get; set; }
+    public Nullable<decimal> VALOR_MENSUAL_SIN_PRESTACIONES { get; set; }
 
     public Nullable<long> MESES { get; set; }
 
-    public Nullable<float> PRESTACIONES { get; set; }
+    public Nullable<decimal> PRESTACIONES { get; set; }
 
-    public Nullable<float> FACTOR_MULTIPLICADOR { get; set; }
+    public Nullable<decimal> FACTOR_MULTIPLICADOR { get; set; }
 
-    public Nullable<float> VALOR_MENSUAL_PRESTACIONES { get; set; }
+    public Nullable<decimal> VALOR_MENSUAL_PRESTACIONES { get; set; }
 
-    public Nullable<float> VALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR { get; set; }
+    public Nullable<decimal> VALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR { get; set; }
 
     public string OBSERVACIONES { get; set; }
 
     public string TIPO_TRIBUTACION { get; set; }
 
-    public Nullable<float> DEDICACION { get; set; }
+    public Nullable<decimal> DEDICACION { get; set; }
 
     public string RUTA_DOCUMENTO { get; set; }
 

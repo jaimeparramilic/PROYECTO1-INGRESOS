@@ -272,7 +272,7 @@ namespace syncfusion_payc.Controllers
                     connection.Close();
                 }
                 FACTURAS table1 = db.FACTURAS.Single(o => o.COD_FACTURA == param.value.COD_FACTURA);
-                table1.VALOR_SIN_IMPUESTOS = float.Parse(valor_factura);
+                table1.VALOR_SIN_IMPUESTOS = Decimal.Parse(valor_factura);
                 db.SaveChanges();
             }
             catch (Exception ex)

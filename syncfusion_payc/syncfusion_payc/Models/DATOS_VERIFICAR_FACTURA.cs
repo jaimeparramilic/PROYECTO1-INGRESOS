@@ -30,9 +30,9 @@ public partial class DATOS_VERIFICAR_FACTURA
 
     public Nullable<long> COD_ESTADO_FACTURA { get; set; }
 
-    public Nullable<float> VALOR_SIN_IMPUESTOS { get; set; }
+    public Nullable<decimal> VALOR_SIN_IMPUESTOS { get; set; }
 
-    public Nullable<float> VALOR_CON_IMPUESTOS { get; set; }
+    public Nullable<decimal> VALOR_CON_IMPUESTOS { get; set; }
 
     public string RANKING { get; set; }
 

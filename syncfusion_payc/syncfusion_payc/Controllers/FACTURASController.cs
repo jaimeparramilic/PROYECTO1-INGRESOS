@@ -27,8 +27,8 @@ namespace syncfusion_payc.Controllers
         // GET: FACTURAS
         public ActionResult Index()
         {
-            var fACTURAS = db.FACTURAS.Include(f => f.CONTRATO_PROYECTO).Include(f => f.ESTADOS_FACTURAS).Include(f => f.FORMAS_PAGO_FECHAS);
-            return View(fACTURAS.ToList());
+            //var fACTURAS = db.FACTURAS.Include(f => f.CONTRATO_PROYECTO).Include(f => f.ESTADOS_FACTURAS).Include(f => f.FORMAS_PAGO_FECHAS);
+            return View();
         }
 
         // GET: FACTURAS/Details/5
@@ -461,7 +461,7 @@ namespace syncfusion_payc.Controllers
                     connection.Close();
                 }
                 FACTURAS table1 = db.FACTURAS.Single(o => o.COD_FACTURA == COD_FACTURA);
-                table1.VALOR_SIN_IMPUESTOS = float.Parse(valor_factura);
+                table1.VALOR_SIN_IMPUESTOS = Decimal.Parse(valor_factura);
                 db.SaveChanges();
             }
             catch (Exception ex)

@@ -26,7 +26,7 @@ public partial class DETALLE_FACTURA_PERS
 
     public Nullable<long> COD_FORMAS_PAGO_FECHAS { get; set; }
 
-    public Nullable<float> VALOR_SIN_IMPUESTOS { get; set; }
+    public Nullable<decimal> VALOR_SIN_IMPUESTOS { get; set; }
 
     public Nullable<System.DateTime> FECHA_REGISTRO { get; set; }
 
@@ -48,6 +48,8 @@ public partial class DETALLE_FACTURA_PERS
 
     public virtual CAUSA_ESTADO CAUSA_ESTADO { get; set; }
 
+    public virtual CONCEPTOS CONCEPTOS { get; set; }
+
     public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
 
     public virtual ROLES ROLES { get; set; }
@@ -56,11 +58,9 @@ public partial class DETALLE_FACTURA_PERS
 
     public virtual ESTADOS_FACTURAS ESTADOS_FACTURAS { get; set; }
 
-    public virtual FORMAS_PAGO_FECHAS FORMAS_PAGO_FECHAS { get; set; }
-
     public virtual FACTURAS FACTURAS { get; set; }
 
-    public virtual CONCEPTOS CONCEPTOS { get; set; }
+    public virtual FORMAS_PAGO_FECHAS FORMAS_PAGO_FECHAS { get; set; }
 
 }
 

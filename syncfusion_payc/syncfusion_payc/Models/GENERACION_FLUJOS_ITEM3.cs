@@ -26,15 +26,15 @@ public partial class GENERACION_FLUJOS_ITEM3
 
     public string ETAPA { get; set; }
 
-    public float VALOR_VARIABLE_UNITARIO { get; set; }
+    public decimal VALOR_VARIABLE_UNITARIO { get; set; }
 
-    public float VALOR_VARIABLE { get; set; }
+    public decimal VALOR_VARIABLE { get; set; }
 
-    public float VALOR_FIJO { get; set; }
+    public decimal VALOR_FIJO { get; set; }
 
-    public float VALOR_FIJO_UNITARIO { get; set; }
+    public decimal VALOR_FIJO_UNITARIO { get; set; }
 
-    public float VALOR_TOTAL { get; set; }
+    public decimal VALOR_TOTAL { get; set; }
 
 }
 

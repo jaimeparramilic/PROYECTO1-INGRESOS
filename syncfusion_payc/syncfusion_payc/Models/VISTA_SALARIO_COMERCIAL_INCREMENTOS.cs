@@ -15,12 +15,24 @@ namespace syncfusion_payc.Models
 using System;
     using System.Collections.Generic;
     
-public partial class ReportsTable
+public partial class VISTA_SALARIO_COMERCIAL_INCREMENTOS
 {
 
-    public string ReportName { get; set; }
+    public long COD_FORMAS_PAGO_FECHAS { get; set; }
 
-    public byte[] Report { get; set; }
+    public Nullable<long> COD_ROL { get; set; }
+
+    public Nullable<long> COD_CONTRATO_PROYECTO { get; set; }
+
+    public string Expr1 { get; set; }
+
+    public Nullable<decimal> VALOR_MENSUAL_SIN_PRESTACIONES { get; set; }
+
+    public Nullable<decimal> VALOR_MENSUAL_PRESTACIONES { get; set; }
+
+    public Nullable<decimal> VALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR { get; set; }
+
+    public Nullable<decimal> SALARIO_COMERCIAL { get; set; }
 
 }
 

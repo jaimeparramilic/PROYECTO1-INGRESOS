@@ -37,17 +37,17 @@ public partial class CONTRATOS_ROL
 
     public Nullable<long> MESES { get; set; }
 
-    public Nullable<float> VALOR_MENSUAL_SIN_PRESTACIONES { get; set; }
+    public Nullable<decimal> VALOR_MENSUAL_SIN_PRESTACIONES { get; set; }
 
-    public Nullable<float> PRESTACIONES { get; set; }
+    public Nullable<decimal> PRESTACIONES { get; set; }
 
-    public Nullable<float> VALOR_MENSUAL_PRESTACIONES { get; set; }
+    public Nullable<decimal> VALOR_MENSUAL_PRESTACIONES { get; set; }
 
-    public Nullable<float> FACTOR_MULTIPLICADOR { get; set; }
+    public Nullable<decimal> FACTOR_MULTIPLICADOR { get; set; }
 
-    public Nullable<float> VALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR { get; set; }
+    public Nullable<decimal> VALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR { get; set; }
 
-    public Nullable<float> DEDICACION { get; set; }
+    public Nullable<decimal> DEDICACION { get; set; }
 
     public string OBSERVACIONES { get; set; }
 

@@ -30,7 +30,7 @@ public partial class GENERACION_FLUJOS_ROL
 
     public Nullable<float> VALOR_MENSUAL_PRESTACIONES { get; set; }
 
-    public Nullable<float> VALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR { get; set; }
+    public Nullable<decimal> VALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR { get; set; }
 
 }
 

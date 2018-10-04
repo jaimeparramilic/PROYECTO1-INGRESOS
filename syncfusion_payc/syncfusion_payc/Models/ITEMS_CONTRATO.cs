@@ -41,9 +41,9 @@ public partial class ITEMS_CONTRATO
 
     public string REUTILIZABLE { get; set; }
 
-    public Nullable<float> COSTO_INICIAL_UNITARIO { get; set; }
+    public Nullable<decimal> COSTO_INICIAL_UNITARIO { get; set; }
 
-    public Nullable<float> COSTO_MENSUAL_UNITARIO { get; set; }
+    public Nullable<decimal> COSTO_MENSUAL_UNITARIO { get; set; }
 
     public Nullable<long> CANTIDAD { get; set; }
 

@@ -22,13 +22,13 @@ public partial class CONCEPTOS
     public CONCEPTOS()
     {
 
+        this.CONTRATOS_ROL = new HashSet<CONTRATOS_ROL>();
+
         this.DETALLE_FACTURA_ITEM = new HashSet<DETALLE_FACTURA_ITEM>();
 
         this.DETALLE_FACTURA_PERS = new HashSet<DETALLE_FACTURA_PERS>();
 
         this.FACTURAS = new HashSet<FACTURAS>();
-
-        this.CONTRATOS_ROL = new HashSet<CONTRATOS_ROL>();
 
         this.ITEMS_CONTRATO = new HashSet<ITEMS_CONTRATO>();
 
@@ -47,6 +47,12 @@ public partial class CONCEPTOS
 	[System.Runtime.Serialization.IgnoreDataMember]
 	[Newtonsoft.Json.JsonIgnore]
 
+    public virtual ICollection<CONTRATOS_ROL> CONTRATOS_ROL { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+	[System.Runtime.Serialization.IgnoreDataMember]
+	[Newtonsoft.Json.JsonIgnore]
+
     public virtual ICollection<DETALLE_FACTURA_ITEM> DETALLE_FACTURA_ITEM { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -60,12 +66,6 @@ public partial class CONCEPTOS
 	[Newtonsoft.Json.JsonIgnore]
 
     public virtual ICollection<FACTURAS> FACTURAS { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-	[System.Runtime.Serialization.IgnoreDataMember]
-	[Newtonsoft.Json.JsonIgnore]
-
-    public virtual ICollection<CONTRATOS_ROL> CONTRATOS_ROL { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 	[System.Runtime.Serialization.IgnoreDataMember]
