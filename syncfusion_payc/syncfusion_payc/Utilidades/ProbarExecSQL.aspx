@@ -14,6 +14,8 @@
         <asp:TextBox ID="TextBox1" runat="server" Height="109px" TextMode="MultiLine" Width="731px"></asp:TextBox>
         <br />
         <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Ejecutar SQL" />
+        &nbsp;&nbsp;
+        <asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="Iniciar cartera" />
         <br />
         <asp:Label ID="Label2" runat="server" Text="Resultado:"></asp:Label>
         <br />

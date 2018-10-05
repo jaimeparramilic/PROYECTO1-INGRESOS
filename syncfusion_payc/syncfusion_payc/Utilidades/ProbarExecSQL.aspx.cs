@@ -22,5 +22,14 @@ namespace syncfusion_payc.Utilidades
             TextBox2.Text = "Código retorno: " + cod_ret;
             TextBox2.Text = TextBox2.Text + "\r\n" + resul;
         }
+
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            int ret = 0;
+            string error = "";
+            // Insertar facturas q falten en tabla CARTERA
+            error = Utilidades.Cartera.IniciarCartera(out ret);
+            TextBox2.Text = error;
+        }
     }
 }
