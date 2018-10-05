@@ -4,7 +4,7 @@ factura <- function(cod_factura) {
   #CONEXIÓN Y EXTRACCIÓN DE LA INFORMACIÓN DE LA BASE DE DATOS---------------
   #CONEXIÓN A LA BASE DE DATOS
   
-  con <- dbConnect(odbc::odbc(), "PAYC_FACTURACION_TEST", uid = "sa", pwd = "1234JAMS*")
+  con <- dbConnect(odbc::odbc(), "PAYC_FACTURACION", uid = "sa", pwd = "1234JAMS*")
   #cod_factura = 10402
   #EXTRACCION DE LA INFORMACION IMPORTANTE DE LA BASE DE DATOS
   fact <- paste0("SELECT * FROM FACTURAS WHERE COD_FACTURA=", cod_factura)
