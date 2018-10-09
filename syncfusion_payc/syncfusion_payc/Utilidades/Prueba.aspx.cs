@@ -40,7 +40,7 @@ namespace syncfusion_payc.Utilidades
                             COD_CONTRATO_PROYECTO = (long)reader["COD_CONTRATO_PROYECTO"],
                             DESCRIPCION = (string)reader["DESCRIPCION"],
                             FECHA = (DateTime)reader["FECHA"],
-                            VALOR_TOTAL = (float)reader["VALOR_TOTAL"]
+                            VALOR_TOTAL = (Decimal)reader["VALOR_TOTAL"]
                         });
                         //vista_cos[x].FILA = (long)reader.GetFloat(0);//reader["FILA"];
                         //vista_cos[x].COD_CONTRATO_PROYECTO = (int)reader["COD_CONTRATO_PROYECTO"];

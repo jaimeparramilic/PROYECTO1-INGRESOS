@@ -266,6 +266,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ASIGNACION_CARTERAController.cs" />
     <Compile Include="Controllers\CARGOSController.cs" />
     <Compile Include="Controllers\CLIENTESController.cs" />
     <Compile Include="Controllers\COLABORADORESController.cs" />
@@ -299,6 +300,7 @@
     <Compile Include="Controllers\TIPO_CONDICION_CONTRACTUALController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController1.cs" />
+    <Compile Include="Controllers\VISTA_CARTERA_INDEXController.cs" />
     <Compile Include="Controllers\VISTA_ORDENES_CENTRO_COSTOSController.cs" />
     <Compile Include="Controllers\VISTA_PENDIENTES_RETIROController.cs" />
     <Compile Include="Models\ACUERDOS_PAGO_ENTREGAB.cs">
@@ -704,6 +706,7 @@
       <DependentUpon>VistaCostosFlujoIngr.svc</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="Utilidades\Cartera.cs" />
     <Compile Include="Utilidades\Email.cs" />
     <Compile Include="Utilidades\ExecSQL.cs" />
     <Compile Include="Utilidades\ProbarExecSQL.aspx.cs">
@@ -719,6 +722,13 @@
     </Compile>
     <Compile Include="Utilidades\Probar_email.aspx.designer.cs">
       <DependentUpon>Probar_email.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Utilidades\Prueba.aspx.cs">
+      <DependentUpon>Prueba.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Utilidades\Prueba.aspx.designer.cs">
+      <DependentUpon>Prueba.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -1517,6 +1527,7 @@
     <Content Include="servicios\VistaCostosFlujoIngr.svc" />
     <Content Include="Utilidades\ProbarExecSQL.aspx" />
     <Content Include="Utilidades\Probar_email.aspx" />
+    <Content Include="Utilidades\Prueba.aspx" />
     <Content Include="Views\CONTRATOS\Create.cshtml" />
     <Content Include="Views\CONTRATOS\Delete.cshtml" />
     <Content Include="Views\CONTRATOS\Details.cshtml" />

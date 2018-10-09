@@ -26,6 +26,35 @@ namespace syncfusion_payc.Models
         public IEnumerable<ROLES> changed { get; set; }
         public IEnumerable<ROLES> deleted { get; set; }
     }
+    public class EditParams_ASIGNACION_CARTERA
+    {
+        public int skip { get; set; }
+        public int take { get; set; }
+        public string action { get; set; }
+        public int key { get; set; }
+        public string keyColumn { get; set; }
+        public ASIGNACION_CARTERA value { get; set; }
+
+        //Batch Edit Params
+        public IEnumerable<ASIGNACION_CARTERA> added { get; set; }
+        public IEnumerable<ASIGNACION_CARTERA> changed { get; set; }
+        public IEnumerable<ASIGNACION_CARTERA> deleted { get; set; }
+    }
+
+    public class EditParams_VISTA_CARTERA_INDEX
+    {
+        public int skip { get; set; }
+        public int take { get; set; }
+        public string action { get; set; }
+        public int key { get; set; }
+        public string keyColumn { get; set; }
+        public VISTA_CARTERA_INDEX value { get; set; }
+
+        //Batch Edit Params
+        public IEnumerable<VISTA_CARTERA_INDEX> added { get; set; }
+        public IEnumerable<VISTA_CARTERA_INDEX> changed { get; set; }
+        public IEnumerable<VISTA_CARTERA_INDEX> deleted { get; set; }
+    }
 
     public class EditParams_ITEMS_ROLES
     {
