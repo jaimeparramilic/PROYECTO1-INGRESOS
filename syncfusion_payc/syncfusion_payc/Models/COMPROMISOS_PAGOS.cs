@@ -26,10 +26,6 @@ public partial class COMPROMISOS_PAGOS
 
     public string ESTADO_COMPROMISO { get; set; }
 
-
-
-    public virtual CARTERA CARTERA { get; set; }
-
 }
 
 }

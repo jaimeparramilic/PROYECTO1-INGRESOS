@@ -292,7 +292,7 @@ namespace syncfusion_payc.servicios
             //pivotSetting.PivotColumns.Add(new PivotItem { FieldMappingName = "ETAPA", FieldHeader = "DUMMY1", TotalHeader = "Total", ShowSubTotal = false });
             pivotSetting.PivotColumns.Add(new PivotItem { FieldMappingName = "FECHA", FieldHeader = "FECHA", TotalHeader = "Total", Format = "dd/MM/yyyy", Comparer = new DateComparer("dd/MM/yyyy") });
             //pivotSetting.PivotRows.Add(new PivotItem { FieldMappingName = "VALOR_TOTAL", FieldHeader = "VALOR TOTAL", TotalHeader = "Total"});
-            pivotSetting.PivotCalculations.Add(new PivotComputationInfo { CalculationName = "SUMA_TOTAL", Description = "VALOR_TOTAL", FieldName = "VALOR_TOTAL", Format = "c0", SummaryType = Syncfusion.PivotAnalysis.Base.SummaryType.DoubleTotalSum });
+            pivotSetting.PivotCalculations.Add(new PivotComputationInfo { CalculationName = "SUMA_TOTAL", Description = "VALOR_TOTAL", FieldName = "VALOR_TOTAL", Format = "c0", SummaryType = Syncfusion.PivotAnalysis.Base.SummaryType.DecimalTotalSum });
             return pivotSetting;
         }
     }

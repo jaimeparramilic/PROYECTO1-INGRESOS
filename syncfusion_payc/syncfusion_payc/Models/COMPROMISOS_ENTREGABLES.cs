@@ -32,8 +32,6 @@ public partial class COMPROMISOS_ENTREGABLES
 
 
 
-    public virtual CARTERA CARTERA { get; set; }
-
     public virtual ENTREGABLES ENTREGABLES { get; set; }
 
 }

@@ -27,6 +27,20 @@ namespace syncfusion_payc.Models
         public IEnumerable<ROLES> deleted { get; set; }
     }
 
+    public class EditParams_ITEMS_ROLES
+    {
+        public int skip { get; set; }
+        public int take { get; set; }
+        public string action { get; set; }
+        public int key { get; set; }
+        public string keyColumn { get; set; }
+        public ITEMS_ROLES value { get; set; }
+        //Batch Edit Params
+        public IEnumerable<ITEMS_ROLES> added { get; set; }
+        public IEnumerable<ITEMS_ROLES> changed { get; set; }
+        public IEnumerable<ITEMS_ROLES> deleted { get; set; }
+    }
+
 
     public class EditParams_VISTA_ORDENES_CENTRO_COSTOS
     {

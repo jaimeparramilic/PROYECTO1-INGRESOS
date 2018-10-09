@@ -32,6 +32,8 @@ public partial class VISTA_ITEMS_CONTRATO_DESCRIPCION
 
     public Nullable<decimal> COSTO_MENSUAL_UNITARIO { get; set; }
 
+    public Nullable<decimal> PORCENTAJE_PERSONAL { get; set; }
+
     public Nullable<long> CANTIDAD { get; set; }
 
     public Nullable<System.DateTime> FECHA_INI_USO { get; set; }

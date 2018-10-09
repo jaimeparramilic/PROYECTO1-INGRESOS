@@ -498,11 +498,39 @@
                                        )new syncfusion_payc.Models.test_payc_contabilidadEntities().TIPOS_REEMBOLSO.ToList()).HeaderText("TIPOS REEMBOLSO").EditType(EditingType.DropdownEdit).Add();
                                 col.Field("COSTO_INICIAL_UNITARIO").HeaderText("COSTO INICIAL UNITARIO").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true).AddRule("required", true)).Add();
                                 col.Field("COSTO_MENSUAL_UNITARIO").HeaderText("COSTO MENSUAL UNITARIO").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true).AddRule("required", true)).Add();
+                                col.Field("PORCENTAJE_PERSONAL").HeaderText("% SOBRE COSTOS O GASTOS DE PERSONAL").Format("{0:p5}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 7, Locale = "es-CO", MaxValue = 10, MinValue = -0.00000001, IncrementStep = 0.00000001 }).Add();
                                 col.Field("CANTIDAD").HeaderText("CANTIDAD").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true).AddRule("required", true)).Add();
                                 col.Field("FECHA_INI_USO").HeaderText("FECHA INI USO").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).ValidationRules(v => v.AddRule("required", true).AddRule("validacion_fecha_rol_contrato", 5).AddRule("validacion_fecha_rol_ejecucion", 5)).Add();
                                 col.Field("MESES_USO").HeaderText("MESES USO").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true).AddRule("validacion_meses", "item")).Add();
                                 col.Field("DIAS_FRACCION").HeaderText("DIAS USO").Format("{0:n0}").EditType(EditingType.NumericEdit).Add();
                                 col.Field("COD_CONCEPTO_PSL").ForeignKeyField("COD_CONCEPTO_PSL").ForeignKeyValue("TEXTO_EN_PSL").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONCEPTOS.ToList()).HeaderText("COD CONCEPTO PSL").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).Add();
+
+                            }).ChildGrid(child =>
+                            {
+                                child.Datasource(ds => ds.URL("../ITEMS_ROLES/GetOrderData").InsertURL("../ITEMS_ROLES/PerformInsert").UpdateURL("../ITEMS_ROLES/PerformUpdate").RemoveURL("../ITEMS_ROLES/PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                                .AllowPaging()
+                                .QueryString("COD_ITEM_CONTRATO")
+                                .Locale("es-CO")
+                                .AllowRowDragAndDrop(false)
+                                .AllowScrolling(false)
+                                .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+                                .ClientSideEvents(e => e.ActionBegin("inicio_grid_items_rol"))
+                                .ToolbarSettings(toolbar =>
+                                {
+                                    toolbar.ShowToolbar().ToolbarItems(items =>
+                                    {
+                                        items.AddTool(ToolBarItems.Add);
+                                        items.AddTool(ToolBarItems.Edit);
+                                        items.AddTool(ToolBarItems.Delete);
+                                        items.AddTool(ToolBarItems.Update);
+                                        items.AddTool(ToolBarItems.Cancel);
+                                    });
+                                }).Columns(col =>
+                                {
+                                    col.Field("COD_ROL").ForeignKeyField("COD_ROL").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").ValidationRules(v => v.AddRule("required", true)).EditType(EditingType.DropdownEdit).Add();
+                                    col.Field("COD_ITEM_CONTRATO").ForeignKeyField("COD_ITEM_CONTRATO").Visible(false).ForeignKeyValue("COD_CONTRATO_ITEM").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ITEMS_CONTRATO.ToList()).HeaderText("COD_ITEM_CONTRATO").EditType(EditingType.DropdownEdit).Add();
+                                    col.Field("COD_ITEM_ROL").HeaderText("COD_ITEM_ROL").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                                });
 
                             }).ClientSideEvents(e => e.ActionBegin("inicio_rol")))
                 </div>
@@ -1199,7 +1227,7 @@
             if (tipo_obra == "") {
                 $('#tipo_obra').addClass("warning");
                 completos_paso2 = completos_paso2 - 1;
-                warning_paso2 = warning_paso2 + 1;
+                warnings_paso2 = warnings_paso2 + 1;
             }
             if (tipo_estructura == "") {
                 $('#tipo_estructura').addClass("warning");
@@ -2047,6 +2075,51 @@
             });
 
         }
+        }
+
+         //Funcion para añadir buscador a los dropdown a la grid hijo de items rol
+	function inicio_grid_items_rol(args) {
+        
+        if (args.requestType == "beginedit" || args.requestType == "add") {
+           
+                setTimeout(function () {
+                    var drop = $(".e-dropdownlist[name='COD_ROL']").ejDropDownList('instance');
+                    //Traer datos del proyecto
+                    var data = JSON.stringify({ COD_CONTRATO_PROYECTO: contrato_proyecto });
+                    var url = "../lista_items_roles";
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: data,
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        dataFilter: function (data) { return data; },
+                        success: function (data) {
+                            
+                            var lista_roles = data.data;
+                            var dataManager = ej.DataManager(lista_roles);
+                            drop.option("dataSource", dataManager);
+                            drop.option("fields", { text: "DESCRIPCION", value: "COD_ROL" });
+                            drop.option("enableFilterSearch", true);
+                        }
+                    });
+                    drop.option("enableFilterSearch", true);
+                }, 500); 
+            }
+        
+        }
+
+    //Funcion para añadir buscador a los dropdown a la grid hijo
+	function inicio_grid(args) {
+        
+        if (args.requestType == "beginedit" || args.requestType == "add") {
+           
+                setTimeout(function () {
+                    var drop = $(".e-dropdownlist[name='COD_CARGO']").ejDropDownList('instance');
+                    drop.option("enableFilterSearch", true);
+                }, 50); 
+            }
+        
     }
     </script>
 }

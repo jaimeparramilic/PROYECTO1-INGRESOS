@@ -44,6 +44,8 @@ public partial class DETALLE_FACTURA_PERS
 
     public Nullable<long> COD_CONCEPTO_PSL { get; set; }
 
+    public Nullable<long> COD_GRUPO_FACTURA { get; set; }
+
 
 
     public virtual CAUSA_ESTADO CAUSA_ESTADO { get; set; }

@@ -28,8 +28,6 @@ public partial class COLABORADORES
 
         this.ESTUDIOS_COLABORADOR = new HashSet<ESTUDIOS_COLABORADOR>();
 
-        this.GESTION_CARTERA = new HashSet<GESTION_CARTERA>();
-
         this.REGISTRO_NOVEDADES = new HashSet<REGISTRO_NOVEDADES>();
 
     }
@@ -92,12 +90,6 @@ public partial class COLABORADORES
 	[Newtonsoft.Json.JsonIgnore]
 
     public virtual ICollection<ESTUDIOS_COLABORADOR> ESTUDIOS_COLABORADOR { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-	[System.Runtime.Serialization.IgnoreDataMember]
-	[Newtonsoft.Json.JsonIgnore]
-
-    public virtual ICollection<GESTION_CARTERA> GESTION_CARTERA { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 	[System.Runtime.Serialization.IgnoreDataMember]

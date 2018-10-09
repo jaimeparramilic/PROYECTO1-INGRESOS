@@ -40,6 +40,8 @@ public partial class CONTRATO_PROYECTO
 
         this.ITEMS_CONTRATO = new HashSet<ITEMS_CONTRATO>();
 
+        this.ITEMS_ROLES = new HashSet<ITEMS_ROLES>();
+
         this.REGISTRO_ITEMS_OTROS_COSTOS = new HashSet<REGISTRO_ITEMS_OTROS_COSTOS>();
 
         this.REGISTRO_NOVEDADES = new HashSet<REGISTRO_NOVEDADES>();
@@ -136,6 +138,12 @@ public partial class CONTRATO_PROYECTO
 	[Newtonsoft.Json.JsonIgnore]
 
     public virtual ICollection<ITEMS_CONTRATO> ITEMS_CONTRATO { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+	[System.Runtime.Serialization.IgnoreDataMember]
+	[Newtonsoft.Json.JsonIgnore]
+
+    public virtual ICollection<ITEMS_ROLES> ITEMS_ROLES { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 	[System.Runtime.Serialization.IgnoreDataMember]

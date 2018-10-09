@@ -52,6 +52,7 @@
                                 col.Field("COD_CAUSA_ESTADO").ForeignKeyField("COD_CAUSA_ESTADO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CAUSA_ESTADO.ToList()).HeaderText("CAUSA MODIFICACIÓN").EditType(EditingType.DropdownEdit).Type("string").ValidationRules(v => v.AddRule("validacion_causa", true)).Add();
                                 col.Field("COD_FACTURA").Visible(false).ForeignKeyField("COD_FACTURA").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().FACTURAS.ToList()).HeaderText("COD_FACTURA").EditType(EditingType.DropdownEdit).Add();
                                 col.Field("COD_ESTADO_DETALLE").Visible(false).ForeignKeyField("COD_ESTADO_DETALLE").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ESTADOS_DETALLE.ToList()).HeaderText("ESTADO_DETALLE").EditType(EditingType.DropdownEdit).Add();
+                                col.Field("COD_GRUPO_FACTURA").ForeignKeyField("COD_GRUPO_FACTURA").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().GRUPOS_FACTURA.ToList()).HeaderText("GRUPO FACTURA").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).Add();
                                 col.Field("COD_CONCEPTO_PSL").ForeignKeyField("COD_CONCEPTO_PSL").ForeignKeyValue("TEXTO_EN_PSL").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONCEPTOS.ToList()).HeaderText("CONCEPTO").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("validar_concepto_roles", true).AddRule("number", true)).Add();
                             }))
         </div>
@@ -76,28 +77,29 @@
             .ShowSummary()
             .SummaryRow(row =>
             {
-            row.Title("Total").SummaryColumns(col => { col.SummaryType(SummaryType.Sum).Format("{0:c2}").DisplayColumn("VALOR_SIN_IMPUESTOS").DataMember("VALOR_SIN_IMPUESTOS").Add(); }).Add();
+                row.Title("Total").SummaryColumns(col => { col.SummaryType(SummaryType.Sum).Format("{0:c2}").DisplayColumn("VALOR_SIN_IMPUESTOS").DataMember("VALOR_SIN_IMPUESTOS").Add(); }).Add();
             })
             .ToolbarSettings(toolbar =>
             {
-            toolbar.ShowToolbar().ToolbarItems(items =>
-            {
-            items.AddTool(ToolBarItems.Edit);
+                toolbar.ShowToolbar().ToolbarItems(items =>
+                {
+                    items.AddTool(ToolBarItems.Edit);
 
-            });
+                });
 
             }).Columns(col =>
             {
-            col.Field("COD_DETALLE_FACTURA_ITEM").HeaderText("COD_DETALLE_FACTURA_ITEM").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-            col.Field("COD_CONTRATO_PROYECTO").Visible(false).HeaderText("COD_CONTRATO_PROYECTO").Add();
-            col.Field("COD_ITEM_CONTRATO").ForeignKeyField("COD_ITEM_CONTRATO").AllowEditing(false).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().VISTA_ITEMS_CONTRATO_DESCRIPCION.ToList()).HeaderText("ITEM").EditType(EditingType.DropdownEdit).Add();
-            col.Field("COD_FORMAS_PAGO_FECHAS").Visible(false).HeaderText("FORMAS PAGO FECHAS").Add();
-            col.Field("VALOR_SIN_IMPUESTOS").HeaderText("VALOR SIN IMPUESTOS").Format("{0:c2}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 2, Locale = "es-CO", IncrementStep = 0.01 }).Add();
-            col.Field("COD_CAUSA_ESTADO").ForeignKeyField("COD_CAUSA_ESTADO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CAUSA_ESTADO.ToList()).HeaderText("CAUSA MODIFICACIÓN").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("validacion_causa_items", true)).Add();
-            col.Field("COD_FACTURA").Visible(false).ForeignKeyField("COD_FACTURA").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().FACTURAS.ToList()).HeaderText("COD_FACTURA").EditType(EditingType.DropdownEdit).Add();
-            col.Field("COD_ESTADO_DETALLE").Visible(false).ForeignKeyField("COD_ESTADO_DETALLE").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ESTADOS_DETALLE.ToList()).HeaderText("ESTADO_DETALLE").EditType(EditingType.DropdownEdit).Add();
-            col.Field("COD_CONCEPTO_PSL").ForeignKeyField("COD_CONCEPTO_PSL").ForeignKeyValue("TEXTO_EN_PSL").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONCEPTOS.ToList()).HeaderText("CONCEPTO").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("validar_concepto_items", true).AddRule("number", true)).Add();
-                        }))
+                col.Field("COD_DETALLE_FACTURA_ITEM").HeaderText("COD_DETALLE_FACTURA_ITEM").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                col.Field("COD_CONTRATO_PROYECTO").Visible(false).HeaderText("COD_CONTRATO_PROYECTO").Add();
+                col.Field("COD_ITEM_CONTRATO").ForeignKeyField("COD_ITEM_CONTRATO").AllowEditing(false).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().VISTA_ITEMS_CONTRATO_DESCRIPCION.ToList()).HeaderText("ITEM").EditType(EditingType.DropdownEdit).Add();
+                col.Field("COD_FORMAS_PAGO_FECHAS").Visible(false).HeaderText("FORMAS PAGO FECHAS").Add();
+                col.Field("VALOR_SIN_IMPUESTOS").HeaderText("VALOR SIN IMPUESTOS").Format("{0:c2}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 2, Locale = "es-CO", IncrementStep = 0.01 }).Add();
+                col.Field("COD_CAUSA_ESTADO").ForeignKeyField("COD_CAUSA_ESTADO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CAUSA_ESTADO.ToList()).HeaderText("CAUSA MODIFICACIÓN").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("validacion_causa_items", true)).Add();
+                col.Field("COD_FACTURA").Visible(false).ForeignKeyField("COD_FACTURA").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().FACTURAS.ToList()).HeaderText("COD_FACTURA").EditType(EditingType.DropdownEdit).Add();
+                col.Field("COD_ESTADO_DETALLE").Visible(false).ForeignKeyField("COD_ESTADO_DETALLE").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ESTADOS_DETALLE.ToList()).HeaderText("ESTADO_DETALLE").EditType(EditingType.DropdownEdit).Add();
+                col.Field("COD_GRUPO_FACTURA").ForeignKeyField("COD_GRUPO_FACTURA").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().GRUPOS_FACTURA.ToList()).HeaderText("GRUPO FACTURA").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).Add();
+                col.Field("COD_CONCEPTO_PSL").ForeignKeyField("COD_CONCEPTO_PSL").ForeignKeyValue("TEXTO_EN_PSL").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONCEPTOS.ToList()).HeaderText("CONCEPTO").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("validar_concepto_items", true).AddRule("number", true)).Add();
+            }))
 </div>
     </div>
 </div>

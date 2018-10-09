@@ -22,6 +22,8 @@ public partial class FACTURAS
     public FACTURAS()
     {
 
+        this.CARTERA = new HashSet<CARTERA>();
+
         this.DETALLE_FACTURA_ITEM = new HashSet<DETALLE_FACTURA_ITEM>();
 
         this.DETALLE_FACTURA_PERS = new HashSet<DETALLE_FACTURA_PERS>();
@@ -50,6 +52,12 @@ public partial class FACTURAS
     public Nullable<long> COD_CONCEPTO_PSL { get; set; }
 
 
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+	[System.Runtime.Serialization.IgnoreDataMember]
+	[Newtonsoft.Json.JsonIgnore]
+
+    public virtual ICollection<CARTERA> CARTERA { get; set; }
 
     public virtual CONCEPTOS CONCEPTOS { get; set; }
 

@@ -1177,6 +1177,13 @@ namespace syncfusion_payc.Controllers
         }
         #endregion pendientes
         #endregion
+        #region traer roles
+        public ActionResult lista_items_roles(long COD_CONTRATO_PROYECTO)
+        {
+            IEnumerable DataSource = db.VISTA_CONTRATOS_ROL_DESCRIPCION.Where(o => o.COD_CONTRATO_PROYECTO == COD_CONTRATO_PROYECTO).ToList();
+            return Json(new { success = true, responseText = "SI", data = DataSource }, "application/json", JsonRequestBehavior.AllowGet);
+        }
+        #endregion
 
     }
 }

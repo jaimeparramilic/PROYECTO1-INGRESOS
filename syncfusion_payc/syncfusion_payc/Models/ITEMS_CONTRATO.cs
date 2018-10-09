@@ -26,6 +26,8 @@ public partial class ITEMS_CONTRATO
 
         this.FLUJO_INGRESOS_ITEMS = new HashSet<FLUJO_INGRESOS_ITEMS>();
 
+        this.ITEMS_ROLES = new HashSet<ITEMS_ROLES>();
+
         this.REGISTRO_ITEMS_OTROS_COSTOS = new HashSet<REGISTRO_ITEMS_OTROS_COSTOS>();
 
     }
@@ -44,6 +46,8 @@ public partial class ITEMS_CONTRATO
     public Nullable<decimal> COSTO_INICIAL_UNITARIO { get; set; }
 
     public Nullable<decimal> COSTO_MENSUAL_UNITARIO { get; set; }
+
+    public Nullable<decimal> PORCENTAJE_PERSONAL { get; set; }
 
     public Nullable<long> CANTIDAD { get; set; }
 
@@ -80,6 +84,12 @@ public partial class ITEMS_CONTRATO
     public virtual ITEMS ITEMS { get; set; }
 
     public virtual TIPOS_REEMBOLSO TIPOS_REEMBOLSO { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+	[System.Runtime.Serialization.IgnoreDataMember]
+	[Newtonsoft.Json.JsonIgnore]
+
+    public virtual ICollection<ITEMS_ROLES> ITEMS_ROLES { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 	[System.Runtime.Serialization.IgnoreDataMember]

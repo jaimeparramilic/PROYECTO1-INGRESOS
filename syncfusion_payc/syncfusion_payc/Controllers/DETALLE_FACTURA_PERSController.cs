@@ -232,6 +232,7 @@ namespace syncfusion_payc.Controllers
                 table.USUARIO = usuario;
                 table.COD_ESTADO_DETALLE = 1;
                 table.COD_CONCEPTO_PSL = param.value.COD_CONCEPTO_PSL;
+                table.COD_GRUPO_FACTURA = param.value.COD_GRUPO_FACTURA;
             }
             db.SaveChanges();
             return RedirectToAction("GetOrderData");
@@ -258,6 +259,7 @@ namespace syncfusion_payc.Controllers
                 table.USUARIO = usuario;
                 table.COD_ESTADO_DETALLE = 1;
                 table.COD_CONCEPTO_PSL = param.value.COD_CONCEPTO_PSL;
+                table.COD_GRUPO_FACTURA = param.value.COD_GRUPO_FACTURA;
             }
             db.SaveChanges();
             try

@@ -24,6 +24,8 @@ public partial class CLIENTES
 
         this.CONTRATOS = new HashSet<CONTRATOS>();
 
+        this.EMAIL_CLIENTES = new HashSet<EMAIL_CLIENTES>();
+
     }
 
 
@@ -52,6 +54,12 @@ public partial class CLIENTES
 	[Newtonsoft.Json.JsonIgnore]
 
     public virtual ICollection<CONTRATOS> CONTRATOS { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+	[System.Runtime.Serialization.IgnoreDataMember]
+	[Newtonsoft.Json.JsonIgnore]
+
+    public virtual ICollection<EMAIL_CLIENTES> EMAIL_CLIENTES { get; set; }
 
 }
 

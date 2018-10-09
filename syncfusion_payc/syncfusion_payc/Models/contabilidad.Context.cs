@@ -34,6 +34,10 @@ public partial class test_payc_contabilidadEntities : DbContext
     }
 
 
+    public virtual DbSet<ACUERDOS_PAGO_ENTREGAB> ACUERDOS_PAGO_ENTREGAB { get; set; }
+
+    public virtual DbSet<ASIGNACION_CARTERA> ASIGNACION_CARTERA { get; set; }
+
     public virtual DbSet<CARGOS> CARGOS { get; set; }
 
     public virtual DbSet<CARTERA> CARTERA { get; set; }
@@ -70,9 +74,15 @@ public partial class test_payc_contabilidadEntities : DbContext
 
     public virtual DbSet<DETALLE_FACTURA_PERS> DETALLE_FACTURA_PERS { get; set; }
 
+    public virtual DbSet<EMAIL_CLIENTES> EMAIL_CLIENTES { get; set; }
+
     public virtual DbSet<ENTREGABLES> ENTREGABLES { get; set; }
 
     public virtual DbSet<ESTADO_COLABORADOR> ESTADO_COLABORADOR { get; set; }
+
+    public virtual DbSet<ESTADOS_ACUER_PAG_ENTREG> ESTADOS_ACUER_PAG_ENTREG { get; set; }
+
+    public virtual DbSet<ESTADOS_CARTERA> ESTADOS_CARTERA { get; set; }
 
     public virtual DbSet<ESTADOS_CECO> ESTADOS_CECO { get; set; }
 
@@ -98,6 +108,10 @@ public partial class test_payc_contabilidadEntities : DbContext
 
     public virtual DbSet<GESTION_CARTERA> GESTION_CARTERA { get; set; }
 
+    public virtual DbSet<GESTION_ENTREGABLES> GESTION_ENTREGABLES { get; set; }
+
+    public virtual DbSet<GRUPOS_FACTURA> GRUPOS_FACTURA { get; set; }
+
     public virtual DbSet<INCREMENTO_ORDEN> INCREMENTO_ORDEN { get; set; }
 
     public virtual DbSet<INCREMENTO_SALARIAL> INCREMENTO_SALARIAL { get; set; }
@@ -105,6 +119,8 @@ public partial class test_payc_contabilidadEntities : DbContext
     public virtual DbSet<ITEMS> ITEMS { get; set; }
 
     public virtual DbSet<ITEMS_CONTRATO> ITEMS_CONTRATO { get; set; }
+
+    public virtual DbSet<ITEMS_ROLES> ITEMS_ROLES { get; set; }
 
     public virtual DbSet<PROYECTOS> PROYECTOS { get; set; }
 
@@ -118,11 +134,15 @@ public partial class test_payc_contabilidadEntities : DbContext
 
     public virtual DbSet<SINO> SINO { get; set; }
 
+    public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+
     public virtual DbSet<TAG_ORDEN> TAG_ORDEN { get; set; }
 
     public virtual DbSet<TIPO_CONDICION_CONTRACTUAL> TIPO_CONDICION_CONTRACTUAL { get; set; }
 
     public virtual DbSet<TIPO_CONTRATO> TIPO_CONTRATO { get; set; }
+
+    public virtual DbSet<TIPOS_GESTION> TIPOS_GESTION { get; set; }
 
     public virtual DbSet<TIPOS_NOVEDAD> TIPOS_NOVEDAD { get; set; }
 
@@ -139,6 +159,10 @@ public partial class test_payc_contabilidadEntities : DbContext
     public virtual DbSet<xTEMPO> xTEMPO { get; set; }
 
     public virtual DbSet<COMBINACIONES_GASTOS_ADMINISTRATIVOS> COMBINACIONES_GASTOS_ADMINISTRATIVOS { get; set; }
+
+    public virtual DbSet<INCREMENTO_SALARIAL_TEMP> INCREMENTO_SALARIAL_TEMP { get; set; }
+
+    public virtual DbSet<ReportsTable> ReportsTable { get; set; }
 
     public virtual DbSet<CHECK_COLABORADOR_MES> CHECK_COLABORADOR_MES { get; set; }
 
@@ -159,6 +183,10 @@ public partial class test_payc_contabilidadEntities : DbContext
     public virtual DbSet<CONTRATOS_CONDICIONES_VISTA> CONTRATOS_CONDICIONES_VISTA { get; set; }
 
     public virtual DbSet<DATOS_VERIFICAR_FACTURA> DATOS_VERIFICAR_FACTURA { get; set; }
+
+    public virtual DbSet<FLUJO_INGRESOS_ITEM> FLUJO_INGRESOS_ITEM { get; set; }
+
+    public virtual DbSet<FLUJO_INGRESOS_ROLES> FLUJO_INGRESOS_ROLES { get; set; }
 
     public virtual DbSet<GENERACION_COLABORADORES_PENDIENTES> GENERACION_COLABORADORES_PENDIENTES { get; set; }
 
@@ -190,6 +218,10 @@ public partial class test_payc_contabilidadEntities : DbContext
 
     public virtual DbSet<TEST_VISTA_FLUJOS_CORREGIDOS> TEST_VISTA_FLUJOS_CORREGIDOS { get; set; }
 
+    public virtual DbSet<VISTA_AGREGACION_ITEMS_DEPENDIENTES> VISTA_AGREGACION_ITEMS_DEPENDIENTES { get; set; }
+
+    public virtual DbSet<VISTA_CARTERA_INDEX> VISTA_CARTERA_INDEX { get; set; }
+
     public virtual DbSet<VISTA_CONTRATO_PROYECTO_FACTURAS> VISTA_CONTRATO_PROYECTO_FACTURAS { get; set; }
 
     public virtual DbSet<VISTA_CONTRATOS_ROL_DESCRIPCION> VISTA_CONTRATOS_ROL_DESCRIPCION { get; set; }
@@ -208,6 +240,8 @@ public partial class test_payc_contabilidadEntities : DbContext
 
     public virtual DbSet<VISTA_FLUJO_INGRESOS> VISTA_FLUJO_INGRESOS { get; set; }
 
+    public virtual DbSet<VISTA_FLUJO_INGRESOS_ITEM_TEMP> VISTA_FLUJO_INGRESOS_ITEM_TEMP { get; set; }
+
     public virtual DbSet<VISTA_FLUJO_INGRESOS_ITEMS> VISTA_FLUJO_INGRESOS_ITEMS { get; set; }
 
     public virtual DbSet<VISTA_FLUJO_INGRESOS_ROL_CORREGIDA_REALIDAD> VISTA_FLUJO_INGRESOS_ROL_CORREGIDA_REALIDAD { get; set; }
@@ -219,6 +253,8 @@ public partial class test_payc_contabilidadEntities : DbContext
     public virtual DbSet<VISTA_ITEMS_CONTRATO> VISTA_ITEMS_CONTRATO { get; set; }
 
     public virtual DbSet<VISTA_ITEMS_CONTRATO_DESCRIPCION> VISTA_ITEMS_CONTRATO_DESCRIPCION { get; set; }
+
+    public virtual DbSet<VISTA_ITEMS_VARIABLES> VISTA_ITEMS_VARIABLES { get; set; }
 
     public virtual DbSet<VISTA_ORDENES_CENTRO_COSTOS> VISTA_ORDENES_CENTRO_COSTOS { get; set; }
 
@@ -239,6 +275,8 @@ public partial class test_payc_contabilidadEntities : DbContext
     public virtual DbSet<VISTA_SALARIO_INCREMENTOS_TEMP> VISTA_SALARIO_INCREMENTOS_TEMP { get; set; }
 
     public virtual DbSet<VISTA_TEMP> VISTA_TEMP { get; set; }
+
+    public virtual DbSet<VISTA_USUARIOS_AttendanceDB> VISTA_USUARIOS_AttendanceDB { get; set; }
 
 }
 

@@ -22,9 +22,7 @@ public partial class CARTERA
     public CARTERA()
     {
 
-        this.COMPROMISOS_ENTREGABLES = new HashSet<COMPROMISOS_ENTREGABLES>();
-
-        this.COMPROMISOS_PAGOS = new HashSet<COMPROMISOS_PAGOS>();
+        this.ASIGNACION_CARTERA = new HashSet<ASIGNACION_CARTERA>();
 
         this.GESTION_CARTERA = new HashSet<GESTION_CARTERA>();
 
@@ -33,11 +31,9 @@ public partial class CARTERA
 
     public long COD_CARTERA { get; set; }
 
-    public Nullable<long> COD_FACTURA { get; set; }
+    public long COD_FACTURA { get; set; }
 
-    public string ESTADO_CARTERA { get; set; }
-
-    public Nullable<long> COD_RECIBO_PAGO { get; set; }
+    public Nullable<long> ESTADO_CARTERA { get; set; }
 
 
 
@@ -45,13 +41,11 @@ public partial class CARTERA
 	[System.Runtime.Serialization.IgnoreDataMember]
 	[Newtonsoft.Json.JsonIgnore]
 
-    public virtual ICollection<COMPROMISOS_ENTREGABLES> COMPROMISOS_ENTREGABLES { get; set; }
+    public virtual ICollection<ASIGNACION_CARTERA> ASIGNACION_CARTERA { get; set; }
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-	[System.Runtime.Serialization.IgnoreDataMember]
-	[Newtonsoft.Json.JsonIgnore]
+    public virtual ESTADOS_CARTERA ESTADOS_CARTERA { get; set; }
 
-    public virtual ICollection<COMPROMISOS_PAGOS> COMPROMISOS_PAGOS { get; set; }
+    public virtual FACTURAS FACTURAS { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 	[System.Runtime.Serialization.IgnoreDataMember]

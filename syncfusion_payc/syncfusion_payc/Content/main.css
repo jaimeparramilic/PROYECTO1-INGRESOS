@@ -693,5 +693,13 @@ th[data-p="0,0"]{
 
 #PivotGrid1 .e-collapse, #PivotGrid2 .e-collapse {
     display: none !important;
+  
 }
-    
+
+#GRID_ITEMS .e-detailrow .e-dialog.e-widget.e-box.e-dialog-wrap.e-shadow {
+    width: 35% !important;
+    top: -180px !important;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative !important;
+}

@@ -20,19 +20,21 @@ public partial class GESTION_CARTERA
 
     public long COD_GESTION { get; set; }
 
-    public Nullable<long> COD_CARTERA { get; set; }
+    public long COD_CARTERA { get; set; }
 
-    public Nullable<long> COD_COLABORADOR { get; set; }
+    public string UserName { get; set; }
 
-    public string TIPO_GESTION { get; set; }
+    public long TIPO_GESTION { get; set; }
 
-    public Nullable<System.DateTime> FECHA_GESTION { get; set; }
+    public System.DateTime FECHA_GESTION { get; set; }
+
+    public string DESCRIPCION { get; set; }
 
 
 
     public virtual CARTERA CARTERA { get; set; }
 
-    public virtual COLABORADORES COLABORADORES { get; set; }
+    public virtual TIPOS_GESTION TIPOS_GESTION { get; set; }
 
 }
 
