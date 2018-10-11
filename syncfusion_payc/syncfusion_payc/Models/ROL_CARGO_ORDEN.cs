@@ -30,9 +30,9 @@ public partial class ROL_CARGO_ORDEN
 
     public virtual CARGOS CARGOS { get; set; }
 
-    public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
-
     public virtual ROLES ROLES { get; set; }
+
+    public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
 
 }
 

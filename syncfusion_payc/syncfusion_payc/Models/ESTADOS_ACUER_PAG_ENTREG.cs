@@ -27,7 +27,7 @@ public partial class ESTADOS_ACUER_PAG_ENTREG
     }
 
 
-    public long COD_ESTADO_ACUER_PAG_ENTR { get; set; }
+    public long COD_ESTADO_ACUERDO { get; set; }
 
     public string DESCRIPCION { get; set; }
 

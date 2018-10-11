@@ -26,7 +26,7 @@ namespace syncfusion_payc.Utilidades
                 using (SqlConnection connection = new SqlConnection(connectString))
                 {
                     string comSql = "SELECT COD_FACTURA FROM FACTURAS WHERE "
-                        +"COD_ESTADO_FACTURA = 5 AND NOT EXISTS  ( "
+                        + "COD_ESTADO_FACTURA = 5 OR COD_ESTADO_FACTURA= 4 OR COD_ESTADO_FACTURA= 3 AND NOT EXISTS  ( "
                         + "SELECT * FROM CARTERA WHERE COD_FACTURA = "
                         + "FACTURAS.COD_FACTURA  )" + ";";
                     SqlCommand command = new SqlCommand(comSql, connection);

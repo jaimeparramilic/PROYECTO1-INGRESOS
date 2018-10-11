@@ -9,43 +9,46 @@
 
 <div class="control-section">
 
-    @(Html.EJ().Grid<syncfusion_payc.Models.VISTA_CARTERA_INDEX>("Grid")
-            .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
-            .AllowPaging()
-            .AllowFiltering()
-            .Locale("es-CO")
-            .AllowResizeToFit(true)
-            .AllowMultiSorting()
-            .AllowSorting()
-            .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
-            .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
-            .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
-            .ClientSideEvents(eve => eve.ToolbarClick("clicked"))
-            .ToolbarSettings(toolbar =>
-            {
-                toolbar.ShowToolbar().ToolbarItems(items =>
-                {
-                    items.AddTool(ToolBarItems.Add);
-                    items.AddTool(ToolBarItems.Edit);
-                    items.AddTool(ToolBarItems.Delete);
-                    items.AddTool(ToolBarItems.Update);
-                    items.AddTool(ToolBarItems.Cancel);
-                }).CustomToolbarItems(new List<object>
-                        () { new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Asignar",Tooltip="Asignar" }
-            });
-
-            }).Columns(col =>
+    @(Html.EJ().Grid<syncfusion_payc.Models.VISTA_CARTERA_INDEX>
+    ("Grid")
+    .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+    .AllowPaging()
+    .AllowFiltering()
+    .Locale("es-CO")
+    .AllowResizeToFit(true)
+    .AllowMultiSorting()
+    .AllowSorting()
+    .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+    .EditSettings(edit => { edit.AllowEditing().EditMode(EditMode.Dialog); })
+    .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
+    .ClientSideEvents(eve => eve.ToolbarClick("clicked"))
+    .ToolbarSettings(toolbar =>
     {
-        col.Field("COD_CLIENTE").HeaderText("COD_CLIENTE").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-        col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();
-        col.Field("GESTOR").HeaderText("GESTOR").Add();
-        col.Field("VALOR_SIN_IMPUESTOS").HeaderText("VALOR_SIN_IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-        col.Field("NUMERO_FACTURA").HeaderText("NUMERO_FACTURA").Add();
-        col.Field("FECHA_FACTURA").HeaderText("FECHA_FACTURA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
-        col.Field("ESTADO_CARTERA").ForeignKeyField("COD_ESTADO_CARTERA").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ESTADOS_CARTERA.ToList()).HeaderText("ESTADO CARTERA").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).Add();
-        col.Field("RANKING").HeaderText("RANKING").Add();
-        col.Field("COD_FACTURA").HeaderText("COD_FACTURA").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-        col.Field("COD_CARTERA").HeaderText("COD_CARTERA").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+        toolbar.ShowToolbar().CustomToolbarItems(new List<object>
+            () {
+        new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Gestionar",Tooltip="Gestionar Cartera" }
+         }).ToolbarItems(items =>
+         {
+             items.AddTool(ToolBarItems.Add);
+             items.AddTool(ToolBarItems.Edit);
+             items.AddTool(ToolBarItems.Delete);
+             items.AddTool(ToolBarItems.Update);
+             items.AddTool(ToolBarItems.Cancel);
+         });
+
+    }).Columns(col =>
+    {
+        
+        col.Field("DESCRIPCION").AllowEditing(false).HeaderText("CLIENTE").Add();
+        col.Field("GESTOR").ForeignKeyField("UserName").ForeignKeyValue("UserName").DataSource((IEnumerable<object>
+            )new syncfusion_payc.Models.test_payc_contabilidadEntities().VISTA_USUARIOS_AttendanceDB.ToList()).Type("string").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).HeaderText("GESTOR").Add();
+        col.Field("CENTRO_COSTOS").AllowEditing(false).HeaderText("CENTRO COSTOS").Add();
+        col.Field("SALDO").AllowEditing(false).HeaderText("TOTAL POR PAGAR SIN IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+        
+        col.Field("FECHA_FACTURA").AllowEditing(false).HeaderText("FECHA ÚLTIMA FACTURA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+        
+        col.Field("RANKING").AllowEditing(false).HeaderText("RANKING").Add();
+        col.Field("COD_CONTRATO_PROYECTO").IsPrimaryKey(true).Visible(false).AllowEditing(false).HeaderText("COD_CONTRATO_PROYECTO").Add();
 
     }))
 </div>
@@ -56,7 +59,7 @@
             EmptyRecord: "No hay registros que mostrar",
             GroupDropArea: "Arrastre un encabezado de columna aquí para agrupar su columna",
             DeleteOperationAlert: "No hay registros seleccionados para la operación de eliminación",
-            EditOperationAlert: "No hay registros seleccionados para la operación de edición",
+            EditOperationAlert: "No hay registros seleccionados para la operación de asignación",
             SaveButton: "Guardar",
             OKButton: "DE ACUERDO",
             CancelButton: "Cancelar",
@@ -121,34 +124,39 @@
             False: "falso"
         };
     });
+
 	//Funcion para añadir buscador a los dropdown
 	function inicio_grid(args) {
         if (args.requestType == "beginedit" || args.requestType == "add") {
             if (args.model.dataSource.dataSource.url == "GetOrderData") {
                 setTimeout(function () {
-
+                    $('.gridform tr:not(".e-hide"):nth-child(3)').hide();
+                    $('.gridform tr:not(".e-hide"):nth-child(4)').hide();
+                    $('.gridform tr:not(".e-hide"):nth-child(5)').hide();
+                    $('.gridform tr:not(".e-hide"):nth-child(6)').hide();
+                    $('.gridform tr:not(".e-hide"):nth-child(7)').hide();
+                    $('.gridform tr:not(".e-hide"):nth-child(8)').hide();
                 }, 50);
             }
         }
     }
 
-
     //Función click para botones custom de la toolbar
     function clicked(sender) {
         $target = $(sender.target);
-        if ($target.hasClass("Asignar")) {
-            asignar(sender.gridModel.selectedRecords[0].COD_CARTERA,
+        if ($target.hasClass("Gestionar")) {
+            gestionar(sender.gridModel.selectedRecords[0].COD_CONTRATO_PROYECTO,
                 sender)
         }
     }
     //Función que permite mostrar costos
-    function asignar(indice, sender) {
+    function gestionar(indice, sender) {
         //window.alert("ENTRO asignar : " + indice);
-        window.location = "Asignar/" + indice;
+        window.location = "Gestionar/" + indice;
     }
 
 </script>
 <!--Modelos o templates para botones-->
-<script type="text/x-jsrender" id="Asignar">
-    <a class="e-tooltxt Asignar e-icon e-star"></a>
+<script type="text/x-jsrender" id="Gestionar">
+    <a class="e-tooltxt Gestionar e-icon e-zoomin"></a>
 </script>

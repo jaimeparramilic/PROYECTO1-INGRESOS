@@ -22,11 +22,11 @@ public partial class FACTURAS
     public FACTURAS()
     {
 
-        this.CARTERA = new HashSet<CARTERA>();
-
         this.DETALLE_FACTURA_ITEM = new HashSet<DETALLE_FACTURA_ITEM>();
 
         this.DETALLE_FACTURA_PERS = new HashSet<DETALLE_FACTURA_PERS>();
+
+        this.CARTERA = new HashSet<CARTERA>();
 
     }
 
@@ -53,15 +53,7 @@ public partial class FACTURAS
 
 
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-	[System.Runtime.Serialization.IgnoreDataMember]
-	[Newtonsoft.Json.JsonIgnore]
-
-    public virtual ICollection<CARTERA> CARTERA { get; set; }
-
     public virtual CONCEPTOS CONCEPTOS { get; set; }
-
-    public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 	[System.Runtime.Serialization.IgnoreDataMember]
@@ -78,6 +70,14 @@ public partial class FACTURAS
     public virtual ESTADOS_FACTURAS ESTADOS_FACTURAS { get; set; }
 
     public virtual FORMAS_PAGO_FECHAS FORMAS_PAGO_FECHAS { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+	[System.Runtime.Serialization.IgnoreDataMember]
+	[Newtonsoft.Json.JsonIgnore]
+
+    public virtual ICollection<CARTERA> CARTERA { get; set; }
+
+    public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
 
 }
 

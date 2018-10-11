@@ -11,6 +11,10 @@ using System.Collections.Generic;
 
 namespace syncfusion_payc.Models
 {
+    public class ADICIONALES{
+        public string CORREO_RESPONSABLE { get; set; }
+        public string TELEFONO_RESPONSABLE { get; set; }
+    }
 
     public class EditParams_ROLES
     {
@@ -39,6 +43,36 @@ namespace syncfusion_payc.Models
         public IEnumerable<ASIGNACION_CARTERA> added { get; set; }
         public IEnumerable<ASIGNACION_CARTERA> changed { get; set; }
         public IEnumerable<ASIGNACION_CARTERA> deleted { get; set; }
+    }
+
+  
+    public class EditParams_GESTION_CARTERA
+    {
+        public int skip { get; set; }
+        public int take { get; set; }
+        public string action { get; set; }
+        public int key { get; set; }
+        public string keyColumn { get; set; }
+        public GESTION_CARTERA value { get; set; }
+
+        //Batch Edit Params
+        public IEnumerable<GESTION_CARTERA> added { get; set; }
+        public IEnumerable<GESTION_CARTERA> changed { get; set; }
+        public IEnumerable<GESTION_CARTERA> deleted { get; set; }
+    }
+    public class EditParams_VISTA_GESTION_CARTERA
+    {
+        public int skip { get; set; }
+        public int take { get; set; }
+        public string action { get; set; }
+        public int key { get; set; }
+        public string keyColumn { get; set; }
+        public VISTA_GESTION_CARTERA value { get; set; }
+
+        //Batch Edit Params
+        public IEnumerable<VISTA_GESTION_CARTERA> added { get; set; }
+        public IEnumerable<VISTA_GESTION_CARTERA> changed { get; set; }
+        public IEnumerable<VISTA_GESTION_CARTERA> deleted { get; set; }
     }
 
     public class EditParams_VISTA_CARTERA_INDEX
@@ -264,6 +298,21 @@ namespace syncfusion_payc.Models
         public IEnumerable<FLUJO_INGRESOS_ROL> added { get; set; }
         public IEnumerable<FLUJO_INGRESOS_ROL> changed { get; set; }
         public IEnumerable<FLUJO_INGRESOS_ROL> deleted { get; set; }
+    }
+
+    public class EditParams_ACUERDOS_PAGO_ENTREGAB
+    {
+        public int skip { get; set; }
+        public int take { get; set; }
+        public string action { get; set; }
+        public int key { get; set; }
+        public string keyColumn { get; set; }
+        public ACUERDOS_PAGO_ENTREGAB value { get; set; }
+
+        //Batch Edit Params
+        public IEnumerable<ACUERDOS_PAGO_ENTREGAB> added { get; set; }
+        public IEnumerable<ACUERDOS_PAGO_ENTREGAB> changed { get; set; }
+        public IEnumerable<ACUERDOS_PAGO_ENTREGAB> deleted { get; set; }
     }
 
     public class EditParams_PROYECTOS

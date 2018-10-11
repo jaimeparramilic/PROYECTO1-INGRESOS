@@ -1,47 +1,52 @@
-﻿@model IEnumerable<syncfusion_payc.Models.ASIGNACION_CARTERA>
+﻿
+@model IEnumerable<syncfusion_payc.Models.GESTION_CARTERA>
 
 @{
-    ViewBag.Title = "Create";
-}
+    ViewBag.Title = "";
 
-<h4>ASIGNACION CARTERA</h4>
+
+    
+	}
+
+<h2></h2>
+
 
 <div class="control-section">
 
-    @(Html.EJ().Grid<syncfusion_payc.Models.ASIGNACION_CARTERA>("Grid")
-                            .Datasource(ds => ds.URL("../GetOrderData_ASIGN_CART").InsertURL("../PerformInsert_ASIGN_CART").UpdateURL("../PerformUpdate_ASIGN_CART").RemoveURL("../PerformDelete_ASIGN_CART").Adaptor(AdaptorType.UrlAdaptor))
-                            .AllowPaging()
-                            .AllowFiltering()
-                            .Locale("es-CO")
-                            .AllowResizeToFit(true)
-                            .AllowMultiSorting()
-                            .AllowSorting()
-                            .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
-                            .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
-                            .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
-                            .ClientSideEvents(e => e.Create("create_grid"))
-                            .ToolbarSettings(toolbar =>
-                            {
-                                toolbar.ShowToolbar().ToolbarItems(items =>
-                                {
-                                    items.AddTool(ToolBarItems.Add);
-                                    items.AddTool(ToolBarItems.Edit);
-                                    items.AddTool(ToolBarItems.Delete);
-                                    items.AddTool(ToolBarItems.Update);
-                                    items.AddTool(ToolBarItems.Cancel);
-                                });
-
-                            }).Columns(col =>
+					@(Html.EJ().Grid<syncfusion_payc.Models.GESTION_CARTERA>("Grid")
+					.Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+					.AllowPaging()
+                    .AllowFiltering()
+					.Locale("es-CO")
+					.AllowResizeToFit(true)
+					.AllowMultiSorting()
+					.AllowSorting()
+					.FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                    .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+					.ClientSideEvents(e => e.ActionBegin("inicio_grid"))
+                    .ToolbarSettings(toolbar =>
                     {
-                        col.Field("COD_ASIGN_CARTERA").HeaderText("COD_ASIGN_CARTERA").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                        col.Field("COD_CARTERA").HeaderText("COD CARTERA").AllowEditing(false).Add();
-                        col.Field("UserName").ForeignKeyField("UserName").ForeignKeyValue("UserName").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().VISTA_USUARIOS_AttendanceDB.ToList()).HeaderText("GESTOR").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).Add();
-                        col.Field("FECHA_ASIGNACION").HeaderText("FECHA_ASIGNACION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                        toolbar.ShowToolbar().ToolbarItems(items =>
+                        {
+                            items.AddTool(ToolBarItems.Add);
+                            items.AddTool(ToolBarItems.Edit);
+                            items.AddTool(ToolBarItems.Delete);
+                            items.AddTool(ToolBarItems.Update);
+                            items.AddTool(ToolBarItems.Cancel);
+                        });
 
-                    }))
+                    }).Columns(col =>
+            {
+				col.Field("COD_TIPO_GESTION").ForeignKeyField("COD_TIPO_GESTION").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().TIPOS_GESTION.ToList()).HeaderText("COD_TIPO_GESTION").EditType(EditingType.DropdownEdit).Add();	
+							col.Field("COD_CARTERA").ForeignKeyField("COD_CARTERA").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CARTERA.ToList()).HeaderText("COD_CARTERA").EditType(EditingType.DropdownEdit).Add();	
+			col.Field("COD_GESTION").HeaderText("COD_GESTION").IsPrimaryKey(true).Visible(false) .Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
+col.Field("UserName").HeaderText("UserName").Add();    
+col.Field("FECHA_GESTION").HeaderText("FECHA_GESTION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();    
+col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();    
+ 
+}))
 </div>
-<script>
-
+<script>  
     $(document).ready(function () {
         ej.Grid.Locale["es-CO"] = {
             EmptyRecord: "No hay registros que mostrar",
@@ -54,8 +59,8 @@
             EditFormTitle: "Detalles de ",
             AddFormTitle: "Añadir nuevo registro",
             GroupCaptionFormat: "{{:headerText}}: {{:key}} - {{:count}} {{if count == 1 }} ítem {{else}} artículos {{/if}} ",
-
-
+            
+            
         };
         ej.Pager.Locale["es-CO"] = {
             pagerInfo: "{0} de {1} páginas ({2} artículos)",
@@ -112,28 +117,18 @@
             False: "falso"
         };
     });
-
-    var cod_cartera = @(ViewBag.COD_CARTERA == null ? "1" : Html.Raw((String)ViewBag.COD_CARTERA.ToString()).ToString());
-
 	//Funcion para añadir buscador a los dropdown
 	function inicio_grid(args) {
         if (args.requestType == "beginedit" || args.requestType == "add") {
             if (args.model.dataSource.dataSource.url == "GetOrderData") {
                 setTimeout(function () {
-                   					var drop = $("#GRIDCOD_CARTERA").ejDropDownList('instance');
+                   					var drop = $("#GRIDCOD_TIPO_GESTION").ejDropDownList('instance');
                     drop.option("enableFilterSearch", true);
-
-                }, 50);
+								var drop = $("#GRIDCOD_CARTERA").ejDropDownList('instance');
+                    drop.option("enableFilterSearch", true);
+			       
+                }, 50); 
             }
         }
-    }
-    //En el evento create de la grid, filtrar
-    function create_grid(args)
-    {   // Filtrar: solo debe mostrar el COD_CARTERA seleccionado
-        //window.alert("Entró a create_grid, cod_cartera: " + cod_cartera);
-        var gridObj = $("#Grid").ejGrid('instance');
-        gridObj.filterColumn([
-            { field: "COD_CARTERA", operator: "equal", matchcase: false, predicate: "or", value: cod_cartera }
-        ]);
     }
 </script>

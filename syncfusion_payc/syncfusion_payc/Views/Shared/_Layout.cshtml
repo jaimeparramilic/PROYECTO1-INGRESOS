@@ -46,7 +46,8 @@
         <span class="e-image imagen_loader"></span>
     </div>
     <div class="contenedor_loader1">
-        <img class="e-image imagen_loader" src="../images/waitingpopup.gif">
+        <img class="e-image imagen_loader" src="~/images/waitingpopup.gif">
+       
     </div>
     <!-- /Contenido-General-->
     <div class="contenedor_universal">
@@ -77,8 +78,65 @@
             <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
                 <ul class="nav sidebar-nav">
                     <h5 style="font-size:30px;">+</h5>
-                    <!--<span class="skype-button bubble" data-contact-id="jaimeparrapayc@outlook.com"></span>
-                        <script src="https://swc.cdn.skype.com/sdk/v1/sdk.min.js"></script>-->
+                    @*Selección de tipo de gestión*@
+                    <div class="seleccion_tipo_gestion">
+                        <div class="col-md-12">
+                            <h4>SELECCIONAR TIPO GESTIÓN</h4>
+                            <select id="drop_tipo_gestion">
+                                <option value="item1">INTERNA</option>
+                                <option value="item2">EXTERNA</option>
+                            </select>
+                        </div>
+                    </div>
+                    @*Selección de acción a realizar*@
+                    <div class="botones">
+                        <div class="col-md-12">
+                            <h4>SELECCIONAR ACCIÓN A REALIZAR</h4>
+                            <div class="col-md-1" style="padding-right:50px;">
+                                <a class="btn btn-purple email" onclick="enviar_gestion($(this))"></a>
+                            </div>
+                            <div class="col-md-1" style="padding-right:50px;">
+                                <a class="btn btn-purple whatsapp" onclick="enviar_gestion($(this))"></a>
+                            </div>
+                            <div class="col-md-1" style="padding-right:50px;">
+                                <a class="btn btn-purple skype" onclick="enviar_gestion($(this))"></a>
+                            </div>
+                        </div>
+                    </div>
+                    @*Envío de acción*@
+                    <div class="contenedor_cartera">
+
+                        <div class="col-md-12 div_email">
+                            <h4>ENVIAR EMAIL</h4>
+                            <input type="text" class="form-control input_cliente" id="correo_cliente1" placeholder="CORREO ELECTRÓNICO">
+                            <input type="text" class="form-control input_responsable" id="correo_responsable1" placeholder="CORREO ELECTRÓNICO">
+
+                            <div class="contenedor_textos input_cliente">
+                                <textarea id="texto_correo" rows="10" style="width: 100%; display:none !important">
+                                </textarea>
+                            </div>
+                            <div class="contenedor_textos input_responsable">
+                                <textarea id="texto_correo_responsable" rows="10" style="width: 100%; display:none !important">
+                                </textarea>
+                            </div>
+                            <a class="enviar_email_gesion btn btn-purple accion_gestion" onclick="gestion_cartera($(this))">ENVIAR</a>
+                            <a class="cancelar btn btn-purple accion_gestion" onclick="cancelar()">CANCELAR</a>
+                        </div>
+                        <div class="col-md-12 div_whatsapp">
+                            <h4>ENVIAR MENSAJE</h4>
+                            <input type="text" class="form-control input_cliente" id="telefono_whatsapp_cliente" placeholder="TELÉFONO WHATSAPP">
+                            <input type="text" class="form-control input_responsable" id="telefono_whatsapp_responsable" placeholder="TELÉFONO WHATSAPP">
+                            <a class="enviar_whatsapp_gesion btn btn-purple accion_gestion" onclick="gestion_cartera($(this))">ENVIAR</a>
+                            <a class="cancelar btn btn-purple accion_gestion" onclick="cancelar()">CANCELAR</a>
+                        </div>
+                        <div class="col-md-12 div_skype">
+                            <h4>LLAMAR</h4>
+                            <input type="text" class="form-control input_cliente" id="telefono_llamar_cliente" placeholder="TELÉFONO">
+                            <input type="text" class="form-control input_responsable" id="telefono_llamar_responsable" placeholder="TELÉFONO">
+                            <a class="enviar_skype_gesion btn btn-purple accion_gestion" onclick="gestion_cartera($(this))">LLAMAR</a>
+                            <a class="cancelar btn btn-purple accion_gestion" onclick="cancelar()">CANCELAR</a>
+                        </div>
+                    </div>
                 </ul>
             </nav>
 
@@ -165,6 +223,7 @@
             </div>
         </div>
     </div>
+    </div>
     <!-- /Footer-->
     <footer>
         <div class="container body-content">
@@ -182,19 +241,9 @@
     @(Html.EJ().ScriptManager())
 
     <script type="text/javascript">
-                        //Traducción validación
-
-                                                /*
-                                                $(document).ready(function () {
-                                                    var globallocale = "es-CO";
-                                                    var widgetsall = ej.widget.registeredWidgets;
-                                                    for (var wd in widgetsall) {
-                                                        //this will set locale property to the `ru-RU` if locale property is available in defaults.
-                                                        if (ej.getObject("proto.defaults.locale", widgetsall[wd]))
-                                                            ej.createObject("locale", globallocale, widgetsall[wd].proto.defaults);
-                                                    }
-                                                });*/
+        
     </script>
     <script src="~/Scripts/main.js" type="text/javascript"></script>
 </body>
 </html>
+

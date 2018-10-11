@@ -10,15 +10,13 @@
             <PropertyRef Name="COD_ACUERDO_PAGO" />
           </Key>
           <Property Name="COD_ACUERDO_PAGO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TIPO_ACUERDO" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="COD_CARTERA" Type="bigint" Nullable="false" />
-          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
-          <Property Name="DESCRIPCION" Type="varchar" MaxLength="3000" Nullable="false" />
-          <Property Name="ESTADO" Type="bigint" Nullable="false" />
-          <Property Name="FECHA_REGISTRO" Type="date" Nullable="false" />
-          <Property Name="FECHA_ACUERDO" Type="date" Nullable="false" />
-          <Property Name="SE_NOTIFICO" Type="varchar" MaxLength="2" />
-          <Property Name="FECHA_NOTIFICACION" Type="date" />
+          <Property Name="COD_TIPO_ACUERDO" Type="bigint" />
+          <Property Name="COD_CARTERA" Type="bigint" />
+          <Property Name="UserName" Type="varchar" MaxLength="300" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
+          <Property Name="COD_ESTADO_ACUERDO" Type="bigint" />
+          <Property Name="FECHA_REGISTRO" Type="date" />
+          <Property Name="FECHA_ACUERDO" Type="date" />
           <Property Name="APROBADO" Type="varchar" MaxLength="2" />
           <Property Name="COMENTARIOS" Type="varchar" MaxLength="3000" />
           <Property Name="VALOR" Type="bigint" />
@@ -44,8 +42,9 @@
             <PropertyRef Name="COD_CARTERA" />
           </Key>
           <Property Name="COD_CARTERA" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="COD_FACTURA" Type="bigint" Nullable="false" />
+          <Property Name="COD_FACTURA" Type="bigint" />
           <Property Name="ESTADO_CARTERA" Type="bigint" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="CAUSA_ESTADO">
           <Key>
@@ -76,6 +75,8 @@
           <Property Name="CONTACTO_FACTURACION" Type="varchar" MaxLength="300" />
           <Property Name="TELEFONO_CLIENTE" Type="varchar" MaxLength="300" />
           <Property Name="TELEFONO_FACTURACION" Type="varchar" MaxLength="300" />
+          <Property Name="CORREO_CLIENTE" Type="varchar" MaxLength="300" />
+          <Property Name="CORREO_FACTURACION" Type="varchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="COLABORADORES">
           <Key>
@@ -162,6 +163,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.COMBINACIONES_GAS
           <Property Name="FECHA_CREACION" Type="date" />
           <Property Name="CENTRO_COSTOS" Type="varchar" MaxLength="300" />
           <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="bigint" />
+          <Property Name="CORREO_RESPONSABLE" Type="varchar" MaxLength="300" />
+          <Property Name="TELEFONO_RESPONSABLE" Type="varchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="CONTRATO_ROL_CARGO">
           <Key>
@@ -219,11 +222,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.COMBINACIONES_GAS
           <Property Name="DIAS_FRACCION" Type="bigint" />
           <Property Name="COD_CONCEPTO_PSL" Type="bigint" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.CUENTAS_CALCULOS' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="CUENTAS_CALCULOS">
-          <Property Name="CAMPO" Type="bigint" />
-        </EntityType>-->
         <EntityType Name="DEBUG">
           <Key>
             <PropertyRef Name="COD_DEBUG" />
@@ -270,15 +268,6 @@ advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.CUENTAS_CALCULOS'
           <Property Name="COD_CONCEPTO_PSL" Type="bigint" />
           <Property Name="COD_GRUPO_FACTURA" Type="bigint" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.DETALLE_FACTURA_PERS_TEMP' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="DETALLE_FACTURA_PERS_TEMP">
-          <Property Name="COD_DETALLE_FACTURA_PERS" Type="bigint" />
-          <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
-          <Property Name="COD_ROL" Type="bigint" />
-          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
-          <Property Name="VALOR_SIN_IMPUESTOS" Type="real" />
-        </EntityType>-->
         <EntityType Name="EMAIL_CLIENTES">
           <Key>
             <PropertyRef Name="COD_EMAIL" />
@@ -306,9 +295,9 @@ advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.DETALLE_FACTURA_P
         </EntityType>
         <EntityType Name="ESTADOS_ACUER_PAG_ENTREG">
           <Key>
-            <PropertyRef Name="COD_ESTADO_ACUER_PAG_ENTR" />
+            <PropertyRef Name="COD_ESTADO_ACUERDO" />
           </Key>
-          <Property Name="COD_ESTADO_ACUER_PAG_ENTR" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="COD_ESTADO_ACUERDO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="ESTADOS_CARTERA">
@@ -599,18 +588,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ReportsTable' no 
           <Property Name="COD_ROL" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.ROLES_TEMP' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="ROLES_TEMP">
-          <Property Name="COD_ROL" Type="bigint" />
-          <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
-          <Property Name="NUEVO_CODIGO" Type="varchar" MaxLength="300" />
-        </EntityType>-->
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.SECUENCIA_NUM_FACT_PSL' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="SECUENCIA_NUM_FACT_PSL">
-          <Property Name="SECUENCIA_PSL" Type="bigint" />
-        </EntityType>-->
         <EntityType Name="SINO">
           <Key>
             <PropertyRef Name="COD_SINO" />
@@ -649,6 +626,13 @@ advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.SECUENCIA_NUM_FAC
           </Key>
           <Property Name="COD_TIPO_CONTRATO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="TIPOS_ACUERDO">
+          <Key>
+            <PropertyRef Name="COD_TIPO_ACUERDO" />
+          </Key>
+          <Property Name="COD_TIPO_ACUERDO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="TIPOS_GESTION">
           <Key>
@@ -708,14 +692,6 @@ advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.SECUENCIA_NUM_FAC
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="texto" Type="varchar(max)" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.CHECK_COLABORADOR' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="CHECK_COLABORADOR">
-          <Property Name="COD_ROL" Type="bigint" />
-          <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
-          <Property Name="CUENTA" Type="int" />
-          <Property Name="ROL_TEXTO" Type="varchar" MaxLength="300" />
-        </EntityType>-->
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CHECK_COLABORADOR_MES' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="CHECK_COLABORADOR_MES">
@@ -944,22 +920,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.FLUJO_INGRESOS_RO
           <Property Name="COD_CONCEPTO_PSL" Type="bigint" />
         </EntityType>
         <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.FLUJO_INGRESOS_TOT' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="FLUJO_INGRESOS_TOT">
-          <Property Name="COD_ROL" Type="bigint" />
-          <Property Name="ETAPA" Type="varchar" MaxLength="200" />
-          <Property Name="VALOR_SIN_PRESTACIONES" Type="numeric" Precision="30" Scale="20" />
-          <Property Name="VALOR_CON_PRESTACIONES" Type="numeric" Precision="30" Scale="20" />
-          <Property Name="VALOR_FACTOR_MULTIPLICADOR" Type="numeric" Precision="30" Scale="20" />
-          <Property Name="FECHA_INICIO" Type="date" />
-          <Property Name="CONTRATO" Type="varchar" MaxLength="300" />
-          <Property Name="ORDEN_SERVICIO" Type="varchar" MaxLength="300" />
-          <Property Name="PROYECTO" Type="varchar" MaxLength="300" />
-          <Property Name="COD_TIPO_SERVICIO" Type="bigint" />
-          <Property Name="COD_TIPO_OBRA" Type="bigint" />
-          <Property Name="ROL" Type="varchar" MaxLength="300" />
-        </EntityType>-->
-        <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_COLABORADORES_PENDIENTES' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="GENERACION_COLABORADORES_PENDIENTES">
           <Key>
@@ -974,16 +934,16 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_COLABO
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS_ITEM' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="GENERACION_FLUJOS_ITEM">
           <Key>
-            <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
             <PropertyRef Name="COD_ITEM_CONTRATO" />
+            <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
             <PropertyRef Name="VALOR_FIJO_UNITARIO" />
           </Key>
           <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" Nullable="false" />
           <Property Name="COD_ITEM_CONTRATO" Type="bigint" Nullable="false" />
-          <Property Name="VALOR_VARIABLE_UNITARIO" Type="numeric" Precision="30" Scale="20" />
+          <Property Name="VALOR_VARIABLE_UNITARIO" Type="numeric" Precision="38" Scale="9" />
           <Property Name="VALOR_VARIABLE" Type="numeric" Precision="38" Scale="8" />
           <Property Name="VALOR_FIJO" Type="numeric" Precision="38" Scale="8" />
-          <Property Name="VALOR_FIJO_UNITARIO" Type="numeric" Precision="30" Scale="20" Nullable="false" />
+          <Property Name="VALOR_FIJO_UNITARIO" Type="numeric" Precision="38" Scale="9" Nullable="false" />
           <Property Name="VALOR_TOTAL" Type="numeric" Precision="38" Scale="8" />
           <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
         </EntityType>
@@ -1086,18 +1046,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS
           <Property Name="VALOR_CON_PRESTACIONES" Type="numeric" Precision="30" Scale="20" />
           <Property Name="VALOR_FACTOR_MULTIPLICADOR" Type="numeric" Precision="30" Scale="20" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.INCREMENTOS_ANUALES_FECHA' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="INCREMENTOS_ANUALES_FECHA">
-          <Property Name="FECHA_FORMA_PAGO" Type="date" />
-          <Property Name="FACTOR_INCREMENTO" Type="float" />
-        </EntityType>-->
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.ITEM' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="ITEM">
-          <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
-          <Property Name="COD_ITEM" Type="bigint" />
-        </EntityType>-->
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ITEMS_CONTRATO_DESCRIPCION' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="ITEMS_CONTRATO_DESCRIPCION">
@@ -1220,11 +1168,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.PENDIENTES_REPORT
           <Property Name="Expr1" Type="varchar" MaxLength="300" />
         </EntityType>
         <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.PRIMER_MES_FECHAS_FORMA_PAGO' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="PRIMER_MES_FECHAS_FORMA_PAGO">
-          <Property Name="FECHA_FORMA_PAGO" Type="date" />
-        </EntityType>-->
-        <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.REGISTRO_NOVEDADES_FECHAS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="REGISTRO_NOVEDADES_FECHAS">
           <Key>
@@ -1239,11 +1182,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.REGISTRO_NOVEDADE
           <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
           <Property Name="FECHA_FORMA_PAGO" Type="date" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.TAGS_DISTINTOS' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="TAGS_DISTINTOS">
-          <Property Name="TAG" Type="varchar" MaxLength="300" />
-        </EntityType>-->
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.TEST_VISTA_FLUJOS_CORREGIDOS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="TEST_VISTA_FLUJOS_CORREGIDOS">
@@ -1269,37 +1207,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.TEST_VISTA_FLUJOS
           <Property Name="DATEDIFF3" Type="int" />
         </EntityType>
         <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.TOTAL_FACTURAS' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="TOTAL_FACTURAS">
-          <Property Name="COD_FACTURA" Type="bigint" />
-          <Property Name="TOTAL_FACTURA" Type="numeric" Precision="38" Scale="20" />
-        </EntityType>-->
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.TOTAL_FACTURAS_ITEM' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="TOTAL_FACTURAS_ITEM">
-          <Property Name="COD_FACTURA" Type="bigint" />
-          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
-          <Property Name="TOTAL" Type="numeric" Precision="38" Scale="20" />
-        </EntityType>-->
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.TOTAL_FACTURAS_PERS' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="TOTAL_FACTURAS_PERS">
-          <Property Name="COD_FACTURA" Type="bigint" />
-          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
-          <Property Name="TOTAL" Type="numeric" Precision="38" Scale="20" />
-        </EntityType>-->
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.v_test' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="v_test">
-          <Property Name="COD_FACTURA" Type="bigint" />
-          <Property Name="TOTAL_GENERAL" Type="numeric" Precision="38" Scale="20" />
-        </EntityType>-->
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_ADICIONES_HORAS_EXTRA_DIURNAS' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="VISTA_ADICIONES_HORAS_EXTRA_DIURNAS">
-          <Property Name="Expr1" Type="real" />
-        </EntityType>-->
-        <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_AGREGACION_ITEMS_DEPENDIENTES' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="VISTA_AGREGACION_ITEMS_DEPENDIENTES">
           <Key>
@@ -1308,26 +1215,23 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_AGREGACION_
           <Property Name="COD_ITEM_CONTRATO" Type="bigint" Nullable="false" />
           <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
           <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
-          <Property Name="VALOR_TOTAL" Type="numeric" Precision="38" Scale="20" />
+          <Property Name="VALOR_TOTAL" Type="numeric" Precision="38" Scale="9" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_CARTERA_INDEX' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="VISTA_CARTERA_INDEX">
           <Key>
-            <PropertyRef Name="COD_CLIENTE" />
-            <PropertyRef Name="COD_FACTURA" />
-            <PropertyRef Name="COD_CARTERA" />
+            <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            
           </Key>
-          <Property Name="COD_CLIENTE" Type="bigint" Nullable="false" />
+          <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" Nullable="false" />
+          <Property Name="COD_CLIENTE" Type="bigint" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
-          <Property Name="GESTOR" Type="nvarchar" MaxLength="256" />
-          <Property Name="VALOR_SIN_IMPUESTOS" Type="numeric" Precision="30" Scale="2" />
-          <Property Name="NUMERO_FACTURA" Type="varchar" MaxLength="10" />
+          <Property Name="GESTOR" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="SALDO" Type="numeric" Precision="38" Scale="2" />
           <Property Name="FECHA_FACTURA" Type="date" />
-          <Property Name="ESTADO_CARTERA" Type="bigint" />
           <Property Name="RANKING" Type="varchar" MaxLength="50" />
-          <Property Name="COD_FACTURA" Type="bigint" Nullable="false" />
-          <Property Name="COD_CARTERA" Type="bigint" Nullable="false" />
+          <Property Name="CENTRO_COSTOS" Type="varchar" MaxLength="300" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_CONTRATO_PROYECTO_FACTURAS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -1350,17 +1254,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_CONTRATO_PR
           <Property Name="ESTADO_ULTIMA_FACTURA" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="ESTADO_ORDEN" Type="varchar" MaxLength="300" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_CONTRATO_PROYECTO_REVERSO' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="VISTA_CONTRATO_PROYECTO_REVERSO">
-          <Property Name="COD_ROL" Type="bigint" />
-          <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
-          <Property Name="VALOR_SIN_PRESTACIONES" Type="numeric" Precision="38" Scale="20" />
-          <Property Name="VALOR_CON_PRESTACIONES" Type="numeric" Precision="38" Scale="20" />
-          <Property Name="VALOR_FACTOR_MULTIPLICADOR" Type="numeric" Precision="38" Scale="20" />
-          <Property Name="FECHA_INI" Type="date" />
-          <Property Name="MESES" Type="int" />
-        </EntityType>-->
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_CONTRATOS_ROL_DESCRIPCION' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="VISTA_CONTRATOS_ROL_DESCRIPCION">
@@ -1397,13 +1290,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_COSTOS_FLUJ
           <Property Name="FECHA" Type="date" />
           <Property Name="VALOR_TOTAL" Type="numeric" Precision="30" Scale="20" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_DETALLES_CONCEPTO' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="VISTA_DETALLES_CONCEPTO">
-          <Property Name="COD_FACTURA" Type="bigint" />
-          <Property Name="COD_CONCEPTO_PSL" Type="bigint" />
-          <Property Name="VALOR_SIN_IMPUESTOS" Type="numeric" Precision="38" Scale="20" />
-        </EntityType>-->
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_DETDOCVTAENTRA' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="VISTA_DETDOCVTAENTRA">
@@ -1663,16 +1549,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FLUJO_INGRE
           <Property Name="USUARIO_REGISTRO" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_GASTO_ADMON' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="VISTA_GASTO_ADMON">
-          <Property Name="CALCULO" Type="varchar" MaxLength="300" />
-          <Property Name="CUENTA" Type="int" />
-          <Property Name="SIGNO" Type="bigint" />
-          <Property Name="SUMA" Type="numeric" Precision="37" Scale="2" />
-          <Property Name="CUENTA51" Type="numeric" Precision="17" Scale="2" />
-          <Property Name="CUENTA511511" Type="numeric" Precision="17" Scale="2" />
-        </EntityType>-->
-        <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_GENERACION_DATOS_REGISTRO_NOVEDADES' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="VISTA_GENERACION_DATOS_REGISTRO_NOVEDADES">
           <Key>
@@ -1687,6 +1563,25 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_GENERACION_
           <Property Name="FECHA_FIN" Type="date" />
           <Property Name="ROL_FECHA_INI" Type="date" />
           <Property Name="RANDOM" Type="float" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_GESTION_CARTERA' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="VISTA_GESTION_CARTERA">
+          <Key>
+            <PropertyRef Name="COD_CARTERA" />
+          </Key>
+          <Property Name="COD_CARTERA" Type="bigint" Nullable="false" />
+          <Property Name="COD_FACTURA" Type="bigint" />
+          <Property Name="ESTADO_CARTERA" Type="bigint" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" />
+          <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
+          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
+          <Property Name="NUMERO_FACTURA" Type="varchar" MaxLength="10" />
+          <Property Name="FECHA_FACTURA" Type="date" />
+          <Property Name="COD_ESTADO_FACTURA" Type="bigint" />
+          <Property Name="VALOR_SIN_IMPUESTOS" Type="numeric" Precision="30" Scale="2" />
+          <Property Name="RANKING" Type="varchar" MaxLength="50" />
+          <Property Name="DIAS" Type="int" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_INGEELIMP' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -1980,15 +1875,39 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <Property Name="Email" Type="nvarchar" MaxLength="256" />
           <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
+        <Association Name="FK_ACUERDOS_PAGO_ENTREGAB_CARTERA">
+          <End Role="CARTERA" Type="Self.CARTERA" Multiplicity="0..1" />
+          <End Role="ACUERDOS_PAGO_ENTREGAB" Type="Self.ACUERDOS_PAGO_ENTREGAB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CARTERA">
+              <PropertyRef Name="COD_CARTERA" />
+            </Principal>
+            <Dependent Role="ACUERDOS_PAGO_ENTREGAB">
+              <PropertyRef Name="COD_CARTERA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ACUERDOS_PAGO_ENTREGAB_ESTADOS_ACUER_PAG_ENTREG">
-          <End Role="ESTADOS_ACUER_PAG_ENTREG" Type="Self.ESTADOS_ACUER_PAG_ENTREG" Multiplicity="1" />
+          <End Role="ESTADOS_ACUER_PAG_ENTREG" Type="Self.ESTADOS_ACUER_PAG_ENTREG" Multiplicity="0..1" />
           <End Role="ACUERDOS_PAGO_ENTREGAB" Type="Self.ACUERDOS_PAGO_ENTREGAB" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ESTADOS_ACUER_PAG_ENTREG">
-              <PropertyRef Name="COD_ESTADO_ACUER_PAG_ENTR" />
+              <PropertyRef Name="COD_ESTADO_ACUERDO" />
             </Principal>
             <Dependent Role="ACUERDOS_PAGO_ENTREGAB">
-              <PropertyRef Name="ESTADO" />
+              <PropertyRef Name="COD_ESTADO_ACUERDO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACUERDOS_PAGO_ENTREGAB_TIPOS_ACUERDO">
+          <End Role="TIPOS_ACUERDO" Type="Self.TIPOS_ACUERDO" Multiplicity="0..1" />
+          <End Role="ACUERDOS_PAGO_ENTREGAB" Type="Self.ACUERDOS_PAGO_ENTREGAB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPOS_ACUERDO">
+              <PropertyRef Name="COD_TIPO_ACUERDO" />
+            </Principal>
+            <Dependent Role="ACUERDOS_PAGO_ENTREGAB">
+              <PropertyRef Name="COD_TIPO_ACUERDO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2017,7 +1936,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CARTERA_FACTURAS">
-          <End Role="FACTURAS" Type="Self.FACTURAS" Multiplicity="1" />
+          <End Role="FACTURAS" Type="Self.FACTURAS" Multiplicity="0..1" />
           <End Role="CARTERA" Type="Self.CARTERA" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FACTURAS">
@@ -3010,6 +2929,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <EntitySet Name="TAG_ORDEN" EntityType="Self.TAG_ORDEN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPO_CONDICION_CONTRACTUAL" EntityType="Self.TIPO_CONDICION_CONTRACTUAL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPO_CONTRATO" EntityType="Self.TIPO_CONTRATO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TIPOS_ACUERDO" EntityType="Self.TIPOS_ACUERDO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPOS_GESTION" EntityType="Self.TIPOS_GESTION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPOS_NOVEDAD" EntityType="Self.TIPOS_NOVEDAD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPOS_NOVEDAD_CONDICION" EntityType="Self.TIPOS_NOVEDAD_CONDICION" Schema="dbo" store:Type="Tables" />
@@ -3451,16 +3371,14 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           </EntitySet>
           <EntitySet Name="VISTA_CARTERA_INDEX" EntityType="Self.VISTA_CARTERA_INDEX" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
+    [VISTA_CARTERA_INDEX].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
     [VISTA_CARTERA_INDEX].[COD_CLIENTE] AS [COD_CLIENTE], 
     [VISTA_CARTERA_INDEX].[DESCRIPCION] AS [DESCRIPCION], 
     [VISTA_CARTERA_INDEX].[GESTOR] AS [GESTOR], 
-    [VISTA_CARTERA_INDEX].[VALOR_SIN_IMPUESTOS] AS [VALOR_SIN_IMPUESTOS], 
-    [VISTA_CARTERA_INDEX].[NUMERO_FACTURA] AS [NUMERO_FACTURA], 
+    [VISTA_CARTERA_INDEX].[SALDO] AS [SALDO], 
     [VISTA_CARTERA_INDEX].[FECHA_FACTURA] AS [FECHA_FACTURA], 
-    [VISTA_CARTERA_INDEX].[ESTADO_CARTERA] AS [ESTADO_CARTERA], 
     [VISTA_CARTERA_INDEX].[RANKING] AS [RANKING], 
-    [VISTA_CARTERA_INDEX].[COD_FACTURA] AS [COD_FACTURA], 
-    [VISTA_CARTERA_INDEX].[COD_CARTERA] AS [COD_CARTERA]
+    [VISTA_CARTERA_INDEX].[CENTRO_COSTOS] AS [CENTRO_COSTOS]
     FROM [dbo].[VISTA_CARTERA_INDEX] AS [VISTA_CARTERA_INDEX]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="VISTA_CONTRATO_PROYECTO_FACTURAS" EntityType="Self.VISTA_CONTRATO_PROYECTO_FACTURAS" store:Type="Views" store:Schema="dbo">
@@ -3728,6 +3646,22 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
     [VISTA_GENERACION_DATOS_REGISTRO_NOVEDADES].[RANDOM] AS [RANDOM]
     FROM [dbo].[VISTA_GENERACION_DATOS_REGISTRO_NOVEDADES] AS [VISTA_GENERACION_DATOS_REGISTRO_NOVEDADES]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="VISTA_GESTION_CARTERA" EntityType="Self.VISTA_GESTION_CARTERA" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VISTA_GESTION_CARTERA].[COD_CARTERA] AS [COD_CARTERA], 
+    [VISTA_GESTION_CARTERA].[COD_FACTURA] AS [COD_FACTURA], 
+    [VISTA_GESTION_CARTERA].[ESTADO_CARTERA] AS [ESTADO_CARTERA], 
+    [VISTA_GESTION_CARTERA].[UserName] AS [UserName], 
+    [VISTA_GESTION_CARTERA].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
+    [VISTA_GESTION_CARTERA].[COD_FORMAS_PAGO_FECHAS] AS [COD_FORMAS_PAGO_FECHAS], 
+    [VISTA_GESTION_CARTERA].[NUMERO_FACTURA] AS [NUMERO_FACTURA], 
+    [VISTA_GESTION_CARTERA].[FECHA_FACTURA] AS [FECHA_FACTURA], 
+    [VISTA_GESTION_CARTERA].[COD_ESTADO_FACTURA] AS [COD_ESTADO_FACTURA], 
+    [VISTA_GESTION_CARTERA].[VALOR_SIN_IMPUESTOS] AS [VALOR_SIN_IMPUESTOS], 
+    [VISTA_GESTION_CARTERA].[RANKING] AS [RANKING], 
+    [VISTA_GESTION_CARTERA].[DIAS] AS [DIAS]
+    FROM [dbo].[VISTA_GESTION_CARTERA] AS [VISTA_GESTION_CARTERA]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="VISTA_INGEELIMP" EntityType="Self.VISTA_INGEELIMP" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [VISTA_INGEELIMP].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
@@ -3958,8 +3892,16 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
     [VISTA_USUARIOS_AttendanceDB].[Id] AS [Id]
     FROM [dbo].[VISTA_USUARIOS_AttendanceDB] AS [VISTA_USUARIOS_AttendanceDB]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_ACUERDOS_PAGO_ENTREGAB_CARTERA" Association="Self.FK_ACUERDOS_PAGO_ENTREGAB_CARTERA">
+            <End Role="CARTERA" EntitySet="CARTERA" />
+            <End Role="ACUERDOS_PAGO_ENTREGAB" EntitySet="ACUERDOS_PAGO_ENTREGAB" />
+          </AssociationSet>
           <AssociationSet Name="FK_ACUERDOS_PAGO_ENTREGAB_ESTADOS_ACUER_PAG_ENTREG" Association="Self.FK_ACUERDOS_PAGO_ENTREGAB_ESTADOS_ACUER_PAG_ENTREG">
             <End Role="ESTADOS_ACUER_PAG_ENTREG" EntitySet="ESTADOS_ACUER_PAG_ENTREG" />
+            <End Role="ACUERDOS_PAGO_ENTREGAB" EntitySet="ACUERDOS_PAGO_ENTREGAB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACUERDOS_PAGO_ENTREGAB_TIPOS_ACUERDO" Association="Self.FK_ACUERDOS_PAGO_ENTREGAB_TIPOS_ACUERDO">
+            <End Role="TIPOS_ACUERDO" EntitySet="TIPOS_ACUERDO" />
             <End Role="ACUERDOS_PAGO_ENTREGAB" EntitySet="ACUERDOS_PAGO_ENTREGAB" />
           </AssociationSet>
           <AssociationSet Name="FK_ASIGNACION_CARTERA_CARTERA" Association="Self.FK_ASIGNACION_CARTERA_CARTERA">
@@ -4288,19 +4230,15 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
     <edmx:ConceptualModels>
       <Schema Namespace="test_payc_contabilidadModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="test_payc_contabilidadEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ACUERDOS_PAGO_ENTREGAB" EntityType="test_payc_contabilidadModel.ACUERDOS_PAGO_ENTREGAB" />
           <EntitySet Name="ASIGNACION_CARTERA" EntityType="test_payc_contabilidadModel.ASIGNACION_CARTERA" />
           <EntitySet Name="CARGOS" EntityType="test_payc_contabilidadModel.CARGOS" />
-          <EntitySet Name="CARTERA" EntityType="test_payc_contabilidadModel.CARTERA" />
           <EntitySet Name="CAUSA_ESTADO" EntityType="test_payc_contabilidadModel.CAUSA_ESTADO" />
           <EntitySet Name="CENTROS_COSTOS" EntityType="test_payc_contabilidadModel.CENTROS_COSTOS" />
-          <EntitySet Name="CLIENTES" EntityType="test_payc_contabilidadModel.CLIENTES" />
           <EntitySet Name="COLABORADORES" EntityType="test_payc_contabilidadModel.COLABORADORES" />
           <EntitySet Name="COMPROMISOS_ENTREGABLES" EntityType="test_payc_contabilidadModel.COMPROMISOS_ENTREGABLES" />
           <EntitySet Name="COMPROMISOS_PAGOS" EntityType="test_payc_contabilidadModel.COMPROMISOS_PAGOS" />
           <EntitySet Name="CONCEPTOS" EntityType="test_payc_contabilidadModel.CONCEPTOS" />
           <EntitySet Name="CONTRATO_COLABORADOR" EntityType="test_payc_contabilidadModel.CONTRATO_COLABORADOR" />
-          <EntitySet Name="CONTRATO_PROYECTO" EntityType="test_payc_contabilidadModel.CONTRATO_PROYECTO" />
           <EntitySet Name="CONTRATO_ROL_CARGO" EntityType="test_payc_contabilidadModel.CONTRATO_ROL_CARGO" />
           <EntitySet Name="CONTRATOS" EntityType="test_payc_contabilidadModel.CONTRATOS" />
           <EntitySet Name="CONTRATOS_CONDICIONES" EntityType="test_payc_contabilidadModel.CONTRATOS_CONDICIONES" />
@@ -4311,7 +4249,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <EntitySet Name="EMAIL_CLIENTES" EntityType="test_payc_contabilidadModel.EMAIL_CLIENTES" />
           <EntitySet Name="ENTREGABLES" EntityType="test_payc_contabilidadModel.ENTREGABLES" />
           <EntitySet Name="ESTADO_COLABORADOR" EntityType="test_payc_contabilidadModel.ESTADO_COLABORADOR" />
-          <EntitySet Name="ESTADOS_ACUER_PAG_ENTREG" EntityType="test_payc_contabilidadModel.ESTADOS_ACUER_PAG_ENTREG" />
           <EntitySet Name="ESTADOS_CARTERA" EntityType="test_payc_contabilidadModel.ESTADOS_CARTERA" />
           <EntitySet Name="ESTADOS_CECO" EntityType="test_payc_contabilidadModel.ESTADOS_CECO" />
           <EntitySet Name="ESTADOS_DETALLE" EntityType="test_payc_contabilidadModel.ESTADOS_DETALLE" />
@@ -4381,7 +4318,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <EntitySet Name="REGISTRO_NOVEDADES_FECHAS" EntityType="test_payc_contabilidadModel.REGISTRO_NOVEDADES_FECHAS" />
           <EntitySet Name="TEST_VISTA_FLUJOS_CORREGIDOS" EntityType="test_payc_contabilidadModel.TEST_VISTA_FLUJOS_CORREGIDOS" />
           <EntitySet Name="VISTA_AGREGACION_ITEMS_DEPENDIENTES" EntityType="test_payc_contabilidadModel.VISTA_AGREGACION_ITEMS_DEPENDIENTES" />
-          <EntitySet Name="VISTA_CARTERA_INDEX" EntityType="test_payc_contabilidadModel.VISTA_CARTERA_INDEX" />
           <EntitySet Name="VISTA_CONTRATO_PROYECTO_FACTURAS" EntityType="test_payc_contabilidadModel.VISTA_CONTRATO_PROYECTO_FACTURAS" />
           <EntitySet Name="VISTA_CONTRATOS_ROL_DESCRIPCION" EntityType="test_payc_contabilidadModel.VISTA_CONTRATOS_ROL_DESCRIPCION" />
           <EntitySet Name="VISTA_COSTOS_FLUJO_INGR" EntityType="test_payc_contabilidadModel.VISTA_COSTOS_FLUJO_INGR" />
@@ -4410,18 +4346,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <EntitySet Name="VISTA_SALARIO_INCREMENTOS_TEMP" EntityType="test_payc_contabilidadModel.VISTA_SALARIO_INCREMENTOS_TEMP" />
           <EntitySet Name="VISTA_TEMP" EntityType="test_payc_contabilidadModel.VISTA_TEMP" />
           <EntitySet Name="VISTA_USUARIOS_AttendanceDB" EntityType="test_payc_contabilidadModel.VISTA_USUARIOS_AttendanceDB" />
-          <AssociationSet Name="FK_ACUERDOS_PAGO_ENTREGAB_ESTADOS_ACUER_PAG_ENTREG" Association="test_payc_contabilidadModel.FK_ACUERDOS_PAGO_ENTREGAB_ESTADOS_ACUER_PAG_ENTREG">
-            <End Role="ESTADOS_ACUER_PAG_ENTREG" EntitySet="ESTADOS_ACUER_PAG_ENTREG" />
-            <End Role="ACUERDOS_PAGO_ENTREGAB" EntitySet="ACUERDOS_PAGO_ENTREGAB" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GESTION_ENTREGABLES_ACUERDOS_PAGO_ENTREGAB" Association="test_payc_contabilidadModel.FK_GESTION_ENTREGABLES_ACUERDOS_PAGO_ENTREGAB">
-            <End Role="ACUERDOS_PAGO_ENTREGAB" EntitySet="ACUERDOS_PAGO_ENTREGAB" />
-            <End Role="GESTION_ENTREGABLES" EntitySet="GESTION_ENTREGABLES" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ASIGNACION_CARTERA_CARTERA" Association="test_payc_contabilidadModel.FK_ASIGNACION_CARTERA_CARTERA">
-            <End Role="CARTERA" EntitySet="CARTERA" />
-            <End Role="ASIGNACION_CARTERA" EntitySet="ASIGNACION_CARTERA" />
-          </AssociationSet>
           <AssociationSet Name="FK_COLABORADORES_CARGOS" Association="test_payc_contabilidadModel.FK_COLABORADORES_CARGOS">
             <End Role="CARGOS" EntitySet="CARGOS" />
             <End Role="COLABORADORES" EntitySet="COLABORADORES" />
@@ -4434,18 +4358,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
             <End Role="CARGOS" EntitySet="CARGOS" />
             <End Role="ROL_CARGO_ORDEN" EntitySet="ROL_CARGO_ORDEN" />
           </AssociationSet>
-          <AssociationSet Name="FK_CARTERA_ESTADOS_CARTERA" Association="test_payc_contabilidadModel.FK_CARTERA_ESTADOS_CARTERA">
-            <End Role="ESTADOS_CARTERA" EntitySet="ESTADOS_CARTERA" />
-            <End Role="CARTERA" EntitySet="CARTERA" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CARTERA_FACTURAS" Association="test_payc_contabilidadModel.FK_CARTERA_FACTURAS">
-            <End Role="FACTURAS" EntitySet="FACTURAS" />
-            <End Role="CARTERA" EntitySet="CARTERA" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GESTION_CARTERA_CARTERA" Association="test_payc_contabilidadModel.FK_GESTION_CARTERA_CARTERA">
-            <End Role="CARTERA" EntitySet="CARTERA" />
-            <End Role="GESTION_CARTERA" EntitySet="GESTION_CARTERA" />
-          </AssociationSet>
           <AssociationSet Name="FK_DETALLE_FACTURA_ITEM_CAUSA_ESTADO" Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_CAUSA_ESTADO">
             <End Role="CAUSA_ESTADO" EntitySet="CAUSA_ESTADO" />
             <End Role="DETALLE_FACTURA_ITEM" EntitySet="DETALLE_FACTURA_ITEM" />
@@ -4457,14 +4369,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <AssociationSet Name="FK_CENTROS_COSTOS_ESTADOS_CECO" Association="test_payc_contabilidadModel.FK_CENTROS_COSTOS_ESTADOS_CECO">
             <End Role="ESTADOS_CECO" EntitySet="ESTADOS_CECO" />
             <End Role="CENTROS_COSTOS" EntitySet="CENTROS_COSTOS" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CONTRATOS_CLIENTES" Association="test_payc_contabilidadModel.FK_CONTRATOS_CLIENTES">
-            <End Role="CLIENTES" EntitySet="CLIENTES" />
-            <End Role="CONTRATOS" EntitySet="CONTRATOS" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EMAIL_CLIENTES_CLIENTES" Association="test_payc_contabilidadModel.FK_EMAIL_CLIENTES_CLIENTES">
-            <End Role="CLIENTES" EntitySet="CLIENTES" />
-            <End Role="EMAIL_CLIENTES" EntitySet="EMAIL_CLIENTES" />
           </AssociationSet>
           <AssociationSet Name="FK_COLABORADORES_ESTADO_COLABORADOR" Association="test_payc_contabilidadModel.FK_COLABORADORES_ESTADO_COLABORADOR">
             <End Role="ESTADO_COLABORADOR" EntitySet="ESTADO_COLABORADOR" />
@@ -4521,78 +4425,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <AssociationSet Name="FK_CONTRATO_COLABORADOR_ROL" Association="test_payc_contabilidadModel.FK_CONTRATO_COLABORADOR_ROL">
             <End Role="ROLES" EntitySet="ROLES" />
             <End Role="CONTRATO_COLABORADOR" EntitySet="CONTRATO_COLABORADOR" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CONTRATO_PROYECTO_CONTRATOS" Association="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_CONTRATOS">
-            <End Role="CONTRATOS" EntitySet="CONTRATOS" />
-            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CONTRATO_PROYECTO_ESTADO_ORDEN_SERVICIO" Association="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_ESTADO_ORDEN_SERVICIO">
-            <End Role="ESTADOS_ORDEN_SERVICIO" EntitySet="ESTADOS_ORDEN_SERVICIO" />
-            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CONTRATO_PROYECTO_FORMAS_PAGO" Association="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_FORMAS_PAGO">
-            <End Role="FORMAS_PAGO" EntitySet="FORMAS_PAGO" />
-            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CONTRATO_PROYECTO_PROYECTOS" Association="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_PROYECTOS">
-            <End Role="PROYECTOS" EntitySet="PROYECTOS" />
-            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CONTRATOS_CONDICIONES_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_CONTRATOS_CONDICIONES_CONTRATO_PROYECTO">
-            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
-            <End Role="CONTRATOS_CONDICIONES" EntitySet="CONTRATOS_CONDICIONES" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CONTRATOS_ROL_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_CONTRATOS_ROL_CONTRATO_PROYECTO">
-            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
-            <End Role="CONTRATOS_ROL" EntitySet="CONTRATOS_ROL" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DETALLE_FACTURA_ITEM_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_CONTRATO_PROYECTO">
-            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
-            <End Role="DETALLE_FACTURA_ITEM" EntitySet="DETALLE_FACTURA_ITEM" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DETALLE_FACTURA_PERS_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_CONTRATO_PROYECTO">
-            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
-            <End Role="DETALLE_FACTURA_PERS" EntitySet="DETALLE_FACTURA_PERS" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FACTURAS_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_FACTURAS_CONTRATO_PROYECTO">
-            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
-            <End Role="FACTURAS" EntitySet="FACTURAS" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO">
-            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
-            <End Role="FLUJO_INGRESOS_ITEMS" EntitySet="FLUJO_INGRESOS_ITEMS" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO">
-            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
-            <End Role="FLUJO_INGRESOS_ROL" EntitySet="FLUJO_INGRESOS_ROL" />
-          </AssociationSet>
-          <AssociationSet Name="FK_INCREMENTO_ORDEN_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_INCREMENTO_ORDEN_CONTRATO_PROYECTO">
-            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
-            <End Role="INCREMENTO_ORDEN" EntitySet="INCREMENTO_ORDEN" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ITEMS_CONTRATO_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_CONTRATO_PROYECTO">
-            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
-            <End Role="ITEMS_CONTRATO" EntitySet="ITEMS_CONTRATO" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ITEMS_ROLES_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_ITEMS_ROLES_CONTRATO_PROYECTO">
-            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
-            <End Role="ITEMS_ROLES" EntitySet="ITEMS_ROLES" />
-          </AssociationSet>
-          <AssociationSet Name="FK_REGISTRO_ITEMS_OTROS_COSTOS_CONTRATO_CONDICION" Association="test_payc_contabilidadModel.FK_REGISTRO_ITEMS_OTROS_COSTOS_CONTRATO_CONDICION">
-            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
-            <End Role="REGISTRO_ITEMS_OTROS_COSTOS" EntitySet="REGISTRO_ITEMS_OTROS_COSTOS" />
-          </AssociationSet>
-          <AssociationSet Name="FK_REGISTRO_NOVEDADES_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_CONTRATO_PROYECTO">
-            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
-            <End Role="REGISTRO_NOVEDADES" EntitySet="REGISTRO_NOVEDADES" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RELACION_ROL_CARGO_ORDEN_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_RELACION_ROL_CARGO_ORDEN_CONTRATO_PROYECTO">
-            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
-            <End Role="ROL_CARGO_ORDEN" EntitySet="ROL_CARGO_ORDEN" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TAG_ORDEN_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_TAG_ORDEN_CONTRATO_PROYECTO">
-            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
-            <End Role="TAG_ORDEN" EntitySet="TAG_ORDEN" />
           </AssociationSet>
           <AssociationSet Name="FK_CONTRATO_ROL_CARGO_CONTRATOS_ROL" Association="test_payc_contabilidadModel.FK_CONTRATO_ROL_CARGO_CONTRATOS_ROL">
             <End Role="CONTRATOS_ROL" EntitySet="CONTRATOS_ROL" />
@@ -4734,27 +4566,127 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
             <End Role="TIPOS_NOVEDAD" EntitySet="TIPOS_NOVEDAD" />
             <End Role="TIPOS_NOVEDAD_CONDICION" EntitySet="TIPOS_NOVEDAD_CONDICION" />
           </AssociationSet>
+          <EntitySet Name="CARTERA" EntityType="test_payc_contabilidadModel.CARTERA" />
+          <AssociationSet Name="FK_ASIGNACION_CARTERA_CARTERA" Association="test_payc_contabilidadModel.FK_ASIGNACION_CARTERA_CARTERA">
+            <End Role="CARTERA" EntitySet="CARTERA" />
+            <End Role="ASIGNACION_CARTERA" EntitySet="ASIGNACION_CARTERA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CARTERA_ESTADOS_CARTERA" Association="test_payc_contabilidadModel.FK_CARTERA_ESTADOS_CARTERA">
+            <End Role="ESTADOS_CARTERA" EntitySet="ESTADOS_CARTERA" />
+            <End Role="CARTERA" EntitySet="CARTERA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CARTERA_FACTURAS" Association="test_payc_contabilidadModel.FK_CARTERA_FACTURAS">
+            <End Role="FACTURAS" EntitySet="FACTURAS" />
+            <End Role="CARTERA" EntitySet="CARTERA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GESTION_CARTERA_CARTERA" Association="test_payc_contabilidadModel.FK_GESTION_CARTERA_CARTERA">
+            <End Role="CARTERA" EntitySet="CARTERA" />
+            <End Role="GESTION_CARTERA" EntitySet="GESTION_CARTERA" />
+          </AssociationSet>
+          <EntitySet Name="VISTA_CARTERA_INDEX" EntityType="test_payc_contabilidadModel.VISTA_CARTERA_INDEX" />
+          <EntitySet Name="VISTA_GESTION_CARTERA" EntityType="test_payc_contabilidadModel.VISTA_GESTION_CARTERA" />
+          <EntitySet Name="ACUERDOS_PAGO_ENTREGAB" EntityType="test_payc_contabilidadModel.ACUERDOS_PAGO_ENTREGAB" />
+          <EntitySet Name="ESTADOS_ACUER_PAG_ENTREG" EntityType="test_payc_contabilidadModel.ESTADOS_ACUER_PAG_ENTREG" />
+          <AssociationSet Name="FK_ACUERDOS_PAGO_ENTREGAB_CARTERA" Association="test_payc_contabilidadModel.FK_ACUERDOS_PAGO_ENTREGAB_CARTERA">
+            <End Role="CARTERA" EntitySet="CARTERA" />
+            <End Role="ACUERDOS_PAGO_ENTREGAB" EntitySet="ACUERDOS_PAGO_ENTREGAB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ACUERDOS_PAGO_ENTREGAB_ESTADOS_ACUER_PAG_ENTREG" Association="test_payc_contabilidadModel.FK_ACUERDOS_PAGO_ENTREGAB_ESTADOS_ACUER_PAG_ENTREG">
+            <End Role="ESTADOS_ACUER_PAG_ENTREG" EntitySet="ESTADOS_ACUER_PAG_ENTREG" />
+            <End Role="ACUERDOS_PAGO_ENTREGAB" EntitySet="ACUERDOS_PAGO_ENTREGAB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GESTION_ENTREGABLES_ACUERDOS_PAGO_ENTREGAB" Association="test_payc_contabilidadModel.FK_GESTION_ENTREGABLES_ACUERDOS_PAGO_ENTREGAB">
+            <End Role="ACUERDOS_PAGO_ENTREGAB" EntitySet="ACUERDOS_PAGO_ENTREGAB" />
+            <End Role="GESTION_ENTREGABLES" EntitySet="GESTION_ENTREGABLES" />
+          </AssociationSet>
+          <EntitySet Name="TIPOS_ACUERDO" EntityType="test_payc_contabilidadModel.TIPOS_ACUERDO" />
+          <AssociationSet Name="FK_ACUERDOS_PAGO_ENTREGAB_TIPOS_ACUERDO" Association="test_payc_contabilidadModel.FK_ACUERDOS_PAGO_ENTREGAB_TIPOS_ACUERDO">
+            <End Role="TIPOS_ACUERDO" EntitySet="TIPOS_ACUERDO" />
+            <End Role="ACUERDOS_PAGO_ENTREGAB" EntitySet="ACUERDOS_PAGO_ENTREGAB" />
+          </AssociationSet>
+          <EntitySet Name="CONTRATO_PROYECTO" EntityType="test_payc_contabilidadModel.CONTRATO_PROYECTO" />
+          <AssociationSet Name="FK_CONTRATO_PROYECTO_CONTRATOS" Association="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_CONTRATOS">
+            <End Role="CONTRATOS" EntitySet="CONTRATOS" />
+            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_PROYECTO_ESTADO_ORDEN_SERVICIO" Association="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_ESTADO_ORDEN_SERVICIO">
+            <End Role="ESTADOS_ORDEN_SERVICIO" EntitySet="ESTADOS_ORDEN_SERVICIO" />
+            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_PROYECTO_FORMAS_PAGO" Association="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_FORMAS_PAGO">
+            <End Role="FORMAS_PAGO" EntitySet="FORMAS_PAGO" />
+            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTRATO_PROYECTO_PROYECTOS" Association="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_PROYECTOS">
+            <End Role="PROYECTOS" EntitySet="PROYECTOS" />
+            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTRATOS_CONDICIONES_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_CONTRATOS_CONDICIONES_CONTRATO_PROYECTO">
+            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+            <End Role="CONTRATOS_CONDICIONES" EntitySet="CONTRATOS_CONDICIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONTRATOS_ROL_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_CONTRATOS_ROL_CONTRATO_PROYECTO">
+            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+            <End Role="CONTRATOS_ROL" EntitySet="CONTRATOS_ROL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLE_FACTURA_ITEM_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_CONTRATO_PROYECTO">
+            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+            <End Role="DETALLE_FACTURA_ITEM" EntitySet="DETALLE_FACTURA_ITEM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLE_FACTURA_PERS_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_CONTRATO_PROYECTO">
+            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+            <End Role="DETALLE_FACTURA_PERS" EntitySet="DETALLE_FACTURA_PERS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURAS_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_FACTURAS_CONTRATO_PROYECTO">
+            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+            <End Role="FACTURAS" EntitySet="FACTURAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO">
+            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+            <End Role="FLUJO_INGRESOS_ITEMS" EntitySet="FLUJO_INGRESOS_ITEMS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO">
+            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+            <End Role="FLUJO_INGRESOS_ROL" EntitySet="FLUJO_INGRESOS_ROL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_INCREMENTO_ORDEN_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_INCREMENTO_ORDEN_CONTRATO_PROYECTO">
+            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+            <End Role="INCREMENTO_ORDEN" EntitySet="INCREMENTO_ORDEN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ITEMS_CONTRATO_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_CONTRATO_PROYECTO">
+            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+            <End Role="ITEMS_CONTRATO" EntitySet="ITEMS_CONTRATO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ITEMS_ROLES_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_ITEMS_ROLES_CONTRATO_PROYECTO">
+            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+            <End Role="ITEMS_ROLES" EntitySet="ITEMS_ROLES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REGISTRO_ITEMS_OTROS_COSTOS_CONTRATO_CONDICION" Association="test_payc_contabilidadModel.FK_REGISTRO_ITEMS_OTROS_COSTOS_CONTRATO_CONDICION">
+            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+            <End Role="REGISTRO_ITEMS_OTROS_COSTOS" EntitySet="REGISTRO_ITEMS_OTROS_COSTOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_REGISTRO_NOVEDADES_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_CONTRATO_PROYECTO">
+            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+            <End Role="REGISTRO_NOVEDADES" EntitySet="REGISTRO_NOVEDADES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RELACION_ROL_CARGO_ORDEN_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_RELACION_ROL_CARGO_ORDEN_CONTRATO_PROYECTO">
+            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+            <End Role="ROL_CARGO_ORDEN" EntitySet="ROL_CARGO_ORDEN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TAG_ORDEN_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_TAG_ORDEN_CONTRATO_PROYECTO">
+            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+            <End Role="TAG_ORDEN" EntitySet="TAG_ORDEN" />
+          </AssociationSet>
+          <EntitySet Name="CLIENTES" EntityType="test_payc_contabilidadModel.CLIENTES" />
+          <AssociationSet Name="FK_CONTRATOS_CLIENTES" Association="test_payc_contabilidadModel.FK_CONTRATOS_CLIENTES">
+            <End Role="CLIENTES" EntitySet="CLIENTES" />
+            <End Role="CONTRATOS" EntitySet="CONTRATOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EMAIL_CLIENTES_CLIENTES" Association="test_payc_contabilidadModel.FK_EMAIL_CLIENTES_CLIENTES">
+            <End Role="CLIENTES" EntitySet="CLIENTES" />
+            <End Role="EMAIL_CLIENTES" EntitySet="EMAIL_CLIENTES" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="ACUERDOS_PAGO_ENTREGAB">
-          <Key>
-            <PropertyRef Name="COD_ACUERDO_PAGO" />
-          </Key>
-          <Property Name="COD_ACUERDO_PAGO" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TIPO_ACUERDO" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="COD_CARTERA" Type="Int64" Nullable="false" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="3000" FixedLength="false" Unicode="false" />
-          <Property Name="ESTADO" Type="Int64" Nullable="false" />
-          <Property Name="FECHA_REGISTRO" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="FECHA_ACUERDO" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="SE_NOTIFICO" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="FECHA_NOTIFICACION" Type="DateTime" Precision="0" />
-          <Property Name="APROBADO" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="COMENTARIOS" Type="String" MaxLength="3000" FixedLength="false" Unicode="false" />
-          <Property Name="VALOR" Type="Int64" />
-          <NavigationProperty Name="ESTADOS_ACUER_PAG_ENTREG" Relationship="test_payc_contabilidadModel.FK_ACUERDOS_PAGO_ENTREGAB_ESTADOS_ACUER_PAG_ENTREG" FromRole="ACUERDOS_PAGO_ENTREGAB" ToRole="ESTADOS_ACUER_PAG_ENTREG" />
-          <NavigationProperty Name="GESTION_ENTREGABLES" Relationship="test_payc_contabilidadModel.FK_GESTION_ENTREGABLES_ACUERDOS_PAGO_ENTREGAB" FromRole="ACUERDOS_PAGO_ENTREGAB" ToRole="GESTION_ENTREGABLES" />
-        </EntityType>
         <EntityType Name="ASIGNACION_CARTERA">
           <Key>
             <PropertyRef Name="COD_ASIGN_CARTERA" />
@@ -4775,18 +4707,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <NavigationProperty Name="CONTRATO_ROL_CARGO" Relationship="test_payc_contabilidadModel.FK_CONTRATO_ROL_CARGO_CARGOS" FromRole="CARGOS" ToRole="CONTRATO_ROL_CARGO" />
           <NavigationProperty Name="ROL_CARGO_ORDEN" Relationship="test_payc_contabilidadModel.FK_RELACION_ROL_CARGO_ORDEN_CARGOS" FromRole="CARGOS" ToRole="ROL_CARGO_ORDEN" />
         </EntityType>
-        <EntityType Name="CARTERA">
-          <Key>
-            <PropertyRef Name="COD_CARTERA" />
-          </Key>
-          <Property Name="COD_CARTERA" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="COD_FACTURA" Type="Int64" Nullable="false" />
-          <Property Name="ESTADO_CARTERA" Type="Int64" />
-          <NavigationProperty Name="ASIGNACION_CARTERA" Relationship="test_payc_contabilidadModel.FK_ASIGNACION_CARTERA_CARTERA" FromRole="CARTERA" ToRole="ASIGNACION_CARTERA" />
-          <NavigationProperty Name="ESTADOS_CARTERA" Relationship="test_payc_contabilidadModel.FK_CARTERA_ESTADOS_CARTERA" FromRole="CARTERA" ToRole="ESTADOS_CARTERA" />
-          <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_CARTERA_FACTURAS" FromRole="CARTERA" ToRole="FACTURAS" />
-          <NavigationProperty Name="GESTION_CARTERA" Relationship="test_payc_contabilidadModel.FK_GESTION_CARTERA_CARTERA" FromRole="CARTERA" ToRole="GESTION_CARTERA" />
-        </EntityType>
         <EntityType Name="CAUSA_ESTADO">
           <Key>
             <PropertyRef Name="COD_CAUSA_ESTADO" />
@@ -4805,22 +4725,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="COD_ESTADO_CECO" Type="Int64" />
           <NavigationProperty Name="ESTADOS_CECO" Relationship="test_payc_contabilidadModel.FK_CENTROS_COSTOS_ESTADOS_CECO" FromRole="CENTROS_COSTOS" ToRole="ESTADOS_CECO" />
-        </EntityType>
-        <EntityType Name="CLIENTES">
-          <Key>
-            <PropertyRef Name="COD_CLIENTE" />
-          </Key>
-          <Property Name="COD_CLIENTE" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="NIT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DIRECCION_CLIENTE" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="DIRECCION_FACTURACION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="CONTACTO_CONTRATANTE" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="CONTACTO_FACTURACION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="TELEFONO_CLIENTE" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="TELEFONO_FACTURACION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CONTRATOS" Relationship="test_payc_contabilidadModel.FK_CONTRATOS_CLIENTES" FromRole="CLIENTES" ToRole="CONTRATOS" />
-          <NavigationProperty Name="EMAIL_CLIENTES" Relationship="test_payc_contabilidadModel.FK_EMAIL_CLIENTES_CLIENTES" FromRole="CLIENTES" ToRole="EMAIL_CLIENTES" />
         </EntityType>
         <EntityType Name="COLABORADORES">
           <Key>
@@ -4897,40 +4801,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <NavigationProperty Name="COLABORADORES" Relationship="test_payc_contabilidadModel.FK_CONTRATO_COLABORADOR_COLABORADOR" FromRole="CONTRATO_COLABORADOR" ToRole="COLABORADORES" />
           <NavigationProperty Name="ROLES" Relationship="test_payc_contabilidadModel.FK_CONTRATO_COLABORADOR_ROL" FromRole="CONTRATO_COLABORADOR" ToRole="ROLES" />
         </EntityType>
-        <EntityType Name="CONTRATO_PROYECTO">
-          <Key>
-            <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-          </Key>
-          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="COD_CONTRATO" Type="Int64" />
-          <Property Name="COD_PROYECTO" Type="Int64" />
-          <Property Name="COD_FORMA_PAGO" Type="Int64" />
-          <Property Name="COMPLETA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="MODIFICADO_POR" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="FECHA_ULTIMA_MODIFICACION" Type="DateTime" Precision="0" />
-          <Property Name="CREADO_POR" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="FECHA_CREACION" Type="DateTime" Precision="0" />
-          <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="Int64" />
-          <NavigationProperty Name="CONTRATOS" Relationship="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_CONTRATOS" FromRole="CONTRATO_PROYECTO" ToRole="CONTRATOS" />
-          <NavigationProperty Name="ESTADOS_ORDEN_SERVICIO" Relationship="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_ESTADO_ORDEN_SERVICIO" FromRole="CONTRATO_PROYECTO" ToRole="ESTADOS_ORDEN_SERVICIO" />
-          <NavigationProperty Name="FORMAS_PAGO" Relationship="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_FORMAS_PAGO" FromRole="CONTRATO_PROYECTO" ToRole="FORMAS_PAGO" />
-          <NavigationProperty Name="PROYECTOS" Relationship="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_PROYECTOS" FromRole="CONTRATO_PROYECTO" ToRole="PROYECTOS" />
-          <NavigationProperty Name="CONTRATOS_CONDICIONES" Relationship="test_payc_contabilidadModel.FK_CONTRATOS_CONDICIONES_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="CONTRATOS_CONDICIONES" />
-          <NavigationProperty Name="CONTRATOS_ROL" Relationship="test_payc_contabilidadModel.FK_CONTRATOS_ROL_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="CONTRATOS_ROL" />
-          <NavigationProperty Name="DETALLE_FACTURA_ITEM" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="DETALLE_FACTURA_ITEM" />
-          <NavigationProperty Name="DETALLE_FACTURA_PERS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="DETALLE_FACTURA_PERS" />
-          <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_FACTURAS_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="FACTURAS" />
-          <NavigationProperty Name="FLUJO_INGRESOS_ITEMS" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="FLUJO_INGRESOS_ITEMS" />
-          <NavigationProperty Name="FLUJO_INGRESOS_ROL" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="FLUJO_INGRESOS_ROL" />
-          <NavigationProperty Name="INCREMENTO_ORDEN" Relationship="test_payc_contabilidadModel.FK_INCREMENTO_ORDEN_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="INCREMENTO_ORDEN" />
-          <NavigationProperty Name="ITEMS_CONTRATO" Relationship="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="ITEMS_CONTRATO" />
-          <NavigationProperty Name="ITEMS_ROLES" Relationship="test_payc_contabilidadModel.FK_ITEMS_ROLES_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="ITEMS_ROLES" />
-          <NavigationProperty Name="REGISTRO_ITEMS_OTROS_COSTOS" Relationship="test_payc_contabilidadModel.FK_REGISTRO_ITEMS_OTROS_COSTOS_CONTRATO_CONDICION" FromRole="CONTRATO_PROYECTO" ToRole="REGISTRO_ITEMS_OTROS_COSTOS" />
-          <NavigationProperty Name="REGISTRO_NOVEDADES" Relationship="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="REGISTRO_NOVEDADES" />
-          <NavigationProperty Name="ROL_CARGO_ORDEN" Relationship="test_payc_contabilidadModel.FK_RELACION_ROL_CARGO_ORDEN_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="ROL_CARGO_ORDEN" />
-          <NavigationProperty Name="TAG_ORDEN" Relationship="test_payc_contabilidadModel.FK_TAG_ORDEN_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="TAG_ORDEN" />
-        </EntityType>
         <EntityType Name="CONTRATO_ROL_CARGO">
           <Key>
             <PropertyRef Name="COD_CONTRATO_ROL_CARGO" />
@@ -4956,8 +4826,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <Property Name="ORDEN_SERVICIO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="RUTA_DOCUMENTO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="COD_CONTRATO_PROYECTO_1" Type="Int64" />
-          <NavigationProperty Name="CLIENTES" Relationship="test_payc_contabilidadModel.FK_CONTRATOS_CLIENTES" FromRole="CONTRATOS" ToRole="CLIENTES" />
           <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_CONTRATOS" FromRole="CONTRATOS" ToRole="CONTRATO_PROYECTO" />
+          <NavigationProperty Name="CLIENTES" Relationship="test_payc_contabilidadModel.FK_CONTRATOS_CLIENTES" FromRole="CONTRATOS" ToRole="CLIENTES" />
         </EntityType>
         <EntityType Name="CONTRATOS_CONDICIONES">
           <Key>
@@ -4969,9 +4839,9 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <Property Name="VIGENTE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="FECHA_INCLUSION" Type="DateTime" Precision="0" />
           <Property Name="FECHA_EXCLUSION" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_CONTRATOS_CONDICIONES_CONTRATO_PROYECTO" FromRole="CONTRATOS_CONDICIONES" ToRole="CONTRATO_PROYECTO" />
           <NavigationProperty Name="TIPO_CONDICION_CONTRACTUAL" Relationship="test_payc_contabilidadModel.FK_CONTRATOS_CONDICIONES_TIPO_CONDICION_CONTRACTUAL" FromRole="CONTRATOS_CONDICIONES" ToRole="TIPO_CONDICION_CONTRACTUAL" />
           <NavigationProperty Name="ENTREGABLES" Relationship="test_payc_contabilidadModel.FK_ENTREGABLES_CONTRATOS_CONDICIONES" FromRole="CONTRATOS_CONDICIONES" ToRole="ENTREGABLES" />
+          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_CONTRATOS_CONDICIONES_CONTRATO_PROYECTO" FromRole="CONTRATOS_CONDICIONES" ToRole="CONTRATO_PROYECTO" />
         </EntityType>
         <EntityType Name="CONTRATOS_ROL">
           <Key>
@@ -4994,9 +4864,9 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <Property Name="DIAS_FRACCION" Type="Int64" />
           <Property Name="COD_CONCEPTO_PSL" Type="Int64" />
           <NavigationProperty Name="CONCEPTOS" Relationship="test_payc_contabilidadModel.FK_CONTRATOS_ROL_CONCEPTOS" FromRole="CONTRATOS_ROL" ToRole="CONCEPTOS" />
-          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_CONTRATOS_ROL_CONTRATO_PROYECTO" FromRole="CONTRATOS_ROL" ToRole="CONTRATO_PROYECTO" />
           <NavigationProperty Name="CONTRATO_ROL_CARGO" Relationship="test_payc_contabilidadModel.FK_CONTRATO_ROL_CARGO_CONTRATOS_ROL" FromRole="CONTRATOS_ROL" ToRole="CONTRATO_ROL_CARGO" />
           <NavigationProperty Name="ROLES" Relationship="test_payc_contabilidadModel.FK_CONTRATO_ROL_ROL" FromRole="CONTRATOS_ROL" ToRole="ROLES" />
+          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_CONTRATOS_ROL_CONTRATO_PROYECTO" FromRole="CONTRATOS_ROL" ToRole="CONTRATO_PROYECTO" />
         </EntityType>
         <EntityType Name="DEBUG">
           <Key>
@@ -5026,12 +4896,12 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <Property Name="COD_GRUPO_FACTURA" Type="Int64" />
           <NavigationProperty Name="CAUSA_ESTADO" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_CAUSA_ESTADO" FromRole="DETALLE_FACTURA_ITEM" ToRole="CAUSA_ESTADO" />
           <NavigationProperty Name="CONCEPTOS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_CONCEPTOS" FromRole="DETALLE_FACTURA_ITEM" ToRole="CONCEPTOS" />
-          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_CONTRATO_PROYECTO" FromRole="DETALLE_FACTURA_ITEM" ToRole="CONTRATO_PROYECTO" />
           <NavigationProperty Name="ESTADOS_DETALLE" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_ESTADO_DETALLE" FromRole="DETALLE_FACTURA_ITEM" ToRole="ESTADOS_DETALLE" />
           <NavigationProperty Name="ESTADOS_FACTURAS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_ESTADOS_FACTURAS" FromRole="DETALLE_FACTURA_ITEM" ToRole="ESTADOS_FACTURAS" />
           <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FACTURAS" FromRole="DETALLE_FACTURA_ITEM" ToRole="FACTURAS" />
           <NavigationProperty Name="FORMAS_PAGO_FECHAS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FECHAS" FromRole="DETALLE_FACTURA_ITEM" ToRole="FORMAS_PAGO_FECHAS" />
           <NavigationProperty Name="ITEMS_CONTRATO" Relationship="test_payc_contabilidadModel.FK_detalle_factura_item_items" FromRole="DETALLE_FACTURA_ITEM" ToRole="ITEMS_CONTRATO" />
+          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_CONTRATO_PROYECTO" FromRole="DETALLE_FACTURA_ITEM" ToRole="CONTRATO_PROYECTO" />
         </EntityType>
         <EntityType Name="DETALLE_FACTURA_PERS">
           <Key>
@@ -5053,12 +4923,12 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <Property Name="COD_GRUPO_FACTURA" Type="Int64" />
           <NavigationProperty Name="CAUSA_ESTADO" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_CAUSA_ESTADO" FromRole="DETALLE_FACTURA_PERS" ToRole="CAUSA_ESTADO" />
           <NavigationProperty Name="CONCEPTOS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_CONCEPTOS" FromRole="DETALLE_FACTURA_PERS" ToRole="CONCEPTOS" />
-          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_CONTRATO_PROYECTO" FromRole="DETALLE_FACTURA_PERS" ToRole="CONTRATO_PROYECTO" />
           <NavigationProperty Name="ROLES" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_COLABORADOR" FromRole="DETALLE_FACTURA_PERS" ToRole="ROLES" />
           <NavigationProperty Name="ESTADOS_DETALLE" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_ESTADO_DETALLE" FromRole="DETALLE_FACTURA_PERS" ToRole="ESTADOS_DETALLE" />
           <NavigationProperty Name="ESTADOS_FACTURAS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_ESTADOS_FACTURAS" FromRole="DETALLE_FACTURA_PERS" ToRole="ESTADOS_FACTURAS" />
           <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_FACTURAS" FromRole="DETALLE_FACTURA_PERS" ToRole="FACTURAS" />
           <NavigationProperty Name="FORMAS_PAGO_FECHAS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_FECHAS" FromRole="DETALLE_FACTURA_PERS" ToRole="FORMAS_PAGO_FECHAS" />
+          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_CONTRATO_PROYECTO" FromRole="DETALLE_FACTURA_PERS" ToRole="CONTRATO_PROYECTO" />
         </EntityType>
         <EntityType Name="EMAIL_CLIENTES">
           <Key>
@@ -5089,14 +4959,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <Property Name="COD_ESTADO_COLABORADOR" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="COLABORADORES" Relationship="test_payc_contabilidadModel.FK_COLABORADORES_ESTADO_COLABORADOR" FromRole="ESTADO_COLABORADOR" ToRole="COLABORADORES" />
-        </EntityType>
-        <EntityType Name="ESTADOS_ACUER_PAG_ENTREG">
-          <Key>
-            <PropertyRef Name="COD_ESTADO_ACUER_PAG_ENTR" />
-          </Key>
-          <Property Name="COD_ESTADO_ACUER_PAG_ENTR" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="ACUERDOS_PAGO_ENTREGAB" Relationship="test_payc_contabilidadModel.FK_ACUERDOS_PAGO_ENTREGAB_ESTADOS_ACUER_PAG_ENTREG" FromRole="ESTADOS_ACUER_PAG_ENTREG" ToRole="ACUERDOS_PAGO_ENTREGAB" />
         </EntityType>
         <EntityType Name="ESTADOS_CARTERA">
           <Key>
@@ -5140,9 +5002,9 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           </Key>
           <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_ESTADO_ORDEN_SERVICIO" FromRole="ESTADOS_ORDEN_SERVICIO" ToRole="CONTRATO_PROYECTO" />
           <NavigationProperty Name="ESTADOS_ORDEN_SERVICIO1" Relationship="test_payc_contabilidadModel.FK_ESTADO_ORDEN_SERVICIO_ESTADO_ORDEN_SERVICIO" FromRole="ESTADOS_ORDEN_SERVICIO" ToRole="ESTADOS_ORDEN_SERVICIO1" />
           <NavigationProperty Name="ESTADOS_ORDEN_SERVICIO2" Relationship="test_payc_contabilidadModel.FK_ESTADO_ORDEN_SERVICIO_ESTADO_ORDEN_SERVICIO" FromRole="ESTADOS_ORDEN_SERVICIO1" ToRole="ESTADOS_ORDEN_SERVICIO" />
+          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_ESTADO_ORDEN_SERVICIO" FromRole="ESTADOS_ORDEN_SERVICIO" ToRole="CONTRATO_PROYECTO" />
         </EntityType>
         <EntityType Name="ESTUDIOS_COLABORADOR">
           <Key>
@@ -5170,13 +5032,13 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <Property Name="VALOR_CON_IMPUESTOS" Type="Decimal" Precision="30" Scale="2" />
           <Property Name="RANKING" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="COD_CONCEPTO_PSL" Type="Int64" />
-          <NavigationProperty Name="CARTERA" Relationship="test_payc_contabilidadModel.FK_CARTERA_FACTURAS" FromRole="FACTURAS" ToRole="CARTERA" />
           <NavigationProperty Name="CONCEPTOS" Relationship="test_payc_contabilidadModel.FK_FACTURAS_CONCEPTOS" FromRole="FACTURAS" ToRole="CONCEPTOS" />
-          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_FACTURAS_CONTRATO_PROYECTO" FromRole="FACTURAS" ToRole="CONTRATO_PROYECTO" />
           <NavigationProperty Name="DETALLE_FACTURA_ITEM" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FACTURAS" FromRole="FACTURAS" ToRole="DETALLE_FACTURA_ITEM" />
           <NavigationProperty Name="DETALLE_FACTURA_PERS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_FACTURAS" FromRole="FACTURAS" ToRole="DETALLE_FACTURA_PERS" />
           <NavigationProperty Name="ESTADOS_FACTURAS" Relationship="test_payc_contabilidadModel.FK_FACTURAS_ESTADOS_FACTURAS" FromRole="FACTURAS" ToRole="ESTADOS_FACTURAS" />
           <NavigationProperty Name="FORMAS_PAGO_FECHAS" Relationship="test_payc_contabilidadModel.FK_FACTURAS_FORMAS_PAGO_FECHAS" FromRole="FACTURAS" ToRole="FORMAS_PAGO_FECHAS" />
+          <NavigationProperty Name="CARTERA" Relationship="test_payc_contabilidadModel.FK_CARTERA_FACTURAS" FromRole="FACTURAS" ToRole="CARTERA" />
+          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_FACTURAS_CONTRATO_PROYECTO" FromRole="FACTURAS" ToRole="CONTRATO_PROYECTO" />
         </EntityType>
         <EntityType Name="FLUJO_INGRESOS_ITEMS">
           <Key>
@@ -5193,9 +5055,9 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <Property Name="ESTADO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="FECHA_REGISTRO" Type="DateTime" Precision="3" />
           <Property Name="USUARIO_REGISTRO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO" FromRole="FLUJO_INGRESOS_ITEMS" ToRole="CONTRATO_PROYECTO" />
           <NavigationProperty Name="FORMAS_PAGO_FECHAS" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_FECHAS" FromRole="FLUJO_INGRESOS_ITEMS" ToRole="FORMAS_PAGO_FECHAS" />
           <NavigationProperty Name="ITEMS_CONTRATO" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ITEMS" FromRole="FLUJO_INGRESOS_ITEMS" ToRole="ITEMS_CONTRATO" />
+          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO" FromRole="FLUJO_INGRESOS_ITEMS" ToRole="CONTRATO_PROYECTO" />
         </EntityType>
         <EntityType Name="FLUJO_INGRESOS_ROL">
           <Key>
@@ -5220,8 +5082,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           </Key>
           <Property Name="COD_FORMA_PAGO" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_FORMAS_PAGO" FromRole="FORMAS_PAGO" ToRole="CONTRATO_PROYECTO" />
           <NavigationProperty Name="FORMAS_PAGO_FECHAS" Relationship="test_payc_contabilidadModel.FK_FORMAS_PAGO_FECHAS_FORMA_PAGO" FromRole="FORMAS_PAGO" ToRole="FORMAS_PAGO_FECHAS" />
+          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_FORMAS_PAGO" FromRole="FORMAS_PAGO" ToRole="CONTRATO_PROYECTO" />
         </EntityType>
         <EntityType Name="FORMAS_PAGO_FECHAS">
           <Key>
@@ -5260,8 +5122,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <Property Name="TIPO_GESTION" Type="Int64" Nullable="false" />
           <Property Name="FECHA_GESTION" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CARTERA" Relationship="test_payc_contabilidadModel.FK_GESTION_CARTERA_CARTERA" FromRole="GESTION_CARTERA" ToRole="CARTERA" />
           <NavigationProperty Name="TIPOS_GESTION" Relationship="test_payc_contabilidadModel.FK_GESTION_CARTERA_TIPOS_GESTION" FromRole="GESTION_CARTERA" ToRole="TIPOS_GESTION" />
+          <NavigationProperty Name="CARTERA" Relationship="test_payc_contabilidadModel.FK_GESTION_CARTERA_CARTERA" FromRole="GESTION_CARTERA" ToRole="CARTERA" />
         </EntityType>
         <EntityType Name="GESTION_ENTREGABLES">
           <Key>
@@ -5328,13 +5190,13 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <Property Name="DIAS_FRACCION" Type="Int64" />
           <Property Name="COD_CONCEPTO_PSL" Type="Int64" />
           <NavigationProperty Name="CONCEPTOS" Relationship="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_CONCEPTOS" FromRole="ITEMS_CONTRATO" ToRole="CONCEPTOS" />
-          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_CONTRATO_PROYECTO" FromRole="ITEMS_CONTRATO" ToRole="CONTRATO_PROYECTO" />
           <NavigationProperty Name="DETALLE_FACTURA_ITEM" Relationship="test_payc_contabilidadModel.FK_detalle_factura_item_items" FromRole="ITEMS_CONTRATO" ToRole="DETALLE_FACTURA_ITEM" />
           <NavigationProperty Name="FLUJO_INGRESOS_ITEMS" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_ITEMS" FromRole="ITEMS_CONTRATO" ToRole="FLUJO_INGRESOS_ITEMS" />
           <NavigationProperty Name="ITEMS" Relationship="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_ITEMS" FromRole="ITEMS_CONTRATO" ToRole="ITEMS" />
           <NavigationProperty Name="TIPOS_REEMBOLSO" Relationship="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_TIPOS_REEMBOLSO" FromRole="ITEMS_CONTRATO" ToRole="TIPOS_REEMBOLSO" />
           <NavigationProperty Name="ITEMS_ROLES" Relationship="test_payc_contabilidadModel.FK_ITEMS_ROLES_ITEMS" FromRole="ITEMS_CONTRATO" ToRole="ITEMS_ROLES" />
           <NavigationProperty Name="REGISTRO_ITEMS_OTROS_COSTOS" Relationship="test_payc_contabilidadModel.FK_registro_items_otros_costos_items" FromRole="ITEMS_CONTRATO" ToRole="REGISTRO_ITEMS_OTROS_COSTOS" />
+          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_CONTRATO_PROYECTO" FromRole="ITEMS_CONTRATO" ToRole="CONTRATO_PROYECTO" />
         </EntityType>
         <EntityType Name="ITEMS_ROLES">
           <Key>
@@ -5344,9 +5206,9 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <Property Name="COD_ITEM_CONTRATO" Type="Int64" />
           <Property Name="COD_ROL" Type="Int64" />
           <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
-          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_ITEMS_ROLES_CONTRATO_PROYECTO" FromRole="ITEMS_ROLES" ToRole="CONTRATO_PROYECTO" />
           <NavigationProperty Name="ITEMS_CONTRATO" Relationship="test_payc_contabilidadModel.FK_ITEMS_ROLES_ITEMS" FromRole="ITEMS_ROLES" ToRole="ITEMS_CONTRATO" />
           <NavigationProperty Name="ROLES" Relationship="test_payc_contabilidadModel.FK_ITEMS_ROLES_ROLES" FromRole="ITEMS_ROLES" ToRole="ROLES" />
+          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_ITEMS_ROLES_CONTRATO_PROYECTO" FromRole="ITEMS_ROLES" ToRole="CONTRATO_PROYECTO" />
         </EntityType>
         <EntityType Name="PROYECTOS">
           <Key>
@@ -5370,9 +5232,9 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <Property Name="DIRECCION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="COD_TIPO_SERVICIO" Type="Int64" />
           <Property Name="COD_TIPO_OBRA" Type="Int64" />
-          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_PROYECTOS" FromRole="PROYECTOS" ToRole="CONTRATO_PROYECTO" />
           <NavigationProperty Name="TIPOS_OBRA" Relationship="test_payc_contabilidadModel.FK_PROYECTOS_TIPOS_OBRA" FromRole="PROYECTOS" ToRole="TIPOS_OBRA" />
           <NavigationProperty Name="TIPOS_SERVICIOS" Relationship="test_payc_contabilidadModel.FK_PROYECTOS_TIPOS_SERVICIOS" FromRole="PROYECTOS" ToRole="TIPOS_SERVICIOS" />
+          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_PROYECTOS" FromRole="PROYECTOS" ToRole="CONTRATO_PROYECTO" />
         </EntityType>
         <EntityType Name="REGISTRO_ITEMS_OTROS_COSTOS">
           <Key>
@@ -5389,9 +5251,9 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <Property Name="PARAMETRO3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PARAMETRO4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PARAMETRON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_REGISTRO_ITEMS_OTROS_COSTOS_CONTRATO_CONDICION" FromRole="REGISTRO_ITEMS_OTROS_COSTOS" ToRole="CONTRATO_PROYECTO" />
           <NavigationProperty Name="FORMAS_PAGO_FECHAS" Relationship="test_payc_contabilidadModel.FK_REGISTR_ITEMS_OTROS_COSTOS_FECHAS" FromRole="REGISTRO_ITEMS_OTROS_COSTOS" ToRole="FORMAS_PAGO_FECHAS" />
           <NavigationProperty Name="ITEMS_CONTRATO" Relationship="test_payc_contabilidadModel.FK_registro_items_otros_costos_items" FromRole="REGISTRO_ITEMS_OTROS_COSTOS" ToRole="ITEMS_CONTRATO" />
+          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_REGISTRO_ITEMS_OTROS_COSTOS_CONTRATO_CONDICION" FromRole="REGISTRO_ITEMS_OTROS_COSTOS" ToRole="CONTRATO_PROYECTO" />
         </EntityType>
         <EntityType Name="REGISTRO_NOVEDADES">
           <Key>
@@ -5405,9 +5267,9 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <Property Name="FECHA_INICIO_NOVEDAD" Type="DateTime" Precision="3" />
           <Property Name="FECHA_FIN_NOVEDAD" Type="DateTime" Precision="3" />
           <NavigationProperty Name="COLABORADORES" Relationship="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_COLABORADOR" FromRole="REGISTRO_NOVEDADES" ToRole="COLABORADORES" />
-          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_CONTRATO_PROYECTO" FromRole="REGISTRO_NOVEDADES" ToRole="CONTRATO_PROYECTO" />
           <NavigationProperty Name="FORMAS_PAGO_FECHAS" Relationship="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_FORMAS_PAGO_FECHAS" FromRole="REGISTRO_NOVEDADES" ToRole="FORMAS_PAGO_FECHAS" />
           <NavigationProperty Name="TIPOS_NOVEDAD" Relationship="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_TIPO_NOVEDAD" FromRole="REGISTRO_NOVEDADES" ToRole="TIPOS_NOVEDAD" />
+          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_CONTRATO_PROYECTO" FromRole="REGISTRO_NOVEDADES" ToRole="CONTRATO_PROYECTO" />
         </EntityType>
         <EntityType Name="ROL_CARGO_ORDEN">
           <Key>
@@ -5418,8 +5280,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <Property Name="COD_ROL" Type="Int64" />
           <Property Name="COD_CARGO" Type="Int64" />
           <NavigationProperty Name="CARGOS" Relationship="test_payc_contabilidadModel.FK_RELACION_ROL_CARGO_ORDEN_CARGOS" FromRole="ROL_CARGO_ORDEN" ToRole="CARGOS" />
-          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_RELACION_ROL_CARGO_ORDEN_CONTRATO_PROYECTO" FromRole="ROL_CARGO_ORDEN" ToRole="CONTRATO_PROYECTO" />
           <NavigationProperty Name="ROLES" Relationship="test_payc_contabilidadModel.FK_RELACION_ROL_CARGO_ORDEN_ROLES" FromRole="ROL_CARGO_ORDEN" ToRole="ROLES" />
+          <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_RELACION_ROL_CARGO_ORDEN_CONTRATO_PROYECTO" FromRole="ROL_CARGO_ORDEN" ToRole="CONTRATO_PROYECTO" />
         </EntityType>
         <EntityType Name="ROLES">
           <Key>
@@ -5788,10 +5650,10 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           </Key>
           <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" Nullable="false" />
           <Property Name="COD_ITEM_CONTRATO" Type="Int64" Nullable="false" />
-          <Property Name="VALOR_VARIABLE_UNITARIO" Type="Decimal" Precision="30" Scale="20" />
+          <Property Name="VALOR_VARIABLE_UNITARIO" Type="Decimal" Precision="38" Scale="9" />
           <Property Name="VALOR_VARIABLE" Type="Decimal" Precision="38" Scale="8" />
           <Property Name="VALOR_FIJO" Type="Decimal" Precision="38" Scale="8" />
-          <Property Name="VALOR_FIJO_UNITARIO" Type="Decimal" Nullable="false" Precision="30" Scale="20" />
+          <Property Name="VALOR_FIJO_UNITARIO" Type="Decimal" Nullable="false" Precision="38" Scale="9" />
           <Property Name="VALOR_TOTAL" Type="Decimal" Precision="38" Scale="8" />
           <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
         </EntityType>
@@ -6035,24 +5897,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <Property Name="COD_ITEM_CONTRATO" Type="Int64" Nullable="false" />
           <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
           <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
-          <Property Name="VALOR_TOTAL" Type="Decimal" Precision="38" Scale="20" />
-        </EntityType>
-        <EntityType Name="VISTA_CARTERA_INDEX">
-          <Key>
-            <PropertyRef Name="COD_CLIENTE" />
-            <PropertyRef Name="COD_FACTURA" />
-            <PropertyRef Name="COD_CARTERA" />
-          </Key>
-          <Property Name="COD_CLIENTE" Type="Int64" Nullable="false" />
-          <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="GESTOR" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="VALOR_SIN_IMPUESTOS" Type="Decimal" Precision="30" Scale="2" />
-          <Property Name="NUMERO_FACTURA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="FECHA_FACTURA" Type="DateTime" Precision="0" />
-          <Property Name="ESTADO_CARTERA" Type="Int64" />
-          <Property Name="RANKING" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="COD_FACTURA" Type="Int64" Nullable="false" />
-          <Property Name="COD_CARTERA" Type="Int64" Nullable="false" />
+          <Property Name="VALOR_TOTAL" Type="Decimal" Precision="38" Scale="9" />
         </EntityType>
         <EntityType Name="VISTA_CONTRATO_PROYECTO_FACTURAS">
           <Key>
@@ -6621,42 +6466,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
         </EntityType>
-        <Association Name="FK_ACUERDOS_PAGO_ENTREGAB_ESTADOS_ACUER_PAG_ENTREG">
-          <End Type="test_payc_contabilidadModel.ESTADOS_ACUER_PAG_ENTREG" Role="ESTADOS_ACUER_PAG_ENTREG" Multiplicity="1" />
-          <End Type="test_payc_contabilidadModel.ACUERDOS_PAGO_ENTREGAB" Role="ACUERDOS_PAGO_ENTREGAB" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ESTADOS_ACUER_PAG_ENTREG">
-              <PropertyRef Name="COD_ESTADO_ACUER_PAG_ENTR" />
-            </Principal>
-            <Dependent Role="ACUERDOS_PAGO_ENTREGAB">
-              <PropertyRef Name="ESTADO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GESTION_ENTREGABLES_ACUERDOS_PAGO_ENTREGAB">
-          <End Type="test_payc_contabilidadModel.ACUERDOS_PAGO_ENTREGAB" Role="ACUERDOS_PAGO_ENTREGAB" Multiplicity="1" />
-          <End Type="test_payc_contabilidadModel.GESTION_ENTREGABLES" Role="GESTION_ENTREGABLES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ACUERDOS_PAGO_ENTREGAB">
-              <PropertyRef Name="COD_ACUERDO_PAGO" />
-            </Principal>
-            <Dependent Role="GESTION_ENTREGABLES">
-              <PropertyRef Name="COD_ACUERDO_PAGO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ASIGNACION_CARTERA_CARTERA">
-          <End Type="test_payc_contabilidadModel.CARTERA" Role="CARTERA" Multiplicity="1" />
-          <End Type="test_payc_contabilidadModel.ASIGNACION_CARTERA" Role="ASIGNACION_CARTERA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CARTERA">
-              <PropertyRef Name="COD_CARTERA" />
-            </Principal>
-            <Dependent Role="ASIGNACION_CARTERA">
-              <PropertyRef Name="COD_CARTERA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_COLABORADORES_CARGOS">
           <End Type="test_payc_contabilidadModel.CARGOS" Role="CARGOS" Multiplicity="0..1" />
           <End Type="test_payc_contabilidadModel.COLABORADORES" Role="COLABORADORES" Multiplicity="*" />
@@ -6693,42 +6502,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CARTERA_ESTADOS_CARTERA">
-          <End Type="test_payc_contabilidadModel.ESTADOS_CARTERA" Role="ESTADOS_CARTERA" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.CARTERA" Role="CARTERA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ESTADOS_CARTERA">
-              <PropertyRef Name="COD_ESTADO_CARTERA" />
-            </Principal>
-            <Dependent Role="CARTERA">
-              <PropertyRef Name="ESTADO_CARTERA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CARTERA_FACTURAS">
-          <End Type="test_payc_contabilidadModel.FACTURAS" Role="FACTURAS" Multiplicity="1" />
-          <End Type="test_payc_contabilidadModel.CARTERA" Role="CARTERA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FACTURAS">
-              <PropertyRef Name="COD_FACTURA" />
-            </Principal>
-            <Dependent Role="CARTERA">
-              <PropertyRef Name="COD_FACTURA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GESTION_CARTERA_CARTERA">
-          <End Type="test_payc_contabilidadModel.CARTERA" Role="CARTERA" Multiplicity="1" />
-          <End Type="test_payc_contabilidadModel.GESTION_CARTERA" Role="GESTION_CARTERA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CARTERA">
-              <PropertyRef Name="COD_CARTERA" />
-            </Principal>
-            <Dependent Role="GESTION_CARTERA">
-              <PropertyRef Name="COD_CARTERA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DETALLE_FACTURA_ITEM_CAUSA_ESTADO">
           <End Type="test_payc_contabilidadModel.CAUSA_ESTADO" Role="CAUSA_ESTADO" Multiplicity="0..1" />
           <End Type="test_payc_contabilidadModel.DETALLE_FACTURA_ITEM" Role="DETALLE_FACTURA_ITEM" Multiplicity="*" />
@@ -6762,30 +6535,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
             </Principal>
             <Dependent Role="CENTROS_COSTOS">
               <PropertyRef Name="COD_ESTADO_CECO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CONTRATOS_CLIENTES">
-          <End Type="test_payc_contabilidadModel.CLIENTES" Role="CLIENTES" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.CONTRATOS" Role="CONTRATOS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CLIENTES">
-              <PropertyRef Name="COD_CLIENTE" />
-            </Principal>
-            <Dependent Role="CONTRATOS">
-              <PropertyRef Name="COD_CLIENTE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EMAIL_CLIENTES_CLIENTES">
-          <End Type="test_payc_contabilidadModel.CLIENTES" Role="CLIENTES" Multiplicity="1" />
-          <End Type="test_payc_contabilidadModel.EMAIL_CLIENTES" Role="EMAIL_CLIENTES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CLIENTES">
-              <PropertyRef Name="COD_CLIENTE" />
-            </Principal>
-            <Dependent Role="EMAIL_CLIENTES">
-              <PropertyRef Name="COD_CLIENTE" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6954,222 +6703,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
             </Principal>
             <Dependent Role="CONTRATO_COLABORADOR">
               <PropertyRef Name="COD_ROL" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CONTRATO_PROYECTO_CONTRATOS">
-          <End Type="test_payc_contabilidadModel.CONTRATOS" Role="CONTRATOS" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CONTRATOS">
-              <PropertyRef Name="COD_CONTRATO" />
-            </Principal>
-            <Dependent Role="CONTRATO_PROYECTO">
-              <PropertyRef Name="COD_CONTRATO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CONTRATO_PROYECTO_ESTADO_ORDEN_SERVICIO">
-          <End Type="test_payc_contabilidadModel.ESTADOS_ORDEN_SERVICIO" Role="ESTADOS_ORDEN_SERVICIO" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ESTADOS_ORDEN_SERVICIO">
-              <PropertyRef Name="COD_ESTADO_ORDEN_SERVICIO" />
-            </Principal>
-            <Dependent Role="CONTRATO_PROYECTO">
-              <PropertyRef Name="COD_ESTADO_ORDEN_SERVICIO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CONTRATO_PROYECTO_FORMAS_PAGO">
-          <End Type="test_payc_contabilidadModel.FORMAS_PAGO" Role="FORMAS_PAGO" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FORMAS_PAGO">
-              <PropertyRef Name="COD_FORMA_PAGO" />
-            </Principal>
-            <Dependent Role="CONTRATO_PROYECTO">
-              <PropertyRef Name="COD_FORMA_PAGO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CONTRATO_PROYECTO_PROYECTOS">
-          <End Type="test_payc_contabilidadModel.PROYECTOS" Role="PROYECTOS" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PROYECTOS">
-              <PropertyRef Name="COD_PROYECTO" />
-            </Principal>
-            <Dependent Role="CONTRATO_PROYECTO">
-              <PropertyRef Name="COD_PROYECTO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CONTRATOS_CONDICIONES_CONTRATO_PROYECTO">
-          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.CONTRATOS_CONDICIONES" Role="CONTRATOS_CONDICIONES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CONTRATO_PROYECTO">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Principal>
-            <Dependent Role="CONTRATOS_CONDICIONES">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CONTRATOS_ROL_CONTRATO_PROYECTO">
-          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.CONTRATOS_ROL" Role="CONTRATOS_ROL" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CONTRATO_PROYECTO">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Principal>
-            <Dependent Role="CONTRATOS_ROL">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DETALLE_FACTURA_ITEM_CONTRATO_PROYECTO">
-          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.DETALLE_FACTURA_ITEM" Role="DETALLE_FACTURA_ITEM" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CONTRATO_PROYECTO">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Principal>
-            <Dependent Role="DETALLE_FACTURA_ITEM">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DETALLE_FACTURA_PERS_CONTRATO_PROYECTO">
-          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.DETALLE_FACTURA_PERS" Role="DETALLE_FACTURA_PERS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CONTRATO_PROYECTO">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Principal>
-            <Dependent Role="DETALLE_FACTURA_PERS">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FACTURAS_CONTRATO_PROYECTO">
-          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.FACTURAS" Role="FACTURAS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CONTRATO_PROYECTO">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Principal>
-            <Dependent Role="FACTURAS">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO">
-          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS" Role="FLUJO_INGRESOS_ITEMS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CONTRATO_PROYECTO">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Principal>
-            <Dependent Role="FLUJO_INGRESOS_ITEMS">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO">
-          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ROL" Role="FLUJO_INGRESOS_ROL" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CONTRATO_PROYECTO">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Principal>
-            <Dependent Role="FLUJO_INGRESOS_ROL">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_INCREMENTO_ORDEN_CONTRATO_PROYECTO">
-          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.INCREMENTO_ORDEN" Role="INCREMENTO_ORDEN" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CONTRATO_PROYECTO">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Principal>
-            <Dependent Role="INCREMENTO_ORDEN">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ITEMS_CONTRATO_CONTRATO_PROYECTO">
-          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.ITEMS_CONTRATO" Role="ITEMS_CONTRATO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CONTRATO_PROYECTO">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Principal>
-            <Dependent Role="ITEMS_CONTRATO">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ITEMS_ROLES_CONTRATO_PROYECTO">
-          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.ITEMS_ROLES" Role="ITEMS_ROLES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CONTRATO_PROYECTO">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Principal>
-            <Dependent Role="ITEMS_ROLES">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_REGISTRO_ITEMS_OTROS_COSTOS_CONTRATO_CONDICION">
-          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.REGISTRO_ITEMS_OTROS_COSTOS" Role="REGISTRO_ITEMS_OTROS_COSTOS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CONTRATO_PROYECTO">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Principal>
-            <Dependent Role="REGISTRO_ITEMS_OTROS_COSTOS">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_REGISTRO_NOVEDADES_CONTRATO_PROYECTO">
-          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.REGISTRO_NOVEDADES" Role="REGISTRO_NOVEDADES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CONTRATO_PROYECTO">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Principal>
-            <Dependent Role="REGISTRO_NOVEDADES">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RELACION_ROL_CARGO_ORDEN_CONTRATO_PROYECTO">
-          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.ROL_CARGO_ORDEN" Role="ROL_CARGO_ORDEN" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CONTRATO_PROYECTO">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Principal>
-            <Dependent Role="ROL_CARGO_ORDEN">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TAG_ORDEN_CONTRATO_PROYECTO">
-          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
-          <End Type="test_payc_contabilidadModel.TAG_ORDEN" Role="TAG_ORDEN" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CONTRATO_PROYECTO">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            </Principal>
-            <Dependent Role="TAG_ORDEN">
-              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -7593,31 +7126,482 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CARTERA">
+          <Key>
+            <PropertyRef Name="COD_CARTERA" />
+          </Key>
+          <Property Name="COD_CARTERA" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COD_FACTURA" Type="Int64" />
+          <Property Name="ESTADO_CARTERA" Type="Int64" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ASIGNACION_CARTERA" Relationship="test_payc_contabilidadModel.FK_ASIGNACION_CARTERA_CARTERA" FromRole="CARTERA" ToRole="ASIGNACION_CARTERA" />
+          <NavigationProperty Name="ESTADOS_CARTERA" Relationship="test_payc_contabilidadModel.FK_CARTERA_ESTADOS_CARTERA" FromRole="CARTERA" ToRole="ESTADOS_CARTERA" />
+          <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_CARTERA_FACTURAS" FromRole="CARTERA" ToRole="FACTURAS" />
+          <NavigationProperty Name="GESTION_CARTERA" Relationship="test_payc_contabilidadModel.FK_GESTION_CARTERA_CARTERA" FromRole="CARTERA" ToRole="GESTION_CARTERA" />
+          <NavigationProperty Name="ACUERDOS_PAGO_ENTREGAB" Relationship="test_payc_contabilidadModel.FK_ACUERDOS_PAGO_ENTREGAB_CARTERA" FromRole="CARTERA" ToRole="ACUERDOS_PAGO_ENTREGAB" />
+        </EntityType>
+        <Association Name="FK_ASIGNACION_CARTERA_CARTERA">
+          <End Type="test_payc_contabilidadModel.CARTERA" Role="CARTERA" Multiplicity="1" />
+          <End Type="test_payc_contabilidadModel.ASIGNACION_CARTERA" Role="ASIGNACION_CARTERA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CARTERA">
+              <PropertyRef Name="COD_CARTERA" />
+            </Principal>
+            <Dependent Role="ASIGNACION_CARTERA">
+              <PropertyRef Name="COD_CARTERA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CARTERA_ESTADOS_CARTERA">
+          <End Type="test_payc_contabilidadModel.ESTADOS_CARTERA" Role="ESTADOS_CARTERA" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.CARTERA" Role="CARTERA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESTADOS_CARTERA">
+              <PropertyRef Name="COD_ESTADO_CARTERA" />
+            </Principal>
+            <Dependent Role="CARTERA">
+              <PropertyRef Name="ESTADO_CARTERA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CARTERA_FACTURAS">
+          <End Type="test_payc_contabilidadModel.FACTURAS" Role="FACTURAS" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.CARTERA" Role="CARTERA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FACTURAS">
+              <PropertyRef Name="COD_FACTURA" />
+            </Principal>
+            <Dependent Role="CARTERA">
+              <PropertyRef Name="COD_FACTURA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GESTION_CARTERA_CARTERA">
+          <End Type="test_payc_contabilidadModel.CARTERA" Role="CARTERA" Multiplicity="1" />
+          <End Type="test_payc_contabilidadModel.GESTION_CARTERA" Role="GESTION_CARTERA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CARTERA">
+              <PropertyRef Name="COD_CARTERA" />
+            </Principal>
+            <Dependent Role="GESTION_CARTERA">
+              <PropertyRef Name="COD_CARTERA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="VISTA_CARTERA_INDEX">
+          <Key>
+            <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+          </Key>
+          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" />
+          <Property Name="COD_CLIENTE" Type="Int64" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="GESTOR" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SALDO" Type="Decimal" Precision="38" Scale="2" />
+          <Property Name="FECHA_FACTURA" Type="DateTime" Precision="0" />
+          <Property Name="RANKING" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="VISTA_GESTION_CARTERA">
+          <Key>
+            <PropertyRef Name="COD_CARTERA" />
+          </Key>
+          <Property Name="COD_CARTERA" Type="Int64" Nullable="false" />
+          <Property Name="COD_FACTURA" Type="Int64" />
+          <Property Name="ESTADO_CARTERA" Type="Int64" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
+          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
+          <Property Name="NUMERO_FACTURA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_FACTURA" Type="DateTime" Precision="0" />
+          <Property Name="COD_ESTADO_FACTURA" Type="Int64" />
+          <Property Name="VALOR_SIN_IMPUESTOS" Type="Decimal" Precision="30" Scale="2" />
+          <Property Name="RANKING" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DIAS" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ACUERDOS_PAGO_ENTREGAB">
+          <Key>
+            <PropertyRef Name="COD_ACUERDO_PAGO" />
+          </Key>
+          <Property Name="COD_ACUERDO_PAGO" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COD_TIPO_ACUERDO" Type="Int64" />
+          <Property Name="COD_CARTERA" Type="Int64" />
+          <Property Name="UserName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="COD_ESTADO_ACUERDO" Type="Int64" />
+          <Property Name="FECHA_REGISTRO" Type="DateTime" Precision="0" />
+          <Property Name="FECHA_ACUERDO" Type="DateTime" Precision="0" />
+          <Property Name="APROBADO" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="COMENTARIOS" Type="String" MaxLength="3000" FixedLength="false" Unicode="false" />
+          <Property Name="VALOR" Type="Int64" />
+          <NavigationProperty Name="CARTERA" Relationship="test_payc_contabilidadModel.FK_ACUERDOS_PAGO_ENTREGAB_CARTERA" FromRole="ACUERDOS_PAGO_ENTREGAB" ToRole="CARTERA" />
+          <NavigationProperty Name="ESTADOS_ACUER_PAG_ENTREG" Relationship="test_payc_contabilidadModel.FK_ACUERDOS_PAGO_ENTREGAB_ESTADOS_ACUER_PAG_ENTREG" FromRole="ACUERDOS_PAGO_ENTREGAB" ToRole="ESTADOS_ACUER_PAG_ENTREG" />
+          <NavigationProperty Name="GESTION_ENTREGABLES" Relationship="test_payc_contabilidadModel.FK_GESTION_ENTREGABLES_ACUERDOS_PAGO_ENTREGAB" FromRole="ACUERDOS_PAGO_ENTREGAB" ToRole="GESTION_ENTREGABLES" />
+          <NavigationProperty Name="TIPOS_ACUERDO" Relationship="test_payc_contabilidadModel.FK_ACUERDOS_PAGO_ENTREGAB_TIPOS_ACUERDO" FromRole="ACUERDOS_PAGO_ENTREGAB" ToRole="TIPOS_ACUERDO" />
+        </EntityType>
+        <EntityType Name="ESTADOS_ACUER_PAG_ENTREG">
+          <Key>
+            <PropertyRef Name="COD_ESTADO_ACUERDO" />
+          </Key>
+          <Property Name="COD_ESTADO_ACUERDO" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ACUERDOS_PAGO_ENTREGAB" Relationship="test_payc_contabilidadModel.FK_ACUERDOS_PAGO_ENTREGAB_ESTADOS_ACUER_PAG_ENTREG" FromRole="ESTADOS_ACUER_PAG_ENTREG" ToRole="ACUERDOS_PAGO_ENTREGAB" />
+        </EntityType>
+        <Association Name="FK_ACUERDOS_PAGO_ENTREGAB_CARTERA">
+          <End Type="test_payc_contabilidadModel.CARTERA" Role="CARTERA" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.ACUERDOS_PAGO_ENTREGAB" Role="ACUERDOS_PAGO_ENTREGAB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CARTERA">
+              <PropertyRef Name="COD_CARTERA" />
+            </Principal>
+            <Dependent Role="ACUERDOS_PAGO_ENTREGAB">
+              <PropertyRef Name="COD_CARTERA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ACUERDOS_PAGO_ENTREGAB_ESTADOS_ACUER_PAG_ENTREG">
+          <End Type="test_payc_contabilidadModel.ESTADOS_ACUER_PAG_ENTREG" Role="ESTADOS_ACUER_PAG_ENTREG" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.ACUERDOS_PAGO_ENTREGAB" Role="ACUERDOS_PAGO_ENTREGAB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESTADOS_ACUER_PAG_ENTREG">
+              <PropertyRef Name="COD_ESTADO_ACUERDO" />
+            </Principal>
+            <Dependent Role="ACUERDOS_PAGO_ENTREGAB">
+              <PropertyRef Name="COD_ESTADO_ACUERDO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GESTION_ENTREGABLES_ACUERDOS_PAGO_ENTREGAB">
+          <End Type="test_payc_contabilidadModel.ACUERDOS_PAGO_ENTREGAB" Role="ACUERDOS_PAGO_ENTREGAB" Multiplicity="1" />
+          <End Type="test_payc_contabilidadModel.GESTION_ENTREGABLES" Role="GESTION_ENTREGABLES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACUERDOS_PAGO_ENTREGAB">
+              <PropertyRef Name="COD_ACUERDO_PAGO" />
+            </Principal>
+            <Dependent Role="GESTION_ENTREGABLES">
+              <PropertyRef Name="COD_ACUERDO_PAGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TIPOS_ACUERDO">
+          <Key>
+            <PropertyRef Name="COD_TIPO_ACUERDO" />
+          </Key>
+          <Property Name="COD_TIPO_ACUERDO" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ACUERDOS_PAGO_ENTREGAB" Relationship="test_payc_contabilidadModel.FK_ACUERDOS_PAGO_ENTREGAB_TIPOS_ACUERDO" FromRole="TIPOS_ACUERDO" ToRole="ACUERDOS_PAGO_ENTREGAB" />
+        </EntityType>
+        <Association Name="FK_ACUERDOS_PAGO_ENTREGAB_TIPOS_ACUERDO">
+          <End Type="test_payc_contabilidadModel.TIPOS_ACUERDO" Role="TIPOS_ACUERDO" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.ACUERDOS_PAGO_ENTREGAB" Role="ACUERDOS_PAGO_ENTREGAB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TIPOS_ACUERDO">
+              <PropertyRef Name="COD_TIPO_ACUERDO" />
+            </Principal>
+            <Dependent Role="ACUERDOS_PAGO_ENTREGAB">
+              <PropertyRef Name="COD_TIPO_ACUERDO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CONTRATO_PROYECTO">
+          <Key>
+            <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+          </Key>
+          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COD_CONTRATO" Type="Int64" />
+          <Property Name="COD_PROYECTO" Type="Int64" />
+          <Property Name="COD_FORMA_PAGO" Type="Int64" />
+          <Property Name="COMPLETA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MODIFICADO_POR" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_ULTIMA_MODIFICACION" Type="DateTime" Precision="0" />
+          <Property Name="CREADO_POR" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_CREACION" Type="DateTime" Precision="0" />
+          <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="Int64" />
+          <Property Name="CORREO_RESPONSABLE" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="TELEFONO_RESPONSABLE" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CONTRATOS" Relationship="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_CONTRATOS" FromRole="CONTRATO_PROYECTO" ToRole="CONTRATOS" />
+          <NavigationProperty Name="ESTADOS_ORDEN_SERVICIO" Relationship="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_ESTADO_ORDEN_SERVICIO" FromRole="CONTRATO_PROYECTO" ToRole="ESTADOS_ORDEN_SERVICIO" />
+          <NavigationProperty Name="FORMAS_PAGO" Relationship="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_FORMAS_PAGO" FromRole="CONTRATO_PROYECTO" ToRole="FORMAS_PAGO" />
+          <NavigationProperty Name="PROYECTOS" Relationship="test_payc_contabilidadModel.FK_CONTRATO_PROYECTO_PROYECTOS" FromRole="CONTRATO_PROYECTO" ToRole="PROYECTOS" />
+          <NavigationProperty Name="CONTRATOS_CONDICIONES" Relationship="test_payc_contabilidadModel.FK_CONTRATOS_CONDICIONES_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="CONTRATOS_CONDICIONES" />
+          <NavigationProperty Name="CONTRATOS_ROL" Relationship="test_payc_contabilidadModel.FK_CONTRATOS_ROL_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="CONTRATOS_ROL" />
+          <NavigationProperty Name="DETALLE_FACTURA_ITEM" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="DETALLE_FACTURA_ITEM" />
+          <NavigationProperty Name="DETALLE_FACTURA_PERS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="DETALLE_FACTURA_PERS" />
+          <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_FACTURAS_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="FACTURAS" />
+          <NavigationProperty Name="FLUJO_INGRESOS_ITEMS" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="FLUJO_INGRESOS_ITEMS" />
+          <NavigationProperty Name="FLUJO_INGRESOS_ROL" Relationship="test_payc_contabilidadModel.FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="FLUJO_INGRESOS_ROL" />
+          <NavigationProperty Name="INCREMENTO_ORDEN" Relationship="test_payc_contabilidadModel.FK_INCREMENTO_ORDEN_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="INCREMENTO_ORDEN" />
+          <NavigationProperty Name="ITEMS_CONTRATO" Relationship="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="ITEMS_CONTRATO" />
+          <NavigationProperty Name="ITEMS_ROLES" Relationship="test_payc_contabilidadModel.FK_ITEMS_ROLES_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="ITEMS_ROLES" />
+          <NavigationProperty Name="REGISTRO_ITEMS_OTROS_COSTOS" Relationship="test_payc_contabilidadModel.FK_REGISTRO_ITEMS_OTROS_COSTOS_CONTRATO_CONDICION" FromRole="CONTRATO_PROYECTO" ToRole="REGISTRO_ITEMS_OTROS_COSTOS" />
+          <NavigationProperty Name="REGISTRO_NOVEDADES" Relationship="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="REGISTRO_NOVEDADES" />
+          <NavigationProperty Name="ROL_CARGO_ORDEN" Relationship="test_payc_contabilidadModel.FK_RELACION_ROL_CARGO_ORDEN_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="ROL_CARGO_ORDEN" />
+          <NavigationProperty Name="TAG_ORDEN" Relationship="test_payc_contabilidadModel.FK_TAG_ORDEN_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="TAG_ORDEN" />
+        </EntityType>
+        <Association Name="FK_CONTRATO_PROYECTO_CONTRATOS">
+          <End Type="test_payc_contabilidadModel.CONTRATOS" Role="CONTRATOS" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTRATOS">
+              <PropertyRef Name="COD_CONTRATO" />
+            </Principal>
+            <Dependent Role="CONTRATO_PROYECTO">
+              <PropertyRef Name="COD_CONTRATO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTRATO_PROYECTO_ESTADO_ORDEN_SERVICIO">
+          <End Type="test_payc_contabilidadModel.ESTADOS_ORDEN_SERVICIO" Role="ESTADOS_ORDEN_SERVICIO" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESTADOS_ORDEN_SERVICIO">
+              <PropertyRef Name="COD_ESTADO_ORDEN_SERVICIO" />
+            </Principal>
+            <Dependent Role="CONTRATO_PROYECTO">
+              <PropertyRef Name="COD_ESTADO_ORDEN_SERVICIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTRATO_PROYECTO_FORMAS_PAGO">
+          <End Type="test_payc_contabilidadModel.FORMAS_PAGO" Role="FORMAS_PAGO" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FORMAS_PAGO">
+              <PropertyRef Name="COD_FORMA_PAGO" />
+            </Principal>
+            <Dependent Role="CONTRATO_PROYECTO">
+              <PropertyRef Name="COD_FORMA_PAGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTRATO_PROYECTO_PROYECTOS">
+          <End Type="test_payc_contabilidadModel.PROYECTOS" Role="PROYECTOS" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROYECTOS">
+              <PropertyRef Name="COD_PROYECTO" />
+            </Principal>
+            <Dependent Role="CONTRATO_PROYECTO">
+              <PropertyRef Name="COD_PROYECTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTRATOS_CONDICIONES_CONTRATO_PROYECTO">
+          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.CONTRATOS_CONDICIONES" Role="CONTRATOS_CONDICIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTRATO_PROYECTO">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Principal>
+            <Dependent Role="CONTRATOS_CONDICIONES">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONTRATOS_ROL_CONTRATO_PROYECTO">
+          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.CONTRATOS_ROL" Role="CONTRATOS_ROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTRATO_PROYECTO">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Principal>
+            <Dependent Role="CONTRATOS_ROL">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE_FACTURA_ITEM_CONTRATO_PROYECTO">
+          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.DETALLE_FACTURA_ITEM" Role="DETALLE_FACTURA_ITEM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTRATO_PROYECTO">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Principal>
+            <Dependent Role="DETALLE_FACTURA_ITEM">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE_FACTURA_PERS_CONTRATO_PROYECTO">
+          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.DETALLE_FACTURA_PERS" Role="DETALLE_FACTURA_PERS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTRATO_PROYECTO">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Principal>
+            <Dependent Role="DETALLE_FACTURA_PERS">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURAS_CONTRATO_PROYECTO">
+          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.FACTURAS" Role="FACTURAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTRATO_PROYECTO">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Principal>
+            <Dependent Role="FACTURAS">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FLUJO_INGRESOS_ITEMS_CONTRATO_PROYECTO">
+          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ITEMS" Role="FLUJO_INGRESOS_ITEMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTRATO_PROYECTO">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Principal>
+            <Dependent Role="FLUJO_INGRESOS_ITEMS">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FLUJO_INGRESOS_ROL_CONTRATO_PROYECTO">
+          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.FLUJO_INGRESOS_ROL" Role="FLUJO_INGRESOS_ROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTRATO_PROYECTO">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Principal>
+            <Dependent Role="FLUJO_INGRESOS_ROL">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_INCREMENTO_ORDEN_CONTRATO_PROYECTO">
+          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.INCREMENTO_ORDEN" Role="INCREMENTO_ORDEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTRATO_PROYECTO">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Principal>
+            <Dependent Role="INCREMENTO_ORDEN">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ITEMS_CONTRATO_CONTRATO_PROYECTO">
+          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.ITEMS_CONTRATO" Role="ITEMS_CONTRATO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTRATO_PROYECTO">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Principal>
+            <Dependent Role="ITEMS_CONTRATO">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ITEMS_ROLES_CONTRATO_PROYECTO">
+          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.ITEMS_ROLES" Role="ITEMS_ROLES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTRATO_PROYECTO">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Principal>
+            <Dependent Role="ITEMS_ROLES">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REGISTRO_ITEMS_OTROS_COSTOS_CONTRATO_CONDICION">
+          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.REGISTRO_ITEMS_OTROS_COSTOS" Role="REGISTRO_ITEMS_OTROS_COSTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTRATO_PROYECTO">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Principal>
+            <Dependent Role="REGISTRO_ITEMS_OTROS_COSTOS">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_REGISTRO_NOVEDADES_CONTRATO_PROYECTO">
+          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.REGISTRO_NOVEDADES" Role="REGISTRO_NOVEDADES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTRATO_PROYECTO">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Principal>
+            <Dependent Role="REGISTRO_NOVEDADES">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RELACION_ROL_CARGO_ORDEN_CONTRATO_PROYECTO">
+          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.ROL_CARGO_ORDEN" Role="ROL_CARGO_ORDEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTRATO_PROYECTO">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Principal>
+            <Dependent Role="ROL_CARGO_ORDEN">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TAG_ORDEN_CONTRATO_PROYECTO">
+          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.TAG_ORDEN" Role="TAG_ORDEN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTRATO_PROYECTO">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Principal>
+            <Dependent Role="TAG_ORDEN">
+              <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CLIENTES">
+          <Key>
+            <PropertyRef Name="COD_CLIENTE" />
+          </Key>
+          <Property Name="COD_CLIENTE" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="NIT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DIRECCION_CLIENTE" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="DIRECCION_FACTURACION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="CONTACTO_CONTRATANTE" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="CONTACTO_FACTURACION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="TELEFONO_CLIENTE" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="TELEFONO_FACTURACION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="CORREO_CLIENTE" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="CORREO_FACTURACION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CONTRATOS" Relationship="test_payc_contabilidadModel.FK_CONTRATOS_CLIENTES" FromRole="CLIENTES" ToRole="CONTRATOS" />
+          <NavigationProperty Name="EMAIL_CLIENTES" Relationship="test_payc_contabilidadModel.FK_EMAIL_CLIENTES_CLIENTES" FromRole="CLIENTES" ToRole="EMAIL_CLIENTES" />
+        </EntityType>
+        <Association Name="FK_CONTRATOS_CLIENTES">
+          <End Type="test_payc_contabilidadModel.CLIENTES" Role="CLIENTES" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.CONTRATOS" Role="CONTRATOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTES">
+              <PropertyRef Name="COD_CLIENTE" />
+            </Principal>
+            <Dependent Role="CONTRATOS">
+              <PropertyRef Name="COD_CLIENTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EMAIL_CLIENTES_CLIENTES">
+          <End Type="test_payc_contabilidadModel.CLIENTES" Role="CLIENTES" Multiplicity="1" />
+          <End Type="test_payc_contabilidadModel.EMAIL_CLIENTES" Role="EMAIL_CLIENTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTES">
+              <PropertyRef Name="COD_CLIENTE" />
+            </Principal>
+            <Dependent Role="EMAIL_CLIENTES">
+              <PropertyRef Name="COD_CLIENTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="test_payc_contabilidadModelStoreContainer" CdmEntityContainer="test_payc_contabilidadEntities">
-          <EntitySetMapping Name="ACUERDOS_PAGO_ENTREGAB">
-            <EntityTypeMapping TypeName="test_payc_contabilidadModel.ACUERDOS_PAGO_ENTREGAB">
-              <MappingFragment StoreEntitySet="ACUERDOS_PAGO_ENTREGAB">
-                <ScalarProperty Name="VALOR" ColumnName="VALOR" />
-                <ScalarProperty Name="COMENTARIOS" ColumnName="COMENTARIOS" />
-                <ScalarProperty Name="APROBADO" ColumnName="APROBADO" />
-                <ScalarProperty Name="FECHA_NOTIFICACION" ColumnName="FECHA_NOTIFICACION" />
-                <ScalarProperty Name="SE_NOTIFICO" ColumnName="SE_NOTIFICO" />
-                <ScalarProperty Name="FECHA_ACUERDO" ColumnName="FECHA_ACUERDO" />
-                <ScalarProperty Name="FECHA_REGISTRO" ColumnName="FECHA_REGISTRO" />
-                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
-                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="COD_CARTERA" ColumnName="COD_CARTERA" />
-                <ScalarProperty Name="TIPO_ACUERDO" ColumnName="TIPO_ACUERDO" />
-                <ScalarProperty Name="COD_ACUERDO_PAGO" ColumnName="COD_ACUERDO_PAGO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ASIGNACION_CARTERA">
             <EntityTypeMapping TypeName="test_payc_contabilidadModel.ASIGNACION_CARTERA">
               <MappingFragment StoreEntitySet="ASIGNACION_CARTERA">
@@ -7636,15 +7620,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CARTERA">
-            <EntityTypeMapping TypeName="test_payc_contabilidadModel.CARTERA">
-              <MappingFragment StoreEntitySet="CARTERA">
-                <ScalarProperty Name="ESTADO_CARTERA" ColumnName="ESTADO_CARTERA" />
-                <ScalarProperty Name="COD_FACTURA" ColumnName="COD_FACTURA" />
-                <ScalarProperty Name="COD_CARTERA" ColumnName="COD_CARTERA" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="CAUSA_ESTADO">
             <EntityTypeMapping TypeName="test_payc_contabilidadModel.CAUSA_ESTADO">
               <MappingFragment StoreEntitySet="CAUSA_ESTADO">
@@ -7660,21 +7635,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
                 <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
                 <ScalarProperty Name="CECO_PSL" ColumnName="CECO_PSL" />
                 <ScalarProperty Name="COD_CECO" ColumnName="COD_CECO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CLIENTES">
-            <EntityTypeMapping TypeName="test_payc_contabilidadModel.CLIENTES">
-              <MappingFragment StoreEntitySet="CLIENTES">
-                <ScalarProperty Name="TELEFONO_FACTURACION" ColumnName="TELEFONO_FACTURACION" />
-                <ScalarProperty Name="TELEFONO_CLIENTE" ColumnName="TELEFONO_CLIENTE" />
-                <ScalarProperty Name="CONTACTO_FACTURACION" ColumnName="CONTACTO_FACTURACION" />
-                <ScalarProperty Name="CONTACTO_CONTRATANTE" ColumnName="CONTACTO_CONTRATANTE" />
-                <ScalarProperty Name="DIRECCION_FACTURACION" ColumnName="DIRECCION_FACTURACION" />
-                <ScalarProperty Name="DIRECCION_CLIENTE" ColumnName="DIRECCION_CLIENTE" />
-                <ScalarProperty Name="NIT" ColumnName="NIT" />
-                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
-                <ScalarProperty Name="COD_CLIENTE" ColumnName="COD_CLIENTE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -7739,23 +7699,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
                 <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
                 <ScalarProperty Name="COD_COLABORADOR" ColumnName="COD_COLABORADOR" />
                 <ScalarProperty Name="COD_CONTRATO_COLABORADOR" ColumnName="COD_CONTRATO_COLABORADOR" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CONTRATO_PROYECTO">
-            <EntityTypeMapping TypeName="test_payc_contabilidadModel.CONTRATO_PROYECTO">
-              <MappingFragment StoreEntitySet="CONTRATO_PROYECTO">
-                <ScalarProperty Name="COD_ESTADO_ORDEN_SERVICIO" ColumnName="COD_ESTADO_ORDEN_SERVICIO" />
-                <ScalarProperty Name="CENTRO_COSTOS" ColumnName="CENTRO_COSTOS" />
-                <ScalarProperty Name="FECHA_CREACION" ColumnName="FECHA_CREACION" />
-                <ScalarProperty Name="CREADO_POR" ColumnName="CREADO_POR" />
-                <ScalarProperty Name="FECHA_ULTIMA_MODIFICACION" ColumnName="FECHA_ULTIMA_MODIFICACION" />
-                <ScalarProperty Name="MODIFICADO_POR" ColumnName="MODIFICADO_POR" />
-                <ScalarProperty Name="COMPLETA" ColumnName="COMPLETA" />
-                <ScalarProperty Name="COD_FORMA_PAGO" ColumnName="COD_FORMA_PAGO" />
-                <ScalarProperty Name="COD_PROYECTO" ColumnName="COD_PROYECTO" />
-                <ScalarProperty Name="COD_CONTRATO" ColumnName="COD_CONTRATO" />
-                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -7893,14 +7836,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
               <MappingFragment StoreEntitySet="ESTADO_COLABORADOR">
                 <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
                 <ScalarProperty Name="COD_ESTADO_COLABORADOR" ColumnName="COD_ESTADO_COLABORADOR" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ESTADOS_ACUER_PAG_ENTREG">
-            <EntityTypeMapping TypeName="test_payc_contabilidadModel.ESTADOS_ACUER_PAG_ENTREG">
-              <MappingFragment StoreEntitySet="ESTADOS_ACUER_PAG_ENTREG">
-                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
-                <ScalarProperty Name="COD_ESTADO_ACUER_PAG_ENTR" ColumnName="COD_ESTADO_ACUER_PAG_ENTR" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -8799,22 +8734,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="VISTA_CARTERA_INDEX">
-            <EntityTypeMapping TypeName="test_payc_contabilidadModel.VISTA_CARTERA_INDEX">
-              <MappingFragment StoreEntitySet="VISTA_CARTERA_INDEX">
-                <ScalarProperty Name="COD_CARTERA" ColumnName="COD_CARTERA" />
-                <ScalarProperty Name="COD_FACTURA" ColumnName="COD_FACTURA" />
-                <ScalarProperty Name="RANKING" ColumnName="RANKING" />
-                <ScalarProperty Name="ESTADO_CARTERA" ColumnName="ESTADO_CARTERA" />
-                <ScalarProperty Name="FECHA_FACTURA" ColumnName="FECHA_FACTURA" />
-                <ScalarProperty Name="NUMERO_FACTURA" ColumnName="NUMERO_FACTURA" />
-                <ScalarProperty Name="VALOR_SIN_IMPUESTOS" ColumnName="VALOR_SIN_IMPUESTOS" />
-                <ScalarProperty Name="GESTOR" ColumnName="GESTOR" />
-                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
-                <ScalarProperty Name="COD_CLIENTE" ColumnName="COD_CLIENTE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="VISTA_CONTRATO_PROYECTO_FACTURAS">
             <EntityTypeMapping TypeName="test_payc_contabilidadModel.VISTA_CONTRATO_PROYECTO_FACTURAS">
               <MappingFragment StoreEntitySet="VISTA_CONTRATO_PROYECTO_FACTURAS">
@@ -9363,6 +9282,117 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CARTERA">
+            <EntityTypeMapping TypeName="test_payc_contabilidadModel.CARTERA">
+              <MappingFragment StoreEntitySet="CARTERA">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ESTADO_CARTERA" ColumnName="ESTADO_CARTERA" />
+                <ScalarProperty Name="COD_FACTURA" ColumnName="COD_FACTURA" />
+                <ScalarProperty Name="COD_CARTERA" ColumnName="COD_CARTERA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VISTA_CARTERA_INDEX">
+            <EntityTypeMapping TypeName="test_payc_contabilidadModel.VISTA_CARTERA_INDEX">
+              <MappingFragment StoreEntitySet="VISTA_CARTERA_INDEX">
+                <ScalarProperty Name="CENTRO_COSTOS" ColumnName="CENTRO_COSTOS" />
+                <ScalarProperty Name="RANKING" ColumnName="RANKING" />
+                <ScalarProperty Name="FECHA_FACTURA" ColumnName="FECHA_FACTURA" />
+                <ScalarProperty Name="SALDO" ColumnName="SALDO" />
+                <ScalarProperty Name="GESTOR" ColumnName="GESTOR" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="COD_CLIENTE" ColumnName="COD_CLIENTE" />
+                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VISTA_GESTION_CARTERA">
+            <EntityTypeMapping TypeName="test_payc_contabilidadModel.VISTA_GESTION_CARTERA">
+              <MappingFragment StoreEntitySet="VISTA_GESTION_CARTERA">
+                <ScalarProperty Name="DIAS" ColumnName="DIAS" />
+                <ScalarProperty Name="RANKING" ColumnName="RANKING" />
+                <ScalarProperty Name="VALOR_SIN_IMPUESTOS" ColumnName="VALOR_SIN_IMPUESTOS" />
+                <ScalarProperty Name="COD_ESTADO_FACTURA" ColumnName="COD_ESTADO_FACTURA" />
+                <ScalarProperty Name="FECHA_FACTURA" ColumnName="FECHA_FACTURA" />
+                <ScalarProperty Name="NUMERO_FACTURA" ColumnName="NUMERO_FACTURA" />
+                <ScalarProperty Name="COD_FORMAS_PAGO_FECHAS" ColumnName="COD_FORMAS_PAGO_FECHAS" />
+                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="ESTADO_CARTERA" ColumnName="ESTADO_CARTERA" />
+                <ScalarProperty Name="COD_FACTURA" ColumnName="COD_FACTURA" />
+                <ScalarProperty Name="COD_CARTERA" ColumnName="COD_CARTERA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ACUERDOS_PAGO_ENTREGAB">
+            <EntityTypeMapping TypeName="test_payc_contabilidadModel.ACUERDOS_PAGO_ENTREGAB">
+              <MappingFragment StoreEntitySet="ACUERDOS_PAGO_ENTREGAB">
+                <ScalarProperty Name="VALOR" ColumnName="VALOR" />
+                <ScalarProperty Name="COMENTARIOS" ColumnName="COMENTARIOS" />
+                <ScalarProperty Name="APROBADO" ColumnName="APROBADO" />
+                <ScalarProperty Name="FECHA_ACUERDO" ColumnName="FECHA_ACUERDO" />
+                <ScalarProperty Name="FECHA_REGISTRO" ColumnName="FECHA_REGISTRO" />
+                <ScalarProperty Name="COD_ESTADO_ACUERDO" ColumnName="COD_ESTADO_ACUERDO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="COD_CARTERA" ColumnName="COD_CARTERA" />
+                <ScalarProperty Name="COD_TIPO_ACUERDO" ColumnName="COD_TIPO_ACUERDO" />
+                <ScalarProperty Name="COD_ACUERDO_PAGO" ColumnName="COD_ACUERDO_PAGO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ESTADOS_ACUER_PAG_ENTREG">
+            <EntityTypeMapping TypeName="test_payc_contabilidadModel.ESTADOS_ACUER_PAG_ENTREG">
+              <MappingFragment StoreEntitySet="ESTADOS_ACUER_PAG_ENTREG">
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="COD_ESTADO_ACUERDO" ColumnName="COD_ESTADO_ACUERDO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TIPOS_ACUERDO">
+            <EntityTypeMapping TypeName="test_payc_contabilidadModel.TIPOS_ACUERDO">
+              <MappingFragment StoreEntitySet="TIPOS_ACUERDO">
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="COD_TIPO_ACUERDO" ColumnName="COD_TIPO_ACUERDO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CONTRATO_PROYECTO">
+            <EntityTypeMapping TypeName="test_payc_contabilidadModel.CONTRATO_PROYECTO">
+              <MappingFragment StoreEntitySet="CONTRATO_PROYECTO">
+                <ScalarProperty Name="TELEFONO_RESPONSABLE" ColumnName="TELEFONO_RESPONSABLE" />
+                <ScalarProperty Name="CORREO_RESPONSABLE" ColumnName="CORREO_RESPONSABLE" />
+                <ScalarProperty Name="COD_ESTADO_ORDEN_SERVICIO" ColumnName="COD_ESTADO_ORDEN_SERVICIO" />
+                <ScalarProperty Name="CENTRO_COSTOS" ColumnName="CENTRO_COSTOS" />
+                <ScalarProperty Name="FECHA_CREACION" ColumnName="FECHA_CREACION" />
+                <ScalarProperty Name="CREADO_POR" ColumnName="CREADO_POR" />
+                <ScalarProperty Name="FECHA_ULTIMA_MODIFICACION" ColumnName="FECHA_ULTIMA_MODIFICACION" />
+                <ScalarProperty Name="MODIFICADO_POR" ColumnName="MODIFICADO_POR" />
+                <ScalarProperty Name="COMPLETA" ColumnName="COMPLETA" />
+                <ScalarProperty Name="COD_FORMA_PAGO" ColumnName="COD_FORMA_PAGO" />
+                <ScalarProperty Name="COD_PROYECTO" ColumnName="COD_PROYECTO" />
+                <ScalarProperty Name="COD_CONTRATO" ColumnName="COD_CONTRATO" />
+                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CLIENTES">
+            <EntityTypeMapping TypeName="test_payc_contabilidadModel.CLIENTES">
+              <MappingFragment StoreEntitySet="CLIENTES">
+                <ScalarProperty Name="CORREO_FACTURACION" ColumnName="CORREO_FACTURACION" />
+                <ScalarProperty Name="CORREO_CLIENTE" ColumnName="CORREO_CLIENTE" />
+                <ScalarProperty Name="TELEFONO_FACTURACION" ColumnName="TELEFONO_FACTURACION" />
+                <ScalarProperty Name="TELEFONO_CLIENTE" ColumnName="TELEFONO_CLIENTE" />
+                <ScalarProperty Name="CONTACTO_FACTURACION" ColumnName="CONTACTO_FACTURACION" />
+                <ScalarProperty Name="CONTACTO_CONTRATANTE" ColumnName="CONTACTO_CONTRATANTE" />
+                <ScalarProperty Name="DIRECCION_FACTURACION" ColumnName="DIRECCION_FACTURACION" />
+                <ScalarProperty Name="DIRECCION_CLIENTE" ColumnName="DIRECCION_CLIENTE" />
+                <ScalarProperty Name="NIT" ColumnName="NIT" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="COD_CLIENTE" ColumnName="COD_CLIENTE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

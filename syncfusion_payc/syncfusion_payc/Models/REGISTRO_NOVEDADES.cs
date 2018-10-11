@@ -36,11 +36,11 @@ public partial class REGISTRO_NOVEDADES
 
     public virtual COLABORADORES COLABORADORES { get; set; }
 
-    public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
-
     public virtual FORMAS_PAGO_FECHAS FORMAS_PAGO_FECHAS { get; set; }
 
     public virtual TIPOS_NOVEDAD TIPOS_NOVEDAD { get; set; }
+
+    public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
 
 }
 

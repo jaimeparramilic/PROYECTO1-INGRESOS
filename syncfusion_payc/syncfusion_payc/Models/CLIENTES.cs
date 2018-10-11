@@ -47,6 +47,10 @@ public partial class CLIENTES
 
     public string TELEFONO_FACTURACION { get; set; }
 
+    public string CORREO_CLIENTE { get; set; }
+
+    public string CORREO_FACTURACION { get; set; }
+
 
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

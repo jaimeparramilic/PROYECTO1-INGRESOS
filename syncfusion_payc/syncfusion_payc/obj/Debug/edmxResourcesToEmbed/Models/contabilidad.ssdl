@@ -5,15 +5,13 @@
       <PropertyRef Name="COD_ACUERDO_PAGO" />
     </Key>
     <Property Name="COD_ACUERDO_PAGO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="TIPO_ACUERDO" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="COD_CARTERA" Type="bigint" Nullable="false" />
-    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
-    <Property Name="DESCRIPCION" Type="varchar" MaxLength="3000" Nullable="false" />
-    <Property Name="ESTADO" Type="bigint" Nullable="false" />
-    <Property Name="FECHA_REGISTRO" Type="date" Nullable="false" />
-    <Property Name="FECHA_ACUERDO" Type="date" Nullable="false" />
-    <Property Name="SE_NOTIFICO" Type="varchar" MaxLength="2" />
-    <Property Name="FECHA_NOTIFICACION" Type="date" />
+    <Property Name="COD_TIPO_ACUERDO" Type="bigint" />
+    <Property Name="COD_CARTERA" Type="bigint" />
+    <Property Name="UserName" Type="varchar" MaxLength="300" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
+    <Property Name="COD_ESTADO_ACUERDO" Type="bigint" />
+    <Property Name="FECHA_REGISTRO" Type="date" />
+    <Property Name="FECHA_ACUERDO" Type="date" />
     <Property Name="APROBADO" Type="varchar" MaxLength="2" />
     <Property Name="COMENTARIOS" Type="varchar" MaxLength="3000" />
     <Property Name="VALOR" Type="bigint" />
@@ -39,8 +37,9 @@
       <PropertyRef Name="COD_CARTERA" />
     </Key>
     <Property Name="COD_CARTERA" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="COD_FACTURA" Type="bigint" Nullable="false" />
+    <Property Name="COD_FACTURA" Type="bigint" />
     <Property Name="ESTADO_CARTERA" Type="bigint" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" />
   </EntityType>
   <EntityType Name="CAUSA_ESTADO">
     <Key>
@@ -71,6 +70,8 @@
     <Property Name="CONTACTO_FACTURACION" Type="varchar" MaxLength="300" />
     <Property Name="TELEFONO_CLIENTE" Type="varchar" MaxLength="300" />
     <Property Name="TELEFONO_FACTURACION" Type="varchar" MaxLength="300" />
+    <Property Name="CORREO_CLIENTE" Type="varchar" MaxLength="300" />
+    <Property Name="CORREO_FACTURACION" Type="varchar" MaxLength="300" />
   </EntityType>
   <EntityType Name="COLABORADORES">
     <Key>
@@ -157,6 +158,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.COMBINACIONES_GAS
     <Property Name="FECHA_CREACION" Type="date" />
     <Property Name="CENTRO_COSTOS" Type="varchar" MaxLength="300" />
     <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="bigint" />
+    <Property Name="CORREO_RESPONSABLE" Type="varchar" MaxLength="300" />
+    <Property Name="TELEFONO_RESPONSABLE" Type="varchar" MaxLength="300" />
   </EntityType>
   <EntityType Name="CONTRATO_ROL_CARGO">
     <Key>
@@ -214,11 +217,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.COMBINACIONES_GAS
     <Property Name="DIAS_FRACCION" Type="bigint" />
     <Property Name="COD_CONCEPTO_PSL" Type="bigint" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.CUENTAS_CALCULOS' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="CUENTAS_CALCULOS">
-          <Property Name="CAMPO" Type="bigint" />
-        </EntityType>-->
   <EntityType Name="DEBUG">
     <Key>
       <PropertyRef Name="COD_DEBUG" />
@@ -265,15 +263,6 @@ advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.CUENTAS_CALCULOS'
     <Property Name="COD_CONCEPTO_PSL" Type="bigint" />
     <Property Name="COD_GRUPO_FACTURA" Type="bigint" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.DETALLE_FACTURA_PERS_TEMP' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="DETALLE_FACTURA_PERS_TEMP">
-          <Property Name="COD_DETALLE_FACTURA_PERS" Type="bigint" />
-          <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
-          <Property Name="COD_ROL" Type="bigint" />
-          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
-          <Property Name="VALOR_SIN_IMPUESTOS" Type="real" />
-        </EntityType>-->
   <EntityType Name="EMAIL_CLIENTES">
     <Key>
       <PropertyRef Name="COD_EMAIL" />
@@ -301,9 +290,9 @@ advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.DETALLE_FACTURA_P
   </EntityType>
   <EntityType Name="ESTADOS_ACUER_PAG_ENTREG">
     <Key>
-      <PropertyRef Name="COD_ESTADO_ACUER_PAG_ENTR" />
+      <PropertyRef Name="COD_ESTADO_ACUERDO" />
     </Key>
-    <Property Name="COD_ESTADO_ACUER_PAG_ENTR" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COD_ESTADO_ACUERDO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" Nullable="false" />
   </EntityType>
   <EntityType Name="ESTADOS_CARTERA">
@@ -594,18 +583,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ReportsTable' no 
     <Property Name="COD_ROL" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.ROLES_TEMP' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="ROLES_TEMP">
-          <Property Name="COD_ROL" Type="bigint" />
-          <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
-          <Property Name="NUEVO_CODIGO" Type="varchar" MaxLength="300" />
-        </EntityType>-->
-  <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.SECUENCIA_NUM_FACT_PSL' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="SECUENCIA_NUM_FACT_PSL">
-          <Property Name="SECUENCIA_PSL" Type="bigint" />
-        </EntityType>-->
   <EntityType Name="SINO">
     <Key>
       <PropertyRef Name="COD_SINO" />
@@ -644,6 +621,13 @@ advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.SECUENCIA_NUM_FAC
     </Key>
     <Property Name="COD_TIPO_CONTRATO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="TIPOS_ACUERDO">
+    <Key>
+      <PropertyRef Name="COD_TIPO_ACUERDO" />
+    </Key>
+    <Property Name="COD_TIPO_ACUERDO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DESCRIPCION" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="TIPOS_GESTION">
     <Key>
@@ -703,14 +687,6 @@ advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.SECUENCIA_NUM_FAC
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="texto" Type="varchar(max)" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.CHECK_COLABORADOR' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="CHECK_COLABORADOR">
-          <Property Name="COD_ROL" Type="bigint" />
-          <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
-          <Property Name="CUENTA" Type="int" />
-          <Property Name="ROL_TEXTO" Type="varchar" MaxLength="300" />
-        </EntityType>-->
   <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CHECK_COLABORADOR_MES' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="CHECK_COLABORADOR_MES">
@@ -939,22 +915,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.FLUJO_INGRESOS_RO
     <Property Name="COD_CONCEPTO_PSL" Type="bigint" />
   </EntityType>
   <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.FLUJO_INGRESOS_TOT' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="FLUJO_INGRESOS_TOT">
-          <Property Name="COD_ROL" Type="bigint" />
-          <Property Name="ETAPA" Type="varchar" MaxLength="200" />
-          <Property Name="VALOR_SIN_PRESTACIONES" Type="numeric" Precision="30" Scale="20" />
-          <Property Name="VALOR_CON_PRESTACIONES" Type="numeric" Precision="30" Scale="20" />
-          <Property Name="VALOR_FACTOR_MULTIPLICADOR" Type="numeric" Precision="30" Scale="20" />
-          <Property Name="FECHA_INICIO" Type="date" />
-          <Property Name="CONTRATO" Type="varchar" MaxLength="300" />
-          <Property Name="ORDEN_SERVICIO" Type="varchar" MaxLength="300" />
-          <Property Name="PROYECTO" Type="varchar" MaxLength="300" />
-          <Property Name="COD_TIPO_SERVICIO" Type="bigint" />
-          <Property Name="COD_TIPO_OBRA" Type="bigint" />
-          <Property Name="ROL" Type="varchar" MaxLength="300" />
-        </EntityType>-->
-  <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_COLABORADORES_PENDIENTES' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="GENERACION_COLABORADORES_PENDIENTES">
     <Key>
@@ -969,16 +929,16 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_COLABO
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS_ITEM' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="GENERACION_FLUJOS_ITEM">
     <Key>
-      <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
       <PropertyRef Name="COD_ITEM_CONTRATO" />
+      <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
       <PropertyRef Name="VALOR_FIJO_UNITARIO" />
     </Key>
     <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" Nullable="false" />
     <Property Name="COD_ITEM_CONTRATO" Type="bigint" Nullable="false" />
-    <Property Name="VALOR_VARIABLE_UNITARIO" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="VALOR_VARIABLE_UNITARIO" Type="numeric" Precision="38" Scale="9" />
     <Property Name="VALOR_VARIABLE" Type="numeric" Precision="38" Scale="8" />
     <Property Name="VALOR_FIJO" Type="numeric" Precision="38" Scale="8" />
-    <Property Name="VALOR_FIJO_UNITARIO" Type="numeric" Precision="30" Scale="20" Nullable="false" />
+    <Property Name="VALOR_FIJO_UNITARIO" Type="numeric" Precision="38" Scale="9" Nullable="false" />
     <Property Name="VALOR_TOTAL" Type="numeric" Precision="38" Scale="8" />
     <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
   </EntityType>
@@ -1081,18 +1041,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.GENERACION_FLUJOS
     <Property Name="VALOR_CON_PRESTACIONES" Type="numeric" Precision="30" Scale="20" />
     <Property Name="VALOR_FACTOR_MULTIPLICADOR" Type="numeric" Precision="30" Scale="20" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.INCREMENTOS_ANUALES_FECHA' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="INCREMENTOS_ANUALES_FECHA">
-          <Property Name="FECHA_FORMA_PAGO" Type="date" />
-          <Property Name="FACTOR_INCREMENTO" Type="float" />
-        </EntityType>-->
-  <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.ITEM' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="ITEM">
-          <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
-          <Property Name="COD_ITEM" Type="bigint" />
-        </EntityType>-->
   <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ITEMS_CONTRATO_DESCRIPCION' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="ITEMS_CONTRATO_DESCRIPCION">
@@ -1215,11 +1163,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.PENDIENTES_REPORT
     <Property Name="Expr1" Type="varchar" MaxLength="300" />
   </EntityType>
   <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.PRIMER_MES_FECHAS_FORMA_PAGO' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="PRIMER_MES_FECHAS_FORMA_PAGO">
-          <Property Name="FECHA_FORMA_PAGO" Type="date" />
-        </EntityType>-->
-  <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.REGISTRO_NOVEDADES_FECHAS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="REGISTRO_NOVEDADES_FECHAS">
     <Key>
@@ -1234,11 +1177,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.REGISTRO_NOVEDADE
     <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
     <Property Name="FECHA_FORMA_PAGO" Type="date" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.TAGS_DISTINTOS' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="TAGS_DISTINTOS">
-          <Property Name="TAG" Type="varchar" MaxLength="300" />
-        </EntityType>-->
   <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.TEST_VISTA_FLUJOS_CORREGIDOS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="TEST_VISTA_FLUJOS_CORREGIDOS">
@@ -1264,37 +1202,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.TEST_VISTA_FLUJOS
     <Property Name="DATEDIFF3" Type="int" />
   </EntityType>
   <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.TOTAL_FACTURAS' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="TOTAL_FACTURAS">
-          <Property Name="COD_FACTURA" Type="bigint" />
-          <Property Name="TOTAL_FACTURA" Type="numeric" Precision="38" Scale="20" />
-        </EntityType>-->
-  <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.TOTAL_FACTURAS_ITEM' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="TOTAL_FACTURAS_ITEM">
-          <Property Name="COD_FACTURA" Type="bigint" />
-          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
-          <Property Name="TOTAL" Type="numeric" Precision="38" Scale="20" />
-        </EntityType>-->
-  <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.TOTAL_FACTURAS_PERS' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="TOTAL_FACTURAS_PERS">
-          <Property Name="COD_FACTURA" Type="bigint" />
-          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
-          <Property Name="TOTAL" Type="numeric" Precision="38" Scale="20" />
-        </EntityType>-->
-  <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.v_test' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="v_test">
-          <Property Name="COD_FACTURA" Type="bigint" />
-          <Property Name="TOTAL_GENERAL" Type="numeric" Precision="38" Scale="20" />
-        </EntityType>-->
-  <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_ADICIONES_HORAS_EXTRA_DIURNAS' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="VISTA_ADICIONES_HORAS_EXTRA_DIURNAS">
-          <Property Name="Expr1" Type="real" />
-        </EntityType>-->
-  <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_AGREGACION_ITEMS_DEPENDIENTES' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="VISTA_AGREGACION_ITEMS_DEPENDIENTES">
     <Key>
@@ -1303,26 +1210,22 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_AGREGACION_
     <Property Name="COD_ITEM_CONTRATO" Type="bigint" Nullable="false" />
     <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
     <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
-    <Property Name="VALOR_TOTAL" Type="numeric" Precision="38" Scale="20" />
+    <Property Name="VALOR_TOTAL" Type="numeric" Precision="38" Scale="9" />
   </EntityType>
   <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_CARTERA_INDEX' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="VISTA_CARTERA_INDEX">
     <Key>
-      <PropertyRef Name="COD_CLIENTE" />
-      <PropertyRef Name="COD_FACTURA" />
-      <PropertyRef Name="COD_CARTERA" />
+      <PropertyRef Name="COD_CONTRATO_PROYECTO" />
     </Key>
-    <Property Name="COD_CLIENTE" Type="bigint" Nullable="false" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" Nullable="false" />
+    <Property Name="COD_CLIENTE" Type="bigint" />
     <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
-    <Property Name="GESTOR" Type="nvarchar" MaxLength="256" />
-    <Property Name="VALOR_SIN_IMPUESTOS" Type="numeric" Precision="30" Scale="2" />
-    <Property Name="NUMERO_FACTURA" Type="varchar" MaxLength="10" />
+    <Property Name="GESTOR" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="SALDO" Type="numeric" Precision="38" Scale="2" />
     <Property Name="FECHA_FACTURA" Type="date" />
-    <Property Name="ESTADO_CARTERA" Type="bigint" />
     <Property Name="RANKING" Type="varchar" MaxLength="50" />
-    <Property Name="COD_FACTURA" Type="bigint" Nullable="false" />
-    <Property Name="COD_CARTERA" Type="bigint" Nullable="false" />
+    <Property Name="CENTRO_COSTOS" Type="varchar" MaxLength="300" />
   </EntityType>
   <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_CONTRATO_PROYECTO_FACTURAS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -1345,17 +1248,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_CONTRATO_PR
     <Property Name="ESTADO_ULTIMA_FACTURA" Type="varchar" MaxLength="300" Nullable="false" />
     <Property Name="ESTADO_ORDEN" Type="varchar" MaxLength="300" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_CONTRATO_PROYECTO_REVERSO' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="VISTA_CONTRATO_PROYECTO_REVERSO">
-          <Property Name="COD_ROL" Type="bigint" />
-          <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
-          <Property Name="VALOR_SIN_PRESTACIONES" Type="numeric" Precision="38" Scale="20" />
-          <Property Name="VALOR_CON_PRESTACIONES" Type="numeric" Precision="38" Scale="20" />
-          <Property Name="VALOR_FACTOR_MULTIPLICADOR" Type="numeric" Precision="38" Scale="20" />
-          <Property Name="FECHA_INI" Type="date" />
-          <Property Name="MESES" Type="int" />
-        </EntityType>-->
   <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_CONTRATOS_ROL_DESCRIPCION' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="VISTA_CONTRATOS_ROL_DESCRIPCION">
@@ -1392,13 +1284,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_COSTOS_FLUJ
     <Property Name="FECHA" Type="date" />
     <Property Name="VALOR_TOTAL" Type="numeric" Precision="30" Scale="20" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_DETALLES_CONCEPTO' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="VISTA_DETALLES_CONCEPTO">
-          <Property Name="COD_FACTURA" Type="bigint" />
-          <Property Name="COD_CONCEPTO_PSL" Type="bigint" />
-          <Property Name="VALOR_SIN_IMPUESTOS" Type="numeric" Precision="38" Scale="20" />
-        </EntityType>-->
   <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_DETDOCVTAENTRA' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="VISTA_DETDOCVTAENTRA">
@@ -1658,16 +1543,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FLUJO_INGRE
     <Property Name="USUARIO_REGISTRO" Type="varchar" MaxLength="50" />
   </EntityType>
   <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_GASTO_ADMON' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="VISTA_GASTO_ADMON">
-          <Property Name="CALCULO" Type="varchar" MaxLength="300" />
-          <Property Name="CUENTA" Type="int" />
-          <Property Name="SIGNO" Type="bigint" />
-          <Property Name="SUMA" Type="numeric" Precision="37" Scale="2" />
-          <Property Name="CUENTA51" Type="numeric" Precision="17" Scale="2" />
-          <Property Name="CUENTA511511" Type="numeric" Precision="17" Scale="2" />
-        </EntityType>-->
-  <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_GENERACION_DATOS_REGISTRO_NOVEDADES' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="VISTA_GENERACION_DATOS_REGISTRO_NOVEDADES">
     <Key>
@@ -1682,6 +1557,25 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_GENERACION_
     <Property Name="FECHA_FIN" Type="date" />
     <Property Name="ROL_FECHA_INI" Type="date" />
     <Property Name="RANDOM" Type="float" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_GESTION_CARTERA' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="VISTA_GESTION_CARTERA">
+    <Key>
+      <PropertyRef Name="COD_CARTERA" />
+    </Key>
+    <Property Name="COD_CARTERA" Type="bigint" Nullable="false" />
+    <Property Name="COD_FACTURA" Type="bigint" />
+    <Property Name="ESTADO_CARTERA" Type="bigint" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
+    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
+    <Property Name="NUMERO_FACTURA" Type="varchar" MaxLength="10" />
+    <Property Name="FECHA_FACTURA" Type="date" />
+    <Property Name="COD_ESTADO_FACTURA" Type="bigint" />
+    <Property Name="VALOR_SIN_IMPUESTOS" Type="numeric" Precision="30" Scale="2" />
+    <Property Name="RANKING" Type="varchar" MaxLength="50" />
+    <Property Name="DIAS" Type="int" />
   </EntityType>
   <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_INGEELIMP' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -1975,15 +1869,39 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
     <Property Name="Email" Type="nvarchar" MaxLength="256" />
     <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
   </EntityType>
+  <Association Name="FK_ACUERDOS_PAGO_ENTREGAB_CARTERA">
+    <End Role="CARTERA" Type="Self.CARTERA" Multiplicity="0..1" />
+    <End Role="ACUERDOS_PAGO_ENTREGAB" Type="Self.ACUERDOS_PAGO_ENTREGAB" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CARTERA">
+        <PropertyRef Name="COD_CARTERA" />
+      </Principal>
+      <Dependent Role="ACUERDOS_PAGO_ENTREGAB">
+        <PropertyRef Name="COD_CARTERA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_ACUERDOS_PAGO_ENTREGAB_ESTADOS_ACUER_PAG_ENTREG">
-    <End Role="ESTADOS_ACUER_PAG_ENTREG" Type="Self.ESTADOS_ACUER_PAG_ENTREG" Multiplicity="1" />
+    <End Role="ESTADOS_ACUER_PAG_ENTREG" Type="Self.ESTADOS_ACUER_PAG_ENTREG" Multiplicity="0..1" />
     <End Role="ACUERDOS_PAGO_ENTREGAB" Type="Self.ACUERDOS_PAGO_ENTREGAB" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="ESTADOS_ACUER_PAG_ENTREG">
-        <PropertyRef Name="COD_ESTADO_ACUER_PAG_ENTR" />
+        <PropertyRef Name="COD_ESTADO_ACUERDO" />
       </Principal>
       <Dependent Role="ACUERDOS_PAGO_ENTREGAB">
-        <PropertyRef Name="ESTADO" />
+        <PropertyRef Name="COD_ESTADO_ACUERDO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ACUERDOS_PAGO_ENTREGAB_TIPOS_ACUERDO">
+    <End Role="TIPOS_ACUERDO" Type="Self.TIPOS_ACUERDO" Multiplicity="0..1" />
+    <End Role="ACUERDOS_PAGO_ENTREGAB" Type="Self.ACUERDOS_PAGO_ENTREGAB" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TIPOS_ACUERDO">
+        <PropertyRef Name="COD_TIPO_ACUERDO" />
+      </Principal>
+      <Dependent Role="ACUERDOS_PAGO_ENTREGAB">
+        <PropertyRef Name="COD_TIPO_ACUERDO" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -2012,7 +1930,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_CARTERA_FACTURAS">
-    <End Role="FACTURAS" Type="Self.FACTURAS" Multiplicity="1" />
+    <End Role="FACTURAS" Type="Self.FACTURAS" Multiplicity="0..1" />
     <End Role="CARTERA" Type="Self.CARTERA" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="FACTURAS">
@@ -3005,6 +2923,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
     <EntitySet Name="TAG_ORDEN" EntityType="Self.TAG_ORDEN" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TIPO_CONDICION_CONTRACTUAL" EntityType="Self.TIPO_CONDICION_CONTRACTUAL" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TIPO_CONTRATO" EntityType="Self.TIPO_CONTRATO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TIPOS_ACUERDO" EntityType="Self.TIPOS_ACUERDO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TIPOS_GESTION" EntityType="Self.TIPOS_GESTION" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TIPOS_NOVEDAD" EntityType="Self.TIPOS_NOVEDAD" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TIPOS_NOVEDAD_CONDICION" EntityType="Self.TIPOS_NOVEDAD_CONDICION" Schema="dbo" store:Type="Tables" />
@@ -3446,16 +3365,14 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
     </EntitySet>
     <EntitySet Name="VISTA_CARTERA_INDEX" EntityType="Self.VISTA_CARTERA_INDEX" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
+    [VISTA_CARTERA_INDEX].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
     [VISTA_CARTERA_INDEX].[COD_CLIENTE] AS [COD_CLIENTE], 
     [VISTA_CARTERA_INDEX].[DESCRIPCION] AS [DESCRIPCION], 
     [VISTA_CARTERA_INDEX].[GESTOR] AS [GESTOR], 
-    [VISTA_CARTERA_INDEX].[VALOR_SIN_IMPUESTOS] AS [VALOR_SIN_IMPUESTOS], 
-    [VISTA_CARTERA_INDEX].[NUMERO_FACTURA] AS [NUMERO_FACTURA], 
+    [VISTA_CARTERA_INDEX].[SALDO] AS [SALDO], 
     [VISTA_CARTERA_INDEX].[FECHA_FACTURA] AS [FECHA_FACTURA], 
-    [VISTA_CARTERA_INDEX].[ESTADO_CARTERA] AS [ESTADO_CARTERA], 
     [VISTA_CARTERA_INDEX].[RANKING] AS [RANKING], 
-    [VISTA_CARTERA_INDEX].[COD_FACTURA] AS [COD_FACTURA], 
-    [VISTA_CARTERA_INDEX].[COD_CARTERA] AS [COD_CARTERA]
+    [VISTA_CARTERA_INDEX].[CENTRO_COSTOS] AS [CENTRO_COSTOS]
     FROM [dbo].[VISTA_CARTERA_INDEX] AS [VISTA_CARTERA_INDEX]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="VISTA_CONTRATO_PROYECTO_FACTURAS" EntityType="Self.VISTA_CONTRATO_PROYECTO_FACTURAS" store:Type="Views" store:Schema="dbo">
@@ -3723,6 +3640,22 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
     [VISTA_GENERACION_DATOS_REGISTRO_NOVEDADES].[RANDOM] AS [RANDOM]
     FROM [dbo].[VISTA_GENERACION_DATOS_REGISTRO_NOVEDADES] AS [VISTA_GENERACION_DATOS_REGISTRO_NOVEDADES]</DefiningQuery>
     </EntitySet>
+    <EntitySet Name="VISTA_GESTION_CARTERA" EntityType="Self.VISTA_GESTION_CARTERA" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [VISTA_GESTION_CARTERA].[COD_CARTERA] AS [COD_CARTERA], 
+    [VISTA_GESTION_CARTERA].[COD_FACTURA] AS [COD_FACTURA], 
+    [VISTA_GESTION_CARTERA].[ESTADO_CARTERA] AS [ESTADO_CARTERA], 
+    [VISTA_GESTION_CARTERA].[UserName] AS [UserName], 
+    [VISTA_GESTION_CARTERA].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
+    [VISTA_GESTION_CARTERA].[COD_FORMAS_PAGO_FECHAS] AS [COD_FORMAS_PAGO_FECHAS], 
+    [VISTA_GESTION_CARTERA].[NUMERO_FACTURA] AS [NUMERO_FACTURA], 
+    [VISTA_GESTION_CARTERA].[FECHA_FACTURA] AS [FECHA_FACTURA], 
+    [VISTA_GESTION_CARTERA].[COD_ESTADO_FACTURA] AS [COD_ESTADO_FACTURA], 
+    [VISTA_GESTION_CARTERA].[VALOR_SIN_IMPUESTOS] AS [VALOR_SIN_IMPUESTOS], 
+    [VISTA_GESTION_CARTERA].[RANKING] AS [RANKING], 
+    [VISTA_GESTION_CARTERA].[DIAS] AS [DIAS]
+    FROM [dbo].[VISTA_GESTION_CARTERA] AS [VISTA_GESTION_CARTERA]</DefiningQuery>
+    </EntitySet>
     <EntitySet Name="VISTA_INGEELIMP" EntityType="Self.VISTA_INGEELIMP" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [VISTA_INGEELIMP].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
@@ -3953,8 +3886,16 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
     [VISTA_USUARIOS_AttendanceDB].[Id] AS [Id]
     FROM [dbo].[VISTA_USUARIOS_AttendanceDB] AS [VISTA_USUARIOS_AttendanceDB]</DefiningQuery>
     </EntitySet>
+    <AssociationSet Name="FK_ACUERDOS_PAGO_ENTREGAB_CARTERA" Association="Self.FK_ACUERDOS_PAGO_ENTREGAB_CARTERA">
+      <End Role="CARTERA" EntitySet="CARTERA" />
+      <End Role="ACUERDOS_PAGO_ENTREGAB" EntitySet="ACUERDOS_PAGO_ENTREGAB" />
+    </AssociationSet>
     <AssociationSet Name="FK_ACUERDOS_PAGO_ENTREGAB_ESTADOS_ACUER_PAG_ENTREG" Association="Self.FK_ACUERDOS_PAGO_ENTREGAB_ESTADOS_ACUER_PAG_ENTREG">
       <End Role="ESTADOS_ACUER_PAG_ENTREG" EntitySet="ESTADOS_ACUER_PAG_ENTREG" />
+      <End Role="ACUERDOS_PAGO_ENTREGAB" EntitySet="ACUERDOS_PAGO_ENTREGAB" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ACUERDOS_PAGO_ENTREGAB_TIPOS_ACUERDO" Association="Self.FK_ACUERDOS_PAGO_ENTREGAB_TIPOS_ACUERDO">
+      <End Role="TIPOS_ACUERDO" EntitySet="TIPOS_ACUERDO" />
       <End Role="ACUERDOS_PAGO_ENTREGAB" EntitySet="ACUERDOS_PAGO_ENTREGAB" />
     </AssociationSet>
     <AssociationSet Name="FK_ASIGNACION_CARTERA_CARTERA" Association="Self.FK_ASIGNACION_CARTERA_CARTERA">

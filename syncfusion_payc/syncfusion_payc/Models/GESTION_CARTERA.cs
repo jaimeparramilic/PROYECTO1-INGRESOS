@@ -32,9 +32,9 @@ public partial class GESTION_CARTERA
 
 
 
-    public virtual CARTERA CARTERA { get; set; }
-
     public virtual TIPOS_GESTION TIPOS_GESTION { get; set; }
+
+    public virtual CARTERA CARTERA { get; set; }
 
 }
 

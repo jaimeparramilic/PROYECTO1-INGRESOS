@@ -69,7 +69,7 @@
             case "ejDateTimePicker":
                 ej.DateTimePicker.Locale = ej.DateTimePicker.Locale || {};
                 ej.DateTimePicker.Locale["es-CO"] = {
-                    watermarkText: "seleccione fecha y hora",
+                    watermarkText: "Fecha",
                     buttonText: {
                         today: "Hoy",
                         timeNow: "Ahora",

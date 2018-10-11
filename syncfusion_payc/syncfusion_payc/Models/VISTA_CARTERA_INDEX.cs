@@ -18,25 +18,21 @@ using System;
 public partial class VISTA_CARTERA_INDEX
 {
 
-    public long COD_CLIENTE { get; set; }
+    public long COD_CONTRATO_PROYECTO { get; set; }
+
+    public Nullable<long> COD_CLIENTE { get; set; }
 
     public string DESCRIPCION { get; set; }
 
     public string GESTOR { get; set; }
 
-    public Nullable<decimal> VALOR_SIN_IMPUESTOS { get; set; }
-
-    public string NUMERO_FACTURA { get; set; }
+    public Nullable<decimal> SALDO { get; set; }
 
     public Nullable<System.DateTime> FECHA_FACTURA { get; set; }
 
-    public Nullable<long> ESTADO_CARTERA { get; set; }
-
     public string RANKING { get; set; }
 
-    public long COD_FACTURA { get; set; }
-
-    public long COD_CARTERA { get; set; }
+    public string CENTRO_COSTOS { get; set; }
 
 }
 

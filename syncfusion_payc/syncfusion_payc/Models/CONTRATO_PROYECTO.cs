@@ -75,6 +75,10 @@ public partial class CONTRATO_PROYECTO
 
     public Nullable<long> COD_ESTADO_ORDEN_SERVICIO { get; set; }
 
+    public string CORREO_RESPONSABLE { get; set; }
+
+    public string TELEFONO_RESPONSABLE { get; set; }
+
 
 
     public virtual CONTRATOS CONTRATOS { get; set; }

@@ -52,8 +52,6 @@ public partial class DETALLE_FACTURA_ITEM
 
     public virtual CONCEPTOS CONCEPTOS { get; set; }
 
-    public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
-
     public virtual ESTADOS_DETALLE ESTADOS_DETALLE { get; set; }
 
     public virtual ESTADOS_FACTURAS ESTADOS_FACTURAS { get; set; }
@@ -63,6 +61,8 @@ public partial class DETALLE_FACTURA_ITEM
     public virtual FORMAS_PAGO_FECHAS FORMAS_PAGO_FECHAS { get; set; }
 
     public virtual ITEMS_CONTRATO ITEMS_CONTRATO { get; set; }
+
+    public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
 
 }
 

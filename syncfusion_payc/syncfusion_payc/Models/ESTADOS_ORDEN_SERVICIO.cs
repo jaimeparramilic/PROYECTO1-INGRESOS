@@ -33,15 +33,15 @@ public partial class ESTADOS_ORDEN_SERVICIO
 
 
 
+    public virtual ESTADOS_ORDEN_SERVICIO ESTADOS_ORDEN_SERVICIO1 { get; set; }
+
+    public virtual ESTADOS_ORDEN_SERVICIO ESTADOS_ORDEN_SERVICIO2 { get; set; }
+
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 	[System.Runtime.Serialization.IgnoreDataMember]
 	[Newtonsoft.Json.JsonIgnore]
 
     public virtual ICollection<CONTRATO_PROYECTO> CONTRATO_PROYECTO { get; set; }
-
-    public virtual ESTADOS_ORDEN_SERVICIO ESTADOS_ORDEN_SERVICIO1 { get; set; }
-
-    public virtual ESTADOS_ORDEN_SERVICIO ESTADOS_ORDEN_SERVICIO2 { get; set; }
 
 }
 

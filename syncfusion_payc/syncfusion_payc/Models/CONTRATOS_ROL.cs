@@ -63,8 +63,6 @@ public partial class CONTRATOS_ROL
 
     public virtual CONCEPTOS CONCEPTOS { get; set; }
 
-    public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
-
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 	[System.Runtime.Serialization.IgnoreDataMember]
 	[Newtonsoft.Json.JsonIgnore]
@@ -72,6 +70,8 @@ public partial class CONTRATOS_ROL
     public virtual ICollection<CONTRATO_ROL_CARGO> CONTRATO_ROL_CARGO { get; set; }
 
     public virtual ROLES ROLES { get; set; }
+
+    public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
 
 }
 

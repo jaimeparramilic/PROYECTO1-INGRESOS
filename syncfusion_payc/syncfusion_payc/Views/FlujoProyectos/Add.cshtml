@@ -164,13 +164,19 @@
                     @*DESCRIPCION*@
                     <div class="form-group">
                         <label for="desc_proyecto">NOMBRE DE PROYECTO</label>
-                        <textarea class="form-control" id="desc_proyecto" placeholder="NOMBRE PROYECTO" row="3"></textarea>
+                        <textarea class="form-control" id="desc_proyecto" placeholder="NOMBRE PROYECTO" row="1"></textarea>
                         <span class="error"></span>
                     </div>
-                    @*DIRECCIÓN OBRA*@
+                    @*CORREO ELECTRÓNICO RESPONSABLE EN PAYC*@
                     <div class="form-group">
-                        <label for="direccion">DIRECCIÓN</label>
-                        <input type="text" class="form-control" id="direccion" placeholder="DIRECCIÓN PROYECTO">
+                        <label for="direccion">CORREO DE RESPONSABLE PAYC</label>
+                        <input type="text" class="form-control" id="correo" placeholder="CORREO ELECTRÓNICO">
+                        <span class="error"></span>
+                    </div>
+                     @*TELÉFONO RESPONSABLE EN PAYC*@
+                    <div class="form-group">
+                        <label for="direccion">CELULAR PAYC (10 NUMEROS)</label>
+                        <input type="text" class="form-control" id="telefono" placeholder="TELÉFONO" >
                         <span class="error"></span>
                     </div>
                     @*VALOR PROYECTO*@
@@ -178,6 +184,13 @@
                         <label>VALOR PROYECTO (COP)</label>
                         @Html.EJ().CurrencyTextbox("VALOR_PROYECTO").Locale("es-CO").Value(0).IncrementStep(100000000)
                     </div>
+                    @*DIRECCIÓN OBRA*@
+                    <div class="form-group">
+                        <label for="direccion">DIRECCIÓN</label>
+                        <input type="text" class="form-control" id="direccion" placeholder="DIRECCIÓN PROYECTO">
+                        <span class="error"></span>
+                    </div>
+                    
                 </div>
                 <div class="column-inter col-xs-12 col-md-3">
                     <h4>ASPECTOS TÉCNICOS</h4>
@@ -1122,13 +1135,14 @@
         //Validación etapa 2
         else if (paso == "2") {
 
-            var completos_paso2 = 17;
+            var completos_paso2 = 19;
             var errores_paso2 = 0;
             var warnings_paso2 = 0;
             //Remover errores
             $('#desc_proyecto').removeClass("error").removeClass("warning");
             $('#direccion').removeClass("error").removeClass("warning");
-
+            $('#direccion').removeClass("error").removeClass("warning");
+            $('#correo').removeClass("error").removeClass("warning");
             $("#TIPO_SERVICIO_container").removeClass("error").removeClass("warning");
             $('#centro_costos').removeClass("error").removeClass("warning");
             $("#TIPO_OBRA_container").removeClass("error").removeClass("warning");
@@ -1149,6 +1163,8 @@
             //Traer valores
             var descripcion = $('#desc_proyecto').val() || "";
             var direccion = $('#direccion').val() || "";
+            var correo = $('#correo').val() || "";
+            var telefono = $('#telefono').val() || "";
             var tipo_servicio = $("#TIPO_SERVICIO").data("ejDropDownList").option("value") || "";
             var tipo_obra = $("#TIPO_OBRA").data("ejDropDownList").option("value") || "";
             var tipo_estructura = $('#tipo_estructura').val() || "";
@@ -1174,6 +1190,16 @@
             //Revisar campos con errores
             if (descripcion == "") {
                 $('#desc_proyecto').addClass("error");
+                completos_paso2 = completos_paso2 - 1;
+                errores_paso2 = errores_paso2 + 1;
+            }
+            if (correo == "" || !validar_email(correo)) {
+                $('#correo').addClass("error");
+                completos_paso2 = completos_paso2 - 1;
+                errores_paso2 = errores_paso2 + 1;
+            }
+            if (telefono == "" || !validar_telefono(telefono)) {
+                $('#telefono').addClass("error");
                 completos_paso2 = completos_paso2 - 1;
                 errores_paso2 = errores_paso2 + 1;
             }
@@ -1267,7 +1293,7 @@
             }
 
             //Mostrar resultados
-            $('.steps .img-circle.active .percent').empty().prepend(Math.round(((completos_paso2) / 17) * 100) + "%");
+            $('.steps .img-circle.active .percent').empty().prepend(Math.round(((completos_paso2) / 19) * 100) + "%");
 
             //Guardar etapa 2
 
@@ -1296,6 +1322,10 @@
                 FECHA_INI_LIQUIDACION: fecha_ini_etapa_liquidacion,
                 CENTRO_COSTOS: centro_costos
             };
+            var adicional = {
+                CORREO_RESPONSABLE: correo,
+                TELEFONO_RESPONSABLE: telefono
+            };
             if (tipos_condiciones_contractuales[0] == "") {
 
             }
@@ -1308,7 +1338,7 @@
                 div_mensaje1 = "<div class='operando mensajes'><div class='loader_mensajes'><span class='e-image1'></span><div><span class='closebtn' onclick='$(this).parent().remove();'>&times;</span>"
                 div_mensaje1 = div_mensaje1 + mensaje1 + "</div >";
                 $(".contenedor_tablas").prepend(div_mensaje1);
-                var data = JSON.stringify({ PROYECTO: proyecto,COD_CONTRATO:id_contrato, TIPO_CONDICIONES: tipos_condiciones_contractuales,COD_FORMA_PAGO:cod_forma_pago,TAGS:tags });
+                var data = JSON.stringify({ PROYECTO: proyecto, COD_CONTRATO: id_contrato, TIPO_CONDICIONES: tipos_condiciones_contractuales, COD_FORMA_PAGO: cod_forma_pago, TAGS: tags, ADICIONAL: adicional  });
                 var url = "guardar_proyecto";
                 $.ajax({
                     type: "POST",
@@ -1354,7 +1384,7 @@
                 div_mensaje1 = div_mensaje1 + mensaje1 + "</div >";
                 $(".contenedor_tablas").prepend(div_mensaje1);
                 proyecto.COD_PROYECTO = id_proyecto;
-                var data = JSON.stringify({ PROYECTO: proyecto, COD_CONTRATO: id_contrato, TIPO_CONDICIONES: tipos_condiciones_contractuales, COD_FORMA_PAGO: cod_forma_pago, COD_CONTRATO_PROYECTO: contrato_proyecto, TAGS: tags });
+                var data = JSON.stringify({ PROYECTO: proyecto, COD_CONTRATO: id_contrato, TIPO_CONDICIONES: tipos_condiciones_contractuales, COD_FORMA_PAGO: cod_forma_pago, COD_CONTRATO_PROYECTO: contrato_proyecto, TAGS: tags, ADICIONAL: adicional  });
                 var url = "actualizar_proyecto";
                 $.ajax({
                     type: "POST",
@@ -2120,7 +2150,26 @@
                 }, 50); 
             }
         
+        }
+    
+    //Función para validar que el patrón de correos electrónicos se cumpla
+    function validar_email(email) {
+        var re = /^(([^<>()[\]\\.,;:\s@@\"]+(\.[^<>()[\]\\.,;:\s@@\"]+)*)|(\".+\"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
     }
+
+    //Funcion para validar teléfonos de 10 digitos (celulares)
+    function validar_telefono(telefono) {
+        var pattern = /^\d{10}$/;
+        if (pattern.test(telefono)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+        return false;
+        }
+    
     </script>
 }
 

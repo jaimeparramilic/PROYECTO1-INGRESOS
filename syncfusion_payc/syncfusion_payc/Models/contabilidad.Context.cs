@@ -34,19 +34,13 @@ public partial class test_payc_contabilidadEntities : DbContext
     }
 
 
-    public virtual DbSet<ACUERDOS_PAGO_ENTREGAB> ACUERDOS_PAGO_ENTREGAB { get; set; }
-
     public virtual DbSet<ASIGNACION_CARTERA> ASIGNACION_CARTERA { get; set; }
 
     public virtual DbSet<CARGOS> CARGOS { get; set; }
 
-    public virtual DbSet<CARTERA> CARTERA { get; set; }
-
     public virtual DbSet<CAUSA_ESTADO> CAUSA_ESTADO { get; set; }
 
     public virtual DbSet<CENTROS_COSTOS> CENTROS_COSTOS { get; set; }
-
-    public virtual DbSet<CLIENTES> CLIENTES { get; set; }
 
     public virtual DbSet<COLABORADORES> COLABORADORES { get; set; }
 
@@ -57,8 +51,6 @@ public partial class test_payc_contabilidadEntities : DbContext
     public virtual DbSet<CONCEPTOS> CONCEPTOS { get; set; }
 
     public virtual DbSet<CONTRATO_COLABORADOR> CONTRATO_COLABORADOR { get; set; }
-
-    public virtual DbSet<CONTRATO_PROYECTO> CONTRATO_PROYECTO { get; set; }
 
     public virtual DbSet<CONTRATO_ROL_CARGO> CONTRATO_ROL_CARGO { get; set; }
 
@@ -79,8 +71,6 @@ public partial class test_payc_contabilidadEntities : DbContext
     public virtual DbSet<ENTREGABLES> ENTREGABLES { get; set; }
 
     public virtual DbSet<ESTADO_COLABORADOR> ESTADO_COLABORADOR { get; set; }
-
-    public virtual DbSet<ESTADOS_ACUER_PAG_ENTREG> ESTADOS_ACUER_PAG_ENTREG { get; set; }
 
     public virtual DbSet<ESTADOS_CARTERA> ESTADOS_CARTERA { get; set; }
 
@@ -220,8 +210,6 @@ public partial class test_payc_contabilidadEntities : DbContext
 
     public virtual DbSet<VISTA_AGREGACION_ITEMS_DEPENDIENTES> VISTA_AGREGACION_ITEMS_DEPENDIENTES { get; set; }
 
-    public virtual DbSet<VISTA_CARTERA_INDEX> VISTA_CARTERA_INDEX { get; set; }
-
     public virtual DbSet<VISTA_CONTRATO_PROYECTO_FACTURAS> VISTA_CONTRATO_PROYECTO_FACTURAS { get; set; }
 
     public virtual DbSet<VISTA_CONTRATOS_ROL_DESCRIPCION> VISTA_CONTRATOS_ROL_DESCRIPCION { get; set; }
@@ -277,6 +265,22 @@ public partial class test_payc_contabilidadEntities : DbContext
     public virtual DbSet<VISTA_TEMP> VISTA_TEMP { get; set; }
 
     public virtual DbSet<VISTA_USUARIOS_AttendanceDB> VISTA_USUARIOS_AttendanceDB { get; set; }
+
+    public virtual DbSet<CARTERA> CARTERA { get; set; }
+
+    public virtual DbSet<VISTA_CARTERA_INDEX> VISTA_CARTERA_INDEX { get; set; }
+
+    public virtual DbSet<VISTA_GESTION_CARTERA> VISTA_GESTION_CARTERA { get; set; }
+
+    public virtual DbSet<ACUERDOS_PAGO_ENTREGAB> ACUERDOS_PAGO_ENTREGAB { get; set; }
+
+    public virtual DbSet<ESTADOS_ACUER_PAG_ENTREG> ESTADOS_ACUER_PAG_ENTREG { get; set; }
+
+    public virtual DbSet<TIPOS_ACUERDO> TIPOS_ACUERDO { get; set; }
+
+    public virtual DbSet<CONTRATO_PROYECTO> CONTRATO_PROYECTO { get; set; }
+
+    public virtual DbSet<CLIENTES> CLIENTES { get; set; }
 
 }
 

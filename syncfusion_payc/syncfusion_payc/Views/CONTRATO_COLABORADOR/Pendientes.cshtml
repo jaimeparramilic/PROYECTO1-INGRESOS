@@ -345,11 +345,7 @@
                     success: function (data) {
                         //Instanciar dropdown
                         var drop = $(".e-dropdownlist[name='COD_COLABORADOR']").ejDropDownList('instance');
-                        drop.option({
-                            select: function (args) {
-                                cargar_cargos(args.value);
-                            }
-                        });
+
                         //Cargar lista de colaboradores
                         //temp1 = data.data;
                         var lista_colaboradores = data.data;
@@ -357,12 +353,15 @@
                         drop.option("dataSource", dataManager);
                         drop.option("fields", { text: "DESCRIPCION", value: "COD_COLABORADOR" });
                         drop.option("enableFilterSearch", true);
-                        drop.option({
-                            
-                            select: function (args) {
-                                cargar_cargos(args.value);
-                            }
-                        });
+                        try {
+                            drop.option({
+                                value: COD_COLABORADOR,
+                                select: function (args) {
+                                    cargar_cargos(args.value);
+                                }
+                            });
+                        }
+                        catch{ }
                     }
                 });
 
@@ -392,6 +391,7 @@
                         drop.option("enableFilterSearch", true);
                         drop.option({ value: COD_CONTRATO_ROL });
                         drop.option({ enabled: false });
+                        drop.option({ value: COD_CONTRATO_ROL });
                     }
                 });
 

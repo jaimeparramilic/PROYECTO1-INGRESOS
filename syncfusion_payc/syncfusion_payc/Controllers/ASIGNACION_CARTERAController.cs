@@ -22,7 +22,14 @@ namespace syncfusion_payc.Controllers
         public ActionResult Index()
         {
             var aSIGNACION_CARTERA = db.ASIGNACION_CARTERA.Include(a => a.CARTERA);
-            return View(aSIGNACION_CARTERA.ToList());
+
+            //Generación tabla cartera
+            int ret = 0;
+            string error = "";
+            // Insertar facturas q falten en tabla CARTERA
+            error = Utilidades.Cartera.IniciarCartera(out ret);
+            ViewBag.Test = error;
+            return View();
         }
 
         // GET: ASIGNACION_CARTERA/Details/5

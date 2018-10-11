@@ -69,6 +69,8 @@ namespace syncfusion_payc.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             CONTRATO_PROYECTO cont = db.CONTRATO_PROYECTO.Find(id);
+            ViewBag.CORREO_RESPONSABLE = cont.CORREO_RESPONSABLE;
+            ViewBag.TELEFONO_RESPONSABLE = cont.TELEFONO_RESPONSABLE;
             if (cont == null)
             {
                 return HttpNotFound();
@@ -649,7 +651,7 @@ namespace syncfusion_payc.Controllers
         #endregion
         #region etapa2
         [HttpPost]
-        public ActionResult guardar_proyecto(PROYECTOS PROYECTO, int [] TIPO_CONDICIONES,long COD_CONTRATO,long COD_FORMA_PAGO, string[] TAGS)
+        public ActionResult guardar_proyecto(PROYECTOS PROYECTO, int [] TIPO_CONDICIONES,long COD_CONTRATO,long COD_FORMA_PAGO, string[] TAGS,ADICIONALES ADICIONAL)
         {
             //Guardar el proyecto
             db.PROYECTOS.Add(PROYECTO);
@@ -664,6 +666,8 @@ namespace syncfusion_payc.Controllers
             cont_pro.COD_FORMA_PAGO = COD_FORMA_PAGO;
             cont_pro.COD_ESTADO_ORDEN_SERVICIO = 2;
             cont_pro.MODIFICADO_POR = User.Identity.GetUserName();
+            cont_pro.CORREO_RESPONSABLE = ADICIONAL.CORREO_RESPONSABLE;
+            cont_pro.CORREO_RESPONSABLE = ADICIONAL.TELEFONO_RESPONSABLE;
             DateTime hoy = DateTime.Today;
             cont_pro.FECHA_ULTIMA_MODIFICACION = hoy;
             db.CONTRATO_PROYECTO.Add(cont_pro);
@@ -707,7 +711,7 @@ namespace syncfusion_payc.Controllers
             return Json(new { success = true, responseText = retornar }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public ActionResult actualizar_proyecto(PROYECTOS PROYECTO, long[] TIPO_CONDICIONES, long COD_CONTRATO, long COD_FORMA_PAGO,long COD_CONTRATO_PROYECTO, string[] TAGS)
+        public ActionResult actualizar_proyecto(PROYECTOS PROYECTO, long[] TIPO_CONDICIONES, long COD_CONTRATO, long COD_FORMA_PAGO,long COD_CONTRATO_PROYECTO, string[] TAGS,ADICIONALES ADICIONAL)
         {
             //Actualizar proyecto el proyecto
             PROYECTOS table = db.PROYECTOS.Single(o => o.COD_PROYECTO == PROYECTO.COD_PROYECTO);
@@ -726,7 +730,8 @@ namespace syncfusion_payc.Controllers
                 tabletemp.MODIFICADO_POR= User.Identity.GetUserName();
                 DateTime hoy = DateTime.Today;
                 tabletemp.FECHA_ULTIMA_MODIFICACION = hoy;
-
+                tabletemp.CORREO_RESPONSABLE = ADICIONAL.CORREO_RESPONSABLE;
+                tabletemp.CORREO_RESPONSABLE = ADICIONAL.TELEFONO_RESPONSABLE;
                 db.SaveChanges();
             }
             catch
@@ -739,6 +744,8 @@ namespace syncfusion_payc.Controllers
                 cont_pro.MODIFICADO_POR = User.Identity.GetUserName();
                 DateTime hoy = DateTime.Today;
                 cont_pro.FECHA_ULTIMA_MODIFICACION = hoy;
+                cont_pro.CORREO_RESPONSABLE = ADICIONAL.CORREO_RESPONSABLE;
+                cont_pro.CORREO_RESPONSABLE = ADICIONAL.TELEFONO_RESPONSABLE;
                 db.CONTRATO_PROYECTO.Add(cont_pro);
                 db.SaveChanges();
             }
