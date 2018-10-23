@@ -173,9 +173,9 @@ factura <- function(cod_factura) {
   TOTAL_PERSONAS[is.na(TOTAL_PERSONAS)]<-0
   
   #ELIMINAR LOS DATOS REPETIDOS DEL PROYECTO QUE SE ESTÁ CONSULTANDO
-  eliminar <- paste0("DELETE FROM [dbo].[DETALLE_FACTURA_PERS_TEMP] WHERE [COD_CONTRATO_PROYECTO] =", proyecto, "AND COD_FORMAS_PAGO_FECHAS=", fecha)
+  eliminar <- paste0("DELETE FROM [dbo].[DETALLE_FACTURA_PERS] WHERE [COD_CONTRATO_PROYECTO] =", proyecto, "AND COD_FORMAS_PAGO_FECHAS=", fecha)
   dbExecute(con, eliminar)
-  eliminar <- paste0("DELETE FROM [dbo].[DETALLE_FACTURA_ITEM_TEMP] WHERE [COD_CONTRATO_PROYECTO] =", proyecto, "AND COD_FORMAS_PAGO_FECHAS=", fecha)
+  eliminar <- paste0("DELETE FROM [dbo].[DETALLE_FACTURA_ITEM] WHERE [COD_CONTRATO_PROYECTO] =", proyecto, "AND COD_FORMAS_PAGO_FECHAS=", fecha)
   dbExecute(con, eliminar)
   eliminar <- paste0("DELETE FROM [dbo].[DETALLE_FACTURA_ADJUNTO_PERS] WHERE [COD_CONTRATO_PROYECTO] =", proyecto, "AND COD_FORMAS_PAGO_FECHAS=", fecha)
   dbExecute(con, eliminar)
@@ -187,7 +187,7 @@ factura <- function(cod_factura) {
   if (nrow(TOTAL_PERSONAS) != 0) {
     TABLA_TEMPORAL <- TOTAL_PERSONAS[TOTAL_PERSONAS$COD_FORMAS_PAGO_FECHAS == fecha & TOTAL_PERSONAS$COD_CONTRATO_PROYECTO == proyecto,]
     for (i in 1:ceiling(nrow(TABLA_TEMPORAL) / chunksize)) {
-      query = paste0("INSERT INTO [dbo].[DETALLE_FACTURA_PERS_TEMP] 
+      query = paste0("INSERT INTO [dbo].[DETALLE_FACTURA_PERS] 
                      ([COD_CONTRATO_PROYECTO]
                      ,[COD_ROL]
                      ,[COD_FORMAS_PAGO_FECHAS]
@@ -280,7 +280,7 @@ factura <- function(cod_factura) {
   
   if (nrow(TOTAL_ITEMS_FIJOS) != 0) {
     for (i in 1:ceiling(nrow(TOTAL_ITEMS_FIJOS) / chunksize)) {
-      query = paste0("INSERT INTO [dbo].[DETALLE_FACTURA_ITEM_TEMP]
+      query = paste0("INSERT INTO [dbo].[DETALLE_FACTURA_ITEM]
                      ([COD_CONTRATO_PROYECTO]
                      ,[COD_ITEM_CONTRATO]
                      ,[COD_FORMAS_PAGO_FECHAS]
@@ -315,7 +315,7 @@ factura <- function(cod_factura) {
   
   if (nrow(ITEMS_VARIABLES) != 0) {
     for (i in 1:ceiling(nrow(TOTAL_ITEMS_VARIABLES) / chunksize)) {
-      query = paste0("INSERT INTO [dbo].[DETALLE_FACTURA_ITEM_TEMP]
+      query = paste0("INSERT INTO [dbo].[DETALLE_FACTURA_ITEM]
                      ([COD_CONTRATO_PROYECTO]
                      ,[COD_ITEM_CONTRATO]
                      ,[COD_FORMAS_PAGO_FECHAS]
