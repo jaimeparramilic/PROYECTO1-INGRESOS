@@ -87,6 +87,7 @@ namespace syncfusion_payc.Controllers
             }
             
             ViewBag.contrato_proyecto = cont;
+            ViewBag.CENTRO_COSTOS = cont.CENTRO_COSTOS;
             try
             {
                 CONTRATOS cont1 = db.CONTRATOS.Find(cont.COD_CONTRATO);
@@ -667,7 +668,7 @@ namespace syncfusion_payc.Controllers
             cont_pro.COD_ESTADO_ORDEN_SERVICIO = 2;
             cont_pro.MODIFICADO_POR = User.Identity.GetUserName();
             cont_pro.CORREO_RESPONSABLE = ADICIONAL.CORREO_RESPONSABLE;
-            cont_pro.CORREO_RESPONSABLE = ADICIONAL.TELEFONO_RESPONSABLE;
+            cont_pro.TELEFONO_RESPONSABLE = ADICIONAL.TELEFONO_RESPONSABLE;
             DateTime hoy = DateTime.Today;
             cont_pro.FECHA_ULTIMA_MODIFICACION = hoy;
             db.CONTRATO_PROYECTO.Add(cont_pro);
@@ -731,7 +732,7 @@ namespace syncfusion_payc.Controllers
                 DateTime hoy = DateTime.Today;
                 tabletemp.FECHA_ULTIMA_MODIFICACION = hoy;
                 tabletemp.CORREO_RESPONSABLE = ADICIONAL.CORREO_RESPONSABLE;
-                tabletemp.CORREO_RESPONSABLE = ADICIONAL.TELEFONO_RESPONSABLE;
+                tabletemp.TELEFONO_RESPONSABLE = ADICIONAL.TELEFONO_RESPONSABLE;
                 db.SaveChanges();
             }
             catch

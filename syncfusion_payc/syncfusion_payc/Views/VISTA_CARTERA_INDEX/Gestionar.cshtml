@@ -359,7 +359,7 @@
             }
         }
         else {
-            alert("No se puede realizar llamadas en este menú, por favor diríjase a la sección de gestión de cartera.");
+            alert("No se puede realizar acciones en este menú, por favor diríjase a la sección de gestión de cartera.");
         }
     }
     //Función para cancelar acción
@@ -374,14 +374,47 @@
     }
     //Función para finalizar acción
     function gestion_cartera(sender) {
+        
+        var r = confirm("¿Esta seguro de realizar esta acción?");
+        if (r) {
+            var descripcion_gestion = "";
+            var tipo_gestion = 0;
+            if (sender.hasClass("enviar_whatsapp_gesion")) {
+                tipo_gestion  = 3;
+                descripcion_gestion = $('#descripcion_whatsapp').val() 
+            }
+            else if (sender.hasClass("enviar_skype_gesion")) {
+                tipo_gestion  = 2;
+                descripcion_gestion = $('#descripcion_llamar').val() 
+            }
+            else {
+                tipo_gestion = 1;
+                descripcion_gestion="Se envío un correo de manera automatizada."
+            }
+            //registrar_accion_gestion(long COD_CARTERA, long TIPO_GESTION, string DESCRIPCION)
+            var data = JSON.stringify({ COD_CONTRATO_PROYECTO: cod_contrato_proyecto, TIPO_GESTION: tipo_gestion,DESCRIPCION:descripcion_gestion });
+            var url = "../registrar_accion_gestion";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                dataFilter: function (data) { return data; },
+                success: function (data) {
+                    alert(data.responseText);
+                    cancelar();
+                    $(".contenedor_loader1").hide();
+                }
+            });
         if (sender.hasClass("enviar_whatsapp_gesion") || sender.hasClass("enviar_skype_gesion")) {
-            alert("Aun no se ha terminado de implementar la integración con skype y whatsapp");
+            
         }
         else {
             var html = "";
             var correo = "";
-            var r = confirm("¿Esta seguro de enviar el correo?");
-            if (r) {
+            
+            
                 $(".contenedor_loader1").show();
                 if (sender.hasClass("boton_cliente")) {
                     

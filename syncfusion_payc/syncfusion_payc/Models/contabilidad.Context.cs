@@ -96,8 +96,6 @@ public partial class test_payc_contabilidadEntities : DbContext
 
     public virtual DbSet<GENEROS> GENEROS { get; set; }
 
-    public virtual DbSet<GESTION_CARTERA> GESTION_CARTERA { get; set; }
-
     public virtual DbSet<GESTION_ENTREGABLES> GESTION_ENTREGABLES { get; set; }
 
     public virtual DbSet<GRUPOS_FACTURA> GRUPOS_FACTURA { get; set; }
@@ -281,6 +279,14 @@ public partial class test_payc_contabilidadEntities : DbContext
     public virtual DbSet<CONTRATO_PROYECTO> CONTRATO_PROYECTO { get; set; }
 
     public virtual DbSet<CLIENTES> CLIENTES { get; set; }
+
+    public virtual DbSet<GESTION_CARTERA> GESTION_CARTERA { get; set; }
+
+    public virtual DbSet<DETALLE_FACTURA_ADJUNTO_PERS> DETALLE_FACTURA_ADJUNTO_PERS { get; set; }
+
+    public virtual DbSet<VISTA_DETALLE_ADJUNTOS_PERS> VISTA_DETALLE_ADJUNTOS_PERS { get; set; }
+
+    public virtual DbSet<VISTA_DETALLE_ADJUNTO_PERS_EXPORT> VISTA_DETALLE_ADJUNTO_PERS_EXPORT { get; set; }
 
 }
 

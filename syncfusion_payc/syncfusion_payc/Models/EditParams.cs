@@ -30,6 +30,22 @@ namespace syncfusion_payc.Models
         public IEnumerable<ROLES> changed { get; set; }
         public IEnumerable<ROLES> deleted { get; set; }
     }
+
+    public class EditParams_VISTA_DETALLE_ADJUNTOS_PERS
+    {
+        public int skip { get; set; }
+        public int take { get; set; }
+        public string action { get; set; }
+        public int key { get; set; }
+        public string keyColumn { get; set; }
+        public VISTA_DETALLE_ADJUNTOS_PERS value { get; set; }
+
+        //Batch Edit Params
+        public IEnumerable<VISTA_DETALLE_ADJUNTOS_PERS> added { get; set; }
+        public IEnumerable<VISTA_DETALLE_ADJUNTOS_PERS> changed { get; set; }
+        public IEnumerable<VISTA_DETALLE_ADJUNTOS_PERS> deleted { get; set; }
+    }
+    
     public class EditParams_ASIGNACION_CARTERA
     {
         public int skip { get; set; }

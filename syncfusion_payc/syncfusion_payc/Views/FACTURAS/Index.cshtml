@@ -46,7 +46,7 @@
             {
                 child.Datasource(ds => ds.URL("GetOrderData").InsertURL("valor_facturar").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
                 .AllowPaging()
-                .AllowFiltering(false)
+                .AllowFiltering(true)
                 .Locale("es-CO")
                 .QueryString("COD_CONTRATO_PROYECTO")
                 .AllowResizeToFit(false)
@@ -76,13 +76,13 @@
 
                 }).Columns(col =>
                 {
-                    col.Field("COD_FORMAS_PAGO_FECHAS").AllowEditing(false).Format("{0:dd/MM/yyyy}").ForeignKeyField("COD_FORMAS_PAGO_FECHAS").ForeignKeyValue("FECHA_FORMA_PAGO").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().FORMAS_PAGO_FECHAS.ToList()).HeaderText("PERIODO").EditType(EditingType.DropdownEdit).Width(120).Add();
+                    col.Field("COD_FORMAS_PAGO_FECHAS").AllowEditing(false).Format("{0:dd/MM/yyyy}").ForeignKeyField("COD_FORMAS_PAGO_FECHAS").Type("string").ForeignKeyValue("FECHA_FORMA_PAGO").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().FORMAS_PAGO_FECHAS.ToList()).HeaderText("PERIODO").EditType(EditingType.DropdownEdit).Width(60).Add();
                     col.Field("COD_CONTRATO_PROYECTO").Visible(false).Add();
                     col.Field("COD_ESTADO_FACTURA").Width(120).AllowEditing(false).ForeignKeyField("COD_ESTADO_FACTURA").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ESTADOS_FACTURAS.ToList()).HeaderText("ESTADO").EditType(EditingType.DropdownEdit).Add();
-                    col.Field("COD_CONCEPTO_PSL").Width(120).ForeignKeyField("COD_CONCEPTO_PSL").ForeignKeyValue("CODIGO_EN_PSL").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONCEPTOS.ToList()).HeaderText("CONCEPTO").EditType(EditingType.DropdownEdit).Add();
+                    col.Field("COD_CONCEPTO_PSL").Width(80).Type("string").ForeignKeyField("COD_CONCEPTO_PSL").ForeignKeyValue("CODIGO_EN_PSL").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONCEPTOS.ToList()).HeaderText("CONCEPTO").EditType(EditingType.DropdownEdit).Add();
                     col.Field("COD_FACTURA").HeaderText("COD_FACTURA").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                    col.Field("NUMERO_FACTURA").Width(120).AllowEditing(false).HeaderText("NÚMERO FACTURA").Add();
-                    col.Field("FECHA_FACTURA").Width(120).HeaderText("FECHA FACTURA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                    col.Field("NUMERO_FACTURA").Width(80).AllowEditing(false).HeaderText("NÚMERO FACTURA").Add();
+                    col.Field("FECHA_FACTURA").Width(80).HeaderText("FECHA FACTURA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
                     col.Field("VALOR_SIN_IMPUESTOS").Width(120).AllowEditing(false).HeaderText("VALOR SIN IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                     col.Field("VALOR_CON_IMPUESTOS").Visible(false).AllowEditing(false).HeaderText("VALOR CON IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                     col.Field("RANKING").AllowEditing(false).HeaderText("RANKING").Visible(false).Add();
@@ -198,6 +198,10 @@
         else if ($target.hasClass("Facturar")) {
             facturar(sender.gridModel.parentDetails.parentKeyFieldValue, sender)
         }
+        if (sender.itemName == "Excel Export") {
+            this.exportGrid('../../ExportToExcel')
+            e.cancel = true;
+        }
     }
 
     //Función que permite verificar las facturas
@@ -280,6 +284,8 @@
         
         //alert("llegue");
     }
+
+   
 </script>
 
 <!--Modelos o templates para botones-->
@@ -295,3 +301,5 @@
 <script type="text/x-jsrender" id="Eliminar">
     <a class="e-tooltxt Eliminar e-icon e-minus"></a>
 </script>
+
+

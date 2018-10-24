@@ -32,6 +32,8 @@ public partial class CONCEPTOS
 
         this.ITEMS_CONTRATO = new HashSet<ITEMS_CONTRATO>();
 
+        this.DETALLE_FACTURA_ADJUNTO_PERS = new HashSet<DETALLE_FACTURA_ADJUNTO_PERS>();
+
     }
 
 
@@ -72,6 +74,12 @@ public partial class CONCEPTOS
 	[Newtonsoft.Json.JsonIgnore]
 
     public virtual ICollection<ITEMS_CONTRATO> ITEMS_CONTRATO { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+	[System.Runtime.Serialization.IgnoreDataMember]
+	[Newtonsoft.Json.JsonIgnore]
+
+    public virtual ICollection<DETALLE_FACTURA_ADJUNTO_PERS> DETALLE_FACTURA_ADJUNTO_PERS { get; set; }
 
 }
 

@@ -36,6 +36,8 @@ public partial class FORMAS_PAGO_FECHAS
 
         this.REGISTRO_NOVEDADES = new HashSet<REGISTRO_NOVEDADES>();
 
+        this.DETALLE_FACTURA_ADJUNTO_PERS = new HashSet<DETALLE_FACTURA_ADJUNTO_PERS>();
+
     }
 
 
@@ -96,6 +98,12 @@ public partial class FORMAS_PAGO_FECHAS
 	[Newtonsoft.Json.JsonIgnore]
 
     public virtual ICollection<REGISTRO_NOVEDADES> REGISTRO_NOVEDADES { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+	[System.Runtime.Serialization.IgnoreDataMember]
+	[Newtonsoft.Json.JsonIgnore]
+
+    public virtual ICollection<DETALLE_FACTURA_ADJUNTO_PERS> DETALLE_FACTURA_ADJUNTO_PERS { get; set; }
 
 }
 

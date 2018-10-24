@@ -44,7 +44,7 @@
                 col.Field("CENTRO_COSTOS").HeaderText("CENTRO COSTOS").Add();
                 col.Field("COD_CONTRATO_PROYECTO").HeaderText("CÓDIGO EN SISTEMA").IsPrimaryKey(true).AllowEditing(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                 col.Field("COMPLETA").HeaderText("COMPLETA EN SISTEMA").AllowEditing(false).Add();
-                col.HeaderText("ESTADO").Width(70).Template("<a class='e-icon e-warningmessage estado{{:COD_ESTADO_ORDEN_SERVICIO}} completa{{:COMPLETA}}' title='PENDIENTE DE FINALIZAR (CLICK PARA FINALIZAR)' href='#' onclick='finalizar({{:COD_CONTRATO_PROYECTO}})'/><a class='e-icon e-righttick estado{{:COD_ESTADO_ORDEN_SERVICIO}} completa{{:COMPLETA}}'  href='#' title='FINALIZADO (CLICK PARA REVERTIR FINALIZACIÓN)' onclick='revertir({{:COD_CONTRATO_PROYECTO}})' /><a  href='#' class='e-icon e-file-cancel completa1{{:COMPLETA}}' title='INCOMPLETA (CLICK PARA EDITAR)' onclick='editar_contrato_proyecto_click({{:COD_CONTRATO_PROYECTO}})' />").Add();
+                col.HeaderText("ESTADO").Width(70).Template("<a class='e-icon e-warningmessage estado{{:COD_ESTADO_ORDEN_SERVICIO}} completa{{:COMPLETA}}' title='PENDIENTE DE FINALIZAR (CLICK PARA FINALIZAR)' href='#' onclick='finalizar({{:COD_CONTRATO_PROYECTO}},{{:COD_ESTADO_ORDEN_SERVICIO}})'/><a class='e-icon e-righttick estado{{:COD_ESTADO_ORDEN_SERVICIO}} completa{{:COMPLETA}}'  href='#' title='FINALIZADO (CLICK PARA REVERTIR FINALIZACIÓN)' onclick='revertir({{:COD_CONTRATO_PROYECTO}})' /><a  href='#' class='e-icon e-file-cancel completa1{{:COMPLETA}}' title='INCOMPLETA (CLICK PARA EDITAR)' onclick='editar_contrato_proyecto_click({{:COD_CONTRATO_PROYECTO}})' /> <a  href='#' class='e-icon e-datetime completa{{:COMPLETA}} estado{{:COD_ESTADO_ORDEN_SERVICIO}}' title='CENTRO DE COSTOS CERRADO (CLICK PARA HABILITAR)' onclick='finalizar({{:COD_CONTRATO_PROYECTO}},{{:COD_ESTADO_ORDEN_SERVICIO}})' />").Add();
                 col.Field("FECHA_CREACION").HeaderText("FECHA CREACIÓN").AllowEditing(false).Format("{0:dd/MM/yyyy}").Add();
                 col.Field("DESCRIPCION").HeaderText("DESCRIPCION").AllowEditing(false).AllowFiltering(true).Add();
                 col.Field("COD_FORMA_PAGO").ForeignKeyField("COD_FORMA_PAGO").AllowEditing(false).AllowFiltering(true).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>
@@ -156,8 +156,14 @@
     }
 
     //Finalizar orden
-    function finalizar(cod_contrato_proyecto) {
-        var r = confirm("¿Desea finalizar la orden? Una vez finalice la orden de servicio las otras áreas podran ver la orden, facturar y asignar colaboradores");
+    function finalizar(cod_contrato_proyecto, estado) {
+        var r = false;
+        if (estado == 1) {
+            r = confirm("¿Desea finalizar la orden? Una vez finalice la orden de servicio las otras áreas podran ver la orden, facturar y asignar colaboradores");
+        }
+        else {
+            r = confirm("¿Desea volver a abrir la orden? Una vez se abra la orden de servicio las otras áreas podran ver la orden, facturar y asignar colaboradores. Recuerde extender los periodos si el centro de costos aparece con estado PENDIENTE DE CERRAR");
+        }
         if (r) {
             var data = JSON.stringify({ COD_CONTRATO_PROYECTO: cod_contrato_proyecto });
             var url = "finalizar";
@@ -182,7 +188,7 @@
 
     //Revertir
     function revertir(cod_contrato_proyecto) {
-            var r = confirm("¿Desea revertir la orden? Una vez revierta la orden de servicio las otras áreas no podran ver la orden, facturar o asignar colaboradores");
+        var r =confirm("¿Desea revertir la orden? Una vez revierta la orden de servicio las otras áreas no podran ver la orden, facturar o asignar colaboradores");
             if (r) {
                 var data = JSON.stringify({ COD_CONTRATO_PROYECTO: cod_contrato_proyecto });
                 var url = "revertir";
@@ -203,18 +209,20 @@
                     }
                 });
             }
-        }
-        //Función click para botones custom de la toolbar
-        function clicked(sender) {
+    }
+
+    //Función click para botones custom de la toolbar
+    function clicked(sender) {
 
             $target = $(sender.target);
             if ($target.hasClass("Costos")) {
                 costos(sender.gridModel.selectedRecords[0].COD_CONTRATO_PROYECTO,
                     sender)
             }
-        }
-        //Función que permite mostrar costos
-        function costos(indice, sender) {
+    }
+
+    //Función que permite mostrar costos
+    function costos(indice, sender) {
             //window.alert("ENTRO COSTOS> : " + indice);
             window.location = "Costos/" + indice;
         }

@@ -188,7 +188,47 @@ namespace syncfusion_payc.Controllers
 
             return View();
         }
+#endregion
+        #region Adjuntar
+        public ActionResult Adjunto(long? id)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            DATOS_VERIFICAR_FACTURA DatVerificarFactu = db.DATOS_VERIFICAR_FACTURA.Find(id);
 
+            if (DatVerificarFactu == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.COD_FACTURA = DatVerificarFactu.COD_FACTURA;
+            ViewBag.COD_CONTRATO_PROYECTO = DatVerificarFactu.COD_CONTRATO_PROYECTO;
+            ViewBag.COD_FORMAS_PAGO_FECHAS = DatVerificarFactu.COD_FORMAS_PAGO_FECHAS;
+            ViewBag.COD_ESTADO_FACTURA = DatVerificarFactu.COD_ESTADO_FACTURA;
+            ViewBag.DESCRIPCION_PROYECTO = DatVerificarFactu.DESCRIPCION;
+            ViewBag.PERIODO_FACTURAR = DatVerificarFactu.PERIODO_FACTURAR;
+            ViewBag.ESTADO_FACTURA = DatVerificarFactu.COD_ESTADO_FACTURA;
+
+            //Consulta para traer total
+            ViewBag.TOTAL_FACTURA = "0";
+            string query = @"SELECT FORMAT([TOTAL_FACTURA],'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS] WHERE COD_FACTURA=" + id.ToString();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                connection.Open();
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    ViewBag.TOTAL_FACTURA = dr.GetValue(0).ToString();
+                }
+                connection.Close();
+            }
+
+            return View();
+        }
         #endregion
         #region grid index
         //Aca inicia syncfusion
