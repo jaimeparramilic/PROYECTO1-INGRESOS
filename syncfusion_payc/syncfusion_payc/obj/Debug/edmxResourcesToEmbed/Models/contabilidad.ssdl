@@ -1319,9 +1319,9 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_COSTOS_FLUJ
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_DETALLE_ADJUNTO_PERS_EXPORT' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="VISTA_DETALLE_ADJUNTO_PERS_EXPORT">
     <Key>
-      <PropertyRef Name="NOVEDADES" />
+      <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="bigint" />
+    <Property Name="ID" Type="bigint" Nullable="false" />
     <Property Name="COD_FACTURA" Type="bigint" />
     <Property Name="NOMBRE_PROYECTO" Type="varchar" MaxLength="300" />
     <Property Name="NOMBRE_ROL" Type="varchar" MaxLength="300" />

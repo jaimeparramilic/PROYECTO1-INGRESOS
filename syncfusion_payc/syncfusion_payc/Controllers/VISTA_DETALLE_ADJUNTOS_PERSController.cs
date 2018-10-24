@@ -283,8 +283,7 @@ namespace syncfusion_payc.Controllers
                 application.DefaultVersion = ExcelVersion.Excel2013;
                 IWorkbook workbook = application.Workbooks.Create(1);
                 IWorksheet worksheet = workbook.Worksheets[0];
-                //IStyle style = workbook.Styles.Add("NewStyle");
-                //style.FillBackground = Syncfusion.XlsIO.ExcelKnownColors.Brown;
+                
                 worksheet.Range["A1:Q1"].CellStyle.FillBackground= Syncfusion.XlsIO.ExcelKnownColors.Brown;
                 worksheet.Range["A1:Q1"].CellStyle.Font.Color = Syncfusion.XlsIO.ExcelKnownColors.White;
                 worksheet.Range["A1:Q30"].CellStyle.Borders.LineStyle = Syncfusion.XlsIO.ExcelLineStyle.Thin;
@@ -307,6 +306,17 @@ namespace syncfusion_payc.Controllers
                 worksheet.Range["A1:Q1"].Merge();
                 worksheet.Range["A1:Q1"].Borders.LineStyle = Syncfusion.XlsIO.ExcelLineStyle.Double;
                 worksheet.Range["A1:Q1"].Borders.Color = Syncfusion.XlsIO.ExcelKnownColors.Black;
+                worksheet.Range["A1:Q1"].CellStyle.Borders[ExcelBordersIndex.DiagonalDown].LineStyle = Syncfusion.XlsIO.ExcelLineStyle.None;
+                worksheet.Range["A1:Q1"].CellStyle.Borders[ExcelBordersIndex.DiagonalUp].LineStyle = Syncfusion.XlsIO.ExcelLineStyle.None;
+                worksheet.Range["A1:Q1"].HorizontalAlignment = ExcelHAlign.HAlignCenterAcrossSelection;
+                int i = 1;
+                while (i <= 16) { 
+                    worksheet.AutofitColumn(i);
+                    i = i + 1;
+                }
+                worksheet.SetColumnWidth(17, 40);
+                worksheet.Range["A3:Q32"].WrapText = true;
+
                 var fileSavePath = Path.Combine(fileSave, "Adjunto_"+COD_FACTURA+".xlsx");
                 workbook.SaveAs(fileSavePath);
             }

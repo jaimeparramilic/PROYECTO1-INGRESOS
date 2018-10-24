@@ -3642,9 +3642,9 @@
   </EntityType>
   <EntityType Name="VISTA_DETALLE_ADJUNTO_PERS_EXPORT">
     <Key>
-      <PropertyRef Name="NOVEDADES" />
+      <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="Int64" />
+    <Property Name="ID" Type="Int64" Nullable="false" />
     <Property Name="COD_FACTURA" Type="Int64" />
     <Property Name="NOMBRE_PROYECTO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
     <Property Name="NOMBRE_ROL" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
