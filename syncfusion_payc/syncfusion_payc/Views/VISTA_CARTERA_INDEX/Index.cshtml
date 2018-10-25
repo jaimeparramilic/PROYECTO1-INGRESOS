@@ -43,7 +43,7 @@
         col.Field("GESTOR").ForeignKeyField("UserName").ForeignKeyValue("UserName").DataSource((IEnumerable<object>
             )new syncfusion_payc.Models.test_payc_contabilidadEntities().VISTA_USUARIOS_AttendanceDB.ToList()).Type("string").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).HeaderText("GESTOR").Add();
         col.Field("CENTRO_COSTOS").AllowEditing(false).HeaderText("CENTRO COSTOS").Add();
-        col.Field("SALDO").AllowEditing(false).HeaderText("TOTAL POR PAGAR SIN IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+        col.Field("SALDO").AllowEditing(false).HeaderText("VALOR SIN IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
         
         col.Field("FECHA_FACTURA").AllowEditing(false).HeaderText("FECHA ÚLTIMA FACTURA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
         

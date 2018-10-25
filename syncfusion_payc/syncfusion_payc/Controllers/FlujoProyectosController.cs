@@ -746,7 +746,7 @@ namespace syncfusion_payc.Controllers
                 DateTime hoy = DateTime.Today;
                 cont_pro.FECHA_ULTIMA_MODIFICACION = hoy;
                 cont_pro.CORREO_RESPONSABLE = ADICIONAL.CORREO_RESPONSABLE;
-                cont_pro.CORREO_RESPONSABLE = ADICIONAL.TELEFONO_RESPONSABLE;
+                cont_pro.TELEFONO_RESPONSABLE = ADICIONAL.TELEFONO_RESPONSABLE;
                 db.CONTRATO_PROYECTO.Add(cont_pro);
                 db.SaveChanges();
             }
