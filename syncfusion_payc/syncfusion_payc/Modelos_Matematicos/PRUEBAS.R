@@ -5,7 +5,7 @@ factura <- function(cod_factura) {
   #CONEXIÓN Y EXTRACCIÓN DE LA INFORMACIÓN DE LA BASE DE DATOS---------------
   #CONEXIÓN A LA BASE DE DATOS
   con <- dbConnect(odbc::odbc(), "PAYC_FACTURACION", uid = "sa", pwd = "1234JAMS*")
-  #cod_factura = 11524
+  cod_factura = 11534
   
   #EXTRACCION DE LA INFORMACION IMPORTANTE DE LA BASE DE DATOS
   fact <- paste0("SELECT * FROM FACTURAS WHERE COD_FACTURA=", cod_factura)
@@ -279,7 +279,7 @@ factura <- function(cod_factura) {
         k = (i - 1) * chunksize + j
         if (k <= nrow(PERSONAS_ADJUNTO)) {
           vals[j] = paste0('(', paste0(proyecto, ",",
-                        if (is.null(PERSONAS_ADJUNTO$COD_ROL.x[k])) {if (is.null(PERSONAS_ADJUNTO$COD_ROL)) {1} else {PERSONAS_ADJUNTO$COD_ROL}} else {PERSONAS_ADJUNTO$COD_ROL.x[k]}, ",",
+                        if (is.null(PERSONAS_ADJUNTO$COD_ROL.x[k])) {if (is.null(PERSONAS_ADJUNTO$COD_ROL[k])) {1} else {PERSONAS_ADJUNTO$COD_ROL[k]}} else {PERSONAS_ADJUNTO$COD_ROL.x[k]}, ",",
                           if (is.null(PERSONAS_ADJUNTO$COD_COLABORADOR[k])) {7} else {PERSONAS_ADJUNTO$COD_COLABORADOR[k]}, ",",
                             fecha, ",'",
                             Sys.time(), "','GENERADO',",
