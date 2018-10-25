@@ -12,7 +12,7 @@ using syncfusion_payc.Models;
 using syncfusion_payc.Utilidades;
 using System.Configuration;
 using System.Data.SqlClient;
-
+using Microsoft.AspNet.Identity;
 
 namespace syncfusion_payc.Controllers
 {
@@ -359,7 +359,32 @@ namespace syncfusion_payc.Controllers
             {
                 return Json(new { success = true, responseText = "Ha ocurrido un error, por favor, vuelva a intentarlo. Si el problema persiste, contáctese con los administradores del sistema" }, JsonRequestBehavior.AllowGet);
             }
-        }        
+        }
+
+        //Función que registra las acciones de la gestión de cartera
+        public ActionResult registrar_accion_gestion(long COD_CONTRATO_PROYECTO,long TIPO_GESTION,string DESCRIPCION)
+        {
+            //Almacenar accion de gestión
+            try
+            {
+                string usuario = User.Identity.GetUserName();
+                GESTION_CARTERA gest = new GESTION_CARTERA();
+                gest.COD_CONTRATO_PROYECTO = COD_CONTRATO_PROYECTO;
+                gest.DESCRIPCION = DESCRIPCION;
+                gest.TIPO_GESTION = TIPO_GESTION;
+                DateTime hoy = DateTime.Today;
+                gest.UserName = usuario;
+                gest.FECHA_GESTION = hoy;
+                db.GESTION_CARTERA.Add(gest);
+                db.SaveChanges();
+                return Json(new { success = true, responseText = "Mensaje enviado exitosamente" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                
+                return Json(new { success = true, responseText = "Ha ocurrido un error, por favor, vuelva a intentarlo. Si el problema persiste, contáctese con los administradores del sistema" }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
     }
 }

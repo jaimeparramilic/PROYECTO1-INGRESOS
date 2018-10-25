@@ -26,7 +26,7 @@
 
             <!-- Etapa 1 CONTRATOS Y SUS CONDICIONES-->
             <div data-Step="1">
-                <h2 class="title-etapas">CONTRATO Y SUS CONDICIONES</h2><br>
+                <h2 class="title-etapas">CONTRATO Y SUS CONDICIONES - CENTRO DE COSTOS:@(ViewBag.CENTRO_COSTOS == null ? "SIN ASIGNAR" : Html.Raw((String)ViewBag.CENTRO_COSTOS.ToString()).ToString())</h2><br>
                 <!-- primera grid etapa 2-->
                 <div class="column-inter col-xs-12 col-md-3">
                     @*COD CONTRATO*@
@@ -353,7 +353,7 @@
                                             col.Field("RUTA_DOCUMENTO").HeaderText("RUTA DOCUMENTO ANEXO").AllowEditing(false).Add();
                                             col.Field("COD_CONTRATO_ROL").HeaderText("CONTRATO_ROL").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                                             col.Field("FECHA_INI").HeaderText("FECHA INICIO ROL").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).ValidationRules(v => v.AddRule("validacion_fecha_rol_contrato", 5).AddRule("validacion_fecha_rol_ejecucion", 5).AddRule("required", true)).Add();
-                                            col.Field("TIPO_TRIBUTACION").ForeignKeyField("DESCRIPCION").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().TIPOS_TRIBUTACION.ToList()).EditType(EditingType.DropdownEdit).HeaderText("TIPO").Add();
+                                            
                                             col.Field("MESES").HeaderText("MESES PERMANENCIA").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true).AddRule("validacion_meses", "rol").AddRule("required", true)).Add();
                                             col.Field("DIAS_FRACCION").HeaderText("DIAS FRACCIÓN").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true).AddRule("validacion_meses", "rol").AddRule("required", true)).Add();
                                             col.Field("VALOR_MENSUAL_SIN_PRESTACIONES").HeaderText("VALOR_MENSUAL SIN PRESTACIONES").Format("{0:n0}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 5, Locale = "es-CO", IncrementStep = 100000, PositivePattern = "$ n " }).ValidationRules(v => v.AddRule("required", true)).Add();
@@ -1288,7 +1288,7 @@
                 warnings_paso2 = warnings_paso2 + 1;
             }
             if (tipo_servicio == "") {
-                $('#tipo_servicio').addClass("warning");
+                $('#tipo_servicio').addClass("error");
                 completos_paso2 = completos_paso2 - 1;
                 errores_paso2 = errores_paso2 + 1;
             }
@@ -2142,7 +2142,7 @@
                 enableDrillThrough:false,
                 enableXHRCredentials:false,
                 enableRTL:false,
-
+                frozenHeaderSettings: { enableFrozenHeaders: true },
                 enableMemberEditorPaging:false,
                 enableCellEditing: true,
                 
@@ -2184,7 +2184,7 @@
                 enableDrillThrough: false,
                 enableXHRCredentials: false,
                 enableRTL: false,
-
+                frozenHeaderSettings: { enableFrozenHeaders: true },
                 enableMemberEditorPaging: false,
                 enableCellEditing: true,
 

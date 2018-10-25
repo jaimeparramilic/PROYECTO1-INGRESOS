@@ -225,6 +225,36 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.COMBINACIONES_GAS
     <Property Name="DEBUG" Type="varchar" MaxLength="1000" />
     <Property Name="VARIABLE" Type="varchar" MaxLength="50" />
   </EntityType>
+  <EntityType Name="DETALLE_FACTURA_ADJUNTO_PERS">
+    <Key>
+      <PropertyRef Name="COD_DETALLE_FACTURA_ADJUNTO_PERS" />
+    </Key>
+    <Property Name="COD_DETALLE_FACTURA_ADJUNTO_PERS" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
+    <Property Name="COD_ROL" Type="bigint" />
+    <Property Name="COD_COLABORADOR" Type="bigint" />
+    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
+    <Property Name="FECHA_REGISTRO" Type="datetime" />
+    <Property Name="USUARIO" Type="varchar" MaxLength="300" />
+    <Property Name="COD_ESTADO_FACTURA" Type="bigint" />
+    <Property Name="COD_CAUSA_ESTADO" Type="bigint" />
+    <Property Name="OBSERVACIONES" Type="varchar" MaxLength="300" />
+    <Property Name="COD_FACTURA" Type="bigint" />
+    <Property Name="COD_ESTADO_DETALLE" Type="bigint" />
+    <Property Name="COD_CONCEPTO_PSL" Type="bigint" />
+    <Property Name="COD_GRUPO_FACTURA" Type="bigint" />
+    <Property Name="HORAS_ED" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="HORAS_EN" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="HORAS_FD" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="HORAS_FN" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="ADICIONES" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="HORAS_AUSENCIA" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="DESCUENTO_AUSENCIA" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="FECHA_INI" Type="date" />
+    <Property Name="FECHA_FIN" Type="date" />
+    <Property Name="VALOR_DIAS_LAB" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="VALOR_SIN_IMPUESTOS" Type="numeric" Precision="30" Scale="20" />
+  </EntityType>
   <EntityType Name="DETALLE_FACTURA_ITEM">
     <Key>
       <PropertyRef Name="COD_DETALLE_FACTURA_ITEM" />
@@ -419,11 +449,12 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.COMBINACIONES_GAS
       <PropertyRef Name="COD_GESTION" />
     </Key>
     <Property Name="COD_GESTION" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="COD_CARTERA" Type="bigint" Nullable="false" />
-    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
-    <Property Name="TIPO_GESTION" Type="bigint" Nullable="false" />
-    <Property Name="FECHA_GESTION" Type="date" Nullable="false" />
+    <Property Name="COD_CARTERA" Type="bigint" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" />
+    <Property Name="TIPO_GESTION" Type="bigint" />
+    <Property Name="FECHA_GESTION" Type="date" />
     <Property Name="DESCRIPCION" Type="varchar" MaxLength="1000" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
   </EntityType>
   <EntityType Name="GESTION_ENTREGABLES">
     <Key>
@@ -1275,14 +1306,81 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_CONTRATOS_R
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_COSTOS_FLUJO_INGR' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="VISTA_COSTOS_FLUJO_INGR">
     <Key>
-      <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      <PropertyRef Name="FILA" />
     </Key>
-    <Property Name="FILA" Type="bigint" />
+    <Property Name="FILA" Type="bigint" Nullable="false" />
     <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" Nullable="false" />
     <Property Name="CENTRO_COSTOS" Type="varchar" MaxLength="300" />
     <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
     <Property Name="FECHA" Type="date" />
     <Property Name="VALOR_TOTAL" Type="numeric" Precision="30" Scale="20" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_DETALLE_ADJUNTO_PERS_EXPORT' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="VISTA_DETALLE_ADJUNTO_PERS_EXPORT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" Nullable="false" />
+    <Property Name="COD_FACTURA" Type="bigint" />
+    <Property Name="NOMBRE_PROYECTO" Type="varchar" MaxLength="300" />
+    <Property Name="NOMBRE_ROL" Type="varchar" MaxLength="300" />
+    <Property Name="NOMBRE_PERSONA" Type="varchar" MaxLength="601" />
+    <Property Name="FECHA_INGRESO" Type="date" />
+    <Property Name="FECHA_RETIRO_EN_CONTRATO" Type="date" />
+    <Property Name="VALOR_SIN_IMPUESTOS" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="VALOR_DIAS_LAB" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="ADICIONES" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="DESCUENTO_AUSENCIA" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="HORAS_ED" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="HORAS_EN" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="HORAS_FD" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="HORAS_FN" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="HORAS_AUSENCIA" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="NOVEDADES" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_DETALLE_ADJUNTOS_PERS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="VISTA_DETALLE_ADJUNTOS_PERS">
+    <Key>
+      <PropertyRef Name="COD_DETALLE_FACTURA_ADJUNTO_PERS" />
+    </Key>
+    <Property Name="ID" Type="bigint" />
+    <Property Name="COD_DETALLE_FACTURA_ADJUNTO_PERS" Type="bigint" Nullable="false" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
+    <Property Name="COD_ROL" Type="bigint" />
+    <Property Name="COD_COLABORADOR" Type="bigint" />
+    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
+    <Property Name="FECHA_REGISTRO" Type="datetime" />
+    <Property Name="USUARIO" Type="varchar" MaxLength="300" />
+    <Property Name="COD_ESTADO_FACTURA" Type="bigint" />
+    <Property Name="COD_CAUSA_ESTADO" Type="bigint" />
+    <Property Name="OBSERVACIONES" Type="varchar" MaxLength="300" />
+    <Property Name="COD_FACTURA" Type="bigint" />
+    <Property Name="COD_ESTADO_DETALLE" Type="bigint" />
+    <Property Name="COD_CONCEPTO_PSL" Type="bigint" />
+    <Property Name="COD_GRUPO_FACTURA" Type="bigint" />
+    <Property Name="HORAS_ED" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="HORAS_EN" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="HORAS_FD" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="HORAS_FN" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="ADICIONES" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="HORAS_AUSENCIA" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="DESCUENTO_AUSENCIA" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="FECHA_INI" Type="date" />
+    <Property Name="FECHA_FIN" Type="date" />
+    <Property Name="VALOR_DIAS_LAB" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="VALOR_SIN_IMPUESTOS" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="NOMBRES" Type="varchar" MaxLength="300" />
+    <Property Name="APELLIDOS" Type="varchar" MaxLength="300" />
+    <Property Name="CEDULA" Type="bigint" />
+    <Property Name="FECHA_FORMA_PAGO" Type="date" />
+    <Property Name="NOMBRE_PROYECTO" Type="varchar" MaxLength="300" />
+    <Property Name="CENTRO_COSTOS" Type="varchar" MaxLength="300" />
+    <Property Name="NOMBRE_ROL" Type="varchar" MaxLength="300" />
+    <Property Name="FECHA_INICIO_EJECUCION" Type="date" />
+    <Property Name="FECHA_FIN_EJECUCION" Type="date" />
+    <Property Name="NOMBRE_PERSONA" Type="varchar" MaxLength="601" />
   </EntityType>
   <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_DETDOCVTAENTRA' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -2181,6 +2279,126 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_DETALLE_FACTURA_ADJUNTO_PERS_CAUSA_ESTADO">
+    <End Role="CAUSA_ESTADO" Type="Self.CAUSA_ESTADO" Multiplicity="0..1" />
+    <End Role="DETALLE_FACTURA_ADJUNTO_PERS" Type="Self.DETALLE_FACTURA_ADJUNTO_PERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CAUSA_ESTADO">
+        <PropertyRef Name="COD_CAUSA_ESTADO" />
+      </Principal>
+      <Dependent Role="DETALLE_FACTURA_ADJUNTO_PERS">
+        <PropertyRef Name="COD_CAUSA_ESTADO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLE_FACTURA_ADJUNTO_PERS_COLABORADORES">
+    <End Role="COLABORADORES" Type="Self.COLABORADORES" Multiplicity="0..1" />
+    <End Role="DETALLE_FACTURA_ADJUNTO_PERS" Type="Self.DETALLE_FACTURA_ADJUNTO_PERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COLABORADORES">
+        <PropertyRef Name="COD_COLABORADOR" />
+      </Principal>
+      <Dependent Role="DETALLE_FACTURA_ADJUNTO_PERS">
+        <PropertyRef Name="COD_COLABORADOR" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLE_FACTURA_ADJUNTO_PERS_CONCEPTOS">
+    <End Role="CONCEPTOS" Type="Self.CONCEPTOS" Multiplicity="0..1" />
+    <End Role="DETALLE_FACTURA_ADJUNTO_PERS" Type="Self.DETALLE_FACTURA_ADJUNTO_PERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONCEPTOS">
+        <PropertyRef Name="COD_CONCEPTO_PSL" />
+      </Principal>
+      <Dependent Role="DETALLE_FACTURA_ADJUNTO_PERS">
+        <PropertyRef Name="COD_CONCEPTO_PSL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLE_FACTURA_ADJUNTO_PERS_CONTRATO_PROYECTO">
+    <End Role="CONTRATO_PROYECTO" Type="Self.CONTRATO_PROYECTO" Multiplicity="0..1" />
+    <End Role="DETALLE_FACTURA_ADJUNTO_PERS" Type="Self.DETALLE_FACTURA_ADJUNTO_PERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTRATO_PROYECTO">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Principal>
+      <Dependent Role="DETALLE_FACTURA_ADJUNTO_PERS">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLE_FACTURA_ADJUNTO_PERS_ESTADOS_DETALLE">
+    <End Role="ESTADOS_DETALLE" Type="Self.ESTADOS_DETALLE" Multiplicity="0..1" />
+    <End Role="DETALLE_FACTURA_ADJUNTO_PERS" Type="Self.DETALLE_FACTURA_ADJUNTO_PERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ESTADOS_DETALLE">
+        <PropertyRef Name="COD_ESTADO_DETALLE" />
+      </Principal>
+      <Dependent Role="DETALLE_FACTURA_ADJUNTO_PERS">
+        <PropertyRef Name="COD_ESTADO_DETALLE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLE_FACTURA_ADJUNTO_PERS_ESTADOS_FACTURAS">
+    <End Role="ESTADOS_FACTURAS" Type="Self.ESTADOS_FACTURAS" Multiplicity="0..1" />
+    <End Role="DETALLE_FACTURA_ADJUNTO_PERS" Type="Self.DETALLE_FACTURA_ADJUNTO_PERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ESTADOS_FACTURAS">
+        <PropertyRef Name="COD_ESTADO_FACTURA" />
+      </Principal>
+      <Dependent Role="DETALLE_FACTURA_ADJUNTO_PERS">
+        <PropertyRef Name="COD_ESTADO_FACTURA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLE_FACTURA_ADJUNTO_PERS_FACTURAS">
+    <End Role="FACTURAS" Type="Self.FACTURAS" Multiplicity="0..1" />
+    <End Role="DETALLE_FACTURA_ADJUNTO_PERS" Type="Self.DETALLE_FACTURA_ADJUNTO_PERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FACTURAS">
+        <PropertyRef Name="COD_FACTURA" />
+      </Principal>
+      <Dependent Role="DETALLE_FACTURA_ADJUNTO_PERS">
+        <PropertyRef Name="COD_FACTURA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLE_FACTURA_ADJUNTO_PERS_FORMAS_PAGO_FECHAS">
+    <End Role="FORMAS_PAGO_FECHAS" Type="Self.FORMAS_PAGO_FECHAS" Multiplicity="0..1" />
+    <End Role="DETALLE_FACTURA_ADJUNTO_PERS" Type="Self.DETALLE_FACTURA_ADJUNTO_PERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FORMAS_PAGO_FECHAS">
+        <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+      </Principal>
+      <Dependent Role="DETALLE_FACTURA_ADJUNTO_PERS">
+        <PropertyRef Name="COD_FORMAS_PAGO_FECHAS" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLE_FACTURA_ADJUNTO_PERS_GRUPOS_FACTURA">
+    <End Role="GRUPOS_FACTURA" Type="Self.GRUPOS_FACTURA" Multiplicity="0..1" />
+    <End Role="DETALLE_FACTURA_ADJUNTO_PERS" Type="Self.DETALLE_FACTURA_ADJUNTO_PERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GRUPOS_FACTURA">
+        <PropertyRef Name="COD_GRUPO_FACTURA" />
+      </Principal>
+      <Dependent Role="DETALLE_FACTURA_ADJUNTO_PERS">
+        <PropertyRef Name="COD_GRUPO_FACTURA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DETALLE_FACTURA_ADJUNTO_PERS_ROLES">
+    <End Role="ROLES" Type="Self.ROLES" Multiplicity="0..1" />
+    <End Role="DETALLE_FACTURA_ADJUNTO_PERS" Type="Self.DETALLE_FACTURA_ADJUNTO_PERS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ROLES">
+        <PropertyRef Name="COD_ROL" />
+      </Principal>
+      <Dependent Role="DETALLE_FACTURA_ADJUNTO_PERS">
+        <PropertyRef Name="COD_ROL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_DETALLE_FACTURA_ITEM_CAUSA_ESTADO">
     <End Role="CAUSA_ESTADO" Type="Self.CAUSA_ESTADO" Multiplicity="0..1" />
     <End Role="DETALLE_FACTURA_ITEM" Type="Self.DETALLE_FACTURA_ITEM" Multiplicity="*" />
@@ -2542,7 +2760,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_GESTION_CARTERA_CARTERA">
-    <End Role="CARTERA" Type="Self.CARTERA" Multiplicity="1" />
+    <End Role="CARTERA" Type="Self.CARTERA" Multiplicity="0..1" />
     <End Role="GESTION_CARTERA" Type="Self.GESTION_CARTERA" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="CARTERA">
@@ -2553,8 +2771,20 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_GESTION_CARTERA_CONTRATO_PROYECTO">
+    <End Role="CONTRATO_PROYECTO" Type="Self.CONTRATO_PROYECTO" Multiplicity="0..1" />
+    <End Role="GESTION_CARTERA" Type="Self.GESTION_CARTERA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CONTRATO_PROYECTO">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Principal>
+      <Dependent Role="GESTION_CARTERA">
+        <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_GESTION_CARTERA_TIPOS_GESTION">
-    <End Role="TIPOS_GESTION" Type="Self.TIPOS_GESTION" Multiplicity="1" />
+    <End Role="TIPOS_GESTION" Type="Self.TIPOS_GESTION" Multiplicity="0..1" />
     <End Role="GESTION_CARTERA" Type="Self.GESTION_CARTERA" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="TIPOS_GESTION">
@@ -2887,6 +3117,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
     <EntitySet Name="CONTRATOS_CONDICIONES" EntityType="Self.CONTRATOS_CONDICIONES" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CONTRATOS_ROL" EntityType="Self.CONTRATOS_ROL" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DEBUG" EntityType="Self.DEBUG" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DETALLE_FACTURA_ADJUNTO_PERS" EntityType="Self.DETALLE_FACTURA_ADJUNTO_PERS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DETALLE_FACTURA_ITEM" EntityType="Self.DETALLE_FACTURA_ITEM" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DETALLE_FACTURA_PERS" EntityType="Self.DETALLE_FACTURA_PERS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EMAIL_CLIENTES" EntityType="Self.EMAIL_CLIENTES" Schema="dbo" store:Type="Tables" />
@@ -3419,6 +3650,67 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
     [VISTA_COSTOS_FLUJO_INGR].[FECHA] AS [FECHA], 
     [VISTA_COSTOS_FLUJO_INGR].[VALOR_TOTAL] AS [VALOR_TOTAL]
     FROM [dbo].[VISTA_COSTOS_FLUJO_INGR] AS [VISTA_COSTOS_FLUJO_INGR]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="VISTA_DETALLE_ADJUNTO_PERS_EXPORT" EntityType="Self.VISTA_DETALLE_ADJUNTO_PERS_EXPORT" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[ID] AS [ID], 
+    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[COD_FACTURA] AS [COD_FACTURA], 
+    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[NOMBRE_PROYECTO] AS [NOMBRE_PROYECTO], 
+    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[NOMBRE_ROL] AS [NOMBRE_ROL], 
+    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[NOMBRE_PERSONA] AS [NOMBRE_PERSONA], 
+    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[FECHA_INGRESO] AS [FECHA_INGRESO], 
+    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[FECHA_RETIRO_EN_CONTRATO] AS [FECHA_RETIRO_EN_CONTRATO], 
+    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[VALOR_SIN_IMPUESTOS] AS [VALOR_SIN_IMPUESTOS], 
+    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[VALOR_DIAS_LAB] AS [VALOR_DIAS_LAB], 
+    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[ADICIONES] AS [ADICIONES], 
+    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[DESCUENTO_AUSENCIA] AS [DESCUENTO_AUSENCIA], 
+    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[HORAS_ED] AS [HORAS_ED], 
+    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[HORAS_EN] AS [HORAS_EN], 
+    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[HORAS_FD] AS [HORAS_FD], 
+    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[HORAS_FN] AS [HORAS_FN], 
+    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[HORAS_AUSENCIA] AS [HORAS_AUSENCIA], 
+    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[NOVEDADES] AS [NOVEDADES]
+    FROM [dbo].[VISTA_DETALLE_ADJUNTO_PERS_EXPORT] AS [VISTA_DETALLE_ADJUNTO_PERS_EXPORT]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="VISTA_DETALLE_ADJUNTOS_PERS" EntityType="Self.VISTA_DETALLE_ADJUNTOS_PERS" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[ID] AS [ID], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[COD_DETALLE_FACTURA_ADJUNTO_PERS] AS [COD_DETALLE_FACTURA_ADJUNTO_PERS], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[COD_ROL] AS [COD_ROL], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[COD_COLABORADOR] AS [COD_COLABORADOR], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[COD_FORMAS_PAGO_FECHAS] AS [COD_FORMAS_PAGO_FECHAS], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[FECHA_REGISTRO] AS [FECHA_REGISTRO], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[USUARIO] AS [USUARIO], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[COD_ESTADO_FACTURA] AS [COD_ESTADO_FACTURA], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[COD_CAUSA_ESTADO] AS [COD_CAUSA_ESTADO], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[OBSERVACIONES] AS [OBSERVACIONES], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[COD_FACTURA] AS [COD_FACTURA], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[COD_ESTADO_DETALLE] AS [COD_ESTADO_DETALLE], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[COD_CONCEPTO_PSL] AS [COD_CONCEPTO_PSL], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[COD_GRUPO_FACTURA] AS [COD_GRUPO_FACTURA], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[HORAS_ED] AS [HORAS_ED], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[HORAS_EN] AS [HORAS_EN], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[HORAS_FD] AS [HORAS_FD], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[HORAS_FN] AS [HORAS_FN], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[ADICIONES] AS [ADICIONES], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[HORAS_AUSENCIA] AS [HORAS_AUSENCIA], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[DESCUENTO_AUSENCIA] AS [DESCUENTO_AUSENCIA], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[FECHA_INI] AS [FECHA_INI], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[FECHA_FIN] AS [FECHA_FIN], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[VALOR_DIAS_LAB] AS [VALOR_DIAS_LAB], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[VALOR_SIN_IMPUESTOS] AS [VALOR_SIN_IMPUESTOS], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[NOMBRES] AS [NOMBRES], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[APELLIDOS] AS [APELLIDOS], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[CEDULA] AS [CEDULA], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[FECHA_FORMA_PAGO] AS [FECHA_FORMA_PAGO], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[NOMBRE_PROYECTO] AS [NOMBRE_PROYECTO], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[CENTRO_COSTOS] AS [CENTRO_COSTOS], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[NOMBRE_ROL] AS [NOMBRE_ROL], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[FECHA_INICIO_EJECUCION] AS [FECHA_INICIO_EJECUCION], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[FECHA_FIN_EJECUCION] AS [FECHA_FIN_EJECUCION], 
+    [VISTA_DETALLE_ADJUNTOS_PERS].[NOMBRE_PERSONA] AS [NOMBRE_PERSONA]
+    FROM [dbo].[VISTA_DETALLE_ADJUNTOS_PERS] AS [VISTA_DETALLE_ADJUNTOS_PERS]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="VISTA_DETDOCVTAENTRA" EntityType="Self.VISTA_DETDOCVTAENTRA" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
@@ -3990,6 +4282,46 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
       <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
       <End Role="CONTRATOS_ROL" EntitySet="CONTRATOS_ROL" />
     </AssociationSet>
+    <AssociationSet Name="FK_DETALLE_FACTURA_ADJUNTO_PERS_CAUSA_ESTADO" Association="Self.FK_DETALLE_FACTURA_ADJUNTO_PERS_CAUSA_ESTADO">
+      <End Role="CAUSA_ESTADO" EntitySet="CAUSA_ESTADO" />
+      <End Role="DETALLE_FACTURA_ADJUNTO_PERS" EntitySet="DETALLE_FACTURA_ADJUNTO_PERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLE_FACTURA_ADJUNTO_PERS_COLABORADORES" Association="Self.FK_DETALLE_FACTURA_ADJUNTO_PERS_COLABORADORES">
+      <End Role="COLABORADORES" EntitySet="COLABORADORES" />
+      <End Role="DETALLE_FACTURA_ADJUNTO_PERS" EntitySet="DETALLE_FACTURA_ADJUNTO_PERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLE_FACTURA_ADJUNTO_PERS_CONCEPTOS" Association="Self.FK_DETALLE_FACTURA_ADJUNTO_PERS_CONCEPTOS">
+      <End Role="CONCEPTOS" EntitySet="CONCEPTOS" />
+      <End Role="DETALLE_FACTURA_ADJUNTO_PERS" EntitySet="DETALLE_FACTURA_ADJUNTO_PERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLE_FACTURA_ADJUNTO_PERS_CONTRATO_PROYECTO" Association="Self.FK_DETALLE_FACTURA_ADJUNTO_PERS_CONTRATO_PROYECTO">
+      <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+      <End Role="DETALLE_FACTURA_ADJUNTO_PERS" EntitySet="DETALLE_FACTURA_ADJUNTO_PERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLE_FACTURA_ADJUNTO_PERS_ESTADOS_DETALLE" Association="Self.FK_DETALLE_FACTURA_ADJUNTO_PERS_ESTADOS_DETALLE">
+      <End Role="ESTADOS_DETALLE" EntitySet="ESTADOS_DETALLE" />
+      <End Role="DETALLE_FACTURA_ADJUNTO_PERS" EntitySet="DETALLE_FACTURA_ADJUNTO_PERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLE_FACTURA_ADJUNTO_PERS_ESTADOS_FACTURAS" Association="Self.FK_DETALLE_FACTURA_ADJUNTO_PERS_ESTADOS_FACTURAS">
+      <End Role="ESTADOS_FACTURAS" EntitySet="ESTADOS_FACTURAS" />
+      <End Role="DETALLE_FACTURA_ADJUNTO_PERS" EntitySet="DETALLE_FACTURA_ADJUNTO_PERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLE_FACTURA_ADJUNTO_PERS_FACTURAS" Association="Self.FK_DETALLE_FACTURA_ADJUNTO_PERS_FACTURAS">
+      <End Role="FACTURAS" EntitySet="FACTURAS" />
+      <End Role="DETALLE_FACTURA_ADJUNTO_PERS" EntitySet="DETALLE_FACTURA_ADJUNTO_PERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLE_FACTURA_ADJUNTO_PERS_FORMAS_PAGO_FECHAS" Association="Self.FK_DETALLE_FACTURA_ADJUNTO_PERS_FORMAS_PAGO_FECHAS">
+      <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
+      <End Role="DETALLE_FACTURA_ADJUNTO_PERS" EntitySet="DETALLE_FACTURA_ADJUNTO_PERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLE_FACTURA_ADJUNTO_PERS_GRUPOS_FACTURA" Association="Self.FK_DETALLE_FACTURA_ADJUNTO_PERS_GRUPOS_FACTURA">
+      <End Role="GRUPOS_FACTURA" EntitySet="GRUPOS_FACTURA" />
+      <End Role="DETALLE_FACTURA_ADJUNTO_PERS" EntitySet="DETALLE_FACTURA_ADJUNTO_PERS" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DETALLE_FACTURA_ADJUNTO_PERS_ROLES" Association="Self.FK_DETALLE_FACTURA_ADJUNTO_PERS_ROLES">
+      <End Role="ROLES" EntitySet="ROLES" />
+      <End Role="DETALLE_FACTURA_ADJUNTO_PERS" EntitySet="DETALLE_FACTURA_ADJUNTO_PERS" />
+    </AssociationSet>
     <AssociationSet Name="FK_DETALLE_FACTURA_ITEM_CAUSA_ESTADO" Association="Self.FK_DETALLE_FACTURA_ITEM_CAUSA_ESTADO">
       <End Role="CAUSA_ESTADO" EntitySet="CAUSA_ESTADO" />
       <End Role="DETALLE_FACTURA_ITEM" EntitySet="DETALLE_FACTURA_ITEM" />
@@ -4112,6 +4444,10 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
     </AssociationSet>
     <AssociationSet Name="FK_GESTION_CARTERA_CARTERA" Association="Self.FK_GESTION_CARTERA_CARTERA">
       <End Role="CARTERA" EntitySet="CARTERA" />
+      <End Role="GESTION_CARTERA" EntitySet="GESTION_CARTERA" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GESTION_CARTERA_CONTRATO_PROYECTO" Association="Self.FK_GESTION_CARTERA_CONTRATO_PROYECTO">
+      <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
       <End Role="GESTION_CARTERA" EntitySet="GESTION_CARTERA" />
     </AssociationSet>
     <AssociationSet Name="FK_GESTION_CARTERA_TIPOS_GESTION" Association="Self.FK_GESTION_CARTERA_TIPOS_GESTION">

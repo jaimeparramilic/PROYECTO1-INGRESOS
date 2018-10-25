@@ -24,9 +24,9 @@ public partial class CARTERA
 
         this.ASIGNACION_CARTERA = new HashSet<ASIGNACION_CARTERA>();
 
-        this.GESTION_CARTERA = new HashSet<GESTION_CARTERA>();
-
         this.ACUERDOS_PAGO_ENTREGAB = new HashSet<ACUERDOS_PAGO_ENTREGAB>();
+
+        this.GESTION_CARTERA = new HashSet<GESTION_CARTERA>();
 
     }
 
@@ -55,13 +55,13 @@ public partial class CARTERA
 	[System.Runtime.Serialization.IgnoreDataMember]
 	[Newtonsoft.Json.JsonIgnore]
 
-    public virtual ICollection<GESTION_CARTERA> GESTION_CARTERA { get; set; }
+    public virtual ICollection<ACUERDOS_PAGO_ENTREGAB> ACUERDOS_PAGO_ENTREGAB { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 	[System.Runtime.Serialization.IgnoreDataMember]
 	[Newtonsoft.Json.JsonIgnore]
 
-    public virtual ICollection<ACUERDOS_PAGO_ENTREGAB> ACUERDOS_PAGO_ENTREGAB { get; set; }
+    public virtual ICollection<GESTION_CARTERA> GESTION_CARTERA { get; set; }
 
 }
 

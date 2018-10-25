@@ -596,11 +596,12 @@ th[data-p="0,0"]{
     width: 35px !important;
 }
 
-.e-righttick.estado2, .e-warningmessage.estado1, .e-icon.completaNO, .e-icon.completa{
+.e-righttick.estado2, .e-warningmessage.estado1, .e-icon.completaNO, .e-icon.completa, .e-righttick.estado4, .e-warningmessage.estado4, .e-datetime.estado2, .e-datetime.estado1 {
     display: none !important;
 }
 
-.e-righttick{
+
+.e-righttick, .e-datetime.estado4{
     color: darkseagreen !important;
 }
 
@@ -787,4 +788,12 @@ th[data-p="0,0"]{
 }
 .contenedor_entregables{
     margin-top:20px !important;
+}
+
+.e-pivotGridTable tr:nth-child(1) td:nth-child(1):not(.value) {
+    background: #634530 none repeat scroll 0 0 !important;
+}
+
+#Grid_Adjunto .e-detailcell .e-grid {
+    width:700px !important;
 }

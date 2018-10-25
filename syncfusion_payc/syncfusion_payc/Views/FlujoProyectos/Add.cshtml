@@ -353,7 +353,7 @@
                                     col.Field("COD_CONTRATO_ROL").HeaderText("CONTRATO_ROL").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                                     col.Field("RUTA_DOCUMENTO").HeaderText("RUTA DOCUMENTO ANEXO").AllowEditing(false).Add();
                                     col.Field("FECHA_INI").HeaderText("FECHA INICIO ROL").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).ValidationRules(v => v.AddRule("validacion_fecha_rol_contrato", 5).AddRule("validacion_fecha_rol_ejecucion", 5).AddRule("required", true)).Add();
-                                    col.Field("TIPO_TRIBUTACION").ForeignKeyField("DESCRIPCION").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().TIPOS_TRIBUTACION.ToList()).EditType(EditingType.DropdownEdit).HeaderText("TIPO").Add();
+                                    
                                     col.Field("MESES").HeaderText("MESES PERMANENCIA").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true).AddRule("validacion_meses", "rol").AddRule("required", true)).Add();
                                     col.Field("DIAS_FRACCION").HeaderText("DIAS FRACCIÓN").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true).AddRule("validacion_meses", "rol").AddRule("required", true)).Add();
                                     col.Field("VALOR_MENSUAL_SIN_PRESTACIONES").HeaderText("VALOR_MENSUAL SIN PRESTACIONES").Format("{0:n7}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 5, Locale = "es-CO", IncrementStep = 100000}).ValidationRules(v => v.AddRule("number", true).AddRule("required", true)).Add();
@@ -362,9 +362,9 @@
                                     col.Field("VALOR_MENSUAL_PRESTACIONES").HeaderText("VALOR MENSUAL CON PRESTACIONES").AllowEditing(false).Format("{0:n5}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("required", true)).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 5, Locale = "es-CO", IncrementStep = 100000 }).Add();
                                     col.Field("FACTOR_MULTIPLICADOR").HeaderText("FACTOR MULTIPLICADOR").Format("{0:p5}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 5, Locale = "es-CO", MaxValue = 10, MinValue = -0.01, IncrementStep = 0.01 }).ValidationRules(v => v.AddRule("required", true)).Add();
                                     col.Field("VALOR_MENSUAL_PRESTACIONES_MULTIPLICADOR").HeaderText("VALOR MENSUAL CON PRESTACIONES Y FACTOR MULTIPLICADOR").Format("{0:n5}").EditType(EditingType.NumericEdit).AllowEditing(false).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 5, Locale = "es-CO", IncrementStep = 100000 }).ValidationRules(v => v.AddRule("required", true)).Add();
-                                    col.Field("DEDICACION").HeaderText("DEDICACION").Format("{0:p7}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 7, Locale = "es-CO", MaxValue = 7, MinValue = -0.01, IncrementStep = 0.01 }).Add();
-                                    col.Field("OBSERVACIONES").HeaderText("OBSERVACIONES").Add();
                                     col.Field("COD_CONCEPTO_PSL").ForeignKeyField("COD_CONCEPTO_PSL").ForeignKeyValue("TEXTO_EN_PSL").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONCEPTOS.ToList()).HeaderText("COD CONCEPTO PSL").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).Add();
+                                    col.Field("OBSERVACIONES").HeaderText("OBSERVACIONES").Add();
+                                    
                                 }).ChildGrid(child =>
                                 {
                                     child.Datasource(ds => ds.URL("../CONTRATO_ROL_CARGO/GetOrderData").InsertURL("../CONTRATO_ROL_CARGO/PerformInsert").UpdateURL("../CONTRATO_ROL_CARGO/PerformUpdate").RemoveURL("../CONTRATO_ROL_CARGO/PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
@@ -1141,7 +1141,7 @@
             //Remover errores
             $('#desc_proyecto').removeClass("error").removeClass("warning");
             $('#direccion').removeClass("error").removeClass("warning");
-            $('#direccion').removeClass("error").removeClass("warning");
+            $('#telefono').removeClass("error").removeClass("warning");
             $('#correo').removeClass("error").removeClass("warning");
             $("#TIPO_SERVICIO_container").removeClass("error").removeClass("warning");
             $('#centro_costos').removeClass("error").removeClass("warning");
@@ -1246,7 +1246,7 @@
                 warnings_paso2 = warnings_paso2 + 1;
             }
             if (tipo_servicio == "") {
-                $('#tipo_servicio').addClass("warning");
+                $('#tipo_servicio').addClass("error");
                 completos_paso2 = completos_paso2 - 1;
                 errores_paso2 = errores_paso2 + 1;
             }
@@ -2033,7 +2033,7 @@
             gridObj = $("#PivotGrid1").ejPivotGrid({
                 enableCompleteDataExport: true,
                 locale:"es-CO",
-                url:"../../servicios/FlujoIngresosRoles.svc",
+                url:"../servicios/FlujoIngresosRoles.svc",
                 enableColumnResizing:false,
                 enableToolTip:false,
                 enableCellContext:false,
@@ -2050,7 +2050,7 @@
                 enableDrillThrough:false,
                 enableXHRCredentials:false,
                 enableRTL:false,
-
+                frozenHeaderSettings: { enableFrozenHeaders: true, enableFrozenRowHeaders: true },
                 enableMemberEditorPaging:false,
                 enableCellEditing: true,
                 
@@ -2092,10 +2092,10 @@
                 enableDrillThrough: false,
                 enableXHRCredentials: false,
                 enableRTL: false,
-
+                frozenHeaderSettings: { enableFrozenHeaders: true, enableFrozenRowHeaders: true },
                 enableMemberEditorPaging: false,
                 enableCellEditing: true,
-
+                
                 cellEdit: "editar_flujo_item",
                 load: "onLoad",
                 beforeServiceInvoke: "beforeserviceinvoke",

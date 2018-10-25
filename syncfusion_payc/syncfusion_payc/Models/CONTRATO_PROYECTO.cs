@@ -50,6 +50,10 @@ public partial class CONTRATO_PROYECTO
 
         this.TAG_ORDEN = new HashSet<TAG_ORDEN>();
 
+        this.GESTION_CARTERA = new HashSet<GESTION_CARTERA>();
+
+        this.DETALLE_FACTURA_ADJUNTO_PERS = new HashSet<DETALLE_FACTURA_ADJUNTO_PERS>();
+
     }
 
 
@@ -172,6 +176,18 @@ public partial class CONTRATO_PROYECTO
 	[Newtonsoft.Json.JsonIgnore]
 
     public virtual ICollection<TAG_ORDEN> TAG_ORDEN { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+	[System.Runtime.Serialization.IgnoreDataMember]
+	[Newtonsoft.Json.JsonIgnore]
+
+    public virtual ICollection<GESTION_CARTERA> GESTION_CARTERA { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+	[System.Runtime.Serialization.IgnoreDataMember]
+	[Newtonsoft.Json.JsonIgnore]
+
+    public virtual ICollection<DETALLE_FACTURA_ADJUNTO_PERS> DETALLE_FACTURA_ADJUNTO_PERS { get; set; }
 
 }
 

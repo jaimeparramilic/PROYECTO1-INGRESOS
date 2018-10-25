@@ -123,6 +123,7 @@
 <div class="row">
     <div class="col-md-6">
         <input type="button" value="Validar" class="btn btn-purple" onclick="validar_factura()" />
+        <input type="button" value="Adjuntos" class="btn btn-purple" onclick="ver_adjunto_factura()" />
     </div>
 </div>
 
@@ -312,6 +313,13 @@
 
     }
 
+    //Función que permite verificar las facturas
+    function ver_adjunto_factura() {
+        //alert("verificar");
+        //Validar que el estado sea correcto para verificar
+        var cod_fact = "@(ViewBag.COD_FACTURA == null ? "" : Html.Raw((String)ViewBag.COD_FACTURA.ToString()).ToString())";
+        window.location = "../Adjunto/" + cod_fact;
+    }
     // Obtener valor a facturar inicial R.E.V.
     function inicio_accion_roles(args) {
         if (args.requestType == "beginedit") {

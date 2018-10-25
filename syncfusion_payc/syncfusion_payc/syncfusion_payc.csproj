@@ -303,6 +303,7 @@
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController1.cs" />
     <Compile Include="Controllers\VISTA_CARTERA_INDEXController.cs" />
+    <Compile Include="Controllers\VISTA_DETALLE_ADJUNTOS_PERSController.cs" />
     <Compile Include="Controllers\VISTA_GESTION_CARTERAController.cs" />
     <Compile Include="Controllers\VISTA_ORDENES_CENTRO_COSTOSController.cs" />
     <Compile Include="Controllers\VISTA_PENDIENTES_RETIROController.cs" />
@@ -406,6 +407,9 @@
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DEBUG.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DETALLE_FACTURA_ADJUNTO_PERS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DETALLE_FACTURA_ITEM.cs">
@@ -611,6 +615,12 @@
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VISTA_COSTOS_FLUJO_INGR.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_DETALLE_ADJUNTOS_PERS.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_DETALLE_ADJUNTO_PERS_EXPORT.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VISTA_DETDOCVTAENTRA.cs">
@@ -1459,7 +1469,9 @@
       <DependentUpon>contabilidad.edmx</DependentUpon>
       <LastGenOutput>contabilidad.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\ej\ej.webform.js" />
     <Content Include="Scripts\jsrender.min.js" />
+    <Content Include="Scripts\webformsmin.js" />
     <Content Include="servicios\FlujoIngresosItems.svc" />
     <Content Include="servicios\FlujoIngresosRoles.svc" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -1793,6 +1805,12 @@
     <Content Include="Views\ACUERDOS_PAGO_ENTREGAB\Edit.cshtml" />
     <Content Include="Views\ACUERDOS_PAGO_ENTREGAB\Index.cshtml" />
     <Content Include="Skype\License Terms.rtf" />
+    <Content Include="Views\FACTURAS\Adjunto.cshtml" />
+    <Content Include="Views\VISTA_DETALLE_ADJUNTOS_PERS\Create.cshtml" />
+    <Content Include="Views\VISTA_DETALLE_ADJUNTOS_PERS\Delete.cshtml" />
+    <Content Include="Views\VISTA_DETALLE_ADJUNTOS_PERS\Details.cshtml" />
+    <Content Include="Views\VISTA_DETALLE_ADJUNTOS_PERS\Edit.cshtml" />
+    <Content Include="Views\VISTA_DETALLE_ADJUNTOS_PERS\Index.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
