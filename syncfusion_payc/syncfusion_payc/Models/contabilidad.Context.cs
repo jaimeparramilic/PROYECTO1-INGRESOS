@@ -288,6 +288,8 @@ public partial class test_payc_contabilidadEntities : DbContext
 
     public virtual DbSet<VISTA_DETALLE_ADJUNTO_PERS_EXPORT> VISTA_DETALLE_ADJUNTO_PERS_EXPORT { get; set; }
 
+    public virtual DbSet<VISTA_DETALLE_FACTURAS_REPORTE> VISTA_DETALLE_FACTURAS_REPORTE { get; set; }
+
 }
 
 }

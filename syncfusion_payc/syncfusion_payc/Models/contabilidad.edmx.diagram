@@ -226,7 +226,8 @@
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_PERS_GRUPOS_FACTURA" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_PERS_ROLES" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_DETALLE_ADJUNTOS_PERS" Width="1.5" PointX="31.375" PointY="22.75" />
-        <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_DETALLE_ADJUNTO_PERS_EXPORT" Width="1.5" PointX="23.375" PointY="31.75" />
+        <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_DETALLE_ADJUNTO_PERS_EXPORT" Width="1.5" PointX="31.375" PointY="31.75" />
+        <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_DETALLE_FACTURAS_REPORTE" Width="1.5" PointX="23.375" PointY="31.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

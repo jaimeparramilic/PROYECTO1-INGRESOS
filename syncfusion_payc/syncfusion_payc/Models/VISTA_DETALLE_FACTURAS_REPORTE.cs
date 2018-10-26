@@ -15,14 +15,10 @@ namespace syncfusion_payc.Models
 using System;
     using System.Collections.Generic;
     
-public partial class VISTA_DETALLE_ADJUNTO_PERS_EXPORT
+public partial class VISTA_DETALLE_FACTURAS_REPORTE
 {
 
-    public string CENTRO_COSTOS { get; set; }
-
-    public Nullable<long> ID { get; set; }
-
-    public Nullable<long> COD_FACTURA { get; set; }
+    public long ID { get; set; }
 
     public string NOMBRE_PROYECTO { get; set; }
 
@@ -52,11 +48,27 @@ public partial class VISTA_DETALLE_ADJUNTO_PERS_EXPORT
 
     public Nullable<decimal> HORAS_AUSENCIA { get; set; }
 
-    public Nullable<System.DateTime> FECHA_PERIODO { get; set; }
+    public string NOVEDADES { get; set; }
+
+    public string CENTRO_COSTOS { get; set; }
+
+    public string NUMERO_FACTURA { get; set; }
+
+    public Nullable<System.DateTime> PERIODO_FACTURACION { get; set; }
 
     public Nullable<long> COD_ROL { get; set; }
 
-    public string NOVEDADES { get; set; }
+    public Nullable<decimal> SALARIO_COMERCIAL_SIN_PRESTACIONES_CON_INCREMENTOS { get; set; }
+
+    public Nullable<decimal> PRESTACIONES { get; set; }
+
+    public long COD_CONTRATO_PROYECTO { get; set; }
+
+    public string TIPO_ELEMENTO { get; set; }
+
+    public Nullable<decimal> HORAS_EXTRA { get; set; }
+
+    public Nullable<decimal> DIAS_AUSENCIA { get; set; }
 
 }
 

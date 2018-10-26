@@ -270,27 +270,30 @@ namespace syncfusion_payc.Controllers
         //Adjunto exportar
         [System.Web.Http.ActionName("ExcelExport")]
         [AcceptVerbs("POST")]
-        public ActionResult ExcelExport(string gridModel,long COD_FACTURA)
+        public ActionResult ExcelExport(string gridModel,long COD_FACTURA,long COD_CONTRATO_PROYECTO)
         {
             ExcelExport exp = new ExcelExport();
             
-            IList<VISTA_DETALLE_ADJUNTO_PERS_EXPORT> DataSource = db.VISTA_DETALLE_ADJUNTO_PERS_EXPORT.Where(o=> o.COD_FACTURA == COD_FACTURA).ToList();
-            
+            var DataSource = db.VISTA_DETALLE_FACTURAS_REPORTE.Where(o=> o.COD_CONTRATO_PROYECTO == COD_CONTRATO_PROYECTO).Select(x=> new { x.PERIODO_FACTURACION,x.NUMERO_FACTURA,x.CENTRO_COSTOS,x.NOMBRE_PROYECTO, x.TIPO_ELEMENTO,x.NOMBRE_ROL,x.NOMBRE_PERSONA,x.FECHA_INGRESO,x.FECHA_RETIRO_EN_CONTRATO,x.VALOR_SIN_IMPUESTOS,x.SALARIO_COMERCIAL_SIN_PRESTACIONES_CON_INCREMENTOS,x.PRESTACIONES,x.VALOR_DIAS_LAB,x.DESCUENTO_AUSENCIA, x.HORAS_AUSENCIA, x.DIAS_AUSENCIA, x.ADICIONES,x.HORAS_ED,x.HORAS_EN, x.HORAS_FD,x.HORAS_FN, x.NOVEDADES }).ToList();
+            int contar = DataSource.Count() + 1;
             DataTable tabla = DataSource.ToDataTable();
+            //Características EXCEL
             using (ExcelEngine excelEngine = new ExcelEngine())
             {
                 IApplication application = excelEngine.Excel;
                 application.DefaultVersion = ExcelVersion.Excel2013;
                 IWorkbook workbook = application.Workbooks.Create(1);
                 IWorksheet worksheet = workbook.Worksheets[0];
+                worksheet.Name = "BASE DE DATOS";
+                worksheet.Range["A1:V1"].CellStyle.FillBackground= Syncfusion.XlsIO.ExcelKnownColors.Brown;
+                worksheet.Range["A1:V1"].CellStyle.Font.Color = Syncfusion.XlsIO.ExcelKnownColors.White;
+                worksheet.Range["A1:V"+contar.ToString()].CellStyle.Borders.LineStyle = Syncfusion.XlsIO.ExcelLineStyle.Thin;
+                worksheet.Range["A1:V" + contar.ToString()].CellStyle.Borders[ExcelBordersIndex.DiagonalDown].LineStyle = Syncfusion.XlsIO.ExcelLineStyle.None;
+                worksheet.Range["A1:V" + contar.ToString()].CellStyle.Borders[ExcelBordersIndex.DiagonalUp].LineStyle = Syncfusion.XlsIO.ExcelLineStyle.None;
+                worksheet.Range["A2:V" + contar.ToString()].Borders.Color = Syncfusion.XlsIO.ExcelKnownColors.Black;
+                worksheet.Range["A1:V1"].Borders.Color = Syncfusion.XlsIO.ExcelKnownColors.White;
+                worksheet.Range["A1:V1"].CellStyle.Font.Bold = true;
                 
-                worksheet.Range["A1:Q1"].CellStyle.FillBackground= Syncfusion.XlsIO.ExcelKnownColors.Brown;
-                worksheet.Range["A1:Q1"].CellStyle.Font.Color = Syncfusion.XlsIO.ExcelKnownColors.White;
-                worksheet.Range["A1:Q30"].CellStyle.Borders.LineStyle = Syncfusion.XlsIO.ExcelLineStyle.Thin;
-                worksheet.Range["A1:Q30"].CellStyle.Borders[ExcelBordersIndex.DiagonalDown].LineStyle = Syncfusion.XlsIO.ExcelLineStyle.None;
-                worksheet.Range["A1:Q30"].CellStyle.Borders[ExcelBordersIndex.DiagonalUp].LineStyle = Syncfusion.XlsIO.ExcelLineStyle.None;
-                worksheet.Range["A2:Q30"].Borders.Color = Syncfusion.XlsIO.ExcelKnownColors.Black;
-                worksheet.Range["A1:Q1"].Borders.Color = Syncfusion.XlsIO.ExcelKnownColors.White;
                 //Initialize the DataTable
                 DataTable table = tabla;
                 var fileSave = System.Web.HttpContext.Current.Server.MapPath("adjuntosfactura");
@@ -298,25 +301,105 @@ namespace syncfusion_payc.Controllers
                 {
                     Directory.CreateDirectory(fileSave);
                 }
-                //Import DataTable to the worksheet.
+                
+                
                 worksheet.ImportDataTable(table, true, 1, 1);
+                worksheet.Range["A1"].Text = "Periodo Facturación";
+                worksheet.Range["B1"].Text = "No Factura";
+                worksheet.Range["C1"].Text = "Centro de costo";
+                worksheet.Range["D1"].Text = "Nombre del proyecto";
+                worksheet.Range["E1"].Text = "Tipo elemento (Persona o Item)";
+                worksheet.Range["F1"].Text = "Rol / Item";
+                worksheet.Range["G1"].Text = "Nombre colaborador / Item";
+                worksheet.Range["H1"].Text = "Fecha Ingreso";
+                worksheet.Range["I1"].Text = "Fecha Retiro";
+                worksheet.Range["J1"].Text = "Valor a pagar";
+                worksheet.Range["K1"].Text = "Salario básico";
+                worksheet.Range["L1"].Text = "Prestaciones %";
+                worksheet.Range["M1"].Text = "Salario incluidas prestaciones";
+                worksheet.Range["N1"].Text = "Descuentos (Novedades)";
+                worksheet.Range["O1"].Text = "Total horas novedades";
+                worksheet.Range["P1"].Text = "Total días novedades";
+                worksheet.Range["Q1"].Text = "Horas Extra";
+                worksheet.Range["R1"].Text = "HE Diurnas";
+                worksheet.Range["S1"].Text = "HE Nocturnas";
+                worksheet.Range["T1"].Text = "HE Festivas Diurnas";
+                worksheet.Range["U1"].Text = "HE Festivas Nocturnas";
+                worksheet.Range["V1"].Text = "Detalle Novedades";
                 worksheet.InsertRow(1);
                 worksheet.InsertRow(1);
-                worksheet.Range["A1"].Text = "ARCHIVO CON DETALLE ADJUNTO A LA FACTURA";
-                worksheet.Range["A1:Q1"].Merge();
-                worksheet.Range["A1:Q1"].Borders.LineStyle = Syncfusion.XlsIO.ExcelLineStyle.Double;
-                worksheet.Range["A1:Q1"].Borders.Color = Syncfusion.XlsIO.ExcelKnownColors.Black;
-                worksheet.Range["A1:Q1"].CellStyle.Borders[ExcelBordersIndex.DiagonalDown].LineStyle = Syncfusion.XlsIO.ExcelLineStyle.None;
-                worksheet.Range["A1:Q1"].CellStyle.Borders[ExcelBordersIndex.DiagonalUp].LineStyle = Syncfusion.XlsIO.ExcelLineStyle.None;
-                worksheet.Range["A1:Q1"].HorizontalAlignment = ExcelHAlign.HAlignCenterAcrossSelection;
+
+                worksheet.Range["B1"].Text = "PAYC - ARCHIVO CON DETALLE ADJUNTO A LA FACTURA";
+                worksheet.Range["B1:V1"].Merge();
+                worksheet.Range["B1:V1"].Borders.LineStyle = Syncfusion.XlsIO.ExcelLineStyle.Double;
+                worksheet.Range["B1:V1"].Borders.Color = Syncfusion.XlsIO.ExcelKnownColors.Black;
+                worksheet.Range["B1:V1"].CellStyle.Borders[ExcelBordersIndex.DiagonalDown].LineStyle = Syncfusion.XlsIO.ExcelLineStyle.None;
+                worksheet.Range["B1:V1"].CellStyle.Borders[ExcelBordersIndex.DiagonalUp].LineStyle = Syncfusion.XlsIO.ExcelLineStyle.None;
+                worksheet.Range["B1:V1"].HorizontalAlignment = ExcelHAlign.HAlignJustify;
+                worksheet.Range["B1:V1"].VerticalAlignment= ExcelVAlign.VAlignCenter;
+                worksheet.Range["B1:V1"].CellStyle.Font.Bold = true;
+                worksheet.Range["B1:V1"].Merge();
+                
+                worksheet.Range["A1"].RowHeight = 60;
+                worksheet.Range["A1"].Borders.LineStyle = Syncfusion.XlsIO.ExcelLineStyle.Double;
+                worksheet.Range["A1"].Borders.Color = Syncfusion.XlsIO.ExcelKnownColors.Black;
+                worksheet.Range["A1"].CellStyle.Borders[ExcelBordersIndex.DiagonalDown].LineStyle = Syncfusion.XlsIO.ExcelLineStyle.None;
+                worksheet.Range["A1"].CellStyle.Borders[ExcelBordersIndex.DiagonalUp].LineStyle = Syncfusion.XlsIO.ExcelLineStyle.None;
+                worksheet.Range["A1"].HorizontalAlignment = ExcelHAlign.HAlignJustify;
+                
+                worksheet.Range["A1"].CellStyle.Font.Bold = true;
+                IPictureShape shape = worksheet.Pictures.AddPicture(1, 1, Path.Combine(fileSave+ "/logopayc1.png"));
+                shape.Top = 20;
+                shape.Left = 24;
+                shape.Height = 40;
+                shape.Width = 40;
                 int i = 1;
-                while (i <= 16) { 
+                while (i <= 21) { 
                     worksheet.AutofitColumn(i);
                     i = i + 1;
                 }
-                worksheet.SetColumnWidth(17, 40);
-                worksheet.Range["A3:Q32"].WrapText = true;
+                worksheet.SetColumnWidth(22, 70);
+                worksheet.Range["A3:U"+(contar+2).ToString()].WrapText = true;
 
+                IWorksheet pivot = workbook.Worksheets.Create();
+                pivot.Name = "TABLA DINAMICA";
+                IPivotCache cache = workbook.PivotCaches.Add(worksheet["A3:U" + (contar + 2).ToString()]);
+                IPivotTable pivotTable = pivot.PivotTables.Add("PivotTable1", pivot["A3"], cache);
+                pivotTable.Fields[4].Axis = PivotAxisTypes.Row;
+                pivotTable.Fields[3].Axis = PivotAxisTypes.Row;
+                pivotTable.Fields[2].Axis = PivotAxisTypes.Row;
+                pivotTable.Fields[1].Axis = PivotAxisTypes.Row;
+                pivotTable.Fields[5].Axis = PivotAxisTypes.Row;
+                pivotTable.Fields[6].Axis = PivotAxisTypes.Row;
+                pivotTable.Fields[0].Axis = PivotAxisTypes.Column;
+
+                
+                IPivotField field1 = pivotTable.Fields[9];
+                pivotTable.DataFields.Add(field1, "Sum", PivotSubtotalTypes.Sum);
+                /*IPivotField field2 = pivotTable.Fields[10];
+                pivotTable.DataFields.Add(field2, "Sum", PivotSubtotalTypes.Sum);
+                IPivotField field3 = pivotTable.Fields[11];
+                pivotTable.DataFields.Add(field3, "Sum", PivotSubtotalTypes.Sum);
+                IPivotField field4 = pivotTable.Fields[12];
+                pivotTable.DataFields.Add(field4, "Sum", PivotSubtotalTypes.Sum);
+                IPivotField field5 = pivotTable.Fields[13];
+                pivotTable.DataFields.Add(field5, "Sum", PivotSubtotalTypes.Sum);
+                IPivotField field6 = pivotTable.Fields[14];
+                pivotTable.DataFields.Add(field6, "Sum", PivotSubtotalTypes.Sum);
+                IPivotField field7 = pivotTable.Fields[15];
+                pivotTable.DataFields.Add(field7, "Sum", PivotSubtotalTypes.Sum);
+                IPivotField field8 = pivotTable.Fields[16];
+                pivotTable.DataFields.Add(field8, "Sum", PivotSubtotalTypes.Sum);
+                IPivotField field9 = pivotTable.Fields[17];
+                pivotTable.DataFields.Add(field9, "Sum", PivotSubtotalTypes.Sum);
+                IPivotField field10 = pivotTable.Fields[18];
+                pivotTable.DataFields.Add(field10, "Sum", PivotSubtotalTypes.Sum);
+                IPivotField field11 = pivotTable.Fields[19];
+                pivotTable.DataFields.Add(field11, "Sum", PivotSubtotalTypes.Sum);
+                IPivotField field12 = pivotTable.Fields[20];
+                pivotTable.DataFields.Add(field12, "Sum", PivotSubtotalTypes.Sum);*/
+
+                pivotTable.BuiltInStyle = PivotBuiltInStyles.PivotStyleDark2;
                 var fileSavePath = Path.Combine(fileSave, "Adjunto_"+COD_FACTURA+".xlsx");
                 workbook.SaveAs(fileSavePath);
             }

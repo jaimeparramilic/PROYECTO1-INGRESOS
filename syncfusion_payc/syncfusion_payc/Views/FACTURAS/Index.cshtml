@@ -246,7 +246,11 @@
                             var gridObj = $("#Grid").ejGrid("instance");
                             gridObj.refreshContent();
                             $('.contenedor_loader1').hide();
+                            alert("Factura enviada con éxito");
+                        },
+                        error: function (data) {
                             
+                            alert("H aocurrido un error inesperado, por favor, vuelva a intentarlo. Si el problema persiste, contacte al administrador del sistema.");
                         }
                     });
                 } else {
