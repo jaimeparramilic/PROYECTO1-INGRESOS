@@ -5,7 +5,7 @@ factura <- function(cod_factura) {
   #CONEXIÓN Y EXTRACCIÓN DE LA INFORMACIÓN DE LA BASE DE DATOS---------------
   #CONEXIÓN A LA BASE DE DATOS
   con <- dbConnect(odbc::odbc(), "PAYC_FACTURACION", uid = "sa", pwd = "1234JAMS*")
-  cod_factura = 11534
+  #cod_factura = 11574
   
   #EXTRACCION DE LA INFORMACION IMPORTANTE DE LA BASE DE DATOS
   fact <- paste0("SELECT * FROM FACTURAS WHERE COD_FACTURA=", cod_factura)
@@ -409,13 +409,24 @@ factura <- function(cod_factura) {
   
 dbDisconnect(con)
   
-VALOR_FACTURAR <- sum(TOTAL_ITEMS_FIJOS$VALOR_TOTAL, na.rm = T) + sum(TOTAL_PERSONAS$FINAL, na.rm = T) + sum(TOTAL_ITEMS_VARIABLES$VALOR_COMERCIAL, na.rm = T)+sum(ITEMS_DEPENDIENTES$VALOR_DEPENDIENTE, na.rm = T) 
-  
-  #sum(TOTAL_ITEMS_FIJOS$VALOR_TOTAL, na.rm = T) 
-  #sum(TOTAL_PERSONAS$VALOR_FACTOR_MULTIPLICADOR,na.rm = T)
-  #sum(TOTAL_ITEMS_VARIABLES$VALOR_COMERCIAL,na.rm = T)
-  #sum(NOVEDADES_ADICION$TOTAL,na.rm=T)
-  #VALOR_FACTURAR
-  return(VALOR_FACTURAR) }
+ITEMSFIJOS<-if (is.null(sum(TOTAL_ITEMS_FIJOS$VALOR_TOTAL, na.rm = T))) {
+  0
+} else {sum(TOTAL_ITEMS_FIJOS$VALOR_TOTAL, na.rm = T)}
 
-factura(11529)
+ITEMSVARIABLES<-if (is.null(sum(TOTAL_ITEMS_VARIABLES$VALOR_TOTAL, na.rm = T) )) {
+  0
+} else {sum(TOTAL_ITEMS_VARIABLES$VALOR_COMERCIAL, na.rm = T)}
+
+ITEMSDEPENDIENTES<-if (is.null(sum(ITEMS_DEPENDIENTES$VALOR_DEPENDIENTE, na.rm = T)  )) {
+  0
+} else {sum(ITEMS_DEPENDIENTES$VALOR_DEPENDIENTE, na.rm = T) }
+
+PERSONAS<-if (is.null(sum(TOTAL_PERSONAS$FINAL, na.rm = T) )) {
+  0
+} else {sum(TOTAL_PERSONAS$FINAL, na.rm = T)}
+
+VALOR_FACTURAR <- ITEMSFIJOS+ITEMSVARIABLES+ITEMSDEPENDIENTES+PERSONAS
+
+return(VALOR_FACTURAR) }
+
+factura(11574)
