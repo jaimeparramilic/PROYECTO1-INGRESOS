@@ -386,6 +386,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.COMBINACIONES_GAS
     <Property Name="VALOR_CON_IMPUESTOS" Type="numeric" Precision="30" Scale="2" />
     <Property Name="RANKING" Type="varchar" MaxLength="50" />
     <Property Name="COD_CONCEPTO_PSL" Type="bigint" />
+    <Property Name="FECHA_EMISION" Type="date" />
   </EntityType>
   <EntityType Name="FLUJO_INGRESOS_ITEMS">
     <Key>
@@ -587,6 +588,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.INCREMENTO_SALARI
     <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
     <Property Name="FECHA_INICIO_NOVEDAD" Type="datetime" />
     <Property Name="FECHA_FIN_NOVEDAD" Type="datetime" />
+    <Property Name="TRABAJA_SABADOS" Type="bit" />
   </EntityType>
   <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ReportsTable' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->

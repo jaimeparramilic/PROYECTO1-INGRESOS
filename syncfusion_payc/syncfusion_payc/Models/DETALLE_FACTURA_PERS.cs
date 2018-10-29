@@ -58,11 +58,11 @@ public partial class DETALLE_FACTURA_PERS
 
     public virtual ESTADOS_FACTURAS ESTADOS_FACTURAS { get; set; }
 
-    public virtual FACTURAS FACTURAS { get; set; }
-
     public virtual FORMAS_PAGO_FECHAS FORMAS_PAGO_FECHAS { get; set; }
 
     public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
+
+    public virtual FACTURAS FACTURAS { get; set; }
 
 }
 

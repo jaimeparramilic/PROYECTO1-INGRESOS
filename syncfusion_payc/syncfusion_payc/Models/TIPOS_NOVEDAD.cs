@@ -22,9 +22,9 @@ public partial class TIPOS_NOVEDAD
     public TIPOS_NOVEDAD()
     {
 
-        this.REGISTRO_NOVEDADES = new HashSet<REGISTRO_NOVEDADES>();
-
         this.TIPOS_NOVEDAD_CONDICION = new HashSet<TIPOS_NOVEDAD_CONDICION>();
+
+        this.REGISTRO_NOVEDADES = new HashSet<REGISTRO_NOVEDADES>();
 
     }
 
@@ -41,13 +41,13 @@ public partial class TIPOS_NOVEDAD
 	[System.Runtime.Serialization.IgnoreDataMember]
 	[Newtonsoft.Json.JsonIgnore]
 
-    public virtual ICollection<REGISTRO_NOVEDADES> REGISTRO_NOVEDADES { get; set; }
+    public virtual ICollection<TIPOS_NOVEDAD_CONDICION> TIPOS_NOVEDAD_CONDICION { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 	[System.Runtime.Serialization.IgnoreDataMember]
 	[Newtonsoft.Json.JsonIgnore]
 
-    public virtual ICollection<TIPOS_NOVEDAD_CONDICION> TIPOS_NOVEDAD_CONDICION { get; set; }
+    public virtual ICollection<REGISTRO_NOVEDADES> REGISTRO_NOVEDADES { get; set; }
 
 }
 
