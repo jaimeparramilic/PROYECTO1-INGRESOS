@@ -50,7 +50,7 @@ factura <- function(cod_factura) {
                     AND COD_FORMAS_PAGO_FECHAS=", fecha, " 
                     AND COD_TIPO_NOVEDAD BETWEEN 2 AND 5")
   descuento <- paste0("SELECT *
-                      FROM VISTA_REGISTRO_NOVEDADES
+                      FROM VISTA_REGISTRO_NOVEDADES_TEMP
                       WHERE COD_CONTRATO_PROYECTO=", proyecto, "
                       AND COD_FORMAS_PAGO_FECHAS=", fecha, " 
                       AND COD_TIPO_NOVEDAD IN (7,8,11,12)")
@@ -262,4 +262,4 @@ for (f in cod_facturas) {
   factura(f)
 }
 
-factura(11444)
+factura(11079)
