@@ -474,7 +474,7 @@ namespace syncfusion_payc.Controllers
                 else
                 {
                     //ViewBag.Result = result + "," + rCodeFilePath;
-                    result = result + "," + rCodeFilePath + "," + path;
+                    result = result;
                 }
             }
             catch (Exception ex)

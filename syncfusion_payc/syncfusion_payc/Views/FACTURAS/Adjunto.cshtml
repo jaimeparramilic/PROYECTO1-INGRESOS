@@ -253,14 +253,14 @@
 
     //Función click en los elementos nuevos
     function clicked(sender) {
-        
+        var cod_contrato_proyecto = "@(ViewBag.COD_CONTRATO_PROYECTO == null ? "" : Html.Raw((String)ViewBag.COD_CONTRATO_PROYECTO.ToString()).ToString())";
         var cod_factura =@(ViewBag.COD_FACTURA == null ? "" : Html.Raw((String)ViewBag.COD_FACTURA.ToString()).ToString());
         $(".contenedor_loader1").show();
         //Exportación a excel
         if (sender.itemName == "Excel Export") {
             var grid = $('#Grid_Adjunto').ejGrid('instance');
             
-            var data = JSON.stringify({ gridModel: JSON.stringify(grid.model),COD_FACTURA:parseInt(cod_factura) });
+            var data = JSON.stringify({ gridModel: JSON.stringify(grid.model), COD_FACTURA: parseInt(cod_factura), COD_CONTRATO_PROYECTO:cod_contrato_proyecto });
             var url = "../../VISTA_DETALLE_ADJUNTOS_PERS/ExcelExport";
             $.ajax({
                 type: "POST",
