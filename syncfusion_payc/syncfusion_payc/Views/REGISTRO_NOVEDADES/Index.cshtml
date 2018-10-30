@@ -64,7 +64,7 @@
                                                                         col.Field("COD_REGISTRO_NOVEDADES").HeaderText("REGISTRO_NOVEDADES").IsPrimaryKey(true).Visible(false) .Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                                                                         col.Field("FECHA_INICIO_NOVEDAD").HeaderText("FECHA_INICIO_NOVEDAD").Format("{0:dd/MM/yyyy HH:mm}").ValidationRules(v => v.AddRule("required", true)).EditType(EditingType.DateTimePicker).Add();
                                                                         col.Field("FECHA_FIN_NOVEDAD").HeaderText("FECHA_FIN_NOVEDAD").Format("{0:dd/MM/yyyy HH:mm}").ValidationRules(v => v.AddRule("required", true).AddRule("comparacion_fechas", true)).EditType(EditingType.DateTimePicker).Add();
-                                                                        col.Field("TRABAJA_SABADOS").ForeignKeyField("BIT").ForeignKeyValue("TEXTO").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().TRUEFALSE.ToList()).EditType(EditingType.DropdownEdit).Add();
+                                                                        col.Field("TRABAJA_SABADOS").ForeignKeyField("BIT").ForeignKeyValue("TEXTO").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().TRUEFALSE.ToList()).ValidationRules(v => v.AddRule("required", true)).EditType(EditingType.DropdownEdit).Add();
                                                                     })))
 
 </div>
