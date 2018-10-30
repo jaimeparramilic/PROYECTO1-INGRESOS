@@ -1929,5 +1929,13 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="TRUEFALSE">
+      <EntityTypeMapping TypeName="test_payc_contabilidadModel.TRUEFALSE">
+        <MappingFragment StoreEntitySet="TRUEFALSE">
+          <ScalarProperty Name="TEXTO" ColumnName="TEXTO" />
+          <ScalarProperty Name="BIT" ColumnName="BIT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

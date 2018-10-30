@@ -1,4 +1,3 @@
-
 factura <- function(cod_factura) {
   library(DBI)
   
@@ -91,13 +90,13 @@ factura <- function(cod_factura) {
   #CÁLCULO DEL NÚMERO DE HORAS EXTRA O DE VACACIONES QUE SE DEBEN COBRAR
   if (any(CONDICIONES_CONTRATO$COD_TIPO_CONDICION == 3)) {
     if (nrow(NOVEDADES_ADICION) != 0) {
-      NOVEDADES_ADICION$HORAS_ED <- difftime(NOVEDADES_ADICION$FECHA_FIN_NOVEDAD, NOVEDADES_ADICION$FECHA_INICIO_NOVEDAD , units = "hours")
+      NOVEDADES_ADICION$HORAS_ED <- as.double(difftime(NOVEDADES_ADICION$FECHA_FIN_NOVEDAD, NOVEDADES_ADICION$FECHA_INICIO_NOVEDAD , units = "hours"))
       NOVEDADES_ADICION$FACTOR_ED <- 1.25
-      NOVEDADES_ADICION$HORAS_EN <- difftime(NOVEDADES_ADICION$FECHA_FIN_NOVEDAD, NOVEDADES_ADICION$FECHA_INICIO_NOVEDAD , units = "hours")
+      NOVEDADES_ADICION$HORAS_EN <- as.double(difftime(NOVEDADES_ADICION$FECHA_FIN_NOVEDAD, NOVEDADES_ADICION$FECHA_INICIO_NOVEDAD , units = "hours"))
       NOVEDADES_ADICION$FACTOR_EN <- 1.75
-      NOVEDADES_ADICION$HORAS_FD <- difftime(NOVEDADES_ADICION$FECHA_FIN_NOVEDAD, NOVEDADES_ADICION$FECHA_INICIO_NOVEDAD , units = "hours")
+      NOVEDADES_ADICION$HORAS_FD <- as.double(difftime(NOVEDADES_ADICION$FECHA_FIN_NOVEDAD, NOVEDADES_ADICION$FECHA_INICIO_NOVEDAD , units = "hours"))
       NOVEDADES_ADICION$FACTOR_FD <- 2
-      NOVEDADES_ADICION$HORAS_FN <- difftime(NOVEDADES_ADICION$FECHA_FIN_NOVEDAD, NOVEDADES_ADICION$FECHA_INICIO_NOVEDAD , units = "hours")
+      NOVEDADES_ADICION$HORAS_FN <- as.double(difftime(NOVEDADES_ADICION$FECHA_FIN_NOVEDAD, NOVEDADES_ADICION$FECHA_INICIO_NOVEDAD , units = "hours"))
       NOVEDADES_ADICION$FACTOR_FN <- 2.5
       NOVEDADES_ADICION$HORAS_ED[(NOVEDADES_ADICION$COD_TIPO_NOVEDAD!=2)]<-0
       NOVEDADES_ADICION$HORAS_EN[(NOVEDADES_ADICION$COD_TIPO_NOVEDAD!=3)]<-0
@@ -122,11 +121,11 @@ factura <- function(cod_factura) {
       NOVEDADES_DESCUENTO$HORAS_DESCUENTO<-NULL
       NOVEDADES_DESCUENTO<-NOVEDADES_DESCUENTO[-c(0),]}
   
-  NOVEDADES_ADICION$ADICION_ED <- (NOVEDADES_ADICION$SALARIO_COMERCIAL / 240) * as.double(NOVEDADES_ADICION$HORAS_ED) * NOVEDADES_ADICION$FACTOR_ED
-  NOVEDADES_ADICION$ADICION_EN <- (NOVEDADES_ADICION$SALARIO_COMERCIAL / 240) * as.double(NOVEDADES_ADICION$HORAS_EN) * NOVEDADES_ADICION$FACTOR_EN
-  NOVEDADES_ADICION$ADICION_FD <- (NOVEDADES_ADICION$SALARIO_COMERCIAL / 240) * as.double(NOVEDADES_ADICION$HORAS_FD) * NOVEDADES_ADICION$FACTOR_FD
-  NOVEDADES_ADICION$ADICION_FN <- (NOVEDADES_ADICION$SALARIO_COMERCIAL / 240) * as.double(NOVEDADES_ADICION$HORAS_FN) * NOVEDADES_ADICION$FACTOR_FN
-  NOVEDADES_DESCUENTO$DESCUENTO <- (-NOVEDADES_DESCUENTO$SALARIO_COMERCIAL / 240) * as.double(NOVEDADES_DESCUENTO$HORAS_DESCUENTO)
+  NOVEDADES_ADICION$ADICION_ED <- as.double((NOVEDADES_ADICION$SALARIO_COMERCIAL / 240) * as.double(NOVEDADES_ADICION$HORAS_ED) * NOVEDADES_ADICION$FACTOR_ED)
+  NOVEDADES_ADICION$ADICION_EN <- as.double((NOVEDADES_ADICION$SALARIO_COMERCIAL / 240) * as.double(NOVEDADES_ADICION$HORAS_EN) * NOVEDADES_ADICION$FACTOR_EN)
+  NOVEDADES_ADICION$ADICION_FD <- as.double((NOVEDADES_ADICION$SALARIO_COMERCIAL / 240) * as.double(NOVEDADES_ADICION$HORAS_FD) * NOVEDADES_ADICION$FACTOR_FD)
+  NOVEDADES_ADICION$ADICION_FN <- as.double((NOVEDADES_ADICION$SALARIO_COMERCIAL / 240) * as.double(NOVEDADES_ADICION$HORAS_FN) * NOVEDADES_ADICION$FACTOR_FN)
+  NOVEDADES_DESCUENTO$DESCUENTO <-as.double((-NOVEDADES_DESCUENTO$SALARIO_COMERCIAL / 240) * as.double(NOVEDADES_DESCUENTO$HORAS_DESCUENTO))
   
   #CALCULO DE LOS VALORES TOTALES HISTORICOS A FACTURAR POR PERSONA E ITEM------------
   if (nrow(INGRESOS_PERSONAS) != 0) {
@@ -159,7 +158,7 @@ factura <- function(cod_factura) {
       colnames(TOTAL_NOVEDADES_ADICION)[colnames(TOTAL_NOVEDADES_ADICION)=="ADICION_ED + ADICION_EN + ADICION_FD + ADICION_FN"] <- "ADICION"
       TOTAL_NOVEDADES_ADICION<- aggregate(TOTAL_NOVEDADES_ADICION[c("HORAS_ED","HORAS_EN","HORAS_FD","HORAS_FN","ADICION")], 
                                           by = list(COD_COLABORADOR=TOTAL_NOVEDADES_ADICION$COD_COLABORADOR, COD_ROL=TOTAL_NOVEDADES_ADICION$COD_ROL), FUN="sum")
-      TOTAL_PERSONAS <- merge(TOTAL_PERSONAS, TOTAL_NOVEDADES_ADICION, by.x = c("COD_ROL"), by.y = c("COD_ROL"), all.x = T, all.y = T, na.action)
+      TOTAL_PERSONAS <- merge(TOTAL_PERSONAS, TOTAL_NOVEDADES_ADICION, by.x = c("COD_ROL"), by.y = c("COD_ROL"), all.x = T, all.y = F, na.action)
       PERSONAS_ADJUNTO <- merge(PERSONAS_ADJUNTO, TOTAL_NOVEDADES_ADICION, by.x = c("COD_COLABORADOR"), by.y = c("COD_COLABORADOR"), all.x = T, all.y=F, na.action)
     } else {
       TOTAL_PERSONAS$ADICION <- 0
@@ -172,7 +171,7 @@ factura <- function(cod_factura) {
     
     if (nrow(NOVEDADES_DESCUENTO) != 0) {
       TOTAL_NOVEDADES_DESCUENTO <- aggregate(DESCUENTO ~ COD_ROL+COD_COLABORADOR+HORAS_DESCUENTO, data = NOVEDADES_DESCUENTO, sum)
-      TOTAL_PERSONAS <- merge(TOTAL_PERSONAS, TOTAL_NOVEDADES_DESCUENTO, by.x = c("COD_ROL"), by.y = c("COD_ROL"), all.x = T, all.y = T, na.action)
+      TOTAL_PERSONAS <- merge(TOTAL_PERSONAS, TOTAL_NOVEDADES_DESCUENTO, by.x = c("COD_ROL"), by.y = c("COD_ROL"), all.x = T, all.y = F, na.action)
       PERSONAS_ADJUNTO <- merge(PERSONAS_ADJUNTO, TOTAL_NOVEDADES_DESCUENTO, by.x = c("COD_COLABORADOR"), by.y = c("COD_COLABORADOR"), all.x = T, all.y = F, na.action)
     } else {
       TOTAL_PERSONAS$DESCUENTO <- 0
@@ -180,7 +179,11 @@ factura <- function(cod_factura) {
       PERSONAS_ADJUNTO$DESCUENTO <- 0
     } 
     
-    TOTAL_PERSONAS$FINAL <- rowSums(TOTAL_PERSONAS[, c("VALOR_FACTOR_MULTIPLICADOR", "ADICION", "DESCUENTO")], na.rm = T)
+    TOTAL_PERSONAS<-PERSONAS_ADJUNTO[,c("COD_ROL.x","VALOR_FACTOR_MULTIPLICADOR","ADICION","DESCUENTO")]
+    TOTAL_PERSONAS<-merge(TOTAL_PERSONAS, INGRESOS_PERSONAS[,c("COD_ROL","COD_CONCEPTO_PSL")], by.x = "COD_ROL.x", by.y = "COD_ROL", all.x = T, all.y = F)
+    TOTAL_PERSONAS$FINAL<-rowSums(TOTAL_PERSONAS[,c("VALOR_FACTOR_MULTIPLICADOR","ADICION","DESCUENTO")],na.rm=T)
+    
+    #TOTAL_PERSONAS$FINAL <- rowSums(TOTAL_PERSONAS[, c("VALOR_FACTOR_MULTIPLICADOR", "ADICION", "DESCUENTO")], na.rm = T)
     PERSONAS_ADJUNTO$FINAL <- rowSums(PERSONAS_ADJUNTO[, c("VALOR_FACTOR_MULTIPLICADOR", "ADICION", "DESCUENTO")], na.rm = T)
   }
   
@@ -188,7 +191,7 @@ factura <- function(cod_factura) {
   TOTAL_PERSONAS[is.na(TOTAL_PERSONAS)]<-0
   
   
-  ITEM_ROLES<-merge(ITEM_ROLES, TOTAL_PERSONAS, by.x = "COD_ROL", by.y = "COD_ROL", all.x = F, all.y = F,na.action)
+  ITEM_ROLES<-merge(ITEM_ROLES, TOTAL_PERSONAS, by.x = "COD_ROL", by.y = "COD_ROL.x", all.x = F, all.y = F,na.action)
   ITEM_ROLES$VALOR_DEPENDIENTE<-ITEM_ROLES$PORCENTAJE_PERSONAL*ITEM_ROLES$FINAL
   
   if (nrow(ITEM_ROLES)>1) {
@@ -212,8 +215,7 @@ factura <- function(cod_factura) {
   #CÁLCULO E INSERCIÓN DE LA INFORMACIÓN EN LAS TABLAS ---------
   chunksize = 1000 # arbitrary chunk size
   if (nrow(TOTAL_PERSONAS) != 0) {
-    TABLA_TEMPORAL <- TOTAL_PERSONAS[TOTAL_PERSONAS$COD_FORMAS_PAGO_FECHAS == fecha & TOTAL_PERSONAS$COD_CONTRATO_PROYECTO == proyecto,]
-    for (i in 1:ceiling(nrow(TABLA_TEMPORAL) / chunksize)) {
+    for (i in 1:ceiling(nrow(TOTAL_PERSONAS) / chunksize)) {
       query = paste0("INSERT INTO [dbo].[DETALLE_FACTURA_PERS] 
                      ([COD_CONTRATO_PROYECTO]
                      ,[COD_ROL]
@@ -232,14 +234,14 @@ factura <- function(cod_factura) {
       vals = NULL
       for (j in 1:chunksize) {
         k = (i - 1) * chunksize + j
-        if (k <= nrow(TABLA_TEMPORAL)) {
-          vals[j] = paste0('(', paste0(TABLA_TEMPORAL$COD_CONTRATO_PROYECTO[k], ",",
-                                       TABLA_TEMPORAL$COD_ROL[k], ",",
-                                       TABLA_TEMPORAL$COD_FORMAS_PAGO_FECHAS[k], ",",
-                                       TABLA_TEMPORAL$FINAL[k], ",'",
-                                       Sys.time(), "','GENERADO','",
-                                       estado, "',1,'',", cod_factura, ",",
-                                       TABLA_TEMPORAL$COD_CONCEPTO_PSL[k], ",1,1)"), collapse = ',')
+        if (k <= nrow(TOTAL_PERSONAS)) {
+          vals[j] = paste0('(', paste0(proyecto, ",",
+                                       TOTAL_PERSONAS$COD_ROL.x[k], ",",
+                                       fecha, ",",
+                                       TOTAL_PERSONAS$FINAL[k], ",'",
+                                       Sys.time(), "','GENERADO',",
+                                       estado, ",1,'',", cod_factura, ",",
+                                       TOTAL_PERSONAS$COD_CONCEPTO_PSL.x[k], ",1,1)"), collapse = ',')
         }
       }
       query = paste0(query, paste0(vals, collapse = ','))
@@ -426,4 +428,4 @@ factura <- function(cod_factura) {
   return(VALOR_FACTURAR) 
   }
 
-factura(11771)
+factura(11840)

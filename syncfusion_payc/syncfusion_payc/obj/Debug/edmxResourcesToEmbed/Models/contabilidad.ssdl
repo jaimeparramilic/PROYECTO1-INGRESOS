@@ -713,6 +713,13 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ReportsTable' no 
     <Property Name="COD_TIPO_TRIBUTACION" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
   </EntityType>
+  <EntityType Name="TRUEFALSE">
+    <Key>
+      <PropertyRef Name="BIT" />
+    </Key>
+    <Property Name="BIT" Type="bit" Nullable="false" />
+    <Property Name="TEXTO" Type="varchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="xTEMPO">
     <Key>
       <PropertyRef Name="id" />
@@ -3200,6 +3207,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
     <EntitySet Name="TIPOS_REEMBOLSO" EntityType="Self.TIPOS_REEMBOLSO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TIPOS_SERVICIOS" EntityType="Self.TIPOS_SERVICIOS" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TIPOS_TRIBUTACION" EntityType="Self.TIPOS_TRIBUTACION" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TRUEFALSE" EntityType="Self.TRUEFALSE" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="xTEMPO" EntityType="Self.xTEMPO" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="COMBINACIONES_GASTOS_ADMINISTRATIVOS" EntityType="Self.COMBINACIONES_GASTOS_ADMINISTRATIVOS" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 
