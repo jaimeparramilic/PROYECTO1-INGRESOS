@@ -1,8 +1,8 @@
 factura <- function(cod_factura) {
   library(DBI)
   
-  #CONEXIÃ“N Y EXTRACCIÃ“N DE LA INFORMACIÃ“N DE LA BASE DE DATOS---------------
-  #CONEXIÃ“N A LA BASE DE DATOS
+  #CONEXIÓN Y EXTRACCIÓN DE LA INFORMACIÓN DE LA BASE DE DATOS---------------
+  #CONEXIÓN A LA BASE DE DATOS
   con <- dbConnect(odbc::odbc(), "PAYC_FACTURACION", uid = "sa", pwd = "1234JAMS*")
   #cod_factura = 11524
   
@@ -87,16 +87,16 @@ factura <- function(cod_factura) {
                       WHERE COD_ITEM_CONTRATO IN (", COD_ITEM_CONTRATO ,")")
   ITEM_ROLES <- dbGetQuery(con, items_rol)
   
-  #CÃLCULO DEL NÃšMERO DE HORAS EXTRA O DE VACACIONES QUE SE DEBEN COBRAR
+  #CÁLCULO DEL NÚMERO DE HORAS EXTRA O DE VACACIONES QUE SE DEBEN COBRAR
   if (any(CONDICIONES_CONTRATO$COD_TIPO_CONDICION == 3)) {
     if (nrow(NOVEDADES_ADICION) != 0) {
-      NOVEDADES_ADICION$HORAS_ED <- as.double(difftime(NOVEDADES_ADICION$FECHA_FIN_NOVEDAD, NOVEDADES_ADICION$FECHA_INICIO_NOVEDAD , units = "hours"))
+      NOVEDADES_ADICION$HORAS_ED <- difftime(NOVEDADES_ADICION$FECHA_FIN_NOVEDAD, NOVEDADES_ADICION$FECHA_INICIO_NOVEDAD , units = "hours")
       NOVEDADES_ADICION$FACTOR_ED <- 1.25
-      NOVEDADES_ADICION$HORAS_EN <- as.double(difftime(NOVEDADES_ADICION$FECHA_FIN_NOVEDAD, NOVEDADES_ADICION$FECHA_INICIO_NOVEDAD , units = "hours"))
+      NOVEDADES_ADICION$HORAS_EN <- difftime(NOVEDADES_ADICION$FECHA_FIN_NOVEDAD, NOVEDADES_ADICION$FECHA_INICIO_NOVEDAD , units = "hours")
       NOVEDADES_ADICION$FACTOR_EN <- 1.75
-      NOVEDADES_ADICION$HORAS_FD <- as.double(difftime(NOVEDADES_ADICION$FECHA_FIN_NOVEDAD, NOVEDADES_ADICION$FECHA_INICIO_NOVEDAD , units = "hours"))
+      NOVEDADES_ADICION$HORAS_FD <- difftime(NOVEDADES_ADICION$FECHA_FIN_NOVEDAD, NOVEDADES_ADICION$FECHA_INICIO_NOVEDAD , units = "hours")
       NOVEDADES_ADICION$FACTOR_FD <- 2
-      NOVEDADES_ADICION$HORAS_FN <- as.double(difftime(NOVEDADES_ADICION$FECHA_FIN_NOVEDAD, NOVEDADES_ADICION$FECHA_INICIO_NOVEDAD , units = "hours"))
+      NOVEDADES_ADICION$HORAS_FN <- difftime(NOVEDADES_ADICION$FECHA_FIN_NOVEDAD, NOVEDADES_ADICION$FECHA_INICIO_NOVEDAD , units = "hours")
       NOVEDADES_ADICION$FACTOR_FN <- 2.5
       NOVEDADES_ADICION$HORAS_ED[(NOVEDADES_ADICION$COD_TIPO_NOVEDAD!=2)]<-0
       NOVEDADES_ADICION$HORAS_EN[(NOVEDADES_ADICION$COD_TIPO_NOVEDAD!=3)]<-0
@@ -179,11 +179,7 @@ factura <- function(cod_factura) {
       PERSONAS_ADJUNTO$DESCUENTO <- 0
     } 
     
-    TOTAL_PERSONAS<-PERSONAS_ADJUNTO[,c("COD_ROL.x","VALOR_FACTOR_MULTIPLICADOR","ADICION","DESCUENTO")]
-    TOTAL_PERSONAS<-merge(TOTAL, INGRESOS_PERSONAS[,c("COD_ROL","COD_CONCEPTO_PSL")], by.x = "COD_ROL.x", by.y = "COD_ROL", all.x = T, all.y = F)
-    TOTAL_PERSONAS$FINAL<-rowSums(TOTAL[,c("VALOR_FACTOR_MULTIPLICADOR","ADICION","DESCUENTO")],na.rm=T)
-    
-    #TOTAL_PERSONAS$FINAL <- rowSums(TOTAL_PERSONAS[, c("VALOR_FACTOR_MULTIPLICADOR", "ADICION", "DESCUENTO")], na.rm = T)
+    TOTAL_PERSONAS$FINAL <- rowSums(TOTAL_PERSONAS[, c("VALOR_FACTOR_MULTIPLICADOR", "ADICION", "DESCUENTO")], na.rm = T)
     PERSONAS_ADJUNTO$FINAL <- rowSums(PERSONAS_ADJUNTO[, c("VALOR_FACTOR_MULTIPLICADOR", "ADICION", "DESCUENTO")], na.rm = T)
   }
   
@@ -191,7 +187,7 @@ factura <- function(cod_factura) {
   TOTAL_PERSONAS[is.na(TOTAL_PERSONAS)]<-0
   
   
-  ITEM_ROLES<-merge(ITEM_ROLES, TOTAL_PERSONAS, by.x = "COD_ROL", by.y = "COD_ROL.x", all.x = F, all.y = F,na.action)
+  ITEM_ROLES<-merge(ITEM_ROLES, TOTAL_PERSONAS, by.x = "COD_ROL", by.y = "COD_ROL", all.x = F, all.y = F,na.action)
   ITEM_ROLES$VALOR_DEPENDIENTE<-ITEM_ROLES$PORCENTAJE_PERSONAL*ITEM_ROLES$FINAL
   
   if (nrow(ITEM_ROLES)>1) {
@@ -202,7 +198,7 @@ factura <- function(cod_factura) {
   ITEMS_DEPENDIENTES<-merge(ITEMS_DEPENDIENTES,ITEM_ROLES,by.x = "COD_ITEM_CONTRATO", by.y = "COD_ITEM_CONTRATO", all.x = T, all.y = F)
   ITEMS_DEPENDIENTES$VALOR_DEPENDIENTE[is.na(ITEMS_DEPENDIENTES$VALOR_DEPENDIENTE)]<-sum(TOTAL_PERSONAS$FINAL)*ITEMS_DEPENDIENTES$PORCENTAJE_PERSONAL.x[is.na(ITEMS_DEPENDIENTES$VALOR_DEPENDIENTE)]  
   
-  #ELIMINAR LOS DATOS REPETIDOS DEL PROYECTO QUE SE ESTÃ CONSULTANDO
+  #ELIMINAR LOS DATOS REPETIDOS DEL PROYECTO QUE SE ESTÁ CONSULTANDO
   eliminar <- paste0("DELETE FROM [dbo].[DETALLE_FACTURA_PERS] WHERE [COD_CONTRATO_PROYECTO] =", proyecto, "AND COD_FORMAS_PAGO_FECHAS=", fecha)
   dbExecute(con, eliminar)
   eliminar <- paste0("DELETE FROM [dbo].[DETALLE_FACTURA_ITEM] WHERE [COD_CONTRATO_PROYECTO] =", proyecto, "AND COD_FORMAS_PAGO_FECHAS=", fecha)
@@ -212,11 +208,12 @@ factura <- function(cod_factura) {
   eliminar <- paste0("DELETE FROM [dbo].[DETALLE_FACTURA_ADJUNTO_ITEM] WHERE [COD_CONTRATO_PROYECTO] =", proyecto, "AND COD_FORMAS_PAGO_FECHAS=", fecha)
   dbExecute(con, eliminar)
   
-  #CÃLCULO E INSERCIÃ“N DE LA INFORMACIÃ“N EN LAS TABLAS ---------
+  #CÁLCULO E INSERCIÓN DE LA INFORMACIÓN EN LAS TABLAS ---------
   chunksize = 1000 # arbitrary chunk size
   if (nrow(TOTAL_PERSONAS) != 0) {
-    for (i in 1:ceiling(nrow(TOTAL_PERSONAS) / chunksize)) {
-      query = paste0("INSERT INTO [dbo].[DETALLE_FACTURA_PERS_TEMP] 
+    TABLA_TEMPORAL <- TOTAL_PERSONAS[TOTAL_PERSONAS$COD_FORMAS_PAGO_FECHAS == fecha & TOTAL_PERSONAS$COD_CONTRATO_PROYECTO == proyecto,]
+    for (i in 1:ceiling(nrow(TABLA_TEMPORAL) / chunksize)) {
+      query = paste0("INSERT INTO [dbo].[DETALLE_FACTURA_PERS] 
                      ([COD_CONTRATO_PROYECTO]
                      ,[COD_ROL]
                      ,[COD_FORMAS_PAGO_FECHAS]
@@ -234,14 +231,14 @@ factura <- function(cod_factura) {
       vals = NULL
       for (j in 1:chunksize) {
         k = (i - 1) * chunksize + j
-        if (k <= nrow(TOTAL_PERSONAS)) {
-          vals[j] = paste0('(', paste0(proyecto, ",",
-                                       TOTAL_PERSONAS$COD_ROL.x[k], ",",
-                                       fecha, ",",
-                                       TOTAL_PERSONAS$FINAL[k], ",'",
-                                       Sys.time(), "','GENERADO',",
-                                       estado, ",1,'',", cod_factura, ",",
-                                       TOTAL_PERSONAS$COD_CONCEPTO_PSL.x[k], ",1,1)"), collapse = ',')
+        if (k <= nrow(TABLA_TEMPORAL)) {
+          vals[j] = paste0('(', paste0(TABLA_TEMPORAL$COD_CONTRATO_PROYECTO[k], ",",
+                                       TABLA_TEMPORAL$COD_ROL[k], ",",
+                                       TABLA_TEMPORAL$COD_FORMAS_PAGO_FECHAS[k], ",",
+                                       TABLA_TEMPORAL$FINAL[k], ",'",
+                                       Sys.time(), "','GENERADO','",
+                                       estado, "',1,'',", cod_factura, ",",
+                                       TABLA_TEMPORAL$COD_CONCEPTO_PSL[k], ",1,1)"), collapse = ',')
         }
       }
       query = paste0(query, paste0(vals, collapse = ','))

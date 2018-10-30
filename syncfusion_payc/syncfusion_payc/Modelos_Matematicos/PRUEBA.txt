@@ -1,8 +1,8 @@
 factura <- function(cod_factura) {
   library(DBI)
   
-  #CONEXIÃ“N Y EXTRACCIÃ“N DE LA INFORMACIÃ“N DE LA BASE DE DATOS---------------
-  #CONEXIÃ“N A LA BASE DE DATOS
+  #CONEXIÓN Y EXTRACCIÓN DE LA INFORMACIÓN DE LA BASE DE DATOS---------------
+  #CONEXIÓN A LA BASE DE DATOS
   con <- dbConnect(odbc::odbc(), "PAYC_FACTURACION", uid = "sa", pwd = "1234JAMS*")
   #cod_factura = 11524
   
@@ -87,7 +87,7 @@ factura <- function(cod_factura) {
                       WHERE COD_ITEM_CONTRATO IN (", COD_ITEM_CONTRATO ,")")
   ITEM_ROLES <- dbGetQuery(con, items_rol)
   
-  #CÃLCULO DEL NÃšMERO DE HORAS EXTRA O DE VACACIONES QUE SE DEBEN COBRAR
+  #CÁLCULO DEL NÚMERO DE HORAS EXTRA O DE VACACIONES QUE SE DEBEN COBRAR
   if (any(CONDICIONES_CONTRATO$COD_TIPO_CONDICION == 3)) {
     if (nrow(NOVEDADES_ADICION) != 0) {
       NOVEDADES_ADICION$HORAS_ED <- as.double(difftime(NOVEDADES_ADICION$FECHA_FIN_NOVEDAD, NOVEDADES_ADICION$FECHA_INICIO_NOVEDAD , units = "hours"))
@@ -202,7 +202,7 @@ factura <- function(cod_factura) {
   ITEMS_DEPENDIENTES<-merge(ITEMS_DEPENDIENTES,ITEM_ROLES,by.x = "COD_ITEM_CONTRATO", by.y = "COD_ITEM_CONTRATO", all.x = T, all.y = F)
   ITEMS_DEPENDIENTES$VALOR_DEPENDIENTE[is.na(ITEMS_DEPENDIENTES$VALOR_DEPENDIENTE)]<-sum(TOTAL_PERSONAS$FINAL)*ITEMS_DEPENDIENTES$PORCENTAJE_PERSONAL.x[is.na(ITEMS_DEPENDIENTES$VALOR_DEPENDIENTE)]  
   
-  #ELIMINAR LOS DATOS REPETIDOS DEL PROYECTO QUE SE ESTÃ CONSULTANDO
+  #ELIMINAR LOS DATOS REPETIDOS DEL PROYECTO QUE SE ESTÁ CONSULTANDO
   eliminar <- paste0("DELETE FROM [dbo].[DETALLE_FACTURA_PERS] WHERE [COD_CONTRATO_PROYECTO] =", proyecto, "AND COD_FORMAS_PAGO_FECHAS=", fecha)
   dbExecute(con, eliminar)
   eliminar <- paste0("DELETE FROM [dbo].[DETALLE_FACTURA_ITEM] WHERE [COD_CONTRATO_PROYECTO] =", proyecto, "AND COD_FORMAS_PAGO_FECHAS=", fecha)
@@ -212,7 +212,7 @@ factura <- function(cod_factura) {
   eliminar <- paste0("DELETE FROM [dbo].[DETALLE_FACTURA_ADJUNTO_ITEM] WHERE [COD_CONTRATO_PROYECTO] =", proyecto, "AND COD_FORMAS_PAGO_FECHAS=", fecha)
   dbExecute(con, eliminar)
   
-  #CÃLCULO E INSERCIÃ“N DE LA INFORMACIÃ“N EN LAS TABLAS ---------
+  #CÁLCULO E INSERCIÓN DE LA INFORMACIÓN EN LAS TABLAS ---------
   chunksize = 1000 # arbitrary chunk size
   if (nrow(TOTAL_PERSONAS) != 0) {
     for (i in 1:ceiling(nrow(TOTAL_PERSONAS) / chunksize)) {
