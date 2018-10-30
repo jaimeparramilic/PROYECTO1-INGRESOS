@@ -84,8 +84,6 @@ public partial class test_payc_contabilidadEntities : DbContext
 
     public virtual DbSet<ESTUDIOS_COLABORADOR> ESTUDIOS_COLABORADOR { get; set; }
 
-    public virtual DbSet<FACTURAS> FACTURAS { get; set; }
-
     public virtual DbSet<FLUJO_INGRESOS_ITEMS> FLUJO_INGRESOS_ITEMS { get; set; }
 
     public virtual DbSet<FLUJO_INGRESOS_ROL> FLUJO_INGRESOS_ROL { get; set; }
@@ -113,8 +111,6 @@ public partial class test_payc_contabilidadEntities : DbContext
     public virtual DbSet<PROYECTOS> PROYECTOS { get; set; }
 
     public virtual DbSet<REGISTRO_ITEMS_OTROS_COSTOS> REGISTRO_ITEMS_OTROS_COSTOS { get; set; }
-
-    public virtual DbSet<REGISTRO_NOVEDADES> REGISTRO_NOVEDADES { get; set; }
 
     public virtual DbSet<ROL_CARGO_ORDEN> ROL_CARGO_ORDEN { get; set; }
 
@@ -289,6 +285,10 @@ public partial class test_payc_contabilidadEntities : DbContext
     public virtual DbSet<VISTA_DETALLE_ADJUNTO_PERS_EXPORT> VISTA_DETALLE_ADJUNTO_PERS_EXPORT { get; set; }
 
     public virtual DbSet<VISTA_DETALLE_FACTURAS_REPORTE> VISTA_DETALLE_FACTURAS_REPORTE { get; set; }
+
+    public virtual DbSet<REGISTRO_NOVEDADES> REGISTRO_NOVEDADES { get; set; }
+
+    public virtual DbSet<FACTURAS> FACTURAS { get; set; }
 
 }
 

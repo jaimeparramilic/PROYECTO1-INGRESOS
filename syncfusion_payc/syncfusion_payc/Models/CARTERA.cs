@@ -49,8 +49,6 @@ public partial class CARTERA
 
     public virtual ESTADOS_CARTERA ESTADOS_CARTERA { get; set; }
 
-    public virtual FACTURAS FACTURAS { get; set; }
-
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 	[System.Runtime.Serialization.IgnoreDataMember]
 	[Newtonsoft.Json.JsonIgnore]
@@ -62,6 +60,8 @@ public partial class CARTERA
 	[Newtonsoft.Json.JsonIgnore]
 
     public virtual ICollection<GESTION_CARTERA> GESTION_CARTERA { get; set; }
+
+    public virtual FACTURAS FACTURAS { get; set; }
 
 }
 

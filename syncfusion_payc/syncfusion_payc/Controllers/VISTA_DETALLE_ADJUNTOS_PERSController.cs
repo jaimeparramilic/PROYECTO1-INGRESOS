@@ -281,7 +281,7 @@ namespace syncfusion_payc.Controllers
             using (ExcelEngine excelEngine = new ExcelEngine())
             {
                 IApplication application = excelEngine.Excel;
-                application.DefaultVersion = ExcelVersion.Excel2013;
+                application.DefaultVersion = ExcelVersion.Excel2010;
                 IWorkbook workbook = application.Workbooks.Create(1);
                 IWorksheet worksheet = workbook.Worksheets[0];
                 worksheet.Name = "BASE DE DATOS";
@@ -366,16 +366,28 @@ namespace syncfusion_payc.Controllers
                 IPivotCache cache = workbook.PivotCaches.Add(worksheet["A3:U" + (contar + 2).ToString()]);
                 IPivotTable pivotTable = pivot.PivotTables.Add("PivotTable1", pivot["A3"], cache);
                 pivotTable.Fields[4].Axis = PivotAxisTypes.Row;
-                pivotTable.Fields[3].Axis = PivotAxisTypes.Row;
-                pivotTable.Fields[2].Axis = PivotAxisTypes.Row;
-                pivotTable.Fields[1].Axis = PivotAxisTypes.Row;
                 pivotTable.Fields[5].Axis = PivotAxisTypes.Row;
                 pivotTable.Fields[6].Axis = PivotAxisTypes.Row;
+                pivotTable.Fields[3].Axis = PivotAxisTypes.Page;
                 pivotTable.Fields[0].Axis = PivotAxisTypes.Column;
 
+                //Apply page field filter
+                IPivotField pageField = pivotTable.Fields[3];
+
+                //Select multiple items in page field to filter
                 
+                pageField.Items[0].Visible = true;
+
+                
+                pivotTable.Fields[4].Subtotals = PivotSubtotalTypes.None;
+                pivotTable.Fields[5].Subtotals = PivotSubtotalTypes.None;
+                pivotTable.Fields[6].Subtotals = PivotSubtotalTypes.None;
+                pivotTable.Fields[0].NumberFormat = "mmm yyyy";
+                pivotTable.Fields[0].Subtotals = PivotSubtotalTypes.None;
                 IPivotField field1 = pivotTable.Fields[9];
                 pivotTable.DataFields.Add(field1, "Sum", PivotSubtotalTypes.Sum);
+                IPivotTableOptions pivotOption = pivotTable.Options;
+                pivotOption.RowLayout = PivotTableRowLayout.Tabular;
                 /*IPivotField field2 = pivotTable.Fields[10];
                 pivotTable.DataFields.Add(field2, "Sum", PivotSubtotalTypes.Sum);
                 IPivotField field3 = pivotTable.Fields[11];
@@ -398,8 +410,9 @@ namespace syncfusion_payc.Controllers
                 pivotTable.DataFields.Add(field11, "Sum", PivotSubtotalTypes.Sum);
                 IPivotField field12 = pivotTable.Fields[20];
                 pivotTable.DataFields.Add(field12, "Sum", PivotSubtotalTypes.Sum);*/
-
+                
                 pivotTable.BuiltInStyle = PivotBuiltInStyles.PivotStyleDark2;
+                pivot.Range["D6:BB6"].NumberFormat = "mmm dd yyyy";
                 var fileSavePath = Path.Combine(fileSave, "Adjunto_"+COD_FACTURA+".xlsx");
                 workbook.SaveAs(fileSavePath);
             }

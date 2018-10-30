@@ -29,6 +29,7 @@
                     items.AddTool(ToolBarItems.Delete);
                     items.AddTool(ToolBarItems.Update);
                     items.AddTool(ToolBarItems.Cancel);
+                    items.AddTool(ToolBarItems.Search);
                 });
             }).Columns(col =>
             {
@@ -82,10 +83,11 @@
                     col.Field("COD_CONCEPTO_PSL").Width(80).Type("string").ForeignKeyField("COD_CONCEPTO_PSL").ForeignKeyValue("CODIGO_EN_PSL").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONCEPTOS.ToList()).HeaderText("CONCEPTO").EditType(EditingType.DropdownEdit).Add();
                     col.Field("COD_FACTURA").HeaderText("COD_FACTURA").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                     col.Field("NUMERO_FACTURA").Width(80).AllowEditing(false).HeaderText("NÚMERO FACTURA").Add();
-                    col.Field("FECHA_FACTURA").Width(80).HeaderText("FECHA FACTURA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                    col.Field("FECHA_FACTURA").Width(80).HeaderText("PERIODO FACTURA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
                     col.Field("VALOR_SIN_IMPUESTOS").Width(120).AllowEditing(false).HeaderText("VALOR SIN IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                     col.Field("VALOR_CON_IMPUESTOS").Visible(false).AllowEditing(false).HeaderText("VALOR CON IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                     col.Field("RANKING").AllowEditing(false).HeaderText("RANKING").Visible(false).Add();
+                    col.Field("FECHA_EMISION").Width(80).HeaderText("FECHA EMISIÓN (PARA PSL)").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
                 });
             })
     )

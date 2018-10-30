@@ -397,7 +397,19 @@ namespace syncfusion_payc.Controllers
         public ActionResult valor_facturar(EditParams_FACTURAS param)
         {
             //Cargar formas pago fechas
-            DateTime temp_fecha = new DateTime(param.value.FECHA_FACTURA.Value.Year, param.value.FECHA_FACTURA.Value.Month, 1);
+            
+            DateTime temp11 = param.value.FECHA_FACTURA.Value;
+            if (param.value.FECHA_EMISION.HasValue)
+            {
+                //temp11 = param.value.FECHA_EMISION.Value;
+                
+            }
+            else
+            {
+                param.value.FECHA_EMISION = param.value.FECHA_FACTURA;
+            }
+
+            DateTime temp_fecha = new DateTime(temp11.Year, temp11.Month, 1);
             FORMAS_PAGO_FECHAS table = db.FORMAS_PAGO_FECHAS.Single(o => o.FECHA_FORMA_PAGO == temp_fecha);
             param.value.COD_ESTADO_FACTURA = 1;
             param.value.COD_FORMAS_PAGO_FECHAS = table.COD_FORMAS_PAGO_FECHAS;
@@ -411,6 +423,7 @@ namespace syncfusion_payc.Controllers
             factura.VALOR_SIN_IMPUESTOS = param.value.VALOR_SIN_IMPUESTOS;
             factura.FECHA_FACTURA = param.value.FECHA_FACTURA;
             factura.COD_CONCEPTO_PSL= param.value.COD_CONCEPTO_PSL;
+            factura.FECHA_EMISION = param.value.FECHA_EMISION;
             db.FACTURAS.Add(factura);
             db.SaveChanges();
 
@@ -503,6 +516,7 @@ namespace syncfusion_payc.Controllers
                 FACTURAS table1 = db.FACTURAS.Single(o => o.COD_FACTURA == COD_FACTURA);
                 table1.VALOR_SIN_IMPUESTOS = Decimal.Parse(valor_factura);
                 db.SaveChanges();
+                
             }
             catch (Exception ex)
             {

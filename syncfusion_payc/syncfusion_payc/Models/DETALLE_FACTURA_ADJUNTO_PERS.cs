@@ -82,13 +82,13 @@ public partial class DETALLE_FACTURA_ADJUNTO_PERS
 
     public virtual ESTADOS_FACTURAS ESTADOS_FACTURAS { get; set; }
 
-    public virtual FACTURAS FACTURAS { get; set; }
-
     public virtual FORMAS_PAGO_FECHAS FORMAS_PAGO_FECHAS { get; set; }
 
     public virtual GRUPOS_FACTURA GRUPOS_FACTURA { get; set; }
 
     public virtual ROLES ROLES { get; set; }
+
+    public virtual FACTURAS FACTURAS { get; set; }
 
 }
 

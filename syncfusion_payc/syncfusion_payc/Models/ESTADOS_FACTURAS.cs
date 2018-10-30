@@ -26,9 +26,9 @@ public partial class ESTADOS_FACTURAS
 
         this.DETALLE_FACTURA_PERS = new HashSet<DETALLE_FACTURA_PERS>();
 
-        this.FACTURAS = new HashSet<FACTURAS>();
-
         this.DETALLE_FACTURA_ADJUNTO_PERS = new HashSet<DETALLE_FACTURA_ADJUNTO_PERS>();
+
+        this.FACTURAS = new HashSet<FACTURAS>();
 
     }
 
@@ -55,13 +55,13 @@ public partial class ESTADOS_FACTURAS
 	[System.Runtime.Serialization.IgnoreDataMember]
 	[Newtonsoft.Json.JsonIgnore]
 
-    public virtual ICollection<FACTURAS> FACTURAS { get; set; }
+    public virtual ICollection<DETALLE_FACTURA_ADJUNTO_PERS> DETALLE_FACTURA_ADJUNTO_PERS { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 	[System.Runtime.Serialization.IgnoreDataMember]
 	[Newtonsoft.Json.JsonIgnore]
 
-    public virtual ICollection<DETALLE_FACTURA_ADJUNTO_PERS> DETALLE_FACTURA_ADJUNTO_PERS { get; set; }
+    public virtual ICollection<FACTURAS> FACTURAS { get; set; }
 
 }
 

@@ -53,7 +53,7 @@ factura <- function(cod_factura) {
                     AND COD_FORMAS_PAGO_FECHAS=", fecha, " 
                     AND COD_TIPO_NOVEDAD BETWEEN 2 AND 5")
   descuento <- paste0("SELECT *
-                      FROM VISTA_REGISTRO_NOVEDADES
+                      FROM VISTA_REGISTRO_NOVEDADES_DIASLAB
                       WHERE COD_CONTRATO_PROYECTO=", proyecto, "
                       AND COD_FORMAS_PAGO_FECHAS=", fecha, " 
                       AND COD_TIPO_NOVEDAD IN (7,8,11,12)")
@@ -117,7 +117,7 @@ factura <- function(cod_factura) {
   
   if (any(CONDICIONES_CONTRATO$COD_TIPO_CONDICION == 4)) {
     if (nrow(NOVEDADES_DESCUENTO) != 0) {
-      NOVEDADES_DESCUENTO$HORAS_DESCUENTO <- difftime(NOVEDADES_DESCUENTO$FECHA_FIN_NOVEDAD, NOVEDADES_DESCUENTO$FECHA_INICIO_NOVEDAD, units = "hours")
+      NOVEDADES_DESCUENTO$HORAS_DESCUENTO <- as.double(difftime(NOVEDADES_DESCUENTO$FECHA_FIN_NOVEDAD, NOVEDADES_DESCUENTO$FECHA_INICIO_NOVEDAD, units = "hours")/3) +(-NOVEDADES_DESCUENTO$sabdomfest+NOVEDADES_DESCUENTO$sabados+1)*8
     }} else {
       NOVEDADES_DESCUENTO$HORAS_DESCUENTO<-NULL
       NOVEDADES_DESCUENTO<-NOVEDADES_DESCUENTO[-c(0),]}
@@ -409,14 +409,21 @@ factura <- function(cod_factura) {
   
   dbDisconnect(con)
   
-  VALOR_FACTURAR <- sum(TOTAL_ITEMS_FIJOS$VALOR_TOTAL, na.rm = T) + sum(TOTAL_PERSONAS$FINAL, na.rm = T) + sum(TOTAL_ITEMS_VARIABLES$VALOR_COMERCIAL, na.rm = T)+sum(ITEMS_DEPENDIENTES$VALOR_DEPENDIENTE, na.rm = T) 
+  ITEMSFIJOS<-if (is.null(sum(TOTAL_ITEMS_FIJOS$VALOR_TOTAL, na.rm = T))) {0
+  } else {sum(TOTAL_ITEMS_FIJOS$VALOR_TOTAL, na.rm = T)}
   
-  #sum(TOTAL_ITEMS_FIJOS$VALOR_TOTAL, na.rm = T) 
-  #sum(TOTAL_PERSONAS$VALOR_FACTOR_MULTIPLICADOR,na.rm = T)
-  #sum(TOTAL_ITEMS_VARIABLES$VALOR_COMERCIAL,na.rm = T)
-  #sum(NOVEDADES_ADICION$TOTAL,na.rm=T)
-  #VALOR_FACTURAR
+  ITEMSVARIABLES<-if (is.null(sum(TOTAL_ITEMS_VARIABLES$VALOR_TOTAL, na.rm = T) )) {0
+  } else {sum(TOTAL_ITEMS_VARIABLES$VALOR_COMERCIAL, na.rm = T)}
+  
+  ITEMSDEPENDIENTES<-if (is.null(sum(ITEMS_DEPENDIENTES$VALOR_DEPENDIENTE, na.rm = T)  )) {0
+  } else {sum(ITEMS_DEPENDIENTES$VALOR_DEPENDIENTE, na.rm = T) }
+  
+  PERSONAS<-if (is.null(sum(TOTAL_PERSONAS$FINAL, na.rm = T) )) {0
+  } else {sum(TOTAL_PERSONAS$FINAL, na.rm = T)}
+  
+  VALOR_FACTURAR <- ITEMSFIJOS+ITEMSVARIABLES+ITEMSDEPENDIENTES+PERSONAS
+  
   return(VALOR_FACTURAR) 
   }
 
-factura(11638)
+factura(11771)
