@@ -216,7 +216,7 @@ factura <- function(cod_factura) {
   chunksize = 1000 # arbitrary chunk size
   if (nrow(TOTAL_PERSONAS) != 0) {
     for (i in 1:ceiling(nrow(TOTAL_PERSONAS) / chunksize)) {
-      query = paste0("INSERT INTO [dbo].[DETALLE_FACTURA_PERS_TEMP] 
+      query = paste0("INSERT INTO [dbo].[DETALLE_FACTURA_PERS] 
                      ([COD_CONTRATO_PROYECTO]
                      ,[COD_ROL]
                      ,[COD_FORMAS_PAGO_FECHAS]

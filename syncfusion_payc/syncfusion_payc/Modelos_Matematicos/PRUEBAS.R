@@ -1,11 +1,10 @@
-
 factura <- function(cod_factura) {
   library(DBI)
   
   #CONEXIÓN Y EXTRACCIÓN DE LA INFORMACIÓN DE LA BASE DE DATOS---------------
   #CONEXIÓN A LA BASE DE DATOS
   con <- dbConnect(odbc::odbc(), "PAYC_FACTURACION", uid = "sa", pwd = "1234JAMS*")
-  #cod_factura = 11790
+  cod_factura = 11837
   
   #EXTRACCION DE LA INFORMACION IMPORTANTE DE LA BASE DE DATOS
   fact <- paste0("SELECT * FROM FACTURAS WHERE COD_FACTURA=", cod_factura)
@@ -430,6 +429,6 @@ VALOR_FACTURAR <- ITEMSFIJOS+ITEMSVARIABLES+ITEMSDEPENDIENTES+PERSONAS
 
 return(VALOR_FACTURAR) }
 
-factura(11790)
+factura(11837)
 
 
