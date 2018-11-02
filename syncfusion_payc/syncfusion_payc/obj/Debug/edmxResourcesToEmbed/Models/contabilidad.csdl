@@ -505,6 +505,7 @@
       <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
       <End Role="FACTURAS" EntitySet="FACTURAS" />
     </AssociationSet>
+    <EntitySet Name="TRUEFALSE" EntityType="test_payc_contabilidadModel.TRUEFALSE" />
   </EntityContainer>
   <EntityType Name="ASIGNACION_CARTERA">
     <Key>
@@ -3699,4 +3700,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="TRUEFALSE">
+    <Key>
+      <PropertyRef Name="BIT" />
+    </Key>
+    <Property Name="BIT" Type="Boolean" Nullable="false" />
+    <Property Name="TEXTO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>

@@ -718,6 +718,13 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.ReportsTable' no 
           <Property Name="COD_TIPO_TRIBUTACION" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
         </EntityType>
+        <EntityType Name="TRUEFALSE">
+          <Key>
+            <PropertyRef Name="BIT" />
+          </Key>
+          <Property Name="BIT" Type="bit" Nullable="false" />
+          <Property Name="TEXTO" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="xTEMPO">
           <Key>
             <PropertyRef Name="id" />
@@ -3210,6 +3217,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <EntitySet Name="TIPOS_REEMBOLSO" EntityType="Self.TIPOS_REEMBOLSO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPOS_SERVICIOS" EntityType="Self.TIPOS_SERVICIOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TIPOS_TRIBUTACION" EntityType="Self.TIPOS_TRIBUTACION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TRUEFALSE" EntityType="Self.TRUEFALSE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="xTEMPO" EntityType="Self.xTEMPO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COMBINACIONES_GASTOS_ADMINISTRATIVOS" EntityType="Self.COMBINACIONES_GASTOS_ADMINISTRATIVOS" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -5145,6 +5153,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
             <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
             <End Role="FACTURAS" EntitySet="FACTURAS" />
           </AssociationSet>
+          <EntitySet Name="TRUEFALSE" EntityType="test_payc_contabilidadModel.TRUEFALSE" />
         </EntityContainer>
         <EntityType Name="ASIGNACION_CARTERA">
           <Key>
@@ -8339,6 +8348,13 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TRUEFALSE">
+          <Key>
+            <PropertyRef Name="BIT" />
+          </Key>
+          <Property Name="BIT" Type="Boolean" Nullable="false" />
+          <Property Name="TEXTO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -10270,6 +10286,14 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
                 <ScalarProperty Name="COD_FORMAS_PAGO_FECHAS" ColumnName="COD_FORMAS_PAGO_FECHAS" />
                 <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
                 <ScalarProperty Name="COD_FACTURA" ColumnName="COD_FACTURA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRUEFALSE">
+            <EntityTypeMapping TypeName="test_payc_contabilidadModel.TRUEFALSE">
+              <MappingFragment StoreEntitySet="TRUEFALSE">
+                <ScalarProperty Name="TEXTO" ColumnName="TEXTO" />
+                <ScalarProperty Name="BIT" ColumnName="BIT" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

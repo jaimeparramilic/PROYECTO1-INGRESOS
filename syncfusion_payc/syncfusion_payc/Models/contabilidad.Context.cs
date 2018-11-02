@@ -290,6 +290,8 @@ public partial class test_payc_contabilidadEntities : DbContext
 
     public virtual DbSet<FACTURAS> FACTURAS { get; set; }
 
+    public virtual DbSet<TRUEFALSE> TRUEFALSE { get; set; }
+
 }
 
 }
