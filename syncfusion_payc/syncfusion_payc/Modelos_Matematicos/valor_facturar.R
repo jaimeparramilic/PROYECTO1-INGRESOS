@@ -170,7 +170,9 @@ factura <- function(cod_factura) {
     }
     
     if (nrow(NOVEDADES_DESCUENTO) != 0) {
-      TOTAL_NOVEDADES_DESCUENTO <- aggregate(DESCUENTO ~ COD_ROL+COD_COLABORADOR+HORAS_DESCUENTO, data = NOVEDADES_DESCUENTO, sum)
+      #DESCUENTO_NOVEDADES<-aggregate(list(DESCUENTO=NOVEDADES_DESCUENTO$DESCUENTO,HORAS_DESCUENTO=NOVEDADES_DESCUENTO$HORAS_DESCUENTO), by=list(COD_ROL=NOVEDADES_DESCUENTO$COD_ROL,COD_COLABORADOR=NOVEDADES_DESCUENTO$COD_COLABORADOR) , sum)
+      #TOTAL_NOVEDADES_DESCUENTO <- aggregate(DESCUENTO ~ COD_ROL+COD_COLABORADOR+HORAS_DESCUENTO, data = DESCUENTO_NOVEDADES, sum)
+      TOTAL_NOVEDADES_DESCUENTO<-aggregate(list(DESCUENTO=NOVEDADES_DESCUENTO$DESCUENTO,HORAS_DESCUENTO=NOVEDADES_DESCUENTO$HORAS_DESCUENTO), by=list(COD_ROL=NOVEDADES_DESCUENTO$COD_ROL,COD_COLABORADOR=NOVEDADES_DESCUENTO$COD_COLABORADOR) , sum)
       TOTAL_PERSONAS <- merge(TOTAL_PERSONAS, TOTAL_NOVEDADES_DESCUENTO, by.x = c("COD_ROL"), by.y = c("COD_ROL"), all.x = T, all.y = F, na.action)
       PERSONAS_ADJUNTO <- merge(PERSONAS_ADJUNTO, TOTAL_NOVEDADES_DESCUENTO, by.x = c("COD_COLABORADOR"), by.y = c("COD_COLABORADOR"), all.x = T, all.y = F, na.action)
     } else {
@@ -179,9 +181,12 @@ factura <- function(cod_factura) {
       PERSONAS_ADJUNTO$DESCUENTO <- 0
     } 
     
-    TOTAL_PERSONAS<-PERSONAS_ADJUNTO[,c("COD_ROL.x","VALOR_FACTOR_MULTIPLICADOR","ADICION","DESCUENTO")]
-    TOTAL_PERSONAS<-merge(TOTAL, INGRESOS_PERSONAS[,c("COD_ROL","COD_CONCEPTO_PSL")], by.x = "COD_ROL.x", by.y = "COD_ROL", all.x = T, all.y = F)
-    TOTAL_PERSONAS$FINAL<-rowSums(TOTAL[,c("VALOR_FACTOR_MULTIPLICADOR","ADICION","DESCUENTO")],na.rm=T)
+    if ("COD_ROL.x" %in% colnames(PERSONAS_ADJUNTO)) {
+      colnames(PERSONAS_ADJUNTO)[colnames(PERSONAS_ADJUNTO)=="COD_ROL.x"] <- "COD_ROL"}
+    
+    TOTAL_PERSONAS<-PERSONAS_ADJUNTO[,c("COD_ROL","VALOR_FACTOR_MULTIPLICADOR","ADICION","DESCUENTO")]
+    TOTAL_PERSONAS<-merge(TOTAL_PERSONAS, INGRESOS_PERSONAS[,c("COD_ROL","COD_CONCEPTO_PSL")], by.x = "COD_ROL", by.y = "COD_ROL", all.x = T, all.y = F)
+    TOTAL_PERSONAS$FINAL<-rowSums(TOTAL_PERSONAS[,c("VALOR_FACTOR_MULTIPLICADOR","ADICION","DESCUENTO")],na.rm=T)
     
     #TOTAL_PERSONAS$FINAL <- rowSums(TOTAL_PERSONAS[, c("VALOR_FACTOR_MULTIPLICADOR", "ADICION", "DESCUENTO")], na.rm = T)
     PERSONAS_ADJUNTO$FINAL <- rowSums(PERSONAS_ADJUNTO[, c("VALOR_FACTOR_MULTIPLICADOR", "ADICION", "DESCUENTO")], na.rm = T)
@@ -191,7 +196,7 @@ factura <- function(cod_factura) {
   TOTAL_PERSONAS[is.na(TOTAL_PERSONAS)]<-0
   
   
-  ITEM_ROLES<-merge(ITEM_ROLES, TOTAL_PERSONAS, by.x = "COD_ROL", by.y = "COD_ROL.x", all.x = F, all.y = F,na.action)
+  ITEM_ROLES<-merge(ITEM_ROLES, TOTAL_PERSONAS, by.x = "COD_ROL", by.y = "COD_ROL", all.x = F, all.y = F,na.action)
   ITEM_ROLES$VALOR_DEPENDIENTE<-ITEM_ROLES$PORCENTAJE_PERSONAL*ITEM_ROLES$FINAL
   
   if (nrow(ITEM_ROLES)>1) {
@@ -236,12 +241,12 @@ factura <- function(cod_factura) {
         k = (i - 1) * chunksize + j
         if (k <= nrow(TOTAL_PERSONAS)) {
           vals[j] = paste0('(', paste0(proyecto, ",",
-                                       TOTAL_PERSONAS$COD_ROL.x[k], ",",
+                                       TOTAL_PERSONAS$COD_ROL[k], ",",
                                        fecha, ",",
                                        TOTAL_PERSONAS$FINAL[k], ",'",
                                        Sys.time(), "','GENERADO',",
                                        estado, ",1,'',", cod_factura, ",",
-                                       TOTAL_PERSONAS$COD_CONCEPTO_PSL.x[k], ",1,1)"), collapse = ',')
+                                       TOTAL_PERSONAS$COD_CONCEPTO_PSL[k], ",1,1)"), collapse = ',')
         }
       }
       query = paste0(query, paste0(vals, collapse = ','))

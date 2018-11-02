@@ -4,8 +4,7 @@ factura <- function(cod_factura) {
   #CONEXIÓN Y EXTRACCIÓN DE LA INFORMACIÓN DE LA BASE DE DATOS---------------
   #CONEXIÓN A LA BASE DE DATOS
   con <- dbConnect(odbc::odbc(), "PAYC_FACTURACION", uid = "sa", pwd = "1234JAMS*")
-  cod_factura = 11837
-  
+  #cod_factura = 11852
   #EXTRACCION DE LA INFORMACION IMPORTANTE DE LA BASE DE DATOS
   fact <- paste0("SELECT * FROM FACTURAS WHERE COD_FACTURA=", cod_factura)
   FACTURAS <- dbGetQuery(con, fact)
@@ -34,13 +33,13 @@ factura <- function(cod_factura) {
                       AND FLUJO_INGRESOS_ITEM.COD_FORMAS_PAGO_FECHAS=", fecha, "
                       AND ITEMS_CONTRATO.COD_ITEM_CONTRATO=FLUJO_INGRESOS_ITEM.COD_ITEM_CONTRATO")
   dependientes <- paste0("SELECT FLUJO_INGRESOS_ITEM.*, 
-                      ITEMS_CONTRATO.COD_TIPO_REEMBOLSO, ITEMS_CONTRATO.PORCENTAJE_PERSONAL
-                      FROM FLUJO_INGRESOS_ITEM, ITEMS_CONTRATO 
-                      WHERE ITEMS_CONTRATO.COD_TIPO_REEMBOLSO=3 
-                      AND FLUJO_INGRESOS_ITEM.ESTADO='SI'
-                      AND FLUJO_INGRESOS_ITEM.COD_CONTRATO_PROYECTO=", proyecto, "
-                      AND FLUJO_INGRESOS_ITEM.COD_FORMAS_PAGO_FECHAS=", fecha, "
-                      AND ITEMS_CONTRATO.COD_ITEM_CONTRATO=FLUJO_INGRESOS_ITEM.COD_ITEM_CONTRATO")
+                         ITEMS_CONTRATO.COD_TIPO_REEMBOLSO, ITEMS_CONTRATO.PORCENTAJE_PERSONAL
+                         FROM FLUJO_INGRESOS_ITEM, ITEMS_CONTRATO 
+                         WHERE ITEMS_CONTRATO.COD_TIPO_REEMBOLSO=3 
+                         AND FLUJO_INGRESOS_ITEM.ESTADO='SI'
+                         AND FLUJO_INGRESOS_ITEM.COD_CONTRATO_PROYECTO=", proyecto, "
+                         AND FLUJO_INGRESOS_ITEM.COD_FORMAS_PAGO_FECHAS=", fecha, "
+                         AND ITEMS_CONTRATO.COD_ITEM_CONTRATO=FLUJO_INGRESOS_ITEM.COD_ITEM_CONTRATO")
   items <- paste0("SELECT * FROM ITEMS_CONTRATO
                   WHERE COD_CONTRATO_PROYECTO=", proyecto)
   contrato <- paste0("SELECT COD_TIPO_CONDICION
@@ -52,7 +51,7 @@ factura <- function(cod_factura) {
                     AND COD_FORMAS_PAGO_FECHAS=", fecha, " 
                     AND COD_TIPO_NOVEDAD BETWEEN 2 AND 5")
   descuento <- paste0("SELECT *
-                        FROM VISTA_REGISTRO_NOVEDADES_DIASLAB
+                      FROM VISTA_REGISTRO_NOVEDADES_DIASLAB
                       WHERE COD_CONTRATO_PROYECTO=", proyecto, "
                       AND COD_FORMAS_PAGO_FECHAS=", fecha, " 
                       AND COD_TIPO_NOVEDAD IN (7,8,11,12)")
@@ -69,7 +68,7 @@ factura <- function(cod_factura) {
                     WHERE COD_CONTRATO_PROYECTO=", proyecto, "
                     AND COD_FORMAS_PAGO_FECHAS=", fecha, "
                     AND ESTADO='SI'")
-
+  
   INGRESOS_PERSONAS <- dbGetQuery(con, personas)
   ITEMS_CONTRATO <- dbGetQuery(con, items)
   ITEMS_FIJOS <- dbGetQuery(con, fijos)
@@ -83,8 +82,8 @@ factura <- function(cod_factura) {
   
   COD_ITEM_CONTRATO<-paste0((if (length(ITEMS_CONTRATO$COD_ITEM_CONTRATO)!=0) {ITEMS_CONTRATO$COD_ITEM_CONTRATO} else {0}), collapse = ",")
   items_rol <- paste0("SELECT *
-                  FROM [test_payc_contabilidad].[dbo].[VISTA_ITEMS_CONTRATOS]
-                  WHERE COD_ITEM_CONTRATO IN (", COD_ITEM_CONTRATO ,")")
+                      FROM [test_payc_contabilidad].[dbo].[VISTA_ITEMS_CONTRATOS]
+                      WHERE COD_ITEM_CONTRATO IN (", COD_ITEM_CONTRATO ,")")
   ITEM_ROLES <- dbGetQuery(con, items_rol)
   
   #CÁLCULO DEL NÚMERO DE HORAS EXTRA O DE VACACIONES QUE SE DEBEN COBRAR
@@ -117,15 +116,15 @@ factura <- function(cod_factura) {
   if (any(CONDICIONES_CONTRATO$COD_TIPO_CONDICION == 4)) {
     if (nrow(NOVEDADES_DESCUENTO) != 0) {
       NOVEDADES_DESCUENTO$HORAS_DESCUENTO <- as.double(difftime(NOVEDADES_DESCUENTO$FECHA_FIN_NOVEDAD, NOVEDADES_DESCUENTO$FECHA_INICIO_NOVEDAD, units = "hours")/3) +(-NOVEDADES_DESCUENTO$sabdomfest+NOVEDADES_DESCUENTO$sabados+1)*8
-  }} else {
-    NOVEDADES_DESCUENTO$HORAS_DESCUENTO<-NULL
-    NOVEDADES_DESCUENTO<-NOVEDADES_DESCUENTO[-c(0),]}
+    }} else {
+      NOVEDADES_DESCUENTO$HORAS_DESCUENTO<-NULL
+      NOVEDADES_DESCUENTO<-NOVEDADES_DESCUENTO[-c(0),]}
   
-  NOVEDADES_ADICION$ADICION_ED <- as.double((NOVEDADES_ADICION$SALARIO_COMERCIAL / 240) * (NOVEDADES_ADICION$HORAS_ED) * NOVEDADES_ADICION$FACTOR_ED)
-  NOVEDADES_ADICION$ADICION_EN <- as.double((NOVEDADES_ADICION$SALARIO_COMERCIAL / 240) * (NOVEDADES_ADICION$HORAS_EN) * NOVEDADES_ADICION$FACTOR_EN)
-  NOVEDADES_ADICION$ADICION_FD <- as.double((NOVEDADES_ADICION$SALARIO_COMERCIAL / 240) * (NOVEDADES_ADICION$HORAS_FD) * NOVEDADES_ADICION$FACTOR_FD)
-  NOVEDADES_ADICION$ADICION_FN <- as.double((NOVEDADES_ADICION$SALARIO_COMERCIAL / 240) * (NOVEDADES_ADICION$HORAS_FN) * NOVEDADES_ADICION$FACTOR_FN)
-  NOVEDADES_DESCUENTO$DESCUENTO <- as.double((-NOVEDADES_DESCUENTO$SALARIO_COMERCIAL / 240) * (NOVEDADES_DESCUENTO$HORAS_DESCUENTO))
+  NOVEDADES_ADICION$ADICION_ED <- as.double((NOVEDADES_ADICION$SALARIO_COMERCIAL / 240) * as.double(NOVEDADES_ADICION$HORAS_ED) * NOVEDADES_ADICION$FACTOR_ED)
+  NOVEDADES_ADICION$ADICION_EN <- as.double((NOVEDADES_ADICION$SALARIO_COMERCIAL / 240) * as.double(NOVEDADES_ADICION$HORAS_EN) * NOVEDADES_ADICION$FACTOR_EN)
+  NOVEDADES_ADICION$ADICION_FD <- as.double((NOVEDADES_ADICION$SALARIO_COMERCIAL / 240) * as.double(NOVEDADES_ADICION$HORAS_FD) * NOVEDADES_ADICION$FACTOR_FD)
+  NOVEDADES_ADICION$ADICION_FN <- as.double((NOVEDADES_ADICION$SALARIO_COMERCIAL / 240) * as.double(NOVEDADES_ADICION$HORAS_FN) * NOVEDADES_ADICION$FACTOR_FN)
+  NOVEDADES_DESCUENTO$DESCUENTO <-as.double((-NOVEDADES_DESCUENTO$SALARIO_COMERCIAL / 240) * as.double(NOVEDADES_DESCUENTO$HORAS_DESCUENTO))
   
   #CALCULO DE LOS VALORES TOTALES HISTORICOS A FACTURAR POR PERSONA E ITEM------------
   if (nrow(INGRESOS_PERSONAS) != 0) {
@@ -157,7 +156,7 @@ factura <- function(cod_factura) {
                                            data = NOVEDADES_ADICION, sum)
       colnames(TOTAL_NOVEDADES_ADICION)[colnames(TOTAL_NOVEDADES_ADICION)=="ADICION_ED + ADICION_EN + ADICION_FD + ADICION_FN"] <- "ADICION"
       TOTAL_NOVEDADES_ADICION<- aggregate(TOTAL_NOVEDADES_ADICION[c("HORAS_ED","HORAS_EN","HORAS_FD","HORAS_FN","ADICION")], 
-                         by = list(COD_COLABORADOR=TOTAL_NOVEDADES_ADICION$COD_COLABORADOR, COD_ROL=TOTAL_NOVEDADES_ADICION$COD_ROL), FUN="sum")
+                                          by = list(COD_COLABORADOR=TOTAL_NOVEDADES_ADICION$COD_COLABORADOR, COD_ROL=TOTAL_NOVEDADES_ADICION$COD_ROL), FUN="sum")
       TOTAL_PERSONAS <- merge(TOTAL_PERSONAS, TOTAL_NOVEDADES_ADICION, by.x = c("COD_ROL"), by.y = c("COD_ROL"), all.x = T, all.y = F, na.action)
       PERSONAS_ADJUNTO <- merge(PERSONAS_ADJUNTO, TOTAL_NOVEDADES_ADICION, by.x = c("COD_COLABORADOR"), by.y = c("COD_COLABORADOR"), all.x = T, all.y=F, na.action)
     } else {
@@ -170,7 +169,9 @@ factura <- function(cod_factura) {
     }
     
     if (nrow(NOVEDADES_DESCUENTO) != 0) {
-      TOTAL_NOVEDADES_DESCUENTO <- aggregate(DESCUENTO ~ COD_ROL+COD_COLABORADOR+HORAS_DESCUENTO, data = NOVEDADES_DESCUENTO, sum)
+      #DESCUENTO_NOVEDADES<-aggregate(list(DESCUENTO=NOVEDADES_DESCUENTO$DESCUENTO,HORAS_DESCUENTO=NOVEDADES_DESCUENTO$HORAS_DESCUENTO), by=list(COD_ROL=NOVEDADES_DESCUENTO$COD_ROL,COD_COLABORADOR=NOVEDADES_DESCUENTO$COD_COLABORADOR) , sum)
+      #TOTAL_NOVEDADES_DESCUENTO <- aggregate(DESCUENTO ~ COD_ROL+COD_COLABORADOR+HORAS_DESCUENTO, data = DESCUENTO_NOVEDADES, sum)
+      TOTAL_NOVEDADES_DESCUENTO<-aggregate(list(DESCUENTO=NOVEDADES_DESCUENTO$DESCUENTO,HORAS_DESCUENTO=NOVEDADES_DESCUENTO$HORAS_DESCUENTO), by=list(COD_ROL=NOVEDADES_DESCUENTO$COD_ROL,COD_COLABORADOR=NOVEDADES_DESCUENTO$COD_COLABORADOR) , sum)
       TOTAL_PERSONAS <- merge(TOTAL_PERSONAS, TOTAL_NOVEDADES_DESCUENTO, by.x = c("COD_ROL"), by.y = c("COD_ROL"), all.x = T, all.y = F, na.action)
       PERSONAS_ADJUNTO <- merge(PERSONAS_ADJUNTO, TOTAL_NOVEDADES_DESCUENTO, by.x = c("COD_COLABORADOR"), by.y = c("COD_COLABORADOR"), all.x = T, all.y = F, na.action)
     } else {
@@ -179,19 +180,22 @@ factura <- function(cod_factura) {
       PERSONAS_ADJUNTO$DESCUENTO <- 0
     } 
     
-    TOTAL_PERSONAS<-PERSONAS_ADJUNTO[,c("COD_ROL.x","VALOR_FACTOR_MULTIPLICADOR","ADICION","DESCUENTO")]
-    TOTAL_PERSONAS<-merge(TOTAL, INGRESOS_PERSONAS[,c("COD_ROL","COD_CONCEPTO_PSL")], by.x = "COD_ROL.x", by.y = "COD_ROL", all.x = T, all.y = F)
-    TOTAL_PERSONAS$FINAL<-rowSums(TOTAL[,c("VALOR_FACTOR_MULTIPLICADOR","ADICION","DESCUENTO")],na.rm=T)
+    if ("COD_ROL.x" %in% colnames(PERSONAS_ADJUNTO)) {
+      colnames(PERSONAS_ADJUNTO)[colnames(PERSONAS_ADJUNTO)=="COD_ROL.x"] <- "COD_ROL"}
+    
+    TOTAL_PERSONAS<-PERSONAS_ADJUNTO[,c("COD_ROL","VALOR_FACTOR_MULTIPLICADOR","ADICION","DESCUENTO")]
+    TOTAL_PERSONAS<-merge(TOTAL_PERSONAS, INGRESOS_PERSONAS[,c("COD_ROL","COD_CONCEPTO_PSL")], by.x = "COD_ROL", by.y = "COD_ROL", all.x = T, all.y = F)
+    TOTAL_PERSONAS$FINAL<-rowSums(TOTAL_PERSONAS[,c("VALOR_FACTOR_MULTIPLICADOR","ADICION","DESCUENTO")],na.rm=T)
     
     #TOTAL_PERSONAS$FINAL <- rowSums(TOTAL_PERSONAS[, c("VALOR_FACTOR_MULTIPLICADOR", "ADICION", "DESCUENTO")], na.rm = T)
     PERSONAS_ADJUNTO$FINAL <- rowSums(PERSONAS_ADJUNTO[, c("VALOR_FACTOR_MULTIPLICADOR", "ADICION", "DESCUENTO")], na.rm = T)
   }
-    
+  
   PERSONAS_ADJUNTO[is.na(PERSONAS_ADJUNTO)]<-0
   TOTAL_PERSONAS[is.na(TOTAL_PERSONAS)]<-0
   
   
-  ITEM_ROLES<-merge(ITEM_ROLES, TOTAL_PERSONAS, by.x = "COD_ROL", by.y = "COD_ROL.x", all.x = F, all.y = F,na.action)
+  ITEM_ROLES<-merge(ITEM_ROLES, TOTAL_PERSONAS, by.x = "COD_ROL", by.y = "COD_ROL", all.x = F, all.y = F,na.action)
   ITEM_ROLES$VALOR_DEPENDIENTE<-ITEM_ROLES$PORCENTAJE_PERSONAL*ITEM_ROLES$FINAL
   
   if (nrow(ITEM_ROLES)>1) {
@@ -209,8 +213,10 @@ factura <- function(cod_factura) {
   dbExecute(con, eliminar)
   eliminar <- paste0("DELETE FROM [dbo].[DETALLE_FACTURA_ADJUNTO_PERS_TEMP] WHERE [COD_CONTRATO_PROYECTO] =", proyecto, "AND COD_FORMAS_PAGO_FECHAS=", fecha)
   dbExecute(con, eliminar)
-
-#CÁLCULO E INSERCIÓN DE LA INFORMACIÓN EN LAS TABLAS ---------
+  eliminar <- paste0("DELETE FROM [dbo].[DETALLE_FACTURA_ADJUNTO_ITEM] WHERE [COD_CONTRATO_PROYECTO] =", proyecto, "AND COD_FORMAS_PAGO_FECHAS=", fecha)
+  dbExecute(con, eliminar)
+  
+  #CÁLCULO E INSERCIÓN DE LA INFORMACIÓN EN LAS TABLAS ---------
   chunksize = 1000 # arbitrary chunk size
   if (nrow(TOTAL_PERSONAS) != 0) {
     for (i in 1:ceiling(nrow(TOTAL_PERSONAS) / chunksize)) {
@@ -234,12 +240,12 @@ factura <- function(cod_factura) {
         k = (i - 1) * chunksize + j
         if (k <= nrow(TOTAL_PERSONAS)) {
           vals[j] = paste0('(', paste0(proyecto, ",",
-                                       TOTAL_PERSONAS$COD_ROL.x[k], ",",
+                                       TOTAL_PERSONAS$COD_ROL[k], ",",
                                        fecha, ",",
                                        TOTAL_PERSONAS$FINAL[k], ",'",
                                        Sys.time(), "','GENERADO',",
                                        estado, ",1,'',", cod_factura, ",",
-                                       TOTAL_PERSONAS$COD_CONCEPTO_PSL.x[k], ",1,1)"), collapse = ',')
+                                       TOTAL_PERSONAS$COD_CONCEPTO_PSL[k], ",1,1)"), collapse = ',')
         }
       }
       query = paste0(query, paste0(vals, collapse = ','))
@@ -279,24 +285,24 @@ factura <- function(cod_factura) {
         k = (i - 1) * chunksize + j
         if (k <= nrow(PERSONAS_ADJUNTO)) {
           vals[j] = paste0('(', paste0(proyecto, ",",
-                        if (is.null(PERSONAS_ADJUNTO$COD_ROL.x[k])) {if (is.null(PERSONAS_ADJUNTO$COD_ROL[k])) {1} else {PERSONAS_ADJUNTO$COD_ROL[k]}} else {PERSONAS_ADJUNTO$COD_ROL.x[k]}, ",",
-                          if (is.null(PERSONAS_ADJUNTO$COD_COLABORADOR[k])) {7} else {PERSONAS_ADJUNTO$COD_COLABORADOR[k]}, ",",
-                            fecha, ",'",
-                            Sys.time(), "','GENERADO',",
-                            estado, ",1,'',", cod_factura, 
-                            ",1,1026,1,",
-                            PERSONAS_ADJUNTO$HORAS_ED[k],",",
-                            PERSONAS_ADJUNTO$HORAS_EN[k],",",
-                            PERSONAS_ADJUNTO$HORAS_FD[k],",",
-                            PERSONAS_ADJUNTO$HORAS_FN[k],",",
-                            PERSONAS_ADJUNTO$ADICION[k],",",
-                            PERSONAS_ADJUNTO$HORAS_DESCUENTO[k],",",
-                            PERSONAS_ADJUNTO$DESCUENTO[k],",'",
-                            PERSONAS_ADJUNTO$FECHA_INI[k],"','",
-                            PERSONAS_ADJUNTO$FECHA_FIN[k],"',",
-                            PERSONAS_ADJUNTO$VALOR_FACTOR_MULTIPLICADOR[k],",",
-                            PERSONAS_ADJUNTO$FINAL[k],
-                            ")"), collapse = ',')
+                                       if (is.null(PERSONAS_ADJUNTO$COD_ROL.x[k])) {if (is.null(PERSONAS_ADJUNTO$COD_ROL[k])) {1} else {PERSONAS_ADJUNTO$COD_ROL[k]}} else {PERSONAS_ADJUNTO$COD_ROL.x[k]}, ",",
+                                       if (is.null(PERSONAS_ADJUNTO$COD_COLABORADOR[k])) {7} else {PERSONAS_ADJUNTO$COD_COLABORADOR[k]}, ",",
+                                       fecha, ",'",
+                                       Sys.time(), "','GENERADO',",
+                                       estado, ",1,'',", cod_factura, 
+                                       ",1,1026,1,",
+                                       PERSONAS_ADJUNTO$HORAS_ED[k],",",
+                                       PERSONAS_ADJUNTO$HORAS_EN[k],",",
+                                       PERSONAS_ADJUNTO$HORAS_FD[k],",",
+                                       PERSONAS_ADJUNTO$HORAS_FN[k],",",
+                                       PERSONAS_ADJUNTO$ADICION[k],",",
+                                       PERSONAS_ADJUNTO$HORAS_DESCUENTO[k],",",
+                                       PERSONAS_ADJUNTO$DESCUENTO[k],",'",
+                                       PERSONAS_ADJUNTO$FECHA_INI[k],"','",
+                                       PERSONAS_ADJUNTO$FECHA_FIN[k],"',",
+                                       PERSONAS_ADJUNTO$VALOR_FACTOR_MULTIPLICADOR[k],",",
+                                       PERSONAS_ADJUNTO$FINAL[k],
+                                       ")"), collapse = ',')
         }
       }
       query = paste0(query, paste0(vals, collapse = ','))
@@ -407,28 +413,26 @@ factura <- function(cod_factura) {
       dbExecute(con, query)
     } }
   
-dbDisconnect(con)
+  dbDisconnect(con)
   
-ITEMSFIJOS<-if (is.null(sum(TOTAL_ITEMS_FIJOS$VALOR_TOTAL, na.rm = T))) {
-  0
-} else {sum(TOTAL_ITEMS_FIJOS$VALOR_TOTAL, na.rm = T)}
+  ITEMSFIJOS<-if (is.null(sum(TOTAL_ITEMS_FIJOS$VALOR_TOTAL, na.rm = T))) {0
+  } else {sum(TOTAL_ITEMS_FIJOS$VALOR_TOTAL, na.rm = T)}
+  
+  ITEMSVARIABLES<-if (is.null(sum(TOTAL_ITEMS_VARIABLES$VALOR_TOTAL, na.rm = T) )) {0
+  } else {sum(TOTAL_ITEMS_VARIABLES$VALOR_COMERCIAL, na.rm = T)}
+  
+  ITEMSDEPENDIENTES<-if (is.null(sum(ITEMS_DEPENDIENTES$VALOR_DEPENDIENTE, na.rm = T)  )) {0
+  } else {sum(ITEMS_DEPENDIENTES$VALOR_DEPENDIENTE, na.rm = T) }
+  
+  PERSONAS<-if (is.null(sum(TOTAL_PERSONAS$FINAL, na.rm = T) )) {0
+  } else {sum(TOTAL_PERSONAS$FINAL, na.rm = T)}
+  
+  VALOR_FACTURAR <- ITEMSFIJOS+ITEMSVARIABLES+ITEMSDEPENDIENTES+PERSONAS
+  
+  return(VALOR_FACTURAR) 
+  }
 
-ITEMSVARIABLES<-if (is.null(sum(TOTAL_ITEMS_VARIABLES$VALOR_TOTAL, na.rm = T) )) {
-  0
-} else {sum(TOTAL_ITEMS_VARIABLES$VALOR_COMERCIAL, na.rm = T)}
 
-ITEMSDEPENDIENTES<-if (is.null(sum(ITEMS_DEPENDIENTES$VALOR_DEPENDIENTE, na.rm = T)  )) {
-  0
-} else {sum(ITEMS_DEPENDIENTES$VALOR_DEPENDIENTE, na.rm = T) }
-
-PERSONAS<-if (is.null(sum(TOTAL_PERSONAS$FINAL, na.rm = T) )) {
-  0
-} else {sum(TOTAL_PERSONAS$FINAL, na.rm = T)}
-
-VALOR_FACTURAR <- ITEMSFIJOS+ITEMSVARIABLES+ITEMSDEPENDIENTES+PERSONAS
-
-return(VALOR_FACTURAR) }
-
-factura(11837)
+factura(11852)
 
 
