@@ -1937,5 +1937,40 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="VISTA_CONTRATO_PROYECTO_FACTURAS1">
+      <EntityTypeMapping TypeName="test_payc_contabilidadModel.VISTA_CONTRATO_PROYECTO_FACTURAS1">
+        <MappingFragment StoreEntitySet="VISTA_CONTRATO_PROYECTO_FACTURAS1">
+          <ScalarProperty Name="RANK1" ColumnName="RANK1" />
+          <ScalarProperty Name="ESTADO_ORDEN" ColumnName="ESTADO_ORDEN" />
+          <ScalarProperty Name="ESTADO_ULTIMA_FACTURA" ColumnName="ESTADO_ULTIMA_FACTURA" />
+          <ScalarProperty Name="FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO" ColumnName="FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO" />
+          <ScalarProperty Name="MESES_SIN_FACTURAR" ColumnName="MESES_SIN_FACTURAR" />
+          <ScalarProperty Name="DIAS_SIN_FACTURAR" ColumnName="DIAS_SIN_FACTURAR" />
+          <ScalarProperty Name="FECHA_ULTIMA_FACTURA" ColumnName="FECHA_ULTIMA_FACTURA" />
+          <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="COMPLETA" ColumnName="COMPLETA" />
+          <ScalarProperty Name="COD_ESTADO_ORDEN_SERVICIO" ColumnName="COD_ESTADO_ORDEN_SERVICIO" />
+          <ScalarProperty Name="CENTRO_COSTOS" ColumnName="CENTRO_COSTOS" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VISTA_CARTERA_INDEX1">
+      <EntityTypeMapping TypeName="test_payc_contabilidadModel.VISTA_CARTERA_INDEX1">
+        <MappingFragment StoreEntitySet="VISTA_CARTERA_INDEX1">
+          <ScalarProperty Name="RANK1" ColumnName="RANK1" />
+          <ScalarProperty Name="CENTRO_COSTOS" ColumnName="CENTRO_COSTOS" />
+          <ScalarProperty Name="RANKING" ColumnName="RANKING" />
+          <ScalarProperty Name="FECHA_FACTURA" ColumnName="FECHA_FACTURA" />
+          <ScalarProperty Name="SALDO" ColumnName="SALDO" />
+          <ScalarProperty Name="GESTOR" ColumnName="GESTOR" />
+          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+          <ScalarProperty Name="COD_CLIENTE" ColumnName="COD_CLIENTE" />
+          <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

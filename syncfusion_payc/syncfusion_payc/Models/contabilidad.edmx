@@ -1274,6 +1274,24 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_CARTERA_IND
           <Property Name="CENTRO_COSTOS" Type="varchar" MaxLength="300" />
         </EntityType>
         <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_CARTERA_INDEX1' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="VISTA_CARTERA_INDEX1">
+          <Key>
+            <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            <PropertyRef Name="GESTOR" />
+          </Key>
+          <Property Name="ID" Type="bigint" />
+          <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" Nullable="false" />
+          <Property Name="COD_CLIENTE" Type="bigint" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
+          <Property Name="GESTOR" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="SALDO" Type="numeric" Precision="38" Scale="2" />
+          <Property Name="FECHA_FACTURA" Type="date" />
+          <Property Name="RANKING" Type="varchar" MaxLength="50" />
+          <Property Name="CENTRO_COSTOS" Type="varchar" MaxLength="300" />
+          <Property Name="RANK1" Type="numeric" Precision="38" Scale="6" />
+        </EntityType>
+        <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_CONTRATO_PROYECTO_FACTURAS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="VISTA_CONTRATO_PROYECTO_FACTURAS">
           <Key>
@@ -1293,6 +1311,29 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_CONTRATO_PR
           <Property Name="FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO" Type="date" Nullable="false" />
           <Property Name="ESTADO_ULTIMA_FACTURA" Type="varchar" MaxLength="300" Nullable="false" />
           <Property Name="ESTADO_ORDEN" Type="varchar" MaxLength="300" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_CONTRATO_PROYECTO_FACTURAS1' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="VISTA_CONTRATO_PROYECTO_FACTURAS1">
+          <Key>
+            <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            <PropertyRef Name="FECHA_ULTIMA_FACTURA" />
+            <PropertyRef Name="FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO" />
+            <PropertyRef Name="ESTADO_ULTIMA_FACTURA" />
+          </Key>
+          <Property Name="ID" Type="bigint" />
+          <Property Name="CENTRO_COSTOS" Type="varchar" MaxLength="300" />
+          <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="bigint" />
+          <Property Name="COMPLETA" Type="varchar" MaxLength="100" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
+          <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" Nullable="false" />
+          <Property Name="FECHA_ULTIMA_FACTURA" Type="date" Nullable="false" />
+          <Property Name="DIAS_SIN_FACTURAR" Type="int" />
+          <Property Name="MESES_SIN_FACTURAR" Type="int" />
+          <Property Name="FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO" Type="date" Nullable="false" />
+          <Property Name="ESTADO_ULTIMA_FACTURA" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="ESTADO_ORDEN" Type="varchar" MaxLength="300" />
+          <Property Name="RANK1" Type="numeric" Precision="38" Scale="6" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_CONTRATOS_ROL_DESCRIPCION' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -3662,6 +3703,20 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
     [VISTA_CARTERA_INDEX].[CENTRO_COSTOS] AS [CENTRO_COSTOS]
     FROM [dbo].[VISTA_CARTERA_INDEX] AS [VISTA_CARTERA_INDEX]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="VISTA_CARTERA_INDEX1" EntityType="Self.VISTA_CARTERA_INDEX1" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VISTA_CARTERA_INDEX1].[ID] AS [ID], 
+    [VISTA_CARTERA_INDEX1].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
+    [VISTA_CARTERA_INDEX1].[COD_CLIENTE] AS [COD_CLIENTE], 
+    [VISTA_CARTERA_INDEX1].[DESCRIPCION] AS [DESCRIPCION], 
+    [VISTA_CARTERA_INDEX1].[GESTOR] AS [GESTOR], 
+    [VISTA_CARTERA_INDEX1].[SALDO] AS [SALDO], 
+    [VISTA_CARTERA_INDEX1].[FECHA_FACTURA] AS [FECHA_FACTURA], 
+    [VISTA_CARTERA_INDEX1].[RANKING] AS [RANKING], 
+    [VISTA_CARTERA_INDEX1].[CENTRO_COSTOS] AS [CENTRO_COSTOS], 
+    [VISTA_CARTERA_INDEX1].[RANK1] AS [RANK1]
+    FROM [dbo].[VISTA_CARTERA_INDEX1] AS [VISTA_CARTERA_INDEX1]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="VISTA_CONTRATO_PROYECTO_FACTURAS" EntityType="Self.VISTA_CONTRATO_PROYECTO_FACTURAS" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [VISTA_CONTRATO_PROYECTO_FACTURAS].[CENTRO_COSTOS] AS [CENTRO_COSTOS], 
@@ -3676,6 +3731,23 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
     [VISTA_CONTRATO_PROYECTO_FACTURAS].[ESTADO_ULTIMA_FACTURA] AS [ESTADO_ULTIMA_FACTURA], 
     [VISTA_CONTRATO_PROYECTO_FACTURAS].[ESTADO_ORDEN] AS [ESTADO_ORDEN]
     FROM [dbo].[VISTA_CONTRATO_PROYECTO_FACTURAS] AS [VISTA_CONTRATO_PROYECTO_FACTURAS]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VISTA_CONTRATO_PROYECTO_FACTURAS1" EntityType="Self.VISTA_CONTRATO_PROYECTO_FACTURAS1" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VISTA_CONTRATO_PROYECTO_FACTURAS1].[ID] AS [ID], 
+    [VISTA_CONTRATO_PROYECTO_FACTURAS1].[CENTRO_COSTOS] AS [CENTRO_COSTOS], 
+    [VISTA_CONTRATO_PROYECTO_FACTURAS1].[COD_ESTADO_ORDEN_SERVICIO] AS [COD_ESTADO_ORDEN_SERVICIO], 
+    [VISTA_CONTRATO_PROYECTO_FACTURAS1].[COMPLETA] AS [COMPLETA], 
+    [VISTA_CONTRATO_PROYECTO_FACTURAS1].[DESCRIPCION] AS [DESCRIPCION], 
+    [VISTA_CONTRATO_PROYECTO_FACTURAS1].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
+    [VISTA_CONTRATO_PROYECTO_FACTURAS1].[FECHA_ULTIMA_FACTURA] AS [FECHA_ULTIMA_FACTURA], 
+    [VISTA_CONTRATO_PROYECTO_FACTURAS1].[DIAS_SIN_FACTURAR] AS [DIAS_SIN_FACTURAR], 
+    [VISTA_CONTRATO_PROYECTO_FACTURAS1].[MESES_SIN_FACTURAR] AS [MESES_SIN_FACTURAR], 
+    [VISTA_CONTRATO_PROYECTO_FACTURAS1].[FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO] AS [FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO], 
+    [VISTA_CONTRATO_PROYECTO_FACTURAS1].[ESTADO_ULTIMA_FACTURA] AS [ESTADO_ULTIMA_FACTURA], 
+    [VISTA_CONTRATO_PROYECTO_FACTURAS1].[ESTADO_ORDEN] AS [ESTADO_ORDEN], 
+    [VISTA_CONTRATO_PROYECTO_FACTURAS1].[RANK1] AS [RANK1]
+    FROM [dbo].[VISTA_CONTRATO_PROYECTO_FACTURAS1] AS [VISTA_CONTRATO_PROYECTO_FACTURAS1]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="VISTA_CONTRATOS_ROL_DESCRIPCION" EntityType="Self.VISTA_CONTRATOS_ROL_DESCRIPCION" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -5154,6 +5226,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
             <End Role="FACTURAS" EntitySet="FACTURAS" />
           </AssociationSet>
           <EntitySet Name="TRUEFALSE" EntityType="test_payc_contabilidadModel.TRUEFALSE" />
+          <EntitySet Name="VISTA_CONTRATO_PROYECTO_FACTURAS1" EntityType="test_payc_contabilidadModel.VISTA_CONTRATO_PROYECTO_FACTURAS1" />
+          <EntitySet Name="VISTA_CARTERA_INDEX1" EntityType="test_payc_contabilidadModel.VISTA_CARTERA_INDEX1" />
         </EntityContainer>
         <EntityType Name="ASIGNACION_CARTERA">
           <Key>
@@ -8355,6 +8429,43 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <Property Name="BIT" Type="Boolean" Nullable="false" />
           <Property Name="TEXTO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="VISTA_CONTRATO_PROYECTO_FACTURAS1">
+          <Key>
+            <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            <PropertyRef Name="FECHA_ULTIMA_FACTURA" />
+            <PropertyRef Name="FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO" />
+            <PropertyRef Name="ESTADO_ULTIMA_FACTURA" />
+          </Key>
+          <Property Name="ID" Type="Int64" />
+          <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="Int64" />
+          <Property Name="COMPLETA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" />
+          <Property Name="FECHA_ULTIMA_FACTURA" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DIAS_SIN_FACTURAR" Type="Int32" />
+          <Property Name="MESES_SIN_FACTURAR" Type="Int32" />
+          <Property Name="FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ESTADO_ULTIMA_FACTURA" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO_ORDEN" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="RANK1" Type="Decimal" Precision="38" Scale="6" />
+        </EntityType>
+        <EntityType Name="VISTA_CARTERA_INDEX1">
+          <Key>
+            <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            <PropertyRef Name="GESTOR" />
+          </Key>
+          <Property Name="ID" Type="Int64" />
+          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" />
+          <Property Name="COD_CLIENTE" Type="Int64" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="GESTOR" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="SALDO" Type="Decimal" Precision="38" Scale="2" />
+          <Property Name="FECHA_FACTURA" Type="DateTime" Precision="0" />
+          <Property Name="RANKING" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="RANK1" Type="Decimal" Precision="38" Scale="6" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -10294,6 +10405,41 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
               <MappingFragment StoreEntitySet="TRUEFALSE">
                 <ScalarProperty Name="TEXTO" ColumnName="TEXTO" />
                 <ScalarProperty Name="BIT" ColumnName="BIT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VISTA_CONTRATO_PROYECTO_FACTURAS1">
+            <EntityTypeMapping TypeName="test_payc_contabilidadModel.VISTA_CONTRATO_PROYECTO_FACTURAS1">
+              <MappingFragment StoreEntitySet="VISTA_CONTRATO_PROYECTO_FACTURAS1">
+                <ScalarProperty Name="RANK1" ColumnName="RANK1" />
+                <ScalarProperty Name="ESTADO_ORDEN" ColumnName="ESTADO_ORDEN" />
+                <ScalarProperty Name="ESTADO_ULTIMA_FACTURA" ColumnName="ESTADO_ULTIMA_FACTURA" />
+                <ScalarProperty Name="FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO" ColumnName="FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO" />
+                <ScalarProperty Name="MESES_SIN_FACTURAR" ColumnName="MESES_SIN_FACTURAR" />
+                <ScalarProperty Name="DIAS_SIN_FACTURAR" ColumnName="DIAS_SIN_FACTURAR" />
+                <ScalarProperty Name="FECHA_ULTIMA_FACTURA" ColumnName="FECHA_ULTIMA_FACTURA" />
+                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="COMPLETA" ColumnName="COMPLETA" />
+                <ScalarProperty Name="COD_ESTADO_ORDEN_SERVICIO" ColumnName="COD_ESTADO_ORDEN_SERVICIO" />
+                <ScalarProperty Name="CENTRO_COSTOS" ColumnName="CENTRO_COSTOS" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VISTA_CARTERA_INDEX1">
+            <EntityTypeMapping TypeName="test_payc_contabilidadModel.VISTA_CARTERA_INDEX1">
+              <MappingFragment StoreEntitySet="VISTA_CARTERA_INDEX1">
+                <ScalarProperty Name="RANK1" ColumnName="RANK1" />
+                <ScalarProperty Name="CENTRO_COSTOS" ColumnName="CENTRO_COSTOS" />
+                <ScalarProperty Name="RANKING" ColumnName="RANKING" />
+                <ScalarProperty Name="FECHA_FACTURA" ColumnName="FECHA_FACTURA" />
+                <ScalarProperty Name="SALDO" ColumnName="SALDO" />
+                <ScalarProperty Name="GESTOR" ColumnName="GESTOR" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="COD_CLIENTE" ColumnName="COD_CLIENTE" />
+                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

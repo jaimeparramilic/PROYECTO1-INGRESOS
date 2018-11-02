@@ -5,54 +5,57 @@
     ViewBag.Title = "";
 
 
-    
-	}
 
-<h2></h2>
+}
+@if (User.Identity.IsAuthenticated)
+{
+    <h2></h2>
 
 
-<div class="control-section">
+    <div class="control-section">
 
-					@(Html.EJ().Grid<syncfusion_payc.Models.ACUERDOS_PAGO_ENTREGAB>("Grid")
-                    .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
-                    .AllowPaging()
-                    .AllowFiltering()
-                    .Locale("es-CO")
-                    .AllowResizeToFit(true)
-                    .AllowMultiSorting()
-                    .AllowSorting()
-                    .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
-                    .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
-                    .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
-                    .ToolbarSettings(toolbar =>
+        @(Html.EJ().Grid<syncfusion_payc.Models.ACUERDOS_PAGO_ENTREGAB>("Grid")
+                .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                .AllowPaging()
+                .AllowFiltering()
+                .Locale("es-CO")
+                .AllowResizeToFit(true)
+                .AllowMultiSorting()
+                .AllowSorting()
+                .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+                .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
+                .ToolbarSettings(toolbar =>
+                {
+                    toolbar.ShowToolbar().ToolbarItems(items =>
                     {
-                        toolbar.ShowToolbar().ToolbarItems(items =>
-                        {
-                            items.AddTool(ToolBarItems.Add);
-                            items.AddTool(ToolBarItems.Edit);
-                            items.AddTool(ToolBarItems.Delete);
-                            items.AddTool(ToolBarItems.Update);
-                            items.AddTool(ToolBarItems.Cancel);
-                        });
+                        items.AddTool(ToolBarItems.Add);
+                        items.AddTool(ToolBarItems.Edit);
+                        items.AddTool(ToolBarItems.Delete);
+                        items.AddTool(ToolBarItems.Update);
+                        items.AddTool(ToolBarItems.Cancel);
+                    });
 
-                    }).Columns(col =>
-                    {
-                        col.Field("COD_CARTERA").Visible(false).ForeignKeyField("COD_CARTERA").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CARTERA.ToList()).HeaderText("COD_CARTERA").EditType(EditingType.DropdownEdit).Add();
-                        col.Field("COD_ACUERDO_PAGO").HeaderText("ID").IsPrimaryKey(true).AllowEditing(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                        col.Field("COD_ESTADO_ACUERDO").ForeignKeyField("ESTADO").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ESTADOS_ACUER_PAG_ENTREG.ToList()).HeaderText("COD_ESTADO_ACUERDO").EditType(EditingType.DropdownEdit).Add();
-                        col.Field("COD_TIPO_ACUERDO").ForeignKeyField("TIPO ACUERDO").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().TIPOS_ACUERDO.ToList()).HeaderText("COD_TIPO_ACUERDO").EditType(EditingType.DropdownEdit).Add();
+                }).Columns(col =>
+                {
+                    col.Field("COD_CARTERA").Visible(false).ForeignKeyField("COD_CARTERA").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CARTERA.ToList()).HeaderText("COD_CARTERA").EditType(EditingType.DropdownEdit).Add();
+                    col.Field("COD_ACUERDO_PAGO").HeaderText("ID").IsPrimaryKey(true).AllowEditing(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                    col.Field("COD_ESTADO_ACUERDO").ForeignKeyField("ESTADO").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ESTADOS_ACUER_PAG_ENTREG.ToList()).HeaderText("COD_ESTADO_ACUERDO").EditType(EditingType.DropdownEdit).Add();
+                    col.Field("COD_TIPO_ACUERDO").ForeignKeyField("TIPO ACUERDO").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().TIPOS_ACUERDO.ToList()).HeaderText("COD_TIPO_ACUERDO").EditType(EditingType.DropdownEdit).Add();
 
-                        col.Field("UserName").Visible(false).HeaderText("UserName").Add();
-                        col.Field("DESCRIPCION").HeaderText("DESCRIPCION ACUERDO").Add();
-                        col.Field("FECHA_REGISTRO").HeaderText("FECHA_REGISTRO").AllowEditing(false).Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
-                        col.Field("FECHA_ACUERDO").HeaderText("FECHA_ACUERDO").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
-                        col.Field("APROBADO").Visible(false).HeaderText("APROBADO").Add();
-                        col.Field("COMENTARIOS").HeaderText("COMENTARIOS").Add();
-                        col.Field("VALOR").HeaderText("VALOR").Format("{0:n2}").EditType(EditingType.NumericEdit).Add();
+                    col.Field("UserName").Visible(false).HeaderText("UserName").Add();
+                    col.Field("DESCRIPCION").HeaderText("DESCRIPCION ACUERDO").Add();
+                    col.Field("FECHA_REGISTRO").HeaderText("FECHA_REGISTRO").AllowEditing(false).Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                    col.Field("FECHA_ACUERDO").HeaderText("FECHA_ACUERDO").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                    col.Field("APROBADO").Visible(false).HeaderText("APROBADO").Add();
+                    col.Field("COMENTARIOS").HeaderText("COMENTARIOS").Add();
+                    col.Field("VALOR").HeaderText("VALOR").Format("{0:n2}").EditType(EditingType.NumericEdit).Add();
 
-                    }))
-</div>
-<script>  
+                }))
+    </div>
+}
+    <script>
+
     $(document).ready(function () {
         ej.Grid.Locale["es-CO"] = {
             EmptyRecord: "No hay registros que mostrar",
@@ -65,8 +68,8 @@
             EditFormTitle: "Detalles de ",
             AddFormTitle: "Añadir nuevo registro",
             GroupCaptionFormat: "{{:headerText}}: {{:key}} - {{:count}} {{if count == 1 }} ítem {{else}} artículos {{/if}} ",
-            
-            
+
+
         };
         ej.Pager.Locale["es-CO"] = {
             pagerInfo: "{0} de {1} páginas ({2} artículos)",
@@ -134,9 +137,9 @@
                     drop.option("enableFilterSearch", true);
 								drop = $("#GRIDCOD_TIPO_ACUERDO").ejDropDownList('instance');
                     drop.option("enableFilterSearch", true);
-			       
-                }, 50); 
+
+                }, 50);
             }
         }
     }
-</script>
+    </script>

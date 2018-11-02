@@ -506,6 +506,8 @@
       <End Role="FACTURAS" EntitySet="FACTURAS" />
     </AssociationSet>
     <EntitySet Name="TRUEFALSE" EntityType="test_payc_contabilidadModel.TRUEFALSE" />
+    <EntitySet Name="VISTA_CONTRATO_PROYECTO_FACTURAS1" EntityType="test_payc_contabilidadModel.VISTA_CONTRATO_PROYECTO_FACTURAS1" />
+    <EntitySet Name="VISTA_CARTERA_INDEX1" EntityType="test_payc_contabilidadModel.VISTA_CARTERA_INDEX1" />
   </EntityContainer>
   <EntityType Name="ASIGNACION_CARTERA">
     <Key>
@@ -3706,5 +3708,42 @@
     </Key>
     <Property Name="BIT" Type="Boolean" Nullable="false" />
     <Property Name="TEXTO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="VISTA_CONTRATO_PROYECTO_FACTURAS1">
+    <Key>
+      <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      <PropertyRef Name="FECHA_ULTIMA_FACTURA" />
+      <PropertyRef Name="FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO" />
+      <PropertyRef Name="ESTADO_ULTIMA_FACTURA" />
+    </Key>
+    <Property Name="ID" Type="Int64" />
+    <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="Int64" />
+    <Property Name="COMPLETA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" />
+    <Property Name="FECHA_ULTIMA_FACTURA" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="DIAS_SIN_FACTURAR" Type="Int32" />
+    <Property Name="MESES_SIN_FACTURAR" Type="Int32" />
+    <Property Name="FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="ESTADO_ULTIMA_FACTURA" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="ESTADO_ORDEN" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="RANK1" Type="Decimal" Precision="38" Scale="6" />
+  </EntityType>
+  <EntityType Name="VISTA_CARTERA_INDEX1">
+    <Key>
+      <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      <PropertyRef Name="GESTOR" />
+    </Key>
+    <Property Name="ID" Type="Int64" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" />
+    <Property Name="COD_CLIENTE" Type="Int64" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="GESTOR" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="SALDO" Type="Decimal" Precision="38" Scale="2" />
+    <Property Name="FECHA_FACTURA" Type="DateTime" Precision="0" />
+    <Property Name="RANKING" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="RANK1" Type="Decimal" Precision="38" Scale="6" />
   </EntityType>
 </Schema>

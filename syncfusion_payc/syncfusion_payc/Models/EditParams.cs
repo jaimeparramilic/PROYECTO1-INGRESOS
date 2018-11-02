@@ -16,6 +16,20 @@ namespace syncfusion_payc.Models
         public string TELEFONO_RESPONSABLE { get; set; }
     }
 
+    public class EditParams_VISTA_CARTERA_INDEX1
+    {
+        public int skip { get; set; }
+        public int take { get; set; }
+        public string action { get; set; }
+        public int key { get; set; }
+        public string keyColumn { get; set; }
+        public VISTA_CARTERA_INDEX1 value { get; set; }
+
+        //Batch Edit Params
+        public IEnumerable<VISTA_CARTERA_INDEX1> added { get; set; }
+        public IEnumerable<VISTA_CARTERA_INDEX1> changed { get; set; }
+        public IEnumerable<VISTA_CARTERA_INDEX1> deleted { get; set; }
+    }
     public class EditParams_ROLES
     {
         public int skip { get; set; }

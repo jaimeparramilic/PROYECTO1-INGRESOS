@@ -3,91 +3,93 @@
 
 @{
     ViewBag.Title = "";
-	}
-<h4>COLABORADORES</h4>
-<div class="control-section">
-    @if (User.Identity.IsAuthenticated)
-    {
-        @(Html.EJ().Grid<syncfusion_payc.Models.COLARADORES_CONCAT_ESTUDIOS>("Grid")
-                        .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
-                        .AllowPaging()
-                        .AllowFiltering()
-                        .Locale("es-CO")
-                        .AllowResizeToFit(true)
-                        .AllowMultiSorting()
-                        .AllowSorting()
-                        .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
-                        .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
-                        .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
-                        .ToolbarSettings(toolbar =>
-                        {
-                            toolbar.ShowToolbar().ToolbarItems(items =>
-                            {
-                                items.AddTool(ToolBarItems.Add);
-                                items.AddTool(ToolBarItems.Edit);
-                                items.AddTool(ToolBarItems.Delete);
-                                items.AddTool(ToolBarItems.Update);
-                                items.AddTool(ToolBarItems.Cancel);
-                                items.AddTool(ToolBarItems.Search);
+}
+@if (User.Identity.IsAuthenticated)
+{
+    <h4>COLABORADORES</h4>
+    <div class="control-section">
+        @if (User.Identity.IsAuthenticated)
+        {
+            @(Html.EJ().Grid<syncfusion_payc.Models.COLARADORES_CONCAT_ESTUDIOS>("Grid")
+                                    .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                                    .AllowPaging()
+                                    .AllowFiltering()
+                                    .Locale("es-CO")
+                                    .AllowResizeToFit(true)
+                                    .AllowMultiSorting()
+                                    .AllowSorting()
+                                    .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                                    .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+                                    .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
+                                    .ToolbarSettings(toolbar =>
+                                    {
+                                        toolbar.ShowToolbar().ToolbarItems(items =>
+                                        {
+                                            items.AddTool(ToolBarItems.Add);
+                                            items.AddTool(ToolBarItems.Edit);
+                                            items.AddTool(ToolBarItems.Delete);
+                                            items.AddTool(ToolBarItems.Update);
+                                            items.AddTool(ToolBarItems.Cancel);
+                                            items.AddTool(ToolBarItems.Search);
 
-                            });
+                                        });
 
-                        }).Columns(col =>
-                        {
-                            
-                            col.Field("COD_COLABORADOR").HeaderText("COLABORADOR").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                            col.Field("NOMBRES").HeaderText("NOMBRES").Add();
-                            col.Field("APELLIDOS").HeaderText("APELLIDOS").Add();
-                            col.Field("COD_CARGO").ForeignKeyField("COD_CARGO").AllowFiltering(false).AllowSorting(false).ForeignKeyValue("DESCRIPCION_CARGO").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CARGOS.ToList()).HeaderText("CARGO").EditType(EditingType.DropdownEdit).Add();
-                            col.Field("COD_ESTADO_COLABORADOR").ForeignKeyField("COD_ESTADO_COLABORADOR").AllowFiltering(false).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ESTADO_COLABORADOR.ToList()).HeaderText("ESTADO COLABORADOR").EditType(EditingType.DropdownEdit).Add();
-                            col.Field("CEDULA").HeaderText("CÉDULA").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                            col.Field("COD_GENERO").ForeignKeyField("COD_GENERO").AllowFiltering(false).AllowSorting(false).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().GENEROS.ToList()).HeaderText("GENERO").EditType(EditingType.DropdownEdit).Add();
-                            col.Field("FECHA_NACIMIENTO").HeaderText("FECHA DE NACIMIENTO").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
-                            col.Field("CELULAR").HeaderText("CELULAR").Add();
-                            col.Field("CORREO_ELECTRONICO").HeaderText("CORREO ELECTRÓNICO").Add();
-                            col.Field("ESTADO_CIVIL").HeaderText("ESTADO CIVIL").Add();
-                            col.Field("CENTROS_COSTOS").HeaderText("CENTROS COSTOS").Add();
-                            col.Field("FECHA_INGRESO").HeaderText("FECHA INGRESO").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
-                            col.Field("COD_TIPO_DE_CONTRATO").ForeignKeyField("COD_TIPO_CONTRATO").AllowFiltering(false).AllowSorting(false).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().TIPO_CONTRATO.ToList()).HeaderText("TIPO_CONTRATO").EditType(EditingType.DropdownEdit).Add();
-                            col.Field("Estudios").HeaderText("ESTUDIOS").Visible(false).AllowEditing(false).Add();
+                                    }).Columns(col =>
+                                    {
 
-                        }).ChildGrid(child =>
-                        child.Datasource(ds => ds.URL("../ESTUDIOS_COLABORADOR/GetOrderData").InsertURL("../ESTUDIOS_COLABORADOR/PerformInsert").UpdateURL("../ESTUDIOS_COLABORADOR/PerformUpdate").RemoveURL("../ESTUDIOS_COLABORADOR/PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
-                        .AllowPaging()
+                                        col.Field("COD_COLABORADOR").HeaderText("COLABORADOR").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                                        col.Field("NOMBRES").HeaderText("NOMBRES").Add();
+                                        col.Field("APELLIDOS").HeaderText("APELLIDOS").Add();
+                                        col.Field("COD_CARGO").ForeignKeyField("COD_CARGO").AllowFiltering(false).AllowSorting(false).ForeignKeyValue("DESCRIPCION_CARGO").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CARGOS.ToList()).HeaderText("CARGO").EditType(EditingType.DropdownEdit).Add();
+                                        col.Field("COD_ESTADO_COLABORADOR").ForeignKeyField("COD_ESTADO_COLABORADOR").AllowFiltering(false).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ESTADO_COLABORADOR.ToList()).HeaderText("ESTADO COLABORADOR").EditType(EditingType.DropdownEdit).Add();
+                                        col.Field("CEDULA").HeaderText("CÉDULA").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                                        col.Field("COD_GENERO").ForeignKeyField("COD_GENERO").AllowFiltering(false).AllowSorting(false).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().GENEROS.ToList()).HeaderText("GENERO").EditType(EditingType.DropdownEdit).Add();
+                                        col.Field("FECHA_NACIMIENTO").HeaderText("FECHA DE NACIMIENTO").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                                        col.Field("CELULAR").HeaderText("CELULAR").Add();
+                                        col.Field("CORREO_ELECTRONICO").HeaderText("CORREO ELECTRÓNICO").Add();
+                                        col.Field("ESTADO_CIVIL").HeaderText("ESTADO CIVIL").Add();
+                                        col.Field("CENTROS_COSTOS").HeaderText("CENTROS COSTOS").Add();
+                                        col.Field("FECHA_INGRESO").HeaderText("FECHA INGRESO").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                                        col.Field("COD_TIPO_DE_CONTRATO").ForeignKeyField("COD_TIPO_CONTRATO").AllowFiltering(false).AllowSorting(false).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().TIPO_CONTRATO.ToList()).HeaderText("TIPO_CONTRATO").EditType(EditingType.DropdownEdit).Add();
+                                        col.Field("Estudios").HeaderText("ESTUDIOS").Visible(false).AllowEditing(false).Add();
 
-                        .Locale("es-CO")
-                        .AllowResizeToFit(true)
-                        .QueryString("COD_COLABORADOR")
-                        .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
-                        .ToolbarSettings(toolbar =>
-                        {
-                            toolbar.ShowToolbar().ToolbarItems(items =>
-                            {
-                                items.AddTool(ToolBarItems.Add);
-                                items.AddTool(ToolBarItems.Edit);
-                                items.AddTool(ToolBarItems.Delete);
-                                items.AddTool(ToolBarItems.Update);
-                                items.AddTool(ToolBarItems.Cancel);
+                                    }).ChildGrid(child =>
+                                    child.Datasource(ds => ds.URL("../ESTUDIOS_COLABORADOR/GetOrderData").InsertURL("../ESTUDIOS_COLABORADOR/PerformInsert").UpdateURL("../ESTUDIOS_COLABORADOR/PerformUpdate").RemoveURL("../ESTUDIOS_COLABORADOR/PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                                    .AllowPaging()
 
-                            });
+                                    .Locale("es-CO")
+                                    .AllowResizeToFit(true)
+                                    .QueryString("COD_COLABORADOR")
+                                    .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+                                    .ToolbarSettings(toolbar =>
+                                    {
+                                        toolbar.ShowToolbar().ToolbarItems(items =>
+                                        {
+                                            items.AddTool(ToolBarItems.Add);
+                                            items.AddTool(ToolBarItems.Edit);
+                                            items.AddTool(ToolBarItems.Delete);
+                                            items.AddTool(ToolBarItems.Update);
+                                            items.AddTool(ToolBarItems.Cancel);
 
-                        }).Columns(col =>
-                        {
-                            col.Field("COD_COLABORADOR").Visible(false).ForeignKeyField("COD_COLABORADOR").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().COLABORADORES.ToList()).HeaderText("COLABORADOR").EditType(EditingType.DropdownEdit).Add();
-                            col.Field("COD_ESTUDIOS").HeaderText("ESTUDIOS").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                            col.Field("NIVEL_ESTUDIO").HeaderText("NIVEL ESTUDIO").Add();
-                            col.Field("TITULO_ESTUDIO").HeaderText("TITULO ESTUDIO").Add();
-                            col.Field("FECHA_GRADO").HeaderText("FECHA GRADO").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
-                            col.Field("INSTITUCION_GRADO").HeaderText("INSTITUCION GRADO").Add();
+                                        });
 
-                        })
-        ))
-    }
+                                    }).Columns(col =>
+                                    {
+                                        col.Field("COD_COLABORADOR").Visible(false).ForeignKeyField("COD_COLABORADOR").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().COLABORADORES.ToList()).HeaderText("COLABORADOR").EditType(EditingType.DropdownEdit).Add();
+                                        col.Field("COD_ESTUDIOS").HeaderText("ESTUDIOS").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                                        col.Field("NIVEL_ESTUDIO").HeaderText("NIVEL ESTUDIO").Add();
+                                        col.Field("TITULO_ESTUDIO").HeaderText("TITULO ESTUDIO").Add();
+                                        col.Field("FECHA_GRADO").HeaderText("FECHA GRADO").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                                        col.Field("INSTITUCION_GRADO").HeaderText("INSTITUCION GRADO").Add();
+
+                                    })
+                    ))
+        }
     </div>
+}
 
+    <script>
 
-<script>
-    
     $(document).ready(function () {
         ej.Grid.Locale["es-CO"] = {
             EmptyRecord: "No hay registros que mostrar",
@@ -100,8 +102,8 @@
             EditFormTitle: "Detalles de ",
             AddFormTitle: "Añadir nuevo registro",
             GroupCaptionFormat: "{{:headerText}}: {{:key}} - {{:count}} {{if count == 1 }} ítem {{else}} artículos {{/if}} ",
-            
-            
+
+
         };
         ej.Pager.Locale["es-CO"] = {
             pagerInfo: "{0} de {1} páginas ({2} artículos)",
@@ -170,4 +172,4 @@
             }
         }
     }
-</script>
+    </script>

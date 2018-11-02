@@ -292,6 +292,10 @@ public partial class test_payc_contabilidadEntities : DbContext
 
     public virtual DbSet<TRUEFALSE> TRUEFALSE { get; set; }
 
+    public virtual DbSet<VISTA_CONTRATO_PROYECTO_FACTURAS1> VISTA_CONTRATO_PROYECTO_FACTURAS1 { get; set; }
+
+    public virtual DbSet<VISTA_CARTERA_INDEX1> VISTA_CARTERA_INDEX1 { get; set; }
+
 }
 
 }
