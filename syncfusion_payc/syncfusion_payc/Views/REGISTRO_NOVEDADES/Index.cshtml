@@ -3,16 +3,48 @@
 
 @{
     ViewBag.Title = "";
-	}
-<h4>REGISTRO DE NOVEDADES</h4>
-<div class="control-section">
+}
+@if (User.Identity.IsAuthenticated)
+{
+    <h4>REGISTRO DE NOVEDADES</h4>
+    <div class="control-section">
 
-					@(Html.EJ().Grid<syncfusion_payc.Models.ORDENES_SERVICIO_INDEX>("Grid")
-                                                                .Datasource(ds => ds.URL("../FlujoProyectos/GetOrderData_contrato_proyecto").InsertURL("../FlujoProyectos/PerformInsert_contrato_proyecto").UpdateURL("../FlujoProyectos/PerformUpdate_contrato_proyecto").RemoveURL("../FlujoProyectos/PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+        @(Html.EJ().Grid<syncfusion_payc.Models.ORDENES_SERVICIO_INDEX>("Grid")
+                                                            .Datasource(ds => ds.URL("../FlujoProyectos/GetOrderData_contrato_proyecto").InsertURL("../FlujoProyectos/PerformInsert_contrato_proyecto").UpdateURL("../FlujoProyectos/PerformUpdate_contrato_proyecto").RemoveURL("../FlujoProyectos/PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                                                            .AllowPaging()
+                                                            .AllowFiltering()
+                                                            .Locale("es-CO")
+                                                            .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                                                            .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
+                                                            .ToolbarSettings(toolbar =>
+                                                            {
+                                                                toolbar.ShowToolbar().ToolbarItems(items =>
+                                                                {
+                                                                    items.AddTool(ToolBarItems.Add);
+                                                                    items.AddTool(ToolBarItems.Edit);
+                                                                    items.AddTool(ToolBarItems.Delete);
+                                                                    items.AddTool(ToolBarItems.Update);
+                                                                    items.AddTool(ToolBarItems.Cancel);
+                                                                    items.AddTool(ToolBarItems.Search);
+
+                                                                });
+
+                                                            }).Columns(col =>
+                                                            {
+                                                                col.Field("COD_CONTRATO_PROYECTO").HeaderText("CONTRATO_PROYECTO").IsPrimaryKey(true).Format("{0:n0}").EditType(EditingType.NumericEdit).Add();
+                                                                col.Field("CENTRO_COSTOS").HeaderText("CENTRO COSTOS").Add();
+                                                                col.Field("DESCRIPCION").HeaderText("DESCRIPCION").AllowEditing(false).AllowFiltering(true).Add();
+
+
+                                                            }).ChildGrid(child => child
+                                                                .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
                                                                 .AllowPaging()
                                                                 .AllowFiltering()
+                                                                .AllowKeyboardNavigation(false)
                                                                 .Locale("es-CO")
+                                                                .QueryString("COD_CONTRATO_PROYECTO")
                                                                 .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                                                                .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
                                                                 .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
                                                                 .ToolbarSettings(toolbar =>
                                                                 {
@@ -28,48 +60,19 @@
 
                                                                 }).Columns(col =>
                                                                 {
-                                                                    col.Field("COD_CONTRATO_PROYECTO").HeaderText("CONTRATO_PROYECTO").IsPrimaryKey(true).Format("{0:n0}").EditType(EditingType.NumericEdit).Add();
-                                                                    col.Field("CENTRO_COSTOS").HeaderText("CENTRO COSTOS").Add();
-                                                                    col.Field("DESCRIPCION").HeaderText("DESCRIPCION").AllowEditing(false).AllowFiltering(true).Add();
-                                                                    
+                                                                    col.Field("COD_COLABORADOR").ForeignKeyField("COD_COLABORADOR").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().COLABORADORES.ToList()).ValidationRules(v => v.AddRule("required", true)).HeaderText("COLABORADOR").EditType(EditingType.DropdownEdit).Add();
+                                                                    col.Field("COD_CONTRATO_PROYECTO").Visible(false).AllowEditing(false).ForeignKeyField("COD_CONTRATO_PROYECTO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONTRATO_PROYECTO_DESCRIPCION.ToList()).HeaderText("CONTRATO_PROYECTO").EditType(EditingType.DropdownEdit).Add();
+                                                                    col.Field("COD_TIPO_NOVEDAD").ForeignKeyField("COD_TIPO_NOVEDAD").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().TIPOS_NOVEDAD.ToList()).HeaderText("TIPO_NOVEDAD").ValidationRules(v => v.AddRule("required", true)).EditType(EditingType.DropdownEdit).Add();
+                                                                    col.Field("COD_REGISTRO_NOVEDADES").HeaderText("REGISTRO_NOVEDADES").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                                                                    col.Field("FECHA_INICIO_NOVEDAD").HeaderText("FECHA_INICIO_NOVEDAD").Format("{0:dd/MM/yyyy HH:mm}").ValidationRules(v => v.AddRule("required", true)).EditType(EditingType.DateTimePicker).Add();
+                                                                    col.Field("FECHA_FIN_NOVEDAD").HeaderText("FECHA_FIN_NOVEDAD").Format("{0:dd/MM/yyyy HH:mm}").ValidationRules(v => v.AddRule("required", true).AddRule("comparacion_fechas", true)).EditType(EditingType.DateTimePicker).Add();
+                                                                    col.Field("TRABAJA_SABADOS").ForeignKeyField("BIT").ForeignKeyValue("TEXTO").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().TRUEFALSE.ToList()).ValidationRules(v => v.AddRule("required", true)).EditType(EditingType.DropdownEdit).Add();
+                                                                })))
 
-                                                                }).ChildGrid(child => child
-                                                                    .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
-                                                                    .AllowPaging()
-                                                                    .AllowFiltering()
-                                                                    .AllowKeyboardNavigation(false)
-                                                                    .Locale("es-CO")
-                                                                    .QueryString("COD_CONTRATO_PROYECTO")
-                                                                    .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
-                                                                    .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
-                                                                    .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
-                                                                    .ToolbarSettings(toolbar =>
-                                                                    {
-                                                                        toolbar.ShowToolbar().ToolbarItems(items =>
-                                                                        {
-                                                                            items.AddTool(ToolBarItems.Add);
-                                                                            items.AddTool(ToolBarItems.Edit);
-                                                                            items.AddTool(ToolBarItems.Delete);
-                                                                            items.AddTool(ToolBarItems.Update);
-                                                                            items.AddTool(ToolBarItems.Cancel);
+    </div>
+}
+    <script>
 
-                                                                        });
-
-                                                                    }).Columns(col =>
-                                                                    {
-                                                                        col.Field("COD_COLABORADOR").ForeignKeyField("COD_COLABORADOR").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().COLABORADORES.ToList()).ValidationRules(v => v.AddRule("required", true)).HeaderText("COLABORADOR").EditType(EditingType.DropdownEdit).Add();
-                                                                        col.Field("COD_CONTRATO_PROYECTO").Visible(false).AllowEditing(false).ForeignKeyField("COD_CONTRATO_PROYECTO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONTRATO_PROYECTO_DESCRIPCION.ToList()).HeaderText("CONTRATO_PROYECTO").EditType(EditingType.DropdownEdit).Add();
-                                                                        col.Field("COD_TIPO_NOVEDAD").ForeignKeyField("COD_TIPO_NOVEDAD").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().TIPOS_NOVEDAD.ToList()).HeaderText("TIPO_NOVEDAD").ValidationRules(v => v.AddRule("required", true)).EditType(EditingType.DropdownEdit).Add();
-                                                                        col.Field("COD_REGISTRO_NOVEDADES").HeaderText("REGISTRO_NOVEDADES").IsPrimaryKey(true).Visible(false) .Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                                                                        col.Field("FECHA_INICIO_NOVEDAD").HeaderText("FECHA_INICIO_NOVEDAD").Format("{0:dd/MM/yyyy hh:mm}").ValidationRules(v => v.AddRule("required", true)).EditType(EditingType.DateTimePicker).Add();
-                                                                        col.Field("FECHA_FIN_NOVEDAD").HeaderText("FECHA_FIN_NOVEDAD").Format("{0:dd/MM/yyyy hh:mm}").ValidationRules(v => v.AddRule("required", true).AddRule("comparacion_fechas", true)).EditType(EditingType.DateTimePicker).Add();
-
-                                                                    })))
-
-</div>
-
-<script>
-    
     $(document).ready(function () {
         ej.Grid.Locale["es-CO"] = {
             EmptyRecord: "No hay registros que mostrar",
@@ -82,8 +85,9 @@
             EditFormTitle: "Detalles de ",
             AddFormTitle: "Añadir nuevo registro",
             GroupCaptionFormat: "{{:headerText}}: {{:key}} - {{:count}} {{if count == 1 }} ítem {{else}} artículos {{/if}} ",
-            
-            
+            false: "Falso",
+            true:"Verdadero"
+
         };
         ej.Pager.Locale["es-CO"] = {
             pagerInfo: "{0} de {1} páginas ({2} artículos)",
@@ -145,10 +149,10 @@
     $(function () {
         //Serializar datos
         $.fn.serializeAllArray = function () {
-            var data = $(this).serializeArray();//returns the form data 
+            var data = $(this).serializeArray();//returns the form data
 
             $(':disabled[name]', this).each(function () {
-                data.push({ name: this.name, value: $(this).val() });//push the disabled elements values also to the JSON array 
+                data.push({ name: this.name, value: $(this).val() });//push the disabled elements values also to the JSON array
             });
 
             return data;
@@ -207,11 +211,11 @@
             return fecha <= fin && global_fecha_fin != "";
         }, "Inconsistencia entre los meses y la fecha de fin de ejecución del contrato");
 
-        
+
         //Validar consistencia de fechas de novedades
         $.validator.addMethod("comparacion_fechas", function (value, element, params) {
-            var data = $(element.closest("form")).serializeAllArray();//holds the form data in name and value pair 
-        
+            var data = $(element.closest("form")).serializeAllArray();//holds the form data in name and value pair
+
             var parts = search("FECHA_INICIO_NOVEDAD", data).value.split("/");
             dia = parts[2].split(" ")[0];
             var ini = new Date(parseInt(dia, 10),
@@ -237,4 +241,4 @@
             }
         }
     }
-</script>
+    </script>

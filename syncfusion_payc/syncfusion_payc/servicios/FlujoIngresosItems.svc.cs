@@ -243,7 +243,7 @@ namespace syncfusion_payc.servicios
             table1.FECHA_REGISTRO = table1.FECHA_REGISTRO;
             table1.ETAPA = table1.ETAPA;
             db.Entry(table1).CurrentValues.SetValues(table1);
-            tabletemp.VALOR_TOTAL = float.Parse(summaryValues.Replace("$", "").Replace(",", ""));
+            tabletemp.VALOR_TOTAL = Decimal.Parse(summaryValues.Replace("$", "").Replace(",", ""));
             tabletemp.VALOR_FIJO = 0;
             tabletemp.VALOR_VARIABLE = 0;
             tabletemp.COD_CONTRATO_PROYECTO = table1.COD_CONTRATO_PROYECTO;
@@ -270,7 +270,7 @@ namespace syncfusion_payc.servicios
             pivotSetting.PivotColumns.Add(new PivotItem { FieldMappingName = "ETAPA", FieldHeader = "DUMMY", TotalHeader = "Total", ShowSubTotal = false });
             pivotSetting.PivotColumns.Add(new PivotItem { FieldMappingName = "ETAPA", FieldHeader = "DUMMY1", TotalHeader = "Total", ShowSubTotal = false });
             pivotSetting.PivotColumns.Add(new PivotItem { FieldMappingName = "FECHA_FORMA_PAGO", FieldHeader = "FECHAS", TotalHeader = "Total", Format = "dd/MM/yyyy", Comparer = new DateComparer("dd/MM/yyyy") });
-            pivotSetting.PivotCalculations.Add(new PivotComputationInfo { CalculationName = "SUMA TOTAL", Description = "VALOR TOTAL", FieldName = "VALOR_TOTAL", Format = "c0", SummaryType = Syncfusion.PivotAnalysis.Base.SummaryType.DoubleTotalSum });
+            pivotSetting.PivotCalculations.Add(new PivotComputationInfo { CalculationName = "SUMA TOTAL", Description = "VALOR TOTAL", FieldName = "VALOR_TOTAL", Format = "c0", SummaryType = Syncfusion.PivotAnalysis.Base.SummaryType.DecimalTotalSum });
             return pivotSetting;
         }
     }

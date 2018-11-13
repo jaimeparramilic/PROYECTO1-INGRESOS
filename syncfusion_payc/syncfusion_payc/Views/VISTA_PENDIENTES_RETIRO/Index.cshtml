@@ -5,57 +5,60 @@
     ViewBag.Title = "";
 
 
-    
-	}
 
-<h2></h2>
+}
+@if (User.Identity.IsAuthenticated)
+{
+    <h2>PENDIENTES DE RETIRO</h2>
 
 
-<div class="control-section">
+    <div class="control-section">
 
-					@(Html.EJ().Grid<syncfusion_payc.Models.VISTA_PENDIENTES_RETIRO>("Grid")
-					.Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
-					.AllowPaging()
-                    .AllowFiltering()
-					.Locale("es-CO")
-					.AllowResizeToFit(true)
-					.AllowMultiSorting()
-					.AllowSorting()
-					.FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
-                    .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
-					.ClientSideEvents(e => e.ActionBegin("inicio_grid"))
-                    .ToolbarSettings(toolbar =>
+        @(Html.EJ().Grid<syncfusion_payc.Models.VISTA_PENDIENTES_RETIRO>("Grid")
+                .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                .AllowPaging()
+                .AllowFiltering()
+                .Locale("es-CO")
+                .AllowResizeToFit(true)
+                .AllowMultiSorting()
+                .AllowSorting()
+                .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+                .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
+                .ToolbarSettings(toolbar =>
+                {
+                    toolbar.ShowToolbar().ToolbarItems(items =>
                     {
-                        toolbar.ShowToolbar().ToolbarItems(items =>
-                        {
-                            items.AddTool(ToolBarItems.Add);
-                            items.AddTool(ToolBarItems.Edit);
-                            items.AddTool(ToolBarItems.Delete);
-                            items.AddTool(ToolBarItems.Update);
-                            items.AddTool(ToolBarItems.Cancel);
-                        });
+                        items.AddTool(ToolBarItems.Add);
+                        items.AddTool(ToolBarItems.Edit);
+                        items.AddTool(ToolBarItems.Delete);
+                        items.AddTool(ToolBarItems.Update);
+                        items.AddTool(ToolBarItems.Cancel);
+                    });
 
-                    }).Columns(col =>
-            {
-col.Field("COD_CONTRATO_PROYECTO").HeaderText("COD_CONTRATO_PROYECTO").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
-col.Field("FECHA_FIN").HeaderText("FECHA_FIN").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();    
-col.Field("FECHA_INI").HeaderText("FECHA_INI").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();    
-col.Field("COD_COLABORADOR").HeaderText("COD_COLABORADOR").IsPrimaryKey(true).Visible(false) .Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
-col.Field("COD_CARGO").HeaderText("COD_CARGO").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
-col.Field("NOMBRES").HeaderText("NOMBRES").Add();    
-col.Field("APELLIDOS").HeaderText("APELLIDOS").Add();    
-col.Field("COD_TIPO_DE_CONTRATO").HeaderText("COD_TIPO_DE_CONTRATO").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
-col.Field("CENTROS_COSTOS").HeaderText("CENTROS_COSTOS").Add();    
-col.Field("CEDULA").HeaderText("CEDULA").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
-col.Field("CENTRO_COSTOS_PROYECTO").HeaderText("CENTRO_COSTOS_PROYECTO").Add();    
-col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();    
-col.Field("FECHA_FIN_PACTADA").HeaderText("FECHA_FIN_PACTADA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();    
-col.Field("DESCRIPCION_ROL").HeaderText("DESCRIPCION_ROL").Add();    
-col.Field("HOY").HeaderText("HOY").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();    
- 
-}))
-</div>
-<script>  
+                }).Columns(col =>
+        {
+            col.Field("COD_CONTRATO_PROYECTO").HeaderText("COD_CONTRATO_PROYECTO").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+            col.Field("FECHA_FIN").HeaderText("FECHA_FIN").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+            col.Field("FECHA_INI").HeaderText("FECHA_INI").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+            col.Field("COD_COLABORADOR").HeaderText("COD_COLABORADOR").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+            col.Field("COD_CARGO").HeaderText("COD_CARGO").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+            col.Field("NOMBRES").HeaderText("NOMBRES").Add();
+            col.Field("APELLIDOS").HeaderText("APELLIDOS").Add();
+            col.Field("COD_TIPO_DE_CONTRATO").HeaderText("COD_TIPO_DE_CONTRATO").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+            col.Field("CENTROS_COSTOS").HeaderText("CENTROS_COSTOS").Add();
+            col.Field("CEDULA").HeaderText("CEDULA").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+            col.Field("CENTRO_COSTOS_PROYECTO").HeaderText("CENTRO_COSTOS_PROYECTO").Add();
+            col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();
+            col.Field("FECHA_FIN_PACTADA").HeaderText("FECHA_FIN_PACTADA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+            col.Field("DESCRIPCION_ROL").HeaderText("DESCRIPCION_ROL").Add();
+            col.Field("HOY").HeaderText("HOY").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+
+        }))
+    </div>
+}
+    <script>
+
     $(document).ready(function () {
         ej.Grid.Locale["es-CO"] = {
             EmptyRecord: "No hay registros que mostrar",
@@ -68,8 +71,8 @@ col.Field("HOY").HeaderText("HOY").Format("{0:dd/MM/yyyy}").EditType(EditingType
             EditFormTitle: "Detalles de ",
             AddFormTitle: "Añadir nuevo registro",
             GroupCaptionFormat: "{{:headerText}}: {{:key}} - {{:count}} {{if count == 1 }} ítem {{else}} artículos {{/if}} ",
-            
-            
+
+
         };
         ej.Pager.Locale["es-CO"] = {
             pagerInfo: "{0} de {1} páginas ({2} artículos)",
@@ -131,9 +134,9 @@ col.Field("HOY").HeaderText("HOY").Format("{0:dd/MM/yyyy}").EditType(EditingType
         if (args.requestType == "beginedit" || args.requestType == "add") {
             if (args.model.dataSource.dataSource.url == "GetOrderData") {
                 setTimeout(function () {
-                          
-                }, 50); 
+
+                }, 50);
             }
         }
     }
-</script>
+    </script>

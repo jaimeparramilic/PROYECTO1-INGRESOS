@@ -1,0 +1,494 @@
+﻿@model IEnumerable<syncfusion_payc.Models.ASIGNACION_CARTERA>
+
+@{
+    ViewBag.Title = "Gestionar";
+}
+@if (User.Identity.IsAuthenticated)
+{
+    <h4>GESTIÓN CARTERA - CECO:@ViewBag.CECO - CLIENTE: @ViewBag.CLIENTE</h4>
+
+    <div class="control-section">
+
+        @(Html.EJ().Grid<syncfusion_payc.Models.ASIGNACION_CARTERA>("Grid")
+                                        .Datasource(ds => ds.URL("../../VISTA_GESTION_CARTERA/GetOrderData").Adaptor(AdaptorType.UrlAdaptor))
+                                        .AllowPaging()
+                                        .AllowFiltering()
+                                        .Locale("es-CO")
+                                        .AllowResizeToFit(true)
+                                        .AllowMultiSorting()
+                                        .AllowSorting()
+                                        .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                                        .EditSettings(edit => { edit.AllowAdding(false).AllowDeleting(false).AllowEditing(false).EditMode(EditMode.Dialog); })
+                                        .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
+                                        .ClientSideEvents(e => e.Create("create_grid"))
+                                        .ToolbarSettings(toolbar =>
+                                        {
+                                            toolbar.ShowToolbar().ToolbarItems(items =>
+                                            {
+                                                items.AddTool(ToolBarItems.Add);
+                                                items.AddTool(ToolBarItems.Edit);
+                                                items.AddTool(ToolBarItems.Delete);
+                                                items.AddTool(ToolBarItems.Update);
+                                                items.AddTool(ToolBarItems.Cancel);
+                                            });
+
+                                        }).Columns(col =>
+                                        {
+
+                                            col.Field("COD_CARTERA").HeaderText("COD CARTERA").Visible(false).IsPrimaryKey(true).AllowEditing(false).Add();
+                                            col.Field("COD_FACTURA").HeaderText("COD FACTURA").Format("{0:n0}").EditType(EditingType.NumericEdit).Add();
+                                            col.Field("NUMERO_FACTURA").HeaderText("NUMERO FACTURA").Add();
+                                            col.Field("VALOR_SIN_IMPUESTOS").HeaderText("VALOR SIN IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).Add();
+                                            col.Field("DIAS").HeaderText("DIAS").Format("{0:n0}").EditType(EditingType.NumericEdit).Add();
+                                            col.Field("FECHA_FACTURA").HeaderText("FECHA").Format("{0:dd/MM/yyyy}").Add();
+                                            col.Field("RANKING").HeaderText("RANKING").Format("{0:n2}").EditType(EditingType.NumericEdit).Add();
+                                        }).ChildGrid(child =>
+                                        {
+                                            child.Datasource(ds => ds.URL("../../ACUERDOS_PAGO_ENTREGAB/GetOrderData").InsertURL("../../ACUERDOS_PAGO_ENTREGAB/PerformInsert").UpdateURL("../../ACUERDOS_PAGO_ENTREGAB/PerformUpdate").RemoveURL("../../ACUERDOS_PAGO_ENTREGAB/PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                                            .AllowPaging()
+                                            .AllowFiltering(false)
+                                            .Locale("es-CO")
+                                            .QueryString("COD_CARTERA")
+                                            .AllowResizeToFit(false)
+
+                                            .AllowMultiSorting(false)
+                                            .AllowSorting(false)
+                                            .AllowRowDragAndDrop(false)
+                                            .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                                            .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+                                            .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
+                                            .ClientSideEvents(eve => eve.ToolbarClick("clicked"))
+                                            .ClientSideEvents(e => e.ActionFailure("failure"))
+                                            .ClientSideEvents(e => e.ActionComplete("finalizar_accion"))
+                                            .ToolbarSettings(toolbar =>
+                                            {
+                                                toolbar.ShowToolbar().ToolbarItems(items =>
+                                                {
+                                                    items.AddTool(ToolBarItems.Add);
+                                                    items.AddTool(ToolBarItems.Delete);
+                                                    items.AddTool(ToolBarItems.Edit);
+                                                });
+
+
+                                            }).Columns(col =>
+                                            {
+                                                col.Field("COD_CARTERA").AllowEditing(false).Visible(false).Add();
+
+                                                col.Field("COD_ACUERDO_PAGO").AllowEditing(false).Visible(false).HeaderText("ID").AllowEditing(false).IsPrimaryKey(true).EditType(EditingType.StringEdit).Add();
+                                                col.Field("COD_ESTADO_ACUERDO").ForeignKeyField("COD_ESTADO_ACUERDO").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ESTADOS_ACUER_PAG_ENTREG.ToList()).HeaderText("ESTADO").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).Add();
+                                                col.Field("COD_TIPO_ACUERDO").ForeignKeyField("COD_TIPO_ACUERDO").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().TIPOS_ACUERDO.ToList()).HeaderText("TIPO").ValidationRules(v => v.AddRule("required", true)).EditType(EditingType.DropdownEdit).Add();
+                                                col.Field("UserName").Visible(false).HeaderText("UserName").Add();
+                                                col.Field("DESCRIPCION").HeaderText("DESCRIPCION ACUERDO").ValidationRules(v => v.AddRule("required", true))
+                                                    .EditTemplate(a =>
+                                                    {
+
+                                                        a.Create("create_desc").Write("write").Read("read");
+                                                    }).Add();
+                                                col.Field("FECHA_REGISTRO").HeaderText("FECHA REGISTRO").AllowEditing(false).Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                                                col.Field("FECHA_ACUERDO").HeaderText("FECHA ACUERDO").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).ValidationRules(v => v.AddRule("required", true)).Add();
+                                                col.Field("APROBADO").Visible(false).HeaderText("APROBADO").Add();
+                                                col.Field("COMENTARIOS").HeaderText("COMENTARIOS").ValidationRules(v => v.AddRule("required", true)).EditTemplate(a =>
+                                                {
+
+                                                    a.Create("create_com").Write("write_com").Read("read_com");
+                                                }).Add();
+                                                col.Field("VALOR").HeaderText("VALOR").Format("{0:n0}").EditType(EditingType.NumericEdit).Add();
+                                            });
+                                        }))
+        <div class="oculta">
+            <input type="text" class="form-control" id="correo_cliente" placeholder="CORREO ELECTRÓNICO" value="@(ViewBag.CORREO_CLIENTE == null ? "" : Html.Raw((String)ViewBag.CORREO_CLIENTE.ToString()).ToString())">
+            <input type="text" class="form-control" id="correo_responsable" placeholder="CORREO ELECTRÓNICO" value="@(ViewBag.CORREO_RESPONSABLE == null ? "" : Html.Raw((String)ViewBag.CORREO_RESPONSABLE.ToString()).ToString())">
+            <input type="text" class="form-control" id="telefono_responsable" placeholder="TELEFONO" value="@(ViewBag.TELEFONO_RESPONSABLE == null ? "" : Html.Raw((String)ViewBag.TELEFONO_RESPONSABLE.ToString()).ToString())">
+            <input type="text" class="form-control" id="telefono_cliente" placeholder="TELEFONO" value="@(ViewBag.TELEFONO_CLIENTE == null ? "" : Html.Raw((String)ViewBag.TELEFONO_CLIENTE.ToString()).ToString())">
+        </div>
+    </div>
+}
+    <script>
+
+    $(document).ready(function () {
+        ej.Grid.Locale["es-CO"] = {
+            EmptyRecord: "No hay registros que mostrar",
+            GroupDropArea: "Arrastre un encabezado de columna aquí para agrupar su columna",
+            DeleteOperationAlert: "No hay registros seleccionados para la operación de eliminación",
+            EditOperationAlert: "No hay registros seleccionados para la operación de edición",
+            SaveButton: "Guardar",
+            OKButton: "DE ACUERDO",
+            CancelButton: "Cancelar",
+            EditFormTitle: "Detalles de ",
+            AddFormTitle: "Añadir nuevo registro",
+            GroupCaptionFormat: "{{:headerText}}: {{:key}} - {{:count}} {{if count == 1 }} ítem {{else}} artículos {{/if}} ",
+
+
+        };
+        ej.Pager.Locale["es-CO"] = {
+            pagerInfo: "{0} de {1} páginas ({2} artículos)",
+            firstPageTooltip: "Ir a la primera página",
+            lastPageTooltip: "Ir a la última página",
+            nextPageTooltip: "Ir a la página siguiente",
+            previousPageTooltip: "Ir a la página anterior",
+            nextPagerTooltip: "Ir al siguiente Pager",
+            previousPagerTooltip: "Ir a Pager anterior"
+        };
+
+        ej.ExcelFilter.Locale["es-CO"] = {
+            SortNoSmaller: "Ordenar de menor a mayor",
+            SortNoLarger: "Ordenar de mayor a menor",
+            SortTextAscending: "Ordenar de A a Z",
+            SortTextDescending: "Ordenar de Z a A",
+            SortDateOldest: "Ordenar por Más antiguos",
+            SortDateNewest: "Ordenar por Más reciente",
+            SortByColor: "Ordenar por color",
+            SortByCellColor: "Ordenar por color de la célula",
+            SortByFontColor: "Ordenar por Color de fuente",
+            FilterByColor: "Filtrar por color",
+            CustomSort: "Orden personalizado",
+            FilterByCellColor: "Filtrar por color de la célula",
+            FilterByFontColor: "Filtrar por color de fuente",
+            ClearFilter: "Borrar filtro",
+            NumberFilter: "Número Filtros",
+            GuidFilter: "Gud Filtros",
+            TextFilter: "Filtros de texto",
+            DateFilter: "Filtros de fecha",
+            DateTimeFilter: "Fecha filtros de tiempo",
+            SelectAll: "Seleccionar todo",
+            Blanks: "Los espacios en blanco",
+            Search: "Buscar",
+            Showrowswhere: "Mostrar filas",
+            NumericTextboxWaterMark: "introducir el valor",
+            StringMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Comienza con", value: "startswith" }, { text: "Termina con", value: "endswith" }, { text: "contiene", value: "contains" }, { text: "Filtro personalizado", value: "customfilter" },],
+            NumberMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Menos que", value: "lessthan" }, { text: "Menor o equal", value: "lessthanorequal" }, { text: "Mas grande que", value: "greaterthan" }, { text: "Mayor que o equal", value: "greaterthanorequal" }, { text: "Entre", value: "between" }, { text: "Filtro personalizado", value: "customfilter" },],
+            GuidMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Filtro personalizado", value: "customfilter" },],
+            DateMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Menos que", value: "lessthan" }, { text: "Menor o equal", value: "lessthanorequal" }, { text: "Mas grande que", value: "greaterthan" }, { text: "Mayor que o equal", value: "greaterthanorequal" }, { text: "Entre", value: "between" }, { text: "Filtro personalizado", value: "customfilter" },],
+            DatetimeMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Menos que", value: "lessthan" }, { text: "Menor o equal", value: "lessthanorequal" }, { text: "Mas grande que", value: "greaterthan" }, { text: "Mayor que o equal", value: "greaterthanorequal" }, { text: "Entre", value: "between" }, { text: "Filtro personalizado", value: "customfilter" },],
+            Top10MenuOptions: [{ text: "Parte superior", value: "top" }, { text: "Fondo", value: "bottom" },],
+            title: "Filtro personalizado",
+            PredicateAnd: "Y",
+            PredicateOr: "O",
+            Ok: "Aceptar",
+            MatchCase: "Coincidencia",
+            Cancel: "Cancelar",
+            NoResult: "No se encontraron coincidencias",
+            CheckBoxStatusMsg: "No todos los elementos que muestran",
+            DatePickerWaterMark: "Seleccione fecha",
+            DateTimePickerWaterMark: "Seleccionar fecha y hora",
+            True: "cierto",
+            False: "falso"
+        };
+    });
+
+    var cod_contrato_proyecto = @(ViewBag.COD_CONTRATO_PROYECTO == null ? "1" : Html.Raw((String)ViewBag.COD_CONTRATO_PROYECTO.ToString()).ToString());
+    var cliente ="@(ViewBag.CLIENTE == null ? "1" : Html.Raw((String)ViewBag.CLIENTE.ToString()).ToString())";
+	//Funcion para añadir buscador a los dropdown
+	function inicio_grid(args) {
+        if (args.requestType == "beginedit" || args.requestType == "add") {
+            if (args.model.dataSource.dataSource.url == "GetOrderData") {
+                setTimeout(function () {
+                   					var drop = $("#GRIDCOD_CARTERA").ejDropDownList('instance');
+                    drop.option("enableFilterSearch", true);
+
+                }, 50);
+            }
+        }
+    }
+    //En el evento create de la grid, filtrar
+    function create_grid(args)
+    {   // Filtrar: solo debe mostrar el COD_CARTERA seleccionado
+        //window.alert("Entró a create_grid, cod_cartera: " + cod_cartera);
+        var gridObj = $("#Grid").ejGrid('instance');
+        gridObj.filterColumn([
+            { field: "COD_CONTRATO_PROYECTO", operator: "equal", matchcase: false, predicate: "or", value: cod_contrato_proyecto }
+        ]);
+    }
+
+    //Funciones para el textarea descripcion de la gestión
+    function create_desc() {
+        return $("<textarea class='e-field form-control' rows=4 style='width: 100%;border-radius:3px;'></textarea>"); //creating a textarea
+    }
+    function write(args) {
+        //add an id attribute to textarea and name them as "GridID" + "ColumnName"
+        //id==>GridShipContry
+        args.element.val(args.rowdata["DESCRIPCION"]).attr("id", args.element.attr("id")).attr("name", "DESCRIPCION"); //Writing the edited text value
+    }
+    function read(args) {
+        return args.val();//Getting the Edited text value
+    }
+
+    //Funciones para el textarea comentarios de la gestión
+    function create_com() {
+        return $("<textarea class='e-field form-control' rows=4 style='width: 100%;border-radius:3px;'></textarea>"); //creating a textarea
+    }
+    function write_com(args) {
+        //add an id attribute to textarea and name them as "GridID" + "ColumnName"
+        //id==>GridShipContry
+        args.element.val(args.rowdata["COMENTARIOS"]).attr("id", args.element.attr("id")).attr("name", "COMENTARIOS"); //Writing the edited text value
+    }
+    function read_com(args) {
+        return args.val();//Getting the Edited text value
+    }
+
+    //Incluye la generación de los rich text editors
+    $(document).ready(function () {
+
+        //Función para crear rich text editor y traer información de correo del responsable de los entregables
+        $("#texto_correo_responsable").ejRTE({
+            width: "100%",
+            minWidth: "150px",
+            height: "190px",
+            isResponsive: true,
+            showFooter: false,
+            showHtmlSource: false,
+            toolbarOverflowMode: "Inline",
+            value:"<p></p>"
+        });
+        var data = JSON.stringify({ COD_CONTRATO_PROYECTO: parseInt(cod_contrato_proyecto) });
+        var url = "../traer_info_cliente";
+        //Función para crear rich text editor y traer información de correo del cliente
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            dataFilter: function (data) { return data; },
+            success: function (data) {
+                //Crear encabezado
+                var info = "<p>Señores " + cliente + "</p>";
+                info = info + "<p>Aun no hemos registrado el pago para las siguientes facturas:</p>"
+                var retornar = "";
+
+                //Guardar resultados
+
+                retornar = data.responseText;
+
+                info = info + retornar;
+                info = info + "<p>De antemano les agradecemos nos puedan colaborar registrando los pagos faltantes lo más pronto posible</p>";
+                info = info + "<p>Cordial saludo,</p>";
+                info = info + "<p>Grupo de gestión de cartera PAYC</p>";
+                info = info + "<img src='http://104.196.158.138/BOCHICA/images/logopayc.png' />"
+                $("#texto_correo").ejRTE({
+                    width: "100%",
+                    minWidth: "150px",
+                    height: "190px",
+                    isResponsive: true,
+                    showFooter: false,
+                    showHtmlSource: true,
+                    toolbarOverflowMode: "Inline",
+                    value: info
+                });
+                $("#texto_correo").attr("style", "display:none!important");
+                $("#texto_correo_responsable").attr("style", "display:none!important");
+
+                $("#drop_tipo_gestion").ejDropDownList({
+                    select: function (args) {
+
+                        if (args.text == "INTERNA") {
+                            $("#texto_correo").attr("style", "display:none!important");
+                            $("#texto_correo_toolbar_hiddenlist").attr("style", "width:100% !important");
+                            $("#texto_correo_responsable").attr("style", "display:none!important");
+                            $("#texto_correo_responsable_toolbar_hiddenlist").attr("style", "width:100% !important");
+                            $(".contenedor_cartera").hide();
+                            $(".input_cliente").hide();
+                            $(".input_responsable").show();
+                            $(".botones").show();
+                            //Agregar clase responsables a botones
+                            $(".enviar_email_gesion").removeClass("boton_cliente");
+                            $(".enviar_whatsapp_gesion").removeClass("boton_cliente");
+                            $(".enviar_skype_gesion").removeClass("boton_cliente");
+                            $(".enviar_email_gesion").addClass("boton_responsable");
+                            $(".enviar_whatsapp_gesion").addClass("boton_responsable");
+                            $(".enviar_skype_gesion").addClass("boton_responsable");
+                        }
+                        else {
+                            $("#texto_correo").attr("style", "display:none!important");
+                            $("#texto_correo_toolbar_hiddenlist").attr("style", "width:100% !important");
+                            $("#texto_correo_responsable").attr("style", "display:none!important");
+                            $("#texto_correo_responsable_toolbar_hiddenlist").attr("style", "width:100% !important");
+                            $(".contenedor_cartera").hide();
+                            $(".input_responsable").hide();
+                            $(".input_cliente").show();
+
+                            $(".botones").show();
+
+                            $(".enviar_email_gesion").addClass("boton_cliente");
+                            $(".enviar_whatsapp_gesion").addClass("boton_cliente");
+                            $(".enviar_skype_gesion").addClass("boton_cliente");
+                            $(".enviar_email_gesion").removeClass("boton_responsable");
+                            $(".enviar_whatsapp_gesion").removeClass("boton_responsable");
+                            $(".enviar_skype_gesion").removeClass("boton_responsable");
+                        }
+                    },
+                    width: "50%"
+                });
+            }
+        });
+
+    });
+    //Función para realizar acción
+    function enviar_gestion(sender) {
+
+        if (window.location.href.indexOf("VISTA_CARTERA_INDEX/Gestionar") > -1) {
+            $(".contenedor_cartera").show();
+            var correo_cliente = $("#correo_cliente").val();
+            var correo_responsable = $("#correo_responsable").val();
+            var telefono_cliente = $("#telefono_cliente").val();
+            var telefono_responsable = $("#telefono_responsable").val();
+            $("#correo_cliente1").val(correo_cliente);
+            $("#correo_responsable1").val(correo_responsable);
+            $("#telefono_whatsapp_cliente").val(telefono_cliente);
+            $("#telefono_whatsapp_responsable").val(telefono_responsable);
+            $("#telefono_llamar_cliente").val(telefono_cliente);
+            $("#telefono_llamar_responsable").val(telefono_responsable);
+            $("#texto_correo").attr("style", "display:none!important");
+
+            $("#texto_correo_toolbar_hiddenlist").attr("style", "width:100% !important");
+            $("#texto_correo_responsable").attr("style", "display:none!important");
+            $("#texto_correo_responsable_toolbar_hiddenlist").attr("style", "width:100% !important");
+            if (sender.hasClass("skype")) {
+                $(".div_whatsapp").hide();
+                $(".div_email").hide();
+                $(".div_skype").show();
+            }
+            if (sender.hasClass("whatsapp")) {
+
+                $(".div_email").hide();
+                $(".div_skype").hide();
+                $(".div_whatsapp").show();
+            }
+            if (sender.hasClass("email")) {
+                $(".div_whatsapp").hide();
+                $(".div_skype").hide();
+                $(".div_email").show();
+            }
+        }
+        else {
+            alert("No se puede realizar acciones en este menú, por favor diríjase a la sección de gestión de cartera.");
+        }
+    }
+    //Función para cancelar acción
+    function cancelar() {
+        $(".contenedor_cartera").hide();
+        $(".input_cliente").hide();
+        $(".input_responsable").hide();
+        $(".botones").hide();
+        $("#texto_correo").hide();
+        $("#texto_correo_responsable").hide();
+
+    }
+    //Función para finalizar acción
+    function gestion_cartera(sender) {
+
+        var r = confirm("¿Esta seguro de realizar esta acción?");
+        if (r) {
+            var descripcion_gestion = "";
+            var tipo_gestion = 0;
+            if (sender.hasClass("enviar_whatsapp_gesion")) {
+                tipo_gestion  = 3;
+                descripcion_gestion = $('#descripcion_whatsapp').val()
+            }
+            else if (sender.hasClass("enviar_skype_gesion")) {
+                tipo_gestion  = 2;
+                descripcion_gestion = $('#descripcion_llamar').val()
+            }
+            else {
+                tipo_gestion = 1;
+                descripcion_gestion="Se envío un correo de manera automatizada."
+            }
+            //registrar_accion_gestion(long COD_CARTERA, long TIPO_GESTION, string DESCRIPCION)
+            var data = JSON.stringify({ COD_CONTRATO_PROYECTO: cod_contrato_proyecto, TIPO_GESTION: tipo_gestion,DESCRIPCION:descripcion_gestion });
+            var url = "../registrar_accion_gestion";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                dataFilter: function (data) { return data; },
+                success: function (data) {
+                    alert(data.responseText);
+                    cancelar();
+                    $(".contenedor_loader1").hide();
+                }
+            });
+        if (sender.hasClass("enviar_whatsapp_gesion") || sender.hasClass("enviar_skype_gesion")) {
+
+        }
+        else {
+            var html = "";
+            var correo = "";
+
+
+                $(".contenedor_loader1").show();
+                if (sender.hasClass("boton_cliente")) {
+
+                    var rteObj = $("#texto_correo").data("ejRTE");
+                    rteObj.getHtml();
+                    html = rteObj.getHtml();
+                    correo = $("#correo_cliente1").val();
+                }
+                else {
+                    var rteObj = $("#texto_correo_responsable").data("ejRTE");
+                    rteObj.getHtml();
+                    html = rteObj.getHtml();
+                    correo = $("#correo_responsable1").val();
+                }
+                var data = JSON.stringify({ CORREO: correo,HTML:html });
+                var url = "../enviar_correo_gestion";
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: data,
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        alert(data.responseText);
+                        cancelar();
+                        $(".contenedor_loader1").hide();
+                    }
+                });
+            }
+
+
+        }
+    }
+    //Función para filtrar colaboradores dependiendo del ROL
+    function traer_info_cliente(COD_CONTRATO_PROYECTO) {
+        var result1 = "";
+        var data = JSON.stringify({ COD_CONTRATO_PROYECTO: parseInt(COD_CONTRATO_PROYECTO) });
+        var url = "../traer_info_cliente";
+        return $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            dataFilter: function (data) { return data; },
+            success: function (data) {
+                //Guardar resultados
+
+                //result1 = data.responseText;
+
+            }
+        });
+
+    }
+
+    </script>
+    <style>
+        textarea {
+            display: block !important;
+            width: 100%;
+            padding: 6px 12px !important;
+            font-size: 14px !important;
+            color: #555 !important;
+            background-color: #fff !important;
+            background-image: none !important;
+            border: 1px solid #ccc !important;
+            border-radius: 4px !important;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        }
+    </style>

@@ -189,8 +189,12 @@ namespace syncfusion_payc.Controllers
                                   ,[igeidentificador]
                                   ,[igecompania]
                                   ,[igedivision]
-                                  ,[igenombcort]
-                                  ,[igenomblarg]
+								  ,case when len([igenombcort])>=30
+									then left([igenombcort], 30) 
+									else [igenombcort] end [igenombcort]
+                                  ,case when len([igenomblarg])>=45
+								  then left([igenomblarg], 45)
+								  else [igenomblarg] end [igenomblarg]
                                   ,[igeimpuesto]
                                   ,[eobcodigo]
                                   ,[eobnombre]

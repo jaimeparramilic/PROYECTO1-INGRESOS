@@ -1,0 +1,81 @@
+﻿@model syncfusion_payc.Models.VISTA_CARTERA_INDEX
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "Errores";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>VISTA_CARTERA_INDEX</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DESCRIPCION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DESCRIPCION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GESTOR)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GESTOR)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VALOR_SIN_IMPUESTOS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VALOR_SIN_IMPUESTOS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NUMERO_FACTURA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NUMERO_FACTURA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA_FACTURA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA_FACTURA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ESTADO_CARTERA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ESTADO_CARTERA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RANKING)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RANKING)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

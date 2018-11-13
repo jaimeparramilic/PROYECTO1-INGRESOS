@@ -1,0 +1,165 @@
+﻿
+@model IEnumerable<syncfusion_payc.Models.VISTA_CARTERA_INDEX>
+
+@{
+    ViewBag.Title = "";
+}
+@if (User.Identity.IsAuthenticated)
+{
+    <h4>CARTERA</h4>
+
+    <div class="control-section">
+
+        @(Html.EJ().Grid<syncfusion_payc.Models.VISTA_CARTERA_INDEX1>
+                ("Grid")
+                .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                .AllowPaging()
+                .AllowFiltering()
+                .Locale("es-CO")
+                .AllowResizeToFit(true)
+                .AllowMultiSorting()
+                .AllowSorting()
+                .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                .EditSettings(edit => { edit.AllowEditing().EditMode(EditMode.Dialog); })
+                .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
+                .ClientSideEvents(eve => eve.ToolbarClick("clicked"))
+                .ToolbarSettings(toolbar =>
+                {
+                    toolbar.ShowToolbar().CustomToolbarItems(new List<object>
+                        () {
+    new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Gestionar",Tooltip="Gestionar Cartera" }
+                     }).ToolbarItems(items =>
+                     {
+                         items.AddTool(ToolBarItems.Add);
+                         items.AddTool(ToolBarItems.Edit);
+                         items.AddTool(ToolBarItems.Delete);
+                         items.AddTool(ToolBarItems.Update);
+                         items.AddTool(ToolBarItems.Cancel);
+                     });
+
+                }).Columns(col =>
+                {
+
+                    col.Field("DESCRIPCION").AllowEditing(false).HeaderText("CLIENTE").Add();
+                    col.Field("GESTOR").ForeignKeyField("UserName").ForeignKeyValue("UserName").DataSource((IEnumerable<object>
+                        )new syncfusion_payc.Models.test_payc_contabilidadEntities().VISTA_USUARIOS_AttendanceDB.ToList()).Type("string").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).HeaderText("GESTOR").Add();
+                    col.Field("CENTRO_COSTOS").AllowEditing(false).HeaderText("CENTRO COSTOS").Add();
+
+                    col.Field("SALDO").AllowEditing(false).HeaderText("VALOR SIN IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+
+                    col.Field("FECHA_FACTURA").AllowEditing(false).HeaderText("FECHA ÚLTIMA FACTURA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+
+                    col.Field("ID").AllowEditing(false).HeaderText("RANKING").Add();
+                    col.Field("COD_CONTRATO_PROYECTO").IsPrimaryKey(true).Visible(false).AllowEditing(false).HeaderText("COD_CONTRATO_PROYECTO").Add();
+
+                }))
+    </div>
+}
+    <script>
+
+    $(document).ready(function () {
+        ej.Grid.Locale["es-CO"] = {
+            EmptyRecord: "No hay registros que mostrar",
+            GroupDropArea: "Arrastre un encabezado de columna aquí para agrupar su columna",
+            DeleteOperationAlert: "No hay registros seleccionados para la operación de eliminación",
+            EditOperationAlert: "No hay registros seleccionados para la operación de asignación",
+            SaveButton: "Guardar",
+            OKButton: "DE ACUERDO",
+            CancelButton: "Cancelar",
+            EditFormTitle: "Detalles de ",
+            AddFormTitle: "Añadir nuevo registro",
+            GroupCaptionFormat: "{{:headerText}}: {{:key}} - {{:count}} {{if count == 1 }} ítem {{else}} artículos {{/if}} ",
+
+
+        };
+        ej.Pager.Locale["es-CO"] = {
+            pagerInfo: "{0} de {1} páginas ({2} artículos)",
+            firstPageTooltip: "Ir a la primera página",
+            lastPageTooltip: "Ir a la última página",
+            nextPageTooltip: "Ir a la página siguiente",
+            previousPageTooltip: "Ir a la página anterior",
+            nextPagerTooltip: "Ir al siguiente Pager",
+            previousPagerTooltip: "Ir a Pager anterior"
+        };
+
+        ej.ExcelFilter.Locale["es-CO"] = {
+            SortNoSmaller: "Ordenar de menor a mayor",
+            SortNoLarger: "Ordenar de mayor a menor",
+            SortTextAscending: "Ordenar de A a Z",
+            SortTextDescending: "Ordenar de Z a A",
+            SortDateOldest: "Ordenar por Más antiguos",
+            SortDateNewest: "Ordenar por Más reciente",
+            SortByColor: "Ordenar por color",
+            SortByCellColor: "Ordenar por color de la célula",
+            SortByFontColor: "Ordenar por Color de fuente",
+            FilterByColor: "Filtrar por color",
+            CustomSort: "Orden personalizado",
+            FilterByCellColor: "Filtrar por color de la célula",
+            FilterByFontColor: "Filtrar por color de fuente",
+            ClearFilter: "Borrar filtro",
+            NumberFilter: "Número Filtros",
+            GuidFilter: "Gud Filtros",
+            TextFilter: "Filtros de texto",
+            DateFilter: "Filtros de fecha",
+            DateTimeFilter: "Fecha filtros de tiempo",
+            SelectAll: "Seleccionar todo",
+            Blanks: "Los espacios en blanco",
+            Search: "Buscar",
+            Showrowswhere: "Mostrar filas",
+            NumericTextboxWaterMark: "introducir el valor",
+            StringMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Comienza con", value: "startswith" }, { text: "Termina con", value: "endswith" }, { text: "contiene", value: "contains" }, { text: "Filtro personalizado", value: "customfilter" },],
+            NumberMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Menos que", value: "lessthan" }, { text: "Menor o equal", value: "lessthanorequal" }, { text: "Mas grande que", value: "greaterthan" }, { text: "Mayor que o equal", value: "greaterthanorequal" }, { text: "Entre", value: "between" }, { text: "Filtro personalizado", value: "customfilter" },],
+            GuidMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Filtro personalizado", value: "customfilter" },],
+            DateMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Menos que", value: "lessthan" }, { text: "Menor o equal", value: "lessthanorequal" }, { text: "Mas grande que", value: "greaterthan" }, { text: "Mayor que o equal", value: "greaterthanorequal" }, { text: "Entre", value: "between" }, { text: "Filtro personalizado", value: "customfilter" },],
+            DatetimeMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Menos que", value: "lessthan" }, { text: "Menor o equal", value: "lessthanorequal" }, { text: "Mas grande que", value: "greaterthan" }, { text: "Mayor que o equal", value: "greaterthanorequal" }, { text: "Entre", value: "between" }, { text: "Filtro personalizado", value: "customfilter" },],
+            Top10MenuOptions: [{ text: "Parte superior", value: "top" }, { text: "Fondo", value: "bottom" },],
+            title: "Filtro personalizado",
+            PredicateAnd: "Y",
+            PredicateOr: "O",
+            Ok: "Aceptar",
+            MatchCase: "Coincidencia",
+            Cancel: "Cancelar",
+            NoResult: "No se encontraron coincidencias",
+            CheckBoxStatusMsg: "No todos los elementos que muestran",
+            DatePickerWaterMark: "Seleccione fecha",
+            DateTimePickerWaterMark: "Seleccionar fecha y hora",
+            True: "cierto",
+            False: "falso"
+        };
+    });
+
+	//Funcion para añadir buscador a los dropdown
+	function inicio_grid(args) {
+        if (args.requestType == "beginedit" || args.requestType == "add") {
+            if (args.model.dataSource.dataSource.url == "GetOrderData") {
+                setTimeout(function () {
+                    $('.gridform tr:not(".e-hide"):nth-child(3)').hide();
+                    $('.gridform tr:not(".e-hide"):nth-child(4)').hide();
+                    $('.gridform tr:not(".e-hide"):nth-child(5)').hide();
+                    $('.gridform tr:not(".e-hide"):nth-child(6)').hide();
+                    $('.gridform tr:not(".e-hide"):nth-child(7)').hide();
+                    $('.gridform tr:not(".e-hide"):nth-child(8)').hide();
+                }, 50);
+            }
+        }
+    }
+
+    //Función click para botones custom de la toolbar
+    function clicked(sender) {
+        $target = $(sender.target);
+        if ($target.hasClass("Gestionar")) {
+            gestionar(sender.gridModel.selectedRecords[0].COD_CONTRATO_PROYECTO,
+                sender)
+        }
+    }
+    //Función que permite mostrar costos
+    function gestionar(indice, sender) {
+        //window.alert("ENTRO asignar : " + indice);
+        window.location = "Gestionar/" + indice;
+    }
+
+    </script>
+    <!--Modelos o templates para botones-->
+    <script type="text/x-jsrender" id="Gestionar">
+        <a class="e-tooltxt Gestionar e-icon e-zoomin"></a>
+    </script>

@@ -3,47 +3,54 @@
 
 @{
     ViewBag.Title = "";
-	}
-<h4>CLIENTES</h4>
-<div class="control-section">
+}
+@if (User.Identity.IsAuthenticated)
+{
+    <h4>CLIENTES</h4>
+    <div class="control-section">
 
-					@(Html.EJ().Grid<syncfusion_payc.Models.CLIENTES>("Grid")
-					.Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
-					.AllowPaging()
-                    .AllowFiltering()
-					.Locale("es-CO")
-					.AllowResizeToFit(true)
-					.AllowMultiSorting()
-					.AllowSorting()
-					.FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
-                    .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.ExternalForm); })
-					.ClientSideEvents(e => e.ActionBegin("inicio_grid"))
-                    .ToolbarSettings(toolbar =>
-                    {
-                        toolbar.ShowToolbar().ToolbarItems(items =>
-                        {
-                            items.AddTool(ToolBarItems.Add);
-                            items.AddTool(ToolBarItems.Edit);
-                            items.AddTool(ToolBarItems.Delete);
-                            items.AddTool(ToolBarItems.Update);
-                            items.AddTool(ToolBarItems.Cancel);
-                        });
+        @(Html.EJ().Grid<syncfusion_payc.Models.CLIENTES>
+("Grid")
+.Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+.AllowPaging()
+.AllowFiltering()
+.Locale("es-CO")
+.AllowResizeToFit(true)
+.AllowMultiSorting()
+.AllowSorting()
+.FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+.EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+.ClientSideEvents(e => e.ActionBegin("inicio_grid"))
+.ToolbarSettings(toolbar =>
+{
+    toolbar.ShowToolbar().ToolbarItems(items =>
+    {
+        items.AddTool(ToolBarItems.Add);
+        items.AddTool(ToolBarItems.Edit);
+        items.AddTool(ToolBarItems.Delete);
+        items.AddTool(ToolBarItems.Update);
+        items.AddTool(ToolBarItems.Cancel);
+    });
 
-                    }).Columns(col =>
-            {
-col.Field("COD_CLIENTE").HeaderText("COD_CLIENTE").IsPrimaryKey(true).Visible(false) .Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
-col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();    
-col.Field("NIT").HeaderText("NIT").Add();    
-col.Field("DIRECCION_CLIENTE").HeaderText("DIRECCION_CLIENTE").Add();    
-col.Field("DIRECCION_FACTURACION").HeaderText("DIRECCION_FACTURACION").Add();    
-col.Field("CONTACTO_CONTRATANTE").HeaderText("CONTACTO_CONTRATANTE").Add();    
-col.Field("CONTACTO_FACTURACION").HeaderText("CONTACTO_FACTURACION").Add();    
-col.Field("TELEFONO_CLIENTE").HeaderText("TELEFONO_CLIENTE").Add();    
-col.Field("TELEFONO_FACTURACION").HeaderText("TELEFONO_FACTURACION").Add();    
- 
+}).Columns(col =>
+{
+    col.Field("COD_CLIENTE").HeaderText("COD_CLIENTE").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+    col.Field("DESCRIPCION").HeaderText("DESCRIPCION").ValidationRules(v => v.AddRule("required", true)).Add();
+    col.Field("NIT").HeaderText("NIT").ValidationRules(v => v.AddRule("required", true)).Add();
+    col.Field("DIRECCION_CLIENTE").HeaderText("DIRECCIÓN CLIENTE").Add();
+    col.Field("DIRECCION_FACTURACION").ValidationRules(v => v.AddRule("required", true)).HeaderText("DIRECCIÓN FACTURACIÓN").Add();
+    col.Field("CONTACTO_CONTRATANTE").ValidationRules(v => v.AddRule("required", true)).HeaderText("CONTACTO CLIENTE").Add();
+    col.Field("CONTACTO_FACTURACION").HeaderText("CONTACTO FACTURACIÓN").Add();
+    col.Field("TELEFONO_CLIENTE").ValidationRules(v => v.AddRule("validacion_telefono", true)).HeaderText("TELÉFONO CLIENTE").Add();
+    col.Field("TELEFONO_FACTURACION").ValidationRules(v => v.AddRule("required", true).AddRule("validacion_telefono", true)).HeaderText("TELÉFONO FACTURACIÓN").Add();
+    col.Field("CORREO_CLIENTE").ValidationRules(v => v.AddRule("validacion_email", true)).HeaderText("CORREO CLIENTE").Add();
+    col.Field("CORREO_FACTURACION").ValidationRules(v => v.AddRule("required", true).AddRule("validacion_email", true)).HeaderText("CORREO FACTURACIÓN").Add();
+
 }))
-</div>
-<script>  
+    </div>
+}
+    <script>
+
 
     $(document).ready(function () {
         ej.Grid.Locale["es-CO"] = {
@@ -57,8 +64,8 @@ col.Field("TELEFONO_FACTURACION").HeaderText("TELEFONO_FACTURACION").Add();
             EditFormTitle: "Detalles de ",
             AddFormTitle: "Añadir nuevo registro",
             GroupCaptionFormat: "{{:headerText}}: {{:key}} - {{:count}} {{if count == 1 }} ítem {{else}} artículos {{/if}} ",
-            
-            
+
+
         };
         ej.Pager.Locale["es-CO"] = {
             pagerInfo: "{0} de {1} páginas ({2} artículos)",
@@ -120,9 +127,69 @@ col.Field("TELEFONO_FACTURACION").HeaderText("TELEFONO_FACTURACION").Add();
         if (args.requestType == "beginedit" || args.requestType == "add") {
             if (args.model.dataSource.dataSource.url == "GetOrderData") {
                 setTimeout(function () {
-                          
-                }, 50); 
+
+                }, 50);
             }
         }
     }
-</script>
+
+    //Traducción mensajes jquery validate
+    $.extend($.validator.messages, {
+        required: "Este campo es obligatorio.",
+        remote: "Por favor, rellena este campo.",
+        email: "Por favor, escribe una dirección de correo válida.",
+        url: "Por favor, escribe una URL válida.",
+        date: "Por favor, escribe una fecha válida.",
+        dateISO: "Por favor, escribe una fecha (ISO) válida.",
+        number: "Por favor, escribe un número válido.",
+        digits: "Por favor, escribe sólo dígitos.",
+        creditcard: "Por favor, escribe un número de tarjeta válido.",
+        equalTo: "Por favor, escribe el mismo valor de nuevo.",
+        extension: "Por favor, escribe un valor con una extensión aceptada.",
+        maxlength: $.validator.format("Por favor, no escribas más de {0} caracteres."),
+        minlength: $.validator.format("Por favor, no escribas menos de {0} caracteres."),
+        rangelength: $.validator.format("Por favor, escribe un valor entre {0} y {1} caracteres."),
+        range: $.validator.format("Por favor, escribe un valor entre {0} y {1}."),
+        max: $.validator.format("Por favor, escribe un valor menor o igual a {0}."),
+        min: $.validator.format("Por favor, escribe un valor mayor o igual a {0}."),
+        nifES: "Por favor, escribe un NIF válido.",
+        nieES: "Por favor, escribe un NIE válido.",
+        cifES: "Por favor, escribe un CIF válido."
+    });
+
+    //Función para validar que el patrón de correos electrónicos se cumpla
+    function validar_email(email) {
+        var re = /^(([^<>()[\]\\.,;:\s@@\"]+(\.[^<>()[\]\\.,;:\s@@\"]+)*)|(\".+\"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    }
+
+    //Funciones de validación JQUERY
+    $(function () {
+
+        //Adicionar a jquery validate la revisión de las fechas contra la firma del contrato
+        $.validator.addMethod("validacion_email", function (value, element, params) {
+
+            return validar_email(element.value);
+        }, "El correo electrónico no es un correo valido");
+
+        $.validator.addMethod("validacion_telefono", function (value, element, params) {
+
+            return validar_telefono(element.value);
+        }, "El teléfono no es un teléfono valido (10 digitos para celular y 7 para locales)");
+
+
+    });
+
+    //Funcion para validar teléfonos de 10 digitos (celulares)
+    function validar_telefono(telefono) {
+        var pattern = /^\d{10}$/;
+        var pattern1 = /^\d{7}$/;
+        if (pattern.test(telefono) || pattern1.test(telefono) ) {
+            return true;
+        }
+        else {
+            return false;
+        }
+        return false;
+    }
+    </script>

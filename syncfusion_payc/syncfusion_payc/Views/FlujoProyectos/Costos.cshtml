@@ -4,47 +4,88 @@
     ViewBag.Title = "Costos";
 }
 
-<h4>Costos</h4>
+
 @if (User.Identity.IsAuthenticated)
 {
-<div class="col-md-12 sin-overflow">
-    <div class="col-md-6">
+<div class="row sin-overflow">
+    <h4 style="padding-left:15px;">Costos</h4>
+    <div class="col-md-8">
+        @(Html.EJ().Pivot().PivotGrid("PivotGrid3").Locale("es-CO").Url(Url.Content("~/servicios/VistaCostosFlujoIngr.svc"))
+                                                .EnableColumnResizing(false)
+                                                .EnableToolTip(true)
+                                                .EnableCellContext(true)
+                                                .EnableCellSelection(false)
+                                                .EnableJSONRendering(false)
+                                                .IsResponsive(false)
+                                                .EnableVirtualScrolling(true)
+                                                .EnableDefaultValue(false)
+                                                .EnableCellClick(false)
+                                                .EnableCellDoubleClick(false)
+                                                .EnableCollapseByDefault(false)
+                                                .EnableConditionalFormatting(false)
+                                                .EnableDeferUpdate(false)
+                                                .EnableDrillThrough(true)
+                                                .EnableXHRCredentials(false)
+                                                .EnableRTL(false)
+                                                
+
+                                                .EnableMemberEditorPaging(false)
+                                                .EnableCellEditing(false).ClientSideEvents(events => events.CellEdit("editar_flujo_item").Load("onLoad").BeforeServiceInvoke("beforeserviceinvoke").AfterServiceInvoke("after_service_invoke"))
+                                                .PivotTableFieldListID("PivotSchemaDesigner1")
+        )
+    </div>
+    <div class="col-md-4">
         @(Html.EJ().Pivot().PivotSchemaDesigner("PivotSchemaDesigner1").EnableRTL(true))
     </div>
-    <div class="col-md-6">
-        @(Html.EJ().Pivot().PivotGrid("PivotGrid3").Locale("es-CO").Url(Url.Content("~/servicios/VistaCostosFlujoIngr.svc"))
-                                .EnableColumnResizing(false)
-                                .EnableToolTip(false)
-                                .EnableCellContext(false)
-                                .EnableCellSelection(false)
-                                .EnableJSONRendering(false)
-                                .IsResponsive(false)
-                                .EnableVirtualScrolling(false)
-                                .EnableDefaultValue(false)
-                                .EnableCellClick(false)
-                                .EnableCellDoubleClick(false)
-                                .EnableCollapseByDefault(false)
-                                .EnableConditionalFormatting(false)
-                                .EnableDeferUpdate(false)
-                                .EnableDrillThrough(false)
-                                .EnableXHRCredentials(false)
-                                .EnableRTL(false)
-
-                                .EnableMemberEditorPaging(false)
-                                .EnableCellEditing(true).ClientSideEvents(events => events.CellEdit("editar_flujo_item").Load("onLoad").BeforeServiceInvoke("beforeserviceinvoke").AfterServiceInvoke("flujo_item_despues"))
-                                .PivotTableFieldListID("PivotSchemaDesigner1")
-        )
-        </div>
-    </div>
+</div>
     }
 
-    <script type="text/javascript">
+<script type="text/javascript">
     var cod_contr_proy = @(ViewBag.COD_CONTRATO_PROYECTO == null ? "1" : Html.Raw((String)ViewBag.COD_CONTRATO_PROYECTO.ToString()).ToString());
     function onLoad(args) {
         //window.alert("contr proy: " + cod_contr_proy);
         args.customObject = { COD_CONTRATO_PROYECTO: cod_contr_proy };
         args.model.customObject = { COD_CONTRATO_PROYECTO: cod_contr_proy };
     }
+    // 
+    after_service_invoke = function (evt) {
+        if (evt.action == "initialize") {
+            var PivotSchemaDesigner = $(".e-pivotschemadesigner").data('ejPivotSchemaDesigner');
+            if (PivotSchemaDesigner.model.pivotControl == null) {
+                PivotSchemaDesigner.model.pivotControl = this;
+                PivotSchemaDesigner.model.enableWrapper = true;
+                PivotSchemaDesigner.model.layout = "excel";
+                PivotSchemaDesigner.ShowDisplayFieldsOnly = true;
+                PivotSchemaDesigner._load();
+                try {
+                    setTimeout(function () { $("#VALOR_TOTAL .e-text").text("VALOR TOTAL") }, 1000);
+                }
+                catch{}
+                //PivotSchemaDesigner.centerHead = "Arrastre campos";
+                //PivotSchemaDesigner.e-text = "";
+            }
+            else { PivotSchemaDesigner.ShowDisplayFieldsOnly = true; }
+        }
+    }
+    ej.PivotSchemaDesigner.Locale["es-CO"] = {
+        PivotTableFieldList: "Lista de campos de tabla dinámica",
+        ChooseFieldsToAddToReport: "Elija los campos para añadir al reporte",
+        DragFieldBetweenAreasBelow: "Arrastre los campos entre las áreas",
+        DeferLayoutUpdate: "Aplazar actualización de diseño"
+    };
 
     </script>
-
+<style>
+    #PivotGrid3 {
+        width: 100%;
+        /*height: 350px;*/
+        display: inline-block;
+        float: left;
+        overflow: auto;
+    }
+    #PivotSchemaDesigner1 {
+        width: 100% !important;
+        display: inline-block;
+        margin-left: 10px;
+    }
+</style>

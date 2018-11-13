@@ -18,7 +18,7 @@
     <AssemblyName>syncfusion_payc</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -266,6 +266,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ACUERDOS_PAGO_ENTREGABController.cs" />
+    <Compile Include="Controllers\ASIGNACION_CARTERAController.cs" />
     <Compile Include="Controllers\CARGOSController.cs" />
     <Compile Include="Controllers\CLIENTESController.cs" />
     <Compile Include="Controllers\COLABORADORESController.cs" />
@@ -282,11 +284,13 @@
     <Compile Include="Controllers\FlujoProyectosController.cs" />
     <Compile Include="Controllers\FLUJO_INGRESOS_ITEMSController.cs" />
     <Compile Include="Controllers\FLUJO_INGRESOS_ROLController.cs" />
+    <Compile Include="Controllers\GESTION_CARTERAController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\INCREMENTO_ORDENController.cs" />
     <Compile Include="Controllers\INCREMENTO_SALARIALController.cs" />
     <Compile Include="Controllers\ITEMSController.cs" />
     <Compile Include="Controllers\ITEMS_CONTRATOController.cs" />
+    <Compile Include="Controllers\ITEMS_ROLESController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PENDIENTESController.cs" />
     <Compile Include="Controllers\PROYECTOSController.cs" />
@@ -298,8 +302,17 @@
     <Compile Include="Controllers\TIPO_CONDICION_CONTRACTUALController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController1.cs" />
+    <Compile Include="Controllers\VISTA_CARTERA_INDEXController.cs" />
+    <Compile Include="Controllers\VISTA_DETALLE_ADJUNTOS_PERSController.cs" />
+    <Compile Include="Controllers\VISTA_GESTION_CARTERAController.cs" />
     <Compile Include="Controllers\VISTA_ORDENES_CENTRO_COSTOSController.cs" />
     <Compile Include="Controllers\VISTA_PENDIENTES_RETIROController.cs" />
+    <Compile Include="Models\ACUERDOS_PAGO_ENTREGAB.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ASIGNACION_CARTERA.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CARGOS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
@@ -310,6 +323,9 @@
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CENTROS_COSTOS.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CHECK_COLABORADOR_MES.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CLIENTES.cs">
@@ -324,6 +340,9 @@
     <Compile Include="Models\COLARADORES_CONCAT_ESTUDIOS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\COMBINACIONES_GASTOS_ADMINISTRATIVOS.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\COMPROMISOS_ENTREGABLES.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
@@ -332,6 +351,21 @@
     </Compile>
     <Compile Include="Models\CONCEPTOS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\contabilidad.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>contabilidad.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\contabilidad.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\contabilidad.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>contabilidad.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\CONTRATOS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
@@ -360,6 +394,9 @@
     <Compile Include="Models\CONTRATO_PROYECTO_DESCRIPCION.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CONTRATO_PROYECTO_DESCRIPCION_ESTADOS.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CONTRATO_ROL_CARGO.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
@@ -369,13 +406,28 @@
     <Compile Include="Models\DATOS_VERIFICAR_FACTURA.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DEBUG.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DETALLE_FACTURA_ADJUNTO_PERS.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DETALLE_FACTURA_ITEM.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DETALLE_FACTURA_PERS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EMAIL_CLIENTES.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ENTREGABLES.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ESTADOS_ACUER_PAG_ENTREG.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ESTADOS_CARTERA.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ESTADOS_CECO.cs">
@@ -400,10 +452,16 @@
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FlujoProyectosViewModels.cs" />
+    <Compile Include="Models\FLUJO_INGRESOS_ITEM.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\FLUJO_INGRESOS_ITEMS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FLUJO_INGRESOS_ROL.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FLUJO_INGRESOS_ROLES.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FORMAS_PAGO.cs">
@@ -439,10 +497,19 @@
     <Compile Include="Models\GESTION_CARTERA.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GESTION_ENTREGABLES.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GRUPOS_FACTURA.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\INCREMENTO_ORDEN.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\INCREMENTO_SALARIAL.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\INCREMENTO_SALARIAL_TEMP.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ITEMS.cs">
@@ -452,6 +519,9 @@
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ITEMS_CONTRATO_DESCRIPCION.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ITEMS_ROLES.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ORDENES_SERVICIO_INDEX.cs">
@@ -478,6 +548,9 @@
     <Compile Include="Models\REGISTRO_NOVEDADES.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\REGISTRO_NOVEDADES_FECHAS.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ReportsTable.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
@@ -494,6 +567,15 @@
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TAG_ORDEN.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TEST_VISTA_FLUJOS_CORREGIDOS.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TIPOS_ACUERDO.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TIPOS_GESTION.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TIPOS_NOVEDAD.cs">
@@ -520,16 +602,52 @@
     <Compile Include="Models\TIPO_CONTRATO.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TRUEFALSE.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_AGREGACION_ITEMS_DEPENDIENTES.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_CARTERA_INDEX.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_CARTERA_INDEX1.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\VISTA_CONTRATOS_ROL_DESCRIPCION.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VISTA_CONTRATO_PROYECTO_FACTURAS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\VISTA_CONTRATO_PROYECTO_FACTURAS1.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\VISTA_COSTOS_FLUJO_INGR.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\VISTA_DETALLE_ADJUNTOS_PERS.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_DETALLE_ADJUNTO_PERS_EXPORT.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_DETALLE_FACTURAS_REPORTE.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_DETDOCVTAENTRA.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_ENCDOCVTAENTRA.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_ESTADOS_FINANCIEROS_PRUEBA1.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\VISTA_FACTURAS_FECHA_PERIODO_FACTURACION.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_FINANCIERA.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VISTA_FLUJO_INGRESOS.cs">
@@ -538,10 +656,28 @@
     <Compile Include="Models\VISTA_FLUJO_INGRESOS_ITEMS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\VISTA_FLUJO_INGRESOS_ITEM_TEMP.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_FLUJO_INGRESOS_ROL_CORREGIDA_REALIDAD.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_GENERACION_DATOS_REGISTRO_NOVEDADES.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_GESTION_CARTERA.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_INGEELIMP.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\VISTA_ITEMS_CONTRATO.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VISTA_ITEMS_CONTRATO_DESCRIPCION.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_ITEMS_VARIABLES.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VISTA_ORDENES_CENTRO_COSTOS.cs">
@@ -556,6 +692,30 @@
     <Compile Include="Models\VISTA_PENDIENTES_RETIRO.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\VISTA_PRUEBA_DECIMALES.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_PRUEBA_PARA_R.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_REGISTRO_NOVEDADES.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_SALARIO_COMERCIAL_INCREMENTOS.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_SALARIO_INCREMENTOS_TEMP.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_TEMP.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VISTA_USUARIOS_AttendanceDB.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\xTEMPO.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="servicios\FlujoIngresosItems.svc.cs">
       <DependentUpon>FlujoIngresosItems.svc</DependentUpon>
     </Compile>
@@ -567,21 +727,6 @@
     </Compile>
     <Compile Include="servicios\IFlujoIngresosItems.cs" />
     <Compile Include="servicios\IFlujoIngresosRoles.cs" />
-    <Compile Include="Models\contabilidad.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>contabilidad.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\contabilidad.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\contabilidad.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>contabilidad.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\EditParams.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -592,6 +737,7 @@
       <DependentUpon>VistaCostosFlujoIngr.svc</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="Utilidades\Cartera.cs" />
     <Compile Include="Utilidades\Email.cs" />
     <Compile Include="Utilidades\ExecSQL.cs" />
     <Compile Include="Utilidades\ProbarExecSQL.aspx.cs">
@@ -607,6 +753,13 @@
     </Compile>
     <Compile Include="Utilidades\Probar_email.aspx.designer.cs">
       <DependentUpon>Probar_email.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Utilidades\Prueba.aspx.cs">
+      <DependentUpon>Prueba.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Utilidades\Prueba.aspx.designer.cs">
+      <DependentUpon>Prueba.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -1310,14 +1463,14 @@
     <Content Include="Content\main2.css" />
     <Content Include="Content\Site2.css" />
     <Content Include="favicon.ico" />
+    <Content Include="images\ajax-loader.gif" />
+    <Content Include="images\icons-menu.png" />
+    <Content Include="images\img-user.jpg" />
+    <Content Include="images\line-beigemulti.png" />
+    <Content Include="images\logopayc - fondo oscuro.png" />
     <Content Include="images\logopayc.png" />
     <Content Include="images\oops.jpg" />
-    <Content Include="Scripts\jsrender.min.js" />
-    <Content Include="servicios\FlujoIngresosItems.svc" />
-    <Content Include="servicios\FlujoIngresosRoles.svc" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="images\waitingpopup.gif" />
     <Content Include="Models\contabilidad.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>contabilidad.edmx</DependentUpon>
@@ -1328,6 +1481,14 @@
       <DependentUpon>contabilidad.edmx</DependentUpon>
       <LastGenOutput>contabilidad.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\ej\ej.webform.js" />
+    <Content Include="Scripts\jsrender.min.js" />
+    <Content Include="Scripts\webformsmin.js" />
+    <Content Include="servicios\FlujoIngresosItems.svc" />
+    <Content Include="servicios\FlujoIngresosRoles.svc" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="CodeTemplates\ApiControllerEmpty\Controller.cs.t4" />
@@ -1403,8 +1564,84 @@
     <Content Include="CodeTemplates\ODataControllerWithContext\Controller.cs.t4" />
     <Content Include="CodeTemplates\ODataControllerWithContext\Controller.vb.t4" />
     <Content Include="servicios\VistaCostosFlujoIngr.svc" />
+    <Content Include="Skype\CHANGELOG.TXT" />
+    <Content Include="Skype\content-template.html" />
+    <Content Include="Skype\images\ajax-loader.gif" />
+    <Content Include="Skype\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Skype\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Skype\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Skype\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Skype\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Skype\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Skype\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Skype\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Skype\Index.html" />
+    <Content Include="Skype\README.txt" />
+    <Content Include="Skype\samples\html\AnonMeeting.html" />
+    <Content Include="Skype\samples\html\Authentication.html" />
+    <Content Include="Skype\samples\html\AutoDiscovery.html" />
+    <Content Include="Skype\samples\html\Batch.html" />
+    <Content Include="Skype\samples\html\Cache.html" />
+    <Content Include="Skype\samples\html\CallViaWork.html" />
+    <Content Include="Skype\samples\html\Contacts.html" />
+    <Content Include="Skype\samples\html\ContactSearch.html" />
+    <Content Include="Skype\samples\html\Events.html" />
+    <Content Include="Skype\samples\html\IM.html" />
+    <Content Include="Skype\samples\html\MeDashboard.html" />
+    <Content Include="Skype\samples\html\Meeting.html" />
+    <Content Include="Skype\samples\html\Mime.html" />
+    <Content Include="Skype\samples\html\OperationResource.html" />
+    <Content Include="Skype\samples\html\PresenceSub.html" />
+    <Content Include="Skype\samples\html\Transport.html" />
+    <Content Include="Skype\samples\javascript\AdHocSubscription.js" />
+    <Content Include="Skype\samples\javascript\AnonMeeting.js" />
+    <Content Include="Skype\samples\javascript\AuthenticationAddUsage.js" />
+    <Content Include="Skype\samples\javascript\AuthenticationUsage.js" />
+    <Content Include="Skype\samples\javascript\AutoDiscoveryUsage.js" />
+    <Content Include="Skype\samples\javascript\BatchUsage.js" />
+    <Content Include="Skype\samples\javascript\CacheUsage.js" />
+    <Content Include="Skype\samples\javascript\CallViaWork.js" />
+    <Content Include="Skype\samples\javascript\ContactSearch.js" />
+    <Content Include="Skype\samples\javascript\DeleteAdHocSubscription.js" />
+    <Content Include="Skype\samples\javascript\DeleteGroupSubscription.js" />
+    <Content Include="Skype\samples\javascript\EventsUsage.js" />
+    <Content Include="Skype\samples\javascript\ExtendAdHocSubscription.js" />
+    <Content Include="Skype\samples\javascript\ExtendGroupSubscription.js" />
+    <Content Include="Skype\samples\javascript\GetContacts.js" />
+    <Content Include="Skype\samples\javascript\GetNote.js" />
+    <Content Include="Skype\samples\javascript\GetPhoto.js" />
+    <Content Include="Skype\samples\javascript\GetPresence.js" />
+    <Content Include="Skype\samples\javascript\GetSingleContact.js" />
+    <Content Include="Skype\samples\javascript\GroupSubscription.js" />
+    <Content Include="Skype\samples\javascript\IncomingConversation.js" />
+    <Content Include="Skype\samples\javascript\MimeUsage.js" />
+    <Content Include="Skype\samples\javascript\OperationResourceUsage.js" />
+    <Content Include="Skype\samples\javascript\OutgoingConversation.js" />
+    <Content Include="Skype\samples\javascript\ResetNote.js" />
+    <Content Include="Skype\samples\javascript\ResetPresence.js" />
+    <Content Include="Skype\samples\javascript\ScheduleMeeting.js" />
+    <Content Include="Skype\samples\javascript\SetNote.js" />
+    <Content Include="Skype\samples\javascript\SetPresence.js" />
+    <Content Include="Skype\samples\javascript\TransportAddUsage.js" />
+    <Content Include="Skype\samples\javascript\TransportUsage.js" />
+    <Content Include="Skype\scripts\Authentication.js" />
+    <Content Include="Skype\scripts\AutoDiscovery.js" />
+    <Content Include="Skype\scripts\Batch.js" />
+    <Content Include="Skype\scripts\Cache.js" />
+    <Content Include="Skype\scripts\Events.js" />
+    <Content Include="Skype\scripts\GeneralHelper.js" />
+    <Content Include="Skype\scripts\Index.js" />
+    <Content Include="Skype\scripts\LocalStorage.js" />
+    <Content Include="Skype\scripts\MemoryStorage.js" />
+    <Content Include="Skype\scripts\Mime.js" />
+    <Content Include="Skype\scripts\OperationResource.js" />
+    <Content Include="Skype\scripts\Site.js" />
+    <Content Include="Skype\scripts\Transport.js" />
+    <Content Include="Skype\scripts\UcwaMain.js" />
+    <Content Include="Skype\Styles.css" />
     <Content Include="Utilidades\ProbarExecSQL.aspx" />
     <Content Include="Utilidades\Probar_email.aspx" />
+    <Content Include="Utilidades\Prueba.aspx" />
     <Content Include="Views\CONTRATOS\Create.cshtml" />
     <Content Include="Views\CONTRATOS\Delete.cshtml" />
     <Content Include="Views\CONTRATOS\Details.cshtml" />
@@ -1541,6 +1778,51 @@
     <Content Include="Modelos_Matematicos\PRUEBAS.R" />
     <Content Include="Views\Home\Errores.cshtml" />
     <Content Include="Views\FlujoProyectos\Costos.cshtml" />
+    <EntityDeploy Include="Models\contabilidad.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>contabilidad.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\contabilidad.edmx.diagram">
+      <DependentUpon>contabilidad.edmx</DependentUpon>
+    </Content>
+    <Content Include="Views\ITEMS_CONTRATO\Create.cshtml" />
+    <Content Include="Views\ITEMS_CONTRATO\Delete.cshtml" />
+    <Content Include="Views\ITEMS_CONTRATO\Details.cshtml" />
+    <Content Include="Views\ITEMS_CONTRATO\Edit.cshtml" />
+    <Content Include="Views\ITEMS_CONTRATO\Index.cshtml" />
+    <Content Include="Views\ITEMS_ROLES\Create.cshtml" />
+    <Content Include="Views\ITEMS_ROLES\Delete.cshtml" />
+    <Content Include="Views\ITEMS_ROLES\Details.cshtml" />
+    <Content Include="Views\ITEMS_ROLES\Edit.cshtml" />
+    <Content Include="Views\ITEMS_ROLES\Index.cshtml" />
+    <Content Include="Views\VISTA_CARTERA_INDEX\Gestionar.cshtml" />
+    <Content Include="Views\VISTA_CARTERA_INDEX\Create.cshtml" />
+    <Content Include="Views\VISTA_CARTERA_INDEX\Delete.cshtml" />
+    <Content Include="Views\VISTA_CARTERA_INDEX\Details.cshtml" />
+    <Content Include="Views\VISTA_CARTERA_INDEX\Edit.cshtml" />
+    <Content Include="Views\VISTA_CARTERA_INDEX\Index.cshtml" />
+    <Content Include="Views\GESTION_CARTERA\Create.cshtml" />
+    <Content Include="Views\GESTION_CARTERA\Delete.cshtml" />
+    <Content Include="Views\GESTION_CARTERA\Details.cshtml" />
+    <Content Include="Views\GESTION_CARTERA\Edit.cshtml" />
+    <Content Include="Views\GESTION_CARTERA\Index.cshtml" />
+    <Content Include="Views\VISTA_GESTION_CARTERA\Create.cshtml" />
+    <Content Include="Views\VISTA_GESTION_CARTERA\Delete.cshtml" />
+    <Content Include="Views\VISTA_GESTION_CARTERA\Details.cshtml" />
+    <Content Include="Views\VISTA_GESTION_CARTERA\Edit.cshtml" />
+    <Content Include="Views\VISTA_GESTION_CARTERA\Index.cshtml" />
+    <Content Include="Views\ACUERDOS_PAGO_ENTREGAB\Create.cshtml" />
+    <Content Include="Views\ACUERDOS_PAGO_ENTREGAB\Delete.cshtml" />
+    <Content Include="Views\ACUERDOS_PAGO_ENTREGAB\Details.cshtml" />
+    <Content Include="Views\ACUERDOS_PAGO_ENTREGAB\Edit.cshtml" />
+    <Content Include="Views\ACUERDOS_PAGO_ENTREGAB\Index.cshtml" />
+    <Content Include="Skype\License Terms.rtf" />
+    <Content Include="Views\FACTURAS\Adjunto.cshtml" />
+    <Content Include="Views\VISTA_DETALLE_ADJUNTOS_PERS\Create.cshtml" />
+    <Content Include="Views\VISTA_DETALLE_ADJUNTOS_PERS\Delete.cshtml" />
+    <Content Include="Views\VISTA_DETALLE_ADJUNTOS_PERS\Details.cshtml" />
+    <Content Include="Views\VISTA_DETALLE_ADJUNTOS_PERS\Edit.cshtml" />
+    <Content Include="Views\VISTA_DETALLE_ADJUNTOS_PERS\Index.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -1557,13 +1839,6 @@
     <None Include="_bin_deployableAssemblies\amd64\sqlceca40.dll" />
     <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\README_ENU.txt" />
     <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\msvcr90.dll" />
-    <EntityDeploy Include="Models\contabilidad.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>contabilidad.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\contabilidad.edmx.diagram">
-      <DependentUpon>contabilidad.edmx</DependentUpon>
-    </Content>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\ej\bootstrap-theme\ej.theme.less" />
     <Content Include="Content\ej\common-images\ejicons.eot" />
@@ -2049,11 +2324,6 @@
     <Content Include="Views\CONTRATO_PROYECTO\Details.cshtml" />
     <Content Include="Views\CONTRATO_PROYECTO\Edit.cshtml" />
     <Content Include="Views\CONTRATO_PROYECTO\Index.cshtml" />
-    <Content Include="Views\ITEMS_CONTRATO\Create.cshtml" />
-    <Content Include="Views\ITEMS_CONTRATO\Delete.cshtml" />
-    <Content Include="Views\ITEMS_CONTRATO\Details.cshtml" />
-    <Content Include="Views\ITEMS_CONTRATO\Edit.cshtml" />
-    <Content Include="Views\ITEMS_CONTRATO\Index.cshtml" />
     <None Include="_bin_deployableAssemblies\amd64\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
     <None Include="_bin_deployableAssemblies\x86\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
   </ItemGroup>
@@ -2089,7 +2359,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52616</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/syncfusion_payc</IISUrl>
+          <IISUrl>http://localhost:52616/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

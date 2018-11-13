@@ -27,8 +27,8 @@ namespace syncfusion_payc.Controllers
         // GET: FACTURAS
         public ActionResult Index()
         {
-            var fACTURAS = db.FACTURAS.Include(f => f.CONTRATO_PROYECTO).Include(f => f.ESTADOS_FACTURAS).Include(f => f.FORMAS_PAGO_FECHAS);
-            return View(fACTURAS.ToList());
+            //var fACTURAS = db.FACTURAS.Include(f => f.CONTRATO_PROYECTO).Include(f => f.ESTADOS_FACTURAS).Include(f => f.FORMAS_PAGO_FECHAS);
+            return View();
         }
 
         // GET: FACTURAS/Details/5
@@ -188,7 +188,47 @@ namespace syncfusion_payc.Controllers
 
             return View();
         }
+#endregion
+        #region Adjuntar
+        public ActionResult Adjunto(long? id)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            DATOS_VERIFICAR_FACTURA DatVerificarFactu = db.DATOS_VERIFICAR_FACTURA.Find(id);
 
+            if (DatVerificarFactu == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.COD_FACTURA = DatVerificarFactu.COD_FACTURA;
+            ViewBag.COD_CONTRATO_PROYECTO = DatVerificarFactu.COD_CONTRATO_PROYECTO;
+            ViewBag.COD_FORMAS_PAGO_FECHAS = DatVerificarFactu.COD_FORMAS_PAGO_FECHAS;
+            ViewBag.COD_ESTADO_FACTURA = DatVerificarFactu.COD_ESTADO_FACTURA;
+            ViewBag.DESCRIPCION_PROYECTO = DatVerificarFactu.DESCRIPCION;
+            ViewBag.PERIODO_FACTURAR = DatVerificarFactu.PERIODO_FACTURAR;
+            ViewBag.ESTADO_FACTURA = DatVerificarFactu.COD_ESTADO_FACTURA;
+
+            //Consulta para traer total
+            ViewBag.TOTAL_FACTURA = "0";
+            string query = @"SELECT FORMAT([TOTAL_FACTURA],'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS] WHERE COD_FACTURA=" + id.ToString();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                connection.Open();
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    ViewBag.TOTAL_FACTURA = dr.GetValue(0).ToString();
+                }
+                connection.Close();
+            }
+
+            return View();
+        }
         #endregion
         #region grid index
         //Aca inicia syncfusion
@@ -273,7 +313,7 @@ namespace syncfusion_payc.Controllers
 
         public ActionResult GetOrderData_centros_factura(DataManager dm)
         {
-            IEnumerable DataSource = db.VISTA_CONTRATO_PROYECTO_FACTURAS.ToList();
+            IEnumerable DataSource = db.VISTA_CONTRATO_PROYECTO_FACTURAS1.ToList();
             DataOperations ds = new DataOperations();
             List<string> str = new List<string>();
             db.Configuration.ProxyCreationEnabled = false;
@@ -297,7 +337,7 @@ namespace syncfusion_payc.Controllers
 
             }
             IEnumerable aggregate = ds.PerformSelect(DataSource, str);
-            var count = DataSource.Cast<VISTA_CONTRATO_PROYECTO_FACTURAS>().Count();
+            var count = DataSource.Cast<VISTA_CONTRATO_PROYECTO_FACTURAS1>().Count();
             if (dm.Skip != 0)
             {
                 DataSource = ds.PerformSkip(DataSource, dm.Skip);
@@ -357,7 +397,19 @@ namespace syncfusion_payc.Controllers
         public ActionResult valor_facturar(EditParams_FACTURAS param)
         {
             //Cargar formas pago fechas
-            DateTime temp_fecha = new DateTime(param.value.FECHA_FACTURA.Value.Year, param.value.FECHA_FACTURA.Value.Month, 1);
+            
+            DateTime temp11 = param.value.FECHA_FACTURA.Value;
+            if (param.value.FECHA_EMISION.HasValue)
+            {
+                //temp11 = param.value.FECHA_EMISION.Value;
+                
+            }
+            else
+            {
+                param.value.FECHA_EMISION = param.value.FECHA_FACTURA;
+            }
+
+            DateTime temp_fecha = new DateTime(temp11.Year, temp11.Month, 1);
             FORMAS_PAGO_FECHAS table = db.FORMAS_PAGO_FECHAS.Single(o => o.FECHA_FORMA_PAGO == temp_fecha);
             param.value.COD_ESTADO_FACTURA = 1;
             param.value.COD_FORMAS_PAGO_FECHAS = table.COD_FORMAS_PAGO_FECHAS;
@@ -371,6 +423,7 @@ namespace syncfusion_payc.Controllers
             factura.VALOR_SIN_IMPUESTOS = param.value.VALOR_SIN_IMPUESTOS;
             factura.FECHA_FACTURA = param.value.FECHA_FACTURA;
             factura.COD_CONCEPTO_PSL= param.value.COD_CONCEPTO_PSL;
+            factura.FECHA_EMISION = param.value.FECHA_EMISION;
             db.FACTURAS.Add(factura);
             db.SaveChanges();
 
@@ -428,13 +481,13 @@ namespace syncfusion_payc.Controllers
 
                 if (result == "")
                 {
-                    success1 = true;
-                    result = "Existe algún problema con la asignación de profesionales, roles al proyecto o no existen flujos de ingresos" + "," + rCodeFilePath + "," + path;
+                    success1 = false;
+                    result = "Existe algún problema con la asignación de profesionales, roles al proyecto o no existen flujos de ingresos";
                 }
                 else
                 {
                     //ViewBag.Result = result + "," + rCodeFilePath;
-                    result = result + "," + rCodeFilePath + "," + path;
+                    result = result;
                 }
             }
             catch (Exception ex)
@@ -461,8 +514,9 @@ namespace syncfusion_payc.Controllers
                     connection.Close();
                 }
                 FACTURAS table1 = db.FACTURAS.Single(o => o.COD_FACTURA == COD_FACTURA);
-                table1.VALOR_SIN_IMPUESTOS = float.Parse(valor_factura);
+                table1.VALOR_SIN_IMPUESTOS = Decimal.Parse(valor_factura);
                 db.SaveChanges();
+                
             }
             catch (Exception ex)
             {
@@ -599,7 +653,7 @@ namespace syncfusion_payc.Controllers
                   ,[edvvaloneto]
                   ,[edvfechinteobra]
                   ,[edvformapago]
-                  ,[edvidentificador] FROM [104.196.158.138].[test_payc_contabilidad].[dbo].[VISTA_ENCDOCVTAENTRA] 
+                  ,[edvidentificador] FROM [104.196.158.138].[test_payc_contabilidad].[dbo].[VISTA_ENCDOCVTAENTRA_MULTIPLES_FACTURAS] 
                                       WHERE edvconseingre=" + COD_FACTURA.ToString() + @")";
 
                     //Consulta para importar detalle factura
@@ -637,7 +691,7 @@ namespace syncfusion_payc.Controllers
                   ,[ddvprectotabrut]
                   ,[ddvprectotaneto]
                   ,[ddvdivision]
-                  ,[ddvcentrorespo] FROM [104.196.158.138].[test_payc_contabilidad].[dbo].[VISTA_DETDOCVTAENTRA] 
+                  ,[ddvcentrorespo] FROM [104.196.158.138].[test_payc_contabilidad].[dbo].[VISTA_DETDOCVTAENTRA_MULTIPLES_FACTURAS] 
                                     WHERE ddvconseingre=" + COD_FACTURA.ToString() + @")";
                     //Insertar encabezado factura
                     using (SqlConnection connection = new SqlConnection(connectionString1))

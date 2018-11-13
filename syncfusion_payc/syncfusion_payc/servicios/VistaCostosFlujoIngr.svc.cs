@@ -17,6 +17,9 @@ using Syncfusion.PivotAnalysis.Base;
 using syncfusion_payc;
 using System.Globalization;
 using System.Threading;
+using System.IO;
+using System.Data.SqlClient;
+
 namespace syncfusion_payc.servicios
 {
     // NOTA: puede usar el comando "Rename" del menú "Refactorizar" para cambiar el nombre de clase "FlujoIngresosItems" en el código, en svc y en el archivo de configuración a la vez.
@@ -36,6 +39,7 @@ namespace syncfusion_payc.servicios
         public Dictionary<string, object> InitializeGrid(string action, object customObject)
         {
             dynamic customData = serializer.Deserialize<dynamic>(customObject.ToString());
+
             string customObject1 = customData["COD_CONTRATO_PROYECTO"].ToString();
             htmlHelper.PivotReport = BindDefaultData();
             if (customObject1.Contains("\""))
@@ -47,12 +51,61 @@ namespace syncfusion_payc.servicios
             long contrato = Convert.ToInt64(customObject1);
             var refresh = false;
             int reintentos = 1;
+            
+            
             while (!refresh && reintentos < 10)
             {
                 try
                 {
                     contrato = Convert.ToInt64(contrato);
                     var costos_flujo = db.VISTA_COSTOS_FLUJO_INGR.Where(c => c.COD_CONTRATO_PROYECTO == contrato).ToList();
+                    // ****************
+                    /*List<VISTA_COSTOS_FLUJO_INGR> vista_cos = new List<VISTA_COSTOS_FLUJO_INGR>();
+                    using (SqlConnection connection = new SqlConnection(connectionString) )
+                    {
+                        string comSql = "SELECT FILA,DESCRIPCION, " + //FILA, COD_CONTRATO_PROYECTO
+                          "FECHA, VALOR_TOTAL,CENTRO_COSTOS FROM VISTA_COSTOS_FLUJO_INGR WHERE " +
+                          "COD_CONTRATO_PROYECTO = " + contrato + ";";
+                        SqlCommand command = new SqlCommand(comSql, connection);
+                        connection.Open();
+                        SqlDataReader reader = command.ExecuteReader();
+                        //DateTime hora = DateTime.Now; int cod_ret = 0;
+                        //string cuantos = Utilidades.ExecSQL.ExecNoQuery("INSERT INTO xTEMPO (texto) VALUES ('" +
+                        //    hora.ToString()+";COMMAND: "+ comSql + "')", out cod_ret);
+                        // ??? vista_cos = vista_cos.ToList();
+                        if (reader.HasRows)
+                        {
+                            int x = -1;
+                            while (reader.Read())
+                            {
+                                x = x + 1;
+                                vista_cos.Add(new VISTA_COSTOS_FLUJO_INGR()
+                                {
+                                    FILA = (long)reader["FILA"],
+                                    //COD_CONTRATO_PROYECTO = (long)reader["COD_CONTRATO_PROYECTO"],
+                                    DESCRIPCION = (string)reader["DESCRIPCION"],
+                                    CENTRO_COSTOS = (string)reader["CENTRO_COSTOS"],
+                                    FECHA = (DateTime)reader["FECHA"],
+                                    VALOR_TOTAL = (float)reader["VALOR_TOTAL"]
+                                });
+                            }
+                        }
+                        reader.Close();
+                    }
+                    var costos_flujo = vista_cos;
+                    // ****************
+                     /* //------------ 
+                    string texto = ""; int cod_ret = 0, k = -1;
+                    foreach (var fila in costos_flujo)
+                    {
+                        k = k + 1;
+                        //texto = texto + "k:;"+k+"FILA ;" + costos_flujo[k].FILA.ToString()+";";
+                        texto = texto + "DESCRIPCION ;" + fila.DESCRIPCION.ToString() + ";";
+                        texto = texto + "FECHA ;" + fila.FECHA.ToString() + ";";
+                        texto = texto + "VALOR_TOTAL ;" + fila.VALOR_TOTAL.ToString() + ";" + "*&";
+                    };*/
+                    //string cuantos = Utilidades.ExecSQL.ExecNoQuery("INSERT INTO xTEMPO (texto) VALUES ('" + texto + "')", out cod_ret);
+                    //------------ 
                     dict = htmlHelper.GetJsonData(action, costos_flujo);
                     refresh = true;
                 }
@@ -234,12 +287,15 @@ namespace syncfusion_payc.servicios
         {
             PivotReport pivotSetting = new PivotReport();
             SortElement sortElement = new SortElement(AxisPosition.Slicer, Syncfusion.Olap.Reports.SortOrder.DESC, true);
-            pivotSetting.PivotRows.Add(new PivotItem { FieldMappingName = "DESCRIPCION", FieldHeader = "ITEMS", TotalHeader = "Total" });
+            pivotSetting.PivotRows.Add(new PivotItem { FieldMappingName = "DESCRIPCION", FieldHeader = "DESCRIPCION", TotalHeader = "Total" });
             //pivotSetting.PivotColumns.Add(new PivotItem { FieldMappingName = "ETAPA", FieldHeader = "DUMMY", TotalHeader = "Total", ShowSubTotal = false });
             //pivotSetting.PivotColumns.Add(new PivotItem { FieldMappingName = "ETAPA", FieldHeader = "DUMMY1", TotalHeader = "Total", ShowSubTotal = false });
-            pivotSetting.PivotColumns.Add(new PivotItem { FieldMappingName = "FECHA_FORMA_PAGO", FieldHeader = "FECHAS", TotalHeader = "Total", Format = "dd/MM/yyyy", Comparer = new DateComparer("dd/MM/yyyy") });
-            pivotSetting.PivotCalculations.Add(new PivotComputationInfo { CalculationName = "SUMA_TOTAL", Description = "VALOR_TOTAL", FieldName = "VALOR_TOTAL", Format = "c0", SummaryType = Syncfusion.PivotAnalysis.Base.SummaryType.DoubleTotalSum });
+            pivotSetting.PivotColumns.Add(new PivotItem { FieldMappingName = "FECHA", FieldHeader = "FECHA", TotalHeader = "Total", Format = "dd/MM/yyyy" });
+            //pivotSetting.PivotRows.Add(new PivotItem { FieldMappingName = "VALOR_TOTAL", FieldHeader = "VALOR TOTAL", TotalHeader = "Total"});
+            pivotSetting.PivotCalculations.Add(new PivotComputationInfo { CalculationName = "SUMA_TOTAL", Description = "VALOR_TOTAL", FieldName = "VALOR_TOTAL", Format = "c0", SummaryType = Syncfusion.PivotAnalysis.Base.SummaryType.DecimalTotalSum });
             return pivotSetting;
         }
+
     }
+
 }

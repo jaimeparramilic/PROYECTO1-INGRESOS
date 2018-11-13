@@ -1,0 +1,114 @@
+﻿@model syncfusion_payc.Models.VISTA_GESTION_CARTERA
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>VISTA_GESTION_CARTERA</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.COD_FACTURA)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.COD_FACTURA)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.ESTADO_CARTERA)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.ESTADO_CARTERA)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.UserName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.UserName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.COD_CONTRATO_PROYECTO)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.COD_CONTRATO_PROYECTO)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.COD_FORMAS_PAGO_FECHAS)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.COD_FORMAS_PAGO_FECHAS)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.NUMERO_FACTURA)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.NUMERO_FACTURA)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.FECHA_FACTURA)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.FECHA_FACTURA)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.COD_ESTADO_FACTURA)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.COD_ESTADO_FACTURA)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.VALOR_SIN_IMPUESTOS)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.VALOR_SIN_IMPUESTOS)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.RANKING)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.RANKING)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DIAS)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DIAS)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.COD_CARTERA }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

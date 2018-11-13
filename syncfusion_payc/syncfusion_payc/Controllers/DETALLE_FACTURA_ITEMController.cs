@@ -228,6 +228,7 @@ namespace syncfusion_payc.Controllers
                 table.USUARIO = usuario;
                 table.COD_ESTADO_DETALLE = 1;
                 table.COD_CONCEPTO_PSL = param.value.COD_CONCEPTO_PSL;
+                table.COD_GRUPO_FACTURA = param.value.COD_GRUPO_FACTURA;
             }
             db.SaveChanges();
             return RedirectToAction("GetOrderData");
@@ -254,6 +255,7 @@ namespace syncfusion_payc.Controllers
                 table.USUARIO = usuario;
                 table.COD_ESTADO_DETALLE = 1;
                 table.COD_CONCEPTO_PSL = param.value.COD_CONCEPTO_PSL;
+                table.COD_GRUPO_FACTURA = param.value.COD_GRUPO_FACTURA;
             }
             db.SaveChanges();
             try
@@ -272,7 +274,7 @@ namespace syncfusion_payc.Controllers
                     connection.Close();
                 }
                 FACTURAS table1 = db.FACTURAS.Single(o => o.COD_FACTURA == param.value.COD_FACTURA);
-                table1.VALOR_SIN_IMPUESTOS = float.Parse(valor_factura);
+                table1.VALOR_SIN_IMPUESTOS = Decimal.Parse(valor_factura);
                 db.SaveChanges();
             }
             catch (Exception ex)

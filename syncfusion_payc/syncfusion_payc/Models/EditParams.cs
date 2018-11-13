@@ -11,7 +11,25 @@ using System.Collections.Generic;
 
 namespace syncfusion_payc.Models
 {
+    public class ADICIONALES{
+        public string CORREO_RESPONSABLE { get; set; }
+        public string TELEFONO_RESPONSABLE { get; set; }
+    }
 
+    public class EditParams_VISTA_CARTERA_INDEX1
+    {
+        public int skip { get; set; }
+        public int take { get; set; }
+        public string action { get; set; }
+        public int key { get; set; }
+        public string keyColumn { get; set; }
+        public VISTA_CARTERA_INDEX1 value { get; set; }
+
+        //Batch Edit Params
+        public IEnumerable<VISTA_CARTERA_INDEX1> added { get; set; }
+        public IEnumerable<VISTA_CARTERA_INDEX1> changed { get; set; }
+        public IEnumerable<VISTA_CARTERA_INDEX1> deleted { get; set; }
+    }
     public class EditParams_ROLES
     {
         public int skip { get; set; }
@@ -25,6 +43,95 @@ namespace syncfusion_payc.Models
         public IEnumerable<ROLES> added { get; set; }
         public IEnumerable<ROLES> changed { get; set; }
         public IEnumerable<ROLES> deleted { get; set; }
+    }
+
+    public class EditParams_VISTA_DETALLE_ADJUNTOS_PERS
+    {
+        public int skip { get; set; }
+        public int take { get; set; }
+        public string action { get; set; }
+        public int key { get; set; }
+        public string keyColumn { get; set; }
+        public VISTA_DETALLE_ADJUNTOS_PERS value { get; set; }
+
+        //Batch Edit Params
+        public IEnumerable<VISTA_DETALLE_ADJUNTOS_PERS> added { get; set; }
+        public IEnumerable<VISTA_DETALLE_ADJUNTOS_PERS> changed { get; set; }
+        public IEnumerable<VISTA_DETALLE_ADJUNTOS_PERS> deleted { get; set; }
+    }
+    
+    public class EditParams_ASIGNACION_CARTERA
+    {
+        public int skip { get; set; }
+        public int take { get; set; }
+        public string action { get; set; }
+        public int key { get; set; }
+        public string keyColumn { get; set; }
+        public ASIGNACION_CARTERA value { get; set; }
+
+        //Batch Edit Params
+        public IEnumerable<ASIGNACION_CARTERA> added { get; set; }
+        public IEnumerable<ASIGNACION_CARTERA> changed { get; set; }
+        public IEnumerable<ASIGNACION_CARTERA> deleted { get; set; }
+    }
+
+  
+    public class EditParams_GESTION_CARTERA
+    {
+        public int skip { get; set; }
+        public int take { get; set; }
+        public string action { get; set; }
+        public int key { get; set; }
+        public string keyColumn { get; set; }
+        public GESTION_CARTERA value { get; set; }
+
+        //Batch Edit Params
+        public IEnumerable<GESTION_CARTERA> added { get; set; }
+        public IEnumerable<GESTION_CARTERA> changed { get; set; }
+        public IEnumerable<GESTION_CARTERA> deleted { get; set; }
+    }
+    public class EditParams_VISTA_GESTION_CARTERA
+    {
+        public int skip { get; set; }
+        public int take { get; set; }
+        public string action { get; set; }
+        public int key { get; set; }
+        public string keyColumn { get; set; }
+        public VISTA_GESTION_CARTERA value { get; set; }
+
+        //Batch Edit Params
+        public IEnumerable<VISTA_GESTION_CARTERA> added { get; set; }
+        public IEnumerable<VISTA_GESTION_CARTERA> changed { get; set; }
+        public IEnumerable<VISTA_GESTION_CARTERA> deleted { get; set; }
+    }
+
+    public class EditParams_VISTA_CARTERA_INDEX
+    {
+        public int skip { get; set; }
+        public int take { get; set; }
+        public string action { get; set; }
+        public int key { get; set; }
+        public string keyColumn { get; set; }
+        public VISTA_CARTERA_INDEX value { get; set; }
+
+        //Batch Edit Params
+        public IEnumerable<VISTA_CARTERA_INDEX> added { get; set; }
+        public IEnumerable<VISTA_CARTERA_INDEX> changed { get; set; }
+        public IEnumerable<VISTA_CARTERA_INDEX> deleted { get; set; }
+    }
+
+    public class EditParams_ITEMS_ROLES
+    {
+        public int skip { get; set; }
+        public int take { get; set; }
+        public string action { get; set; }
+        public int key { get; set; }
+        public string keyColumn { get; set; }
+        public ITEMS_ROLES value { get; set; }
+        //Batch Edit Params
+        public IEnumerable<ITEMS_ROLES> added { get; set; }
+        public IEnumerable<ITEMS_ROLES> changed { get; set; }
+        public IEnumerable<ITEMS_ROLES> deleted { get; set; }
     }
 
 
@@ -221,6 +328,21 @@ namespace syncfusion_payc.Models
         public IEnumerable<FLUJO_INGRESOS_ROL> added { get; set; }
         public IEnumerable<FLUJO_INGRESOS_ROL> changed { get; set; }
         public IEnumerable<FLUJO_INGRESOS_ROL> deleted { get; set; }
+    }
+
+    public class EditParams_ACUERDOS_PAGO_ENTREGAB
+    {
+        public int skip { get; set; }
+        public int take { get; set; }
+        public string action { get; set; }
+        public int key { get; set; }
+        public string keyColumn { get; set; }
+        public ACUERDOS_PAGO_ENTREGAB value { get; set; }
+
+        //Batch Edit Params
+        public IEnumerable<ACUERDOS_PAGO_ENTREGAB> added { get; set; }
+        public IEnumerable<ACUERDOS_PAGO_ENTREGAB> changed { get; set; }
+        public IEnumerable<ACUERDOS_PAGO_ENTREGAB> deleted { get; set; }
     }
 
     public class EditParams_PROYECTOS
