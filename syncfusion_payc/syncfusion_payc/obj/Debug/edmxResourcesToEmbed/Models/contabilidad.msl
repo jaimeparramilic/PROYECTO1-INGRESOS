@@ -1721,6 +1721,7 @@
     <EntitySetMapping Name="CONTRATO_PROYECTO">
       <EntityTypeMapping TypeName="test_payc_contabilidadModel.CONTRATO_PROYECTO">
         <MappingFragment StoreEntitySet="CONTRATO_PROYECTO">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
           <ScalarProperty Name="TELEFONO_RESPONSABLE" ColumnName="TELEFONO_RESPONSABLE" />
           <ScalarProperty Name="CORREO_RESPONSABLE" ColumnName="CORREO_RESPONSABLE" />
           <ScalarProperty Name="COD_ESTADO_ORDEN_SERVICIO" ColumnName="COD_ESTADO_ORDEN_SERVICIO" />
@@ -1969,16 +1970,6 @@
           <ScalarProperty Name="COD_CLIENTE" ColumnName="COD_CLIENTE" />
           <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
           <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="VISTA_COSTOS_FLUJO_INGR">
-      <EntityTypeMapping TypeName="test_payc_contabilidadModel.VISTA_COSTOS_FLUJO_INGR">
-        <MappingFragment StoreEntitySet="VISTA_COSTOS_FLUJO_INGR">
-          <ScalarProperty Name="VALOR_TOTAL" ColumnName="VALOR_TOTAL" />
-          <ScalarProperty Name="FECHA_FORMA_PAGO" ColumnName="FECHA_FORMA_PAGO" />
-          <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
-          <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

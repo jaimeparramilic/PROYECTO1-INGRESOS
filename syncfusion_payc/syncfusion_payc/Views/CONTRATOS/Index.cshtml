@@ -21,13 +21,15 @@
                                                .ToolbarSettings(toolbar =>
                                                {
                                                    toolbar.ShowToolbar().ToolbarItems(items =>
-                                               {
-                                                   items.AddTool(ToolBarItems.Add);
-                                                   items.AddTool(ToolBarItems.Edit);
-                                                   items.AddTool(ToolBarItems.Delete);
-                                                   items.AddTool(ToolBarItems.Update);
-                                                   items.AddTool(ToolBarItems.Cancel);
-                                               });
+                                                   {
+                                                       items.AddTool(ToolBarItems.Add);
+                                                       items.AddTool(ToolBarItems.Edit);
+                                                       items.AddTool(ToolBarItems.Delete);
+                                                       items.AddTool(ToolBarItems.Update);
+                                                       items.AddTool(ToolBarItems.Cancel);
+                                                       items.AddTool(ToolBarItems.Search);
+                                                   
+                                                   });
                                                }).Columns(col =>
                                                {
                                                    col.Field("CENTRO_COSTOS").HeaderText("CENTRO DE COSTOS").EditType(EditingType.DropdownEdit).Add();
@@ -35,46 +37,46 @@
                                                    col.Field("COD_CONTRATO_PROYECTO").HeaderText("CONTRATO_PROYECTO").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit);
                                                    col.Field("COD_CONTRATO").HeaderText("CONTRATO_PROYECTO").Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit);
                                                }).ChildGrid(child =>
-                                                    {
-                                                        child.Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
-                                                .AllowPaging()
-                                                .AllowFiltering()
-                                                .Locale("es-CO")
-                                                .QueryString("COD_CONTRATO_PROYECTO")
-                                                .ForeignKeyField("COD_CONTRATO_PROYECTO_1")
-                                                .AllowResizeToFit(true)
-                                                .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
-                                                .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
-                                                .ToolbarSettings(toolbar =>
-                                                {
-                                                    toolbar.ShowToolbar().CustomToolbarItems(new List<object>() {
+                                               {
+                                                   child.Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                                           .AllowPaging()
+                                           .AllowFiltering()
+                                           .Locale("es-CO")
+                                           .QueryString("COD_CONTRATO_PROYECTO")
+                                           .ForeignKeyField("COD_CONTRATO_PROYECTO_1")
+                                           .AllowResizeToFit(true)
+                                           .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                                           .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+                                           .ToolbarSettings(toolbar =>
+                                           {
+                                               toolbar.ShowToolbar().CustomToolbarItems(new List<object>() {
                                         new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Adjuntar",Tooltip="Adjuntar contratos" }
-                                                        }).ToolbarItems(items =>
-                                                       {
-                                                           items.AddTool(ToolBarItems.Add);
-                                                           items.AddTool(ToolBarItems.Edit);
-                                                           items.AddTool(ToolBarItems.Delete);
-                                                           items.AddTool(ToolBarItems.Update);
-                                                           items.AddTool(ToolBarItems.Cancel);
-                                                       });
-                                                }).ClientSideEvents(e => e.Create("create").RowSelected("rowSelected"))
-                                                .ClientSideEvents(eve => eve.ToolbarClick("clicked"))
-                                                .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
-                                                .Columns(col =>
-                                                {
-                                                    col.Field("COD_CLIENTE").ForeignKeyField("COD_CLIENTE").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CLIENTES.ToList()).ValidationRules(v => v.AddRule("required", true)).HeaderText("CLIENTE").EditType(EditingType.DropdownEdit).Add();
-                                                    col.Field("COD_CONTRATO").HeaderText("CONTRATO").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                                                    col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();
-                                                    col.Field("FECHA_FIRMA").HeaderText("FECHA FIRMA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
-                                                    col.Field("RUTA_DOCUMENTO").HeaderText("RUTA DOCUMENTO").AllowEditing(false).Template("<a class='contrato' title='Ver contrato' href='../FlujoProyectos/contratos/{{:RUTA_DOCUMENTO}}'>{{:RUTA_DOCUMENTO}}</a>").Add();
-                                                    col.HeaderText("RUTA ANEXOS").Template("<a class='contrato' title='Ver contrato' href='../FlujoProyectos/contratos/{{:RUTA_DOCUMENTO}}'>{{:RUTA_DOCUMENTO}}</a>").Add();
-                                                    col.Field("FECHA_INICIO_EJECUCION").HeaderText("FECHA INI EJECUCIÓN").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
-                                                    col.Field("FECHA_FIN_EJECUCION").HeaderText("FECHA FIN EJECUCIÓN").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
-                                                    col.Field("VALOR_CONTRATO").HeaderText("VALOR CONTRATO").Format("{0:c2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                                                    col.Field("COD_CONTRATO_PROYECTO_1").HeaderText("CONTRATO").Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                                                   }).ToolbarItems(items =>
+                                                   {
+                                                       items.AddTool(ToolBarItems.Add);
+                                                       items.AddTool(ToolBarItems.Edit);
+                                                       items.AddTool(ToolBarItems.Delete);
+                                                       items.AddTool(ToolBarItems.Update);
+                                                       items.AddTool(ToolBarItems.Cancel);
+                                                   });
+                                           }).ClientSideEvents(e => e.Create("create").RowSelected("rowSelected"))
+                                           .ClientSideEvents(eve => eve.ToolbarClick("clicked"))
+                                           .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
+                                           .Columns(col =>
+                                           {
+                                               col.Field("COD_CLIENTE").ForeignKeyField("COD_CLIENTE").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CLIENTES.ToList()).ValidationRules(v => v.AddRule("required", true)).HeaderText("CLIENTE").EditType(EditingType.DropdownEdit).Add();
+                                               col.Field("COD_CONTRATO").HeaderText("CONTRATO").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                                               col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();
+                                               col.Field("FECHA_FIRMA").HeaderText("FECHA FIRMA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                                               col.Field("RUTA_DOCUMENTO").HeaderText("RUTA DOCUMENTO").AllowEditing(false).Template("<a class='contrato' title='Ver contrato' href='../FlujoProyectos/contratos/{{:RUTA_DOCUMENTO}}'>{{:RUTA_DOCUMENTO}}</a>").Add();
+                                               col.HeaderText("RUTA ANEXOS").Template("<a class='contrato' title='Ver contrato' href='../FlujoProyectos/contratos/{{:RUTA_DOCUMENTO}}'>{{:RUTA_DOCUMENTO}}</a>").Add();
+                                               col.Field("FECHA_INICIO_EJECUCION").HeaderText("FECHA INI EJECUCIÓN").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                                               col.Field("FECHA_FIN_EJECUCION").HeaderText("FECHA FIN EJECUCIÓN").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                                               col.Field("VALOR_CONTRATO").HeaderText("VALOR CONTRATO").Format("{0:c2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                                               col.Field("COD_CONTRATO_PROYECTO_1").HeaderText("CONTRATO").Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
 
-                                                });
-                                                    })
+                                           });
+                                               })
         )
     }
 
