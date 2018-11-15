@@ -1,21 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="repositorio_noovaModelStoreContainer" CdmEntityContainer="repositorio_noovaEntities">
-    <EntitySetMapping Name="aceptacion_cliente">
-      <EntityTypeMapping TypeName="repositorio_noovaModel.aceptacion_cliente">
-        <MappingFragment StoreEntitySet="aceptacion_cliente">
-          <ScalarProperty Name="NVACE_FECH" ColumnName="NVACE_FECH" />
-          <ScalarProperty Name="NVENV_ESTN" ColumnName="NVENV_ESTN" />
-          <ScalarProperty Name="NVENV_FECH" ColumnName="NVENV_FECH" />
-          <ScalarProperty Name="NVING_FECH" ColumnName="NVING_FECH" />
-          <ScalarProperty Name="NVREC_CODI" ColumnName="NVREC_CODI" />
-          <ScalarProperty Name="NVREC_DESC" ColumnName="NVREC_DESC" />
-          <ScalarProperty Name="NVREC_FECH" ColumnName="NVREC_FECH" />
-          <ScalarProperty Name="NVREC_OBSE" ColumnName="NVREC_OBSE" />
-          <ScalarProperty Name="cod_aceptacion_cliente" ColumnName="cod_aceptacion_cliente" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="documentos_facturas">
       <EntityTypeMapping TypeName="repositorio_noovaModel.documentos_facturas">
         <MappingFragment StoreEntitySet="documentos_facturas">
@@ -43,19 +28,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="aceptacion_dian">
-      <EntityTypeMapping TypeName="repositorio_noovaModel.aceptacion_dian">
-        <MappingFragment StoreEntitySet="aceptacion_dian">
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="NVENV_FECH" ColumnName="NVENV_FECH" />
-          <ScalarProperty Name="NVENV_RESP" ColumnName="NVENV_RESP" />
-          <ScalarProperty Name="E" ColumnName="E" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="T" ColumnName="T" />
-          <ScalarProperty Name="cod_dian" ColumnName="cod_dian" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="pruebas">
       <EntityTypeMapping TypeName="repositorio_noovaModel.pruebas">
         <MappingFragment StoreEntitySet="pruebas">
@@ -75,6 +47,59 @@
           <ScalarProperty Name="periodicidad" ColumnName="periodicidad" />
           <ScalarProperty Name="usuario" ColumnName="usuario" />
           <ScalarProperty Name="asignacion" ColumnName="asignacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FALTANTES_CONFIRMACION">
+      <EntityTypeMapping TypeName="repositorio_noovaModel.FALTANTES_CONFIRMACION">
+        <MappingFragment StoreEntitySet="FALTANTES_CONFIRMACION">
+          <ScalarProperty Name="ID_DOCUMENTO" ColumnName="ID_DOCUMENTO" />
+          <ScalarProperty Name="ID_FACTURA" ColumnName="ID_FACTURA" />
+          <ScalarProperty Name="ID_MAESTRO" ColumnName="ID_MAESTRO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="aceptacion_cliente">
+      <EntityTypeMapping TypeName="repositorio_noovaModel.aceptacion_cliente">
+        <MappingFragment StoreEntitySet="aceptacion_cliente">
+          <ScalarProperty Name="ID_MAESTRO" ColumnName="ID_MAESTRO" />
+          <ScalarProperty Name="cod_aceptacion_cliente" ColumnName="cod_aceptacion_cliente" />
+          <ScalarProperty Name="NVREC_OBSE" ColumnName="NVREC_OBSE" />
+          <ScalarProperty Name="NVREC_FECH" ColumnName="NVREC_FECH" />
+          <ScalarProperty Name="NVREC_DESC" ColumnName="NVREC_DESC" />
+          <ScalarProperty Name="NVREC_CODI" ColumnName="NVREC_CODI" />
+          <ScalarProperty Name="NVING_FECH" ColumnName="NVING_FECH" />
+          <ScalarProperty Name="NVENV_FECH" ColumnName="NVENV_FECH" />
+          <ScalarProperty Name="NVENV_ESTN" ColumnName="NVENV_ESTN" />
+          <ScalarProperty Name="NVACE_FECH" ColumnName="NVACE_FECH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="aceptacion_dian">
+      <EntityTypeMapping TypeName="repositorio_noovaModel.aceptacion_dian">
+        <MappingFragment StoreEntitySet="aceptacion_dian">
+          <ScalarProperty Name="ID_MAESTRO" ColumnName="ID_MAESTRO" />
+          <ScalarProperty Name="NVENV_CFEC" ColumnName="NVENV_CFEC" />
+          <ScalarProperty Name="NVENV_ESTA" ColumnName="NVENV_ESTA" />
+          <ScalarProperty Name="cod_dian" ColumnName="cod_dian" />
+          <ScalarProperty Name="T" ColumnName="T" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="E" ColumnName="E" />
+          <ScalarProperty Name="NVENV_RESP" ColumnName="NVENV_RESP" />
+          <ScalarProperty Name="NVENV_FECH" ColumnName="NVENV_FECH" />
+          <ScalarProperty Name="description" ColumnName="description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="envios_noova">
+      <EntityTypeMapping TypeName="repositorio_noovaModel.envios_noova">
+        <MappingFragment StoreEntitySet="envios_noova">
+          <ScalarProperty Name="ESTADO_DIAN" ColumnName="ESTADO_DIAN" />
+          <ScalarProperty Name="ESTADO_CLIENTE" ColumnName="ESTADO_CLIENTE" />
+          <ScalarProperty Name="ID_DOCUMENTO" ColumnName="ID_DOCUMENTO" />
+          <ScalarProperty Name="ID_FACTURA" ColumnName="ID_FACTURA" />
+          <ScalarProperty Name="COD_REGISTRO_ENVIOS" ColumnName="COD_REGISTRO_ENVIOS" />
+          <ScalarProperty Name="ID_MAESTRO" ColumnName="ID_MAESTRO" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

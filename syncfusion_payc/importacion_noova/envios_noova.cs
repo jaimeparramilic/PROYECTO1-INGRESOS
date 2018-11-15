@@ -12,17 +12,13 @@ namespace importacion_noova
     using System;
     using System.Collections.Generic;
     
-    public partial class aceptacion_dian
+    public partial class envios_noova
     {
-        public string description { get; set; }
-        public Nullable<System.DateTime> NVENV_FECH { get; set; }
-        public string NVENV_RESP { get; set; }
-        public string E { get; set; }
-        public string ID { get; set; }
-        public string T { get; set; }
-        public long cod_dian { get; set; }
-        public string NVENV_ESTA { get; set; }
-        public Nullable<System.DateTime> NVENV_CFEC { get; set; }
         public Nullable<int> ID_MAESTRO { get; set; }
+        public int COD_REGISTRO_ENVIOS { get; set; }
+        public string ID_FACTURA { get; set; }
+        public string ID_DOCUMENTO { get; set; }
+        public string ESTADO_CLIENTE { get; set; }
+        public string ESTADO_DIAN { get; set; }
     }
 }
