@@ -629,7 +629,8 @@ namespace syncfusion_payc.Controllers
                   ,[edvvaloneto]
                   ,[edvfechinteobra]
                   ,[edvformapago]
-                  ,[edvidentificador])
+                  ,[edvidentificador]
+                    ,[edvcomentario])
 	              (SELECT 
 	              [edvconseingre]
                   ,[edvcontrol]
@@ -653,7 +654,7 @@ namespace syncfusion_payc.Controllers
                   ,[edvvaloneto]
                   ,[edvfechinteobra]
                   ,[edvformapago]
-                  ,[edvidentificador] FROM [104.196.158.138].[test_payc_contabilidad].[dbo].[VISTA_ENCDOCVTAENTRA_MULTIPLES_FACTURAS] 
+                  ,[edvidentificador],[edvcomentario] FROM [104.196.158.138].[test_payc_contabilidad].[dbo].[VISTA_ENCDOCVTAENTRA_MULTIPLES_FACTURAS_PRUEBAS] 
                                       WHERE edvconseingre=" + COD_FACTURA.ToString() + @")";
 
                     //Consulta para importar detalle factura
@@ -674,7 +675,8 @@ namespace syncfusion_payc.Controllers
                   ,[ddvprectotabrut]
                   ,[ddvprectotaneto]
                   ,[ddvdivision]
-                  ,[ddvcentrorespo])
+                  ,[ddvcentrorespo]
+                   ,[ddvcomentario])
                    (SELECT [ddvconseregis]
                   ,[ddvcontrol]
                   ,[ddvcompania]
@@ -691,7 +693,7 @@ namespace syncfusion_payc.Controllers
                   ,[ddvprectotabrut]
                   ,[ddvprectotaneto]
                   ,[ddvdivision]
-                  ,[ddvcentrorespo] FROM [104.196.158.138].[test_payc_contabilidad].[dbo].[VISTA_DETDOCVTAENTRA_MULTIPLES_FACTURAS] 
+                  ,[ddvcentrorespo],[ddvcomentario] FROM [104.196.158.138].[test_payc_contabilidad].[dbo].[VISTA_DETDOCVTAENTRA_MULTIPLES_FACTURAS_PRUEBAS] 
                                     WHERE ddvconseingre=" + COD_FACTURA.ToString() + @")";
                     //Insertar encabezado factura
                     using (SqlConnection connection = new SqlConnection(connectionString1))

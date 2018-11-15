@@ -11,14 +11,14 @@
 <div class="control-section">
 
 					@(Html.EJ().Grid<syncfusion_payc.Models.ROLES>("Grid")
-					.Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
-					.AllowPaging()
+                    .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                    .AllowPaging()
                     .AllowFiltering()
-					.Locale("es-CO")
-					.AllowResizeToFit(true)
-					.AllowMultiSorting()
-					.AllowSorting()
-					.FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                    .Locale("es-CO")
+                    .AllowResizeToFit(true)
+                    .AllowMultiSorting()
+                    .AllowSorting()
+                    .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
                     .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
                     .ToolbarSettings(toolbar =>
                     {
@@ -29,15 +29,16 @@
                             items.AddTool(ToolBarItems.Delete);
                             items.AddTool(ToolBarItems.Update);
                             items.AddTool(ToolBarItems.Cancel);
-                           
+                            items.AddTool(ToolBarItems.Search);
+
                         });
 
                     }).Columns(col =>
-            {
-col.Field("COD_ROL").HeaderText("ROL").IsPrimaryKey(true).Visible(false) .Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
-col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();    
- 
-}))
+                    {
+                        col.Field("COD_ROL").HeaderText("ROL").IsPrimaryKey(true).Visible(false) .Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                        col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();
+
+                    }))
 
 </div>
 

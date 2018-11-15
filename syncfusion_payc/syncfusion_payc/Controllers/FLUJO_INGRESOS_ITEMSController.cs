@@ -22,8 +22,8 @@ namespace syncfusion_payc.Controllers
         // GET: FLUJO_INGRESOS_ITEMS
         public ActionResult Index()
         {
-            var fLUJO_INGRESOS_ITEMS = db.FLUJO_INGRESOS_ITEMS;
-            return View();
+            var fLUJO_INGRESOS_ITEMS = db.FLUJO_INGRESOS_ITEMS.Include(f => f.CONTRATO_PROYECTO).Include(f => f.FORMAS_PAGO_FECHAS).Include(f => f.ITEMS_CONTRATO);
+            return View(fLUJO_INGRESOS_ITEMS.ToList());
         }
 
         // GET: FLUJO_INGRESOS_ITEMS/Details/5

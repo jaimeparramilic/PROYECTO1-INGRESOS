@@ -160,6 +160,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.COMBINACIONES_GAS
     <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="bigint" />
     <Property Name="CORREO_RESPONSABLE" Type="varchar" MaxLength="300" />
     <Property Name="TELEFONO_RESPONSABLE" Type="varchar" MaxLength="300" />
+    <Property Name="OBSERVACIONES" Type="varchar" MaxLength="300" />
   </EntityType>
   <EntityType Name="CONTRATO_ROL_CARGO">
     <Key>

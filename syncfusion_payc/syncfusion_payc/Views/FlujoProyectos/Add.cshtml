@@ -141,6 +141,7 @@
                                 .Render();
                         }
                     </div>
+                   
                 </div>
             </div>
 
@@ -243,6 +244,12 @@
                     <div class="form-group div_pisos">
                         <label>CANTIDAD DE PISOS</label>
                         @Html.EJ().NumericTextbox("PISOS").Locale("es-CO").ShowRoundedCorner(true).Value(0).IncrementStep(1)
+                    </div>
+                    @*OBSERVACIONES*@
+                    <div class="form-group">
+                        <label for="obser_proyecto">OBSERVACIONES DE PROYECTO</label>
+                        <textarea class="form-control" id="obser_proyecto" placeholder="OBSERVACIONES DEL PROYECTO" row="1"></textarea>
+                        <span class="error"></span>
                     </div>
 
                 </div>
@@ -1152,6 +1159,7 @@
             $(".div_valor_proyecto span.e-box").removeClass("error").removeClass("warning");
             $(".div_sotanos span.e-box").removeClass("error").removeClass("warning");
             $(".div_pisos span.e-box").removeClass("error").removeClass("warning");
+            $('#obser_proyecto').removeClass("error").removeClass("warning");
             $(".div_plazo_previa span.e-box").removeClass("error").removeClass("warning");
             $(".div_plazo_obra span.e-box").removeClass("error").removeClass("warning");
             $(".div_plazo_liquidacion span.e-box").removeClass("error").removeClass("warning");
@@ -1173,6 +1181,7 @@
             var valor_proyecto = $("#VALOR_PROYECTO").data("ejCurrencyTextbox").getValue() || "";
             var sotanos = $("#SOTANOS").data("ejNumericTextbox").getValue() || "";
             var pisos = $("#PISOS").data("ejNumericTextbox").getValue() || "";
+            var observaciones = $('#obser_proyecto').val() || "";
             var plazo_previa = $("#PLAZO_PREVIA").data("ejNumericTextbox").getValue() || "";
             var plazo_obra = $("#PLAZO_OBRA").data("ejNumericTextbox").getValue() || "";
             var plazo_liquidacion = $("#PLAZO_LIQUIDACION").data("ejNumericTextbox").getValue() || "";
@@ -1270,11 +1279,17 @@
                 completos_paso2 = completos_paso2 - 1;
                 warnings_paso2 = warnings_paso2 + 1;
             }
+            if (observaciones == "") {
+                $('#obser_proyecto').addClass("error");
+                completos_paso2 = completos_paso2 - 1;
+                errores_paso2 = errores_paso2 + 1;
+            }
             if (pisos == "") {
                 $(".div_pisos span.e-box").addClass("warning");
                 completos_paso2 = completos_paso2 - 1;
                 warnings_paso2 = warnings_paso2 + 1;
             }
+            
             if (area == "") {
                 $(".div_area span.e-box").addClass("warning");
                 completos_paso2 = completos_paso2 - 1;
@@ -1314,6 +1329,7 @@
                 VALOR_PROYECTO: valor_proyecto,
                 SOTANOS: sotanos,
                 PISOS: pisos,
+                OBSERVACIONES: observaciones,
                 PLAZO_PREVIA: plazo_previa,
                 PLAZO_OBRA: plazo_obra,
                 PLAZO_LIQUIDACION: plazo_liquidacion,
@@ -1338,7 +1354,7 @@
                 div_mensaje1 = "<div class='operando mensajes'><div class='loader_mensajes'><span class='e-image1'></span><div><span class='closebtn' onclick='$(this).parent().remove();'>&times;</span>"
                 div_mensaje1 = div_mensaje1 + mensaje1 + "</div >";
                 $(".contenedor_tablas").prepend(div_mensaje1);
-                var data = JSON.stringify({ PROYECTO: proyecto, COD_CONTRATO: id_contrato, TIPO_CONDICIONES: tipos_condiciones_contractuales, COD_FORMA_PAGO: cod_forma_pago, TAGS: tags, ADICIONAL: adicional  });
+                var data = JSON.stringify({ PROYECTO: proyecto, COD_CONTRATO: id_contrato, TIPO_CONDICIONES: tipos_condiciones_contractuales, COD_FORMA_PAGO: cod_forma_pago, TAGS: tags, ADICIONAL: adicional, OBSERVACIONES: observaciones  });
                 var url = "guardar_proyecto";
                 $.ajax({
                     type: "POST",
@@ -1384,7 +1400,7 @@
                 div_mensaje1 = div_mensaje1 + mensaje1 + "</div >";
                 $(".contenedor_tablas").prepend(div_mensaje1);
                 proyecto.COD_PROYECTO = id_proyecto;
-                var data = JSON.stringify({ PROYECTO: proyecto, COD_CONTRATO: id_contrato, TIPO_CONDICIONES: tipos_condiciones_contractuales, COD_FORMA_PAGO: cod_forma_pago, COD_CONTRATO_PROYECTO: contrato_proyecto, TAGS: tags, ADICIONAL: adicional  });
+                var data = JSON.stringify({ PROYECTO: proyecto, COD_CONTRATO: id_contrato, TIPO_CONDICIONES: tipos_condiciones_contractuales, COD_FORMA_PAGO: cod_forma_pago, COD_CONTRATO_PROYECTO: contrato_proyecto, TAGS: tags, ADICIONAL: adicional, OBSERVACIONES: observaciones  });
                 var url = "actualizar_proyecto";
                 $.ajax({
                     type: "POST",

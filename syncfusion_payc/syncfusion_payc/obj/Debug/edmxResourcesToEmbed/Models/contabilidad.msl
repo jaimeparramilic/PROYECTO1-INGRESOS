@@ -1721,6 +1721,7 @@
     <EntitySetMapping Name="CONTRATO_PROYECTO">
       <EntityTypeMapping TypeName="test_payc_contabilidadModel.CONTRATO_PROYECTO">
         <MappingFragment StoreEntitySet="CONTRATO_PROYECTO">
+          <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
           <ScalarProperty Name="TELEFONO_RESPONSABLE" ColumnName="TELEFONO_RESPONSABLE" />
           <ScalarProperty Name="CORREO_RESPONSABLE" ColumnName="CORREO_RESPONSABLE" />
           <ScalarProperty Name="COD_ESTADO_ORDEN_SERVICIO" ColumnName="COD_ESTADO_ORDEN_SERVICIO" />
