@@ -154,9 +154,9 @@ namespace syncfusion_payc.Models
         public virtual DbSet<VISTA_DETALLE_ADJUNTO_PERS_EXPORT> VISTA_DETALLE_ADJUNTO_PERS_EXPORT { get; set; }
         public virtual DbSet<VISTA_DETALLE_FACTURAS_REPORTE> VISTA_DETALLE_FACTURAS_REPORTE { get; set; }
         public virtual DbSet<REGISTRO_NOVEDADES> REGISTRO_NOVEDADES { get; set; }
-        public virtual DbSet<FACTURAS> FACTURAS { get; set; }
         public virtual DbSet<TRUEFALSE> TRUEFALSE { get; set; }
         public virtual DbSet<VISTA_CONTRATO_PROYECTO_FACTURAS1> VISTA_CONTRATO_PROYECTO_FACTURAS1 { get; set; }
         public virtual DbSet<VISTA_CARTERA_INDEX1> VISTA_CARTERA_INDEX1 { get; set; }
+        public virtual DbSet<FACTURAS> FACTURAS { get; set; }
     }
 }

@@ -34,6 +34,7 @@ namespace syncfusion_payc.Models
         public string RANKING { get; set; }
         public Nullable<long> COD_CONCEPTO_PSL { get; set; }
         public Nullable<System.DateTime> FECHA_EMISION { get; set; }
+        public string NUMERO_FACTURA_PRODUCTIVO { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
     	[System.Runtime.Serialization.IgnoreDataMember]
