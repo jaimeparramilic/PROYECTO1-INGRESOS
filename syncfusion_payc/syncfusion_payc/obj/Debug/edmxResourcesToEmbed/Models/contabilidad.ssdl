@@ -388,6 +388,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.COMBINACIONES_GAS
     <Property Name="RANKING" Type="varchar" MaxLength="50" />
     <Property Name="COD_CONCEPTO_PSL" Type="bigint" />
     <Property Name="FECHA_EMISION" Type="date" />
+    <Property Name="NUMERO_FACTURA_PRODUCTIVO" Type="varchar" MaxLength="10" />
   </EntityType>
   <EntityType Name="FLUJO_INGRESOS_ITEMS">
     <Key>

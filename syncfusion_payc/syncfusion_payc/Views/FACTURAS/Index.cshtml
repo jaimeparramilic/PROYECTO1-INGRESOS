@@ -31,12 +31,12 @@
                                 items.AddTool(ToolBarItems.Update);
                                 items.AddTool(ToolBarItems.Cancel);
                                 items.AddTool(ToolBarItems.Search);
-                                
+
                             });
                         }).Columns(col =>
                         {
                             col.Field("COD_CONTRATO_PROYECTO").HeaderText("ID").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-                            
+
                             col.Field("CENTRO_COSTOS").HeaderText("CENTRO COSTOS").Add();
                             col.Field("ID").IsPrimaryKey(true).HeaderText("RANK IMPORTANCIA").Add();
                             col.Field("DESCRIPCION").HeaderText("DESCRIPCIÓN").Add();
@@ -77,6 +77,7 @@
                                 .CustomToolbarItems(new List<object>() {
                 new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Verificar",Tooltip="Verificar factura" }
                 ,new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Facturar",Tooltip="Facturar y enviar factura a PSL" }
+                ,new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#FacturarP",Tooltip="Facturar y enviar factura a PSL PRODUCTIVO" }
 
                                                                 });
 
@@ -88,6 +89,7 @@
                                 col.Field("COD_CONCEPTO_PSL").Width(80).Type("string").ForeignKeyField("COD_CONCEPTO_PSL").ForeignKeyValue("CODIGO_EN_PSL").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONCEPTOS.ToList()).HeaderText("CONCEPTO").EditType(EditingType.DropdownEdit).Add();
                                 col.Field("COD_FACTURA").HeaderText("COD_FACTURA").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                                 col.Field("NUMERO_FACTURA").Width(80).AllowEditing(false).HeaderText("NÚMERO FACTURA").Add();
+                                col.Field("NUMERO_FACTURA_PRODUCTIVO").Width(80).AllowEditing(false).HeaderText("NÚMERO FACTURA_PRODUCTIVO").Add();
                                 col.Field("FECHA_FACTURA").Width(80).HeaderText("PERIODO FACTURA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
                                 col.Field("VALOR_SIN_IMPUESTOS").Width(120).AllowEditing(false).HeaderText("VALOR SIN IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                                 col.Field("VALOR_CON_IMPUESTOS").Visible(false).AllowEditing(false).HeaderText("VALOR CON IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
@@ -184,9 +186,10 @@
                 $('.e-addedrow tr:not(".e-hide"):nth-child(3)').hide();
 
                 $('.e-addedrow tr:not(".e-hide"):nth-child(6)').hide();
-                $('.e-addedrow tr:not(".e-hide"):nth-child(8)').hide();
+                $('.e-addedrow tr:not(".e-hide"):nth-child(7)').hide();
+                $('.e-addedrow tr:not(".e-hide"):nth-child(9)').hide();
             },50);
-
+            
         }
     }
 
@@ -205,6 +208,9 @@
             }
             else if ($target.hasClass("Facturar")) {
                 facturar(sender.gridModel.parentDetails.parentKeyFieldValue, sender)
+            }
+            else if ($target.hasClass("FacturarP")) {
+                facturarP(sender.gridModel.parentDetails.parentKeyFieldValue, sender)
             }
             if (sender.itemName == "Excel Export") {
                 var cod_contrato_proyecto = sender.gridModel.parentDetails.parentKeyFieldValue;
@@ -294,7 +300,7 @@
                         },
                         error: function (data) {
 
-                            alert("H aocurrido un error inesperado, por favor, vuelva a intentarlo. Si el problema persiste, contacte al administrador del sistema.");
+                            alert("Ha ocurrido un error inesperado, por favor, vuelva a intentarlo. Si el problema persiste, contacte al administrador del sistema.");
                         }
                     });
                 } else {
@@ -311,7 +317,53 @@
             alert("Por favor seleccione una factura para enviar");
         }
 
-    }
+        }
+        //Función que permite facturar las facturas (enviar a PSL Productivo)
+       function facturarP(indice, sender) {
+            try {
+                //Verificar estado factura
+                var estado_factura = sender.gridModel.selectedRecords[0].COD_ESTADO_FACTURA
+                if (estado_factura == "2" || estado_factura=="3") {
+                    //Validar que el estado sea correcto para enviar
+                    $('.contenedor_loader1').show();
+                    var cod_fact = sender.gridModel.selectedRecords[0].COD_FACTURA
+                    var data = JSON.stringify({ COD_FACTURA: parseInt(cod_fact) });
+                    var url = "facturarP";
+                    var r = confirm("¿Desea enviar la factura a PSL Productivo?");
+                    if (r == true) {
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: data,
+                            dataType: "json",
+                            contentType: "application/json; charset=utf-8",
+                            dataFilter: function (data) { return data; },
+                            success: function (data) {
+                                var gridObj = $("#Grid").ejGrid("instance");
+                                gridObj.refreshContent();
+                                $('.contenedor_loader1').hide();
+                                alert("Factura enviada con éxito");
+                            },
+                            error: function (data) {
+
+                                alert("Ha ocurrido un error inesperado, por favor, vuelva a intentarlo. Si el problema persiste, contacte al administrador del sistema.");
+                            }
+                        });
+                    } else {
+                        $('.contenedor_loader1').hide();
+                    }
+                }
+                else {
+                    $('.contenedor_loader1').hide();
+                    alert("La factura no se puede enviar debido a que no se encuentra pendiente de enviar");
+                }
+            }
+            catch{
+                $('.contenedor_loader1').hide();
+                alert("Por favor seleccione una factura para enviar");
+            }
+
+        }
 
     //Función que refresca la grid hijo de facturas después
     function finalizar_accion(args) {
@@ -353,6 +405,9 @@
     </script>
     <script type="text/x-jsrender" id="Facturar">
         <a class="e-tooltxt Facturar e-icon e-righttick"></a>
+    </script>
+    <script type="text/x-jsrender" id="FacturarP">
+        <a class="e-tooltxt FacturarP e-icon e-shoppingcart"></a>
     </script>
     <script type="text/x-jsrender" id="Verificar">
         <a class="e-tooltxt Verificar e-icon e-zoomin"></a>

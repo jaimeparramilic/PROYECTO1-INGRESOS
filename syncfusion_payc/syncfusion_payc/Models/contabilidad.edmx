@@ -393,6 +393,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.COMBINACIONES_GAS
           <Property Name="RANKING" Type="varchar" MaxLength="50" />
           <Property Name="COD_CONCEPTO_PSL" Type="bigint" />
           <Property Name="FECHA_EMISION" Type="date" />
+          <Property Name="NUMERO_FACTURA_PRODUCTIVO" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="FLUJO_INGRESOS_ITEMS">
           <Key>
@@ -5193,6 +5194,9 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
             <End Role="TIPOS_NOVEDAD" EntitySet="TIPOS_NOVEDAD" />
             <End Role="REGISTRO_NOVEDADES" EntitySet="REGISTRO_NOVEDADES" />
           </AssociationSet>
+          <EntitySet Name="TRUEFALSE" EntityType="test_payc_contabilidadModel.TRUEFALSE" />
+          <EntitySet Name="VISTA_CONTRATO_PROYECTO_FACTURAS1" EntityType="test_payc_contabilidadModel.VISTA_CONTRATO_PROYECTO_FACTURAS1" />
+          <EntitySet Name="VISTA_CARTERA_INDEX1" EntityType="test_payc_contabilidadModel.VISTA_CARTERA_INDEX1" />
           <EntitySet Name="FACTURAS" EntityType="test_payc_contabilidadModel.FACTURAS" />
           <AssociationSet Name="FK_CARTERA_FACTURAS" Association="test_payc_contabilidadModel.FK_CARTERA_FACTURAS">
             <End Role="FACTURAS" EntitySet="FACTURAS" />
@@ -5203,8 +5207,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
             <End Role="FACTURAS" EntitySet="FACTURAS" />
           </AssociationSet>
           <AssociationSet Name="FK_FACTURAS_CONTRATO_PROYECTO" Association="test_payc_contabilidadModel.FK_FACTURAS_CONTRATO_PROYECTO">
-            <End EntitySet="CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" />
-            <End EntitySet="FACTURAS" Role="FACTURAS" />
+            <End Role="CONTRATO_PROYECTO" EntitySet="CONTRATO_PROYECTO" />
+            <End Role="FACTURAS" EntitySet="FACTURAS" />
           </AssociationSet>
           <AssociationSet Name="FK_DETALLE_FACTURA_ADJUNTO_PERS_FACTURAS" Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_PERS_FACTURAS">
             <End Role="FACTURAS" EntitySet="FACTURAS" />
@@ -5226,9 +5230,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
             <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
             <End Role="FACTURAS" EntitySet="FACTURAS" />
           </AssociationSet>
-          <EntitySet Name="TRUEFALSE" EntityType="test_payc_contabilidadModel.TRUEFALSE" />
-          <EntitySet Name="VISTA_CONTRATO_PROYECTO_FACTURAS1" EntityType="test_payc_contabilidadModel.VISTA_CONTRATO_PROYECTO_FACTURAS1" />
-          <EntitySet Name="VISTA_CARTERA_INDEX1" EntityType="test_payc_contabilidadModel.VISTA_CARTERA_INDEX1" />
         </EntityContainer>
         <EntityType Name="ASIGNACION_CARTERA">
           <Key>
@@ -7706,8 +7707,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <NavigationProperty Name="GESTION_CARTERA" Relationship="test_payc_contabilidadModel.FK_GESTION_CARTERA_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="GESTION_CARTERA" />
           <NavigationProperty Name="DETALLE_FACTURA_ADJUNTO_PERS" Relationship="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_PERS_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="DETALLE_FACTURA_ADJUNTO_PERS" />
           <NavigationProperty Name="REGISTRO_NOVEDADES" Relationship="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="REGISTRO_NOVEDADES" />
-          <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_FACTURAS_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="FACTURAS" />
           <Property Name="OBSERVACIONES" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_FACTURAS_CONTRATO_PROYECTO" FromRole="CONTRATO_PROYECTO" ToRole="FACTURAS" />
         </EntityType>
         <Association Name="FK_CONTRATO_PROYECTO_CONTRATOS">
           <End Type="test_payc_contabilidadModel.CONTRATOS" Multiplicity="0..1" Role="CONTRATOS" />
@@ -8304,6 +8305,50 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TRUEFALSE">
+          <Key>
+            <PropertyRef Name="BIT" />
+          </Key>
+          <Property Name="BIT" Type="Boolean" Nullable="false" />
+          <Property Name="TEXTO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="VISTA_CONTRATO_PROYECTO_FACTURAS1">
+          <Key>
+            <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            <PropertyRef Name="FECHA_ULTIMA_FACTURA" />
+            <PropertyRef Name="FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO" />
+            <PropertyRef Name="ESTADO_ULTIMA_FACTURA" />
+          </Key>
+          <Property Name="ID" Type="Int64" />
+          <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="Int64" />
+          <Property Name="COMPLETA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" />
+          <Property Name="FECHA_ULTIMA_FACTURA" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DIAS_SIN_FACTURAR" Type="Int32" />
+          <Property Name="MESES_SIN_FACTURAR" Type="Int32" />
+          <Property Name="FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ESTADO_ULTIMA_FACTURA" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO_ORDEN" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="RANK1" Type="Decimal" Precision="38" Scale="6" />
+        </EntityType>
+        <EntityType Name="VISTA_CARTERA_INDEX1">
+          <Key>
+            <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+            <PropertyRef Name="GESTOR" />
+          </Key>
+          <Property Name="ID" Type="Int64" />
+          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" />
+          <Property Name="COD_CLIENTE" Type="Int64" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="GESTOR" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="SALDO" Type="Decimal" Precision="38" Scale="2" />
+          <Property Name="FECHA_FACTURA" Type="DateTime" Precision="0" />
+          <Property Name="RANKING" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="RANK1" Type="Decimal" Precision="38" Scale="6" />
+        </EntityType>
         <EntityType Name="FACTURAS">
           <Key>
             <PropertyRef Name="COD_FACTURA" />
@@ -8319,6 +8364,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <Property Name="RANKING" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="COD_CONCEPTO_PSL" Type="Int64" />
           <Property Name="FECHA_EMISION" Type="DateTime" Precision="0" />
+          <Property Name="NUMERO_FACTURA_PRODUCTIVO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CARTERA" Relationship="test_payc_contabilidadModel.FK_CARTERA_FACTURAS" FromRole="FACTURAS" ToRole="CARTERA" />
           <NavigationProperty Name="CONCEPTOS" Relationship="test_payc_contabilidadModel.FK_FACTURAS_CONCEPTOS" FromRole="FACTURAS" ToRole="CONCEPTOS" />
           <NavigationProperty Name="CONTRATO_PROYECTO" Relationship="test_payc_contabilidadModel.FK_FACTURAS_CONTRATO_PROYECTO" FromRole="FACTURAS" ToRole="CONTRATO_PROYECTO" />
@@ -8353,8 +8399,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_FACTURAS_CONTRATO_PROYECTO">
-          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Multiplicity="0..1" Role="CONTRATO_PROYECTO" />
-          <End Type="test_payc_contabilidadModel.FACTURAS" Multiplicity="*" Role="FACTURAS" />
+          <End Type="test_payc_contabilidadModel.CONTRATO_PROYECTO" Role="CONTRATO_PROYECTO" Multiplicity="0..1" />
+          <End Type="test_payc_contabilidadModel.FACTURAS" Role="FACTURAS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CONTRATO_PROYECTO">
               <PropertyRef Name="COD_CONTRATO_PROYECTO" />
@@ -8424,50 +8470,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="TRUEFALSE">
-          <Key>
-            <PropertyRef Name="BIT" />
-          </Key>
-          <Property Name="BIT" Type="Boolean" Nullable="false" />
-          <Property Name="TEXTO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="VISTA_CONTRATO_PROYECTO_FACTURAS1">
-          <Key>
-            <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            <PropertyRef Name="FECHA_ULTIMA_FACTURA" />
-            <PropertyRef Name="FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO" />
-            <PropertyRef Name="ESTADO_ULTIMA_FACTURA" />
-          </Key>
-          <Property Name="ID" Type="Int64" />
-          <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="COD_ESTADO_ORDEN_SERVICIO" Type="Int64" />
-          <Property Name="COMPLETA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" />
-          <Property Name="FECHA_ULTIMA_FACTURA" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="DIAS_SIN_FACTURAR" Type="Int32" />
-          <Property Name="MESES_SIN_FACTURAR" Type="Int32" />
-          <Property Name="FECHA_INICIO_EJECUCION_ULTIMO_CONTRATO" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ESTADO_ULTIMA_FACTURA" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="ESTADO_ORDEN" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="RANK1" Type="Decimal" Precision="38" Scale="6" />
-        </EntityType>
-        <EntityType Name="VISTA_CARTERA_INDEX1">
-          <Key>
-            <PropertyRef Name="COD_CONTRATO_PROYECTO" />
-            <PropertyRef Name="GESTOR" />
-          </Key>
-          <Property Name="ID" Type="Int64" />
-          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" />
-          <Property Name="COD_CLIENTE" Type="Int64" />
-          <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="GESTOR" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="SALDO" Type="Decimal" Precision="38" Scale="2" />
-          <Property Name="FECHA_FACTURA" Type="DateTime" Precision="0" />
-          <Property Name="RANKING" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="RANK1" Type="Decimal" Precision="38" Scale="6" />
-        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -10386,23 +10388,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="FACTURAS">
-            <EntityTypeMapping TypeName="test_payc_contabilidadModel.FACTURAS">
-              <MappingFragment StoreEntitySet="FACTURAS">
-                <ScalarProperty Name="FECHA_EMISION" ColumnName="FECHA_EMISION" />
-                <ScalarProperty Name="COD_CONCEPTO_PSL" ColumnName="COD_CONCEPTO_PSL" />
-                <ScalarProperty Name="RANKING" ColumnName="RANKING" />
-                <ScalarProperty Name="VALOR_CON_IMPUESTOS" ColumnName="VALOR_CON_IMPUESTOS" />
-                <ScalarProperty Name="VALOR_SIN_IMPUESTOS" ColumnName="VALOR_SIN_IMPUESTOS" />
-                <ScalarProperty Name="COD_ESTADO_FACTURA" ColumnName="COD_ESTADO_FACTURA" />
-                <ScalarProperty Name="FECHA_FACTURA" ColumnName="FECHA_FACTURA" />
-                <ScalarProperty Name="NUMERO_FACTURA" ColumnName="NUMERO_FACTURA" />
-                <ScalarProperty Name="COD_FORMAS_PAGO_FECHAS" ColumnName="COD_FORMAS_PAGO_FECHAS" />
-                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
-                <ScalarProperty Name="COD_FACTURA" ColumnName="COD_FACTURA" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TRUEFALSE">
             <EntityTypeMapping TypeName="test_payc_contabilidadModel.TRUEFALSE">
               <MappingFragment StoreEntitySet="TRUEFALSE">
@@ -10443,6 +10428,24 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
                 <ScalarProperty Name="COD_CLIENTE" ColumnName="COD_CLIENTE" />
                 <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FACTURAS">
+            <EntityTypeMapping TypeName="test_payc_contabilidadModel.FACTURAS">
+              <MappingFragment StoreEntitySet="FACTURAS">
+                <ScalarProperty Name="NUMERO_FACTURA_PRODUCTIVO" ColumnName="NUMERO_FACTURA_PRODUCTIVO" />
+                <ScalarProperty Name="FECHA_EMISION" ColumnName="FECHA_EMISION" />
+                <ScalarProperty Name="COD_CONCEPTO_PSL" ColumnName="COD_CONCEPTO_PSL" />
+                <ScalarProperty Name="RANKING" ColumnName="RANKING" />
+                <ScalarProperty Name="VALOR_CON_IMPUESTOS" ColumnName="VALOR_CON_IMPUESTOS" />
+                <ScalarProperty Name="VALOR_SIN_IMPUESTOS" ColumnName="VALOR_SIN_IMPUESTOS" />
+                <ScalarProperty Name="COD_ESTADO_FACTURA" ColumnName="COD_ESTADO_FACTURA" />
+                <ScalarProperty Name="FECHA_FACTURA" ColumnName="FECHA_FACTURA" />
+                <ScalarProperty Name="NUMERO_FACTURA" ColumnName="NUMERO_FACTURA" />
+                <ScalarProperty Name="COD_FORMAS_PAGO_FECHAS" ColumnName="COD_FORMAS_PAGO_FECHAS" />
+                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
+                <ScalarProperty Name="COD_FACTURA" ColumnName="COD_FACTURA" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
