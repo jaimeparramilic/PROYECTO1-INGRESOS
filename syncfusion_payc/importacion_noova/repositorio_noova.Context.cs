@@ -25,10 +25,12 @@ namespace importacion_noova
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<aceptacion_cliente> aceptacion_cliente { get; set; }
         public virtual DbSet<documentos_facturas> documentos_facturas { get; set; }
         public virtual DbSet<resoluciones_numeracion_facturas> resoluciones_numeracion_facturas { get; set; }
-        public virtual DbSet<aceptacion_dian> aceptacion_dian { get; set; }
         public virtual DbSet<pruebas> pruebas { get; set; }
+        public virtual DbSet<FALTANTES_CONFIRMACION> FALTANTES_CONFIRMACION { get; set; }
+        public virtual DbSet<aceptacion_cliente> aceptacion_cliente { get; set; }
+        public virtual DbSet<aceptacion_dian> aceptacion_dian { get; set; }
+        public virtual DbSet<envios_noova> envios_noova { get; set; }
     }
 }

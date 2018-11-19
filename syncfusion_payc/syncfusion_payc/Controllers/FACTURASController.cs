@@ -854,7 +854,7 @@ namespace syncfusion_payc.Controllers
                   ,[edvvaloneto]
                   ,[edvfechinteobra]
                   ,[edvformapago]
-                  ,[edvidentificador],[edvcomentario] FROM [104.196.158.138].[test_payc_contabilidad].[dbo].[VISTA_ENCDOCVTAENTRA_MULTIPLES_FACTURAS_PRODUCTIVA] 
+                  ,[edvidentificador],[edvcomentario] FROM [104.196.158.138].[test_payc_contabilidad].[dbo].[VISTA_ENCDOCVTAENTRA_MULTIPLES_FACTURAS_PRODUCTIVO] 
                                       WHERE edvconseingre=" + COD_FACTURA.ToString() + @")";
 
                     //Consulta para importar detalle factura
@@ -893,7 +893,7 @@ namespace syncfusion_payc.Controllers
                   ,[ddvprectotabrut]
                   ,[ddvprectotaneto]
                   ,[ddvdivision]
-                  ,[ddvcentrorespo],[ddvcomentario] FROM [104.196.158.138].[test_payc_contabilidad].[dbo].[VISTA_DETDOCVTAENTRA_MULTIPLES_FACTURAS_PRODUCTIVA] 
+                  ,[ddvcentrorespo],[ddvcomentario] FROM [104.196.158.138].[test_payc_contabilidad].[dbo].[VISTA_DETDOCVTAENTRA_MULTIPLES_FACTURAS_PRODUCTIVO] 
                                     WHERE ddvconseingre=" + COD_FACTURA.ToString() + @")";
                     //Insertar encabezado factura
                     using (SqlConnection connection = new SqlConnection(connectionString1))

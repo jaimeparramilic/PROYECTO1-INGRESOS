@@ -23,5 +23,6 @@ namespace importacion_noova
         public Nullable<System.DateTime> NVREC_FECH { get; set; }
         public string NVREC_OBSE { get; set; }
         public long cod_aceptacion_cliente { get; set; }
+        public Nullable<int> ID_MAESTRO { get; set; }
     }
 }

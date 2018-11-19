@@ -1,19 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="repositorio_noovaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityType Name="aceptacion_cliente">
-    <Key>
-      <PropertyRef Name="cod_aceptacion_cliente" />
-    </Key>
-    <Property Name="NVACE_FECH" Type="DateTime" Precision="3" />
-    <Property Name="NVENV_ESTN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="NVENV_FECH" Type="DateTime" Precision="3" />
-    <Property Name="NVING_FECH" Type="DateTime" Precision="3" />
-    <Property Name="NVREC_CODI" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="NVREC_DESC" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="NVREC_FECH" Type="DateTime" Precision="3" />
-    <Property Name="NVREC_OBSE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="cod_aceptacion_cliente" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-  </EntityType>
   <EntityType Name="documentos_facturas">
     <Key>
       <PropertyRef Name="cod_documento_factura" />
@@ -39,24 +25,14 @@
     <Property Name="FechaVigenciaHasta" Type="DateTime" Precision="3" />
     <Property Name="cod_resolucion_numeracion_facturas" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
   </EntityType>
-  <EntityType Name="aceptacion_dian">
-    <Key>
-      <PropertyRef Name="cod_dian" />
-    </Key>
-    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="NVENV_FECH" Type="DateTime" Precision="3" />
-    <Property Name="NVENV_RESP" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="E" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="T" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="cod_dian" Type="Int64" Nullable="false" />
-  </EntityType>
   <EntityContainer Name="repositorio_noovaEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="aceptacion_cliente" EntityType="Self.aceptacion_cliente" />
     <EntitySet Name="documentos_facturas" EntityType="Self.documentos_facturas" />
     <EntitySet Name="resoluciones_numeracion_facturas" EntityType="Self.resoluciones_numeracion_facturas" />
-    <EntitySet Name="aceptacion_dian" EntityType="Self.aceptacion_dian" />
     <EntitySet Name="pruebas" EntityType="repositorio_noovaModel.pruebas" />
+    <EntitySet Name="FALTANTES_CONFIRMACION" EntityType="repositorio_noovaModel.FALTANTES_CONFIRMACION" />
+    <EntitySet Name="aceptacion_cliente" EntityType="repositorio_noovaModel.aceptacion_cliente" />
+    <EntitySet Name="aceptacion_dian" EntityType="repositorio_noovaModel.aceptacion_dian" />
+    <EntitySet Name="envios_noova" EntityType="repositorio_noovaModel.envios_noova" />
   </EntityContainer>
   <EntityType Name="pruebas">
     <Key>
@@ -78,5 +54,55 @@
     <Property Name="color" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="nombre_usuario" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
     <Property Name="cod_prueba" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="FALTANTES_CONFIRMACION">
+    <Key>
+      <PropertyRef Name="ID_MAESTRO" />
+      <PropertyRef Name="ID_FACTURA" />
+    </Key>
+    <Property Name="ID_MAESTRO" Type="Int32" Nullable="false" />
+    <Property Name="ID_FACTURA" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="ID_DOCUMENTO" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="aceptacion_cliente">
+    <Key>
+      <PropertyRef Name="cod_aceptacion_cliente" />
+    </Key>
+    <Property Name="NVACE_FECH" Type="DateTime" Precision="7" />
+    <Property Name="NVENV_ESTN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="NVENV_FECH" Type="DateTime" Precision="7" />
+    <Property Name="NVING_FECH" Type="DateTime" Precision="7" />
+    <Property Name="NVREC_CODI" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NVREC_DESC" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="NVREC_FECH" Type="DateTime" Precision="7" />
+    <Property Name="NVREC_OBSE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="cod_aceptacion_cliente" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_MAESTRO" Type="Int32" />
+  </EntityType>
+  <EntityType Name="aceptacion_dian">
+    <Key>
+      <PropertyRef Name="cod_dian" />
+    </Key>
+    <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="NVENV_FECH" Type="DateTime" Precision="7" />
+    <Property Name="NVENV_RESP" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="E" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="T" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="cod_dian" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NVENV_ESTA" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="NVENV_CFEC" Type="DateTime" Precision="7" />
+    <Property Name="ID_MAESTRO" Type="Int32" />
+  </EntityType>
+  <EntityType Name="envios_noova">
+    <Key>
+      <PropertyRef Name="COD_REGISTRO_ENVIOS" />
+    </Key>
+    <Property Name="ID_MAESTRO" Type="Int32" />
+    <Property Name="COD_REGISTRO_ENVIOS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_FACTURA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ID_DOCUMENTO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ESTADO_CLIENTE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ESTADO_DIAN" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

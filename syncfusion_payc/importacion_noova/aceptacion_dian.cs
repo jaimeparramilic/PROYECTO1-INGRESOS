@@ -21,5 +21,8 @@ namespace importacion_noova
         public string ID { get; set; }
         public string T { get; set; }
         public long cod_dian { get; set; }
+        public string NVENV_ESTA { get; set; }
+        public Nullable<System.DateTime> NVENV_CFEC { get; set; }
+        public Nullable<int> ID_MAESTRO { get; set; }
     }
 }
