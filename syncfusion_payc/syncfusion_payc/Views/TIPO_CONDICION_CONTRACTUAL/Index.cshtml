@@ -5,45 +5,48 @@
     ViewBag.Title = "";
 
 
-    
-	}
-<h4>TIPOS CONDICIONES</h4>
-<div class="control-section">
 
-					@(Html.EJ().Grid<syncfusion_payc.Models.TIPO_CONDICION_CONTRACTUAL>("Grid")
-					.Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
-					.AllowPaging()
-                    .AllowFiltering()
-					.Locale("es-CO")
-					.AllowResizeToFit(true)
-					.AllowMultiSorting()
-					.AllowSorting()
-					.FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
-                    .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
-                    .ToolbarSettings(toolbar =>
+}
+@if (User.Identity.IsAuthenticated)
+{
+    <h4>TIPOS CONDICIONES</h4>
+    <div class="control-section">
+
+        @(Html.EJ().Grid<syncfusion_payc.Models.TIPO_CONDICION_CONTRACTUAL>("Grid")
+                .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                .AllowPaging()
+                .AllowFiltering()
+                .Locale("es-CO")
+                .AllowResizeToFit(true)
+                .AllowMultiSorting()
+                .AllowSorting()
+                .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+                .ToolbarSettings(toolbar =>
+                {
+                    toolbar.ShowToolbar().ToolbarItems(items =>
                     {
-                        toolbar.ShowToolbar().ToolbarItems(items =>
-                        {
-                            items.AddTool(ToolBarItems.Add);
-                            items.AddTool(ToolBarItems.Edit);
-                            items.AddTool(ToolBarItems.Delete);
-                            items.AddTool(ToolBarItems.Update);
-                            items.AddTool(ToolBarItems.Cancel);
-                           
-                        });
+                        items.AddTool(ToolBarItems.Add);
+                        items.AddTool(ToolBarItems.Edit);
+                        items.AddTool(ToolBarItems.Delete);
+                        items.AddTool(ToolBarItems.Update);
+                        items.AddTool(ToolBarItems.Cancel);
+                        items.AddTool(ToolBarItems.Search);
 
-                    }).Columns(col =>
-            {
-col.Field("COD_TIPO_CONDICION").HeaderText("TIPO_CONDICION").IsPrimaryKey(true).Visible(false) .Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
-col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();    
- 
-}))
+                    });
 
-</div>
+                }).Columns(col =>
+        {
+            col.Field("COD_TIPO_CONDICION").HeaderText("TIPO_CONDICION").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+            col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();
 
+        }))
 
-<script>
-    
+    </div>
+}
+
+    <script>
+
     $(document).ready(function () {
         ej.Grid.Locale["es-CO"] = {
             EmptyRecord: "No hay registros que mostrar",
@@ -56,8 +59,8 @@ col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();
             EditFormTitle: "Detalles de ",
             AddFormTitle: "Añadir nuevo registro",
             GroupCaptionFormat: "{{:headerText}}: {{:key}} - {{:count}} {{if count == 1 }} ítem {{else}} artículos {{/if}} ",
-            
-            
+
+
         };
         ej.Pager.Locale["es-CO"] = {
             pagerInfo: "{0} de {1} páginas ({2} artículos)",
@@ -114,4 +117,4 @@ col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();
             False: "falso"
         };
     });
-</script>
+    </script>

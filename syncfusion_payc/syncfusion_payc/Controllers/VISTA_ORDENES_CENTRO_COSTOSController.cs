@@ -137,7 +137,7 @@ namespace syncfusion_payc.Controllers
         {
            
             //Query para revisar que no exista el centor de costos
-            string query = @"SELECT  [igecodigo] FROM [ssf_pruebas].[dbo].[co_ingeeleimp] " +
+            string query = @"SELECT  [igecodigo] FROM [SSF_PAYC].[dbo].[co_ingeeleimp] " +
                 @"           WHERE igecompania='01' AND igedivision='01' AND igecodigo = '" +CENTRO_COSTOS.ToString()+ @"'";
 
             string existececo = "NO";
@@ -171,7 +171,7 @@ namespace syncfusion_payc.Controllers
                 //Query para insertar el centro de costos
 
                 
-                string query1 = @"INSERT INTO [ssf_pruebas].[dbo].[co_ingeeleimp] ([igecodigo]
+                string query1 = @"INSERT INTO [SSF_PAYC].[dbo].[co_ingeeleimp] ([igecodigo]
                                   ,[igeidentificador]
                                   ,[igecompania]
                                   ,[igedivision]
@@ -236,7 +236,7 @@ namespace syncfusion_payc.Controllers
                     command.ExecuteNonQuery();
                 }
 
-                string query1 = " UPDATE [ssf_pruebas].[dbo].[co_ingeeleimp] SET eobnombre='Activo', eobcodigo='AC' WHERE igecodigo='" + CENTRO_COSTOS + "'";
+                string query1 = " UPDATE [SSF_PAYC].[dbo].[co_ingeeleimp] SET eobnombre='Activo', eobcodigo='AC' WHERE igecodigo='" + CENTRO_COSTOS + "'";
 
                 using (SqlConnection connection = new SqlConnection(connectionString1))
                 {
@@ -271,7 +271,7 @@ namespace syncfusion_payc.Controllers
             //modificar centro de costos en PSL
             try
             {
-                string query1 = " UPDATE [ssf_pruebas].[dbo].[co_ingeeleimp] SET eobnombre='Suspendido', eobcodigo='SU' WHERE igecodigo='" + CENTRO_COSTOS + "'";
+                string query1 = " UPDATE [SSF_PAYC].[dbo].[co_ingeeleimp] SET eobnombre='Suspendido', eobcodigo='SU' WHERE igecodigo='" + CENTRO_COSTOS + "'";
 
                 using (SqlConnection connection = new SqlConnection(connectionString1))
                 {

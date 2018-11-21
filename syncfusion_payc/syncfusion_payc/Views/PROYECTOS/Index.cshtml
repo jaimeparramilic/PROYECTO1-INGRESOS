@@ -13,50 +13,53 @@
 
 <div class="control-section">
 
-					@(Html.EJ().Grid<syncfusion_payc.Models.PROYECTOS>("Grid")
-					.Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
-					.AllowPaging()
-                    .AllowFiltering()
-					.Locale("es-CO")
-					.AllowResizeToFit(true)
-					.AllowMultiSorting()
-					.AllowSorting()
-					.FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
-                    .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
-					.ClientSideEvents(e => e.ActionBegin("inicio_grid"))
-                    .ToolbarSettings(toolbar =>
-                    {
-                        toolbar.ShowToolbar().ToolbarItems(items =>
-                        {
-                            items.AddTool(ToolBarItems.Add);
-                            items.AddTool(ToolBarItems.Edit);
-                            items.AddTool(ToolBarItems.Delete);
-                            items.AddTool(ToolBarItems.Update);
-                            items.AddTool(ToolBarItems.Cancel);
-                        });
+					@(Html.EJ().Grid<syncfusion_payc.Models.PROYECTOS>
+    ("Grid")
+    .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+    .AllowPaging()
+    .AllowFiltering()
+    .Locale("es-CO")
+    .AllowResizeToFit(true)
+    .AllowMultiSorting()
+    .AllowSorting()
+    .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+    .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+    .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
+    .ToolbarSettings(toolbar =>
+    {
+    toolbar.ShowToolbar().ToolbarItems(items =>
+    {
+    items.AddTool(ToolBarItems.Add);
+    items.AddTool(ToolBarItems.Edit);
+    items.AddTool(ToolBarItems.Delete);
+    items.AddTool(ToolBarItems.Update);
+    items.AddTool(ToolBarItems.Cancel);
+    items.AddTool(ToolBarItems.Search);
 
-                    }).Columns(col =>
-            {
-col.Field("COD_PROYECTO").HeaderText("COD_PROYECTO").IsPrimaryKey(true).Visible(false) .Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
-col.Field("CENTRO_COSTOS").HeaderText("CENTRO_COSTOS").Add();    
-col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();    
-col.Field("AREA").HeaderText("AREA").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
-col.Field("PLAZO_PREVIA").HeaderText("PLAZO_PREVIA").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
-col.Field("FECHA_INI_PREVIA").HeaderText("FECHA_INI_PREVIA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();    
-col.Field("PLAZO_OBRA").HeaderText("PLAZO_OBRA").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
-col.Field("FECHA_INI_OBRA").HeaderText("FECHA_INI_OBRA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();    
-col.Field("PLAZO_LIQUIDACION").HeaderText("PLAZO_LIQUIDACION").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
-col.Field("FECHA_INI_LIQUIDACION").HeaderText("FECHA_INI_LIQUIDACION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();    
-col.Field("ESTRUCTURA").HeaderText("ESTRUCTURA").Add();    
-col.Field("CIMENTACION").HeaderText("CIMENTACION").Add();    
-col.Field("SOTANOS").HeaderText("SOTANOS").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
-col.Field("PISOS").HeaderText("PISOS").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
-col.Field("VALOR_PROYECTO").HeaderText("VALOR_PROYECTO").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
-col.Field("TIPO_OBRA").HeaderText("TIPO_OBRA").Add();    
-col.Field("DIRECCION").HeaderText("DIRECCION").Add();    
-col.Field("TIPO_SERVICIO").HeaderText("TIPO_SERVICIO").Add();    
- 
-}))
+    });
+
+    }).Columns(col =>
+    {
+    col.Field("COD_PROYECTO").HeaderText("COD_PROYECTO").IsPrimaryKey(true).Visible(false) .Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+    col.Field("CENTRO_COSTOS").HeaderText("CENTRO_COSTOS").Add();
+    col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();
+    col.Field("AREA").HeaderText("AREA").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+    col.Field("PLAZO_PREVIA").HeaderText("PLAZO_PREVIA").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+    col.Field("FECHA_INI_PREVIA").HeaderText("FECHA_INI_PREVIA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+    col.Field("PLAZO_OBRA").HeaderText("PLAZO_OBRA").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+    col.Field("FECHA_INI_OBRA").HeaderText("FECHA_INI_OBRA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+    col.Field("PLAZO_LIQUIDACION").HeaderText("PLAZO_LIQUIDACION").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+    col.Field("FECHA_INI_LIQUIDACION").HeaderText("FECHA_INI_LIQUIDACION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+    col.Field("ESTRUCTURA").HeaderText("ESTRUCTURA").Add();
+    col.Field("CIMENTACION").HeaderText("CIMENTACION").Add();
+    col.Field("SOTANOS").HeaderText("SOTANOS").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+    col.Field("PISOS").HeaderText("PISOS").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+    col.Field("VALOR_PROYECTO").HeaderText("VALOR_PROYECTO").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+    col.Field("TIPO_OBRA").HeaderText("TIPO_OBRA").Add();
+    col.Field("DIRECCION").HeaderText("DIRECCION").Add();
+    col.Field("TIPO_SERVICIO").HeaderText("TIPO_SERVICIO").Add();
+
+    }))
 </div>
 <script>  
     $(document).ready(function () {

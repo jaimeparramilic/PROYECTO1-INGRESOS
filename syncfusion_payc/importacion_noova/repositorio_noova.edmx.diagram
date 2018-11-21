@@ -5,11 +5,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="aa5ef36ba49444d2b2f45d7a9092a131" Name="Diagram1">
-        <EntityTypeShape EntityType="repositorio_noovaModel.aceptacion_cliente" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="repositorio_noovaModel.documentos_facturas" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="repositorio_noovaModel.resoluciones_numeracion_facturas" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="repositorio_noovaModel.aceptacion_dian" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="repositorio_noovaModel.pruebas" Width="1.5" PointX="3.375" PointY="4.75" />
+        <EntityTypeShape EntityType="repositorio_noovaModel.FALTANTES_CONFIRMACION" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="repositorio_noovaModel.aceptacion_cliente" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="repositorio_noovaModel.aceptacion_dian" Width="1.5" PointX="7.75" PointY="3.75" />
+        <EntityTypeShape EntityType="repositorio_noovaModel.envios_noova" Width="1.5" PointX="5.375" PointY="7.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

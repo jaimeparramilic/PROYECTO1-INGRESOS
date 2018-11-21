@@ -171,7 +171,7 @@ namespace syncfusion_payc.Controllers
 
 		public ActionResult GetOrderData(DataManager dm)
         {
-            IEnumerable DataSource = db.VISTA_CARTERA_INDEX.ToList();
+            IEnumerable DataSource = db.VISTA_CARTERA_INDEX1.ToList();
             DataOperations ds = new DataOperations();
             List<string> str = new List<string>();
             db.Configuration.ProxyCreationEnabled = false;
@@ -195,7 +195,7 @@ namespace syncfusion_payc.Controllers
                
             }
             IEnumerable aggregate = ds.PerformSelect(DataSource, str);
-            var count = DataSource.Cast<VISTA_CARTERA_INDEX>().Count();
+            var count = DataSource.Cast<VISTA_CARTERA_INDEX1>().Count();
             if (dm.Skip != 0)
             {
                 DataSource = ds.PerformSkip(DataSource, dm.Skip);
@@ -208,11 +208,11 @@ namespace syncfusion_payc.Controllers
         }
 
         //Perform file insertion 
-        public ActionResult PerformInsert(EditParams_VISTA_CARTERA_INDEX param)
+        public ActionResult PerformInsert(EditParams_VISTA_CARTERA_INDEX1 param)
         {
-            db.VISTA_CARTERA_INDEX.Add(param.value);
+            db.VISTA_CARTERA_INDEX1.Add(param.value);
             db.SaveChanges();
-			var data = db.VISTA_CARTERA_INDEX.ToList();
+			var data = db.VISTA_CARTERA_INDEX1.ToList();
 			var value = data.Last();
             return Json(value, JsonRequestBehavior.AllowGet);
         }
@@ -237,7 +237,7 @@ namespace syncfusion_payc.Controllers
         //Borrar grid
         public ActionResult PerformDelete(int key, string keyColumn)
         {
-            db.VISTA_CARTERA_INDEX.Remove(db.VISTA_CARTERA_INDEX.Single(o => o.COD_CLIENTE== key));
+            db.VISTA_CARTERA_INDEX1.Remove(db.VISTA_CARTERA_INDEX1.Single(o => o.COD_CLIENTE== key));
             db.SaveChanges();
             return RedirectToAction("GetOrderData");
             

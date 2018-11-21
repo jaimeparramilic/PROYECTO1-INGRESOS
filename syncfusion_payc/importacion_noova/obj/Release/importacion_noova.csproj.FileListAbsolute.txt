@@ -11,3 +11,4 @@ E:\REPO_TEMP\syncfusion_payc\importacion_noova\bin\Release\EntityFramework.dll
 E:\REPO_TEMP\syncfusion_payc\importacion_noova\bin\Release\EntityFramework.SqlServer.dll
 E:\REPO_TEMP\syncfusion_payc\importacion_noova\bin\Release\EntityFramework.xml
 E:\REPO_TEMP\syncfusion_payc\importacion_noova\bin\Release\EntityFramework.SqlServer.xml
+E:\REPO_TEMP\syncfusion_payc\importacion_noova\obj\Release\importacion_noova.csprojAssemblyReference.cache

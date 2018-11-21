@@ -3,36 +3,39 @@
 
 @{
     ViewBag.Title = "";
-	}
-<h4>CLIENTES</h4>
-<div class="control-section">
+}
+@if (User.Identity.IsAuthenticated)
+{
+    <h4>CLIENTES</h4>
+    <div class="control-section">
 
-					@(Html.EJ().Grid<syncfusion_payc.Models.CLIENTES>
-    ("Grid")
-    .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
-    .AllowPaging()
-    .AllowFiltering()
-    .Locale("es-CO")
-    .AllowResizeToFit(true)
-    .AllowMultiSorting()
-    .AllowSorting()
-    .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
-    .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
-    .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
-    .ToolbarSettings(toolbar =>
-    {
+        @(Html.EJ().Grid<syncfusion_payc.Models.CLIENTES>
+("Grid")
+.Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+.AllowPaging()
+.AllowFiltering()
+.Locale("es-CO")
+.AllowResizeToFit(true)
+.AllowMultiSorting()
+.AllowSorting()
+.FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+.EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+.ClientSideEvents(e => e.ActionBegin("inicio_grid"))
+.ToolbarSettings(toolbar =>
+{
     toolbar.ShowToolbar().ToolbarItems(items =>
     {
-    items.AddTool(ToolBarItems.Add);
-    items.AddTool(ToolBarItems.Edit);
-    items.AddTool(ToolBarItems.Delete);
-    items.AddTool(ToolBarItems.Update);
-    items.AddTool(ToolBarItems.Cancel);
+        items.AddTool(ToolBarItems.Add);
+        items.AddTool(ToolBarItems.Edit);
+        items.AddTool(ToolBarItems.Delete);
+        items.AddTool(ToolBarItems.Update);
+        items.AddTool(ToolBarItems.Cancel);
+        items.AddTool(ToolBarItems.Search);
     });
 
-    }).Columns(col =>
-    {
-    col.Field("COD_CLIENTE").HeaderText("COD_CLIENTE").IsPrimaryKey(true).Visible(false) .Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+}).Columns(col =>
+{
+    col.Field("COD_CLIENTE").HeaderText("COD_CLIENTE").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
     col.Field("DESCRIPCION").HeaderText("DESCRIPCION").ValidationRules(v => v.AddRule("required", true)).Add();
     col.Field("NIT").HeaderText("NIT").ValidationRules(v => v.AddRule("required", true)).Add();
     col.Field("DIRECCION_CLIENTE").HeaderText("DIRECCIÓN CLIENTE").Add();
@@ -44,9 +47,11 @@
     col.Field("CORREO_CLIENTE").ValidationRules(v => v.AddRule("validacion_email", true)).HeaderText("CORREO CLIENTE").Add();
     col.Field("CORREO_FACTURACION").ValidationRules(v => v.AddRule("required", true).AddRule("validacion_email", true)).HeaderText("CORREO FACTURACIÓN").Add();
 
-    }))
-</div>
-<script>  
+}))
+    </div>
+}
+    <script>
+
 
     $(document).ready(function () {
         ej.Grid.Locale["es-CO"] = {
@@ -60,8 +65,8 @@
             EditFormTitle: "Detalles de ",
             AddFormTitle: "Añadir nuevo registro",
             GroupCaptionFormat: "{{:headerText}}: {{:key}} - {{:count}} {{if count == 1 }} ítem {{else}} artículos {{/if}} ",
-            
-            
+
+
         };
         ej.Pager.Locale["es-CO"] = {
             pagerInfo: "{0} de {1} páginas ({2} artículos)",
@@ -123,8 +128,8 @@
         if (args.requestType == "beginedit" || args.requestType == "add") {
             if (args.model.dataSource.dataSource.url == "GetOrderData") {
                 setTimeout(function () {
-                          
-                }, 50); 
+
+                }, 50);
             }
         }
     }
@@ -164,7 +169,7 @@
 
         //Adicionar a jquery validate la revisión de las fechas contra la firma del contrato
         $.validator.addMethod("validacion_email", function (value, element, params) {
-            
+
             return validar_email(element.value);
         }, "El correo electrónico no es un correo valido");
 
@@ -173,7 +178,7 @@
             return validar_telefono(element.value);
         }, "El teléfono no es un teléfono valido (10 digitos para celular y 7 para locales)");
 
-        
+
     });
 
     //Funcion para validar teléfonos de 10 digitos (celulares)
@@ -188,4 +193,4 @@
         }
         return false;
     }
-</script>
+    </script>

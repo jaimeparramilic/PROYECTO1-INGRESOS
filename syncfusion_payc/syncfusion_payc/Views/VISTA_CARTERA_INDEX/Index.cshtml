@@ -4,55 +4,58 @@
 @{
     ViewBag.Title = "";
 }
+@if (User.Identity.IsAuthenticated)
+{
+    <h4>CARTERA</h4>
 
-<h4>CARTERA</h4>
+    <div class="control-section">
 
-<div class="control-section">
+        @(Html.EJ().Grid<syncfusion_payc.Models.VISTA_CARTERA_INDEX1>
+                ("Grid")
+                .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                .AllowPaging()
+                .AllowFiltering()
+                .Locale("es-CO")
+                .AllowResizeToFit(true)
+                .AllowMultiSorting()
+                .AllowSorting()
+                .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                .EditSettings(edit => { edit.AllowEditing().EditMode(EditMode.Dialog); })
+                .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
+                .ClientSideEvents(eve => eve.ToolbarClick("clicked"))
+                .ToolbarSettings(toolbar =>
+                {
+                    toolbar.ShowToolbar().CustomToolbarItems(new List<object>
+                        () {
+    new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Gestionar",Tooltip="Gestionar Cartera" }
+                     }).ToolbarItems(items =>
+                     {
+                         items.AddTool(ToolBarItems.Add);
+                         items.AddTool(ToolBarItems.Edit);
+                         items.AddTool(ToolBarItems.Delete);
+                         items.AddTool(ToolBarItems.Update);
+                         items.AddTool(ToolBarItems.Cancel);
+                     });
 
-    @(Html.EJ().Grid<syncfusion_payc.Models.VISTA_CARTERA_INDEX>
-    ("Grid")
-    .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
-    .AllowPaging()
-    .AllowFiltering()
-    .Locale("es-CO")
-    .AllowResizeToFit(true)
-    .AllowMultiSorting()
-    .AllowSorting()
-    .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
-    .EditSettings(edit => { edit.AllowEditing().EditMode(EditMode.Dialog); })
-    .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
-    .ClientSideEvents(eve => eve.ToolbarClick("clicked"))
-    .ToolbarSettings(toolbar =>
-    {
-        toolbar.ShowToolbar().CustomToolbarItems(new List<object>
-            () {
-        new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Gestionar",Tooltip="Gestionar Cartera" }
-         }).ToolbarItems(items =>
-         {
-             items.AddTool(ToolBarItems.Add);
-             items.AddTool(ToolBarItems.Edit);
-             items.AddTool(ToolBarItems.Delete);
-             items.AddTool(ToolBarItems.Update);
-             items.AddTool(ToolBarItems.Cancel);
-         });
+                }).Columns(col =>
+                {
 
-    }).Columns(col =>
-    {
-        
-        col.Field("DESCRIPCION").AllowEditing(false).HeaderText("CLIENTE").Add();
-        col.Field("GESTOR").ForeignKeyField("UserName").ForeignKeyValue("UserName").DataSource((IEnumerable<object>
-            )new syncfusion_payc.Models.test_payc_contabilidadEntities().VISTA_USUARIOS_AttendanceDB.ToList()).Type("string").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).HeaderText("GESTOR").Add();
-        col.Field("CENTRO_COSTOS").AllowEditing(false).HeaderText("CENTRO COSTOS").Add();
-        col.Field("SALDO").AllowEditing(false).HeaderText("VALOR SIN IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
-        
-        col.Field("FECHA_FACTURA").AllowEditing(false).HeaderText("FECHA ÚLTIMA FACTURA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
-        
-        col.Field("RANKING").AllowEditing(false).HeaderText("RANKING").Add();
-        col.Field("COD_CONTRATO_PROYECTO").IsPrimaryKey(true).Visible(false).AllowEditing(false).HeaderText("COD_CONTRATO_PROYECTO").Add();
+                    col.Field("DESCRIPCION").AllowEditing(false).HeaderText("CLIENTE").Add();
+                    col.Field("GESTOR").ForeignKeyField("UserName").ForeignKeyValue("UserName").DataSource((IEnumerable<object>
+                        )new syncfusion_payc.Models.test_payc_contabilidadEntities().VISTA_USUARIOS_AttendanceDB.ToList()).Type("string").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).HeaderText("GESTOR").Add();
+                    col.Field("CENTRO_COSTOS").AllowEditing(false).HeaderText("CENTRO COSTOS").Add();
 
-    }))
-</div>
-<script>
+                    col.Field("SALDO").AllowEditing(false).HeaderText("VALOR SIN IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+
+                    col.Field("FECHA_FACTURA").AllowEditing(false).HeaderText("FECHA ÚLTIMA FACTURA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+
+                    col.Field("ID").AllowEditing(false).HeaderText("RANKING").Add();
+                    col.Field("COD_CONTRATO_PROYECTO").IsPrimaryKey(true).Visible(false).AllowEditing(false).HeaderText("COD_CONTRATO_PROYECTO").Add();
+
+                }))
+    </div>
+}
+    <script>
 
     $(document).ready(function () {
         ej.Grid.Locale["es-CO"] = {
@@ -155,8 +158,8 @@
         window.location = "Gestionar/" + indice;
     }
 
-</script>
-<!--Modelos o templates para botones-->
-<script type="text/x-jsrender" id="Gestionar">
-    <a class="e-tooltxt Gestionar e-icon e-zoomin"></a>
-</script>
+    </script>
+    <!--Modelos o templates para botones-->
+    <script type="text/x-jsrender" id="Gestionar">
+        <a class="e-tooltxt Gestionar e-icon e-zoomin"></a>
+    </script>
