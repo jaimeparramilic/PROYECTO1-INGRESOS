@@ -1375,19 +1375,16 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_COSTOS_FLUJ
           <Property Name="VALOR_TOTAL" Type="numeric" Precision="30" Scale="20" />
         </EntityType>
         <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_DETALLE_ADJUNTO_PERS_EXPORT' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_DETALLE_ADJUNTO_PERS_EXPORT' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
         <EntityType Name="VISTA_DETALLE_ADJUNTO_PERS_EXPORT">
-          <Key>
-            <PropertyRef Name="NOVEDADES" />
-          </Key>
           <Property Name="CENTRO_COSTOS" Type="varchar" MaxLength="300" />
           <Property Name="ID" Type="bigint" />
           <Property Name="COD_FACTURA" Type="bigint" />
           <Property Name="NOMBRE_PROYECTO" Type="varchar" MaxLength="300" />
           <Property Name="NOMBRE_ROL" Type="varchar" MaxLength="300" />
           <Property Name="NOMBRE_PERSONA" Type="varchar" MaxLength="601" />
-          <Property Name="FECHA_INGRESO" Type="date" />
-          <Property Name="FECHA_RETIRO_EN_CONTRATO" Type="date" />
+          <Property Name="FECHA_INGRESO" Type="varchar(max)" />
+          <Property Name="FECHA_RETIRO_EN_CONTRATO" Type="varchar(max)" />
           <Property Name="VALOR_SIN_IMPUESTOS" Type="numeric" Precision="30" Scale="20" />
           <Property Name="VALOR_DIAS_LAB" Type="numeric" Precision="30" Scale="20" />
           <Property Name="ADICIONES" Type="numeric" Precision="30" Scale="20" />
@@ -1399,15 +1396,16 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_DETALLE_ADJ
           <Property Name="HORAS_AUSENCIA" Type="numeric" Precision="30" Scale="20" />
           <Property Name="FECHA_PERIODO" Type="date" />
           <Property Name="COD_ROL" Type="bigint" />
-          <Property Name="NOVEDADES" Type="varchar(max)" Nullable="false" />
-        </EntityType>
+          <Property Name="NOVEDADES" Type="varchar(max)" />
+        </EntityType>-->
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_DETALLE_ADJUNTOS_PERS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="VISTA_DETALLE_ADJUNTOS_PERS">
           <Key>
-            <PropertyRef Name="COD_DETALLE_FACTURA_ADJUNTO_PERS" />
+            
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="bigint" />
+          <Property Name="ID" Type="bigint" Nullable="false" />
           <Property Name="COD_DETALLE_FACTURA_ADJUNTO_PERS" Type="bigint" Nullable="false" />
           <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
           <Property Name="COD_ROL" Type="bigint" />
@@ -1449,16 +1447,15 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_DETALLE_FAC
         <EntityType Name="VISTA_DETALLE_FACTURAS_REPORTE">
           <Key>
             
-            
-            
+            <PropertyRef Name="TIPO_ELEMENTO" />
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="bigint" Nullable="false" />
           <Property Name="NOMBRE_PROYECTO" Type="varchar" MaxLength="300" />
           <Property Name="NOMBRE_ROL" Type="varchar" MaxLength="300" />
           <Property Name="NOMBRE_PERSONA" Type="varchar" MaxLength="601" />
-          <Property Name="FECHA_INGRESO" Type="date" />
-          <Property Name="FECHA_RETIRO_EN_CONTRATO" Type="date" />
+          <Property Name="FECHA_INGRESO" Type="varchar(max)" />
+          <Property Name="FECHA_RETIRO_EN_CONTRATO" Type="varchar(max)" />
           <Property Name="VALOR_SIN_IMPUESTOS" Type="numeric" Precision="30" Scale="20" />
           <Property Name="VALOR_DIAS_LAB" Type="numeric" Precision="30" Scale="20" />
           <Property Name="ADICIONES" Type="numeric" Precision="30" Scale="20" />
@@ -1468,14 +1465,16 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_DETALLE_FAC
           <Property Name="HORAS_FD" Type="numeric" Precision="30" Scale="20" />
           <Property Name="HORAS_FN" Type="numeric" Precision="30" Scale="20" />
           <Property Name="HORAS_AUSENCIA" Type="numeric" Precision="30" Scale="20" />
-          <Property Name="NOVEDADES" Type="varchar(max)" Nullable="false" />
+          <Property Name="NOVEDADES" Type="varchar(max)" />
           <Property Name="CENTRO_COSTOS" Type="varchar" MaxLength="300" />
           <Property Name="NUMERO_FACTURA" Type="varchar" MaxLength="10" />
+          <Property Name="NUMERO_FACTURA_PRODUCTIVO" Type="varchar" MaxLength="10" />
           <Property Name="PERIODO_FACTURACION" Type="date" />
           <Property Name="COD_ROL" Type="bigint" />
           <Property Name="SALARIO_COMERCIAL_SIN_PRESTACIONES_CON_INCREMENTOS" Type="numeric" Precision="38" Scale="8" />
           <Property Name="PRESTACIONES" Type="numeric" Precision="30" Scale="20" />
           <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" Nullable="false" />
+          <Property Name="DEDICACION" Type="varchar(max)" />
           <Property Name="TIPO_ELEMENTO" Type="varchar" MaxLength="8" Nullable="false" />
           <Property Name="HORAS_EXTRA" Type="numeric" Precision="33" Scale="20" />
           <Property Name="DIAS_AUSENCIA" Type="numeric" Precision="32" Scale="22" />
@@ -3781,30 +3780,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
     [VISTA_COSTOS_FLUJO_INGR].[VALOR_TOTAL] AS [VALOR_TOTAL]
     FROM [dbo].[VISTA_COSTOS_FLUJO_INGR] AS [VISTA_COSTOS_FLUJO_INGR]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="VISTA_DETALLE_ADJUNTO_PERS_EXPORT" EntityType="Self.VISTA_DETALLE_ADJUNTO_PERS_EXPORT" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[CENTRO_COSTOS] AS [CENTRO_COSTOS], 
-    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[ID] AS [ID], 
-    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[COD_FACTURA] AS [COD_FACTURA], 
-    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[NOMBRE_PROYECTO] AS [NOMBRE_PROYECTO], 
-    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[NOMBRE_ROL] AS [NOMBRE_ROL], 
-    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[NOMBRE_PERSONA] AS [NOMBRE_PERSONA], 
-    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[FECHA_INGRESO] AS [FECHA_INGRESO], 
-    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[FECHA_RETIRO_EN_CONTRATO] AS [FECHA_RETIRO_EN_CONTRATO], 
-    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[VALOR_SIN_IMPUESTOS] AS [VALOR_SIN_IMPUESTOS], 
-    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[VALOR_DIAS_LAB] AS [VALOR_DIAS_LAB], 
-    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[ADICIONES] AS [ADICIONES], 
-    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[DESCUENTO_AUSENCIA] AS [DESCUENTO_AUSENCIA], 
-    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[HORAS_ED] AS [HORAS_ED], 
-    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[HORAS_EN] AS [HORAS_EN], 
-    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[HORAS_FD] AS [HORAS_FD], 
-    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[HORAS_FN] AS [HORAS_FN], 
-    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[HORAS_AUSENCIA] AS [HORAS_AUSENCIA], 
-    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[FECHA_PERIODO] AS [FECHA_PERIODO], 
-    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[COD_ROL] AS [COD_ROL], 
-    [VISTA_DETALLE_ADJUNTO_PERS_EXPORT].[NOVEDADES] AS [NOVEDADES]
-    FROM [dbo].[VISTA_DETALLE_ADJUNTO_PERS_EXPORT] AS [VISTA_DETALLE_ADJUNTO_PERS_EXPORT]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="VISTA_DETALLE_ADJUNTOS_PERS" EntityType="Self.VISTA_DETALLE_ADJUNTOS_PERS" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [VISTA_DETALLE_ADJUNTOS_PERS].[ID] AS [ID], 
@@ -3865,11 +3840,13 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
     [VISTA_DETALLE_FACTURAS_REPORTE].[NOVEDADES] AS [NOVEDADES], 
     [VISTA_DETALLE_FACTURAS_REPORTE].[CENTRO_COSTOS] AS [CENTRO_COSTOS], 
     [VISTA_DETALLE_FACTURAS_REPORTE].[NUMERO_FACTURA] AS [NUMERO_FACTURA], 
+    [VISTA_DETALLE_FACTURAS_REPORTE].[NUMERO_FACTURA_PRODUCTIVO] AS [NUMERO_FACTURA_PRODUCTIVO], 
     [VISTA_DETALLE_FACTURAS_REPORTE].[PERIODO_FACTURACION] AS [PERIODO_FACTURACION], 
     [VISTA_DETALLE_FACTURAS_REPORTE].[COD_ROL] AS [COD_ROL], 
     [VISTA_DETALLE_FACTURAS_REPORTE].[SALARIO_COMERCIAL_SIN_PRESTACIONES_CON_INCREMENTOS] AS [SALARIO_COMERCIAL_SIN_PRESTACIONES_CON_INCREMENTOS], 
     [VISTA_DETALLE_FACTURAS_REPORTE].[PRESTACIONES] AS [PRESTACIONES], 
     [VISTA_DETALLE_FACTURAS_REPORTE].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
+    [VISTA_DETALLE_FACTURAS_REPORTE].[DEDICACION] AS [DEDICACION], 
     [VISTA_DETALLE_FACTURAS_REPORTE].[TIPO_ELEMENTO] AS [TIPO_ELEMENTO], 
     [VISTA_DETALLE_FACTURAS_REPORTE].[HORAS_EXTRA] AS [HORAS_EXTRA], 
     [VISTA_DETALLE_FACTURAS_REPORTE].[DIAS_AUSENCIA] AS [DIAS_AUSENCIA]
@@ -5174,9 +5151,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
             <End Role="ROLES" EntitySet="ROLES" />
             <End Role="DETALLE_FACTURA_ADJUNTO_PERS" EntitySet="DETALLE_FACTURA_ADJUNTO_PERS" />
           </AssociationSet>
-          <EntitySet Name="VISTA_DETALLE_ADJUNTOS_PERS" EntityType="test_payc_contabilidadModel.VISTA_DETALLE_ADJUNTOS_PERS" />
-          <EntitySet Name="VISTA_DETALLE_ADJUNTO_PERS_EXPORT" EntityType="test_payc_contabilidadModel.VISTA_DETALLE_ADJUNTO_PERS_EXPORT" />
-          <EntitySet Name="VISTA_DETALLE_FACTURAS_REPORTE" EntityType="test_payc_contabilidadModel.VISTA_DETALLE_FACTURAS_REPORTE" />
           <EntitySet Name="REGISTRO_NOVEDADES" EntityType="test_payc_contabilidadModel.REGISTRO_NOVEDADES" />
           <AssociationSet Name="FK_REGISTRO_NOVEDADES_COLABORADOR" Association="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_COLABORADOR">
             <End Role="COLABORADORES" EntitySet="COLABORADORES" />
@@ -5230,6 +5204,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
             <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
             <End Role="FACTURAS" EntitySet="FACTURAS" />
           </AssociationSet>
+          <EntitySet Name="VISTA_DETALLE_FACTURAS_REPORTE" EntityType="test_payc_contabilidadModel.VISTA_DETALLE_FACTURAS_REPORTE" />
+          <EntitySet Name="VISTA_DETALLE_ADJUNTOS_PERS" EntityType="test_payc_contabilidadModel.VISTA_DETALLE_ADJUNTOS_PERS" />
         </EntityContainer>
         <EntityType Name="ASIGNACION_CARTERA">
           <Key>
@@ -8143,103 +8119,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="VISTA_DETALLE_ADJUNTOS_PERS">
-          <Key>
-            <PropertyRef Name="COD_DETALLE_FACTURA_ADJUNTO_PERS" />
-          </Key>
-          <Property Name="ID" Type="Int64" />
-          <Property Name="COD_DETALLE_FACTURA_ADJUNTO_PERS" Type="Int64" Nullable="false" />
-          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
-          <Property Name="COD_ROL" Type="Int64" />
-          <Property Name="COD_COLABORADOR" Type="Int64" />
-          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
-          <Property Name="FECHA_REGISTRO" Type="DateTime" Precision="3" />
-          <Property Name="USUARIO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="COD_ESTADO_FACTURA" Type="Int64" />
-          <Property Name="COD_CAUSA_ESTADO" Type="Int64" />
-          <Property Name="OBSERVACIONES" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="COD_FACTURA" Type="Int64" />
-          <Property Name="COD_ESTADO_DETALLE" Type="Int64" />
-          <Property Name="COD_CONCEPTO_PSL" Type="Int64" />
-          <Property Name="COD_GRUPO_FACTURA" Type="Int64" />
-          <Property Name="HORAS_ED" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="HORAS_EN" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="HORAS_FD" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="HORAS_FN" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="ADICIONES" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="HORAS_AUSENCIA" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="DESCUENTO_AUSENCIA" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="FECHA_INI" Type="DateTime" Precision="0" />
-          <Property Name="FECHA_FIN" Type="DateTime" Precision="0" />
-          <Property Name="VALOR_DIAS_LAB" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="VALOR_SIN_IMPUESTOS" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="NOMBRES" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="APELLIDOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="CEDULA" Type="Int64" />
-          <Property Name="FECHA_FORMA_PAGO" Type="DateTime" Precision="0" />
-          <Property Name="NOMBRE_PROYECTO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="NOMBRE_ROL" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="FECHA_INICIO_EJECUCION" Type="DateTime" Precision="0" />
-          <Property Name="FECHA_FIN_EJECUCION" Type="DateTime" Precision="0" />
-          <Property Name="NOMBRE_PERSONA" Type="String" MaxLength="601" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="VISTA_DETALLE_ADJUNTO_PERS_EXPORT">
-          <Key>
-            <PropertyRef Name="NOVEDADES" />
-          </Key>
-          <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="ID" Type="Int64" />
-          <Property Name="COD_FACTURA" Type="Int64" />
-          <Property Name="NOMBRE_PROYECTO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="NOMBRE_ROL" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="NOMBRE_PERSONA" Type="String" MaxLength="601" FixedLength="false" Unicode="false" />
-          <Property Name="FECHA_INGRESO" Type="DateTime" Precision="0" />
-          <Property Name="FECHA_RETIRO_EN_CONTRATO" Type="DateTime" Precision="0" />
-          <Property Name="VALOR_SIN_IMPUESTOS" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="VALOR_DIAS_LAB" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="ADICIONES" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="DESCUENTO_AUSENCIA" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="HORAS_ED" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="HORAS_EN" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="HORAS_FD" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="HORAS_FN" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="HORAS_AUSENCIA" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="FECHA_PERIODO" Type="DateTime" Precision="0" />
-          <Property Name="COD_ROL" Type="Int64" />
-          <Property Name="NOVEDADES" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="VISTA_DETALLE_FACTURAS_REPORTE">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int64" Nullable="false" />
-          <Property Name="NOMBRE_PROYECTO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="NOMBRE_ROL" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="NOMBRE_PERSONA" Type="String" MaxLength="601" FixedLength="false" Unicode="false" />
-          <Property Name="FECHA_INGRESO" Type="DateTime" Precision="0" />
-          <Property Name="FECHA_RETIRO_EN_CONTRATO" Type="DateTime" Precision="0" />
-          <Property Name="VALOR_SIN_IMPUESTOS" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="VALOR_DIAS_LAB" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="ADICIONES" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="DESCUENTO_AUSENCIA" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="HORAS_ED" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="HORAS_EN" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="HORAS_FD" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="HORAS_FN" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="HORAS_AUSENCIA" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="NOVEDADES" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="NUMERO_FACTURA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="PERIODO_FACTURACION" Type="DateTime" Precision="0" />
-          <Property Name="COD_ROL" Type="Int64" />
-          <Property Name="SALARIO_COMERCIAL_SIN_PRESTACIONES_CON_INCREMENTOS" Type="Decimal" Precision="38" Scale="8" />
-          <Property Name="PRESTACIONES" Type="Decimal" Precision="30" Scale="20" />
-          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" />
-          <Property Name="TIPO_ELEMENTO" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="HORAS_EXTRA" Type="Decimal" Precision="33" Scale="20" />
-          <Property Name="DIAS_AUSENCIA" Type="Decimal" Precision="32" Scale="22" />
-        </EntityType>
         <EntityType Name="REGISTRO_NOVEDADES">
           <Key>
             <PropertyRef Name="COD_REGISTRO_NOVEDADES" />
@@ -8470,6 +8349,81 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="VISTA_DETALLE_FACTURAS_REPORTE">
+          <Key>
+            <PropertyRef Name="TIPO_ELEMENTO" />
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="NOMBRE_PROYECTO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="NOMBRE_ROL" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="NOMBRE_PERSONA" Type="String" MaxLength="601" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_INGRESO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_RETIRO_EN_CONTRATO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="VALOR_SIN_IMPUESTOS" Type="Decimal" Precision="30" Scale="20" />
+          <Property Name="VALOR_DIAS_LAB" Type="Decimal" Precision="30" Scale="20" />
+          <Property Name="ADICIONES" Type="Decimal" Precision="30" Scale="20" />
+          <Property Name="DESCUENTO_AUSENCIA" Type="Decimal" Precision="30" Scale="20" />
+          <Property Name="HORAS_ED" Type="Decimal" Precision="30" Scale="20" />
+          <Property Name="HORAS_EN" Type="Decimal" Precision="30" Scale="20" />
+          <Property Name="HORAS_FD" Type="Decimal" Precision="30" Scale="20" />
+          <Property Name="HORAS_FN" Type="Decimal" Precision="30" Scale="20" />
+          <Property Name="HORAS_AUSENCIA" Type="Decimal" Precision="30" Scale="20" />
+          <Property Name="NOVEDADES" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="NUMERO_FACTURA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="NUMERO_FACTURA_PRODUCTIVO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="PERIODO_FACTURACION" Type="DateTime" Precision="0" />
+          <Property Name="COD_ROL" Type="Int64" />
+          <Property Name="SALARIO_COMERCIAL_SIN_PRESTACIONES_CON_INCREMENTOS" Type="Decimal" Precision="38" Scale="8" />
+          <Property Name="PRESTACIONES" Type="Decimal" Precision="30" Scale="20" />
+          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" />
+          <Property Name="DEDICACION" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TIPO_ELEMENTO" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="HORAS_EXTRA" Type="Decimal" Precision="33" Scale="20" />
+          <Property Name="DIAS_AUSENCIA" Type="Decimal" Precision="32" Scale="22" />
+        </EntityType>
+        <EntityType Name="VISTA_DETALLE_ADJUNTOS_PERS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="COD_DETALLE_FACTURA_ADJUNTO_PERS" Type="Int64" Nullable="false" />
+          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
+          <Property Name="COD_ROL" Type="Int64" />
+          <Property Name="COD_COLABORADOR" Type="Int64" />
+          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
+          <Property Name="FECHA_REGISTRO" Type="DateTime" Precision="3" />
+          <Property Name="USUARIO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="COD_ESTADO_FACTURA" Type="Int64" />
+          <Property Name="COD_CAUSA_ESTADO" Type="Int64" />
+          <Property Name="OBSERVACIONES" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="COD_FACTURA" Type="Int64" />
+          <Property Name="COD_ESTADO_DETALLE" Type="Int64" />
+          <Property Name="COD_CONCEPTO_PSL" Type="Int64" />
+          <Property Name="COD_GRUPO_FACTURA" Type="Int64" />
+          <Property Name="HORAS_ED" Type="Decimal" Precision="30" Scale="20" />
+          <Property Name="HORAS_EN" Type="Decimal" Precision="30" Scale="20" />
+          <Property Name="HORAS_FD" Type="Decimal" Precision="30" Scale="20" />
+          <Property Name="HORAS_FN" Type="Decimal" Precision="30" Scale="20" />
+          <Property Name="ADICIONES" Type="Decimal" Precision="30" Scale="20" />
+          <Property Name="HORAS_AUSENCIA" Type="Decimal" Precision="30" Scale="20" />
+          <Property Name="DESCUENTO_AUSENCIA" Type="Decimal" Precision="30" Scale="20" />
+          <Property Name="FECHA_INI" Type="DateTime" Precision="0" />
+          <Property Name="FECHA_FIN" Type="DateTime" Precision="0" />
+          <Property Name="VALOR_DIAS_LAB" Type="Decimal" Precision="30" Scale="20" />
+          <Property Name="VALOR_SIN_IMPUESTOS" Type="Decimal" Precision="30" Scale="20" />
+          <Property Name="NOMBRES" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="APELLIDOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="CEDULA" Type="Int64" />
+          <Property Name="FECHA_FORMA_PAGO" Type="DateTime" Precision="0" />
+          <Property Name="NOMBRE_PROYECTO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="NOMBRE_ROL" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="FECHA_INICIO_EJECUCION" Type="DateTime" Precision="0" />
+          <Property Name="FECHA_FIN_EJECUCION" Type="DateTime" Precision="0" />
+          <Property Name="NOMBRE_PERSONA" Type="String" MaxLength="601" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -10274,106 +10228,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="VISTA_DETALLE_ADJUNTOS_PERS">
-            <EntityTypeMapping TypeName="test_payc_contabilidadModel.VISTA_DETALLE_ADJUNTOS_PERS">
-              <MappingFragment StoreEntitySet="VISTA_DETALLE_ADJUNTOS_PERS">
-                <ScalarProperty Name="NOMBRE_PERSONA" ColumnName="NOMBRE_PERSONA" />
-                <ScalarProperty Name="FECHA_FIN_EJECUCION" ColumnName="FECHA_FIN_EJECUCION" />
-                <ScalarProperty Name="FECHA_INICIO_EJECUCION" ColumnName="FECHA_INICIO_EJECUCION" />
-                <ScalarProperty Name="NOMBRE_ROL" ColumnName="NOMBRE_ROL" />
-                <ScalarProperty Name="CENTRO_COSTOS" ColumnName="CENTRO_COSTOS" />
-                <ScalarProperty Name="NOMBRE_PROYECTO" ColumnName="NOMBRE_PROYECTO" />
-                <ScalarProperty Name="FECHA_FORMA_PAGO" ColumnName="FECHA_FORMA_PAGO" />
-                <ScalarProperty Name="CEDULA" ColumnName="CEDULA" />
-                <ScalarProperty Name="APELLIDOS" ColumnName="APELLIDOS" />
-                <ScalarProperty Name="NOMBRES" ColumnName="NOMBRES" />
-                <ScalarProperty Name="VALOR_SIN_IMPUESTOS" ColumnName="VALOR_SIN_IMPUESTOS" />
-                <ScalarProperty Name="VALOR_DIAS_LAB" ColumnName="VALOR_DIAS_LAB" />
-                <ScalarProperty Name="FECHA_FIN" ColumnName="FECHA_FIN" />
-                <ScalarProperty Name="FECHA_INI" ColumnName="FECHA_INI" />
-                <ScalarProperty Name="DESCUENTO_AUSENCIA" ColumnName="DESCUENTO_AUSENCIA" />
-                <ScalarProperty Name="HORAS_AUSENCIA" ColumnName="HORAS_AUSENCIA" />
-                <ScalarProperty Name="ADICIONES" ColumnName="ADICIONES" />
-                <ScalarProperty Name="HORAS_FN" ColumnName="HORAS_FN" />
-                <ScalarProperty Name="HORAS_FD" ColumnName="HORAS_FD" />
-                <ScalarProperty Name="HORAS_EN" ColumnName="HORAS_EN" />
-                <ScalarProperty Name="HORAS_ED" ColumnName="HORAS_ED" />
-                <ScalarProperty Name="COD_GRUPO_FACTURA" ColumnName="COD_GRUPO_FACTURA" />
-                <ScalarProperty Name="COD_CONCEPTO_PSL" ColumnName="COD_CONCEPTO_PSL" />
-                <ScalarProperty Name="COD_ESTADO_DETALLE" ColumnName="COD_ESTADO_DETALLE" />
-                <ScalarProperty Name="COD_FACTURA" ColumnName="COD_FACTURA" />
-                <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
-                <ScalarProperty Name="COD_CAUSA_ESTADO" ColumnName="COD_CAUSA_ESTADO" />
-                <ScalarProperty Name="COD_ESTADO_FACTURA" ColumnName="COD_ESTADO_FACTURA" />
-                <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
-                <ScalarProperty Name="FECHA_REGISTRO" ColumnName="FECHA_REGISTRO" />
-                <ScalarProperty Name="COD_FORMAS_PAGO_FECHAS" ColumnName="COD_FORMAS_PAGO_FECHAS" />
-                <ScalarProperty Name="COD_COLABORADOR" ColumnName="COD_COLABORADOR" />
-                <ScalarProperty Name="COD_ROL" ColumnName="COD_ROL" />
-                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
-                <ScalarProperty Name="COD_DETALLE_FACTURA_ADJUNTO_PERS" ColumnName="COD_DETALLE_FACTURA_ADJUNTO_PERS" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="VISTA_DETALLE_ADJUNTO_PERS_EXPORT">
-            <EntityTypeMapping TypeName="test_payc_contabilidadModel.VISTA_DETALLE_ADJUNTO_PERS_EXPORT">
-              <MappingFragment StoreEntitySet="VISTA_DETALLE_ADJUNTO_PERS_EXPORT">
-                <ScalarProperty Name="NOVEDADES" ColumnName="NOVEDADES" />
-                <ScalarProperty Name="COD_ROL" ColumnName="COD_ROL" />
-                <ScalarProperty Name="FECHA_PERIODO" ColumnName="FECHA_PERIODO" />
-                <ScalarProperty Name="HORAS_AUSENCIA" ColumnName="HORAS_AUSENCIA" />
-                <ScalarProperty Name="HORAS_FN" ColumnName="HORAS_FN" />
-                <ScalarProperty Name="HORAS_FD" ColumnName="HORAS_FD" />
-                <ScalarProperty Name="HORAS_EN" ColumnName="HORAS_EN" />
-                <ScalarProperty Name="HORAS_ED" ColumnName="HORAS_ED" />
-                <ScalarProperty Name="DESCUENTO_AUSENCIA" ColumnName="DESCUENTO_AUSENCIA" />
-                <ScalarProperty Name="ADICIONES" ColumnName="ADICIONES" />
-                <ScalarProperty Name="VALOR_DIAS_LAB" ColumnName="VALOR_DIAS_LAB" />
-                <ScalarProperty Name="VALOR_SIN_IMPUESTOS" ColumnName="VALOR_SIN_IMPUESTOS" />
-                <ScalarProperty Name="FECHA_RETIRO_EN_CONTRATO" ColumnName="FECHA_RETIRO_EN_CONTRATO" />
-                <ScalarProperty Name="FECHA_INGRESO" ColumnName="FECHA_INGRESO" />
-                <ScalarProperty Name="NOMBRE_PERSONA" ColumnName="NOMBRE_PERSONA" />
-                <ScalarProperty Name="NOMBRE_ROL" ColumnName="NOMBRE_ROL" />
-                <ScalarProperty Name="NOMBRE_PROYECTO" ColumnName="NOMBRE_PROYECTO" />
-                <ScalarProperty Name="COD_FACTURA" ColumnName="COD_FACTURA" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="CENTRO_COSTOS" ColumnName="CENTRO_COSTOS" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="VISTA_DETALLE_FACTURAS_REPORTE">
-            <EntityTypeMapping TypeName="test_payc_contabilidadModel.VISTA_DETALLE_FACTURAS_REPORTE">
-              <MappingFragment StoreEntitySet="VISTA_DETALLE_FACTURAS_REPORTE">
-                <ScalarProperty Name="DIAS_AUSENCIA" ColumnName="DIAS_AUSENCIA" />
-                <ScalarProperty Name="HORAS_EXTRA" ColumnName="HORAS_EXTRA" />
-                <ScalarProperty Name="TIPO_ELEMENTO" ColumnName="TIPO_ELEMENTO" />
-                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
-                <ScalarProperty Name="PRESTACIONES" ColumnName="PRESTACIONES" />
-                <ScalarProperty Name="SALARIO_COMERCIAL_SIN_PRESTACIONES_CON_INCREMENTOS" ColumnName="SALARIO_COMERCIAL_SIN_PRESTACIONES_CON_INCREMENTOS" />
-                <ScalarProperty Name="COD_ROL" ColumnName="COD_ROL" />
-                <ScalarProperty Name="PERIODO_FACTURACION" ColumnName="PERIODO_FACTURACION" />
-                <ScalarProperty Name="NUMERO_FACTURA" ColumnName="NUMERO_FACTURA" />
-                <ScalarProperty Name="CENTRO_COSTOS" ColumnName="CENTRO_COSTOS" />
-                <ScalarProperty Name="NOVEDADES" ColumnName="NOVEDADES" />
-                <ScalarProperty Name="HORAS_AUSENCIA" ColumnName="HORAS_AUSENCIA" />
-                <ScalarProperty Name="HORAS_FN" ColumnName="HORAS_FN" />
-                <ScalarProperty Name="HORAS_FD" ColumnName="HORAS_FD" />
-                <ScalarProperty Name="HORAS_EN" ColumnName="HORAS_EN" />
-                <ScalarProperty Name="HORAS_ED" ColumnName="HORAS_ED" />
-                <ScalarProperty Name="DESCUENTO_AUSENCIA" ColumnName="DESCUENTO_AUSENCIA" />
-                <ScalarProperty Name="ADICIONES" ColumnName="ADICIONES" />
-                <ScalarProperty Name="VALOR_DIAS_LAB" ColumnName="VALOR_DIAS_LAB" />
-                <ScalarProperty Name="VALOR_SIN_IMPUESTOS" ColumnName="VALOR_SIN_IMPUESTOS" />
-                <ScalarProperty Name="FECHA_RETIRO_EN_CONTRATO" ColumnName="FECHA_RETIRO_EN_CONTRATO" />
-                <ScalarProperty Name="FECHA_INGRESO" ColumnName="FECHA_INGRESO" />
-                <ScalarProperty Name="NOMBRE_PERSONA" ColumnName="NOMBRE_PERSONA" />
-                <ScalarProperty Name="NOMBRE_ROL" ColumnName="NOMBRE_ROL" />
-                <ScalarProperty Name="NOMBRE_PROYECTO" ColumnName="NOMBRE_PROYECTO" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="REGISTRO_NOVEDADES">
             <EntityTypeMapping TypeName="test_payc_contabilidadModel.REGISTRO_NOVEDADES">
               <MappingFragment StoreEntitySet="REGISTRO_NOVEDADES">
@@ -10446,6 +10300,82 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
                 <ScalarProperty Name="COD_FORMAS_PAGO_FECHAS" ColumnName="COD_FORMAS_PAGO_FECHAS" />
                 <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
                 <ScalarProperty Name="COD_FACTURA" ColumnName="COD_FACTURA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VISTA_DETALLE_FACTURAS_REPORTE">
+            <EntityTypeMapping TypeName="test_payc_contabilidadModel.VISTA_DETALLE_FACTURAS_REPORTE">
+              <MappingFragment StoreEntitySet="VISTA_DETALLE_FACTURAS_REPORTE">
+                <ScalarProperty Name="DIAS_AUSENCIA" ColumnName="DIAS_AUSENCIA" />
+                <ScalarProperty Name="HORAS_EXTRA" ColumnName="HORAS_EXTRA" />
+                <ScalarProperty Name="TIPO_ELEMENTO" ColumnName="TIPO_ELEMENTO" />
+                <ScalarProperty Name="DEDICACION" ColumnName="DEDICACION" />
+                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
+                <ScalarProperty Name="PRESTACIONES" ColumnName="PRESTACIONES" />
+                <ScalarProperty Name="SALARIO_COMERCIAL_SIN_PRESTACIONES_CON_INCREMENTOS" ColumnName="SALARIO_COMERCIAL_SIN_PRESTACIONES_CON_INCREMENTOS" />
+                <ScalarProperty Name="COD_ROL" ColumnName="COD_ROL" />
+                <ScalarProperty Name="PERIODO_FACTURACION" ColumnName="PERIODO_FACTURACION" />
+                <ScalarProperty Name="NUMERO_FACTURA_PRODUCTIVO" ColumnName="NUMERO_FACTURA_PRODUCTIVO" />
+                <ScalarProperty Name="NUMERO_FACTURA" ColumnName="NUMERO_FACTURA" />
+                <ScalarProperty Name="CENTRO_COSTOS" ColumnName="CENTRO_COSTOS" />
+                <ScalarProperty Name="NOVEDADES" ColumnName="NOVEDADES" />
+                <ScalarProperty Name="HORAS_AUSENCIA" ColumnName="HORAS_AUSENCIA" />
+                <ScalarProperty Name="HORAS_FN" ColumnName="HORAS_FN" />
+                <ScalarProperty Name="HORAS_FD" ColumnName="HORAS_FD" />
+                <ScalarProperty Name="HORAS_EN" ColumnName="HORAS_EN" />
+                <ScalarProperty Name="HORAS_ED" ColumnName="HORAS_ED" />
+                <ScalarProperty Name="DESCUENTO_AUSENCIA" ColumnName="DESCUENTO_AUSENCIA" />
+                <ScalarProperty Name="ADICIONES" ColumnName="ADICIONES" />
+                <ScalarProperty Name="VALOR_DIAS_LAB" ColumnName="VALOR_DIAS_LAB" />
+                <ScalarProperty Name="VALOR_SIN_IMPUESTOS" ColumnName="VALOR_SIN_IMPUESTOS" />
+                <ScalarProperty Name="FECHA_RETIRO_EN_CONTRATO" ColumnName="FECHA_RETIRO_EN_CONTRATO" />
+                <ScalarProperty Name="FECHA_INGRESO" ColumnName="FECHA_INGRESO" />
+                <ScalarProperty Name="NOMBRE_PERSONA" ColumnName="NOMBRE_PERSONA" />
+                <ScalarProperty Name="NOMBRE_ROL" ColumnName="NOMBRE_ROL" />
+                <ScalarProperty Name="NOMBRE_PROYECTO" ColumnName="NOMBRE_PROYECTO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VISTA_DETALLE_ADJUNTOS_PERS">
+            <EntityTypeMapping TypeName="test_payc_contabilidadModel.VISTA_DETALLE_ADJUNTOS_PERS">
+              <MappingFragment StoreEntitySet="VISTA_DETALLE_ADJUNTOS_PERS">
+                <ScalarProperty Name="NOMBRE_PERSONA" ColumnName="NOMBRE_PERSONA" />
+                <ScalarProperty Name="FECHA_FIN_EJECUCION" ColumnName="FECHA_FIN_EJECUCION" />
+                <ScalarProperty Name="FECHA_INICIO_EJECUCION" ColumnName="FECHA_INICIO_EJECUCION" />
+                <ScalarProperty Name="NOMBRE_ROL" ColumnName="NOMBRE_ROL" />
+                <ScalarProperty Name="CENTRO_COSTOS" ColumnName="CENTRO_COSTOS" />
+                <ScalarProperty Name="NOMBRE_PROYECTO" ColumnName="NOMBRE_PROYECTO" />
+                <ScalarProperty Name="FECHA_FORMA_PAGO" ColumnName="FECHA_FORMA_PAGO" />
+                <ScalarProperty Name="CEDULA" ColumnName="CEDULA" />
+                <ScalarProperty Name="APELLIDOS" ColumnName="APELLIDOS" />
+                <ScalarProperty Name="NOMBRES" ColumnName="NOMBRES" />
+                <ScalarProperty Name="VALOR_SIN_IMPUESTOS" ColumnName="VALOR_SIN_IMPUESTOS" />
+                <ScalarProperty Name="VALOR_DIAS_LAB" ColumnName="VALOR_DIAS_LAB" />
+                <ScalarProperty Name="FECHA_FIN" ColumnName="FECHA_FIN" />
+                <ScalarProperty Name="FECHA_INI" ColumnName="FECHA_INI" />
+                <ScalarProperty Name="DESCUENTO_AUSENCIA" ColumnName="DESCUENTO_AUSENCIA" />
+                <ScalarProperty Name="HORAS_AUSENCIA" ColumnName="HORAS_AUSENCIA" />
+                <ScalarProperty Name="ADICIONES" ColumnName="ADICIONES" />
+                <ScalarProperty Name="HORAS_FN" ColumnName="HORAS_FN" />
+                <ScalarProperty Name="HORAS_FD" ColumnName="HORAS_FD" />
+                <ScalarProperty Name="HORAS_EN" ColumnName="HORAS_EN" />
+                <ScalarProperty Name="HORAS_ED" ColumnName="HORAS_ED" />
+                <ScalarProperty Name="COD_GRUPO_FACTURA" ColumnName="COD_GRUPO_FACTURA" />
+                <ScalarProperty Name="COD_CONCEPTO_PSL" ColumnName="COD_CONCEPTO_PSL" />
+                <ScalarProperty Name="COD_ESTADO_DETALLE" ColumnName="COD_ESTADO_DETALLE" />
+                <ScalarProperty Name="COD_FACTURA" ColumnName="COD_FACTURA" />
+                <ScalarProperty Name="OBSERVACIONES" ColumnName="OBSERVACIONES" />
+                <ScalarProperty Name="COD_CAUSA_ESTADO" ColumnName="COD_CAUSA_ESTADO" />
+                <ScalarProperty Name="COD_ESTADO_FACTURA" ColumnName="COD_ESTADO_FACTURA" />
+                <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+                <ScalarProperty Name="FECHA_REGISTRO" ColumnName="FECHA_REGISTRO" />
+                <ScalarProperty Name="COD_FORMAS_PAGO_FECHAS" ColumnName="COD_FORMAS_PAGO_FECHAS" />
+                <ScalarProperty Name="COD_COLABORADOR" ColumnName="COD_COLABORADOR" />
+                <ScalarProperty Name="COD_ROL" ColumnName="COD_ROL" />
+                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
+                <ScalarProperty Name="COD_DETALLE_FACTURA_ADJUNTO_PERS" ColumnName="COD_DETALLE_FACTURA_ADJUNTO_PERS" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

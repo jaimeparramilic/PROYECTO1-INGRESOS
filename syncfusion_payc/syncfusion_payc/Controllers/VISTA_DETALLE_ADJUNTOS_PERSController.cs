@@ -32,12 +32,14 @@ using System.Web;
 using syncfusion_payc.Models;
 using System.IO;
 using System.Drawing;
+using System.Globalization;
 namespace syncfusion_payc.Controllers
 {
     public class VISTA_DETALLE_ADJUNTOS_PERSController : Controller
     {
         private test_payc_contabilidadEntities db = new test_payc_contabilidadEntities();
 
+        #region acciones vistas base
         // GET: VISTA_DETALLE_ADJUNTOS_PERS
         public ActionResult Index()
         {
@@ -148,12 +150,14 @@ namespace syncfusion_payc.Controllers
             base.Dispose(disposing);
         }
 
-		//Aca inicia syncfusion
+
+
+        #endregion
+        #region grids
+        //Aca inicia syncfusion
 
         //Traer data
-
-        
-		public ActionResult UrlAdaptor()
+        public ActionResult UrlAdaptor()
         {
             var DataSource2 = db.VISTA_DETALLE_ADJUNTOS_PERS.ToList();
             ViewBag.dataSource2 = DataSource2;
@@ -266,33 +270,42 @@ namespace syncfusion_payc.Controllers
             }
             return Json(new { result = DataSource, count = count }, JsonRequestBehavior.AllowGet);
         }
-
+        #endregion
+        #region exportar excel
         //Adjunto exportar
         [System.Web.Http.ActionName("ExcelExport")]
         [AcceptVerbs("POST")]
         public ActionResult ExcelExport(string gridModel,long COD_FACTURA,long COD_CONTRATO_PROYECTO)
         {
             ExcelExport exp = new ExcelExport();
+            CultureInfo cult= CultureInfo.CreateSpecificCulture("es-ES");
+            FACTURAS factura = db.FACTURAS.Single(o => o.COD_FACTURA == COD_FACTURA);
+            DateTime periodo_fin = new DateTime(factura.FECHA_FACTURA.Value.Year, factura.FECHA_FACTURA.Value.Month, 1);
+            DateTime periodo_ini = periodo_fin.AddMonths(-2);
+            DateTime periodo_fact = new DateTime(factura.FECHA_FACTURA.Value.Year, factura.FECHA_FACTURA.Value.Month, 1);
+            var DataSource = db.VISTA_DETALLE_FACTURAS_REPORTE.Where(o=> o.COD_CONTRATO_PROYECTO == COD_CONTRATO_PROYECTO && o.PERIODO_FACTURACION<=periodo_fin && o.PERIODO_FACTURACION >= periodo_ini).Select(x=> new { x.PERIODO_FACTURACION,x.NUMERO_FACTURA_PRODUCTIVO,x.CENTRO_COSTOS,x.NOMBRE_PROYECTO, x.TIPO_ELEMENTO,x.NOMBRE_ROL,x.NOMBRE_PERSONA, x.FECHA_INGRESO,x.FECHA_RETIRO_EN_CONTRATO,x.VALOR_SIN_IMPUESTOS,x.SALARIO_COMERCIAL_SIN_PRESTACIONES_CON_INCREMENTOS,x.PRESTACIONES,x.VALOR_DIAS_LAB,x.DESCUENTO_AUSENCIA, x.HORAS_AUSENCIA, x.DIAS_AUSENCIA, x.ADICIONES,x.HORAS_ED,x.HORAS_EN, x.HORAS_FD,x.HORAS_FN, x.NOVEDADES, x.DEDICACION, x.NUMERO_FACTURA }).ToList();
+            CONTRATO_PROYECTO_DESCRIPCION contrato_proyecto = db.CONTRATO_PROYECTO_DESCRIPCION.Single(o => o.COD_CONTRATO_PROYECTO == COD_CONTRATO_PROYECTO);
             
-            var DataSource = db.VISTA_DETALLE_FACTURAS_REPORTE.Where(o=> o.COD_CONTRATO_PROYECTO == COD_CONTRATO_PROYECTO).Select(x=> new { x.PERIODO_FACTURACION,x.NUMERO_FACTURA,x.CENTRO_COSTOS,x.NOMBRE_PROYECTO, x.TIPO_ELEMENTO,x.NOMBRE_ROL,x.NOMBRE_PERSONA,x.FECHA_INGRESO,x.FECHA_RETIRO_EN_CONTRATO,x.VALOR_SIN_IMPUESTOS,x.SALARIO_COMERCIAL_SIN_PRESTACIONES_CON_INCREMENTOS,x.PRESTACIONES,x.VALOR_DIAS_LAB,x.DESCUENTO_AUSENCIA, x.HORAS_AUSENCIA, x.DIAS_AUSENCIA, x.ADICIONES,x.HORAS_ED,x.HORAS_EN, x.HORAS_FD,x.HORAS_FN, x.NOVEDADES }).ToList();
             int contar = DataSource.Count() + 1;
             DataTable tabla = DataSource.ToDataTable();
             //Características EXCEL
             using (ExcelEngine excelEngine = new ExcelEngine())
             {
                 IApplication application = excelEngine.Excel;
-                application.DefaultVersion = ExcelVersion.Excel2010;
+                application.DefaultVersion = ExcelVersion.Excel2013;
                 IWorkbook workbook = application.Workbooks.Create(1);
-                IWorksheet worksheet = workbook.Worksheets[0];
+                IWorksheet pivot = workbook.Worksheets[0];
+                IWorksheet  worksheet = workbook.Worksheets.Create();
+                
                 worksheet.Name = "BASE DE DATOS";
-                worksheet.Range["A1:V1"].CellStyle.FillBackground= Syncfusion.XlsIO.ExcelKnownColors.Brown;
-                worksheet.Range["A1:V1"].CellStyle.Font.Color = Syncfusion.XlsIO.ExcelKnownColors.White;
-                worksheet.Range["A1:V"+contar.ToString()].CellStyle.Borders.LineStyle = Syncfusion.XlsIO.ExcelLineStyle.Thin;
-                worksheet.Range["A1:V" + contar.ToString()].CellStyle.Borders[ExcelBordersIndex.DiagonalDown].LineStyle = Syncfusion.XlsIO.ExcelLineStyle.None;
-                worksheet.Range["A1:V" + contar.ToString()].CellStyle.Borders[ExcelBordersIndex.DiagonalUp].LineStyle = Syncfusion.XlsIO.ExcelLineStyle.None;
-                worksheet.Range["A2:V" + contar.ToString()].Borders.Color = Syncfusion.XlsIO.ExcelKnownColors.Black;
-                worksheet.Range["A1:V1"].Borders.Color = Syncfusion.XlsIO.ExcelKnownColors.White;
-                worksheet.Range["A1:V1"].CellStyle.Font.Bold = true;
+                worksheet.Range["A1:X1"].CellStyle.FillBackground= Syncfusion.XlsIO.ExcelKnownColors.Brown;
+                worksheet.Range["A1:X1"].CellStyle.Font.Color = Syncfusion.XlsIO.ExcelKnownColors.White;
+                worksheet.Range["A1:X"+contar.ToString()].CellStyle.Borders.LineStyle = Syncfusion.XlsIO.ExcelLineStyle.Thin;
+                worksheet.Range["A1:X" + contar.ToString()].CellStyle.Borders[ExcelBordersIndex.DiagonalDown].LineStyle = Syncfusion.XlsIO.ExcelLineStyle.None;
+                worksheet.Range["A1:X" + contar.ToString()].CellStyle.Borders[ExcelBordersIndex.DiagonalUp].LineStyle = Syncfusion.XlsIO.ExcelLineStyle.None;
+                worksheet.Range["A2:X" + (contar+1).ToString()].Borders.Color = Syncfusion.XlsIO.ExcelKnownColors.Black;
+                worksheet.Range["A1:X1"].Borders.Color = Syncfusion.XlsIO.ExcelKnownColors.White;
+                worksheet.Range["A1:X1"].CellStyle.Font.Bold = true;
                 
                 //Initialize the DataTable
                 DataTable table = tabla;
@@ -309,7 +322,7 @@ namespace syncfusion_payc.Controllers
                 worksheet.Range["C1"].Text = "Centro de costo";
                 worksheet.Range["D1"].Text = "Nombre del proyecto";
                 worksheet.Range["E1"].Text = "Tipo elemento (Persona o Item)";
-                worksheet.Range["F1"].Text = "Rol / Item";
+                worksheet.Range["F1"].Text = "Rol / Otros conceptos";
                 worksheet.Range["G1"].Text = "Nombre colaborador / Item";
                 worksheet.Range["H1"].Text = "Fecha Ingreso";
                 worksheet.Range["I1"].Text = "Fecha Retiro";
@@ -326,20 +339,22 @@ namespace syncfusion_payc.Controllers
                 worksheet.Range["T1"].Text = "HE Festivas Diurnas";
                 worksheet.Range["U1"].Text = "HE Festivas Nocturnas";
                 worksheet.Range["V1"].Text = "Detalle Novedades";
+                worksheet.Range["W1"].Text = "Dedicación";
+                worksheet.Range["X1"].Text = "Número factura proforma";
                 worksheet.InsertRow(1);
                 worksheet.InsertRow(1);
 
-                worksheet.Range["B1"].Text = "PAYC - ARCHIVO CON DETALLE ADJUNTO A LA FACTURA";
-                worksheet.Range["B1:V1"].Merge();
-                worksheet.Range["B1:V1"].Borders.LineStyle = Syncfusion.XlsIO.ExcelLineStyle.Double;
-                worksheet.Range["B1:V1"].Borders.Color = Syncfusion.XlsIO.ExcelKnownColors.Black;
-                worksheet.Range["B1:V1"].CellStyle.Borders[ExcelBordersIndex.DiagonalDown].LineStyle = Syncfusion.XlsIO.ExcelLineStyle.None;
-                worksheet.Range["B1:V1"].CellStyle.Borders[ExcelBordersIndex.DiagonalUp].LineStyle = Syncfusion.XlsIO.ExcelLineStyle.None;
-                worksheet.Range["B1:V1"].HorizontalAlignment = ExcelHAlign.HAlignJustify;
-                worksheet.Range["B1:V1"].VerticalAlignment= ExcelVAlign.VAlignCenter;
-                worksheet.Range["B1:V1"].CellStyle.Font.Bold = true;
-                worksheet.Range["B1:V1"].Merge();
-                
+                worksheet.Range["B1"].Formula = @"""PAYC - PERIODO FACTURADO - "+ periodo_fact.ToString("y") +@""""+ @"&CHAR(10)& """ + contrato_proyecto.DESCRIPCION + @"""& CHAR(10) & ""BASE DE DATOS ARCHIVO CON DETALLE ADJUNTO A LA FACTURA""";
+                worksheet.Range["B1:X1"].Merge();
+                worksheet.Range["B1:X1"].Borders.LineStyle = Syncfusion.XlsIO.ExcelLineStyle.Double;
+                worksheet.Range["B1:X1"].Borders.Color = Syncfusion.XlsIO.ExcelKnownColors.Black;
+                worksheet.Range["B1:X1"].CellStyle.Borders[ExcelBordersIndex.DiagonalDown].LineStyle = Syncfusion.XlsIO.ExcelLineStyle.None;
+                worksheet.Range["B1:X1"].CellStyle.Borders[ExcelBordersIndex.DiagonalUp].LineStyle = Syncfusion.XlsIO.ExcelLineStyle.None;
+                worksheet.Range["B1:X1"].HorizontalAlignment = ExcelHAlign.HAlignJustify;
+                worksheet.Range["B1:X1"].VerticalAlignment= ExcelVAlign.VAlignCenter;
+                worksheet.Range["B1:X1"].CellStyle.Font.Bold = true;
+                worksheet.Range["B1:X1"].Merge();
+                worksheet.Range["B1:X1"].WrapText = true;
                 worksheet.Range["A1"].RowHeight = 60;
                 worksheet.Range["A1"].Borders.LineStyle = Syncfusion.XlsIO.ExcelLineStyle.Double;
                 worksheet.Range["A1"].Borders.Color = Syncfusion.XlsIO.ExcelKnownColors.Black;
@@ -361,14 +376,20 @@ namespace syncfusion_payc.Controllers
                 worksheet.SetColumnWidth(22, 70);
                 worksheet.Range["A3:U"+(contar+2).ToString()].WrapText = true;
 
-                IWorksheet pivot = workbook.Worksheets.Create();
+                //IWorksheet pivot = workbook.Worksheets.Create();
                 pivot.Name = "TABLA DINAMICA";
-                IPivotCache cache = workbook.PivotCaches.Add(worksheet["A3:U" + (contar + 2).ToString()]);
-                IPivotTable pivotTable = pivot.PivotTables.Add("PivotTable1", pivot["A3"], cache);
+                IPivotCache cache = workbook.PivotCaches.Add(worksheet["A3:X" + (contar + 2).ToString()]);
+                IPivotTable pivotTable = pivot.PivotTables.Add("PivotTable1", pivot["A5"], cache);
                 pivotTable.Fields[4].Axis = PivotAxisTypes.Row;
                 pivotTable.Fields[5].Axis = PivotAxisTypes.Row;
                 pivotTable.Fields[6].Axis = PivotAxisTypes.Row;
-                pivotTable.Fields[3].Axis = PivotAxisTypes.Page;
+                pivotTable.Fields[22].Axis = PivotAxisTypes.Row;
+                pivotTable.Fields[11].Axis = PivotAxisTypes.Row;
+                pivotTable.Fields[7].Axis = PivotAxisTypes.Row;
+                pivotTable.Fields[8].Axis = PivotAxisTypes.Row;
+                
+                //pivotTable.Fields[21].Axis = PivotAxisTypes.Row;
+                //pivotTable.Fields[3].Axis = PivotAxisTypes.Page;
                 pivotTable.Fields[0].Axis = PivotAxisTypes.Column;
 
                 //Apply page field filter
@@ -382,43 +403,60 @@ namespace syncfusion_payc.Controllers
                 pivotTable.Fields[4].Subtotals = PivotSubtotalTypes.None;
                 pivotTable.Fields[5].Subtotals = PivotSubtotalTypes.None;
                 pivotTable.Fields[6].Subtotals = PivotSubtotalTypes.None;
+                pivotTable.Fields[22].Subtotals = PivotSubtotalTypes.None;
+                pivotTable.Fields[7].Subtotals = PivotSubtotalTypes.None;
+                pivotTable.Fields[8].Subtotals = PivotSubtotalTypes.None;
+                pivotTable.Fields[11].Subtotals = PivotSubtotalTypes.None;
+                //pivotTable.Fields[21].Subtotals = PivotSubtotalTypes.None;
                 pivotTable.Fields[0].NumberFormat = "mmm yyyy";
+                pivotTable.Fields[11].NumberFormat = "0%";
+                pivotTable.Fields[9].NumberFormat = "$ #,##0.0";
+               
                 pivotTable.Fields[0].Subtotals = PivotSubtotalTypes.None;
                 IPivotField field1 = pivotTable.Fields[9];
-                pivotTable.DataFields.Add(field1, "Sum", PivotSubtotalTypes.Sum);
+                pivotTable.DataFields.Add(field1, "Valor Facturación", PivotSubtotalTypes.Sum);
                 IPivotTableOptions pivotOption = pivotTable.Options;
                 pivotOption.RowLayout = PivotTableRowLayout.Tabular;
-                /*IPivotField field2 = pivotTable.Fields[10];
-                pivotTable.DataFields.Add(field2, "Sum", PivotSubtotalTypes.Sum);
-                IPivotField field3 = pivotTable.Fields[11];
-                pivotTable.DataFields.Add(field3, "Sum", PivotSubtotalTypes.Sum);
-                IPivotField field4 = pivotTable.Fields[12];
-                pivotTable.DataFields.Add(field4, "Sum", PivotSubtotalTypes.Sum);
-                IPivotField field5 = pivotTable.Fields[13];
-                pivotTable.DataFields.Add(field5, "Sum", PivotSubtotalTypes.Sum);
-                IPivotField field6 = pivotTable.Fields[14];
-                pivotTable.DataFields.Add(field6, "Sum", PivotSubtotalTypes.Sum);
-                IPivotField field7 = pivotTable.Fields[15];
-                pivotTable.DataFields.Add(field7, "Sum", PivotSubtotalTypes.Sum);
-                IPivotField field8 = pivotTable.Fields[16];
-                pivotTable.DataFields.Add(field8, "Sum", PivotSubtotalTypes.Sum);
-                IPivotField field9 = pivotTable.Fields[17];
-                pivotTable.DataFields.Add(field9, "Sum", PivotSubtotalTypes.Sum);
-                IPivotField field10 = pivotTable.Fields[18];
-                pivotTable.DataFields.Add(field10, "Sum", PivotSubtotalTypes.Sum);
-                IPivotField field11 = pivotTable.Fields[19];
-                pivotTable.DataFields.Add(field11, "Sum", PivotSubtotalTypes.Sum);
-                IPivotField field12 = pivotTable.Fields[20];
-                pivotTable.DataFields.Add(field12, "Sum", PivotSubtotalTypes.Sum);*/
                 
-                pivotTable.BuiltInStyle = PivotBuiltInStyles.PivotStyleDark2;
+                
+                pivotTable.BuiltInStyle = PivotBuiltInStyles.PivotStyleMedium2;
                 pivot.Range["D6:BB6"].NumberFormat = "mmm dd yyyy";
+                //Encabezado dinámica
+
+                
+
+                pivot.Range["B1"].Formula = @"""PAYC - PERIODO FACTURADO - " + periodo_fact.ToString("y") + @"""" + @"&CHAR(10)&""" + contrato_proyecto.DESCRIPCION + @""" &CHAR(10) & ""REPORTE DINÁMICO CON DETALLE ADJUNTO A LA FACTURA""";
+                pivot.Range["B1:J1"].Merge();
+                pivot.Range["B1:J1"].Borders.LineStyle = Syncfusion.XlsIO.ExcelLineStyle.Double;
+                pivot.Range["B1:J1"].Borders.Color = Syncfusion.XlsIO.ExcelKnownColors.Black;
+                pivot.Range["B1:J1"].CellStyle.Borders[ExcelBordersIndex.DiagonalDown].LineStyle = Syncfusion.XlsIO.ExcelLineStyle.None;
+                pivot.Range["B1:J1"].CellStyle.Borders[ExcelBordersIndex.DiagonalUp].LineStyle = Syncfusion.XlsIO.ExcelLineStyle.None;
+                pivot.Range["B1:J1"].HorizontalAlignment = ExcelHAlign.HAlignJustify;
+                pivot.Range["B1:J1"].VerticalAlignment = ExcelVAlign.VAlignCenter;
+                pivot.Range["B1:J1"].CellStyle.Font.Bold = true;
+                pivot.Range["B1:J1"].Merge();
+
+                pivot.Range["A1"].RowHeight = 60;
+                pivot.Range["A1"].Borders.LineStyle = Syncfusion.XlsIO.ExcelLineStyle.Double;
+                pivot.Range["A1"].Borders.Color = Syncfusion.XlsIO.ExcelKnownColors.Black;
+                pivot.Range["A1"].CellStyle.Borders[ExcelBordersIndex.DiagonalDown].LineStyle = Syncfusion.XlsIO.ExcelLineStyle.None;
+                pivot.Range["A1"].CellStyle.Borders[ExcelBordersIndex.DiagonalUp].LineStyle = Syncfusion.XlsIO.ExcelLineStyle.None;
+                pivot.Range["A1"].HorizontalAlignment = ExcelHAlign.HAlignJustify;
+
+                pivot.Range["A1"].CellStyle.Font.Bold = true;
+                IPictureShape shape1 = pivot.Pictures.AddPicture(1, 1, Path.Combine(fileSave + "/logopayc1.png"));
+                shape1.Top = 20;
+                shape1.Left = 24;
+                shape1.Height = 40;
+                shape1.Width = 40;
+
                 var fileSavePath = Path.Combine(fileSave, "Adjunto_"+COD_FACTURA+".xlsx");
                 workbook.SaveAs(fileSavePath);
             }
             return Json(new { result = COD_FACTURA.ToString(), success = true }, JsonRequestBehavior.AllowGet);
         }
-        
+        #endregion
+        #region utilidades adicionales
         private GridProperties ConvertGridObject(string gridProperty)
         {
             JavaScriptSerializer serializer = new JavaScriptSerializer();
@@ -437,8 +475,9 @@ namespace syncfusion_payc.Controllers
             }
             return gridProp;
         }
-
+        #endregion
     }
+    #region utilidades adicionales
     public static class Test
     {
         public static DataTable ToDataTable<T>(this IList<T> data)
@@ -458,4 +497,6 @@ namespace syncfusion_payc.Controllers
             return table;
         }
     }
+    #endregion
+
 }
