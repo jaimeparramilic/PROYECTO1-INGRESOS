@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="secopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="contratos">
+          <Key>
+            <PropertyRef Name="cod_contrato" />
+          </Key>
+          <Property Name="cod_contrato" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="entidad" Type="varchar" MaxLength="300" />
+          <Property Name="tipo_proceso" Type="varchar" MaxLength="300" />
+          <Property Name="link" Type="varchar" MaxLength="300" />
+          <Property Name="estado_proceso" Type="varchar" MaxLength="300" />
+          <Property Name="regimen_contratacion" Type="varchar" MaxLength="300" />
+          <Property Name="segmento" Type="varchar" MaxLength="300" />
+          <Property Name="grupo" Type="varchar" MaxLength="300" />
+          <Property Name="cuantia" Type="varchar" MaxLength="300" />
+          <Property Name="moneda" Type="varchar" MaxLength="300" />
+          <Property Name="familia" Type="varchar" MaxLength="300" />
+          <Property Name="objeto" Type="varchar" MaxLength="3000" />
+          <Property Name="tipo_contrato" Type="varchar" MaxLength="300" />
+          <Property Name="dept_muni" Type="varchar" MaxLength="300" />
+          <Property Name="fecha_ini" Type="varchar" MaxLength="300" />
+          <Property Name="fecha_fin" Type="varchar" MaxLength="300" />
+          <Property Name="email" Type="varchar" MaxLength="300" />
+          <Property Name="num_contrato" Type="varchar" MaxLength="300" />
+          <Property Name="estado_contrato" Type="varchar" MaxLength="300" />
+          <Property Name="cuantia_real" Type="varchar" MaxLength="300" />
+          <Property Name="nombre_razon_social" Type="varchar" MaxLength="300" />
+          <Property Name="razon_social" Type="varchar" MaxLength="300" />
+          <Property Name="rep_legal" Type="varchar" MaxLength="300" />
+          <Property Name="ced_rep_legal" Type="varchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="proceso_termino">
+          <Key>
+            <PropertyRef Name="cod_proceso_termino" />
+          </Key>
+          <Property Name="cod_proceso_termino" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="proceso" Type="bigint" />
+          <Property Name="termino" Type="varchar" MaxLength="300" />
+          <Property Name="tipo_termino" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK_proceso_termino_contratos">
+          <End Role="contratos" Type="Self.contratos" Multiplicity="0..1" />
+          <End Role="proceso_termino" Type="Self.proceso_termino" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="contratos">
+              <PropertyRef Name="cod_contrato" />
+            </Principal>
+            <Dependent Role="proceso_termino">
+              <PropertyRef Name="proceso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="secopModelStoreContainer">
+          <EntitySet Name="contratos" EntityType="Self.contratos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="proceso_termino" EntityType="Self.proceso_termino" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_proceso_termino_contratos" Association="Self.FK_proceso_termino_contratos">
+            <End Role="contratos" EntitySet="contratos" />
+            <End Role="proceso_termino" EntitySet="proceso_termino" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="secopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="proceso_termino">
+          <Key>
+            <PropertyRef Name="cod_proceso_termino" />
+          </Key>
+          <Property Name="cod_proceso_termino" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="proceso" Type="Int64" />
+          <Property Name="termino" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="tipo_termino" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="secopEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="proceso_termino" EntityType="Self.proceso_termino" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="secopModelStoreContainer" CdmEntityContainer="secopEntities">
+          <EntitySetMapping Name="proceso_termino">
+            <EntityTypeMapping TypeName="secopModel.proceso_termino">
+              <MappingFragment StoreEntitySet="proceso_termino">
+                <ScalarProperty Name="cod_proceso_termino" ColumnName="cod_proceso_termino" />
+                <ScalarProperty Name="proceso" ColumnName="proceso" />
+                <ScalarProperty Name="termino" ColumnName="termino" />
+                <ScalarProperty Name="tipo_termino" ColumnName="tipo_termino" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
