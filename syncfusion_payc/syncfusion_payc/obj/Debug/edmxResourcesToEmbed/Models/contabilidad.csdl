@@ -452,9 +452,6 @@
       <End Role="ROLES" EntitySet="ROLES" />
       <End Role="DETALLE_FACTURA_ADJUNTO_PERS" EntitySet="DETALLE_FACTURA_ADJUNTO_PERS" />
     </AssociationSet>
-    <EntitySet Name="VISTA_DETALLE_ADJUNTOS_PERS" EntityType="test_payc_contabilidadModel.VISTA_DETALLE_ADJUNTOS_PERS" />
-    <EntitySet Name="VISTA_DETALLE_ADJUNTO_PERS_EXPORT" EntityType="test_payc_contabilidadModel.VISTA_DETALLE_ADJUNTO_PERS_EXPORT" />
-    <EntitySet Name="VISTA_DETALLE_FACTURAS_REPORTE" EntityType="test_payc_contabilidadModel.VISTA_DETALLE_FACTURAS_REPORTE" />
     <EntitySet Name="REGISTRO_NOVEDADES" EntityType="test_payc_contabilidadModel.REGISTRO_NOVEDADES" />
     <AssociationSet Name="FK_REGISTRO_NOVEDADES_COLABORADOR" Association="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_COLABORADOR">
       <End Role="COLABORADORES" EntitySet="COLABORADORES" />
@@ -508,6 +505,8 @@
       <End Role="FORMAS_PAGO_FECHAS" EntitySet="FORMAS_PAGO_FECHAS" />
       <End Role="FACTURAS" EntitySet="FACTURAS" />
     </AssociationSet>
+    <EntitySet Name="VISTA_DETALLE_FACTURAS_REPORTE" EntityType="test_payc_contabilidadModel.VISTA_DETALLE_FACTURAS_REPORTE" />
+    <EntitySet Name="VISTA_DETALLE_ADJUNTOS_PERS" EntityType="test_payc_contabilidadModel.VISTA_DETALLE_ADJUNTOS_PERS" />
   </EntityContainer>
   <EntityType Name="ASIGNACION_CARTERA">
     <Key>
@@ -3421,103 +3420,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityType Name="VISTA_DETALLE_ADJUNTOS_PERS">
-    <Key>
-      <PropertyRef Name="COD_DETALLE_FACTURA_ADJUNTO_PERS" />
-    </Key>
-    <Property Name="ID" Type="Int64" />
-    <Property Name="COD_DETALLE_FACTURA_ADJUNTO_PERS" Type="Int64" Nullable="false" />
-    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
-    <Property Name="COD_ROL" Type="Int64" />
-    <Property Name="COD_COLABORADOR" Type="Int64" />
-    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
-    <Property Name="FECHA_REGISTRO" Type="DateTime" Precision="3" />
-    <Property Name="USUARIO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-    <Property Name="COD_ESTADO_FACTURA" Type="Int64" />
-    <Property Name="COD_CAUSA_ESTADO" Type="Int64" />
-    <Property Name="OBSERVACIONES" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-    <Property Name="COD_FACTURA" Type="Int64" />
-    <Property Name="COD_ESTADO_DETALLE" Type="Int64" />
-    <Property Name="COD_CONCEPTO_PSL" Type="Int64" />
-    <Property Name="COD_GRUPO_FACTURA" Type="Int64" />
-    <Property Name="HORAS_ED" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="HORAS_EN" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="HORAS_FD" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="HORAS_FN" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="ADICIONES" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="HORAS_AUSENCIA" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="DESCUENTO_AUSENCIA" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="FECHA_INI" Type="DateTime" Precision="0" />
-    <Property Name="FECHA_FIN" Type="DateTime" Precision="0" />
-    <Property Name="VALOR_DIAS_LAB" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="VALOR_SIN_IMPUESTOS" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="NOMBRES" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-    <Property Name="APELLIDOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-    <Property Name="CEDULA" Type="Int64" />
-    <Property Name="FECHA_FORMA_PAGO" Type="DateTime" Precision="0" />
-    <Property Name="NOMBRE_PROYECTO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-    <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-    <Property Name="NOMBRE_ROL" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-    <Property Name="FECHA_INICIO_EJECUCION" Type="DateTime" Precision="0" />
-    <Property Name="FECHA_FIN_EJECUCION" Type="DateTime" Precision="0" />
-    <Property Name="NOMBRE_PERSONA" Type="String" MaxLength="601" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="VISTA_DETALLE_ADJUNTO_PERS_EXPORT">
-    <Key>
-      <PropertyRef Name="NOVEDADES" />
-    </Key>
-    <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-    <Property Name="ID" Type="Int64" />
-    <Property Name="COD_FACTURA" Type="Int64" />
-    <Property Name="NOMBRE_PROYECTO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-    <Property Name="NOMBRE_ROL" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-    <Property Name="NOMBRE_PERSONA" Type="String" MaxLength="601" FixedLength="false" Unicode="false" />
-    <Property Name="FECHA_INGRESO" Type="DateTime" Precision="0" />
-    <Property Name="FECHA_RETIRO_EN_CONTRATO" Type="DateTime" Precision="0" />
-    <Property Name="VALOR_SIN_IMPUESTOS" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="VALOR_DIAS_LAB" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="ADICIONES" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="DESCUENTO_AUSENCIA" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="HORAS_ED" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="HORAS_EN" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="HORAS_FD" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="HORAS_FN" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="HORAS_AUSENCIA" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="FECHA_PERIODO" Type="DateTime" Precision="0" />
-    <Property Name="COD_ROL" Type="Int64" />
-    <Property Name="NOVEDADES" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="VISTA_DETALLE_FACTURAS_REPORTE">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int64" Nullable="false" />
-    <Property Name="NOMBRE_PROYECTO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-    <Property Name="NOMBRE_ROL" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-    <Property Name="NOMBRE_PERSONA" Type="String" MaxLength="601" FixedLength="false" Unicode="false" />
-    <Property Name="FECHA_INGRESO" Type="DateTime" Precision="0" />
-    <Property Name="FECHA_RETIRO_EN_CONTRATO" Type="DateTime" Precision="0" />
-    <Property Name="VALOR_SIN_IMPUESTOS" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="VALOR_DIAS_LAB" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="ADICIONES" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="DESCUENTO_AUSENCIA" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="HORAS_ED" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="HORAS_EN" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="HORAS_FD" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="HORAS_FN" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="HORAS_AUSENCIA" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="NOVEDADES" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-    <Property Name="NUMERO_FACTURA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="PERIODO_FACTURACION" Type="DateTime" Precision="0" />
-    <Property Name="COD_ROL" Type="Int64" />
-    <Property Name="SALARIO_COMERCIAL_SIN_PRESTACIONES_CON_INCREMENTOS" Type="Decimal" Precision="38" Scale="8" />
-    <Property Name="PRESTACIONES" Type="Decimal" Precision="30" Scale="20" />
-    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" />
-    <Property Name="TIPO_ELEMENTO" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
-    <Property Name="HORAS_EXTRA" Type="Decimal" Precision="33" Scale="20" />
-    <Property Name="DIAS_AUSENCIA" Type="Decimal" Precision="32" Scale="22" />
-  </EntityType>
   <EntityType Name="REGISTRO_NOVEDADES">
     <Key>
       <PropertyRef Name="COD_REGISTRO_NOVEDADES" />
@@ -3748,4 +3650,79 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="VISTA_DETALLE_FACTURAS_REPORTE">
+    <Key>
+      <PropertyRef Name="TIPO_ELEMENTO" />
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" />
+    <Property Name="NOMBRE_PROYECTO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="NOMBRE_ROL" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="NOMBRE_PERSONA" Type="String" MaxLength="601" FixedLength="false" Unicode="false" />
+    <Property Name="FECHA_INGRESO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="FECHA_RETIRO_EN_CONTRATO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="VALOR_SIN_IMPUESTOS" Type="Decimal" Precision="30" Scale="20" />
+    <Property Name="VALOR_DIAS_LAB" Type="Decimal" Precision="30" Scale="20" />
+    <Property Name="ADICIONES" Type="Decimal" Precision="30" Scale="20" />
+    <Property Name="DESCUENTO_AUSENCIA" Type="Decimal" Precision="30" Scale="20" />
+    <Property Name="HORAS_ED" Type="Decimal" Precision="30" Scale="20" />
+    <Property Name="HORAS_EN" Type="Decimal" Precision="30" Scale="20" />
+    <Property Name="HORAS_FD" Type="Decimal" Precision="30" Scale="20" />
+    <Property Name="HORAS_FN" Type="Decimal" Precision="30" Scale="20" />
+    <Property Name="HORAS_AUSENCIA" Type="Decimal" Precision="30" Scale="20" />
+    <Property Name="NOVEDADES" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="NUMERO_FACTURA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="NUMERO_FACTURA_PRODUCTIVO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="PERIODO_FACTURACION" Type="DateTime" Precision="0" />
+    <Property Name="COD_ROL" Type="Int64" />
+    <Property Name="SALARIO_COMERCIAL_SIN_PRESTACIONES_CON_INCREMENTOS" Type="Decimal" Precision="38" Scale="8" />
+    <Property Name="PRESTACIONES" Type="Decimal" Precision="30" Scale="20" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" Nullable="false" />
+    <Property Name="DEDICACION" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="TIPO_ELEMENTO" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+    <Property Name="HORAS_EXTRA" Type="Decimal" Precision="33" Scale="20" />
+    <Property Name="DIAS_AUSENCIA" Type="Decimal" Precision="32" Scale="22" />
+  </EntityType>
+  <EntityType Name="VISTA_DETALLE_ADJUNTOS_PERS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" />
+    <Property Name="COD_DETALLE_FACTURA_ADJUNTO_PERS" Type="Int64" Nullable="false" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
+    <Property Name="COD_ROL" Type="Int64" />
+    <Property Name="COD_COLABORADOR" Type="Int64" />
+    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
+    <Property Name="FECHA_REGISTRO" Type="DateTime" Precision="3" />
+    <Property Name="USUARIO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="COD_ESTADO_FACTURA" Type="Int64" />
+    <Property Name="COD_CAUSA_ESTADO" Type="Int64" />
+    <Property Name="OBSERVACIONES" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="COD_FACTURA" Type="Int64" />
+    <Property Name="COD_ESTADO_DETALLE" Type="Int64" />
+    <Property Name="COD_CONCEPTO_PSL" Type="Int64" />
+    <Property Name="COD_GRUPO_FACTURA" Type="Int64" />
+    <Property Name="HORAS_ED" Type="Decimal" Precision="30" Scale="20" />
+    <Property Name="HORAS_EN" Type="Decimal" Precision="30" Scale="20" />
+    <Property Name="HORAS_FD" Type="Decimal" Precision="30" Scale="20" />
+    <Property Name="HORAS_FN" Type="Decimal" Precision="30" Scale="20" />
+    <Property Name="ADICIONES" Type="Decimal" Precision="30" Scale="20" />
+    <Property Name="HORAS_AUSENCIA" Type="Decimal" Precision="30" Scale="20" />
+    <Property Name="DESCUENTO_AUSENCIA" Type="Decimal" Precision="30" Scale="20" />
+    <Property Name="FECHA_INI" Type="DateTime" Precision="0" />
+    <Property Name="FECHA_FIN" Type="DateTime" Precision="0" />
+    <Property Name="VALOR_DIAS_LAB" Type="Decimal" Precision="30" Scale="20" />
+    <Property Name="VALOR_SIN_IMPUESTOS" Type="Decimal" Precision="30" Scale="20" />
+    <Property Name="NOMBRES" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="APELLIDOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="CEDULA" Type="Int64" />
+    <Property Name="FECHA_FORMA_PAGO" Type="DateTime" Precision="0" />
+    <Property Name="NOMBRE_PROYECTO" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="CENTRO_COSTOS" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="NOMBRE_ROL" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="FECHA_INICIO_EJECUCION" Type="DateTime" Precision="0" />
+    <Property Name="FECHA_FIN_EJECUCION" Type="DateTime" Precision="0" />
+    <Property Name="NOMBRE_PERSONA" Type="String" MaxLength="601" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>

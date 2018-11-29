@@ -14,14 +14,14 @@
 <div class="control-section">
 
 					@(Html.EJ().Grid<syncfusion_payc.Models.PENDIENTES>("Grid")
-					.Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
-					.AllowPaging()
+                    .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                    .AllowPaging()
                     .AllowFiltering()
-					.Locale("es-CO")
-					.AllowResizeToFit(true)
-					.AllowMultiSorting()
-					.AllowSorting()
-					.FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                    .Locale("es-CO")
+                    .AllowResizeToFit(true)
+                    .AllowMultiSorting()
+                    .AllowSorting()
+                    .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
                     .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
                     .ToolbarSettings(toolbar =>
                     {
@@ -32,22 +32,23 @@
                             items.AddTool(ToolBarItems.Delete);
                             items.AddTool(ToolBarItems.Update);
                             items.AddTool(ToolBarItems.Cancel);
-                           
+                            items.AddTool(ToolBarItems.Search);
+
                         });
 
                     }).Columns(col =>
-            {
-col.Field("COD_CONTRATO_PROYECTO").HeaderText("COD_CONTRATO_PROYECTO").IsPrimaryKey(true).Visible(false) .Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
-col.Field("COD_CONTRATO").HeaderText("COD_CONTRATO").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();    
-col.Field("ORDEN_SERVICIO").HeaderText("ORDEN_SERVICIO").Add();    
-col.Field("CENTRO_COSTOS").HeaderText("CENTRO_COSTOS").Add();    
-col.Field("FECHA_INICIO_EJECUCION").HeaderText("FECHA_INICIO_EJECUCION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();    
-col.Field("FECHA_FIN_EJECUCION").HeaderText("FECHA_FIN_EJECUCION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();    
-col.Field("TIPO_SERVICIO").HeaderText("TIPO_SERVICIO").Add();    
-col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();    
-col.Field("TIPO_OBRA").HeaderText("TIPO_OBRA").Add();    
- 
-}))
+                    {
+                        col.Field("COD_CONTRATO_PROYECTO").HeaderText("COD_CONTRATO_PROYECTO").IsPrimaryKey(true).Visible(false) .Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                        col.Field("COD_CONTRATO").HeaderText("COD_CONTRATO").Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                        col.Field("ORDEN_SERVICIO").HeaderText("ORDEN_SERVICIO").Add();
+                        col.Field("CENTRO_COSTOS").HeaderText("CENTRO_COSTOS").Add();
+                        col.Field("FECHA_INICIO_EJECUCION").HeaderText("FECHA_INICIO_EJECUCION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                        col.Field("FECHA_FIN_EJECUCION").HeaderText("FECHA_FIN_EJECUCION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                        col.Field("TIPO_SERVICIO").HeaderText("TIPO_SERVICIO").Add();
+                        col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();
+                        col.Field("TIPO_OBRA").HeaderText("TIPO_OBRA").Add();
+
+                    }))
 
 </div>
 
