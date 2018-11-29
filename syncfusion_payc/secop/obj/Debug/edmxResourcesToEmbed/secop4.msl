@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="secopModelStoreContainer" CdmEntityContainer="secopEntities">
+    <EntitySetMapping Name="proceso_termino">
+      <EntityTypeMapping TypeName="secopModel.proceso_termino">
+        <MappingFragment StoreEntitySet="proceso_termino">
+          <ScalarProperty Name="cod_proceso_termino" ColumnName="cod_proceso_termino" />
+          <ScalarProperty Name="proceso" ColumnName="proceso" />
+          <ScalarProperty Name="termino" ColumnName="termino" />
+          <ScalarProperty Name="tipo_termino" ColumnName="tipo_termino" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="documentos_procesos">
+      <EntityTypeMapping TypeName="secopModel.documentos_procesos">
+        <MappingFragment StoreEntitySet="documentos_procesos">
+          <ScalarProperty Name="proceso" ColumnName="proceso" />
+          <ScalarProperty Name="datemodified" ColumnName="datemodified" />
+          <ScalarProperty Name="datepublished" ColumnName="datepublished" />
+          <ScalarProperty Name="format" ColumnName="format" />
+          <ScalarProperty Name="url" ColumnName="url" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="cod_documento" ColumnName="cod_documento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="contratos">
+      <EntityTypeMapping TypeName="secopModel.contratos">
+        <MappingFragment StoreEntitySet="contratos">
+          <ScalarProperty Name="cod_secop" ColumnName="cod_secop" />
+          <ScalarProperty Name="depto" ColumnName="depto" />
+          <ScalarProperty Name="link_secop" ColumnName="link_secop" />
+          <ScalarProperty Name="fecha_fin" ColumnName="fecha_fin" />
+          <ScalarProperty Name="fecha_ini" ColumnName="fecha_ini" />
+          <ScalarProperty Name="dept_muni" ColumnName="dept_muni" />
+          <ScalarProperty Name="tipo_contrato" ColumnName="tipo_contrato" />
+          <ScalarProperty Name="objeto" ColumnName="objeto" />
+          <ScalarProperty Name="familia" ColumnName="familia" />
+          <ScalarProperty Name="moneda" ColumnName="moneda" />
+          <ScalarProperty Name="cuantia" ColumnName="cuantia" />
+          <ScalarProperty Name="id_unsp" ColumnName="id_unsp" />
+          <ScalarProperty Name="clasificacion_unsp" ColumnName="clasificacion_unsp" />
+          <ScalarProperty Name="regimen_contratacion" ColumnName="regimen_contratacion" />
+          <ScalarProperty Name="estado_proceso" ColumnName="estado_proceso" />
+          <ScalarProperty Name="link_invitacion" ColumnName="link_invitacion" />
+          <ScalarProperty Name="tipo_proceso" ColumnName="tipo_proceso" />
+          <ScalarProperty Name="entidad" ColumnName="entidad" />
+          <ScalarProperty Name="cod_contrato" ColumnName="cod_contrato" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

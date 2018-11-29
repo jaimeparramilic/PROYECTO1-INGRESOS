@@ -762,7 +762,7 @@ namespace syncfusion_payc.Controllers
             {
                 //Traer codigo factura
                 string query = @"SELECT MAX(CAST([edvnumedocuclie] AS INT)) AS MAX_CODIGO
-                                 FROM [ssf_pruebas].[dbo].[ca_encdocvta] WHERE (edvtipoconsclie='F00' OR edvtipoconsclie='FI00') AND edvcompania='01' AND edvdivision='01'";
+                                 FROM [SSF_PAYC].[dbo].[ca_encdocvta] WHERE (edvtipoconsclie='F00' OR edvtipoconsclie='FI00') AND edvcompania='01' AND edvdivision='01'";
 
                 string maxnumfac = "0";
                 using (SqlConnection connection = new SqlConnection(connectionString1))
@@ -782,7 +782,7 @@ namespace syncfusion_payc.Controllers
                 {
                     query = @"UPDATE [104.196.158.138].[test_payc_contabilidad].[dbo].[SECUENCIA_NUM_FACT_PSL_PRODUCTIVO] 
 	                        SET [SECUENCIA_PSL] = (SELECT TOP 1 MAX(CAST([edvnumedocuclie] AS INT)) + 1 AS MAX_CODIGO
-	                        FROM [ssf_pruebas].[dbo].[VISTA_MAXIMO_FACTURAS] 
+	                        FROM [SSF_PAYC].[dbo].[VISTA_MAXIMO_FACTURAS] 
 	                        WHERE (edvtipoconsclie='F00' OR edvtipoconsclie='FI00') AND edvcompania='01' AND edvdivision='01')";
                     //Insertar encabezado factura
                     using (SqlConnection connection = new SqlConnection(connectionString1))
@@ -807,7 +807,7 @@ namespace syncfusion_payc.Controllers
                         connection.Close();
                     }
 
-                    string query1 = @"INSERT INTO [ssf_pruebas].[dbo].[ca_encdocvtaentra] ([edvconseingre]
+                    string query1 = @"INSERT INTO [SSF_PAYC].[dbo].[ca_encdocvtaentra] ([edvconseingre]
                   ,[edvcontrol]
                   ,[edvvaloconimp]
                   ,[edvnumedocuclie]
@@ -858,7 +858,7 @@ namespace syncfusion_payc.Controllers
                                       WHERE edvconseingre=" + COD_FACTURA.ToString() + @")";
 
                     //Consulta para importar detalle factura
-                    string query2 = @"INSERT INTO [ssf_pruebas].[dbo].[ca_detdocvtaentra] 
+                    string query2 = @"INSERT INTO [SSF_PAYC].[dbo].[ca_detdocvtaentra] 
                    ([ddvconseingre]
                   ,[ddvcontrol]
                   ,[ddvcompania]
@@ -929,7 +929,7 @@ namespace syncfusion_payc.Controllers
                          " ha sido enviada para importación");
 
                     //Modificar consecutivo de tipo consecutivos en PSL
-                    query = @"UPDATE [PAYC_REMOTO].[ssf_pruebas].[dbo].[un_tiposconse] 
+                    query = @"UPDATE [PAYC_REMOTO].[SSF_PAYC].[dbo].[un_tiposconse] 
                             SET [icculticonsasig] = '" + maxnumfac.ToString()
                             + @"' WHERE icccompania='01' AND icccodigo='F00'";
                     using (SqlConnection connection = new SqlConnection(connectionString))
