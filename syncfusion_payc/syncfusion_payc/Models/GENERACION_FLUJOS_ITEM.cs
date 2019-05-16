@@ -18,7 +18,7 @@ using System;
 public partial class GENERACION_FLUJOS_ITEM
 {
 
-    public Nullable<long> COD_FORMAS_PAGO_FECHAS { get; set; }
+    public long COD_FORMAS_PAGO_FECHAS { get; set; }
 
     public long COD_ITEM_CONTRATO { get; set; }
 
@@ -28,7 +28,7 @@ public partial class GENERACION_FLUJOS_ITEM
 
     public Nullable<decimal> VALOR_FIJO { get; set; }
 
-    public Nullable<decimal> VALOR_FIJO_UNITARIO { get; set; }
+    public decimal VALOR_FIJO_UNITARIO { get; set; }
 
     public Nullable<decimal> VALOR_TOTAL { get; set; }
 

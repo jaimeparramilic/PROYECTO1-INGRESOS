@@ -22,8 +22,6 @@ public partial class ITEMS_CONTRATO
     public ITEMS_CONTRATO()
     {
 
-        this.DETALLE_FACTURA_ADJUNTO_ITEM = new HashSet<DETALLE_FACTURA_ADJUNTO_ITEM>();
-
         this.DETALLE_FACTURA_ITEM = new HashSet<DETALLE_FACTURA_ITEM>();
 
         this.FLUJO_INGRESOS_ITEMS = new HashSet<FLUJO_INGRESOS_ITEMS>();
@@ -69,14 +67,6 @@ public partial class ITEMS_CONTRATO
 
     public virtual CONCEPTOS CONCEPTOS { get; set; }
 
-    public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-	[System.Runtime.Serialization.IgnoreDataMember]
-	[Newtonsoft.Json.JsonIgnore]
-
-    public virtual ICollection<DETALLE_FACTURA_ADJUNTO_ITEM> DETALLE_FACTURA_ADJUNTO_ITEM { get; set; }
-
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 	[System.Runtime.Serialization.IgnoreDataMember]
 	[Newtonsoft.Json.JsonIgnore]
@@ -104,6 +94,8 @@ public partial class ITEMS_CONTRATO
 	[Newtonsoft.Json.JsonIgnore]
 
     public virtual ICollection<REGISTRO_ITEMS_OTROS_COSTOS> REGISTRO_ITEMS_OTROS_COSTOS { get; set; }
+
+    public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
 
 }
 

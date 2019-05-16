@@ -41,8 +41,6 @@ public partial class CONTRATOS_CONDICIONES
 
 
 
-    public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
-
     public virtual TIPO_CONDICION_CONTRACTUAL TIPO_CONDICION_CONTRACTUAL { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -50,6 +48,8 @@ public partial class CONTRATOS_CONDICIONES
 	[Newtonsoft.Json.JsonIgnore]
 
     public virtual ICollection<ENTREGABLES> ENTREGABLES { get; set; }
+
+    public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
 
 }
 

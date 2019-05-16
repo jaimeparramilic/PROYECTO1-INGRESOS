@@ -26,13 +26,13 @@ public partial class ROLES
 
         this.CONTRATOS_ROL = new HashSet<CONTRATOS_ROL>();
 
-        this.DETALLE_FACTURA_ADJUNTO_PERS = new HashSet<DETALLE_FACTURA_ADJUNTO_PERS>();
-
         this.DETALLE_FACTURA_PERS = new HashSet<DETALLE_FACTURA_PERS>();
 
         this.ITEMS_ROLES = new HashSet<ITEMS_ROLES>();
 
         this.ROL_CARGO_ORDEN = new HashSet<ROL_CARGO_ORDEN>();
+
+        this.DETALLE_FACTURA_ADJUNTO_PERS = new HashSet<DETALLE_FACTURA_ADJUNTO_PERS>();
 
     }
 
@@ -59,12 +59,6 @@ public partial class ROLES
 	[System.Runtime.Serialization.IgnoreDataMember]
 	[Newtonsoft.Json.JsonIgnore]
 
-    public virtual ICollection<DETALLE_FACTURA_ADJUNTO_PERS> DETALLE_FACTURA_ADJUNTO_PERS { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-	[System.Runtime.Serialization.IgnoreDataMember]
-	[Newtonsoft.Json.JsonIgnore]
-
     public virtual ICollection<DETALLE_FACTURA_PERS> DETALLE_FACTURA_PERS { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -78,6 +72,12 @@ public partial class ROLES
 	[Newtonsoft.Json.JsonIgnore]
 
     public virtual ICollection<ROL_CARGO_ORDEN> ROL_CARGO_ORDEN { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+	[System.Runtime.Serialization.IgnoreDataMember]
+	[Newtonsoft.Json.JsonIgnore]
+
+    public virtual ICollection<DETALLE_FACTURA_ADJUNTO_PERS> DETALLE_FACTURA_ADJUNTO_PERS { get; set; }
 
 }
 

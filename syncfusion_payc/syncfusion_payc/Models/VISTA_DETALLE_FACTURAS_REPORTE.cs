@@ -18,7 +18,7 @@ using System;
 public partial class VISTA_DETALLE_FACTURAS_REPORTE
 {
 
-    public Nullable<long> ID { get; set; }
+    public long ID { get; set; }
 
     public string NOMBRE_PROYECTO { get; set; }
 

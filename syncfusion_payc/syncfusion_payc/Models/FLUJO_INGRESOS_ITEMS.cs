@@ -42,11 +42,11 @@ public partial class FLUJO_INGRESOS_ITEMS
 
 
 
-    public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
-
     public virtual FORMAS_PAGO_FECHAS FORMAS_PAGO_FECHAS { get; set; }
 
     public virtual ITEMS_CONTRATO ITEMS_CONTRATO { get; set; }
+
+    public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
 
 }
 

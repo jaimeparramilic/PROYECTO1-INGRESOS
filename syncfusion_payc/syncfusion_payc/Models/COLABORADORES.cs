@@ -24,15 +24,13 @@ public partial class COLABORADORES
 
         this.CONTRATO_COLABORADOR = new HashSet<CONTRATO_COLABORADOR>();
 
-        this.DETALLE_FACTURA_ADJUNTO_PERS = new HashSet<DETALLE_FACTURA_ADJUNTO_PERS>();
-
         this.ENTREGABLES = new HashSet<ENTREGABLES>();
 
         this.ESTUDIOS_COLABORADOR = new HashSet<ESTUDIOS_COLABORADOR>();
 
-        this.REGISTRO_NOVEDADES = new HashSet<REGISTRO_NOVEDADES>();
+        this.DETALLE_FACTURA_ADJUNTO_PERS = new HashSet<DETALLE_FACTURA_ADJUNTO_PERS>();
 
-        this.REGISTRO_NOVEDADES_TRABAJO = new HashSet<REGISTRO_NOVEDADES_TRABAJO>();
+        this.REGISTRO_NOVEDADES = new HashSet<REGISTRO_NOVEDADES>();
 
     }
 
@@ -87,12 +85,6 @@ public partial class COLABORADORES
 	[System.Runtime.Serialization.IgnoreDataMember]
 	[Newtonsoft.Json.JsonIgnore]
 
-    public virtual ICollection<DETALLE_FACTURA_ADJUNTO_PERS> DETALLE_FACTURA_ADJUNTO_PERS { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-	[System.Runtime.Serialization.IgnoreDataMember]
-	[Newtonsoft.Json.JsonIgnore]
-
     public virtual ICollection<ENTREGABLES> ENTREGABLES { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -105,13 +97,13 @@ public partial class COLABORADORES
 	[System.Runtime.Serialization.IgnoreDataMember]
 	[Newtonsoft.Json.JsonIgnore]
 
-    public virtual ICollection<REGISTRO_NOVEDADES> REGISTRO_NOVEDADES { get; set; }
+    public virtual ICollection<DETALLE_FACTURA_ADJUNTO_PERS> DETALLE_FACTURA_ADJUNTO_PERS { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 	[System.Runtime.Serialization.IgnoreDataMember]
 	[Newtonsoft.Json.JsonIgnore]
 
-    public virtual ICollection<REGISTRO_NOVEDADES_TRABAJO> REGISTRO_NOVEDADES_TRABAJO { get; set; }
+    public virtual ICollection<REGISTRO_NOVEDADES> REGISTRO_NOVEDADES { get; set; }
 
 }
 

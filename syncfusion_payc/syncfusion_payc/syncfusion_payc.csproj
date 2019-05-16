@@ -376,13 +376,7 @@
     <Compile Include="Models\CONTRATOS_CONDICIONES_VISTA.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CONTRATOS_PROYECCION.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\CONTRATOS_ROL.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CONTRATOS_ROL_TEMP.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CONTRATO_COLABORADOR.cs">
@@ -415,25 +409,13 @@
     <Compile Include="Models\DEBUG.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DETALLE_FACTURA_ADJUNTO_ITEM.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\DETALLE_FACTURA_ADJUNTO_PERS.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DETALLE_FACTURA_ADJUNTO_PERS_TEMP.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DETALLE_FACTURA_ITEM.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DETALLE_FACTURA_ITEM_TEMP.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\DETALLE_FACTURA_PERS.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DETALLE_FACTURA_PERS_TEMP.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EMAIL_CLIENTES.cs">
@@ -466,12 +448,6 @@
     <Compile Include="Models\ESTUDIOS_COLABORADOR.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ESTUDIOS_COLABORADOR_TEMP.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\FACTORES_REALES.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\FACTURAS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
@@ -482,16 +458,10 @@
     <Compile Include="Models\FLUJO_INGRESOS_ITEMS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\FLUJO_INGRESOS_ITEMS_TEMP.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\FLUJO_INGRESOS_ROL.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FLUJO_INGRESOS_ROLES.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\FLUJO_INGRESOS_ROL_TEMP.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\FORMAS_PAGO.cs">
@@ -512,15 +482,6 @@
     <Compile Include="Models\GENERACION_FLUJOS_ITEM3.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\GENERACION_FLUJOS_ITEM_TEMP.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\GENERACION_FLUJOS_ITEM_TEMP2.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\GENERACION_FLUJOS_ITEM_TEMP3.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\GENERACION_FLUJOS_ROL.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
@@ -528,15 +489,6 @@
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GENERACION_FLUJOS_ROL3.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\GENERACION_FLUJOS_ROL_TEMP.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\GENERACION_FLUJOS_ROL_TEMP2.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\GENERACION_FLUJOS_ROL_TEMP3.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\GENEROS.cs">
@@ -548,13 +500,7 @@
     <Compile Include="Models\GESTION_ENTREGABLES.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\GRUPOS_CECOS.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\GRUPOS_FACTURA.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\GRUPOS_PROBABILIDADES.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\INCREMENTO_ORDEN.cs">
@@ -573,9 +519,6 @@
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ITEMS_CONTRATO_DESCRIPCION.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ITEMS_CONTRATO_TEMP.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ITEMS_ROLES.cs">
@@ -608,18 +551,6 @@
     <Compile Include="Models\REGISTRO_NOVEDADES_FECHAS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\REGISTRO_NOVEDADES_FECHAS_SABADOS.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\REGISTRO_NOVEDADES_FECHAS_TEMP.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\REGISTRO_NOVEDADES_TEMP.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\REGISTRO_NOVEDADES_TRABAJO.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ReportsTable.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
@@ -629,19 +560,7 @@
     <Compile Include="Models\ROL_CARGO_ORDEN.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SIMULACION_PAGOS.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\SINO.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_actualizar_estado_centro_costo_Result.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagrams_Result.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagrams.cs">
@@ -695,9 +614,6 @@
     <Compile Include="Models\VISTA_CARTERA_INDEX1.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VISTA_COMPARACION_DETALLES.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\VISTA_CONTRATOS_ROL_DESCRIPCION.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
@@ -710,73 +626,22 @@
     <Compile Include="Models\VISTA_COSTOS_FLUJO_INGR.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VISTA_COSTOS_FLUJO_INGR_TEMP.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VISTA_COSTOS_FLUJO_INGR_TEMP2.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VISTA_DETALLES_FACTURAS_ANTES_PSL.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\VISTA_DETALLE_ADJUNTOS_PERS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VISTA_DETALLE_FACTURAS_REPORTE.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VISTA_DETALLE_FACTURA_ITEM_REPORTE.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VISTA_DETALLE_FACTURA_ITEM_REPORTE_PSL.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VISTA_DETALLE_FACTURA_PERS_REPORTE.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VISTA_DETALLE_FACTURA_PERS_REPORTE_PSL.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VISTA_DETALLE_POR_FACTURA.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\VISTA_DETDOCVTAENTRA.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VISTA_DETDOCVTAENTRA_MULTIPLES_FACTURAS.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VISTA_DETDOCVTAENTRA_MULTIPLES_FACTURAS_PRODUCTIVO.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VISTA_DETDOCVTAENTRA_MULTIPLES_FACTURAS_PRUEBAS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VISTA_ENCDOCVTAENTRA.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VISTA_ENCDOCVTAENTRA_MULTIPLES_FACTURAS.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VISTA_ENCDOCVTAENTRA_MULTIPLES_FACTURAS_PRODUCTIVO.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VISTA_ENCDOCVTAENTRA_MULTIPLES_FACTURAS_PRUEBAS.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\VISTA_ESTADOS_FINANCIEROS_PRUEBA1.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VISTA_FACTURACION_ADJUNTO_PERS.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VISTA_FACTURAS_CARTERA.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\VISTA_FACTURAS_FECHA_PERIODO_FACTURACION.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VISTA_FACTURAS_PAGOS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VISTA_FINANCIERA.cs">
@@ -797,16 +662,7 @@
     <Compile Include="Models\VISTA_GENERACION_DATOS_REGISTRO_NOVEDADES.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VISTA_GENERACION_PAGADO_COLABORADOR.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\VISTA_GESTION_CARTERA.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VISTA_GRUPOS_CECOS.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VISTA_INDICADORES_PROYECCION_PAGOS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VISTA_INGEELIMP.cs">
@@ -833,9 +689,6 @@
     <Compile Include="Models\VISTA_PENDIENTES_RETIRO.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VISTA_PRUEBAS_JPM.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\VISTA_PRUEBA_DECIMALES.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
@@ -845,27 +698,6 @@
     <Compile Include="Models\VISTA_REGISTRO_NOVEDADES.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\VISTA_REGISTRO_NOVEDADES_DESCRIPCION.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VISTA_REGISTRO_NOVEDADES_DIASLAB.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VISTA_REGISTRO_NOVEDADES_TEMP.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VISTA_REPORTE_CARTERA.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VISTA_RESUMEN_FACTURACION.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VISTA_RESUMEN_GESTION_CARTERA.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VISTA_RESUMEN_GESTION_FACTURAS.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\VISTA_SALARIO_COMERCIAL_INCREMENTOS.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
@@ -873,12 +705,6 @@
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VISTA_TEMP.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VISTA_TOTALES_GRUPOS_FACTURAS_SECUENCIA.cs">
-      <DependentUpon>contabilidad.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\VISTA_TOTALES_GRUPOS_FACTURAS_SECUENCIA_PRODUCTIVO.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\VISTA_USUARIOS_AttendanceDB.cs">

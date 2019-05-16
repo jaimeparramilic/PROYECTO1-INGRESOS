@@ -28,11 +28,11 @@ public partial class ITEMS_ROLES
 
 
 
-    public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
-
     public virtual ITEMS_CONTRATO ITEMS_CONTRATO { get; set; }
 
     public virtual ROLES ROLES { get; set; }
+
+    public virtual CONTRATO_PROYECTO CONTRATO_PROYECTO { get; set; }
 
 }
 

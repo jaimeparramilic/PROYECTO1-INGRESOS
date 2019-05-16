@@ -321,7 +321,9 @@
     }
 
     //Funcion para refrescar total
-    function refrescar_total() {
+        function refrescar_total() {
+        var instancia = $("#GRID_ROLES").ejGrid("instance");
+        setTimeout(function () { instancia.refreshContent();},1000)
         var cod_factura =@(ViewBag.COD_FACTURA == null ? "" : Html.Raw((String)ViewBag.COD_FACTURA.ToString()).ToString());
         var data = JSON.stringify({ COD_FACTURA: parseInt(cod_factura) });
         var url = "../refrescar_total";

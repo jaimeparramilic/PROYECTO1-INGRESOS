@@ -22,13 +22,11 @@ public partial class CAUSA_ESTADO
     public CAUSA_ESTADO()
     {
 
-        this.DETALLE_FACTURA_ADJUNTO_ITEM = new HashSet<DETALLE_FACTURA_ADJUNTO_ITEM>();
-
-        this.DETALLE_FACTURA_ADJUNTO_PERS = new HashSet<DETALLE_FACTURA_ADJUNTO_PERS>();
-
         this.DETALLE_FACTURA_ITEM = new HashSet<DETALLE_FACTURA_ITEM>();
 
         this.DETALLE_FACTURA_PERS = new HashSet<DETALLE_FACTURA_PERS>();
+
+        this.DETALLE_FACTURA_ADJUNTO_PERS = new HashSet<DETALLE_FACTURA_ADJUNTO_PERS>();
 
     }
 
@@ -43,18 +41,6 @@ public partial class CAUSA_ESTADO
 	[System.Runtime.Serialization.IgnoreDataMember]
 	[Newtonsoft.Json.JsonIgnore]
 
-    public virtual ICollection<DETALLE_FACTURA_ADJUNTO_ITEM> DETALLE_FACTURA_ADJUNTO_ITEM { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-	[System.Runtime.Serialization.IgnoreDataMember]
-	[Newtonsoft.Json.JsonIgnore]
-
-    public virtual ICollection<DETALLE_FACTURA_ADJUNTO_PERS> DETALLE_FACTURA_ADJUNTO_PERS { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-	[System.Runtime.Serialization.IgnoreDataMember]
-	[Newtonsoft.Json.JsonIgnore]
-
     public virtual ICollection<DETALLE_FACTURA_ITEM> DETALLE_FACTURA_ITEM { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -62,6 +48,12 @@ public partial class CAUSA_ESTADO
 	[Newtonsoft.Json.JsonIgnore]
 
     public virtual ICollection<DETALLE_FACTURA_PERS> DETALLE_FACTURA_PERS { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+	[System.Runtime.Serialization.IgnoreDataMember]
+	[Newtonsoft.Json.JsonIgnore]
+
+    public virtual ICollection<DETALLE_FACTURA_ADJUNTO_PERS> DETALLE_FACTURA_ADJUNTO_PERS { get; set; }
 
 }
 

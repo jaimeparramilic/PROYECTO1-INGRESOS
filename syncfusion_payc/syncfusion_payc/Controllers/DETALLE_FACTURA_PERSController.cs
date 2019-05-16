@@ -217,6 +217,8 @@ namespace syncfusion_payc.Controllers
 
         public ActionResult PerformInsert(EditParams_DETALLE_FACTURA_PERS param)
         {
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
             DateTime hoy = DateTime.Today;
             string usuario = User.Identity.GetUserName();
             param.value.FECHA_REGISTRO = hoy;
@@ -245,15 +247,18 @@ namespace syncfusion_payc.Controllers
                 FACTURAS table1 = db.FACTURAS.Single(o => o.COD_FACTURA == param.value.COD_FACTURA);
                 table1.VALOR_SIN_IMPUESTOS = Decimal.Parse(valor_factura);
                 db.SaveChanges();
+                //REIVISAR PORQUE GENERÓ PROBLEMAS
+                //var data = db.DETALLE_FACTURA_PERS.ToList();
+                //var value = data.Last();
+                //return Json(value, JsonRequestBehavior.AllowGet);
+
             }
             catch (Exception ex)
             {
-
+                return Json(new { success = true, responseText = ex.ToString() }, JsonRequestBehavior.AllowGet);
             }
-           var data = db.DETALLE_FACTURA_PERS.ToList();
-           var value = data.Last();
-           return Json(value, JsonRequestBehavior.AllowGet);
 
+            return Json(new { success = true, responseText = "SI" }, JsonRequestBehavior.AllowGet);
         }
 
 

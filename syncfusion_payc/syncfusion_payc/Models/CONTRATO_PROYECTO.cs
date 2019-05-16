@@ -26,21 +26,13 @@ public partial class CONTRATO_PROYECTO
 
         this.CONTRATOS_ROL = new HashSet<CONTRATOS_ROL>();
 
-        this.DETALLE_FACTURA_ADJUNTO_ITEM = new HashSet<DETALLE_FACTURA_ADJUNTO_ITEM>();
-
-        this.DETALLE_FACTURA_ADJUNTO_PERS = new HashSet<DETALLE_FACTURA_ADJUNTO_PERS>();
-
         this.DETALLE_FACTURA_ITEM = new HashSet<DETALLE_FACTURA_ITEM>();
 
         this.DETALLE_FACTURA_PERS = new HashSet<DETALLE_FACTURA_PERS>();
 
-        this.FACTURAS = new HashSet<FACTURAS>();
-
         this.FLUJO_INGRESOS_ITEMS = new HashSet<FLUJO_INGRESOS_ITEMS>();
 
         this.FLUJO_INGRESOS_ROL = new HashSet<FLUJO_INGRESOS_ROL>();
-
-        this.GESTION_CARTERA = new HashSet<GESTION_CARTERA>();
 
         this.INCREMENTO_ORDEN = new HashSet<INCREMENTO_ORDEN>();
 
@@ -50,13 +42,17 @@ public partial class CONTRATO_PROYECTO
 
         this.REGISTRO_ITEMS_OTROS_COSTOS = new HashSet<REGISTRO_ITEMS_OTROS_COSTOS>();
 
-        this.REGISTRO_NOVEDADES = new HashSet<REGISTRO_NOVEDADES>();
-
-        this.REGISTRO_NOVEDADES_TRABAJO = new HashSet<REGISTRO_NOVEDADES_TRABAJO>();
-
         this.ROL_CARGO_ORDEN = new HashSet<ROL_CARGO_ORDEN>();
 
         this.TAG_ORDEN = new HashSet<TAG_ORDEN>();
+
+        this.GESTION_CARTERA = new HashSet<GESTION_CARTERA>();
+
+        this.DETALLE_FACTURA_ADJUNTO_PERS = new HashSet<DETALLE_FACTURA_ADJUNTO_PERS>();
+
+        this.REGISTRO_NOVEDADES = new HashSet<REGISTRO_NOVEDADES>();
+
+        this.FACTURAS = new HashSet<FACTURAS>();
 
     }
 
@@ -115,18 +111,6 @@ public partial class CONTRATO_PROYECTO
 	[System.Runtime.Serialization.IgnoreDataMember]
 	[Newtonsoft.Json.JsonIgnore]
 
-    public virtual ICollection<DETALLE_FACTURA_ADJUNTO_ITEM> DETALLE_FACTURA_ADJUNTO_ITEM { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-	[System.Runtime.Serialization.IgnoreDataMember]
-	[Newtonsoft.Json.JsonIgnore]
-
-    public virtual ICollection<DETALLE_FACTURA_ADJUNTO_PERS> DETALLE_FACTURA_ADJUNTO_PERS { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-	[System.Runtime.Serialization.IgnoreDataMember]
-	[Newtonsoft.Json.JsonIgnore]
-
     public virtual ICollection<DETALLE_FACTURA_ITEM> DETALLE_FACTURA_ITEM { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -139,12 +123,6 @@ public partial class CONTRATO_PROYECTO
 	[System.Runtime.Serialization.IgnoreDataMember]
 	[Newtonsoft.Json.JsonIgnore]
 
-    public virtual ICollection<FACTURAS> FACTURAS { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-	[System.Runtime.Serialization.IgnoreDataMember]
-	[Newtonsoft.Json.JsonIgnore]
-
     public virtual ICollection<FLUJO_INGRESOS_ITEMS> FLUJO_INGRESOS_ITEMS { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -152,12 +130,6 @@ public partial class CONTRATO_PROYECTO
 	[Newtonsoft.Json.JsonIgnore]
 
     public virtual ICollection<FLUJO_INGRESOS_ROL> FLUJO_INGRESOS_ROL { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-	[System.Runtime.Serialization.IgnoreDataMember]
-	[Newtonsoft.Json.JsonIgnore]
-
-    public virtual ICollection<GESTION_CARTERA> GESTION_CARTERA { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 	[System.Runtime.Serialization.IgnoreDataMember]
@@ -187,18 +159,6 @@ public partial class CONTRATO_PROYECTO
 	[System.Runtime.Serialization.IgnoreDataMember]
 	[Newtonsoft.Json.JsonIgnore]
 
-    public virtual ICollection<REGISTRO_NOVEDADES> REGISTRO_NOVEDADES { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-	[System.Runtime.Serialization.IgnoreDataMember]
-	[Newtonsoft.Json.JsonIgnore]
-
-    public virtual ICollection<REGISTRO_NOVEDADES_TRABAJO> REGISTRO_NOVEDADES_TRABAJO { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-	[System.Runtime.Serialization.IgnoreDataMember]
-	[Newtonsoft.Json.JsonIgnore]
-
     public virtual ICollection<ROL_CARGO_ORDEN> ROL_CARGO_ORDEN { get; set; }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -206,6 +166,30 @@ public partial class CONTRATO_PROYECTO
 	[Newtonsoft.Json.JsonIgnore]
 
     public virtual ICollection<TAG_ORDEN> TAG_ORDEN { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+	[System.Runtime.Serialization.IgnoreDataMember]
+	[Newtonsoft.Json.JsonIgnore]
+
+    public virtual ICollection<GESTION_CARTERA> GESTION_CARTERA { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+	[System.Runtime.Serialization.IgnoreDataMember]
+	[Newtonsoft.Json.JsonIgnore]
+
+    public virtual ICollection<DETALLE_FACTURA_ADJUNTO_PERS> DETALLE_FACTURA_ADJUNTO_PERS { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+	[System.Runtime.Serialization.IgnoreDataMember]
+	[Newtonsoft.Json.JsonIgnore]
+
+    public virtual ICollection<REGISTRO_NOVEDADES> REGISTRO_NOVEDADES { get; set; }
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+	[System.Runtime.Serialization.IgnoreDataMember]
+	[Newtonsoft.Json.JsonIgnore]
+
+    public virtual ICollection<FACTURAS> FACTURAS { get; set; }
 
 }
 

@@ -18,7 +18,7 @@ using System;
 public partial class VISTA_DETALLE_ADJUNTOS_PERS
 {
 
-    public Nullable<long> ID { get; set; }
+    public long ID { get; set; }
 
     public long COD_DETALLE_FACTURA_ADJUNTO_PERS { get; set; }
 

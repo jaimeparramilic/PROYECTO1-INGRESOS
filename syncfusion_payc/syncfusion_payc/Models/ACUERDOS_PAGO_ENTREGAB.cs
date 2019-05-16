@@ -55,13 +55,13 @@ public partial class ACUERDOS_PAGO_ENTREGAB
 
     public virtual ESTADOS_ACUER_PAG_ENTREG ESTADOS_ACUER_PAG_ENTREG { get; set; }
 
-    public virtual TIPOS_ACUERDO TIPOS_ACUERDO { get; set; }
-
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 	[System.Runtime.Serialization.IgnoreDataMember]
 	[Newtonsoft.Json.JsonIgnore]
 
     public virtual ICollection<GESTION_ENTREGABLES> GESTION_ENTREGABLES { get; set; }
+
+    public virtual TIPOS_ACUERDO TIPOS_ACUERDO { get; set; }
 
 }
 
