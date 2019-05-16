@@ -1468,6 +1468,7 @@
     <Content Include="images\logopayc.png" />
     <Content Include="images\oops.jpg" />
     <Content Include="images\waitingpopup.gif" />
+    <Content Include="test2.txt" />
     <Content Include="Models\contabilidad.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>contabilidad.edmx</DependentUpon>
