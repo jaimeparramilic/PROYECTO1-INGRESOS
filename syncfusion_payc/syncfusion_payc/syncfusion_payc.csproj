@@ -1636,6 +1636,7 @@
     <Content Include="Skype\scripts\Transport.js" />
     <Content Include="Skype\scripts\UcwaMain.js" />
     <Content Include="Skype\Styles.css" />
+    <Content Include="TESTREPOJPM.css" />
     <Content Include="Utilidades\ProbarExecSQL.aspx" />
     <Content Include="Utilidades\Probar_email.aspx" />
     <Content Include="Utilidades\Prueba.aspx" />
