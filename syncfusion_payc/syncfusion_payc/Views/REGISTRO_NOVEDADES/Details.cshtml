@@ -1,0 +1,66 @@
+﻿@model syncfusion_payc.Models.REGISTRO_NOVEDADES
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>REGISTRO_NOVEDADES</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA_INICIO_NOVEDAD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA_INICIO_NOVEDAD)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA_FIN_NOVEDAD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA_FIN_NOVEDAD)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COLABORADORES.DESCRIPCION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COLABORADORES.DESCRIPCION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CONTRATO_PROYECTO.COMPLETA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CONTRATO_PROYECTO.COMPLETA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FORMAS_PAGO_FECHAS.PERIODO_TEXTO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FORMAS_PAGO_FECHAS.PERIODO_TEXTO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TIPOS_NOVEDAD.DESCRIPCION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TIPOS_NOVEDAD.DESCRIPCION)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.COD_REGISTRO_NOVEDADES }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

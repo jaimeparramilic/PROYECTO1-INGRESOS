@@ -1,0 +1,90 @@
+﻿@model syncfusion_payc.Models.CONTRATOS
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CONTRATOS</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DESCRIPCION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DESCRIPCION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA_FIRMA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA_FIRMA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RUTA_ACTA_INICIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RUTA_ACTA_INICIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA_INICIO_EJECUCION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA_INICIO_EJECUCION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA_FIN_EJECUCION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA_FIN_EJECUCION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VALOR_CONTRATO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VALOR_CONTRATO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ORDEN_SERVICIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ORDEN_SERVICIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RUTA_DOCUMENTO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RUTA_DOCUMENTO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CLIENTES.DESCRIPCION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CLIENTES.DESCRIPCION)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.COD_CONTRATO }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

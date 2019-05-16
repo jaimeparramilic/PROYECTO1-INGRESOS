@@ -1,0 +1,96 @@
+﻿@model syncfusion_payc.Models.CONTRATOS
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>CONTRATOS</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DESCRIPCION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DESCRIPCION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA_FIRMA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA_FIRMA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RUTA_ACTA_INICIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RUTA_ACTA_INICIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA_INICIO_EJECUCION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA_INICIO_EJECUCION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA_FIN_EJECUCION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA_FIN_EJECUCION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VALOR_CONTRATO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VALOR_CONTRATO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ORDEN_SERVICIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ORDEN_SERVICIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RUTA_DOCUMENTO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RUTA_DOCUMENTO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CLIENTES.DESCRIPCION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CLIENTES.DESCRIPCION)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

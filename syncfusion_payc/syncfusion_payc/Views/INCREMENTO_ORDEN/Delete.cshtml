@@ -1,0 +1,56 @@
+﻿@model syncfusion_payc.Models.INCREMENTO_ORDEN
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>INCREMENTO_ORDEN</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.VALOR_INCREMENTO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VALOR_INCREMENTO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CONTRATO_PROYECTO.COMPLETA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CONTRATO_PROYECTO.COMPLETA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FORMAS_PAGO_FECHAS.PERIODO_TEXTO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FORMAS_PAGO_FECHAS.PERIODO_TEXTO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.INCREMENTO_SALARIAL.COD_INCREMENTO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.INCREMENTO_SALARIAL.COD_INCREMENTO)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

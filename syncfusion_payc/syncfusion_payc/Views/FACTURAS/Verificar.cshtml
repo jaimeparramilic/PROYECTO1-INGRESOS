@@ -1,0 +1,458 @@
+﻿@using Syncfusion.JavaScript
+@using System.Collections.Generic
+@using System.Linq
+
+@model IEnumerable<syncfusion_payc.Models.FACTURAS>
+
+@{
+    ViewBag.Title = "";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    <h4>DESCRIPCION PROYECTO: @Html.ViewBag.DESCRIPCION_PROYECTO - PERIODO:@Html.ViewBag.PERIODO_FACTURAR</h4>
+
+    <!--FILA GRIDS-->
+    <div class="row">
+        <!--GRID ROLES-->
+        <div class="col-md-6">
+            <div class="control-section">
+                @(Html.EJ().Grid<object>
+                                ("GRID_ROLES")
+                                .Datasource(ds => ds.URL("../../DETALLE_FACTURA_PERS/GetOrderData").InsertURL("../../DETALLE_FACTURA_PERS/PerformInsert").UpdateURL("../../DETALLE_FACTURA_PERS/PerformUpdate").RemoveURL("../../DETALLE_FACTURA_PERS/PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                                .AllowPaging()
+                                .AllowFiltering()
+                                .Locale("es-CO")
+                                .AllowResizeToFit(true)
+                                .AllowMultiSorting()
+                                .AllowSorting()
+                                .ClientSideEvents(e => e.ActionComplete("finalizar_accion"))
+                                .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                                .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+                                .ClientSideEvents(e => e.ActionBegin("inicio_accion_roles").Load("inicio_grid_roles"))
+                                .ShowSummary()
+                                .SummaryRow(row =>
+                                {
+                                    row.Title("Total").SummaryColumns(col => { col.SummaryType(SummaryType.Sum).Format("{0:c2}").DisplayColumn("VALOR_SIN_IMPUESTOS").DataMember("VALOR_SIN_IMPUESTOS").Add(); }).Add();
+                                })
+                                .ToolbarSettings(toolbar =>
+                                {
+                                    toolbar.ShowToolbar().ToolbarItems(items =>
+                                    {
+                                        items.AddTool(ToolBarItems.Add);
+                                        items.AddTool(ToolBarItems.Edit);
+
+
+                                    });
+
+                                }).Columns(col =>
+                                {
+                                    col.Field("COD_DETALLE_FACTURA_PERS").HeaderText("COD_DETALLE_FACTURA_PERS").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                                    col.Field("COD_CONTRATO_PROYECTO").Visible(true).HeaderText("COD_CONTRATO_PROYECTO").Visible(false).Add();
+                                    //col.Field("COD_ROL").ForeignKeyField("COD_ROL").AllowEditing(false).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").EditType(EditingType.DropdownEdit).Add();
+                                    //col.Field("COD_ROL").ForeignKeyField("COD_ROL").AllowEditing(false).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").EditType(EditingType.DropdownEdit).Add();
+                                    col.Field("COD_ROL").ForeignKeyField("COD_ROL").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ROLES.ToList()).HeaderText("ROL").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).Add();
+
+                                    col.Field("COD_FORMAS_PAGO_FECHAS").HeaderText("FORMAS PAGO FECHAS").Visible(false).Add();
+                                    col.Field("VALOR_SIN_IMPUESTOS").HeaderText("VALOR SIN IMPUESTOS").Format("{0:c2}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 2, Locale = "es-CO", IncrementStep = 0.01 }).Add();
+                                    col.Field("COD_CAUSA_ESTADO").ForeignKeyField("COD_CAUSA_ESTADO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CAUSA_ESTADO.ToList()).HeaderText("CAUSA MODIFICACIÓN").EditType(EditingType.DropdownEdit).Type("string").ValidationRules(v => v.AddRule("validacion_causa", true)).Add();
+                                    col.Field("COD_FACTURA").Visible(false).AllowEditing(false).ForeignKeyField("COD_FACTURA").ForeignKeyValue("COD_FACTURA").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().FACTURAS.ToList()).HeaderText("COD_FACTURA").EditType(EditingType.DropdownEdit).Add();
+                                    col.Field("COD_ESTADO_DETALLE").Visible(false).ForeignKeyField("COD_ESTADO_DETALLE").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ESTADOS_DETALLE.ToList()).HeaderText("ESTADO_DETALLE").EditType(EditingType.DropdownEdit).Add();
+                                    col.Field("COD_GRUPO_FACTURA").ForeignKeyField("COD_GRUPO_FACTURA").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().GRUPOS_FACTURA.ToList()).HeaderText("GRUPO FACTURA").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).Add();
+                                    col.Field("COD_CONCEPTO_PSL").ForeignKeyField("COD_CONCEPTO_PSL").ForeignKeyValue("TEXTO_EN_PSL").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONCEPTOS.ToList()).HeaderText("CONCEPTO").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("validar_concepto_roles", true).AddRule("number", true)).Add();
+                                }))
+            </div>
+            <input type="hidden" id="h_vlr_sin_impu" value="">  @**@
+        </div>
+        <!--GRID ITEMS-->
+        <div class="col-md-6">
+            <div class="control-section">
+                @(Html.EJ().Grid<object>
+                ("GRID_ITEMS")
+                .Datasource(ds => ds.URL("../../DETALLE_FACTURA_ITEM/GetOrderData").InsertURL("../../DETALLE_FACTURA_ITEM/PerformInsert").UpdateURL("../../DETALLE_FACTURA_ITEM/PerformUpdate").RemoveURL("../../DETALLE_FACTURA_ITEM/PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                .AllowPaging()
+                .AllowFiltering()
+                .Locale("es-CO")
+                .AllowResizeToFit(true)
+                .AllowMultiSorting()
+                .AllowSorting()
+                .ClientSideEvents(e => e.ActionComplete("finalizar_accion"))
+                .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+                .ClientSideEvents(e => e.ActionBegin("inicio_accion_items").Load("inicio_grid_items"))
+                .ShowSummary()
+                .SummaryRow(row =>
+                {
+                    row.Title("Total").SummaryColumns(col => { col.SummaryType(SummaryType.Sum).Format("{0:c2}").DisplayColumn("VALOR_SIN_IMPUESTOS").DataMember("VALOR_SIN_IMPUESTOS").Add(); }).Add();
+                })
+                .ToolbarSettings(toolbar =>
+                {
+                    toolbar.ShowToolbar().ToolbarItems(items =>
+                    {
+                        items.AddTool(ToolBarItems.Add);
+                        items.AddTool(ToolBarItems.Edit);
+
+                    });
+
+                }).Columns(col =>
+                {
+                    col.Field("COD_DETALLE_FACTURA_ITEM").HeaderText("COD_DETALLE_FACTURA_ITEM").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                    col.Field("COD_CONTRATO_PROYECTO").Visible(false).HeaderText("COD_CONTRATO_PROYECTO").Add();
+                    col.Field("COD_ITEM_CONTRATO").ForeignKeyField("COD_ITEM_CONTRATO").AllowEditing(false).ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().VISTA_ITEMS_CONTRATO_DESCRIPCION.ToList()).HeaderText("ITEM").EditType(EditingType.DropdownEdit).Add();
+                    col.Field("COD_FORMAS_PAGO_FECHAS").Visible(false).HeaderText("FORMAS PAGO FECHAS").Add();
+                    col.Field("VALOR_SIN_IMPUESTOS").HeaderText("VALOR SIN IMPUESTOS").Format("{0:c2}").EditType(EditingType.NumericEdit).NumericEditOptions(new Syncfusion.JavaScript.Models.EditorProperties() { DecimalPlaces = 2, Locale = "es-CO", IncrementStep = 0.01 }).Add();
+                    col.Field("COD_CAUSA_ESTADO").ForeignKeyField("COD_CAUSA_ESTADO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CAUSA_ESTADO.ToList()).HeaderText("CAUSA MODIFICACIÓN").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("validacion_causa_items", true)).Add();
+                    col.Field("COD_FACTURA").Visible(false).ForeignKeyField("COD_FACTURA").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().FACTURAS.ToList()).HeaderText("COD_FACTURA").EditType(EditingType.DropdownEdit).Add();
+                    col.Field("COD_ESTADO_DETALLE").Visible(false).ForeignKeyField("COD_ESTADO_DETALLE").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().ESTADOS_DETALLE.ToList()).HeaderText("ESTADO_DETALLE").EditType(EditingType.DropdownEdit).Add();
+                    col.Field("COD_GRUPO_FACTURA").ForeignKeyField("COD_GRUPO_FACTURA").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().GRUPOS_FACTURA.ToList()).HeaderText("GRUPO FACTURA").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("required", true)).Add();
+                    col.Field("COD_CONCEPTO_PSL").ForeignKeyField("COD_CONCEPTO_PSL").ForeignKeyValue("TEXTO_EN_PSL").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONCEPTOS.ToList()).HeaderText("CONCEPTO").EditType(EditingType.DropdownEdit).ValidationRules(v => v.AddRule("validar_concepto_items", true).AddRule("number", true)).Add();
+                }))
+            </div>
+        </div>
+    </div>
+
+    <!--FILA TOTAL-->
+    <div class="row">
+        <div class="col-md-12">
+            <table class="col-md-12">
+
+                <tbody>
+                    <tr class="fila_total">
+                        <th class="titulo_total"><b>Total</b></th>
+                        <th class="total"><span class="valor">@(ViewBag.TOTAL_FACTURA == null ? "" : Html.Raw((String)ViewBag.TOTAL_FACTURA.ToString()).ToString())</span></th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--FILA BOTONES-->
+    <div class="row">
+        <div class="col-md-6">
+            <input type="button" value="Validar" class="btn btn-purple" onclick="validar_factura()" />
+            <input type="button" value="Adjuntos" class="btn btn-purple" onclick="ver_adjunto_factura()" />
+        </div>
+    </div>
+}
+    <script type="text/javascript">
+    //Traducción
+    $(document).ready(function () {
+        ej.Grid.Locale["es-CO"] = {
+            EmptyRecord: "No hay registros que mostrar",
+            GroupDropArea: "Arrastre un encabezado de columna aquí para agrupar su columna",
+            DeleteOperationAlert: "No hay registros seleccionados para la operación de eliminación",
+            EditOperationAlert: "No hay registros seleccionados para la operación de edición",
+            SaveButton: "Guardar",
+            OKButton: "DE ACUERDO",
+            CancelButton: "Cancelar",
+            EditFormTitle: "Detalles de ",
+            AddFormTitle: "Añadir nuevo registro",
+            GroupCaptionFormat: "{{:headerText}}: {{:key}} - {{:count}} {{if count == 1 }} ítem {{else}} artículos {{/if}} ",
+        };
+        ej.Pager.Locale["es-CO"] = {
+            pagerInfo: "{0} de {1} páginas ({2} artículos)",
+            firstPageTooltip: "Ir a la primera página",
+            lastPageTooltip: "Ir a la última página",
+            nextPageTooltip: "Ir a la página siguiente",
+            previousPageTooltip: "Ir a la página anterior",
+            nextPagerTooltip: "Ir al siguiente Pager",
+            previousPagerTooltip: "Ir a Pager anterior"
+        };
+
+        ej.ExcelFilter.Locale["es-CO"] = {
+            SortNoSmaller: "Ordenar de menor a mayor",
+            SortNoLarger: "Ordenar de mayor a menor",
+            SortTextAscending: "Ordenar de A a Z",
+            SortTextDescending: "Ordenar de Z a A",
+            SortDateOldest: "Ordenar por Más antiguos",
+            SortDateNewest: "Ordenar por Más reciente",
+            SortByColor: "Ordenar por color",
+            SortByCellColor: "Ordenar por color de la célula",
+            SortByFontColor: "Ordenar por Color de fuente",
+            FilterByColor: "Filtrar por color",
+            CustomSort: "Orden personalizado",
+            FilterByCellColor: "Filtrar por color de la célula",
+            FilterByFontColor: "Filtrar por color de fuente",
+            ClearFilter: "Borrar filtro",
+            NumberFilter: "Número Filtros",
+            GuidFilter: "Gud Filtros",
+            TextFilter: "Filtros de texto",
+            DateFilter: "Filtros de fecha",
+            DateTimeFilter: "Fecha filtros de tiempo",
+            SelectAll: "Seleccionar todo",
+            Blanks: "Los espacios en blanco",
+            Search: "Buscar",
+            Showrowswhere: "Mostrar filas",
+            NumericTextboxWaterMark: "introducir el valor",
+            StringMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Comienza con", value: "startswith" }, { text: "Termina con", value: "endswith" }, { text: "contiene", value: "contains" }, { text: "Filtro personalizado", value: "customfilter" },],
+            NumberMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Menos que", value: "lessthan" }, { text: "Menor o equal", value: "lessthanorequal" }, { text: "Mas grande que", value: "greaterthan" }, { text: "Mayor que o equal", value: "greaterthanorequal" }, { text: "Entre", value: "between" }, { text: "Filtro personalizado", value: "customfilter" },],
+            GuidMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Filtro personalizado", value: "customfilter" },],
+            DateMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Menos que", value: "lessthan" }, { text: "Menor o equal", value: "lessthanorequal" }, { text: "Mas grande que", value: "greaterthan" }, { text: "Mayor que o equal", value: "greaterthanorequal" }, { text: "Entre", value: "between" }, { text: "Filtro personalizado", value: "customfilter" },],
+            DatetimeMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Menos que", value: "lessthan" }, { text: "Menor o equal", value: "lessthanorequal" }, { text: "Mas grande que", value: "greaterthan" }, { text: "Mayor que o equal", value: "greaterthanorequal" }, { text: "Entre", value: "between" }, { text: "Filtro personalizado", value: "customfilter" },],
+            Top10MenuOptions: [{ text: "Parte superior", value: "top" }, { text: "Fondo", value: "bottom" },],
+            title: "Filtro personalizado",
+            PredicateAnd: "Y",
+            PredicateOr: "O",
+            Ok: "Aceptar",
+            MatchCase: "Coincidencia",
+            Cancel: "Cancelar",
+            NoResult: "No se encontraron coincidencias",
+            CheckBoxStatusMsg: "No todos los elementos que muestran",
+            DatePickerWaterMark: "Seleccione fecha",
+            DateTimePickerWaterMark: "Seleccionar fecha y hora",
+            True: "cierto",
+            False: "falso"
+        };
+    });
+
+
+    //Función que se ejecuta en el evento load
+    function inicio_grid_items(args) {
+
+        var cod_contrato_proyecto = "@(ViewBag.COD_CONTRATO_PROYECTO == null ? "" : Html.Raw((String)ViewBag.COD_CONTRATO_PROYECTO.ToString()).ToString())";
+        if (cod_contrato_proyecto != "") {
+            this.model.filterSettings.filteredColumns.push({ field: "COD_CONTRATO_PROYECTO", operator: "equal", value: cod_contrato_proyecto });
+        }
+        var COD_FACTURA = "@(ViewBag.COD_FACTURA == null ? "" : Html.Raw((String)ViewBag.COD_FACTURA.ToString()).ToString())";
+        if (COD_FACTURA != "") {
+            this.model.filterSettings.filteredColumns.push({ field: "COD_FACTURA", operator: "equal", value: COD_FACTURA });
+        }
+        var COD_FORMAS_PAGO_FECHAS = "@(ViewBag.COD_FORMAS_PAGO_FECHAS == null ? "" : Html.Raw((String)ViewBag.COD_FORMAS_PAGO_FECHAS.ToString()).ToString())";
+        if (COD_FORMAS_PAGO_FECHAS != "") {
+            this.model.filterSettings.filteredColumns.push({ field: "COD_FORMAS_PAGO_FECHAS", operator: "equal", value: COD_FORMAS_PAGO_FECHAS });
+        }
+        var COD_ESTADO_DETALLE = "1";
+        if (COD_ESTADO_DETALLE != "") {
+            this.model.filterSettings.filteredColumns.push({ field: "COD_ESTADO_DETALLE", operator: "equal", value: COD_ESTADO_DETALLE});
+        }
+
+        refrescar_total();
+    }
+
+    //Función que se ejecuta al inicio de las acciones
+    function inicio_accion_items(args) {
+
+    }
+
+
+
+    //Función que se ejecuta en el evento load
+
+    function inicio_grid_roles(args) {
+
+
+
+        var cod_contrato_proyecto = "@(ViewBag.COD_CONTRATO_PROYECTO == null ? "" : Html.Raw((String)ViewBag.COD_CONTRATO_PROYECTO.ToString()).ToString())";
+
+        if (cod_contrato_proyecto != "") {
+
+            this.model.filterSettings.filteredColumns.push({ field: "COD_CONTRATO_PROYECTO", operator: "equal", value: cod_contrato_proyecto });
+
+        }
+
+        var COD_FACTURA = "@(ViewBag.COD_FACTURA == null ? "" : Html.Raw((String)ViewBag.COD_FACTURA.ToString()).ToString())";
+
+        if (COD_FACTURA != "") {
+
+            this.model.filterSettings.filteredColumns.push({ field: "COD_FACTURA", operator: "equal", value: COD_FACTURA });
+
+        }
+
+        var COD_FORMAS_PAGO_FECHAS = "@(ViewBag.COD_FORMAS_PAGO_FECHAS == null ? "" : Html.Raw((String)ViewBag.COD_FORMAS_PAGO_FECHAS.ToString()).ToString())";
+
+        if (COD_FORMAS_PAGO_FECHAS != "") {
+
+            this.model.filterSettings.filteredColumns.push({ field: "COD_FORMAS_PAGO_FECHAS", operator: "equal", value: COD_FORMAS_PAGO_FECHAS });
+
+        }
+
+        var COD_ESTADO_DETALLE = "1";
+
+        if (COD_ESTADO_DETALLE != "") {
+
+            this.model.filterSettings.filteredColumns.push({ field: "COD_ESTADO_DETALLE", operator: "equal", value: COD_ESTADO_DETALLE});
+
+        }
+
+        refrescar_total();
+
+    }
+
+       
+    function validar_factura() {
+        var cod_contrato_proyecto = "@(ViewBag.COD_CONTRATO_PROYECTO == null ? "" : Html.Raw((String)ViewBag.COD_CONTRATO_PROYECTO.ToString()).ToString())";
+        var cod_factura = "@(ViewBag.COD_FACTURA == null ? "" : Html.Raw((String)ViewBag.COD_FACTURA.ToString()).ToString())";
+        var cod_formas_pago_fechas = "@(ViewBag.COD_FORMAS_PAGO_FECHAS == null ? "" : Html.Raw((String)ViewBag.COD_FORMAS_PAGO_FECHAS.ToString()).ToString())";
+        var data = JSON.stringify({ COD_CONTRATO_PROYECTO: parseInt(cod_contrato_proyecto), COD_FACTURA: parseInt(cod_factura), COD_FORMAS_PAGO_FECHAS: parseInt(cod_formas_pago_fechas) });
+        var estado_factura = "@(ViewBag.ESTADO_FACTURA == null ? "" : Html.Raw((String)ViewBag.ESTADO_FACTURA.ToString()).ToString())";
+        //alert(estado_factura);
+        if (estado_factura == "1" || estado_factura == "2") {
+            var url = "../validar_factura";
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                dataFilter: function (data) { return data; },
+                success: function (data) {
+                    if (data.responseText == "SI") {
+                        alert("Existen errores en los valores a facturar, por favor verifique que todos los elementos estan asociados a un concepto de PSL");
+                    }
+                    else {
+                        alert("Factura verificada con éxito");
+                        window.location = "../Index";
+                    }
+                }
+            });
+        }
+        else {
+            alert("Error al verificar. La factura no se encuentra pendiente de envío a PSL o de revisión.")
+        }
+    }
+
+    //Función que refresca la grid hijo de facturas después
+    function finalizar_accion(args) {
+        if (args.requestType == "save") {
+
+            refrescar_total();
+
+        }
+    }
+
+    //Funcion para refrescar total
+    function refrescar_total() {
+        var cod_factura =@(ViewBag.COD_FACTURA == null ? "" : Html.Raw((String)ViewBag.COD_FACTURA.ToString()).ToString());
+        var data = JSON.stringify({ COD_FACTURA: parseInt(cod_factura) });
+        var url = "../refrescar_total";
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            dataFilter: function (data) { return data; },
+            success: function (data) {
+                $('.valor').text(data.responseText);
+            }
+        });
+
+    }
+
+    //Función que permite verificar las facturas
+    function ver_adjunto_factura() {
+        //alert("verificar");
+        //Validar que el estado sea correcto para verificar
+        var cod_fact = "@(ViewBag.COD_FACTURA == null ? "" : Html.Raw((String)ViewBag.COD_FACTURA.ToString()).ToString())";
+        window.location = "../Adjunto/" + cod_fact;
+        }
+
+    //funcion que se ejecuta al inicio de las acciones de la grid roles
+    function inicio_accion_roles(args) {
+          //var cod_estado_factura="@(ViewBag.COD_ESTADO_FACTURA == null ? "" : Html.Raw((String)ViewBag.COD_ESTADO_FACTURA.ToString()).ToString())";
+        var cod_estado_factura=@(ViewBag.COD_ESTADO_FACTURA);
+
+            var cod_fact = "@(ViewBag.COD_FACTURA == null ? "" : Html.Raw((String)ViewBag.COD_FACTURA.ToString()).ToString())";
+            if (args.requestType=="add" && cod_estado_factura!=1){
+                args.cancel=true;
+                alert("Esta factura ya está validada");
+            }  
+            
+            if (args.requestType == "beginedit") {
+                if (cod_estado_factura!=1){
+                args.cancel=true;
+                alert("Esta factura ya está validada");                    
+                }else{
+                // Create grid object.
+
+                var gridObj = $("#GRID_ROLES").ejGrid("instance");
+
+                // Gets the selected row element list
+
+                var vlr = gridObj.getSelectedRecords()[0].VALOR_SIN_IMPUESTOS;
+
+                // Poner en un input hidden
+
+                document.getElementById("h_vlr_sin_impu").value = vlr;
+                }
+            }
+
+            
+   
+            var cod_contrato_proyecto = "@(ViewBag.COD_CONTRATO_PROYECTO == null ? "" : Html.Raw((String)ViewBag.COD_CONTRATO_PROYECTO.ToString()).ToString())";
+            var cod_factura = "@(ViewBag.COD_FACTURA == null ? "" : Html.Raw((String)ViewBag.COD_FACTURA.ToString()).ToString())";
+            var cod_formas_pago_fechas = "@(ViewBag.COD_FORMAS_PAGO_FECHAS == null ? "" : Html.Raw((String)ViewBag.COD_FORMAS_PAGO_FECHAS.ToString()).ToString())";
+            if (args.requestType == "save") {
+
+                args.data.COD_CONTRATO_PROYECTO = cod_contrato_proyecto;
+                args.data.COD_FACTURA = cod_factura;
+                args.data.COD_FORMAS_PAGO_FECHAS = cod_formas_pago_fechas;
+
+            }
+
+            if (args.requestType == "begin") {
+
+                args.data.COD_CONTRATO_PROYECTO = cod_contrato_proyecto;
+                args.data.COD_FACTURA = cod_factura;
+                args.data.COD_FORMAS_PAGO_FECHAS = cod_formas_pago_fechas;
+
+            }
+        
+        }
+
+    // Obtener valor a facturar inicial ITEMS R.E.V.
+    function inicio_accion_items(args) {
+        if (args.requestType == "beginedit") {
+            //window.alert("Entro en: inicio_accion_items");
+            // Create grid object.
+            var gridObj = $("#GRID_ITEMS").ejGrid("instance");
+            // Gets the selected row element list
+            var vlr = gridObj.getSelectedRecords()[0].VALOR_SIN_IMPUESTOS;
+            //window.alert("VALOR_SIN_IMPUESTOS - inicio_accion_roles:" + vlr);
+            // Poner en un input hidden
+            document.getElementById("h_vlr_sin_impu").value = vlr;
+        }
+    }
+
+    //Funciones de validación JQUERY VALIDATION
+        $(function () {
+            //Adicionar a jquery VALIDATION, la revisión del concepto para GRID_ROLES
+            $.validator.addMethod("validar_concepto_roles", function (value, element, params) {
+                var cod_concep = $("#GRID_ROLESCOD_CONCEPTO_PSL_input").val(); // Valor q viene de la grid
+                //window.alert("cod_concep: " + cod_concep);
+                return cod_concep != null && cod_concep != 0 && cod_concep != "";
+            }, "Se debe seleccionar algún concepto.");
+
+            //Adicionar a jquery VALIDATION, la revisión del valor a facturar(sin impuestos) para GRID_ROLES
+            $.validator.addMethod("validacion_causa", function (value, element, params) {
+                var vr_sin_impu = 0; var vr_sin_impu_antes = 0; var causa = 0;
+                vr_sin_impu = $("#GRID_ROLESVALOR_SIN_IMPUESTOS").val();
+                //window.alert("Valor en la GRID: " + vr_sin_impu);
+                vr_sin_impu_antes = document.getElementById("h_vlr_sin_impu").value.replace(".", ",");
+                //window.alert("Ultimo valor sin imp ANTES: " + vr_sin_impu_antes);
+                causa = $("#GRID_ROLESCOD_CAUSA_ESTADO").val(); //;
+                if ((vr_sin_impu_antes != vr_sin_impu) && (causa == null || causa == 0 || causa == 1)) { return false }
+                else { return true };
+            }, "El valor a facturar cambió, por lo tanto se debe indicar la CAUSA por la cual se modificó el valor.");
+
+            //Adicionar a jquery VALIDATION, la revisión del concepto para GRID_ITEMS
+            $.validator.addMethod("validar_concepto_items", function (value, element, params) {
+                var cod_concep = $("#GRID_ITEMSCOD_CONCEPTO_PSL_input").val(); // Valor q viene de la grid
+                //window.alert("cod_concep: " + cod_concep);
+                return cod_concep != null && cod_concep != 0 && cod_concep != "";
+            }, "Se debe seleccionar algún concepto.");
+
+            //Adicionar a jquery VALIDATION, la revisión del valor a facturar(sin impuestos) para GRID_ITEMS
+            $.validator.addMethod("validacion_causa_items", function (value, element, params) {
+                var vr_sin_impu = 0; var vr_sin_impu_antes = 0; var causa = 0;
+                vr_sin_impu = $("#GRID_ITEMSVALOR_SIN_IMPUESTOS").val();
+                //window.alert("Valor en la GRID: " + vr_sin_impu);
+                vr_sin_impu_antes = document.getElementById("h_vlr_sin_impu").value.replace(".", ",");
+                //window.alert("Ultimo valor sin imp ANTES: " + vr_sin_impu_antes);
+                causa = $("#GRID_ITEMSCOD_CAUSA_ESTADO").val(); //;
+                if ((vr_sin_impu_antes != vr_sin_impu) && (causa == null || causa == 0 || causa == 1)) { return false }
+                else { return true };
+            }, "El valor a facturar cambió, por lo tanto se debe indicar la CAUSA por la cual se modificó el valor.");
+
+        });
+    </script>

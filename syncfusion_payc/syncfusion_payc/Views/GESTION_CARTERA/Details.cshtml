@@ -1,0 +1,66 @@
+﻿@model syncfusion_payc.Models.GESTION_CARTERA
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>GESTION_CARTERA</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.UserName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.UserName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.FECHA_GESTION)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.FECHA_GESTION)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DESCRIPCION)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DESCRIPCION)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.TIPOS_GESTION.DESCRIPCION)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.TIPOS_GESTION.DESCRIPCION)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.CARTERA.UserName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CARTERA.UserName)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.COD_GESTION }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

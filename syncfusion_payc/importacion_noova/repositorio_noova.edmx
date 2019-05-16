@@ -1,0 +1,361 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="repositorio_noovaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="aceptacion_cliente">
+          <Key>
+            <PropertyRef Name="cod_aceptacion_cliente" />
+          </Key>
+          <Property Name="NVACE_FECH" Type="datetime2" Precision="7" />
+          <Property Name="NVENV_ESTN" Type="varchar" MaxLength="100" />
+          <Property Name="NVENV_FECH" Type="datetime2" Precision="7" />
+          <Property Name="NVING_FECH" Type="datetime2" Precision="7" />
+          <Property Name="NVREC_CODI" Type="varchar" MaxLength="50" />
+          <Property Name="NVREC_DESC" Type="varchar(max)" />
+          <Property Name="NVREC_FECH" Type="datetime2" Precision="7" />
+          <Property Name="NVREC_OBSE" Type="varchar(max)" />
+          <Property Name="cod_aceptacion_cliente" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_MAESTRO" Type="int" />
+        </EntityType>
+        <EntityType Name="aceptacion_dian">
+          <Key>
+            <PropertyRef Name="cod_dian" />
+          </Key>
+          <Property Name="description" Type="varchar(max)" />
+          <Property Name="NVENV_FECH" Type="datetime2" Precision="7" />
+          <Property Name="NVENV_RESP" Type="varchar(max)" />
+          <Property Name="E" Type="varchar" MaxLength="50" />
+          <Property Name="ID" Type="varchar" MaxLength="50" />
+          <Property Name="T" Type="varchar" MaxLength="50" />
+          <Property Name="cod_dian" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NVENV_ESTA" Type="varchar(max)" />
+          <Property Name="NVENV_CFEC" Type="datetime2" Precision="7" />
+          <Property Name="ID_MAESTRO" Type="int" />
+        </EntityType>
+        <EntityType Name="documentos_facturas">
+          <Key>
+            <PropertyRef Name="cod_documento_factura" />
+          </Key>
+          <Property Name="E" Type="varchar" MaxLength="50" />
+          <Property Name="ID" Type="varchar" MaxLength="50" />
+          <Property Name="D" Type="varchar" MaxLength="50" />
+          <Property Name="result" Type="varchar" MaxLength="50" />
+          <Property Name="descripcion" Type="varchar" MaxLength="1000" />
+          <Property Name="document" Type="varchar(max)" />
+          <Property Name="cod_documento_factura" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="envios_noova">
+          <Key>
+            <PropertyRef Name="COD_REGISTRO_ENVIOS" />
+          </Key>
+          <Property Name="ID_MAESTRO" Type="int" />
+          <Property Name="COD_REGISTRO_ENVIOS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_FACTURA" Type="varchar" MaxLength="50" />
+          <Property Name="ID_DOCUMENTO" Type="varchar" MaxLength="50" />
+          <Property Name="ESTADO_CLIENTE" Type="varchar(max)" />
+          <Property Name="ESTADO_DIAN" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="pruebas">
+          <Key>
+            <PropertyRef Name="cod_prueba" />
+          </Key>
+          <Property Name="asignacion" Type="bigint" />
+          <Property Name="usuario" Type="bigint" />
+          <Property Name="periodicidad" Type="varchar" MaxLength="50" />
+          <Property Name="dias_envio" Type="varchar" MaxLength="50" />
+          <Property Name="hora_envio" Type="datetime" />
+          <Property Name="ultimo_informe" Type="bigint" />
+          <Property Name="fecha_proximo_envio" Type="datetime" />
+          <Property Name="fecha_ultimo_envio" Type="datetime" />
+          <Property Name="dia_envio_num" Type="bigint" />
+          <Property Name="periodicidad_num" Type="bigint" />
+          <Property Name="estado" Type="varchar" MaxLength="50" />
+          <Property Name="dias_para_envio" Type="bigint" />
+          <Property Name="nombre" Type="varchar" MaxLength="300" />
+          <Property Name="color" Type="varchar" MaxLength="50" />
+          <Property Name="nombre_usuario" Type="varchar" MaxLength="300" />
+          <Property Name="cod_prueba" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="resoluciones_numeracion_facturas">
+          <Key>
+            <PropertyRef Name="cod_resolucion_numeracion_facturas" />
+          </Key>
+          <Property Name="NumeroResolucion" Type="varchar(max)" />
+          <Property Name="FechaResolucion" Type="datetime" />
+          <Property Name="Prefijo" Type="varchar" MaxLength="100" />
+          <Property Name="RangoInicial" Type="varchar(max)" />
+          <Property Name="RangoFinal" Type="varchar(max)" />
+          <Property Name="FechaVigenciaDesde" Type="datetime" />
+          <Property Name="FechaVigenciaHasta" Type="datetime" />
+          <Property Name="cod_resolucion_numeracion_facturas" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'repositorio_noova.dbo.FALTANTES_CONFIRMACION' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="FALTANTES_CONFIRMACION">
+          <Key>
+            <PropertyRef Name="ID_MAESTRO" />
+            <PropertyRef Name="ID_FACTURA" />
+          </Key>
+          <Property Name="ID_MAESTRO" Type="int" Nullable="false" />
+          <Property Name="ID_FACTURA" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="ID_DOCUMENTO" Type="nvarchar" MaxLength="4000" />
+        </EntityType>
+        <EntityContainer Name="repositorio_noovaModelStoreContainer">
+          <EntitySet Name="aceptacion_cliente" EntityType="Self.aceptacion_cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="aceptacion_dian" EntityType="Self.aceptacion_dian" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="documentos_facturas" EntityType="Self.documentos_facturas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="envios_noova" EntityType="Self.envios_noova" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="pruebas" EntityType="Self.pruebas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="resoluciones_numeracion_facturas" EntityType="Self.resoluciones_numeracion_facturas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FALTANTES_CONFIRMACION" EntityType="Self.FALTANTES_CONFIRMACION" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [FALTANTES_CONFIRMACION].[ID_MAESTRO] AS [ID_MAESTRO], 
+    [FALTANTES_CONFIRMACION].[ID_FACTURA] AS [ID_FACTURA], 
+    [FALTANTES_CONFIRMACION].[ID_DOCUMENTO] AS [ID_DOCUMENTO]
+    FROM [dbo].[FALTANTES_CONFIRMACION] AS [FALTANTES_CONFIRMACION]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="repositorio_noovaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="documentos_facturas">
+          <Key>
+            <PropertyRef Name="cod_documento_factura" />
+          </Key>
+          <Property Name="E" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="D" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="result" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="document" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="cod_documento_factura" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="resoluciones_numeracion_facturas">
+          <Key>
+            <PropertyRef Name="cod_resolucion_numeracion_facturas" />
+          </Key>
+          <Property Name="NumeroResolucion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FechaResolucion" Type="DateTime" Precision="3" />
+          <Property Name="Prefijo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RangoInicial" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RangoFinal" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FechaVigenciaDesde" Type="DateTime" Precision="3" />
+          <Property Name="FechaVigenciaHasta" Type="DateTime" Precision="3" />
+          <Property Name="cod_resolucion_numeracion_facturas" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityContainer Name="repositorio_noovaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="documentos_facturas" EntityType="Self.documentos_facturas" />
+          <EntitySet Name="resoluciones_numeracion_facturas" EntityType="Self.resoluciones_numeracion_facturas" />
+          <EntitySet Name="pruebas" EntityType="repositorio_noovaModel.pruebas" />
+          <EntitySet Name="FALTANTES_CONFIRMACION" EntityType="repositorio_noovaModel.FALTANTES_CONFIRMACION" />
+          <EntitySet Name="aceptacion_cliente" EntityType="repositorio_noovaModel.aceptacion_cliente" />
+          <EntitySet Name="aceptacion_dian" EntityType="repositorio_noovaModel.aceptacion_dian" />
+          <EntitySet Name="envios_noova" EntityType="repositorio_noovaModel.envios_noova" />
+        </EntityContainer>
+        <EntityType Name="pruebas">
+          <Key>
+            <PropertyRef Name="cod_prueba" />
+          </Key>
+          <Property Name="asignacion" Type="Int64" />
+          <Property Name="usuario" Type="Int64" />
+          <Property Name="periodicidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dias_envio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="hora_envio" Type="DateTime" Precision="3" />
+          <Property Name="ultimo_informe" Type="Int64" />
+          <Property Name="fecha_proximo_envio" Type="DateTime" Precision="3" />
+          <Property Name="fecha_ultimo_envio" Type="DateTime" Precision="3" />
+          <Property Name="dia_envio_num" Type="Int64" />
+          <Property Name="periodicidad_num" Type="Int64" />
+          <Property Name="estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dias_para_envio" Type="Int64" />
+          <Property Name="nombre" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="color" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nombre_usuario" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="cod_prueba" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="FALTANTES_CONFIRMACION">
+          <Key>
+            <PropertyRef Name="ID_MAESTRO" />
+            <PropertyRef Name="ID_FACTURA" />
+          </Key>
+          <Property Name="ID_MAESTRO" Type="Int32" Nullable="false" />
+          <Property Name="ID_FACTURA" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="ID_DOCUMENTO" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="aceptacion_cliente">
+          <Key>
+            <PropertyRef Name="cod_aceptacion_cliente" />
+          </Key>
+          <Property Name="NVACE_FECH" Type="DateTime" Precision="7" />
+          <Property Name="NVENV_ESTN" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NVENV_FECH" Type="DateTime" Precision="7" />
+          <Property Name="NVING_FECH" Type="DateTime" Precision="7" />
+          <Property Name="NVREC_CODI" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NVREC_DESC" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NVREC_FECH" Type="DateTime" Precision="7" />
+          <Property Name="NVREC_OBSE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="cod_aceptacion_cliente" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_MAESTRO" Type="Int32" />
+        </EntityType>
+        <EntityType Name="aceptacion_dian">
+          <Key>
+            <PropertyRef Name="cod_dian" />
+          </Key>
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NVENV_FECH" Type="DateTime" Precision="7" />
+          <Property Name="NVENV_RESP" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="E" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="T" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cod_dian" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NVENV_ESTA" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NVENV_CFEC" Type="DateTime" Precision="7" />
+          <Property Name="ID_MAESTRO" Type="Int32" />
+        </EntityType>
+        <EntityType Name="envios_noova">
+          <Key>
+            <PropertyRef Name="COD_REGISTRO_ENVIOS" />
+          </Key>
+          <Property Name="ID_MAESTRO" Type="Int32" />
+          <Property Name="COD_REGISTRO_ENVIOS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_FACTURA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID_DOCUMENTO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO_CLIENTE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO_DIAN" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="repositorio_noovaModelStoreContainer" CdmEntityContainer="repositorio_noovaEntities">
+          <EntitySetMapping Name="documentos_facturas">
+            <EntityTypeMapping TypeName="repositorio_noovaModel.documentos_facturas">
+              <MappingFragment StoreEntitySet="documentos_facturas">
+                <ScalarProperty Name="E" ColumnName="E" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="D" ColumnName="D" />
+                <ScalarProperty Name="result" ColumnName="result" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="document" ColumnName="document" />
+                <ScalarProperty Name="cod_documento_factura" ColumnName="cod_documento_factura" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="resoluciones_numeracion_facturas">
+            <EntityTypeMapping TypeName="repositorio_noovaModel.resoluciones_numeracion_facturas">
+              <MappingFragment StoreEntitySet="resoluciones_numeracion_facturas">
+                <ScalarProperty Name="NumeroResolucion" ColumnName="NumeroResolucion" />
+                <ScalarProperty Name="FechaResolucion" ColumnName="FechaResolucion" />
+                <ScalarProperty Name="Prefijo" ColumnName="Prefijo" />
+                <ScalarProperty Name="RangoInicial" ColumnName="RangoInicial" />
+                <ScalarProperty Name="RangoFinal" ColumnName="RangoFinal" />
+                <ScalarProperty Name="FechaVigenciaDesde" ColumnName="FechaVigenciaDesde" />
+                <ScalarProperty Name="FechaVigenciaHasta" ColumnName="FechaVigenciaHasta" />
+                <ScalarProperty Name="cod_resolucion_numeracion_facturas" ColumnName="cod_resolucion_numeracion_facturas" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pruebas">
+            <EntityTypeMapping TypeName="repositorio_noovaModel.pruebas">
+              <MappingFragment StoreEntitySet="pruebas">
+                <ScalarProperty Name="cod_prueba" ColumnName="cod_prueba" />
+                <ScalarProperty Name="nombre_usuario" ColumnName="nombre_usuario" />
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="dias_para_envio" ColumnName="dias_para_envio" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="periodicidad_num" ColumnName="periodicidad_num" />
+                <ScalarProperty Name="dia_envio_num" ColumnName="dia_envio_num" />
+                <ScalarProperty Name="fecha_ultimo_envio" ColumnName="fecha_ultimo_envio" />
+                <ScalarProperty Name="fecha_proximo_envio" ColumnName="fecha_proximo_envio" />
+                <ScalarProperty Name="ultimo_informe" ColumnName="ultimo_informe" />
+                <ScalarProperty Name="hora_envio" ColumnName="hora_envio" />
+                <ScalarProperty Name="dias_envio" ColumnName="dias_envio" />
+                <ScalarProperty Name="periodicidad" ColumnName="periodicidad" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="asignacion" ColumnName="asignacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FALTANTES_CONFIRMACION">
+            <EntityTypeMapping TypeName="repositorio_noovaModel.FALTANTES_CONFIRMACION">
+              <MappingFragment StoreEntitySet="FALTANTES_CONFIRMACION">
+                <ScalarProperty Name="ID_DOCUMENTO" ColumnName="ID_DOCUMENTO" />
+                <ScalarProperty Name="ID_FACTURA" ColumnName="ID_FACTURA" />
+                <ScalarProperty Name="ID_MAESTRO" ColumnName="ID_MAESTRO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aceptacion_cliente">
+            <EntityTypeMapping TypeName="repositorio_noovaModel.aceptacion_cliente">
+              <MappingFragment StoreEntitySet="aceptacion_cliente">
+                <ScalarProperty Name="ID_MAESTRO" ColumnName="ID_MAESTRO" />
+                <ScalarProperty Name="cod_aceptacion_cliente" ColumnName="cod_aceptacion_cliente" />
+                <ScalarProperty Name="NVREC_OBSE" ColumnName="NVREC_OBSE" />
+                <ScalarProperty Name="NVREC_FECH" ColumnName="NVREC_FECH" />
+                <ScalarProperty Name="NVREC_DESC" ColumnName="NVREC_DESC" />
+                <ScalarProperty Name="NVREC_CODI" ColumnName="NVREC_CODI" />
+                <ScalarProperty Name="NVING_FECH" ColumnName="NVING_FECH" />
+                <ScalarProperty Name="NVENV_FECH" ColumnName="NVENV_FECH" />
+                <ScalarProperty Name="NVENV_ESTN" ColumnName="NVENV_ESTN" />
+                <ScalarProperty Name="NVACE_FECH" ColumnName="NVACE_FECH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="aceptacion_dian">
+            <EntityTypeMapping TypeName="repositorio_noovaModel.aceptacion_dian">
+              <MappingFragment StoreEntitySet="aceptacion_dian">
+                <ScalarProperty Name="ID_MAESTRO" ColumnName="ID_MAESTRO" />
+                <ScalarProperty Name="NVENV_CFEC" ColumnName="NVENV_CFEC" />
+                <ScalarProperty Name="NVENV_ESTA" ColumnName="NVENV_ESTA" />
+                <ScalarProperty Name="cod_dian" ColumnName="cod_dian" />
+                <ScalarProperty Name="T" ColumnName="T" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="E" ColumnName="E" />
+                <ScalarProperty Name="NVENV_RESP" ColumnName="NVENV_RESP" />
+                <ScalarProperty Name="NVENV_FECH" ColumnName="NVENV_FECH" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="envios_noova">
+            <EntityTypeMapping TypeName="repositorio_noovaModel.envios_noova">
+              <MappingFragment StoreEntitySet="envios_noova">
+                <ScalarProperty Name="ESTADO_DIAN" ColumnName="ESTADO_DIAN" />
+                <ScalarProperty Name="ESTADO_CLIENTE" ColumnName="ESTADO_CLIENTE" />
+                <ScalarProperty Name="ID_DOCUMENTO" ColumnName="ID_DOCUMENTO" />
+                <ScalarProperty Name="ID_FACTURA" ColumnName="ID_FACTURA" />
+                <ScalarProperty Name="COD_REGISTRO_ENVIOS" ColumnName="COD_REGISTRO_ENVIOS" />
+                <ScalarProperty Name="ID_MAESTRO" ColumnName="ID_MAESTRO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

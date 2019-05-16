@@ -1,0 +1,58 @@
+﻿@model syncfusion_payc.Models.ESTUDIOS_COLABORADOR
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ESTUDIOS_COLABORADOR</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NIVEL_ESTUDIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NIVEL_ESTUDIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TITULO_ESTUDIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TITULO_ESTUDIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA_GRADO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA_GRADO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.INSTITUCION_GRADO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.INSTITUCION_GRADO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COLABORADORES.DESCRIPCION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COLABORADORES.DESCRIPCION)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.COD_ESTUDIOS }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

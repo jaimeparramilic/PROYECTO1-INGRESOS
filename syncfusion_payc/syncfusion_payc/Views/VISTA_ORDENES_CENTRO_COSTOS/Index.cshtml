@@ -1,0 +1,280 @@
+﻿
+@model IEnumerable<syncfusion_payc.Models.VISTA_ORDENES_CENTRO_COSTOS>
+
+@{
+    ViewBag.Title = "";
+
+
+
+}
+@if (User.Identity.IsAuthenticated)
+{
+    <h4>CENTROS DE COSTO</h4>
+
+
+    <div class="control-section grid_costos">
+        @(Html.EJ().Grid<syncfusion_payc.Models.VISTA_ORDENES_CENTRO_COSTOS>("Grid")
+                        .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                        .AllowPaging()
+                        .AllowFiltering()
+                        .Locale("es-CO")
+                        .AllowResizeToFit(true)
+                        .AllowMultiSorting()
+                        .AllowSorting()
+                        .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                        .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+                        .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
+                        .ClientSideEvents(eve => eve.ToolbarClick("clicked"))
+                        .ClientSideEvents(e => e.ActionComplete("finalizar_accion"))
+                        .ToolbarSettings(toolbar =>
+                        {
+                            toolbar.ShowToolbar().ToolbarItems(items =>
+                            {
+
+                                items.AddTool(ToolBarItems.Edit);
+
+                                items.AddTool(ToolBarItems.Cancel);
+                                items.AddTool(ToolBarItems.Search);
+                            }).CustomToolbarItems(new List<object>() {
+
+            new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Cerrar",Tooltip="Cerrar centro de costos" }
+                                                        });
+
+                        }).Columns(col =>
+                        {
+                            col.Field("CENTRO_COSTOS").HeaderText("CENTRO DE COSTOS").ValidationRules(v => v.AddRule("required", true)).Add();
+                            col.Field("ESTADO_PSL").AllowEditing(false).HeaderText("ESTADO PSL").Visible(true).Add();
+                            col.Field("DESCRIPCION").AllowEditing(false).HeaderText("DESCRIPCION").Add();
+                            col.Field("FECHA_INICIO_EJECUCION").AllowEditing(false).HeaderText("INICIO EJECUCION").Format("{0:dd/MM/yyyy}").Add();
+                            col.Field("FECHA_FIN_EJECUCION").AllowEditing(false).HeaderText("FIN EJECUCION").Format("{0:dd/MM/yyyy}").Add();
+                            col.Field("ESTADO_CENTRO_COSTO").AllowEditing(false).HeaderText("ESTADO CENTRO COSTO").Add();
+                            col.Field("FECHA_CREACION").AllowEditing(false).HeaderText("FECHA ORDEN").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                            col.Field("COD_CONTRATO_PROYECTO").AllowEditing(false).HeaderText("COD_CONTRATO_PROYECTO").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                            col.Field("COD_CONTRATO").AllowEditing(false).HeaderText("COD_CONTRATO").Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                            col.Field("COD_PROYECTO").AllowEditing(false).HeaderText("COD_PROYECTO").Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                            col.Field("COD_FORMA_PAGO").AllowEditing(false).HeaderText("COD_FORMA_PAGO").Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                            col.Field("COMPLETA").AllowEditing(false).Visible(false).HeaderText("COMPLETA").Add();
+                            col.Field("MODIFICADO_POR").AllowEditing(false).Visible(false).HeaderText("MODIFICADO_POR").Add();
+                            col.Field("FECHA_ULTIMA_MODIFICACION").AllowEditing(false).Visible(false).HeaderText("FECHA_ULTIMA_MODIFICACION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                            col.Field("CREADO_POR").Visible(false).AllowEditing(false).HeaderText("CREADO_POR").Add();
+                            col.Field("FECHA_CREACION").AllowEditing(false).HeaderText("FECHA_CREACION").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+
+
+
+                        }))
+    </div>
+}
+    <script>
+    $(document).ready(function () {
+        ej.Grid.Locale["es-CO"] = {
+            EmptyRecord: "No hay registros que mostrar",
+            GroupDropArea: "Arrastre un encabezado de columna aquí para agrupar su columna",
+            DeleteOperationAlert: "No hay registros seleccionados para la operación de eliminación",
+            EditOperationAlert: "No hay registros seleccionados para la operación de edición",
+            SaveButton: "Guardar",
+            OKButton: "DE ACUERDO",
+            CancelButton: "Cancelar",
+            EditFormTitle: "Detalles de ",
+            AddFormTitle: "Añadir nuevo registro",
+            GroupCaptionFormat: "{{:headerText}}: {{:key}} - {{:count}} {{if count == 1 }} ítem {{else}} artículos {{/if}} ",
+            Edit: "Crear centro de costos",
+
+        };
+        ej.Pager.Locale["es-CO"] = {
+            pagerInfo: "{0} de {1} páginas ({2} artículos)",
+            firstPageTooltip: "Ir a la primera página",
+            lastPageTooltip: "Ir a la última página",
+            nextPageTooltip: "Ir a la página siguiente",
+            previousPageTooltip: "Ir a la página anterior",
+            nextPagerTooltip: "Ir al siguiente Pager",
+            previousPagerTooltip: "Ir a Pager anterior"
+        };
+
+        ej.ExcelFilter.Locale["es-CO"] = {
+            SortNoSmaller: "Ordenar de menor a mayor",
+            SortNoLarger: "Ordenar de mayor a menor",
+            SortTextAscending: "Ordenar de A a Z",
+            SortTextDescending: "Ordenar de Z a A",
+            SortDateOldest: "Ordenar por Más antiguos",
+            SortDateNewest: "Ordenar por Más reciente",
+            SortByColor: "Ordenar por color",
+            SortByCellColor: "Ordenar por color de la célula",
+            SortByFontColor: "Ordenar por Color de fuente",
+            FilterByColor: "Filtrar por color",
+            CustomSort: "Orden personalizado",
+            FilterByCellColor: "Filtrar por color de la célula",
+            FilterByFontColor: "Filtrar por color de fuente",
+            ClearFilter: "Borrar filtro",
+            NumberFilter: "Número Filtros",
+            GuidFilter: "Gud Filtros",
+            TextFilter: "Filtros de texto",
+            DateFilter: "Filtros de fecha",
+            DateTimeFilter: "Fecha filtros de tiempo",
+            SelectAll: "Seleccionar todo",
+            Blanks: "Los espacios en blanco",
+            Search: "Buscar",
+            Showrowswhere: "Mostrar filas",
+            NumericTextboxWaterMark: "introducir el valor",
+            StringMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Comienza con", value: "startswith" }, { text: "Termina con", value: "endswith" }, { text: "contiene", value: "contains" }, { text: "Filtro personalizado", value: "customfilter" },],
+            NumberMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Menos que", value: "lessthan" }, { text: "Menor o equal", value: "lessthanorequal" }, { text: "Mas grande que", value: "greaterthan" }, { text: "Mayor que o equal", value: "greaterthanorequal" }, { text: "Entre", value: "between" }, { text: "Filtro personalizado", value: "customfilter" },],
+            GuidMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Filtro personalizado", value: "customfilter" },],
+            DateMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Menos que", value: "lessthan" }, { text: "Menor o equal", value: "lessthanorequal" }, { text: "Mas grande que", value: "greaterthan" }, { text: "Mayor que o equal", value: "greaterthanorequal" }, { text: "Entre", value: "between" }, { text: "Filtro personalizado", value: "customfilter" },],
+            DatetimeMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Menos que", value: "lessthan" }, { text: "Menor o equal", value: "lessthanorequal" }, { text: "Mas grande que", value: "greaterthan" }, { text: "Mayor que o equal", value: "greaterthanorequal" }, { text: "Entre", value: "between" }, { text: "Filtro personalizado", value: "customfilter" },],
+            Top10MenuOptions: [{ text: "Parte superior", value: "top" }, { text: "Fondo", value: "bottom" },],
+            title: "Filtro personalizado",
+            PredicateAnd: "Y",
+            PredicateOr: "O",
+            Ok: "Aceptar",
+            MatchCase: "Coincidencia",
+            Cancel: "Cancelar",
+            NoResult: "No se encontraron coincidencias",
+            CheckBoxStatusMsg: "No todos los elementos que muestran",
+            DatePickerWaterMark: "Seleccione fecha",
+            DateTimePickerWaterMark: "Seleccionar fecha y hora",
+            True: "cierto",
+            False: "falso"
+        };
+    });
+
+	//Funcion para añadir buscador a los dropdown
+
+	function inicio_grid(args) {
+        if (args.requestType == "beginedit" || args.requestType == "add") {
+            setTimeout(function () {
+                temp10 = args;
+                args.rowData.ESTADO_PSL = "";
+                $('.gridform tr:not(".e-hide"):nth-child(2)').hide();
+                $('.gridform tr:not(".e-hide"):nth-child(3)').hide();
+                $('.gridform tr:not(".e-hide"):nth-child(4)').hide();
+                $('.gridform tr:not(".e-hide"):nth-child(5)').hide();
+                $('.gridform tr:not(".e-hide"):nth-child(6)').hide();
+                $('.gridform tr:not(".e-hide"):nth-child(7)').hide();
+                $('.gridform tr:not(".e-hide"):nth-child(8)').hide();
+                $('.gridform tr:not(".e-hide"):nth-child(9)').hide();
+                $('.gridform tr:not(".e-hide"):nth-child(16)').hide();
+            }, 50);
+        }
+    }
+
+    //Función click para botones custom de la toolbar
+    function clicked(sender) {
+
+        $target = $(sender.target);
+        if ($target.hasClass("Crear")) {
+            crear(sender.gridModel.selectedRecords[0].COD_CONTRATO_PROYECTO,
+                    sender, sender.gridModel.selectedRecords[0].DESCRIPCION)
+        }
+        else if ($target.hasClass("Cerrar")) {
+            cerrar(sender.gridModel.selectedRecords[0].COD_CONTRATO_PROYECTO,
+                    sender, sender.gridModel.selectedRecords[0].DESCRIPCION)
+        }
+    }
+
+    //Función que permite crear centros de costo
+    function crear(indice, sender, descripcion) {
+        $('.contenedor_loader1').show();
+        var estado_orden = sender.model.selectedRecords[0].COD_ESTADO_ORDEN_SERVICIO;
+        var estado_psl= sender.model.selectedRecords[0].ESTADO_PSL;
+        if (estado_orden == "1") {
+            if (estado_psl != 'Activo') {
+                var centro_costos = sender.model.selectedRecords[0].CENTRO_COSTOS;
+                var param = JSON.stringify({
+                    COD_CONTRATO_PROYECTO: parseInt(indice),
+                    descrip_contrato: descripcion, CENTRO_COSTOS: parseInt(centro_costos)
+                });
+                var url = "crear_centro_costo";
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: param,
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    dataFilter: function (data) { return data; },
+                    success: function (data) {
+                        var gridObj = $("#Grid").ejGrid("instance");
+                        gridObj.refreshContent();
+
+                        alert("Ok. Se creó centro de costos: " + centro_costos);
+                        $('.contenedor_loader1').hide();
+                    },
+                    error: function (data) {
+                        alert("ERROR al intentar crear centro de costos: " + centro_costos);
+                        var gridObj = $("#Grid").ejGrid("instance");
+                        gridObj.refreshContent();
+
+                        $('.contenedor_loader1').hide();
+                    }
+                });
+            }
+            else {
+                alert("Error al crear el centro de costos. El centro de costos ya fue creado en PSL");
+                $('.contenedor_loader1').hide();
+            }
+        }
+        else {
+            alert("Error al crear el centro de costos. El estado de la orden de servicio no es liberado y por lo tanto no se puede crear un centro de costos");
+            $('.contenedor_loader1').hide();
+        }
+
+
+    }
+
+    //Función que permite CERRAR centros de costo
+    function cerrar(indice, sender, descripcion) {
+        $('.contenedor_loader1').show();
+        var estado_orden = sender.gridModel.selectedRecords[0].COD_ESTADO_ORDEN_SERVICIO;
+        var estado_psl = sender.gridModel.selectedRecords[0].ESTADO_PSL;
+        if (estado_orden == "1" || estado_orden=="4") {
+
+            var centro_costos = sender.gridModel.selectedRecords[0].CENTRO_COSTOS;
+            var param = JSON.stringify({
+                COD_CONTRATO_PROYECTO: parseInt(indice),
+                descrip_contrato: descripcion,
+                CENTRO_COSTOS: parseInt(centro_costos)
+            });
+            var url = "cerrar_centro_costo"; // En el controller //"Default.aspx/GetCiudadesByPais"
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: param,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                dataFilter: function (data) { return data; },
+                success: function (data) {
+                    var gridObj = $("#Grid").ejGrid("instance");
+                    gridObj.refreshContent();
+                    alert("Ok. Se CERRÓ centro de costos:" + centro_costos);
+                    $('.contenedor_loader1').hide();
+                },
+                error: function (data) {
+                    alert("ERROR al intentar CERRAR centro de costos: " + centro_costos);
+                    $('.contenedor_loader1').hide();
+                }
+            });
+        }
+        else {
+            alert("El proyecto no esta en el estado correcto");
+            $('.contenedor_loader1').hide();
+        }
+
+    }
+
+    //Función que hace trigger para la creación del centro de costos en PSL
+    function finalizar_accion(args) {
+        if (args.requestType == "save") {
+            pivotgrid = $("#" + args.target.id).ejGrid("instance");
+
+            //Crear centro de costos
+            crear(pivotgrid.model.selectedRecords[0].COD_CONTRATO_PROYECTO, pivotgrid, pivotgrid.model.selectedRecords[0].DESCRIPCION);
+        }
+    }
+
+    </script>
+
+    <!--Modelos o templates para botones-->
+    <script type="text/x-jsrender" id="Crear">
+        <a class="e-tooltxt Crear e-icon e-star"></a>
+    </script>
+    <script type="text/x-jsrender" id="Cerrar">
+        <a class="e-tooltxt Cerrar e-icon e-dataexport"></a>
+    </script>

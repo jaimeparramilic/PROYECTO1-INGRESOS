@@ -1,0 +1,14 @@
+E:\REPO_TEMP\syncfusion_payc\importacion_noova\bin\Release\importacion_noova.exe.config
+E:\REPO_TEMP\syncfusion_payc\importacion_noova\bin\Release\importacion_noova.exe
+E:\REPO_TEMP\syncfusion_payc\importacion_noova\bin\Release\importacion_noova.pdb
+E:\REPO_TEMP\syncfusion_payc\importacion_noova\obj\Release\importacion_noova.csproj.CoreCompileInputs.cache
+E:\REPO_TEMP\syncfusion_payc\importacion_noova\obj\Release\importacion_noova.exe
+E:\REPO_TEMP\syncfusion_payc\importacion_noova\obj\Release\importacion_noova.pdb
+E:\REPO_TEMP\syncfusion_payc\importacion_noova\bin\Release\Newtonsoft.Json.dll
+E:\REPO_TEMP\syncfusion_payc\importacion_noova\bin\Release\Newtonsoft.Json.xml
+E:\REPO_TEMP\syncfusion_payc\importacion_noova\obj\Release\importacion_noova.csproj.CopyComplete
+E:\REPO_TEMP\syncfusion_payc\importacion_noova\bin\Release\EntityFramework.dll
+E:\REPO_TEMP\syncfusion_payc\importacion_noova\bin\Release\EntityFramework.SqlServer.dll
+E:\REPO_TEMP\syncfusion_payc\importacion_noova\bin\Release\EntityFramework.xml
+E:\REPO_TEMP\syncfusion_payc\importacion_noova\bin\Release\EntityFramework.SqlServer.xml
+E:\REPO_TEMP\syncfusion_payc\importacion_noova\obj\Release\importacion_noova.csprojAssemblyReference.cache

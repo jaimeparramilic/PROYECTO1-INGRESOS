@@ -1,0 +1,50 @@
+﻿@model syncfusion_payc.Models.INCREMENTO_ORDEN
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>INCREMENTO_ORDEN</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.VALOR_INCREMENTO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VALOR_INCREMENTO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CONTRATO_PROYECTO.COMPLETA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CONTRATO_PROYECTO.COMPLETA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FORMAS_PAGO_FECHAS.PERIODO_TEXTO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FORMAS_PAGO_FECHAS.PERIODO_TEXTO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.INCREMENTO_SALARIAL.COD_INCREMENTO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.INCREMENTO_SALARIAL.COD_INCREMENTO)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.COD_INCREMENTO_ORDEN }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

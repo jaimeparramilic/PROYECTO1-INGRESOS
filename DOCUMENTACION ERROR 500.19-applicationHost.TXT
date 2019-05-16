@@ -1,0 +1,49 @@
+Cuando al ejecutar la aplicación se produce el error:
+
+"HTTP Error 500.19 - Internal Server Error" "The requested page cannot be accessed because the related configuration data for the page is invalid."
+
+Se debe modificar el archivo: C:\Windows\System32\inetsrv\Config\applicationHost.config
+
+Se deben dejar "Allow": overrideModeDefault="Allow", los siguientes name:
+
+En <configSections>
+	<sectionGroup name="system.webServer">
+poner: 
+<section name="asp" overrideModeDefault="Allow" />
+<section name="cgi" overrideModeDefault="Allow" />
+<section name="fastCgi" allowDefinition="AppHostOnly" overrideModeDefault="Allow" />
+<section name="globalModules" allowDefinition="AppHostOnly" overrideModeDefault="Allow" />
+<section name="handlers" overrideModeDefault="Allow" />
+<section name="httpLogging" overrideModeDefault="Allow" />
+<section name="httpTracing" overrideModeDefault="Allow" />
+<section name="isapiFilters" allowDefinition="MachineToApplication" overrideModeDefault="Allow" />
+<section name="modules" allowDefinition="MachineToApplication" overrideModeDefault="Allow" />
+<section name="odbcLogging" overrideModeDefault="Allow" />
+
+En <sectionGroup name="security">
+
+<section name="access" overrideModeDefault="Allow" />
+<section name="applicationDependencies" overrideModeDefault="Allow" />
+
+En <sectionGroup name="authentication">
+
+<section name="anonymousAuthentication" overrideModeDefault="Allow" />
+<section name="basicAuthentication" overrideModeDefault="Allow" />
+<section name="clientCertificateMappingAuthentication" overrideModeDefault="Allow" />
+<section name="digestAuthentication" overrideModeDefault="Allow" />
+<section name="iisClientCertificateMappingAuthentication" overrideModeDefault="Allow" />
+<section name="windowsAuthentication" overrideModeDefault="Allow" />
+
+<section name="dynamicIpSecurity" overrideModeDefault="Allow" />
+<section name="isapiCgiRestriction" allowDefinition="AppHostOnly" overrideModeDefault="Allow" />
+<section name="serverRuntime" overrideModeDefault="Allow" />
+<section name="serverSideInclude" overrideModeDefault="Allow" />
+
+<section name="traceProviderDefinitions" overrideModeDefault="Allow" />
+
+<section name="globalSettings" overrideModeDefault="Allow" />
+<section name="authoringRules" overrideModeDefault="Allow" />
+<section name="authoring" overrideModeDefault="Allow" />
+
+<section name="webSocket" overrideModeDefault="Allow" />
+

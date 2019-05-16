@@ -1,0 +1,245 @@
+﻿
+@model IEnumerable<syncfusion_payc.Models.CONTRATOS>
+
+@{
+    ViewBag.Title = "";
+
+
+
+	}
+<h4>CONTRATOS</h4>
+<div class="control-section">
+    @if (User.Identity.IsAuthenticated)
+    {
+        @(Html.EJ().Grid<syncfusion_payc.Models.CONTRATO_COLABORADOR_INDEX>("Grid")
+                                               .Datasource(ds => ds.URL("../CONTRATO_COLABORADOR/GetOrderData_contrato_proyecto").InsertURL("../CONTRATO_COLABORADOR/PerformInsert_contrato_proyecto").UpdateURL("../CONTRATO_COLABORADOR/PerformUpdate_contrato_proyecto").RemoveURL("../CONTRATO_COLABORADOR/PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                                               .AllowPaging()
+                                               .AllowFiltering()
+                                               .Locale("es-CO")
+                                               .AllowResizeToFit(true)
+                                               .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                                               .ToolbarSettings(toolbar =>
+                                               {
+                                                   toolbar.ShowToolbar().ToolbarItems(items =>
+                                                   {
+                                                       items.AddTool(ToolBarItems.Add);
+                                                       items.AddTool(ToolBarItems.Edit);
+                                                       items.AddTool(ToolBarItems.Delete);
+                                                       items.AddTool(ToolBarItems.Update);
+                                                       items.AddTool(ToolBarItems.Cancel);
+                                                       items.AddTool(ToolBarItems.Search);
+                                                   
+                                                   });
+                                               }).Columns(col =>
+                                               {
+                                                   col.Field("CENTRO_COSTOS").HeaderText("CENTRO DE COSTOS").EditType(EditingType.DropdownEdit).Add();
+                                                   col.Field("DESCRIPCION").HeaderText("DESCRIPCION").EditType(EditingType.DropdownEdit).Add();
+                                                   col.Field("COD_CONTRATO_PROYECTO").HeaderText("CONTRATO_PROYECTO").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit);
+                                                   col.Field("COD_CONTRATO").HeaderText("CONTRATO_PROYECTO").Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit);
+                                               }).ChildGrid(child =>
+                                               {
+                                                   child.Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                                           .AllowPaging()
+                                           .AllowFiltering()
+                                           .Locale("es-CO")
+                                           .QueryString("COD_CONTRATO_PROYECTO")
+                                           .ForeignKeyField("COD_CONTRATO_PROYECTO_1")
+                                           .AllowResizeToFit(true)
+                                           .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
+                                           .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+                                           .ToolbarSettings(toolbar =>
+                                           {
+                                               toolbar.ShowToolbar().CustomToolbarItems(new List<object>() {
+                                        new Syncfusion.JavaScript.Models.CustomToolbarItem(){ TemplateID = "#Adjuntar",Tooltip="Adjuntar contratos" }
+                                                   }).ToolbarItems(items =>
+                                                   {
+                                                       items.AddTool(ToolBarItems.Add);
+                                                       items.AddTool(ToolBarItems.Edit);
+                                                       items.AddTool(ToolBarItems.Delete);
+                                                       items.AddTool(ToolBarItems.Update);
+                                                       items.AddTool(ToolBarItems.Cancel);
+                                                   });
+                                           }).ClientSideEvents(e => e.Create("create").RowSelected("rowSelected"))
+                                           .ClientSideEvents(eve => eve.ToolbarClick("clicked"))
+                                           .ClientSideEvents(e => e.ActionBegin("inicio_grid"))
+                                           .Columns(col =>
+                                           {
+                                               col.Field("COD_CLIENTE").ForeignKeyField("COD_CLIENTE").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CLIENTES.ToList()).ValidationRules(v => v.AddRule("required", true)).HeaderText("CLIENTE").EditType(EditingType.DropdownEdit).Add();
+                                               col.Field("COD_CONTRATO").HeaderText("CONTRATO").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                                               col.Field("DESCRIPCION").HeaderText("DESCRIPCION").Add();
+                                               col.Field("FECHA_FIRMA").HeaderText("FECHA FIRMA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                                               col.Field("RUTA_DOCUMENTO").HeaderText("RUTA DOCUMENTO").AllowEditing(false).Template("<a class='contrato' title='Ver contrato' href='../FlujoProyectos/contratos/{{:RUTA_DOCUMENTO}}'>{{:RUTA_DOCUMENTO}}</a>").Add();
+                                               col.HeaderText("RUTA ANEXOS").Template("<a class='contrato' title='Ver contrato' href='../FlujoProyectos/contratos/{{:RUTA_DOCUMENTO}}'>{{:RUTA_DOCUMENTO}}</a>").Add();
+                                               col.Field("FECHA_INICIO_EJECUCION").HeaderText("FECHA INI EJECUCIÓN").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                                               col.Field("FECHA_FIN_EJECUCION").HeaderText("FECHA FIN EJECUCIÓN").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                                               col.Field("VALOR_CONTRATO").HeaderText("VALOR CONTRATO").Format("{0:c2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                                               col.Field("COD_CONTRATO_PROYECTO_1").HeaderText("CONTRATO").Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+
+                                           });
+                                               })
+        )
+    }
+
+    @*ALMACENAJE DE INFORMACIÓN TEMPORAL DEL CONTRATO ELEGIDO PARA CARGUE DE DOCUMENTOS*@
+    <div class="ocultas">
+        @*ERRORES*@
+        @*ETAPA1*@
+        <div class="form-group oculta">
+
+            <input autocomplete="off" type="hidden" class="form-control" id="fila_elegida" placeholder="" value="">
+            <input autocomplete="off" type="hidden" class="form-control" id="grid_elegida" placeholder="" value="">
+        </div>
+    </div>
+</div>
+
+    <script>
+
+    $(document).ready(function () {
+        ej.Grid.Locale["es-CO"] = {
+            EmptyRecord: "No hay registros que mostrar",
+            GroupDropArea: "Arrastre un encabezado de columna aquí para agrupar su columna",
+            DeleteOperationAlert: "No hay registros seleccionados para la operación de eliminación",
+            EditOperationAlert: "No hay registros seleccionados para la operación de edición",
+            SaveButton: "Guardar",
+            OKButton: "DE ACUERDO",
+            CancelButton: "Cancelar",
+            EditFormTitle: "Detalles de ",
+            AddFormTitle: "Añadir nuevo registro",
+            GroupCaptionFormat: "{{:headerText}}: {{:key}} - {{:count}} {{if count == 1 }} ítem {{else}} artículos {{/if}} ",
+
+
+        };
+        ej.Pager.Locale["es-CO"] = {
+            pagerInfo: "{0} de {1} páginas ({2} artículos)",
+            firstPageTooltip: "Ir a la primera página",
+            lastPageTooltip: "Ir a la última página",
+            nextPageTooltip: "Ir a la página siguiente",
+            previousPageTooltip: "Ir a la página anterior",
+            nextPagerTooltip: "Ir al siguiente Pager",
+            previousPagerTooltip: "Ir a Pager anterior"
+        };
+
+        ej.ExcelFilter.Locale["es-CO"] = {
+            SortNoSmaller: "Ordenar de menor a mayor",
+            SortNoLarger: "Ordenar de mayor a menor",
+            SortTextAscending: "Ordenar de A a Z",
+            SortTextDescending: "Ordenar de Z a A",
+            SortDateOldest: "Ordenar por Más antiguos",
+            SortDateNewest: "Ordenar por Más reciente",
+            SortByColor: "Ordenar por color",
+            SortByCellColor: "Ordenar por color de la célula",
+            SortByFontColor: "Ordenar por Color de fuente",
+            FilterByColor: "Filtrar por color",
+            CustomSort: "Orden personalizado",
+            FilterByCellColor: "Filtrar por color de la célula",
+            FilterByFontColor: "Filtrar por color de fuente",
+            ClearFilter: "Borrar filtro",
+            NumberFilter: "Número Filtros",
+            GuidFilter: "Gud Filtros",
+            TextFilter: "Filtros de texto",
+            DateFilter: "Filtros de fecha",
+            DateTimeFilter: "Fecha filtros de tiempo",
+            SelectAll: "Seleccionar todo",
+            Blanks: "Los espacios en blanco",
+            Search: "Buscar",
+            Showrowswhere: "Mostrar filas",
+            NumericTextboxWaterMark: "introducir el valor",
+            StringMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Comienza con", value: "startswith" }, { text: "Termina con", value: "endswith" }, { text: "contiene", value: "contains" }, { text: "Filtro personalizado", value: "customfilter" },],
+            NumberMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Menos que", value: "lessthan" }, { text: "Menor o equal", value: "lessthanorequal" }, { text: "Mas grande que", value: "greaterthan" }, { text: "Mayor que o equal", value: "greaterthanorequal" }, { text: "Entre", value: "between" }, { text: "Filtro personalizado", value: "customfilter" },],
+            GuidMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Filtro personalizado", value: "customfilter" },],
+            DateMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Menos que", value: "lessthan" }, { text: "Menor o equal", value: "lessthanorequal" }, { text: "Mas grande que", value: "greaterthan" }, { text: "Mayor que o equal", value: "greaterthanorequal" }, { text: "Entre", value: "between" }, { text: "Filtro personalizado", value: "customfilter" },],
+            DatetimeMenuOptions: [{ text: "Igual", value: "equal" }, { text: "No es equal", value: "notequal" }, { text: "Menos que", value: "lessthan" }, { text: "Menor o equal", value: "lessthanorequal" }, { text: "Mas grande que", value: "greaterthan" }, { text: "Mayor que o equal", value: "greaterthanorequal" }, { text: "Entre", value: "between" }, { text: "Filtro personalizado", value: "customfilter" },],
+            Top10MenuOptions: [{ text: "Parte superior", value: "top" }, { text: "Fondo", value: "bottom" },],
+            title: "Filtro personalizado",
+            PredicateAnd: "Y",
+            PredicateOr: "O",
+            Ok: "Aceptar",
+            MatchCase: "Coincidencia",
+            Cancel: "Cancelar",
+            NoResult: "No se encontraron coincidencias",
+            CheckBoxStatusMsg: "No todos los elementos que muestran",
+            DatePickerWaterMark: "Seleccione fecha",
+            DateTimePickerWaterMark: "Seleccionar fecha y hora",
+            True: "cierto",
+            False: "falso"
+        };
+    });
+
+    //Almacenaje de la ruta en contratos
+    function fileuploadSuccess_anexos(e) {
+        var FileData = e.responseText;
+        var COD_CONTRATO = $("#fila_elegida").val();
+        //Guardar valor
+        var instancia = $("#" + $("#grid_elegida").val()).ejGrid("instance");
+        //Verificar selección de filas
+        try {
+            var seleccionados = instancia.getSelectedRecords()[0];
+            var fila = instancia.selectedRowsIndexes;
+            seleccionados.RUTA_DOCUMENTO = FileData;
+            
+            instancia.updateRecord("COD_CONTRATO", seleccionados);
+            setTimeout(function () { instancia.refreshContent(); }, 1000);
+        }
+        catch{
+            alert("Por favor seleccione una fila para adjuntar un archivo");
+        }
+    }
+   
+    //Función click en los elementos nuevos
+    function clicked(sender) {
+            $("#grid_elegida").val(sender.itemId.replace("_Adjuntar", ""));
+            
+        }
+    //Remove completo contratos
+    function fileremovecomplete_anexos(e) {
+        var instancia = $("#" + $("#grid_elegida").val()).ejGrid("instance");
+        var fila = instancia.selectedRowsIndexes;
+        //Guardar valor de la ruta en la fila seleccionada
+        instancia.setCellValue(fila, "RUTA_DOCUMENTO", "");
+    }
+
+    //Función que crea el uploadbox para la grid de contratos
+    function create(args) {
+        $("#boton_adjuntar").ejUploadbox({
+            saveUrl: "../FlujoProyectos/Save_contrato1",
+            removeUrl: "../FlujoProyectos/Remove_contrato1",
+            success: fileuploadSuccess_anexos,
+            remove: fileremovecomplete_anexos,
+            autoUpload: true,
+            showFileDetails: false,
+            fileSize: 10000000,
+            extensionsAllow: ".doc, .docx,.pdf",
+            uploadName: "CARGUE_ANEXOS",
+            cssClass: "custom",
+            buttonText: {
+                browse: ""
+            },
+            create: function (args) {
+                $(".custom .e-selectpart").prepend("<span class='e-icon e-upload'></span>");
+            }
+        });
+    }
+
+    
+    //función que se activa al seleccionar una fila para poder almacenar la fila actual en una variable
+    function rowSelected(args) {
+            
+            $("#fila_elegida").val(args.data.COD_CONTRATO);
+        }
+
+    //función para drop_down de contratos
+    function inicio_grid(args) {
+        if (args.requestType == "beginedit" || args.requestType == "add") {
+            
+                setTimeout(function () {
+                    var drop = $(".e-dropdownlist[name='COD_CLIENTE']").ejDropDownList('instance');
+                    drop.option("enableFilterSearch", true);
+                }, 50);
+            
+        }
+    }
+    </script>
+
+    <script type="text/x-jsrender" id="Adjuntar">
+        <div id="boton_adjuntar"></div>
+    </script>

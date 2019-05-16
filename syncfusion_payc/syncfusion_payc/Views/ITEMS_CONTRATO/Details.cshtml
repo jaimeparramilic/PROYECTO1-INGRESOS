@@ -1,0 +1,98 @@
+﻿@model syncfusion_payc.Models.ITEMS_CONTRATO
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ITEMS_CONTRATO</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DESCRIPCION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DESCRIPCION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ITEM_REEMBOLZABLE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ITEM_REEMBOLZABLE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.REUTILIZABLE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.REUTILIZABLE)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COSTO_INICIAL_UNITARIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COSTO_INICIAL_UNITARIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.COSTO_MENSUAL_UNITARIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COSTO_MENSUAL_UNITARIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CANTIDAD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CANTIDAD)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA_INI_USO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA_INI_USO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MESES_USO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MESES_USO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OBSERVACIONES)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OBSERVACIONES)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CONTRATO_PROYECTO.COD_CONTRATO_PROYECTO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CONTRATO_PROYECTO.COD_CONTRATO_PROYECTO)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.COD_ITEM_CONTRATO }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

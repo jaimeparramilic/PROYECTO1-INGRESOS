@@ -1,0 +1,82 @@
+﻿@model syncfusion_payc.Models.FACTURAS
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>FACTURAS</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NUMERO_FACTURA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NUMERO_FACTURA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA_FACTURA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA_FACTURA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VALOR_SIN_IMPUESTOS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VALOR_SIN_IMPUESTOS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VALOR_CON_IMPUESTOS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VALOR_CON_IMPUESTOS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RANKING)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RANKING)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CONTRATO_PROYECTO.COMPLETA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CONTRATO_PROYECTO.COMPLETA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ESTADOS_FACTURAS.DESCRIPCION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ESTADOS_FACTURAS.DESCRIPCION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FORMAS_PAGO_FECHAS.PERIODO_TEXTO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FORMAS_PAGO_FECHAS.PERIODO_TEXTO)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.COD_FACTURA }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

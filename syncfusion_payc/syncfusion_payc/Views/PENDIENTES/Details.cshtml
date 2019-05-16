@@ -1,0 +1,82 @@
+﻿@model syncfusion_payc.Models.PENDIENTES
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PENDIENTES</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.COD_CONTRATO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.COD_CONTRATO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ORDEN_SERVICIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ORDEN_SERVICIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CENTRO_COSTOS)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CENTRO_COSTOS)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA_INICIO_EJECUCION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA_INICIO_EJECUCION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FECHA_FIN_EJECUCION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FECHA_FIN_EJECUCION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TIPO_SERVICIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TIPO_SERVICIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DESCRIPCION)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DESCRIPCION)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TIPO_OBRA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TIPO_OBRA)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.COD_CONTRATO_PROYECTO }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
