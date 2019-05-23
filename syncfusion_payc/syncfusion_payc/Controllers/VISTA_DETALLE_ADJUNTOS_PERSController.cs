@@ -33,12 +33,16 @@ using syncfusion_payc.Models;
 using System.IO;
 using System.Drawing;
 using System.Globalization;
+using Microsoft.AspNet.Identity;
+using System.Data.SqlClient;
+using System.Configuration;
+
 namespace syncfusion_payc.Controllers
 {
     public class VISTA_DETALLE_ADJUNTOS_PERSController : Controller
     {
         private test_payc_contabilidadEntities db = new test_payc_contabilidadEntities();
-
+        static string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection1"].ConnectionString;
         #region acciones vistas base
         // GET: VISTA_DETALLE_ADJUNTOS_PERS
         public ActionResult Index()
@@ -202,13 +206,129 @@ namespace syncfusion_payc.Controllers
         }
 
         //Perform file insertion 
+        //public ActionResult PerformInsert(EditParams_DETALLE_FACTURA_PERS param) // lo comenté porque croe que me estaba equivocando al traer un objeto parametro del tipo detalle factura pers.....creo que está bien con el de vista detalle adjunto pers por lo que en él esta toda la info y a aprtir de ese objeto crear uno del tipo detalle factura para realizar el insert en esa taba tambien
         public ActionResult PerformInsert(EditParams_VISTA_DETALLE_ADJUNTOS_PERS param)
         {
-            db.VISTA_DETALLE_ADJUNTOS_PERS.Add(param.value);
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            DateTime hoy = DateTime.Today;
+            string usuario = User.Identity.GetUserName();
+            param.value.FECHA_REGISTRO = hoy;
+            param.value.USUARIO = usuario;
+            param.value.COD_ESTADO_DETALLE = 1;
+
+            //Se crea el objeto tipo detalle_factura_pers a partir del objeto params (tipo EditParams_VISTA_DETALLE_ADJUNTOS_PERS)
+            #region //Se crea el objeto tipo detalle_factura_pers a partir del objeto params (tipo EditParams_VISTA_DETALLE_ADJUNTOS_PERS)
+            //EditParams_DETALLE_FACTURA_PERS DETALLE_FACTURA_PERS_EditParams = new EditParams_DETALLE_FACTURA_PERS(); //qué diferencia hay usando el editparams como este?
+            DETALLE_FACTURA_PERS DETALLE_FACTURA_PERS_ = new DETALLE_FACTURA_PERS();
+
+            DETALLE_FACTURA_PERS_.COD_CONTRATO_PROYECTO = param.value.COD_CONTRATO_PROYECTO;
+            DETALLE_FACTURA_PERS_.COD_ROL = param.value.COD_ROL;
+            DETALLE_FACTURA_PERS_.COD_FORMAS_PAGO_FECHAS = param.value.COD_FORMAS_PAGO_FECHAS;
+            DETALLE_FACTURA_PERS_.VALOR_SIN_IMPUESTOS = param.value.VALOR_SIN_IMPUESTOS;
+            DETALLE_FACTURA_PERS_.FECHA_REGISTRO = param.value.FECHA_REGISTRO;
+            DETALLE_FACTURA_PERS_.USUARIO = param.value.USUARIO;
+            DETALLE_FACTURA_PERS_.COD_ESTADO_FACTURA = param.value.COD_ESTADO_FACTURA;
+            DETALLE_FACTURA_PERS_.COD_CAUSA_ESTADO = param.value.COD_CAUSA_ESTADO;
+            DETALLE_FACTURA_PERS_.OBSERVACIONES = null;
+            DETALLE_FACTURA_PERS_.COD_FACTURA = param.value.COD_FACTURA;
+            DETALLE_FACTURA_PERS_.COD_ESTADO_DETALLE = 4;//// SE PONE 4 QUE ES EL ESTADO REGISTRO MANUAL// Este es el campo que 1 es vigente y 2 es modificado y por defecto en el insert de verificar lo tenemos en =1 asignado en el controlador. Seguiría así?
+            DETALLE_FACTURA_PERS_.COD_CONCEPTO_PSL = param.value.COD_CONCEPTO_PSL;
+            DETALLE_FACTURA_PERS_.COD_GRUPO_FACTURA = param.value.COD_GRUPO_FACTURA;
+            #endregion //Se crea el objeto tipo detalle_factura_pers a partir del objeto params (tipo EditParams_VISTA_DETALLE_ADJUNTOS_PERS)
+
+            //Se guarda el objeto creado tipo detalle_factura_pers en la base de datos
+            #region //Se guarda el objeto creado tipo detalle_factura_pers en la base de datos
+            db.DETALLE_FACTURA_PERS.Add(DETALLE_FACTURA_PERS_);
             db.SaveChanges();
-			var data = db.VISTA_DETALLE_ADJUNTOS_PERS.ToList();
-			var value = data.Last();
-            return Json(value, JsonRequestBehavior.AllowGet);
+            #endregion //Se guarda el objeto creado tipo detalle_factura_pers en la base de datos
+
+
+            //Se crea el objeto tipo detalle_factura_adjunto_pers a partir del objeto params (tipo EditParams_VISTA_DETALLE_ADJUNTOS_PERS)
+            #region //Se crea el objeto tipo detalle_factura_adjunto_pers a partir del objeto params (tipo EditParams_VISTA_DETALLE_ADJUNTOS_PERS)
+            //EditParams_DETALLE_FACTURA_PERS DETALLE_FACTURA_PERS_EditParams = new EditParams_DETALLE_FACTURA_PERS(); //qué diferencia hay usando el editparams como este?
+            DETALLE_FACTURA_ADJUNTO_PERS DETALLE_FACTURA_ADJUNTO_PERS_ = new DETALLE_FACTURA_ADJUNTO_PERS();
+
+            DETALLE_FACTURA_ADJUNTO_PERS_.COD_CONTRATO_PROYECTO = param.value.COD_CONTRATO_PROYECTO;
+            DETALLE_FACTURA_ADJUNTO_PERS_.COD_ROL = param.value.COD_ROL;
+            DETALLE_FACTURA_ADJUNTO_PERS_.COD_COLABORADOR = param.value.COD_COLABORADOR;//param.value.NOMBRE_PERSONA;
+            DETALLE_FACTURA_ADJUNTO_PERS_.COD_FORMAS_PAGO_FECHAS = param.value.COD_FORMAS_PAGO_FECHAS;
+            DETALLE_FACTURA_ADJUNTO_PERS_.FECHA_REGISTRO = param.value.FECHA_REGISTRO;
+            DETALLE_FACTURA_ADJUNTO_PERS_.USUARIO = param.value.USUARIO;
+            DETALLE_FACTURA_ADJUNTO_PERS_.COD_ESTADO_FACTURA = param.value.COD_ESTADO_FACTURA;
+            DETALLE_FACTURA_ADJUNTO_PERS_.COD_CAUSA_ESTADO = param.value.COD_CAUSA_ESTADO;
+            DETALLE_FACTURA_ADJUNTO_PERS_.OBSERVACIONES = null;//param.value.COD_CONTRATO_PROYECTO;
+            DETALLE_FACTURA_ADJUNTO_PERS_.COD_FACTURA = param.value.COD_FACTURA;
+            DETALLE_FACTURA_ADJUNTO_PERS_.COD_ESTADO_DETALLE = 4;//// SE PONE 4 QUE ES EL ESTADO REGISTRO MANUAL//Este es el campo que 1 es vigente y 2 es modificado y por defecto en el insert de verificar lo tenemos en =1 asignado en el controlador. Seguiría así?
+            DETALLE_FACTURA_ADJUNTO_PERS_.COD_CONCEPTO_PSL = param.value.COD_CONCEPTO_PSL;
+            DETALLE_FACTURA_ADJUNTO_PERS_.COD_GRUPO_FACTURA = param.value.COD_GRUPO_FACTURA;
+            DETALLE_FACTURA_ADJUNTO_PERS_.HORAS_ED = param.value.HORAS_ED;
+            DETALLE_FACTURA_ADJUNTO_PERS_.HORAS_EN = param.value.HORAS_EN;
+            DETALLE_FACTURA_ADJUNTO_PERS_.HORAS_FD = param.value.HORAS_FD;
+            DETALLE_FACTURA_ADJUNTO_PERS_.HORAS_FN = param.value.HORAS_FN;
+            DETALLE_FACTURA_ADJUNTO_PERS_.ADICIONES = param.value.ADICIONES;
+            DETALLE_FACTURA_ADJUNTO_PERS_.HORAS_AUSENCIA = param.value.HORAS_AUSENCIA;
+            DETALLE_FACTURA_ADJUNTO_PERS_.DESCUENTO_AUSENCIA = param.value.DESCUENTO_AUSENCIA;
+            DETALLE_FACTURA_ADJUNTO_PERS_.FECHA_INI = param.value.FECHA_INI;
+            DETALLE_FACTURA_ADJUNTO_PERS_.VALOR_DIAS_LAB = param.value.VALOR_DIAS_LAB;
+            DETALLE_FACTURA_ADJUNTO_PERS_.VALOR_SIN_IMPUESTOS = param.value.VALOR_SIN_IMPUESTOS;
+
+            #endregion //Se crea el objeto tipo detalle_factura_adjunto_pers a partir del objeto params (tipo EditParams_VISTA_DETALLE_ADJUNTOS_PERS)
+
+            //Se guarda el objeto creado tipo detalle_factura_pers en la base de datos
+            #region //Se guarda el objeto creado tipo detalle_factura_pers en la base de datos
+            db.DETALLE_FACTURA_ADJUNTO_PERS.Add(DETALLE_FACTURA_ADJUNTO_PERS_);
+            db.SaveChanges();
+            #endregion //Se guarda el objeto creado tipo detalle_factura_pers en la base de datos
+
+
+
+
+
+
+            try
+
+            {
+
+                string query = @"SELECT [TOTAL_FACTURA] FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS] WHERE COD_FACTURA=" + param.value.COD_FACTURA.ToString();
+                string valor_factura = "0";
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand command = new SqlCommand(query, connection);
+                    connection.Open();
+                    SqlDataReader dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        valor_factura = dr.GetValue(0).ToString();
+                    }
+                    connection.Close();
+                }
+
+                FACTURAS table1 = db.FACTURAS.Single(o => o.COD_FACTURA == param.value.COD_FACTURA);
+                table1.VALOR_SIN_IMPUESTOS = Decimal.Parse(valor_factura);
+                db.SaveChanges();
+                ////REIVISAR PORQUE GENERÓ PROBLEMAS
+                //var data = db.DETALLE_FACTURA_PERS.ToList();
+                //var value = data.Last();
+                //return Json(value, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = true, responseText = ex.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { success = true, responseText = "SI" }, JsonRequestBehavior.AllowGet);
+
+
+
+
+
+            // db.VISTA_DETALLE_ADJUNTOS_PERS.Add(param.value);
+            // db.SaveChanges();
+			// var data = db.VISTA_DETALLE_ADJUNTOS_PERS.ToList();
+			// var value = data.Last();
+            // return Json(value, JsonRequestBehavior.AllowGet);
         }
 
         //Actualizar grid
