@@ -18,7 +18,7 @@
         <div class="col-md-6">
             <div class="control-section">
                 @(Html.EJ().Grid<syncfusion_payc.Models.VISTA_DETALLE_ADJUNTOS_PERS>("GRID_ROLES")
-                                                .Datasource(ds => ds.URL("../../VISTA_DETALLE_ADJUNTOS_PERS/GetOrderData").InsertURL("../../VISTA_DETALLE_ADJUNTOS_PERS/PerformInsert").UpdateURL("../../VISTA_DETALLE_ADJUNTOS_PERS/PerformUpdate").RemoveURL("../../VISTA_DETALLE_ADJUNTOS_PERS/PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
+                                                .Datasource(ds => ds.URL("../../VISTA_DETALLE_ADJUNTOS_PERS/GetOrderData").InsertURL("../../VISTA_DETALLE_ADJUNTOS_PERS/PerformInsert").UpdateURL("../../VISTA_DETALLE_ADJUNTOS_PERS/PerformInsert").RemoveURL("../../VISTA_DETALLE_ADJUNTOS_PERS/PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
                                                 //Este es el bk de como estaba antes de la edición
                                                 //.Datasource(ds => ds.URL("../../VISTA_DETALLE_ADJUNTOS_PERS/GetOrderData").InsertURL("../../VISTA_DETALLE_ADJUNTOS_PERS/PerformInsert").UpdateURL("../../VISTA_DETALLE_ADJUNTOS_PERS/PerformUpdate").RemoveURL("../../VISTA_DETALLE_ADJUNTOS_PERS/PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
                                                 //Este es el de verificar:
@@ -31,7 +31,7 @@
                                                 .AllowSorting()
                                                 .ClientSideEvents(e => e.ActionComplete("finalizar_accion"))
                                                 .FilterSettings(filter => { filter.FilterType(FilterType.Excel); })
-                                                .EditSettings(edit => { edit.AllowAdding(true).AllowDeleting(false).AllowEditing(false).EditMode(EditMode.Dialog); })
+                                                .EditSettings(edit => { edit.AllowAdding(true).AllowDeleting(false).AllowEditing(true).EditMode(EditMode.Dialog); })
                                                 //Así estaba antes:
                                                 //.EditSettings(edit => { edit.AllowAdding(false).AllowDeleting(false).AllowEditing().EditMode(EditMode.Dialog); })
                                                 .ClientSideEvents(e => e.ActionBegin("inicio_accion_roles").Load("inicio_grid_roles").ToolbarClick("clicked"))
@@ -203,7 +203,7 @@
     <script type="text/javascript">
 
     function redireccionar_index_facturas() {
-        window.location = "../FACTURAS/Index";
+        window.location = "../Index";
     }
     //Traducción
     $(document).ready(function () {
@@ -450,6 +450,7 @@
             alert("Esta factura ya está validada");
         }else{
             console.log("esta en add en el else del if")
+            //console.log(args.data)
         }  
             
         if (args.requestType == "beginedit") {
@@ -491,7 +492,7 @@
 
         var cod_estado_factura=@(ViewBag.COD_ESTADO_FACTURA);
 
-        console.log("esta en accion inicio_accion_roles")
+        console.log("esta en accion inicio_accion_items")
         console.log("cod_estado_factura"+cod_estado_factura);
 
 

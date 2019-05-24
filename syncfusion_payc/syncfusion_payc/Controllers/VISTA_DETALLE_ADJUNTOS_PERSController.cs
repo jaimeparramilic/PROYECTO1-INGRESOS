@@ -209,6 +209,20 @@ namespace syncfusion_payc.Controllers
         //public ActionResult PerformInsert(EditParams_DETALLE_FACTURA_PERS param) // lo comenté porque croe que me estaba equivocando al traer un objeto parametro del tipo detalle factura pers.....creo que está bien con el de vista detalle adjunto pers por lo que en él esta toda la info y a aprtir de ese objeto crear uno del tipo detalle factura para realizar el insert en esa taba tambien
         public ActionResult PerformInsert(EditParams_VISTA_DETALLE_ADJUNTOS_PERS param)
         {
+            if (param.value.COD_DETALLE_FACTURA_ADJUNTO_PERS != 0) { 
+
+                long estado_modificado = 5; //Este es el estado EDITADO MANUALMENTE con el que se identifica un registro que es editado y por lo tanto al ser un registro editado manualmente para nuestro registro quedará eliminado (con esta flag de este estado) y se ingresará el edit como un registro nuevo con estado COD_ESTADO_DETALLE=4: REGISTRO MANUAL
+                DETALLE_FACTURA_ADJUNTO_PERS selected_detalle_factura_adjunto_pers = db.DETALLE_FACTURA_ADJUNTO_PERS.Single(o => o.COD_DETALLE_FACTURA_ADJUNTO_PERS == param.value.COD_DETALLE_FACTURA_ADJUNTO_PERS);
+                selected_detalle_factura_adjunto_pers.COD_ESTADO_DETALLE = estado_modificado;
+                db.SaveChanges();
+                //EDICIÓN DE LA TABLA DETALLE_FACTURA_PERS
+                //PARA LA TABLA DETALLE_FACTURA_PERS hay que tener en cuenta que el registro enviado (desde la grid ROLES de la vista verificar con la acción edit+save)envía parametro tipo VISTA_DETALLE_ADJUNTOS_PERS y este no tiene entre sus campos el COD_DETALLE_FACTURA_PERS por lo que no es posible identificarlo con su identificador único entonces se revisa si buscar con la concatenación de detalle_factura cod_contrato_proyecto valor_sin_impuestos cod_rol fecha_registro  y cod_concepto_psl (la concatenación de todas estas columnas para garantizar que es exactamente el mismo registro)
+                //DETALLE_FACTURA_PERS selected_detalle_factura_pers = db.DETALLE_FACTURA_PERS.Single(o => o.COD_DETALLE_FACTURA_PERS == param.value. ); // COMENTADO PORQUE SE OBSERVA QUE LA VISTA VISTA_DETALLE_ADJUNTOS_PERS NO ENVIA OMO PARAMETRO EL COD_DETALLE_FACTURA_PERS (ENVIA EL COD_DETALLE_FAVTURA_ADJUNTO_PERS MAS NO EL NO ADJUNTO)
+                //db.SaveChanges();
+
+            }
+
+
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
             DateTime hoy = DateTime.Today;
@@ -331,19 +345,49 @@ namespace syncfusion_payc.Controllers
             // return Json(value, JsonRequestBehavior.AllowGet);
         }
 
-        //Actualizar grid
-        public ActionResult PerformUpdate(EditParams_VISTA_DETALLE_ADJUNTOS_PERS param)
-        {
-            
-			VISTA_DETALLE_ADJUNTOS_PERS table = db.VISTA_DETALLE_ADJUNTOS_PERS.Single(o => o.COD_DETALLE_FACTURA_ADJUNTO_PERS == param.value.COD_DETALLE_FACTURA_ADJUNTO_PERS);
+        //PERFORM UPDATE
+   //     public ActionResult PerformUpdate(EditParams_VISTA_DETALLE_ADJUNTOS_PERS param)
+   //     {
 
-            db.Entry(table).CurrentValues.SetValues(param.value);
-            db.SaveChanges();
-			return RedirectToAction("GetOrderData");
+
+   ////         //DETALLE_FACTURA_PERS DETALLE_FACTURA_PERS_ = new DETALLE_FACTURA_PERS();
+   ////         //DETALLE_FACTURA_ADJUNTO_PERS DETALLE_FACTURA_ADJUNTO_PERS_ = new DETALLE_FACTURA_ADJUNTO_PERS();
+
+
+   ////         try
+
+   ////         {
+   ////             long estado_modificado = 5; //Este es el estado EDITADO MANUALMENTE con el que se identifica un registro que es editado y por lo tanto al ser un registro editado manualmente para nuestro registro quedará eliminado (con esta flag de este estado) y se ingresará el edit como un registro nuevo con estado COD_ESTADO_DETALLE=4: REGISTRO MANUAL
+   ////             DETALLE_FACTURA_ADJUNTO_PERS selected_detalle_factura_adjunto_pers = db.DETALLE_FACTURA_ADJUNTO_PERS.Single(o => o.COD_DETALLE_FACTURA_ADJUNTO_PERS == param.value.COD_DETALLE_FACTURA_ADJUNTO_PERS);
+   ////             selected_detalle_factura_adjunto_pers.COD_ESTADO_DETALLE = estado_modificado;
+   ////             db.SaveChanges();
+   ////             //EDICIÓN DE LA TABLA DETALLE_FACTURA_PERS
+   ////             //PARA LA TABLA DETALLE_FACTURA_PERS hay que tener en cuenta que el registro enviado (desde la grid ROLES de la vista verificar con la acción edit+save)envía parametro tipo VISTA_DETALLE_ADJUNTOS_PERS y este no tiene entre sus campos el COD_DETALLE_FACTURA_PERS por lo que no es posible identificarlo con su identificador único entonces se revisa si buscar con la concatenación de detalle_factura cod_contrato_proyecto valor_sin_impuestos cod_rol fecha_registro  y cod_concepto_psl (la concatenación de todas estas columnas para garantizar que es exactamente el mismo registro)
+   ////             //DETALLE_FACTURA_PERS selected_detalle_factura_pers = db.DETALLE_FACTURA_PERS.Single(o => o.COD_DETALLE_FACTURA_PERS == param.value. ); // COMENTADO PORQUE SE OBSERVA QUE LA VISTA VISTA_DETALLE_ADJUNTOS_PERS NO ENVIA OMO PARAMETRO EL COD_DETALLE_FACTURA_PERS (ENVIA EL COD_DETALLE_FAVTURA_ADJUNTO_PERS MAS NO EL NO ADJUNTO)
+   ////             //db.SaveChanges();
+
+   ////             ////REIVISAR PORQUE GENERÓ PROBLEMAS
+   ////             //var data = db.DETALLE_FACTURA_PERS.ToList();
+   ////             //var value = data.Last();
+   ////             //return Json(value, JsonRequestBehavior.AllowGet);
+   ////             return RedirectToAction("PerformInsert", new { id = 1 });
+
+   ////         }
+   ////         catch (Exception ex)
+   ////         {
+   ////             return Json(new { success = true, responseText = ex.ToString() }, JsonRequestBehavior.AllowGet);
+   ////         }
+   ////         //VISTA_DETALLE_ADJUNTOS_PERS table = db.VISTA_DETALLE_ADJUNTOS_PERS.Single(o => o.COD_DETALLE_FACTURA_ADJUNTO_PERS == param.value.COD_DETALLE_FACTURA_ADJUNTO_PERS);
+
+   ////         //db.Entry(table).CurrentValues.SetValues(param.value);
+   ////         //db.SaveChanges();
+			//////return RedirectToAction("GetOrderData");
 			
-        }
+   //     }
 
         //Borrar grid
+
+
         public ActionResult PerformDelete(int key, string keyColumn)
         {
             db.VISTA_DETALLE_ADJUNTOS_PERS.Remove(db.VISTA_DETALLE_ADJUNTOS_PERS.Single(o => o.COD_DETALLE_FACTURA_ADJUNTO_PERS== key));
