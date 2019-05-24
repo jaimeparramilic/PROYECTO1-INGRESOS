@@ -433,4 +433,4 @@ factura <- function(cod_factura) {
   return(VALOR_FACTURAR) 
   }
 
-factura(42624)
+factura(42663)
