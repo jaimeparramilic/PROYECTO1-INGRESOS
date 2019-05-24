@@ -220,9 +220,10 @@ namespace syncfusion_payc.Controllers
             param.value.COD_ESTADO_DETALLE = 1;
             db.DETALLE_FACTURA_ITEM.Add(param.value);
             db.SaveChanges();
-
             try
+
             {
+
                 string query = @"SELECT [TOTAL_FACTURA] FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS] WHERE COD_FACTURA=" + param.value.COD_FACTURA.ToString();
                 string valor_factura = "0";
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -236,9 +237,15 @@ namespace syncfusion_payc.Controllers
                     }
                     connection.Close();
                 }
+
                 FACTURAS table1 = db.FACTURAS.Single(o => o.COD_FACTURA == param.value.COD_FACTURA);
                 table1.VALOR_SIN_IMPUESTOS = Decimal.Parse(valor_factura);
                 db.SaveChanges();
+                //REIVISAR PORQUE GENERÓ PROBLEMAS
+                //var data = db.DETALLE_FACTURA_PERS.ToList();
+                //var value = data.Last();
+                //return Json(value, JsonRequestBehavior.AllowGet);
+
             }
             catch (Exception ex)
             {
@@ -246,8 +253,30 @@ namespace syncfusion_payc.Controllers
             }
 
             return Json(new { success = true, responseText = "SI" }, JsonRequestBehavior.AllowGet);
-        }
 
+
+            // DateTime hoy = DateTime.Today;
+            // string usuario = User.Identity.GetUserName();
+            // DETALLE_FACTURA_ITEM table = db.DETALLE_FACTURA_ITEM.Single(o => o.COD_DETALLE_FACTURA_ITEM == param.value.COD_DETALLE_FACTURA_ITEM);
+            // if (table.VALOR_SIN_IMPUESTOS != param.value.VALOR_SIN_IMPUESTOS)
+            // {
+            //     param.value.FECHA_REGISTRO = hoy;
+            //     param.value.USUARIO = usuario;
+            //     db.DETALLE_FACTURA_ITEM.Add(param.value);
+            //     table.COD_ESTADO_DETALLE = 2;
+               
+            // }
+            // else
+            // {
+            //     table.FECHA_REGISTRO = hoy;
+            //     table.USUARIO = usuario;
+            //     table.COD_ESTADO_DETALLE = 1;
+            //     table.COD_CONCEPTO_PSL = param.value.COD_CONCEPTO_PSL;
+            //     table.COD_GRUPO_FACTURA = param.value.COD_GRUPO_FACTURA;
+            // }
+            // db.SaveChanges();
+            // return RedirectToAction("GetOrderData");
+        }
 
         //Actualizar grid
         public ActionResult PerformUpdate(EditParams_DETALLE_FACTURA_ITEM param)
@@ -303,11 +332,10 @@ namespace syncfusion_payc.Controllers
         //Borrar grid
         public ActionResult PerformDelete(int key, string keyColumn)
         {
-            DETALLE_FACTURA_ITEM table = db.DETALLE_FACTURA_ITEM.Single(o => o.COD_DETALLE_FACTURA_ITEM == key);
-            table.COD_ESTADO_DETALLE = 2;
+            db.DETALLE_FACTURA_ITEM.Remove(db.DETALLE_FACTURA_ITEM.Single(o => o.COD_DETALLE_FACTURA_ITEM== key));
             db.SaveChanges();
             return RedirectToAction("GetOrderData");
-
+            
         }
     }
 }

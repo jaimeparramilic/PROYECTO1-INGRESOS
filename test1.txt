@@ -1,0 +1,1 @@
+test q de diego en el que se incluye este archivo en el home del repo (PROYECTO1-INGRESOS/) con el nombre test1.txt para testear el commit desde el repo local sin uso de visual studio

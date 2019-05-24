@@ -510,6 +510,21 @@ namespace syncfusion_payc.Models
         public IEnumerable<DETALLE_FACTURA_ITEM> deleted { get; set; }
     }
 
+    public class EditParams_DETALLE_FACTURA_ADJUNTO_PERS
+    {
+        public int skip { get; set; }
+        public int take { get; set; }
+        public string action { get; set; }
+        public int key { get; set; }
+        public string keyColumn { get; set; }
+        public DETALLE_FACTURA_ADJUNTO_PERS value { get; set; }
+
+        //Batch Edit Params
+        public IEnumerable<DETALLE_FACTURA_ADJUNTO_PERS> added { get; set; }
+        public IEnumerable<DETALLE_FACTURA_ADJUNTO_PERS> changed { get; set; }
+        public IEnumerable<DETALLE_FACTURA_ADJUNTO_PERS> deleted { get; set; }
+    }
+
     public class EditParams_DETALLE_FACTURA_PERS
     {
         public int skip { get; set; }
