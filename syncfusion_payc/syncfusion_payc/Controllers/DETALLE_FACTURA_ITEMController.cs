@@ -332,10 +332,14 @@ namespace syncfusion_payc.Controllers
         //Borrar grid
         public ActionResult PerformDelete(int key, string keyColumn)
         {
-            db.DETALLE_FACTURA_ITEM.Remove(db.DETALLE_FACTURA_ITEM.Single(o => o.COD_DETALLE_FACTURA_ITEM== key));
+
+            DETALLE_FACTURA_ITEM table = db.DETALLE_FACTURA_ITEM.Single(o => o.COD_DETALLE_FACTURA_ITEM == key);
+            //db.DETALLE_FACTURA_ITEM.Remove(db.DETALLE_FACTURA_ITEM.Single(o => o.COD_DETALLE_FACTURA_ITEM== key));
+            table.COD_ESTADO_DETALLE = 2;
             db.SaveChanges();
             return RedirectToAction("GetOrderData");
             
         }
     }
 }
+

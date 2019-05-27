@@ -93,7 +93,7 @@
                                 col.Field("VALOR_SIN_IMPUESTOS").Width(100).AllowEditing(false).HeaderText("VALOR SIN IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                                 col.Field("VALOR_CON_IMPUESTOS").Visible(false).AllowEditing(false).HeaderText("VALOR CON IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                                 col.Field("RANKING").AllowEditing(false).HeaderText("RANKING").Visible(false).Add();
-                                col.Field("FECHA_EMISION").Width(80).HeaderText("FECHA EMISIÓN (PARA PSL)").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
+                                col.Field("FECHA_EMISION").Width(80).HeaderText("FECHA EMISIÓN (PARA PSL)").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).DefaultValue(DateTime.Today).Add();
                             });
                         })
         )
