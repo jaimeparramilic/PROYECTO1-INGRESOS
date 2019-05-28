@@ -246,6 +246,35 @@ namespace syncfusion_payc.Controllers
                 connection.Close();
             }
 
+            //Consulta para traer total de items y facutra tipo int para corregir error del sumary de la grid roles (para poder restar el total - total items)
+            ViewBag.TOTAL_FACTURA_ITEM = "0";
+            string query_item = @"SELECT FORMAT([TOTAL],'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS_ITEM] WHERE COD_FACTURA=" + id.ToString();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query_item, connection);
+                connection.Open();
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    ViewBag.TOTAL_FACTURA_ITEM = dr.GetValue(0).ToString();
+                }
+                connection.Close();
+            }
+
+            ViewBag.TOTAL_FACTURA_PERS = "0";
+            string query_pers = @"SELECT FORMAT([TOTAL],'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS_PERS] WHERE COD_FACTURA=" + id.ToString();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query_pers, connection);
+                connection.Open();
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    ViewBag.TOTAL_FACTURA_PERS = dr.GetValue(0).ToString();
+                }
+                connection.Close();
+            }
+
             return View();
         }
 #endregion
