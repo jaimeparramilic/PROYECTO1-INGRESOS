@@ -624,6 +624,35 @@ namespace syncfusion_payc.Controllers
         //Funcion para refrescar totales
         public ActionResult refrescar_total(long COD_FACTURA)
         {
+
+            string total_factura_item = "0";
+            string query_item = @"SELECT FORMAT([TOTAL],'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS_ITEM] WHERE COD_FACTURA=" + COD_FACTURA.ToString();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query_item, connection);
+                connection.Open();
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    total_factura_item = dr.GetValue(0).ToString();
+                }
+                connection.Close();
+            }
+
+            string total_factura_pers = "0";
+            string query_pers = @"SELECT FORMAT([TOTAL],'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS_PERS] WHERE COD_FACTURA=" + COD_FACTURA.ToString();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query_pers, connection);
+                connection.Open();
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    total_factura_pers = dr.GetValue(0).ToString();
+                }
+                connection.Close();
+            }
+
             string result = "";
             string query = @"SELECT FORMAT([TOTAL_FACTURA],'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS] WHERE COD_FACTURA=" + COD_FACTURA.ToString();
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -638,7 +667,7 @@ namespace syncfusion_payc.Controllers
                 connection.Close();
             }
 
-            return Json(new { success = true, responseText = result }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true, responseText = result, total_factura_item, total_factura_pers }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion

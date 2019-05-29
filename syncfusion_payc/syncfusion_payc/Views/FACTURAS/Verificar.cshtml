@@ -206,7 +206,7 @@
                                 <th class="titulo_total"><b>Total ítems:</b></th>
                                 @*<th class="total"><span class="valor_item">@(ViewBag.TOTAL_FACTURA_ITEM_)</span></th>*@
                                 @*<th class="total"><span class="valor">@(ViewBag.TOTAL)</span></th>*@
-                                <th class="total"><span class="valor_personas">@(ViewBag.TOTAL_FACTURA_ITEM)</span></th>
+                                <th class="total"><span class="valor_items">@(ViewBag.TOTAL_FACTURA_ITEM)</span></th>
                             </tr>
                         </tbody>
                     </table>
@@ -524,6 +524,8 @@
                 console.log("esta en success de post")
                 console.log(data)
                 $('.valor').text(data.responseText);
+                $('.valor_personas').text(data.total_factura_pers);
+                $('.valor_items').text(data.total_factura_item);
             }
         });
     }
