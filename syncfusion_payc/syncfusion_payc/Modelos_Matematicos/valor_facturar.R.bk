@@ -4,7 +4,7 @@ factura <- function(cod_factura) {
   #CONEXIÓN Y EXTRACCIÓN DE LA INFORMACIÓN DE LA BASE DE DATOS---------------
   #CONEXIÓN A LA BASE DE DATOS
   con <- dbConnect(odbc::odbc(), "PAYC_FACTURACION", uid = "sa", pwd = "1234JAMS*")
-  #cod_factura = 42603
+  #cod_factura = 11524
   
   #EXTRACCION DE LA INFORMACION IMPORTANTE DE LA BASE DE DATOS
   fact <- paste0("SELECT * FROM FACTURAS WHERE COD_FACTURA=", cod_factura)
@@ -208,13 +208,13 @@ factura <- function(cod_factura) {
   ITEMS_DEPENDIENTES$VALOR_DEPENDIENTE[is.na(ITEMS_DEPENDIENTES$VALOR_DEPENDIENTE)]<-sum(TOTAL_PERSONAS$FINAL)*ITEMS_DEPENDIENTES$PORCENTAJE_PERSONAL.x[is.na(ITEMS_DEPENDIENTES$VALOR_DEPENDIENTE)]  
   
   #ELIMINAR LOS DATOS REPETIDOS DEL PROYECTO QUE SE ESTÁ CONSULTANDO
-  eliminar <- paste0("DELETE FROM [dbo].[DETALLE_FACTURA_PERS] WHERE [COD_CONTRATO_PROYECTO] =", proyecto, "AND COD_FORMAS_PAGO_FECHAS=", fecha, "AND COD_FACTURA=",cod_factura)
+  eliminar <- paste0("DELETE FROM [dbo].[DETALLE_FACTURA_PERS] WHERE [COD_CONTRATO_PROYECTO] =", proyecto, "AND COD_FORMAS_PAGO_FECHAS=", fecha)
   dbExecute(con, eliminar)
-  eliminar <- paste0("DELETE FROM [dbo].[DETALLE_FACTURA_ITEM] WHERE [COD_CONTRATO_PROYECTO] =", proyecto, "AND COD_FORMAS_PAGO_FECHAS=", fecha, "AND COD_FACTURA=",cod_factura)
+  eliminar <- paste0("DELETE FROM [dbo].[DETALLE_FACTURA_ITEM] WHERE [COD_CONTRATO_PROYECTO] =", proyecto, "AND COD_FORMAS_PAGO_FECHAS=", fecha)
   dbExecute(con, eliminar)
-  eliminar <- paste0("DELETE FROM [dbo].[DETALLE_FACTURA_ADJUNTO_PERS] WHERE [COD_CONTRATO_PROYECTO] =", proyecto, "AND COD_FORMAS_PAGO_FECHAS=", fecha, "AND COD_FACTURA=",cod_factura)
+  eliminar <- paste0("DELETE FROM [dbo].[DETALLE_FACTURA_ADJUNTO_PERS] WHERE [COD_CONTRATO_PROYECTO] =", proyecto, "AND COD_FORMAS_PAGO_FECHAS=", fecha)
   dbExecute(con, eliminar)
-  eliminar <- paste0("DELETE FROM [dbo].[DETALLE_FACTURA_ADJUNTO_ITEM] WHERE [COD_CONTRATO_PROYECTO] =", proyecto, "AND COD_FORMAS_PAGO_FECHAS=", fecha, "AND COD_FACTURA=",cod_factura)
+  eliminar <- paste0("DELETE FROM [dbo].[DETALLE_FACTURA_ADJUNTO_ITEM] WHERE [COD_CONTRATO_PROYECTO] =", proyecto, "AND COD_FORMAS_PAGO_FECHAS=", fecha)
   dbExecute(con, eliminar)
   
   #CÁLCULO E INSERCIÓN DE LA INFORMACIÓN EN LAS TABLAS ---------
@@ -433,4 +433,3 @@ factura <- function(cod_factura) {
   return(VALOR_FACTURAR) 
   }
 
-factura(42701)

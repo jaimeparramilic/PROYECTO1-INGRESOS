@@ -1741,7 +1741,7 @@
     <Content Include="Views\VISTA_PENDIENTES_RETIRO\Index.cshtml" />
     <Content Include="Views\COLABORADORES\Retiros.cshtml" />
     <Content Include="Modelos_Matematicos\.Rhistory" />
-    <Content Include="Modelos_Matematicos\valor_facturar.R" />
+    <None Include="Modelos_Matematicos\valor_facturar.R.bk" />
     <Content Include="Modelos_Matematicos\REPOSITORIO2.Rproj" />
     <Content Include="Modelos_Matematicos\TOTAL_PERSONAS.CSV" />
     <Content Include="Views\FlujoProyectos\pendientes_facturar.cshtml" />
