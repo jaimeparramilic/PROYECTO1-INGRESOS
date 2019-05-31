@@ -656,9 +656,12 @@ namespace syncfusion_payc.Controllers
         public ActionResult guardar_proyecto(PROYECTOS PROYECTO, int [] TIPO_CONDICIONES,long COD_CONTRATO,long COD_FORMA_PAGO, string[] TAGS,ADICIONALES ADICIONAL,string OBSERVACIONES)
         {
             //Guardar el proyecto
+
+            //Esta modificación es debida a que esta arrojando un error al almacenar proyecto desde que se eliminó el campo CENTRO_COSTOS de la tabla proyecto
+            
             db.PROYECTOS.Add(PROYECTO);
             db.SaveChanges();
-
+            
             //crear una string para guardar la respuesta
             string retornar = PROYECTO.COD_PROYECTO.ToString();
             //Guardar la relación contrato proyecto
