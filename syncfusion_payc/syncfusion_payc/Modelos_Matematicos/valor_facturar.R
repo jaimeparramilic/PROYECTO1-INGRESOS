@@ -291,7 +291,7 @@ factura <- function(cod_factura) {
                                        fecha, ",'",
                                        Sys.time(), "','GENERADO',",
                                        estado, ",1,'',", cod_factura, 
-                                       ",1,1026,1,",
+                                       ",1,", TOTAL_PERSONAS$COD_CONCEPTO_PSL[k],", 1, ",
                                        PERSONAS_ADJUNTO$HORAS_ED[k],",",
                                        PERSONAS_ADJUNTO$HORAS_EN[k],",",
                                        PERSONAS_ADJUNTO$HORAS_FD[k],",",
