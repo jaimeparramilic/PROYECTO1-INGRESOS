@@ -218,7 +218,7 @@ namespace syncfusion_payc.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             DATOS_VERIFICAR_FACTURA DatVerificarFactu = db.DATOS_VERIFICAR_FACTURA.Find(id);
-            
+
             if (DatVerificarFactu == null)
             {
                 return HttpNotFound();
@@ -277,7 +277,7 @@ namespace syncfusion_payc.Controllers
 
             return View();
         }
-#endregion
+        #endregion
         #region Adjuntar
         public ActionResult Adjunto(long? id)
         {
@@ -329,16 +329,16 @@ namespace syncfusion_payc.Controllers
             var DataSource2 = db.FACTURAS.ToList();
             ViewBag.dataSource2 = DataSource2;
             return View();
-        }	
+        }
 
-		public ActionResult GetOrderData(DataManager dm)
+        public ActionResult GetOrderData(DataManager dm)
         {
             IEnumerable DataSource = db.FACTURAS.ToList();
             DataOperations ds = new DataOperations();
             List<string> str = new List<string>();
             db.Configuration.ProxyCreationEnabled = false;
             db.Configuration.LazyLoadingEnabled = false;
-			if (dm.Search != null && dm.Search.Count > 0)
+            if (dm.Search != null && dm.Search.Count > 0)
             {
                 DataSource = ds.PerformSearching(DataSource, dm.Search);
             }
@@ -354,7 +354,7 @@ namespace syncfusion_payc.Controllers
             {
                 for (var i = 0; i < dm.Aggregates.Count; i++)
                     str.Add(dm.Aggregates[i].Field);
-               
+
             }
             IEnumerable aggregate = ds.PerformSelect(DataSource, str);
             var count = DataSource.Cast<FACTURAS>().Count();
@@ -366,7 +366,7 @@ namespace syncfusion_payc.Controllers
             {
                 DataSource = ds.PerformTake(DataSource, dm.Take);
             }
-            return Json(new { result = DataSource, count = count}, JsonRequestBehavior.AllowGet);     
+            return Json(new { result = DataSource, count = count }, JsonRequestBehavior.AllowGet);
         }
 
         //Perform file insertion 
@@ -374,30 +374,30 @@ namespace syncfusion_payc.Controllers
         {
             db.FACTURAS.Add(param.value);
             db.SaveChanges();
-			var data = db.FACTURAS.ToList();
-			var value = data.Last();
+            var data = db.FACTURAS.ToList();
+            var value = data.Last();
             return Json(value, JsonRequestBehavior.AllowGet);
         }
 
         //Actualizar grid
         public ActionResult PerformUpdate(EditParams_FACTURAS param)
         {
-            
-			FACTURAS table = db.FACTURAS.Single(o => o.COD_FACTURA == param.value.COD_FACTURA);
+
+            FACTURAS table = db.FACTURAS.Single(o => o.COD_FACTURA == param.value.COD_FACTURA);
 
             db.Entry(table).CurrentValues.SetValues(param.value);
             db.SaveChanges();
-			return RedirectToAction("GetOrderData");
-			
+            return RedirectToAction("GetOrderData");
+
         }
 
         //Borrar grid
         public ActionResult PerformDelete(int key, string keyColumn)
         {
-            db.FACTURAS.Remove(db.FACTURAS.Single(o => o.COD_FACTURA== key));
+            db.FACTURAS.Remove(db.FACTURAS.Single(o => o.COD_FACTURA == key));
             db.SaveChanges();
             return RedirectToAction("GetOrderData");
-            
+
         }
 
         public ActionResult GetOrderData_centros_factura(DataManager dm)
@@ -441,14 +441,14 @@ namespace syncfusion_payc.Controllers
         #endregion
         #region validar factura
         //Funcion para regenerar el flujo del rol
-        public ActionResult validar_factura(long COD_CONTRATO_PROYECTO,long COD_FORMAS_PAGO_FECHAS, long COD_FACTURA)
+        public ActionResult validar_factura(long COD_CONTRATO_PROYECTO, long COD_FORMAS_PAGO_FECHAS, long COD_FACTURA)
         {
             string error = "NO";
 
             try
             {
                 IEnumerable items_sin_concepto = db.DETALLE_FACTURA_ITEM.Where(o => o.COD_FACTURA == COD_FACTURA && o.COD_CONTRATO_PROYECTO == COD_CONTRATO_PROYECTO && o.COD_FORMAS_PAGO_FECHAS == COD_FORMAS_PAGO_FECHAS && o.COD_ESTADO_DETALLE == 1 && o.COD_CONCEPTO_PSL == null).ToList();
-                var count=items_sin_concepto.Cast<DETALLE_FACTURA_ITEM>().Count();
+                var count = items_sin_concepto.Cast<DETALLE_FACTURA_ITEM>().Count();
                 if (count > 0)
                 {
                     error = "SI";
@@ -486,12 +486,12 @@ namespace syncfusion_payc.Controllers
         public ActionResult valor_facturar(EditParams_FACTURAS param)
         {
             //Cargar formas pago fechas
-            
+
             DateTime temp11 = param.value.FECHA_FACTURA.Value;
             if (param.value.FECHA_EMISION.HasValue)
             {
                 //temp11 = param.value.FECHA_EMISION.Value;
-                
+
             }
             else
             {
@@ -511,7 +511,7 @@ namespace syncfusion_payc.Controllers
             factura.COD_FORMAS_PAGO_FECHAS = param.value.COD_FORMAS_PAGO_FECHAS;
             factura.VALOR_SIN_IMPUESTOS = param.value.VALOR_SIN_IMPUESTOS;
             factura.FECHA_FACTURA = param.value.FECHA_FACTURA;
-            factura.COD_CONCEPTO_PSL= param.value.COD_CONCEPTO_PSL;
+            factura.COD_CONCEPTO_PSL = param.value.COD_CONCEPTO_PSL;
             factura.FECHA_EMISION = param.value.FECHA_EMISION;
             db.FACTURAS.Add(factura);
             db.SaveChanges();
@@ -544,7 +544,7 @@ namespace syncfusion_payc.Controllers
                     System.IO.File.Copy(rCodeFilePath, path);
                     using (StreamWriter sw = System.IO.File.AppendText(path))
                     {
-                        sw.WriteLine("factura(" +COD_FACTURA+ ")");
+                        sw.WriteLine("factura(" + COD_FACTURA + ")");
                     }
                 }
 
@@ -554,7 +554,7 @@ namespace syncfusion_payc.Controllers
                 info.Arguments = path;
                 info.RedirectStandardInput = false;
                 info.RedirectStandardOutput = true;
-                info.UseShellExecute =false;
+                info.UseShellExecute = false;
                 info.CreateNoWindow = true;
                 info.RedirectStandardOutput = true;
                 info.RedirectStandardError = true;
@@ -605,7 +605,7 @@ namespace syncfusion_payc.Controllers
                 FACTURAS table1 = db.FACTURAS.Single(o => o.COD_FACTURA == COD_FACTURA);
                 table1.VALOR_SIN_IMPUESTOS = Decimal.Parse(valor_factura);
                 db.SaveChanges();
-                
+
             }
             catch (Exception ex)
             {
@@ -705,7 +705,7 @@ namespace syncfusion_payc.Controllers
                     //    result = "Error 1";
                     //    //ex = result.ToString();
                     //} 
-                    
+
                 }
                 result = maxnumfac;
             }
@@ -731,13 +731,13 @@ namespace syncfusion_payc.Controllers
                     //Insertar encabezado factura
                     using (SqlConnection connection = new SqlConnection(connectionString1))
                     {
-                       SqlCommand command = new SqlCommand(query, connection);
-                       connection.Open();
+                        SqlCommand command = new SqlCommand(query, connection);
+                        connection.Open();
 
                         command.ExecuteNonQuery();
                         connection.Close();
-                    
-                       //catch (DBConcurrencyException ex)
+
+                        //catch (DBConcurrencyException ex)
 
                     }
                 }
@@ -747,6 +747,7 @@ namespace syncfusion_payc.Controllers
                     //result = ex.ToString();
                     result = "Error 1";
                 }
+
                 //Extraer numero factura paso 2 
                 if (traer_codigo_factura == true)
                 {
@@ -756,9 +757,9 @@ namespace syncfusion_payc.Controllers
                     {
                         using (SqlConnection connection = new SqlConnection(connectionString))
                         {
-                          SqlCommand command = new SqlCommand(query, connection);
-                          connection.Open();
-                    
+                            SqlCommand command = new SqlCommand(query, connection);
+                            connection.Open();
+
                             SqlDataReader dr = command.ExecuteReader();
                             while (dr.Read())
                             {
@@ -774,10 +775,44 @@ namespace syncfusion_payc.Controllers
                         // result = ex.ToString();
                         result = "Error 2";
                     }
-                    //insertar numero de factura? paso 3
+
+                    //Insertar Traza de factura psl 
                     if (traer_codigo_factura == true)
                     {
-                        string query1 = @"INSERT INTO [ssf_pruebas].[dbo].[ca_encdocvtaentra] ([edvconseingre]
+
+                        string query3 = @"INSERT INTO [test_payc_contabilidad].[dbo].[TRAZA_FACTURA_PSL_PRUEBAS]
+                               ([COD_FACTURA]
+                               ,[NUM_FACT_PSL_PRUEBAS]
+                               ,[TOTAL_FACTURA])
+                                (SELECT 
+                                 [ddvconseingre] as [COD_FACTURA]
+                                ,[ddvnumedocu] as  [NUM_FACT_PSL_PRUEBAS]
+                                ,SUM([ddvprectotaneto]) as [TOTAL_FACTURA]
+                                FROM [104.196.158.138].[test_payc_contabilidad].[dbo].[VISTA_DETDOCVTAENTRA_MULTIPLES_FACTURAS_PRUEBAS]
+                                WHERE ddvconseingre=" + COD_FACTURA.ToString() + @" GROUP BY [ddvconseingre], [ddvnumedocu] )";
+                        //insertar detalle factura
+                        try
+                        {
+                            using (SqlConnection connection = new SqlConnection(connectionString))
+                            {
+                                SqlCommand command = new SqlCommand(query3, connection);
+                                connection.Open();
+                                command.ExecuteNonQuery();
+                                connection.Close();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            traer_codigo_factura = false;
+                            // result = ex.ToString();
+                            result = "Error XXX";
+                        }
+
+
+                        //insertar numero de factura? paso 3
+                        if (traer_codigo_factura == true)
+                        {
+                            string query1 = @"INSERT INTO [ssf_pruebas].[dbo].[ca_encdocvtaentra] ([edvconseingre]
                         ,[edvcontrol]
                         ,[edvvaloconimp]
                         ,[edvnumedocuclie]
@@ -827,34 +862,32 @@ namespace syncfusion_payc.Controllers
                         ,[edvidentificador],[edvcomentario] FROM [104.196.158.138].[test_payc_contabilidad].[dbo].[VISTA_ENCDOCVTAENTRA_MULTIPLES_FACTURAS_PRUEBAS] 
                                 WHERE edvconseingre=" + COD_FACTURA.ToString() + @")";
 
-                        //Insertar encabezado factura
+                            //Insertar encabezado factura
 
-                        try
-                        {
-                            using (SqlConnection connection = new SqlConnection(connectionString1))
+                            try
                             {
-                              SqlCommand command = new SqlCommand(query1, connection);
-                              connection.Open();
-                           
-                                command.ExecuteNonQuery();
-                                connection.Close();
-                           
+                                using (SqlConnection connection = new SqlConnection(connectionString1))
+                                {
+                                    SqlCommand command = new SqlCommand(query1, connection);
+                                    connection.Open();
+
+                                    command.ExecuteNonQuery();
+                                    connection.Close();
+
+                                }
                             }
-                        }
-                        catch (Exception ex)    
-                        // catch (DBConcurrencyException ex)
-                        {
-                            traer_codigo_factura = false;
-                            // result = ex.ToString();
-                            result = "Error 4";
-                        }
+                            catch (Exception ex)
+                            // catch (DBConcurrencyException ex)
+                            {
+                                traer_codigo_factura = false;
+                                // result = ex.ToString();
+                                result = "Error 4";
+                            }
 
-                        //Consulta para importar detalle factura paso 4 
-                        if (traer_codigo_factura == true)
-                        {
-
-                         
-                            string query2 = @"INSERT INTO [ssf_pruebas].[dbo].[ca_detdocvtaentra] 
+                            //Consulta para importar detalle factura paso 4 
+                            if (traer_codigo_factura == true)
+                            {
+                                string query2 = @"INSERT INTO [ssf_pruebas].[dbo].[ca_detdocvtaentra] 
                                ([ddvconseingre]
                               ,[ddvcontrol]
                               ,[ddvcompania]
@@ -872,7 +905,7 @@ namespace syncfusion_payc.Controllers
                               ,[ddvprectotaneto]
                               ,[ddvdivision]
                               ,[ddvcentrorespo]
-                               ,[ddvcomentario])
+                              ,[ddvcomentario])
                                (SELECT [ddvconseregis]
                               ,[ddvcontrol]
                               ,[ddvcompania]
@@ -893,66 +926,73 @@ namespace syncfusion_payc.Controllers
                                                 WHERE ddvconseingre=" + COD_FACTURA.ToString() + @")";
 
 
-
-                            //Insertar detalle factura
-                            try
-                            {
-                                using (SqlConnection connection = new SqlConnection(connectionString1))
-                                {
-                                   SqlCommand command = new SqlCommand(query2, connection);
-                                   connection.Open();
-                                   command.ExecuteNonQuery();
-                                   connection.Close();
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                traer_codigo_factura = false;
-                                // result = ex.ToString();
-                                result = "Error 5";
-                            }
-
-                            //Cambiar estado factura paso 5 
-                            if (traer_codigo_factura==true)
-                            {
-                                FACTURAS factura = db.FACTURAS.Find(COD_FACTURA);
-                                long cod = 3;
-                                factura.COD_ESTADO_FACTURA = cod;
-                                factura.NUMERO_FACTURA = maxnumfac.ToString();
-                                db.SaveChanges();
-
-                                //Enviar correo avisando el envío de facturas
-                                Email.EnviarEmail("smtp.gmail.com", 587, "centro.costo.estado.payc@gmail.com",
-                                    "1234payc", "centro.costo.estado.payc@gmail.com",
-                                    "director.analitica@payc.com.co", "Factura importada",
-                                    "La factura con código " + maxnumfac.ToString() +
-
-                                        " ha sido enviada para importación");
-
-                                //Modificar consecutivo de tipo consecutivos en PSL 6
-                                query = @"UPDATE [PAYC_REMOTO].[ssf_pruebas].[dbo].[un_tiposconse] 
-                                    SET [icculticonsasig] = '" + maxnumfac.ToString()
-                                        + @"' WHERE icccompania='01' AND icccodigo='F00'";
+                                //Insertar detalle factura
                                 try
                                 {
-                                    using (SqlConnection connection = new SqlConnection(connectionString))
+                                    using (SqlConnection connection = new SqlConnection(connectionString1))
                                     {
-                                       SqlCommand command = new SqlCommand(query, connection);
-                                       connection.Open();
-                                    
+                                        SqlCommand command = new SqlCommand(query2, connection);
+                                        connection.Open();
                                         command.ExecuteNonQuery();
                                         connection.Close();
-                                    
-                                       
                                     }
                                 }
                                 catch (Exception ex)
                                 {
                                     traer_codigo_factura = false;
                                     // result = ex.ToString();
-                                    result = "Error 6";
+                                    result = "Error 5";
                                 }
-                                if (traer_codigo_factura == true) { } else { result = "Error, al Modificar consecutivo de tipo consecutivos en PSL (paso 6)"; }
+
+
+
+                                //Cambiar estado factura paso 5 
+                                if (traer_codigo_factura == true)
+                                {
+                                    FACTURAS factura = db.FACTURAS.Find(COD_FACTURA);
+                                    long cod = 3;
+                                    factura.COD_ESTADO_FACTURA = cod;
+                                    factura.NUMERO_FACTURA = maxnumfac.ToString();
+                                    db.SaveChanges();
+
+                                    //Enviar correo avisando el envío de facturas
+                                    Email.EnviarEmail("smtp.gmail.com", 587, "centro.costo.estado.payc@gmail.com",
+                                      "1234payc", "centro.costo.estado.payc@gmail.com",
+                                      "director.analitica@payc.com.co", "Factura importada",
+                                      "La factura con código " + maxnumfac.ToString() +
+
+                                          " ha sido enviada para importación");
+
+                                    //Modificar consecutivo de tipo consecutivos en PSL 6
+                                    query = @"UPDATE [PAYC_REMOTO].[ssf_pruebas].[dbo].[un_tiposconse] 
+                                    SET [icculticonsasig] = '" + maxnumfac.ToString()
+                                          + @"' WHERE icccompania='01' AND icccodigo='F00'";
+                                    try
+                                    {
+                                        using (SqlConnection connection = new SqlConnection(connectionString))
+                                        {
+                                            SqlCommand command = new SqlCommand(query, connection);
+                                            connection.Open();
+
+                                            command.ExecuteNonQuery();
+                                            connection.Close();
+
+
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        traer_codigo_factura = false;
+                                        // result = ex.ToString();
+                                        result = "Error 6";
+                                    }
+                                    if (traer_codigo_factura == true) { } else { result = "Error, al Modificar consecutivo de tipo consecutivos en PSL (paso 6)"; }
+
+                                }
+                                else
+                                {
+                                    result = "Error,  cambiar estado de la factura (XXXX)";
+                                }
                             }
                             else
                             {
@@ -961,7 +1001,7 @@ namespace syncfusion_payc.Controllers
                         }
                         else
                         {
-                            result = "Error, al importar detalle de la factura (paso 4)";
+                            result = query3;
                         }
                     }
                     else
@@ -974,15 +1014,18 @@ namespace syncfusion_payc.Controllers
                     result = "Error, al extraer número de la factura (paso 2)";
                 }
             }
-            else {
+            else
+            {
                 result = "Error, Si se logró traer el número de factura (paso 1)";
             }
-            if (traer_codigo_factura == true) { 
-            return Json(new { success = true, responseText = result }, JsonRequestBehavior.AllowGet);
+            if (traer_codigo_factura == true)
+            {
+                return Json(new { success = true, responseText = result }, JsonRequestBehavior.AllowGet);
             }
-            else { 
-            JsonResult data;
-            return data = Json(new { success = false, responseText = result }, JsonRequestBehavior.AllowGet);
+            else
+            {
+                JsonResult data;
+                return data = Json(new { success = false, responseText = result }, JsonRequestBehavior.AllowGet);
             }
         }
         #endregion
@@ -1019,13 +1062,13 @@ namespace syncfusion_payc.Controllers
             {
 
                 errorfacturarp = false;
-                
+
 
             }
 
 
             //Si se logró traer el número de factura paso 1 
-            if (maxnumfac != "0" && errorfacturarp==true)
+            if (maxnumfac != "0" && errorfacturarp == true)
             {
                 query = @"UPDATE [104.196.158.138].[test_payc_contabilidad].[dbo].[SECUENCIA_NUM_FACT_PSL_PRODUCTIVO] 
 	                        SET [SECUENCIA_PSL] = (SELECT TOP 1 MAX(CAST([edvnumedocuclie] AS INT)) + 1 AS MAX_CODIGO
@@ -1052,36 +1095,68 @@ namespace syncfusion_payc.Controllers
 
                 //Extraer numero factura paso 2 
                 if (errorfacturarp == true)
-                { 
-                  query = "SELECT * FROM [test_payc_contabilidad].[dbo].[SECUENCIA_NUM_FACT_PSL_PRODUCTIVO]";
-
-                try
                 {
-                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    query = "SELECT * FROM [test_payc_contabilidad].[dbo].[SECUENCIA_NUM_FACT_PSL_PRODUCTIVO]";
+
+                    try
                     {
-                        SqlCommand command = new SqlCommand(query, connection);
-                        connection.Open();
-                        SqlDataReader dr = command.ExecuteReader();
-                        while (dr.Read())
+                        using (SqlConnection connection = new SqlConnection(connectionString))
                         {
-                            maxnumfac = dr.GetValue(0).ToString();
+                            SqlCommand command = new SqlCommand(query, connection);
+                            connection.Open();
+                            SqlDataReader dr = command.ExecuteReader();
+                            while (dr.Read())
+                            {
+                                maxnumfac = dr.GetValue(0).ToString();
+                            }
+                            connection.Close();
                         }
-                        connection.Close();
                     }
-                }
-                catch (Exception ex)
-                {
+                    catch (Exception ex)
+                    {
 
-                    errorfacturarp = false;
-                    result = "Error 2";
+                        errorfacturarp = false;
+                        result = "Error 2";
 
-                }
+                    }
 
-                //insertar numero de factura paso 3 
-                if (errorfacturarp == true)
-                {
-                    #region query1
-                    string query1 = @"INSERT INTO [SSF_PAYC].[dbo].[ca_encdocvtaentra] ([edvconseingre]
+                    //Insertar Traza de factura psl 
+                    if (errorfacturarp == true)
+                    {
+
+                        string query3 = @"INSERT INTO [test_payc_contabilidad].[dbo].[TRAZA_FACTURA_PSL_PRODUCTIVO]
+                               ([COD_FACTURA]
+                               ,[NUM_FACT_PSL_PRODUCTIVO]
+                               ,[TOTAL_FACTURA])
+                                (SELECT 
+                                 [ddvconseingre] as [COD_FACTURA]
+                                ,[ddvnumedocu] as  [NUM_FACT_PSL_PRODUCTIVO]
+                                ,SUM([ddvprectotaneto]) as [TOTAL_FACTURA]
+                                FROM [104.196.158.138].[test_payc_contabilidad].[dbo].[VISTA_DETDOCVTAENTRA_MULTIPLES_FACTURAS_PRODUCTIVO]
+                                WHERE ddvconseingre=" + COD_FACTURA.ToString() + @" GROUP BY [ddvconseingre], [ddvnumedocu] )";
+                        //insertar detalle factura
+                        try
+                        {
+                            using (SqlConnection connection = new SqlConnection(connectionString))
+                            {
+                                SqlCommand command = new SqlCommand(query3, connection);
+                                connection.Open();
+                                command.ExecuteNonQuery();
+                                connection.Close();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            errorfacturarp = false;
+                            // result = ex.ToString();
+                            result = "Error XXX";
+                        }
+
+                        //insertar numero de factura paso 3 
+                        if (errorfacturarp == true)
+                        {
+                            #region query1
+                            string query1 = @"INSERT INTO [SSF_PAYC].[dbo].[ca_encdocvtaentra] ([edvconseingre]
                           ,[edvcontrol]
                           ,[edvvaloconimp]
                           ,[edvnumedocuclie]
@@ -1130,32 +1205,32 @@ namespace syncfusion_payc.Controllers
                           ,[edvformapago]
                           ,[edvidentificador],[edvcomentario] FROM [104.196.158.138].[test_payc_contabilidad].[dbo].[VISTA_ENCDOCVTAENTRA_MULTIPLES_FACTURAS_PRODUCTIVO] 
                                               WHERE edvconseingre=" + COD_FACTURA.ToString() + @")";
-                    #endregion
-                  
-                    try
-                    {
+                            #endregion
+
+                            try
+                            {
 
 
-                        using (SqlConnection connection = new SqlConnection(connectionString1))
-                        {
-                            SqlCommand command = new SqlCommand(query1, connection);
-                            connection.Open();
-                            command.ExecuteNonQuery();
-                            connection.Close();
-                        }
-                    }
-                    catch (Exception ex)
-                    {
+                                using (SqlConnection connection = new SqlConnection(connectionString1))
+                                {
+                                    SqlCommand command = new SqlCommand(query1, connection);
+                                    connection.Open();
+                                    command.ExecuteNonQuery();
+                                    connection.Close();
+                                }
+                            }
+                            catch (Exception ex)
+                            {
 
-                        errorfacturarp = false;
-                        result = "Error 3";
+                                errorfacturarp = false;
+                                result = "Error 3";
 
-                    }
+                            }
 
-                    //Consulta para importar detalle factura paso 4
-                    if (errorfacturarp == true)
-                    {
-                        string query2 = @"INSERT INTO [SSF_PAYC].[dbo].[ca_detdocvtaentra]
+                            //Consulta para importar detalle factura paso 4
+                            if (errorfacturarp == true)
+                            {
+                                string query2 = @"INSERT INTO [SSF_PAYC].[dbo].[ca_detdocvtaentra]
                        
                                    ([ddvconseingre]
                                   ,[ddvcontrol]
@@ -1195,92 +1270,138 @@ namespace syncfusion_payc.Controllers
                                                     WHERE ddvconseingre=" + COD_FACTURA.ToString() + @")";
 
 
-                            //Insertar detalle factura 
-                            try
-                            {
-                                using (SqlConnection connection = new SqlConnection(connectionString1))
-                                {
-                                    SqlCommand command = new SqlCommand(query2, connection);
-                                    connection.Open();
-                                    command.ExecuteNonQuery();
-                                    connection.Close();
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-
-                                errorfacturarp = false;
-                                result = "Error 4";
-
-                            }
-
-                            //Cambiar estado factura paso 5
-                            if (errorfacturarp == true)
-                            {
-                                FACTURAS factura = db.FACTURAS.Find(COD_FACTURA);
-                                long cod = 3;
-                                factura.COD_ESTADO_FACTURA = cod;
-                                factura.NUMERO_FACTURA_PRODUCTIVO = maxnumfac.ToString();
-                                db.SaveChanges();
-
-                                //Enviar correo avisando el envío de facturas
-                                Email.EnviarEmail("smtp.gmail.com", 587, "centro.costo.estado.payc@gmail.com",
-                                    "1234payc", "centro.costo.estado.payc@gmail.com",
-                                    "director.analitica@payc.com.co", "Factura importada",
-                                    "La factura con código " + maxnumfac.ToString() +
-
-                                     " ha sido enviada para importación");
-
-                                //Modificar consecutivo de tipo consecutivos en PSL paso 6 
-                                    query = @"UPDATE [PAYC_REMOTO].[SSF_PAYC].[dbo].[un_tiposconse] 
-                                    SET [icculticonsasig] = '" + maxnumfac.ToString() + @"' WHERE icccompania='01' AND icccodigo='F00'";
+                                //Insertar detalle factura 
                                 try
-                                { 
-                                    using (SqlConnection connection = new SqlConnection(connectionString))
+                                {
+                                    using (SqlConnection connection = new SqlConnection(connectionString1))
                                     {
-                                       SqlCommand command = new SqlCommand(query, connection);
-                                       connection.Open();
-                                       command.ExecuteNonQuery();
-                                       connection.Close();
+                                        SqlCommand command = new SqlCommand(query2, connection);
+                                        connection.Open();
+                                        command.ExecuteNonQuery();
+                                        connection.Close();
                                     }
                                 }
                                 catch (Exception ex)
                                 {
 
                                     errorfacturarp = false;
-                                    result = "Error 6";
+                                    result = "Error 4";
 
                                 }
-                                if (errorfacturarp == true) { } else { result = "Error, al Modificar consecutivo de tipo consecutivos en PSL (paso 6)"; }
-                            } else
-                                 {
+
+
+                                //Insertar Traza de factura psl Productivo 
+                                //if (errorfacturarp == true)
+                                //{
+
+
+                                //    string query3 = @"INSERT INTO [test_payc_contabilidad].[dbo].[TRAZA_FACTURA_PSL_PRODUCTIVO]
+                                //   ([COD_FACTURA]
+                                //   ,[NUM_FACT_PSL_PRODUCTIVO]
+                                //   ,[TOTAL_FACTURA])
+                                //    (SELECT 
+                                //     [ddvconseingre] AS [COD_FACTURA]
+                                //    ,[ddvnumedocu] AS  [NUM_FACT_PSL_PRUEBAS]
+                                //    ,SUM([ddvprectotaneto]) AS [TOTAL_FACTURA]
+                                //    FROM [104.196.158.138].[test_payc_contabilidad].[dbo].[VISTA_DETDOCVTAENTRA_MULTIPLES_FACTURAS_PRODUCTIVO]
+                                //    GROUP BY [ddvconseingre], [ddvnumedocu] WHERE ddvconseingre=" + COD_FACTURA.ToString() + @")";
+
+                                //    //Insertar detalle factura
+                                //    try
+                                //    {
+                                //        using (SqlConnection connection = new SqlConnection(connectionString1))
+                                //        {
+                                //            SqlCommand command = new SqlCommand(query3, connection);
+                                //            connection.Open();
+                                //            command.ExecuteNonQuery();
+                                //            connection.Close();
+                                //        }
+                                //    }
+                                //    catch (Exception ex)
+                                //    {
+                                //        errorfacturarp = false;
+                                //        // result = ex.ToString();
+                                //        result = "Error";
+                                //    }
+
+
+
+                                //Cambiar estado factura paso 5
+                                if (errorfacturarp == true)
+                                {
+                                    FACTURAS factura = db.FACTURAS.Find(COD_FACTURA);
+                                    long cod = 3;
+                                    factura.COD_ESTADO_FACTURA = cod;
+                                    factura.NUMERO_FACTURA_PRODUCTIVO = maxnumfac.ToString();
+                                    db.SaveChanges();
+
+                                    //Enviar correo avisando el envío de facturas
+                                    Email.EnviarEmail("smtp.gmail.com", 587, "centro.costo.estado.payc@gmail.com",
+                                        "1234payc", "centro.costo.estado.payc@gmail.com",
+                                        "director.analitica@payc.com.co", "Factura importada",
+                                        "La factura con código " + maxnumfac.ToString() +
+
+                                         " ha sido enviada para importación");
+
+                                    //Modificar consecutivo de tipo consecutivos en PSL paso 6 
+                                    query = @"UPDATE [PAYC_REMOTO].[SSF_PAYC].[dbo].[un_tiposconse] 
+                                    SET [icculticonsasig] = '" + maxnumfac.ToString() + @"' WHERE icccompania='01' AND icccodigo='F00'";
+                                    try
+                                    {
+                                        using (SqlConnection connection = new SqlConnection(connectionString))
+                                        {
+                                            SqlCommand command = new SqlCommand(query, connection);
+                                            connection.Open();
+                                            command.ExecuteNonQuery();
+                                            connection.Close();
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+
+                                        errorfacturarp = false;
+                                        result = "Error 6";
+
+                                    }
+                                    if (errorfacturarp == true) { } else { result = "Error, al Modificar consecutivo de tipo consecutivos en PSL (paso 6)"; }
+                                }
+                                else
+                                {
                                     result = "Error, al cambiar estado de la factura (paso 5)";
-                            }      
-                    } else
-                        {
-                           result = "Error, al importar detalle de  la factura? (paso 4)";
-                     }
-                } else
+                                }
+
+
+                            }
+                            else
+                            {
+                                result = "Error, al importar detalle de  la factura? (paso 4)";
+                            }
+                        }
+                    }
+                    else
                     {
                         result = "Error, al insertar número de la factura (paso 3)";
+                    }
                 }
-                } else
-                     {
-                       result = "Error, al extraer número de factura  (paso 2)";
+                else
+                {
+                    result = "Error, al extraer número de factura  (paso 2)";
                 }
-            } else
-                 {
-                   result = "Error, Si se logró traer el número de factura (paso 1)";
+            }
+            else
+            {
+                result = "Error, Si se logró traer el número de factura (paso 1)";
             }
             if (errorfacturarp == true)
-            { 
-               return Json(new { success = true, responseText = result }, JsonRequestBehavior.AllowGet);
+            {
+                return Json(new { success = true, responseText = result }, JsonRequestBehavior.AllowGet);
             }
-              else
-               { 
-               JsonResult data;
-               return data = Json(new { success = false, responseText = result }, JsonRequestBehavior.AllowGet);
-              }
+
+            else
+            {
+                JsonResult data;
+                return data = Json(new { success = false, responseText = result }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         #endregion
