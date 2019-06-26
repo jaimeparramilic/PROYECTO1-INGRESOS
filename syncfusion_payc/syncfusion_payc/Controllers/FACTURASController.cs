@@ -326,7 +326,7 @@ namespace syncfusion_payc.Controllers
 
         public ActionResult UrlAdaptor()
         {
-            var DataSource2 = db.FACTURAS.ToList();
+            var DataSource2 = db.VISTA_FACTURAS_TRAZA_PSL.ToList();
             ViewBag.dataSource2 = DataSource2;
             return View();
         }
@@ -788,7 +788,7 @@ namespace syncfusion_payc.Controllers
                                  [ddvconseingre] as [COD_FACTURA]
                                 ,[ddvnumedocu] as  [NUM_FACT_PSL_PRUEBAS]
                                 ,SUM([ddvprectotaneto]) as [TOTAL_FACTURA]
-                                FROM [104.196.158.138].[test_payc_contabilidad].[dbo].[VISTA_DETDOCVTAENTRA_MULTIPLES_FACTURAS_PRUEBAS]
+                                FROM [test_payc_contabilidad].[dbo].[VISTA_DETDOCVTAENTRA_MULTIPLES_FACTURAS_PRUEBAS]
                                 WHERE ddvconseingre=" + COD_FACTURA.ToString() + @" GROUP BY [ddvconseingre], [ddvnumedocu] )";
                         //insertar detalle factura
                         try
@@ -1132,7 +1132,8 @@ namespace syncfusion_payc.Controllers
                                  [ddvconseingre] as [COD_FACTURA]
                                 ,[ddvnumedocu] as  [NUM_FACT_PSL_PRODUCTIVO]
                                 ,SUM([ddvprectotaneto]) as [TOTAL_FACTURA]
-                                FROM [104.196.158.138].[test_payc_contabilidad].[dbo].[VISTA_DETDOCVTAENTRA_MULTIPLES_FACTURAS_PRODUCTIVO]
+                                FROM [test_payc_contabilidad].[dbo].[VISTA_DETDOCVTAENTRA_MULTIPLES_FACTURAS_PRODUCTIVO]
+                                                                     VISTA_DETDOCVTAENTRA_MULTIPLES_FACTURAS_PRODUCTIVO                                                                            
                                 WHERE ddvconseingre=" + COD_FACTURA.ToString() + @" GROUP BY [ddvconseingre], [ddvnumedocu] )";
                         //insertar detalle factura
                         try

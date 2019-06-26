@@ -21,6 +21,8 @@ namespace syncfusion_payc.Models
             this.DETALLE_FACTURA_ADJUNTO_PERS = new HashSet<DETALLE_FACTURA_ADJUNTO_PERS>();
             this.DETALLE_FACTURA_ITEM = new HashSet<DETALLE_FACTURA_ITEM>();
             this.DETALLE_FACTURA_PERS = new HashSet<DETALLE_FACTURA_PERS>();
+            this.TRAZA_FACTURA_PSL_PRODUCTIVO = new HashSet<TRAZA_FACTURA_PSL_PRODUCTIVO>();
+            this.TRAZA_FACTURA_PSL_PRUEBAS = new HashSet<TRAZA_FACTURA_PSL_PRUEBAS>();
         }
     
         public long COD_FACTURA { get; set; }
@@ -56,5 +58,13 @@ namespace syncfusion_payc.Models
         public virtual ICollection<DETALLE_FACTURA_PERS> DETALLE_FACTURA_PERS { get; set; }
         public virtual ESTADOS_FACTURAS ESTADOS_FACTURAS { get; set; }
         public virtual FORMAS_PAGO_FECHAS FORMAS_PAGO_FECHAS { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    	[System.Runtime.Serialization.IgnoreDataMember]
+    	[Newtonsoft.Json.JsonIgnore]
+        public virtual ICollection<TRAZA_FACTURA_PSL_PRODUCTIVO> TRAZA_FACTURA_PSL_PRODUCTIVO { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    	[System.Runtime.Serialization.IgnoreDataMember]
+    	[Newtonsoft.Json.JsonIgnore]
+        public virtual ICollection<TRAZA_FACTURA_PSL_PRUEBAS> TRAZA_FACTURA_PSL_PRUEBAS { get; set; }
     }
 }

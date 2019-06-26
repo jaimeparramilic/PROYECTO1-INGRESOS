@@ -23,5 +23,17 @@ namespace syncfusion_payc.Models
         public Nullable<System.DateTime> FECHA_FIN_EJECUCION { get; set; }
         public Nullable<decimal> TOTAL_CONTRATOS { get; set; }
         public Nullable<decimal> TOTAL_SIN_IMPUESTOS { get; set; }
+        public System.DateTime FECHA_EXPEDICION { get; set; }
+        public string NUMERO_FACTURA { get; set; }
+        public string eobcodigo { get; set; }
+        public string DOCUMENTO { get; set; }
+        public Nullable<System.DateTime> FECHA_REGISTRO_PAGO { get; set; }
+        public Nullable<System.DateTime> FECHA_PAGO { get; set; }
+        public string TIPO_PAGO { get; set; }
+        public string CONSECTUTIVO_PAGO { get; set; }
+        public string COMENTARIO_CORTO { get; set; }
+        public string DOC_FACTURA { get; set; }
+        public string DOC_PAGO { get; set; }
+        public Nullable<decimal> VALOR_PAGADO { get; set; }
     }
 }

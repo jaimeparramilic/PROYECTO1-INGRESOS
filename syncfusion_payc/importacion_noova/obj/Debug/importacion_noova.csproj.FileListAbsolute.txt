@@ -68,3 +68,17 @@ E:\PROYECTOS\Escritorio\PRODP1\PRODP1\PROYECTO1-INGRESOS\syncfusion_payc\importa
 E:\PROYECTOS\Escritorio\PRODP1\PRODP1\PROYECTO1-INGRESOS\syncfusion_payc\importacion_noova\obj\Debug\importacion_noova.csproj.CopyComplete
 E:\PROYECTOS\Escritorio\PRODP1\PRODP1\PROYECTO1-INGRESOS\syncfusion_payc\importacion_noova\obj\Debug\importacion_noova.exe
 E:\PROYECTOS\Escritorio\PRODP1\PRODP1\PROYECTO1-INGRESOS\syncfusion_payc\importacion_noova\obj\Debug\importacion_noova.pdb
+C:\GITHUB\PROYECTO1-INGRESOS\syncfusion_payc\importacion_noova\bin\Debug\importacion_noova.exe.config
+C:\GITHUB\PROYECTO1-INGRESOS\syncfusion_payc\importacion_noova\bin\Debug\importacion_noova.exe
+C:\GITHUB\PROYECTO1-INGRESOS\syncfusion_payc\importacion_noova\bin\Debug\importacion_noova.pdb
+C:\GITHUB\PROYECTO1-INGRESOS\syncfusion_payc\importacion_noova\bin\Debug\EntityFramework.dll
+C:\GITHUB\PROYECTO1-INGRESOS\syncfusion_payc\importacion_noova\bin\Debug\EntityFramework.SqlServer.dll
+C:\GITHUB\PROYECTO1-INGRESOS\syncfusion_payc\importacion_noova\bin\Debug\Newtonsoft.Json.dll
+C:\GITHUB\PROYECTO1-INGRESOS\syncfusion_payc\importacion_noova\bin\Debug\EntityFramework.xml
+C:\GITHUB\PROYECTO1-INGRESOS\syncfusion_payc\importacion_noova\bin\Debug\EntityFramework.SqlServer.xml
+C:\GITHUB\PROYECTO1-INGRESOS\syncfusion_payc\importacion_noova\bin\Debug\Newtonsoft.Json.xml
+C:\GITHUB\PROYECTO1-INGRESOS\syncfusion_payc\importacion_noova\obj\Debug\importacion_noova.csprojAssemblyReference.cache
+C:\GITHUB\PROYECTO1-INGRESOS\syncfusion_payc\importacion_noova\obj\Debug\importacion_noova.csproj.CoreCompileInputs.cache
+C:\GITHUB\PROYECTO1-INGRESOS\syncfusion_payc\importacion_noova\obj\Debug\importacion_noova.csproj.CopyComplete
+C:\GITHUB\PROYECTO1-INGRESOS\syncfusion_payc\importacion_noova\obj\Debug\importacion_noova.exe
+C:\GITHUB\PROYECTO1-INGRESOS\syncfusion_payc\importacion_noova\obj\Debug\importacion_noova.pdb

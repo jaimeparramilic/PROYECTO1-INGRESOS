@@ -4,7 +4,7 @@ factura <- function(cod_factura) {
   #CONEXIÓN Y EXTRACCIÓN DE LA INFORMACIÓN DE LA BASE DE DATOS---------------
   #CONEXIÓN A LA BASE DE DATOS
   con <- dbConnect(odbc::odbc(), "PAYC_FACTURACION", uid = "sa", pwd = "1234JAMS*")
-  #cod_factura = 42603
+  #cod_factura = 42888
   
   #EXTRACCION DE LA INFORMACION IMPORTANTE DE LA BASE DE DATOS
   fact <- paste0("SELECT * FROM FACTURAS WHERE COD_FACTURA=", cod_factura)
@@ -116,7 +116,7 @@ factura <- function(cod_factura) {
   
   if (any(CONDICIONES_CONTRATO$COD_TIPO_CONDICION == 4)) {
     if (nrow(NOVEDADES_DESCUENTO) != 0) {
-      NOVEDADES_DESCUENTO$HORAS_DESCUENTO <- as.double(difftime(NOVEDADES_DESCUENTO$FECHA_FIN_NOVEDAD, NOVEDADES_DESCUENTO$FECHA_INICIO_NOVEDAD, units = "hours")/3) +(-NOVEDADES_DESCUENTO$sabdomfest+NOVEDADES_DESCUENTO$sabados+1)*8
+      NOVEDADES_DESCUENTO$HORAS_DESCUENTO <- min(as.double(difftime(NOVEDADES_DESCUENTO$FECHA_FIN_NOVEDAD, NOVEDADES_DESCUENTO$FECHA_INICIO_NOVEDAD, units = "hours")/3) +(-NOVEDADES_DESCUENTO$sabdomfest+NOVEDADES_DESCUENTO$sabados+1)*8,240)
     }} else {
       NOVEDADES_DESCUENTO$HORAS_DESCUENTO<-NULL
       NOVEDADES_DESCUENTO<-NOVEDADES_DESCUENTO[-c(0),]}
@@ -125,7 +125,7 @@ factura <- function(cod_factura) {
   NOVEDADES_ADICION$ADICION_EN <- as.double((NOVEDADES_ADICION$SALARIO_COMERCIAL / 240) * as.double(NOVEDADES_ADICION$HORAS_EN) * NOVEDADES_ADICION$FACTOR_EN)
   NOVEDADES_ADICION$ADICION_FD <- as.double((NOVEDADES_ADICION$SALARIO_COMERCIAL / 240) * as.double(NOVEDADES_ADICION$HORAS_FD) * NOVEDADES_ADICION$FACTOR_FD)
   NOVEDADES_ADICION$ADICION_FN <- as.double((NOVEDADES_ADICION$SALARIO_COMERCIAL / 240) * as.double(NOVEDADES_ADICION$HORAS_FN) * NOVEDADES_ADICION$FACTOR_FN)
-  NOVEDADES_DESCUENTO$DESCUENTO <-as.double((-NOVEDADES_DESCUENTO$SALARIO_COMERCIAL / 240) * as.double(NOVEDADES_DESCUENTO$HORAS_DESCUENTO))
+  NOVEDADES_DESCUENTO$DESCUENTO<-as.double((-NOVEDADES_DESCUENTO$SALARIO_COMERCIAL / 240) * as.double(NOVEDADES_DESCUENTO$HORAS_DESCUENTO))
   
   #CALCULO DE LOS VALORES TOTALES HISTORICOS A FACTURAR POR PERSONA E ITEM------------
   if (nrow(INGRESOS_PERSONAS) != 0) {
@@ -291,7 +291,7 @@ factura <- function(cod_factura) {
                                        fecha, ",'",
                                        Sys.time(), "','GENERADO',",
                                        estado, ",1,'',", cod_factura, 
-                                       ",1,", TOTAL_PERSONAS$COD_CONCEPTO_PSL[k],", 1, ",
+                                       ",1,", TOTAL_PERSONAS$COD_CONCEPTO_PSL[k],", 1,",
                                        PERSONAS_ADJUNTO$HORAS_ED[k],",",
                                        PERSONAS_ADJUNTO$HORAS_EN[k],",",
                                        PERSONAS_ADJUNTO$HORAS_FD[k],",",
@@ -433,4 +433,4 @@ factura <- function(cod_factura) {
   return(VALOR_FACTURAR) 
   }
 
-factura(42808)
+factura(42889)
