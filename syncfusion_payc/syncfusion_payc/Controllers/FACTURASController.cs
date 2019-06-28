@@ -333,7 +333,7 @@ namespace syncfusion_payc.Controllers
 
         public ActionResult GetOrderData(DataManager dm)
         {
-            IEnumerable DataSource = db.FACTURAS.ToList();
+            IEnumerable DataSource = db.VISTA_FACTURAS_TRAZA_PSL.ToList();
             DataOperations ds = new DataOperations();
             List<string> str = new List<string>();
             db.Configuration.ProxyCreationEnabled = false;
@@ -357,7 +357,7 @@ namespace syncfusion_payc.Controllers
 
             }
             IEnumerable aggregate = ds.PerformSelect(DataSource, str);
-            var count = DataSource.Cast<FACTURAS>().Count();
+            var count = DataSource.Cast<VISTA_FACTURAS_TRAZA_PSL>().Count();
             if (dm.Skip != 0)
             {
                 DataSource = ds.PerformSkip(DataSource, dm.Skip);
