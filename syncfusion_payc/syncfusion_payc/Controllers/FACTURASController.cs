@@ -964,9 +964,16 @@ namespace syncfusion_payc.Controllers
                                           " ha sido enviada para importación");
 
                                     //Modificar consecutivo de tipo consecutivos en PSL 6
+                                    //query = @"UPDATE [PAYC_REMOTO].[ssf_pruebas].[dbo].[un_tiposconse] 
+                                    //SET [icculticonsasig] = '" + maxnumfac.ToString()
+                                    //      + @"' WHERE icccompania='01' AND icccodigo='F00'";
+
                                     query = @"UPDATE [PAYC_REMOTO].[ssf_pruebas].[dbo].[un_tiposconse] 
-                                    SET [icculticonsasig] = '" + maxnumfac.ToString()
-                                          + @"' WHERE icccompania='01' AND icccodigo='F00'";
+                                            SET[icculticonsasig] = (SELECT TOP 1
+                                            MAX([SECUENCIA_NUM_FACT_PSL])
+                                            FROM [test_payc_contabilidad].[dbo].[VISTA_TOTALES_GRUPOS_FACTURAS_SECUENCIA]
+                                            WHERE COD_FACTURA =" + COD_FACTURA.ToString() + @"
+                                            GROUP BY COD_FACTURA)  WHERE icccompania = '01' AND icccodigo = 'F00'";
                                     try
                                     {
                                         using (SqlConnection connection = new SqlConnection(connectionString))
@@ -1346,7 +1353,11 @@ namespace syncfusion_payc.Controllers
 
                                     //Modificar consecutivo de tipo consecutivos en PSL paso 6 
                                     query = @"UPDATE [PAYC_REMOTO].[SSF_PAYC].[dbo].[un_tiposconse] 
-                                    SET [icculticonsasig] = '" + maxnumfac.ToString() + @"' WHERE icccompania='01' AND icccodigo='F00'";
+                                            SET[icculticonsasig] = (SELECT TOP 1
+                                            MAX([SECUENCIA_NUM_FACT_PSL])
+                                            FROM [test_payc_contabilidad].[dbo].[VISTA_TOTALES_GRUPOS_FACTURAS_SECUENCIA_PRODUCTIVO]
+                                            WHERE COD_FACTURA =" + COD_FACTURA.ToString() + @"
+                                            GROUP BY COD_FACTURA)  WHERE icccompania = '01' AND icccodigo = 'F00'";
                                     try
                                     {
                                         using (SqlConnection connection = new SqlConnection(connectionString))
