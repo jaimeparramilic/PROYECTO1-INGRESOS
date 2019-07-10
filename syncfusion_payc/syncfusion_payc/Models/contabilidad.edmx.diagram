@@ -155,10 +155,8 @@
         <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_FACTURACION_ADJUNTO_PERS" Width="1.5" PointX="20.75" PointY="34.125" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_FACTURAS_CARTERA" Width="1.5" PointX="33.75" PointY="29.125" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_FACTURAS_FECHA_PERIODO_FACTURACION" Width="1.5" PointX="27.75" PointY="35.125" />
-        <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_FACTURAS_NUMERO_PSL_GRUPO_TEMP" Width="1.5" PointX="29.75" PointY="35.125" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_FACTURAS_PAGOS" Width="1.5" PointX="33.75" PointY="33.125" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_FACTURAS_TRAZA_PSL" Width="1.5" PointX="31.75" PointY="36.125" />
-        <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_FACTURAS_TRAZA_PSL_PRO" Width="1.5" PointX="33.75" PointY="36.125" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_FINANCIERA" Width="1.5" PointX="35.75" PointY="2.125" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_FLUJO_INGRESOS" Width="1.5" PointX="35.75" PointY="10.125" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_FLUJO_INGRESOS_ITEM_TEMP" Width="1.5" PointX="35.75" PointY="14.125" />
@@ -279,6 +277,7 @@
         <AssociationConnector Association="test_payc_contabilidadModel.FK_RELACION_ROL_CARGO_ORDEN_ROLES" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_TIPOS_NOVEDAD_CONDICION_TIPO_CONDICION" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_TIPOS_NOVEDAD_CONDICION_TIPO_NOVEDAD" />
+        <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_NOVEDADES_DETALLE_ADJUNTO_PERS" Width="1.5" PointX="40.375" PointY="33.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

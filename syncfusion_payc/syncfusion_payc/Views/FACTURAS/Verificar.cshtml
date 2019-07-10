@@ -98,7 +98,7 @@
                                             {
                                                 child.Datasource(ds => ds.URL("../../VISTA_DETALLE_ADJUNTOS_PERS/GetOrderData_novedades").Adaptor(AdaptorType.UrlAdaptor))
                                                 .AllowPaging()
-                                                .QueryString("COD_CONTRATO_PROYECTO")
+                                                .QueryString("COD_DETALLE_FACTURA_ADJUNTO_PERS")
                                                 .AllowFiltering(true)
                                                 //.AllowCellMerging(true)
                                                 .Locale("es-CO")
@@ -127,7 +127,8 @@
                                                     col.Field("COD_COLABORADOR").Visible(false).ForeignKeyField("COD_COLABORADOR").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().COLABORADORES.ToList()).ValidationRules(v => v.AddRule("required", true)).HeaderText("COLABORADOR").EditType(EditingType.DropdownEdit).Add();
                                                     col.Field("COD_CONTRATO_PROYECTO").Visible(false).Visible(false).AllowEditing(false).ForeignKeyField("COD_CONTRATO_PROYECTO").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONTRATO_PROYECTO_DESCRIPCION.ToList()).HeaderText("CONTRATO_PROYECTO").EditType(EditingType.DropdownEdit).Add();
                                                     col.Field("COD_TIPO_NOVEDAD").Width(120).ForeignKeyField("COD_TIPO_NOVEDAD").Type("string").ForeignKeyValue("DESCRIPCION").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().TIPOS_NOVEDAD.ToList()).HeaderText("TIPO_NOVEDAD").ValidationRules(v => v.AddRule("required", true)).EditType(EditingType.DropdownEdit).Add();
-                                                    col.Field("COD_REGISTRO_NOVEDADES").Width(120).HeaderText("REGISTRO_NOVEDADES").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                                                    col.Field("COD_REGISTRO_NOVEDADES").Width(120).HeaderText("REGISTRO_NOVEDADES").Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
+                                                    col.Field("COD_DETALLE_FACTURA_ADJUNTO_PERS").Width(120).HeaderText("COD").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                                                     col.Field("FECHA_INICIO_NOVEDAD").Width(120).HeaderText("FECHA INICIO NOVEDAD").Format("{0:dd/MM/yyyy HH:mm}").ValidationRules(v => v.AddRule("required", true)).EditType(EditingType.DateTimePicker).Add();
                                                     col.Field("FECHA_FIN_NOVEDAD").Width(120).HeaderText("FECHA FIN NOVEDAD").Format("{0:dd/MM/yyyy HH:mm}").ValidationRules(v => v.AddRule("required", true).AddRule("comparacion_fechas", true)).EditType(EditingType.DateTimePicker).Add();
                                                     col.Field("COD_FORMAS_PAGO_FECHAS").Visible(false).HeaderText("COD_FORMAS_PAGO_FECHAS").Type("String").ForeignKeyField("COD_COD_FORMAS_PAGO_FECHA").ForeignKeyValue("FECHA_FORMA_PAGO").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().FORMAS_PAGO_FECHAS.ToList()).EditType(EditingType.NumericEdit).Add();
@@ -394,11 +395,12 @@
 
     //Función que se ejecuta en el evento load
     function inicio_grid_roles(args) {
-        console.log("esta en inicio_grid_roles ")
+        //console.log("esta en inicio_grid_roles ")
         var cod_contrato_proyecto = "@(ViewBag.COD_CONTRATO_PROYECTO == null ? "" : Html.Raw((String)ViewBag.COD_CONTRATO_PROYECTO.ToString()).ToString())";
         if (cod_contrato_proyecto != "") {
             this.model.filterSettings.filteredColumns.push({ field: "COD_CONTRATO_PROYECTO", operator: "equal", value: cod_contrato_proyecto });
         }
+        
         var COD_FACTURA = "@(ViewBag.COD_FACTURA == null ? "" : Html.Raw((String)ViewBag.COD_FACTURA.ToString()).ToString())";
         if (COD_FACTURA != "") {
             this.model.filterSettings.filteredColumns.push({ field: "COD_FACTURA", operator: "equal", value: COD_FACTURA });
@@ -414,6 +416,19 @@
         refrescar_total();
     }
 
+    //Función que se ejecuta en el evento load
+    function inicio_grid_roles1(args) {
+     
+        
+        var COD_FACTURA = "@(ViewBag.COD_FACTURA == null ? "" : Html.Raw((String)ViewBag.COD_FACTURA.ToString()).ToString())";
+        if (COD_FACTURA != "") {
+            this.model.filterSettings.filteredColumns.push({ field: "COD_FACTURA", operator: "equal", value: COD_FACTURA });
+        }
+        var COD_FORMAS_PAGO_FECHAS = "@(ViewBag.COD_FORMAS_PAGO_FECHAS == null ? "" : Html.Raw((String)ViewBag.COD_FORMAS_PAGO_FECHAS.ToString()).ToString())";
+        if (COD_FORMAS_PAGO_FECHAS != "") {
+            this.model.filterSettings.filteredColumns.push({ field: "COD_FORMAS_PAGO_FECHAS", operator: "equal", value: COD_FORMAS_PAGO_FECHAS });
+        }
+    }
 
     //Función click en los elementos nuevos
     function clicked(sender) {
@@ -488,16 +503,16 @@
     }
     //Función que refresca la grid hijo de facturas después
     function finalizar_accion(args) {
-        console.log(args.requestType )
-        console.log("esta en finalizar accion")
+        //console.log(args.requestType )
+        //console.log("esta en finalizar accion")
         if (args.requestType == "save" || args.requestType == "delete") {
-            console.log("esta en save de finalizar accion")
+            //console.log("esta en save de finalizar accion")
             refrescar_total();
         }
     }
     //Funcion para refrescar total
     function refrescar_total() {
-        console.log("esta en reefrescar total")
+        //console.log("esta en reefrescar total")
         var instancia = $("#GRID_ROLES").ejGrid("instance");
         setTimeout(function () { instancia.refreshContent(); }, 1000)
         try {
@@ -512,7 +527,7 @@
         var cod_factura =@(ViewBag.COD_FACTURA == null ? "" : Html.Raw((String)ViewBag.COD_FACTURA.ToString()).ToString());
         var data = JSON.stringify({ COD_FACTURA: parseInt(cod_factura) });
         var url = "../refrescar_total";
-        console.log("Va a iniciar post de reefrescar total")
+        //console.log("Va a iniciar post de reefrescar total")
         $.ajax({
             type: "POST",
             url: url,
@@ -521,8 +536,8 @@
             contentType: "application/json; charset=utf-8",
             dataFilter: function (data) { return data; },
             success: function (data) {
-                console.log("esta en success de post")
-                console.log(data)
+                //console.log("esta en success de post")
+                //console.log(data)
                 $('.valor').text(data.responseText);
                 $('.valor_personas').text(data.total_factura_pers);
                 $('.valor_items').text(data.total_factura_item);
@@ -540,29 +555,29 @@
     function inicio_accion_roles(args) {
 
         var cod_estado_factura=@(ViewBag.COD_ESTADO_FACTURA);
-        console.log("esta en accion inicio_accion_roles")
-        console.log("cod_estado_factura"+cod_estado_factura);
+        //console.log("esta en accion inicio_accion_roles")
+        //console.log("cod_estado_factura"+cod_estado_factura);
         var cod_contrato_proyecto = "@(ViewBag.COD_CONTRATO_PROYECTO == null ? "" : Html.Raw((String)ViewBag.COD_CONTRATO_PROYECTO.ToString()).ToString())";
         var cod_factura = "@(ViewBag.COD_FACTURA == null ? "" : Html.Raw((String)ViewBag.COD_FACTURA.ToString()).ToString())";
         var cod_formas_pago_fechas = "@(ViewBag.COD_FORMAS_PAGO_FECHAS == null ? "" : Html.Raw((String)ViewBag.COD_FORMAS_PAGO_FECHAS.ToString()).ToString())";
 
-        console.log("cod_contrato_proyecto"+cod_contrato_proyecto);
-        console.log("cod_factura"+cod_factura);
-        console.log("cod_formas_pago_fechas" + cod_formas_pago_fechas);
+        //console.log("cod_contrato_proyecto"+cod_contrato_proyecto);
+        //console.log("cod_factura"+cod_factura);
+        //console.log("cod_formas_pago_fechas" + cod_formas_pago_fechas);
         if (args.requestType == "delete" && cod_estado_factura != 1) {
             //console.log("esta en delete y cod estado dif de 1")
             args.cancel = true;
             alert("Esta factura ya está validada");
         } else {
-            console.log("esta en delete en el else del if")
+            //console.log("esta en delete en el else del if")
             //console.log(args.data)
         }
         if (args.requestType=="add" && cod_estado_factura!=1){
-            console.log("esta en add")
+            //console.log("esta en add")
             args.cancel=true;
             alert("Esta factura ya está validada");
         }else{
-            console.log("esta en add en el else del if")
+            //console.log("esta en add en el else del if")
             //console.log(args.data)
         }
 
@@ -582,15 +597,15 @@
 
 
         if (args.requestType == "save") {
-            console.log("esta en save")
-            console.log(args.data)
+            //console.log("esta en save")
+            //console.log(args.data)
             args.data.COD_ESTADO_FACTURA = cod_estado_factura;
             args.data.COD_CONTRATO_PROYECTO = cod_contrato_proyecto;
             args.data.COD_FACTURA = cod_factura;
             args.data.COD_FORMAS_PAGO_FECHAS = cod_formas_pago_fechas;
         }
         if (args.requestType == "begin") {
-            console.log("esta en begin")
+            //console.log("esta en begin")
             args.data.COD_ESTADO_FACTURA = cod_estado_factura;
             args.data.COD_CONTRATO_PROYECTO = cod_contrato_proyecto;
             args.data.COD_FACTURA = cod_factura;
@@ -615,7 +630,7 @@
             args.cancel = true;
             alert("Esta factura ya está validada");
         } else {
-            console.log("esta en delete en el else del if")
+            //console.log("esta en delete en el else del if")
             //console.log(args.data)
         }
 
@@ -640,7 +655,7 @@
                 args.cancel = true;
                 alert("esta factura ya está validada");
             } else {
-                console.log("esta en add en el else del if")
+                //console.log("esta en add en el else del if")
             }
         }
 

@@ -152,10 +152,8 @@
     <EntitySet Name="VISTA_FACTURACION_ADJUNTO_PERS" EntityType="test_payc_contabilidadModel.VISTA_FACTURACION_ADJUNTO_PERS" />
     <EntitySet Name="VISTA_FACTURAS_CARTERA" EntityType="test_payc_contabilidadModel.VISTA_FACTURAS_CARTERA" />
     <EntitySet Name="VISTA_FACTURAS_FECHA_PERIODO_FACTURACION" EntityType="test_payc_contabilidadModel.VISTA_FACTURAS_FECHA_PERIODO_FACTURACION" />
-    <EntitySet Name="VISTA_FACTURAS_NUMERO_PSL_GRUPO_TEMP" EntityType="test_payc_contabilidadModel.VISTA_FACTURAS_NUMERO_PSL_GRUPO_TEMP" />
     <EntitySet Name="VISTA_FACTURAS_PAGOS" EntityType="test_payc_contabilidadModel.VISTA_FACTURAS_PAGOS" />
     <EntitySet Name="VISTA_FACTURAS_TRAZA_PSL" EntityType="test_payc_contabilidadModel.VISTA_FACTURAS_TRAZA_PSL" />
-    <EntitySet Name="VISTA_FACTURAS_TRAZA_PSL_PRO" EntityType="test_payc_contabilidadModel.VISTA_FACTURAS_TRAZA_PSL_PRO" />
     <EntitySet Name="VISTA_FINANCIERA" EntityType="test_payc_contabilidadModel.VISTA_FINANCIERA" />
     <EntitySet Name="VISTA_FLUJO_INGRESOS" EntityType="test_payc_contabilidadModel.VISTA_FLUJO_INGRESOS" />
     <EntitySet Name="VISTA_FLUJO_INGRESOS_ITEM_TEMP" EntityType="test_payc_contabilidadModel.VISTA_FLUJO_INGRESOS_ITEM_TEMP" />
@@ -654,6 +652,7 @@
       <Parameter Name="new_diagramname" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="VISTA_NOVEDADES_DETALLE_ADJUNTO_PERS" EntityType="test_payc_contabilidadModel.VISTA_NOVEDADES_DETALLE_ADJUNTO_PERS" />
   </EntityContainer>
   <EntityType Name="CONTRATO_PROYECTO">
     <Key>
@@ -1846,7 +1845,7 @@
     </Key>
     <Property Name="COD_TRAZA_PSL" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="COD_FACTURA" Type="Int64" />
-    <Property Name="NUM_FACT_PSL_PRODUCTIVO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="NUM_FACT_PSL_PRODUCTIVO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="TOTAL_FACTURA" Type="Decimal" Precision="30" Scale="2" />
     <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_TRAZA_FACTURA_PSL_PRODUCTIVO_FACTURAS" FromRole="TRAZA_FACTURA_PSL_PRODUCTIVO" ToRole="FACTURAS" />
   </EntityType>
@@ -1856,7 +1855,7 @@
     </Key>
     <Property Name="COD_TRAZA_PSL" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="COD_FACTURA" Type="Int64" />
-    <Property Name="NUM_FACT_PSL_PRUEBAS" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="NUM_FACT_PSL_PRUEBAS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="TOTAL_FACTURA" Type="Decimal" Precision="30" Scale="2" />
     <NavigationProperty Name="FACTURAS" Relationship="test_payc_contabilidadModel.FK_TRAZA_FACTURA_PSL_PRUEBAS_FACTURAS" FromRole="TRAZA_FACTURA_PSL_PRUEBAS" ToRole="FACTURAS" />
   </EntityType>
@@ -3112,7 +3111,7 @@
     </Key>
     <Property Name="edvconseingre" Type="Int64" Nullable="false" />
     <Property Name="edvcontrol" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="edvvaloconimp" Type="Decimal" Precision="34" Scale="4" />
+    <Property Name="edvvaloconimp" Type="Decimal" Precision="38" Scale="18" />
     <Property Name="edvnumedocuclie" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="edvtipoconsclie" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
     <Property Name="edvcompania" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
@@ -3122,14 +3121,14 @@
     <Property Name="edvcliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="edvconcepto" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="edvmoneda" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
-    <Property Name="edvtotamoneloca" Type="Decimal" Precision="34" Scale="4" />
-    <Property Name="edvtotamonenego" Type="Decimal" Precision="34" Scale="4" />
+    <Property Name="edvtotamoneloca" Type="Decimal" Precision="38" Scale="18" />
+    <Property Name="edvtotamonenego" Type="Decimal" Precision="38" Scale="18" />
     <Property Name="edvcentroresp" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
     <Property Name="eobusuario" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
     <Property Name="edvfechexpe" Type="DateTime" Precision="0" />
     <Property Name="edvfechaconta" Type="DateTime" Precision="0" />
-    <Property Name="edvvalobruto" Type="Decimal" Precision="30" Scale="2" />
-    <Property Name="edvvaloneto" Type="Decimal" Precision="30" Scale="2" />
+    <Property Name="edvvalobruto" Type="Decimal" Precision="38" Scale="20" />
+    <Property Name="edvvaloneto" Type="Decimal" Precision="38" Scale="20" />
     <Property Name="edvfechinteobra" Type="DateTime" Precision="0" />
     <Property Name="edvformapago" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
     <Property Name="edvidentificador" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
@@ -3153,7 +3152,7 @@
     </Key>
     <Property Name="edvconseingre" Type="Int64" Nullable="false" />
     <Property Name="edvcontrol" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="edvvaloconimp" Type="Decimal" Precision="34" Scale="4" />
+    <Property Name="edvvaloconimp" Type="Decimal" Precision="38" Scale="18" />
     <Property Name="edvnumedocuclie" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="edvtipoconsclie" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
     <Property Name="edvcompania" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
@@ -3163,14 +3162,14 @@
     <Property Name="edvcliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="edvconcepto" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="edvmoneda" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
-    <Property Name="edvtotamoneloca" Type="Decimal" Precision="34" Scale="4" />
-    <Property Name="edvtotamonenego" Type="Decimal" Precision="34" Scale="4" />
+    <Property Name="edvtotamoneloca" Type="Decimal" Precision="38" Scale="18" />
+    <Property Name="edvtotamonenego" Type="Decimal" Precision="38" Scale="18" />
     <Property Name="edvcentroresp" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
     <Property Name="eobusuario" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
     <Property Name="edvfechexpe" Type="DateTime" Precision="0" />
     <Property Name="edvfechaconta" Type="DateTime" Precision="0" />
-    <Property Name="edvvalobruto" Type="Decimal" Precision="30" Scale="2" />
-    <Property Name="edvvaloneto" Type="Decimal" Precision="30" Scale="2" />
+    <Property Name="edvvalobruto" Type="Decimal" Precision="38" Scale="20" />
+    <Property Name="edvvaloneto" Type="Decimal" Precision="38" Scale="20" />
     <Property Name="edvfechinteobra" Type="DateTime" Precision="0" />
     <Property Name="edvformapago" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
     <Property Name="edvidentificador" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
@@ -3272,17 +3271,6 @@
     <Property Name="RANKING" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="FECHA_FORMA_PAGO" Type="DateTime" Precision="0" />
   </EntityType>
-  <EntityType Name="VISTA_FACTURAS_NUMERO_PSL_GRUPO_TEMP">
-    <Key>
-      <PropertyRef Name="TOTAL_FACTURA" />
-    </Key>
-    <Property Name="COD_FACTURA" Type="Int64" />
-    <Property Name="COD_GRUPO_FACTURA" Type="Int64" />
-    <Property Name="TOTAL_FACTURA" Type="Decimal" Nullable="false" Precision="38" Scale="20" />
-    <Property Name="SECUENCIA_NUM_FACT_PSL" Type="Int64" />
-    <Property Name="NUM_FACTURA_PSL_PRUEBAS" Type="Int64" />
-    <Property Name="NUMERO_FACTURA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-  </EntityType>
   <EntityType Name="VISTA_FACTURAS_PAGOS">
     <Key>
       <PropertyRef Name="COMPAÑIA" />
@@ -3311,24 +3299,6 @@
     <Property Name="FECHA_EMISION" Type="DateTime" Precision="0" />
     <Property Name="NUMERO_FACTURA_PRODUCTIVO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="TRAZA_FACTURA_PSL_PRUEBAS" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-    <Property Name="TRAZA_FACTURA_PSL_PRODUCTIVO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="VISTA_FACTURAS_TRAZA_PSL_PRO">
-    <Key>
-      <PropertyRef Name="COD_FACTURA" />
-    </Key>
-    <Property Name="COD_FACTURA" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
-    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
-    <Property Name="NUMERO_FACTURA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="FECHA_FACTURA" Type="DateTime" Precision="0" />
-    <Property Name="COD_ESTADO_FACTURA" Type="Int64" />
-    <Property Name="VALOR_SIN_IMPUESTOS" Type="Decimal" Precision="30" Scale="2" />
-    <Property Name="VALOR_CON_IMPUESTOS" Type="Decimal" Precision="30" Scale="2" />
-    <Property Name="RANKING" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="COD_CONCEPTO_PSL" Type="Int64" />
-    <Property Name="FECHA_EMISION" Type="DateTime" Precision="0" />
-    <Property Name="NUMERO_FACTURA_PRODUCTIVO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="TRAZA_FACTURA_PSL_PRODUCTIVO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="VISTA_FINANCIERA">
@@ -5257,4 +5227,19 @@
     <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
     <Property Type="Int32" Name="OwnerID" Nullable="false" />
   </ComplexType>
+  <EntityType Name="VISTA_NOVEDADES_DETALLE_ADJUNTO_PERS">
+    <Key>
+      <PropertyRef Name="COD_REGISTRO_NOVEDADES" />
+    </Key>
+    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
+    <Property Name="COD_TIPO_NOVEDAD" Type="Int64" />
+    <Property Name="COD_REGISTRO_NOVEDADES" Type="Int64" Nullable="false" />
+    <Property Name="COD_COLABORADOR" Type="Int64" />
+    <Property Name="FECHA_INICIO_NOVEDAD" Type="DateTime" Precision="3" />
+    <Property Name="FECHA_FIN_NOVEDAD" Type="DateTime" Precision="3" />
+    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
+    <Property Name="COD_ROL" Type="Int64" />
+    <Property Name="SALARIO_COMERCIAL" Type="Decimal" Precision="30" Scale="20" />
+    <Property Name="COD_DETALLE_FACTURA_ADJUNTO_PERS" Type="Int64" />
+  </EntityType>
 </Schema>

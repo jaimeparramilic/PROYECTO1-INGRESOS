@@ -403,7 +403,7 @@ namespace syncfusion_payc.Controllers
         //Novedades nomina asociados al adjunto
         public ActionResult GetOrderData_novedades(DataManager dm)
         {
-            IEnumerable DataSource = db.VISTA_REGISTRO_NOVEDADES.ToList();
+            IEnumerable DataSource = db.VISTA_NOVEDADES_DETALLE_ADJUNTO_PERS.ToList();
             DataOperations ds = new DataOperations();
             List<string> str = new List<string>();
             db.Configuration.ProxyCreationEnabled = false;
@@ -427,7 +427,7 @@ namespace syncfusion_payc.Controllers
 
             }
             IEnumerable aggregate = ds.PerformSelect(DataSource, str);
-            var count = DataSource.Cast<VISTA_REGISTRO_NOVEDADES>().Count();
+            var count = DataSource.Cast<VISTA_NOVEDADES_DETALLE_ADJUNTO_PERS>().Count();
             if (dm.Skip != 0)
             {
                 DataSource = ds.PerformSkip(DataSource, dm.Skip);

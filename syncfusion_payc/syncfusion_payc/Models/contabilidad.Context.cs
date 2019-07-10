@@ -180,10 +180,8 @@ namespace syncfusion_payc.Models
         public virtual DbSet<VISTA_FACTURACION_ADJUNTO_PERS> VISTA_FACTURACION_ADJUNTO_PERS { get; set; }
         public virtual DbSet<VISTA_FACTURAS_CARTERA> VISTA_FACTURAS_CARTERA { get; set; }
         public virtual DbSet<VISTA_FACTURAS_FECHA_PERIODO_FACTURACION> VISTA_FACTURAS_FECHA_PERIODO_FACTURACION { get; set; }
-        public virtual DbSet<VISTA_FACTURAS_NUMERO_PSL_GRUPO_TEMP> VISTA_FACTURAS_NUMERO_PSL_GRUPO_TEMP { get; set; }
         public virtual DbSet<VISTA_FACTURAS_PAGOS> VISTA_FACTURAS_PAGOS { get; set; }
         public virtual DbSet<VISTA_FACTURAS_TRAZA_PSL> VISTA_FACTURAS_TRAZA_PSL { get; set; }
-        public virtual DbSet<VISTA_FACTURAS_TRAZA_PSL_PRO> VISTA_FACTURAS_TRAZA_PSL_PRO { get; set; }
         public virtual DbSet<VISTA_FINANCIERA> VISTA_FINANCIERA { get; set; }
         public virtual DbSet<VISTA_FLUJO_INGRESOS> VISTA_FLUJO_INGRESOS { get; set; }
         public virtual DbSet<VISTA_FLUJO_INGRESOS_ITEM_TEMP> VISTA_FLUJO_INGRESOS_ITEM_TEMP { get; set; }
@@ -219,6 +217,7 @@ namespace syncfusion_payc.Models
         public virtual DbSet<VISTA_TOTALES_GRUPOS_FACTURAS_SECUENCIA> VISTA_TOTALES_GRUPOS_FACTURAS_SECUENCIA { get; set; }
         public virtual DbSet<VISTA_TOTALES_GRUPOS_FACTURAS_SECUENCIA_PRODUCTIVO> VISTA_TOTALES_GRUPOS_FACTURAS_SECUENCIA_PRODUCTIVO { get; set; }
         public virtual DbSet<VISTA_USUARIOS_AttendanceDB> VISTA_USUARIOS_AttendanceDB { get; set; }
+        public virtual DbSet<VISTA_NOVEDADES_DETALLE_ADJUNTO_PERS> VISTA_NOVEDADES_DETALLE_ADJUNTO_PERS { get; set; }
     
         public virtual ObjectResult<sp_actualizar_estado_centro_costo_Result> sp_actualizar_estado_centro_costo(ObjectParameter ret, ObjectParameter error, Nullable<int> cont)
         {

@@ -88,16 +88,13 @@
                                 col.Field("COD_CONCEPTO_PSL").Width(80).Type("string").ForeignKeyField("COD_CONCEPTO_PSL").ForeignKeyValue("CODIGO_EN_PSL").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().CONCEPTOS.ToList()).HeaderText("CONCEPTO").EditType(EditingType.DropdownEdit).Add();
                                 col.Field("COD_FACTURA").HeaderText("COD_FACTURA").IsPrimaryKey(true).Visible(false).Format("{0:n0}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                                 col.Field("TRAZA_FACTURA_PSL_PRUEBAS").Width(110).AllowEditing(false).HeaderText("PSL PRUEBAS").Add();
-                                col.Field("TRAZA_FACTURA_PSL_PRODUCTIVO").Width(150).AllowEditing(false).HeaderText("DETALLE FACTURA PSL PRODUCTIVO").Add();
+                                col.Field("TRAZA_FACTURA_PSL_PRODUCTIVO").Width(110).AllowEditing(false).HeaderText("DETALLE FACTURA PSL PRODUCTIVO").Add();
                                 col.Field("FECHA_FACTURA").Width(120).HeaderText("PERIODO FACTURA").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).Add();
                                 col.Field("VALOR_SIN_IMPUESTOS").Width(120).AllowEditing(false).HeaderText("VALOR SIN IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                                 col.Field("VALOR_CON_IMPUESTOS").Visible(false).AllowEditing(false).HeaderText("VALOR CON IMPUESTOS").Format("{0:n2}").EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Add();
                                 col.Field("RANKING").AllowEditing(false).HeaderText("RANKING").Visible(false).Add();
                                 col.Field("FECHA_EMISION").Width(90).HeaderText("FECHA EMISIÓN (PARA PSL)").Format("{0:dd/MM/yyyy}").EditType(EditingType.DateTimePicker).DefaultValue(DateTime.Today).Add();
-
-
-
-
+                                
                             });
                         })
         )
