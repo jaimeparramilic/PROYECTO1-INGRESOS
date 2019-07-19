@@ -859,7 +859,7 @@ namespace syncfusion_payc.Controllers
                         ,[edvvaloneto]
                         ,[edvfechinteobra]
                         ,[edvformapago]
-                        ,[edvidentificador],[edvcomentario] FROM [104.196.158.138].[test_payc_contabilidad].[dbo].[VISTA_ENCDOCVTAENTRA_MULTIPLES_FACTURAS_PRUEBAS] 
+                        ,[edvidentificador],LEFT([edvcomentario],250) FROM [104.196.158.138].[test_payc_contabilidad].[dbo].[VISTA_ENCDOCVTAENTRA_MULTIPLES_FACTURAS_PRUEBAS] 
                                 WHERE edvconseingre=" + COD_FACTURA.ToString() + @")";
 
                             //Insertar encabezado factura
@@ -880,7 +880,7 @@ namespace syncfusion_payc.Controllers
                             // catch (DBConcurrencyException ex)
                             {
                                 traer_codigo_factura = false;
-                                // result = ex.ToString();
+                                //result = ex.ToString();
                                 result = "Error 4";
                             }
 
@@ -940,8 +940,8 @@ namespace syncfusion_payc.Controllers
                                 catch (Exception ex)
                                 {
                                     traer_codigo_factura = false;
-                                    // result = ex.ToString();
-                                    result = "Error 5";
+                                    result = ex.ToString();
+                                    //result = "Error 5";
                                 }
 
 
@@ -1003,7 +1003,7 @@ namespace syncfusion_payc.Controllers
                             }
                             else
                             {
-                                result = "Error,  cambiar estado de la factura (paso 5)";
+                                //result = "Error,  cambiar estado de la factura (paso 5)";
                             }
                         }
                         else
@@ -1211,7 +1211,7 @@ namespace syncfusion_payc.Controllers
                           ,[edvvaloneto]
                           ,[edvfechinteobra]
                           ,[edvformapago]
-                          ,[edvidentificador],[edvcomentario] FROM [104.196.158.138].[test_payc_contabilidad].[dbo].[VISTA_ENCDOCVTAENTRA_MULTIPLES_FACTURAS_PRODUCTIVO] 
+                          ,[edvidentificador],LEFT([edvcomentario],250) FROM [104.196.158.138].[test_payc_contabilidad].[dbo].[VISTA_ENCDOCVTAENTRA_MULTIPLES_FACTURAS_PRODUCTIVO] 
                                               WHERE edvconseingre=" + COD_FACTURA.ToString() + @")";
                             #endregion
 
