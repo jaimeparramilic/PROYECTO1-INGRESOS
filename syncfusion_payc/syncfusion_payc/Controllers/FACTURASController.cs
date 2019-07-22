@@ -30,6 +30,11 @@ namespace syncfusion_payc.Controllers
             //var fACTURAS = db.FACTURAS.Include(f => f.CONTRATO_PROYECTO).Include(f => f.ESTADOS_FACTURAS).Include(f => f.FORMAS_PAGO_FECHAS);
             return View();
         }
+        public ActionResult VerificarVariosMeses()
+        {
+            //var fACTURAS = db.FACTURAS.Include(f => f.CONTRATO_PROYECTO).Include(f => f.ESTADOS_FACTURAS).Include(f => f.FORMAS_PAGO_FECHAS);
+            return View();
+        }
 
         // GET: FACTURAS/Details/5
         public ActionResult Details(long? id)
