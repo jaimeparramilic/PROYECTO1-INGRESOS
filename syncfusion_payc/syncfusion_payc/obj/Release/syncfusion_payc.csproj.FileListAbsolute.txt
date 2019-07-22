@@ -874,7 +874,6 @@ E:\PROYECTO1V2REMOTO\PROYECTO1-INGRESOS\syncfusion_payc\syncfusion_payc\bin\zh-H
 E:\PROYECTO1V2REMOTO\PROYECTO1-INGRESOS\syncfusion_payc\syncfusion_payc\bin\zh-Hant\System.Spatial.resources.dll
 E:\PROYECTO1V2REMOTO\PROYECTO1-INGRESOS\syncfusion_payc\syncfusion_payc\bin\es\System.Web.Http.resources.dll
 E:\PROYECTO1V2REMOTO\PROYECTO1-INGRESOS\syncfusion_payc\syncfusion_payc\bin\es\System.Web.Http.WebHost.resources.dll
-E:\PROYECTO1V2REMOTO\PROYECTO1-INGRESOS\syncfusion_payc\syncfusion_payc\obj\Release\syncfusion_payc.csprojAssemblyReference.cache
 E:\PROYECTO1V2REMOTO\PROYECTO1-INGRESOS\syncfusion_payc\syncfusion_payc\obj\Release\syncfusion_payc.csproj.CoreCompileInputs.cache
 E:\PROYECTO1V2REMOTO\PROYECTO1-INGRESOS\syncfusion_payc\syncfusion_payc\obj\Release\syncfusion_payc.csproj.CopyComplete
 E:\PROYECTO1V2REMOTO\PROYECTO1-INGRESOS\syncfusion_payc\syncfusion_payc\obj\Release\syncfusion_payc.dll
