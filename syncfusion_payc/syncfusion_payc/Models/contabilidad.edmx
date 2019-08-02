@@ -1212,6 +1212,24 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.DATOS_VERIFICAR_F
           <Property Name="PERIODO_FACTURAR" Type="date" />
         </EntityType>
         <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.DETALLE_FACTURA_ITEMPERS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="DETALLE_FACTURA_ITEMPERS">
+          <Key>
+            <PropertyRef Name="CAD_DETALLE_FACTURA" />
+          </Key>
+          <Property Name="COD_FACTURA" Type="bigint" />
+          <Property Name="CAD_DETALLE_FACTURA" Type="bigint" Nullable="false" />
+          <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
+          <Property Name="COD_ITEMPERS_CONTRATO" Type="bigint" />
+          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
+          <Property Name="VALOR_SIN_IMPUESTOS" Type="numeric" Precision="30" Scale="20" />
+          <Property Name="COD_CAUSA_ESTADO" Type="bigint" />
+          <Property Name="COD_ESTADO_DETALLE" Type="bigint" />
+          <Property Name="COD_GRUPO_FACTURA" Type="bigint" />
+          <Property Name="COD_CONCEPTO_PSL" Type="bigint" />
+          <Property Name="PERIODO_FACTURA" Type="date" />
+        </EntityType>
+        <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.FLUJO_INGRESOS_ITEM' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="FLUJO_INGRESOS_ITEM">
           <Key>
@@ -2567,8 +2585,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FACTURAS_FE
           <Property Name="FECHA_FORMA_PAGO" Type="date" />
         </EntityType>
         <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FACTURAS_NUMERO_PSL_GRUPO_TEMP' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
-        <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FACTURAS_PAGOS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="VISTA_FACTURAS_PAGOS">
           <Key>
@@ -2602,6 +2618,14 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FACTURAS_TR
           <Property Name="TRAZA_FACTURA_PSL_PRODUCTIVO" Type="varchar(max)" />
           <Property Name="TRAZA_FACTURA_PSL_PRUEBAS" Type="varchar(max)" />
         </EntityType>
+        <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FECHAS_FACTURAS' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="VISTA_FECHAS_FACTURAS">
+          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
+          <Property Name="PERIODO_FACTURA" Type="date" />
+          <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
+          <Property Name="Row" Type="bigint" />
+        </EntityType>-->
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FINANCIERA' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="VISTA_FINANCIERA">
@@ -5097,6 +5121,21 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
     [DATOS_VERIFICAR_FACTURA].[DESCRIPCION] AS [DESCRIPCION], 
     [DATOS_VERIFICAR_FACTURA].[PERIODO_FACTURAR] AS [PERIODO_FACTURAR]
     FROM [dbo].[DATOS_VERIFICAR_FACTURA] AS [DATOS_VERIFICAR_FACTURA]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="DETALLE_FACTURA_ITEMPERS" EntityType="Self.DETALLE_FACTURA_ITEMPERS" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [DETALLE_FACTURA_ITEMPERS].[COD_FACTURA] AS [COD_FACTURA], 
+    [DETALLE_FACTURA_ITEMPERS].[CAD_DETALLE_FACTURA] AS [CAD_DETALLE_FACTURA], 
+    [DETALLE_FACTURA_ITEMPERS].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
+    [DETALLE_FACTURA_ITEMPERS].[COD_ITEMPERS_CONTRATO] AS [COD_ITEMPERS_CONTRATO], 
+    [DETALLE_FACTURA_ITEMPERS].[COD_FORMAS_PAGO_FECHAS] AS [COD_FORMAS_PAGO_FECHAS], 
+    [DETALLE_FACTURA_ITEMPERS].[VALOR_SIN_IMPUESTOS] AS [VALOR_SIN_IMPUESTOS], 
+    [DETALLE_FACTURA_ITEMPERS].[COD_CAUSA_ESTADO] AS [COD_CAUSA_ESTADO], 
+    [DETALLE_FACTURA_ITEMPERS].[COD_ESTADO_DETALLE] AS [COD_ESTADO_DETALLE], 
+    [DETALLE_FACTURA_ITEMPERS].[COD_GRUPO_FACTURA] AS [COD_GRUPO_FACTURA], 
+    [DETALLE_FACTURA_ITEMPERS].[COD_CONCEPTO_PSL] AS [COD_CONCEPTO_PSL], 
+    [DETALLE_FACTURA_ITEMPERS].[PERIODO_FACTURA] AS [PERIODO_FACTURA]
+    FROM [dbo].[DETALLE_FACTURA_ITEMPERS] AS [DETALLE_FACTURA_ITEMPERS]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="FLUJO_INGRESOS_ITEM" EntityType="Self.FLUJO_INGRESOS_ITEM" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -7796,6 +7835,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
           <EntitySet Name="VISTA_NOVEDADES_DETALLE_ADJUNTO_PERS" EntityType="test_payc_contabilidadModel.VISTA_NOVEDADES_DETALLE_ADJUNTO_PERS" />
+          <EntitySet Name="DETALLE_FACTURA_ITEMPERS" EntityType="test_payc_contabilidadModel.DETALLE_FACTURA_ITEMPERS" />
           </EntityContainer>
         <EntityType Name="CONTRATO_PROYECTO">
           <Key>
@@ -12385,6 +12425,22 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <Property Name="SALARIO_COMERCIAL" Type="Decimal" Precision="30" Scale="20" />
           <Property Name="COD_DETALLE_FACTURA_ADJUNTO_PERS" Type="Int64" />
         </EntityType>
+        <EntityType Name="DETALLE_FACTURA_ITEMPERS">
+          <Key>
+            <PropertyRef Name="CAD_DETALLE_FACTURA" />
+          </Key>
+          <Property Name="COD_FACTURA" Type="Int64" />
+          <Property Name="CAD_DETALLE_FACTURA" Type="Int64" Nullable="false" />
+          <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
+          <Property Name="COD_ITEMPERS_CONTRATO" Type="Int64" />
+          <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
+          <Property Name="VALOR_SIN_IMPUESTOS" Type="Decimal" Precision="30" Scale="20" />
+          <Property Name="COD_CAUSA_ESTADO" Type="Int64" />
+          <Property Name="COD_ESTADO_DETALLE" Type="Int64" />
+          <Property Name="COD_GRUPO_FACTURA" Type="Int64" />
+          <Property Name="COD_CONCEPTO_PSL" Type="Int64" />
+          <Property Name="PERIODO_FACTURA" Type="DateTime" Precision="0" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -15475,6 +15531,23 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
                 <ScalarProperty Name="COD_REGISTRO_NOVEDADES" ColumnName="COD_REGISTRO_NOVEDADES" />
                 <ScalarProperty Name="COD_TIPO_NOVEDAD" ColumnName="COD_TIPO_NOVEDAD" />
                 <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DETALLE_FACTURA_ITEMPERS">
+            <EntityTypeMapping TypeName="test_payc_contabilidadModel.DETALLE_FACTURA_ITEMPERS">
+              <MappingFragment StoreEntitySet="DETALLE_FACTURA_ITEMPERS">
+                <ScalarProperty Name="PERIODO_FACTURA" ColumnName="PERIODO_FACTURA" />
+                <ScalarProperty Name="COD_CONCEPTO_PSL" ColumnName="COD_CONCEPTO_PSL" />
+                <ScalarProperty Name="COD_GRUPO_FACTURA" ColumnName="COD_GRUPO_FACTURA" />
+                <ScalarProperty Name="COD_ESTADO_DETALLE" ColumnName="COD_ESTADO_DETALLE" />
+                <ScalarProperty Name="COD_CAUSA_ESTADO" ColumnName="COD_CAUSA_ESTADO" />
+                <ScalarProperty Name="VALOR_SIN_IMPUESTOS" ColumnName="VALOR_SIN_IMPUESTOS" />
+                <ScalarProperty Name="COD_FORMAS_PAGO_FECHAS" ColumnName="COD_FORMAS_PAGO_FECHAS" />
+                <ScalarProperty Name="COD_ITEMPERS_CONTRATO" ColumnName="COD_ITEMPERS_CONTRATO" />
+                <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
+                <ScalarProperty Name="CAD_DETALLE_FACTURA" ColumnName="CAD_DETALLE_FACTURA" />
+                <ScalarProperty Name="COD_FACTURA" ColumnName="COD_FACTURA" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -427,6 +427,9 @@
     <Compile Include="Models\DETALLE_FACTURA_ITEM.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DETALLE_FACTURA_ITEMPERS.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DETALLE_FACTURA_ITEM_TEMP.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
@@ -2009,7 +2012,7 @@
     <Content Include="Views\VISTA_DETALLE_ADJUNTOS_PERS\Edit.cshtml" />
     <Content Include="Views\VISTA_DETALLE_ADJUNTOS_PERS\Index.cshtml" />
     <None Include="Views\FACTURAS\Adjunto.cshtml.bk_20190523" />
-    <None Include="Views\FACTURAS\Verificar.cshtml.bk_20190527.cshtml" />
+    <None Include="Views\FACTURAS\VerificarV.cshtml" />
     <Content Include="Views\FACTURAS\VerificarVariosMeses.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />

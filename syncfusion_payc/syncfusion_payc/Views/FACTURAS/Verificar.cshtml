@@ -132,7 +132,9 @@
                                                     col.Field("FECHA_INICIO_NOVEDAD").Width(120).HeaderText("FECHA INICIO NOVEDAD").Format("{0:dd/MM/yyyy HH:mm}").ValidationRules(v => v.AddRule("required", true)).EditType(EditingType.DateTimePicker).Add();
                                                     col.Field("FECHA_FIN_NOVEDAD").Width(120).HeaderText("FECHA FIN NOVEDAD").Format("{0:dd/MM/yyyy HH:mm}").ValidationRules(v => v.AddRule("required", true).AddRule("comparacion_fechas", true)).EditType(EditingType.DateTimePicker).Add();
                                                     col.Field("COD_FORMAS_PAGO_FECHAS").Visible(false).HeaderText("COD_FORMAS_PAGO_FECHAS").Type("String").ForeignKeyField("COD_COD_FORMAS_PAGO_FECHA").ForeignKeyValue("FECHA_FORMA_PAGO").DataSource((IEnumerable<object>)new syncfusion_payc.Models.test_payc_contabilidadEntities().FORMAS_PAGO_FECHAS.ToList()).EditType(EditingType.NumericEdit).Add();
-                                                });
+                                                })
+                                                ;
+
                                             }))
 
 

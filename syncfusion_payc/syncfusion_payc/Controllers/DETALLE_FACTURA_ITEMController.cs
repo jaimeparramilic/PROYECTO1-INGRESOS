@@ -25,7 +25,19 @@ namespace syncfusion_payc.Controllers
         {
             var dETALLE_FACTURA_ITEM = db.DETALLE_FACTURA_ITEM.Include(d => d.CAUSA_ESTADO).Include(d => d.CONCEPTOS).Include(d => d.CONTRATO_PROYECTO).Include(d => d.ESTADOS_DETALLE).Include(d => d.ESTADOS_FACTURAS).Include(d => d.FACTURAS).Include(d => d.FORMAS_PAGO_FECHAS).Include(d => d.ITEMS_CONTRATO);
             return View(dETALLE_FACTURA_ITEM.ToList());
+
         }
+
+       
+
+         public ActionResult draganddrop()
+         {
+
+             //viewbag.datasource2 = db.detalle_factura_item.tolist();
+            // ViewBag.datasource2 = db.DETALLE_FACTURA_ADJUNTO_PERS.ToList();
+            return View();
+         }
+
 
         // GET: DETALLE_FACTURA_ITEM/Details/5
         public ActionResult Details(long? id)

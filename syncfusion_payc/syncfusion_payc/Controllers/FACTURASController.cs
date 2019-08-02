@@ -30,11 +30,114 @@ namespace syncfusion_payc.Controllers
             //var fACTURAS = db.FACTURAS.Include(f => f.CONTRATO_PROYECTO).Include(f => f.ESTADOS_FACTURAS).Include(f => f.FORMAS_PAGO_FECHAS);
             return View();
         }
-        public ActionResult VerificarVariosMeses()
+        public ActionResult VerificarV(long? id)
         {
-            //var fACTURAS = db.FACTURAS.Include(f => f.CONTRATO_PROYECTO).Include(f => f.ESTADOS_FACTURAS).Include(f => f.FORMAS_PAGO_FECHAS);
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            DATOS_VERIFICAR_FACTURA DatVerificarFactu = db.DATOS_VERIFICAR_FACTURA.Find(id);
+
+            if (DatVerificarFactu == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.COD_FACTURA = DatVerificarFactu.COD_FACTURA;
+            ViewBag.COD_CONTRATO_PROYECTO = DatVerificarFactu.COD_CONTRATO_PROYECTO;
+            ViewBag.COD_FORMAS_PAGO_FECHAS = DatVerificarFactu.COD_FORMAS_PAGO_FECHAS;
+            ViewBag.COD_ESTADO_FACTURA = DatVerificarFactu.COD_ESTADO_FACTURA;
+            ViewBag.DESCRIPCION_PROYECTO = DatVerificarFactu.DESCRIPCION;
+            ViewBag.PERIODO_FACTURAR = DatVerificarFactu.PERIODO_FACTURAR;
+            ViewBag.ESTADO_FACTURA = DatVerificarFactu.COD_ESTADO_FACTURA;
+
+            //Consulta para traer total
+            ViewBag.TOTAL_FACTURA = "0";
+            string query = @"SELECT FORMAT([TOTAL_FACTURA],'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS] WHERE COD_FACTURA=" + id.ToString();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                connection.Open();
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    ViewBag.TOTAL_FACTURA = dr.GetValue(0).ToString();
+                }
+                connection.Close();
+            }
+
+            //Consulta para traer total de items y facutra tipo int para corregir error del sumary de la grid roles (para poder restar el total - total items)
+            ViewBag.TOTAL_FACTURA_ITEM = "0";
+            string query_item = @"SELECT FORMAT([TOTAL],'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS_ITEM] WHERE COD_FACTURA=" + id.ToString();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query_item, connection);
+                connection.Open();
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    ViewBag.TOTAL_FACTURA_ITEM = dr.GetValue(0).ToString();
+                }
+                connection.Close();
+            }
+
+            ViewBag.TOTAL_FACTURA_PERS = "0";
+            string query_pers = @"SELECT FORMAT([TOTAL],'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS_PERS] WHERE COD_FACTURA=" + id.ToString();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query_pers, connection);
+                connection.Open();
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    ViewBag.TOTAL_FACTURA_PERS = dr.GetValue(0).ToString();
+                }
+                connection.Close();
+            }
+            long? cp = db.DETALLE_FACTURA_ITEMPERS.Where(u => u.COD_FACTURA == id).Select(o => o.COD_CONTRATO_PROYECTO).FirstOrDefault();
+
+            ViewBag.datasource3 = db.DETALLE_FACTURA_ITEMPERS.Where(u => u.COD_FACTURA == id);
+            ViewBag.datasource2 = db.DETALLE_FACTURA_ITEMPERS.Where(u => u.COD_CONTRATO_PROYECTO == cp && u.COD_FACTURA != null && u.COD_FACTURA != id);
+
+            ViewBag.fechas_facturas = db.DETALLE_FACTURA_ITEMPERS.Select(m => new { m.COD_FORMAS_PAGO_FECHAS, m.PERIODO_FACTURA }).Distinct().ToList();
+
+
+
             return View();
         }
+
+        public ActionResult UpdateItem(string itemIds)
+        {
+
+            int count  = 1;
+            List<int> itemIdList = new List<int>();
+            itemIdList = itemIds.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
+            foreach (var itemid in itemIds)
+            {
+                try
+                {
+                    DETALLE_FACTURA_ITEMPERS b= db.DETALLE_FACTURA_ITEMPERS.Where(x => x.COD_FACTURA == 0).FirstOrDefault();
+                    b.VALOR_SIN_IMPUESTOS = count;
+                    db.DETALLE_FACTURA_ITEMPERS.Add(b);
+                    db.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+                count++;
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
+
+
+
+        }
+
+
+
 
         // GET: FACTURAS/Details/5
         public ActionResult Details(long? id)
@@ -105,37 +208,6 @@ namespace syncfusion_payc.Controllers
 
             return View();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
