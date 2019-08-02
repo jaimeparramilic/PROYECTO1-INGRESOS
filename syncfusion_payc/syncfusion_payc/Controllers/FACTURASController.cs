@@ -332,21 +332,21 @@ namespace syncfusion_payc.Controllers
         //Función que actualiza la nueva factura del ítem o de la persona
         public ActionResult Actualizar_Factura(long FACTURA_ANT,long FACTURA_ACTUAL,string TIPO,long COD_DETALLE)
         {
-
             if (TIPO == "PERS")
             {
-
-               DETALLE_FACTURA_ADJUNTO_PERS table = db.DETALLE_FACTURA_ADJUNTO_PERS.Single(o => o.COD_DETALLE_FACTURA_ADJUNTO_PERS == COD_DETALLE);
-               table.COD_FACTURA = FACTURA_ACTUAL;
-               db.SaveChanges();
+                DETALLE_FACTURA_ADJUNTO_PERS table = db.DETALLE_FACTURA_ADJUNTO_PERS.Single(o => o.COD_DETALLE_FACTURA_ADJUNTO_PERS == COD_DETALLE);
+                table.COD_FACTURA_ANT = FACTURA_ANT;
+                table.COD_FACTURA = FACTURA_ACTUAL;
+                db.SaveChanges();
             }
             else
             {
                 DETALLE_FACTURA_ITEM table = db.DETALLE_FACTURA_ITEM.Single(o => o.COD_DETALLE_FACTURA_ITEM == COD_DETALLE);
+                table.COD_FACTURA_ANT = FACTURA_ANT;
                 table.COD_FACTURA = FACTURA_ACTUAL;
                 db.SaveChanges();
             }
-            
+            //Actualizar valores totales
             return Json(true, JsonRequestBehavior.AllowGet);
         }
         #endregion
