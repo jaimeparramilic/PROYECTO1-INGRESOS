@@ -878,3 +878,4 @@ E:\PROYECTO1V2REMOTO\PROYECTO1-INGRESOS\syncfusion_payc\syncfusion_payc\obj\Rele
 E:\PROYECTO1V2REMOTO\PROYECTO1-INGRESOS\syncfusion_payc\syncfusion_payc\obj\Release\syncfusion_payc.csproj.CopyComplete
 E:\PROYECTO1V2REMOTO\PROYECTO1-INGRESOS\syncfusion_payc\syncfusion_payc\obj\Release\syncfusion_payc.dll
 E:\PROYECTO1V2REMOTO\PROYECTO1-INGRESOS\syncfusion_payc\syncfusion_payc\obj\Release\syncfusion_payc.pdb
+E:\PROYECTO1V2REMOTO\PROYECTO1-INGRESOS\syncfusion_payc\syncfusion_payc\obj\Release\syncfusion_payc.csprojAssemblyReference.cache

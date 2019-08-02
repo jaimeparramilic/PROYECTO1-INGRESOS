@@ -801,3 +801,114 @@ th[data-p="0,0"]{
 .indexfacturas .e-gridcontent .e-gridcontent .e-rowcell {
     white-space: normal !important;
 }
+
+.e-grid .e-gridheader {
+    background: transparent none repeat scroll 0 0 !important;
+    border-style: none;
+    border-top-style: none;
+    border-bottom-style: none;
+    color: #ffffff !important;
+    font-size: 12px;
+    border-radius: 3px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-top-left-radius: unset;
+    border-top-right-radius: unset;
+}
+
+
+
+    .e-grid .e-gridheader .e-headercell {
+        border-style: none !important;
+        border-top-style: none;
+        border-right-style: none;
+        border-bottom-style: none;
+        border-left-style: none;
+        background: transparent none repeat scroll 0 0 !important;
+        color: #FFFFFF !important;
+    }
+
+
+
+.e-toolbar:not(#texto_correo_toolbar):not(#texto_correo_toolbar_hiddenlist) {
+    background: transparent !important;
+    border-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: unset;
+    border-bottom-left-radius: unset;
+}
+
+
+
+
+.e-grid .e-gridheader .e-headercell {
+    color: grey !important;
+}
+
+
+
+.e-grid .e-toolbar:not(#texto_correo_toolbar):not(#texto_correo_toolbar_hiddenlist) .e-icon {
+    color: grey !important;
+}
+
+
+
+.e-grid .e-gridheader .e-icon {
+    color: grey !important;
+}
+
+
+
+.e-grid .e-gridheader {
+    background: transparent none repeat scroll 0 0 !important;
+    border-style: none;
+    border-top-style: none;
+    border-bottom-style: none;
+    color: #ffffff !important;
+    font-size: 12px;
+    border-radius: 3px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-top-left-radius: unset;
+    border-top-right-radius: unset;
+}
+
+
+/*Estilo de Verificar V*/
+.e-grid .e-ul .e-horizontal {
+    width: 33% !important;
+}
+.dropdown-item {
+    display: block!important;
+}
+
+.contenedor_facturas_ant, .contenedor_facturas {
+    height: 0 auto;
+
+    padding: 0 10px;
+    border: 3px solid #ccc;
+   
+    border-radius: 10px;
+    display:block;
+    float:left;
+}
+
+#personal td {
+    background-color: cornflowerblue;
+    padding: 5px;
+    border-radius: 5px;
+    margin: 3px;
+}
+
+#items td {
+    background-color: #ccc;
+    padding: 5px;
+    border-radius: 5px;
+    margin: 3px;
+}
+.contenedor_facturas_ant{
+
+    margin-right:20px;
+}
+

@@ -312,6 +312,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.CONTRATOS_ROL_TEM
     <Property Name="FECHA_FIN" Type="date" />
     <Property Name="VALOR_DIAS_LAB" Type="numeric" Precision="30" Scale="20" />
     <Property Name="VALOR_SIN_IMPUESTOS" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="COD_FACTURA_ANT" Type="bigint" />
   </EntityType>
   <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.DETALLE_FACTURA_ADJUNTO_PERS_TEMP' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -363,6 +364,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.DETALLE_FACTURA_A
     <Property Name="COD_ESTADO_DETALLE" Type="bigint" />
     <Property Name="COD_CONCEPTO_PSL" Type="bigint" />
     <Property Name="COD_GRUPO_FACTURA" Type="bigint" />
+    <Property Name="COD_FACTURA_ANT" Type="bigint" />
   </EntityType>
   <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.DETALLE_FACTURA_ITEM_TEMP' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -1205,6 +1207,26 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.DATOS_VERIFICAR_F
     <Property Name="RANKING" Type="varchar" MaxLength="50" />
     <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
     <Property Name="PERIODO_FACTURAR" Type="date" />
+  </EntityType>
+  <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.DETALLE_FACTURA_ITEMPERS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="DETALLE_FACTURA_ITEMPERS">
+    <Key>
+      <PropertyRef Name="CAD_DETALLE_FACTURA" />
+      <PropertyRef Name="TIPO" />
+    </Key>
+    <Property Name="COD_FACTURA" Type="bigint" />
+    <Property Name="CAD_DETALLE_FACTURA" Type="bigint" Nullable="false" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
+    <Property Name="COD_ITEMPERS_CONTRATO" Type="bigint" />
+    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
+    <Property Name="VALOR_SIN_IMPUESTOS" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="COD_CAUSA_ESTADO" Type="bigint" />
+    <Property Name="COD_ESTADO_DETALLE" Type="bigint" />
+    <Property Name="COD_GRUPO_FACTURA" Type="bigint" />
+    <Property Name="COD_CONCEPTO_PSL" Type="bigint" />
+    <Property Name="PERIODO_FACTURA" Type="date" />
+    <Property Name="TIPO" Type="varchar" MaxLength="4" Nullable="false" />
   </EntityType>
   <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.FLUJO_INGRESOS_ITEM' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -2561,8 +2583,6 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FACTURAS_FE
     <Property Name="RANKING" Type="varchar" MaxLength="50" />
     <Property Name="FECHA_FORMA_PAGO" Type="date" />
   </EntityType>
-  <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FACTURAS_NUMERO_PSL_GRUPO_TEMP' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_FACTURAS_PAGOS' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="VISTA_FACTURAS_PAGOS">
@@ -5092,6 +5112,22 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
     [DATOS_VERIFICAR_FACTURA].[DESCRIPCION] AS [DESCRIPCION], 
     [DATOS_VERIFICAR_FACTURA].[PERIODO_FACTURAR] AS [PERIODO_FACTURAR]
     FROM [dbo].[DATOS_VERIFICAR_FACTURA] AS [DATOS_VERIFICAR_FACTURA]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="DETALLE_FACTURA_ITEMPERS" EntityType="Self.DETALLE_FACTURA_ITEMPERS" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [DETALLE_FACTURA_ITEMPERS].[COD_FACTURA] AS [COD_FACTURA], 
+    [DETALLE_FACTURA_ITEMPERS].[CAD_DETALLE_FACTURA] AS [CAD_DETALLE_FACTURA], 
+    [DETALLE_FACTURA_ITEMPERS].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
+    [DETALLE_FACTURA_ITEMPERS].[COD_ITEMPERS_CONTRATO] AS [COD_ITEMPERS_CONTRATO], 
+    [DETALLE_FACTURA_ITEMPERS].[COD_FORMAS_PAGO_FECHAS] AS [COD_FORMAS_PAGO_FECHAS], 
+    [DETALLE_FACTURA_ITEMPERS].[VALOR_SIN_IMPUESTOS] AS [VALOR_SIN_IMPUESTOS], 
+    [DETALLE_FACTURA_ITEMPERS].[COD_CAUSA_ESTADO] AS [COD_CAUSA_ESTADO], 
+    [DETALLE_FACTURA_ITEMPERS].[COD_ESTADO_DETALLE] AS [COD_ESTADO_DETALLE], 
+    [DETALLE_FACTURA_ITEMPERS].[COD_GRUPO_FACTURA] AS [COD_GRUPO_FACTURA], 
+    [DETALLE_FACTURA_ITEMPERS].[COD_CONCEPTO_PSL] AS [COD_CONCEPTO_PSL], 
+    [DETALLE_FACTURA_ITEMPERS].[PERIODO_FACTURA] AS [PERIODO_FACTURA], 
+    [DETALLE_FACTURA_ITEMPERS].[TIPO] AS [TIPO]
+    FROM [dbo].[DETALLE_FACTURA_ITEMPERS] AS [DETALLE_FACTURA_ITEMPERS]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="FLUJO_INGRESOS_ITEM" EntityType="Self.FLUJO_INGRESOS_ITEM" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 

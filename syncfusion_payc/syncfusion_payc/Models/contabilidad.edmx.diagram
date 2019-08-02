@@ -24,8 +24,6 @@
         <EntityTypeShape EntityType="test_payc_contabilidadModel.CONTRATOS_ROL" Width="1.5" PointX="0.75" PointY="15.625" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.DEBUG" Width="1.5" PointX="0.75" PointY="12.125" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.DETALLE_FACTURA_ADJUNTO_ITEM" Width="1.5" PointX="5.25" PointY="30.125" />
-        <EntityTypeShape EntityType="test_payc_contabilidadModel.DETALLE_FACTURA_ADJUNTO_PERS" Width="1.5" PointX="10.5" PointY="31.75" />
-        <EntityTypeShape EntityType="test_payc_contabilidadModel.DETALLE_FACTURA_ITEM" Width="1.5" PointX="8.25" PointY="25" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.DETALLE_FACTURA_PERS" Width="1.5" PointX="13.5" PointY="32.75" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.EMAIL_CLIENTES" Width="1.5" PointX="11" PointY="2.375" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.ENTREGABLES" Width="1.5" PointX="8.25" PointY="22" />
@@ -204,8 +202,6 @@
         <AssociationConnector Association="test_payc_contabilidadModel.FK_CARTERA_FACTURAS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_GESTION_CARTERA_CARTERA" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_ITEM_CAUSA_ESTADO" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_PERS_CAUSA_ESTADO" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_CAUSA_ESTADO" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_CAUSA_ESTADO" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_CENTROS_COSTOS_ESTADOS_CECO" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_CONTRATOS_CLIENTES" />
@@ -214,7 +210,6 @@
         <AssociationConnector Association="test_payc_contabilidadModel.FK_COLABORADORES_GENEROS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_COLABORADORES_TIPO_CONTRATO" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_CONTRATO_COLABORADOR_COLABORADOR" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_PERS_COLABORADORES" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_ENTREGABLES_COLABORADORES" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_ESTUDIOS_COLABORADOR_COLABORADORES" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_REGISTRO_NOVEDADES_COLABORADOR" />
@@ -222,8 +217,6 @@
         <AssociationConnector Association="test_payc_contabilidadModel.FK_COMPROMISOS_ENTREGABLES_ENTREGABLES" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_CONTRATOS_ROL_CONCEPTOS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_ITEM_CONCEPTOS" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_PERS_CONCEPTOS" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_CONCEPTOS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_CONCEPTOS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_FACTURAS_CONCEPTOS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_ITEMS_CONTRATO_CONCEPTOS" />
@@ -236,17 +229,6 @@
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_ITEM_FORMAS_PAGO_FECHAS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_ITEM_GRUPOS_FACTURA" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_ITEM_ITEMS_CONTRATO" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_PERS_ESTADOS_DETALLE" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_PERS_ESTADOS_FACTURAS" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_PERS_FACTURAS" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_PERS_FORMAS_PAGO_FECHAS" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_PERS_GRUPOS_FACTURA" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_PERS_ROLES" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_ESTADO_DETALLE" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_ESTADOS_FACTURAS" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FACTURAS" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FECHAS" />
-        <AssociationConnector Association="test_payc_contabilidadModel.FK_detalle_factura_item_items" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_COLABORADOR" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_ESTADO_DETALLE" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_PERS_ESTADOS_FACTURAS" />
@@ -279,6 +261,24 @@
         <AssociationConnector Association="test_payc_contabilidadModel.FK_TIPOS_NOVEDAD_CONDICION_TIPO_NOVEDAD" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_NOVEDADES_DETALLE_ADJUNTO_PERS" Width="1.5" PointX="40.375" PointY="33.75" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.DETALLE_FACTURA_ITEMPERS" Width="1.5" PointX="40.375" PointY="37.75" />
+        <EntityTypeShape EntityType="test_payc_contabilidadModel.DETALLE_FACTURA_ADJUNTO_PERS" Width="1.5" PointX="25.5" PointY="43.75" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_PERS_CAUSA_ESTADO" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_PERS_COLABORADORES" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_PERS_CONCEPTOS" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_PERS_ESTADOS_DETALLE" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_PERS_ESTADOS_FACTURAS" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_PERS_FACTURAS" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_PERS_FORMAS_PAGO_FECHAS" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_PERS_GRUPOS_FACTURA" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_PERS_ROLES" />
+        <EntityTypeShape EntityType="test_payc_contabilidadModel.DETALLE_FACTURA_ITEM" Width="1.5" PointX="10.5" PointY="32.375" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_CAUSA_ESTADO" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_CONCEPTOS" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_ESTADO_DETALLE" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_ESTADOS_FACTURAS" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FACTURAS" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FECHAS" />
+        <AssociationConnector Association="test_payc_contabilidadModel.FK_detalle_factura_item_items" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
