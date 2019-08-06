@@ -26,5 +26,7 @@ namespace syncfusion_payc.Models
         public Nullable<long> COD_CONCEPTO_PSL { get; set; }
         public Nullable<System.DateTime> PERIODO_FACTURA { get; set; }
         public string TIPO { get; set; }
+        public string DESCRIPCION { get; set; }
+        public string COD_EN_PSL { get; set; }
     }
 }

@@ -279,6 +279,7 @@
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FACTURAS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FECHAS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_detalle_factura_item_items" />
+        <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_PRUEBA_ESTADOS_CECO" Width="1.5" PointX="7.375" PointY="25.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

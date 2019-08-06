@@ -1225,13 +1225,15 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.DETALLE_FACTURA_I
           <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" />
           <Property Name="COD_ITEMPERS_CONTRATO" Type="bigint" />
           <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
-          <Property Name="VALOR_SIN_IMPUESTOS" Type="numeric" Precision="30" Scale="20" />
+          <Property Name="VALOR_SIN_IMPUESTOS" Type="nvarchar" MaxLength="4000" />
           <Property Name="COD_CAUSA_ESTADO" Type="bigint" />
           <Property Name="COD_ESTADO_DETALLE" Type="bigint" />
           <Property Name="COD_GRUPO_FACTURA" Type="bigint" />
           <Property Name="COD_CONCEPTO_PSL" Type="bigint" />
           <Property Name="PERIODO_FACTURA" Type="date" />
           <Property Name="TIPO" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
+          <Property Name="COD_EN_PSL" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.FLUJO_INGRESOS_ITEM' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -3014,6 +3016,15 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PRUEBA_DECI
           <Property Name="ESTADO" Type="varchar" MaxLength="50" />
           <Property Name="FECHA_REGISTRO" Type="datetime" />
           <Property Name="USUARIO_REGISTRO" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PRUEBA_ESTADOS_CECO' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="VISTA_PRUEBA_ESTADOS_CECO">
+          <Key>
+            <PropertyRef Name="COD_ESTADO_CECO" />
+          </Key>
+          <Property Name="COD_ESTADO_CECO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_PRUEBA_PARA_R' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -5131,7 +5142,9 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
     [DETALLE_FACTURA_ITEMPERS].[COD_GRUPO_FACTURA] AS [COD_GRUPO_FACTURA], 
     [DETALLE_FACTURA_ITEMPERS].[COD_CONCEPTO_PSL] AS [COD_CONCEPTO_PSL], 
     [DETALLE_FACTURA_ITEMPERS].[PERIODO_FACTURA] AS [PERIODO_FACTURA], 
-    [DETALLE_FACTURA_ITEMPERS].[TIPO] AS [TIPO]
+    [DETALLE_FACTURA_ITEMPERS].[TIPO] AS [TIPO], 
+    [DETALLE_FACTURA_ITEMPERS].[DESCRIPCION] AS [DESCRIPCION], 
+    [DETALLE_FACTURA_ITEMPERS].[COD_EN_PSL] AS [COD_EN_PSL]
     FROM [dbo].[DETALLE_FACTURA_ITEMPERS] AS [DETALLE_FACTURA_ITEMPERS]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="FLUJO_INGRESOS_ITEM" EntityType="Self.FLUJO_INGRESOS_ITEM" store:Type="Views" store:Schema="dbo">
@@ -6497,6 +6510,12 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
     [VISTA_PRUEBA_DECIMALES].[USUARIO_REGISTRO] AS [USUARIO_REGISTRO]
     FROM [dbo].[VISTA_PRUEBA_DECIMALES] AS [VISTA_PRUEBA_DECIMALES]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="VISTA_PRUEBA_ESTADOS_CECO" EntityType="Self.VISTA_PRUEBA_ESTADOS_CECO" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VISTA_PRUEBA_ESTADOS_CECO].[COD_ESTADO_CECO] AS [COD_ESTADO_CECO], 
+    [VISTA_PRUEBA_ESTADOS_CECO].[DESCRIPCION] AS [DESCRIPCION]
+    FROM [dbo].[VISTA_PRUEBA_ESTADOS_CECO] AS [VISTA_PRUEBA_ESTADOS_CECO]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="VISTA_PRUEBA_PARA_R" EntityType="Self.VISTA_PRUEBA_PARA_R" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [VISTA_PRUEBA_PARA_R].[COD_FLUJO_INGRESOS_ROL] AS [COD_FLUJO_INGRESOS_ROL], 
@@ -7833,6 +7852,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
             <End Role="ITEMS_CONTRATO" EntitySet="ITEMS_CONTRATO" />
             <End Role="DETALLE_FACTURA_ITEM" EntitySet="DETALLE_FACTURA_ITEM" />
           </AssociationSet>
+          <EntitySet Name="VISTA_PRUEBA_ESTADOS_CECO" EntityType="test_payc_contabilidadModel.VISTA_PRUEBA_ESTADOS_CECO" />
           </EntityContainer>
         <EntityType Name="CONTRATO_PROYECTO">
           <Key>
@@ -12149,13 +12169,15 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
           <Property Name="COD_ITEMPERS_CONTRATO" Type="Int64" />
           <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
-          <Property Name="VALOR_SIN_IMPUESTOS" Type="Decimal" Precision="30" Scale="20" />
+          <Property Name="VALOR_SIN_IMPUESTOS" Type="Decimal" />
           <Property Name="COD_CAUSA_ESTADO" Type="Int64" />
           <Property Name="COD_ESTADO_DETALLE" Type="Int64" />
           <Property Name="COD_GRUPO_FACTURA" Type="Int64" />
           <Property Name="COD_CONCEPTO_PSL" Type="Int64" />
           <Property Name="PERIODO_FACTURA" Type="DateTime" Precision="0" />
           <Property Name="TIPO" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="COD_EN_PSL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="DETALLE_FACTURA_ADJUNTO_PERS">
           <Key>
@@ -12442,6 +12464,13 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="VISTA_PRUEBA_ESTADOS_CECO">
+          <Key>
+            <PropertyRef Name="COD_ESTADO_CECO" />
+          </Key>
+          <Property Name="COD_ESTADO_CECO" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -15487,6 +15516,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <EntitySetMapping Name="DETALLE_FACTURA_ITEMPERS">
             <EntityTypeMapping TypeName="test_payc_contabilidadModel.DETALLE_FACTURA_ITEMPERS">
               <MappingFragment StoreEntitySet="DETALLE_FACTURA_ITEMPERS">
+                <ScalarProperty Name="COD_EN_PSL" ColumnName="COD_EN_PSL" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
                 <ScalarProperty Name="TIPO" ColumnName="TIPO" />
                 <ScalarProperty Name="PERIODO_FACTURA" ColumnName="PERIODO_FACTURA" />
                 <ScalarProperty Name="COD_CONCEPTO_PSL" ColumnName="COD_CONCEPTO_PSL" />
@@ -15552,6 +15583,14 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
                 <ScalarProperty Name="COD_ITEM_CONTRATO" ColumnName="COD_ITEM_CONTRATO" />
                 <ScalarProperty Name="COD_CONTRATO_PROYECTO" ColumnName="COD_CONTRATO_PROYECTO" />
                 <ScalarProperty Name="COD_DETALLE_FACTURA_ITEM" ColumnName="COD_DETALLE_FACTURA_ITEM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VISTA_PRUEBA_ESTADOS_CECO">
+            <EntityTypeMapping TypeName="test_payc_contabilidadModel.VISTA_PRUEBA_ESTADOS_CECO">
+              <MappingFragment StoreEntitySet="VISTA_PRUEBA_ESTADOS_CECO">
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="COD_ESTADO_CECO" ColumnName="COD_ESTADO_CECO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -854,6 +854,9 @@
     <Compile Include="Models\VISTA_PRUEBA_DECIMALES.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\VISTA_PRUEBA_ESTADOS_CECO.cs">
+      <DependentUpon>contabilidad.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\VISTA_PRUEBA_PARA_R.cs">
       <DependentUpon>contabilidad.tt</DependentUpon>
     </Compile>
