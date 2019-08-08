@@ -19,7 +19,7 @@ namespace syncfusion_payc.Models
         public Nullable<long> COD_CONTRATO_PROYECTO { get; set; }
         public Nullable<long> COD_ITEMPERS_CONTRATO { get; set; }
         public Nullable<long> COD_FORMAS_PAGO_FECHAS { get; set; }
-        public Nullable<decimal> VALOR_SIN_IMPUESTOS { get; set; }
+        public string VALOR_SIN_IMPUESTOS { get; set; }
         public Nullable<long> COD_CAUSA_ESTADO { get; set; }
         public Nullable<long> COD_ESTADO_DETALLE { get; set; }
         public Nullable<long> COD_GRUPO_FACTURA { get; set; }

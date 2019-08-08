@@ -260,7 +260,6 @@
         <AssociationConnector Association="test_payc_contabilidadModel.FK_TIPOS_NOVEDAD_CONDICION_TIPO_CONDICION" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_TIPOS_NOVEDAD_CONDICION_TIPO_NOVEDAD" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_NOVEDADES_DETALLE_ADJUNTO_PERS" Width="1.5" PointX="40.375" PointY="33.75" />
-        <EntityTypeShape EntityType="test_payc_contabilidadModel.DETALLE_FACTURA_ITEMPERS" Width="1.5" PointX="40.375" PointY="37.75" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.DETALLE_FACTURA_ADJUNTO_PERS" Width="1.5" PointX="25.5" PointY="43.75" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_PERS_CAUSA_ESTADO" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_PERS_COLABORADORES" />
@@ -280,6 +279,7 @@
         <AssociationConnector Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ITEM_FECHAS" />
         <AssociationConnector Association="test_payc_contabilidadModel.FK_detalle_factura_item_items" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.VISTA_PRUEBA_ESTADOS_CECO" Width="1.5" PointX="7.375" PointY="25.75" />
+        <EntityTypeShape EntityType="test_payc_contabilidadModel.DETALLE_FACTURA_ITEMPERS" Width="1.5" PointX="40.375" PointY="37.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

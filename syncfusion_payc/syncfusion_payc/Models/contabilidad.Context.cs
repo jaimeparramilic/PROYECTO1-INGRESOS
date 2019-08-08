@@ -216,10 +216,10 @@ namespace syncfusion_payc.Models
         public virtual DbSet<VISTA_TOTALES_GRUPOS_FACTURAS_SECUENCIA_PRODUCTIVO> VISTA_TOTALES_GRUPOS_FACTURAS_SECUENCIA_PRODUCTIVO { get; set; }
         public virtual DbSet<VISTA_USUARIOS_AttendanceDB> VISTA_USUARIOS_AttendanceDB { get; set; }
         public virtual DbSet<VISTA_NOVEDADES_DETALLE_ADJUNTO_PERS> VISTA_NOVEDADES_DETALLE_ADJUNTO_PERS { get; set; }
-        public virtual DbSet<DETALLE_FACTURA_ITEMPERS> DETALLE_FACTURA_ITEMPERS { get; set; }
         public virtual DbSet<DETALLE_FACTURA_ADJUNTO_PERS> DETALLE_FACTURA_ADJUNTO_PERS { get; set; }
         public virtual DbSet<DETALLE_FACTURA_ITEM> DETALLE_FACTURA_ITEM { get; set; }
         public virtual DbSet<VISTA_PRUEBA_ESTADOS_CECO> VISTA_PRUEBA_ESTADOS_CECO { get; set; }
+        public virtual DbSet<DETALLE_FACTURA_ITEMPERS> DETALLE_FACTURA_ITEMPERS { get; set; }
     
         public virtual ObjectResult<sp_actualizar_estado_centro_costo_Result> sp_actualizar_estado_centro_costo(ObjectParameter ret, ObjectParameter error, Nullable<int> cont)
         {
