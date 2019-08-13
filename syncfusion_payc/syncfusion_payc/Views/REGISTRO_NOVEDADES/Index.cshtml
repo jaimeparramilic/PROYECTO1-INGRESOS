@@ -5,6 +5,7 @@
     ViewBag.Title = "";
 }
 @if (User.Identity.IsAuthenticated)
+
 {
     <h4>REGISTRO DE NOVEDADES</h4>
     <div class="control-section">
@@ -36,7 +37,8 @@
                                                                 col.Field("DESCRIPCION").HeaderText("DESCRIPCION").AllowEditing(false).AllowFiltering(true).Add();
 
 
-                                                            }).ChildGrid(child => child
+                                                            })
+                                                            .ChildGrid(child => child
                                                                 .Datasource(ds => ds.URL("GetOrderData").InsertURL("PerformInsert").UpdateURL("PerformUpdate").RemoveURL("PerformDelete").Adaptor(AdaptorType.UrlAdaptor))
                                                                 .AllowPaging()
                                                                 .AllowFiltering()

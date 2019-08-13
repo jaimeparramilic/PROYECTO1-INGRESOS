@@ -289,34 +289,23 @@ namespace syncfusion_payc.Controllers
                 connection.Close();
             }
 
-            //Consulta para traer total de items y facutra tipo int para corregir error del sumary de la grid roles (para poder restar el total - total items)
-            ViewBag.TOTAL_FACTURA_ITEM = "0";
-            string query_item = @"SELECT FORMAT([TOTAL],'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS_ITEM] WHERE COD_FACTURA=" + id.ToString();
+            ViewBag.TOTAL_FACTURA_A = "0";
+            string query_t = @"SELECT FORMAT([TOTAL_FACTURA]),'C','es-CO')FROM[test_payc_contabilidad].[dbo].[TOTAL_FACTURAS] WHERE COD_FACTURA=" + id.ToString();
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                SqlCommand command = new SqlCommand(query_item, connection);
+                SqlCommand command = new SqlCommand(query, connection);
                 connection.Open();
                 SqlDataReader dr = command.ExecuteReader();
                 while (dr.Read())
                 {
-                    ViewBag.TOTAL_FACTURA_ITEM = dr.GetValue(0).ToString();
+                    ViewBag.TOTAL_FACTURA_A = dr.GetValue(0).ToString();
                 }
                 connection.Close();
+
             }
 
-            ViewBag.TOTAL_FACTURA_PERS = "0";
-            string query_pers = @"SELECT FORMAT([TOTAL],'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS_PERS] WHERE COD_FACTURA=" + id.ToString();
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                SqlCommand command = new SqlCommand(query_pers, connection);
-                connection.Open();
-                SqlDataReader dr = command.ExecuteReader();
-                while (dr.Read())
-                {
-                    ViewBag.TOTAL_FACTURA_PERS = dr.GetValue(0).ToString();
-                }
-                connection.Close();
-            }
+            
             long? cp = db.DETALLE_FACTURA_ITEMPERS.Where(u => u.COD_FACTURA == id).Select(o => o.COD_CONTRATO_PROYECTO).FirstOrDefault();
 
             ViewBag.datasource3 = db.DETALLE_FACTURA_ITEMPERS.Where(u => u.COD_FACTURA == id);
@@ -347,8 +336,105 @@ namespace syncfusion_payc.Controllers
                 db.SaveChanges();
             }
             //Actualizar valores totales
+            ViewBag.TOTAL_FACTURA_A = "0";
+            string query = @"SELECT FORMAT([TOTAL_FACTURA]),'C','es-CO')FROM[test_payc_contabilidad].[dbo].[TOTAL_FACTURAS] WHERE COD_FACTURA=" + FACTURA_ANT.ToString();
+                            
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                connection.Open();
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    ViewBag.TOTAL_FACTURA_A = dr.GetValue(0).ToString();
+                }
+                connection.Close();
+
+            }
+            //Actualizar grid rol
+           
             return Json(true, JsonRequestBehavior.AllowGet);
         }
+        //TRAER DATOS ROL 
+        
+        public ActionResult GetOrderData_rol(DataManager dm)
+        {
+            IEnumerable DataSource = db.CONTRATOS_ROL.ToList();
+            DataOperations ds = new DataOperations();
+            List<string> str = new List<string>();
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            if (dm.Search != null && dm.Search.Count > 0)
+            {
+                DataSource = ds.PerformSearching(DataSource, dm.Search);
+            }
+            if (dm.Sorted != null && dm.Sorted.Count > 0) //Sorting
+            {
+                DataSource = ds.PerformSorting(DataSource, dm.Sorted);
+            }
+            if (dm.Where != null && dm.Where.Count > 0) //Filtering
+            {
+                DataSource = ds.PerformWhereFilter(DataSource, dm.Where, dm.Where[0].Operator);
+            }
+            if (dm.Aggregates != null)
+            {
+                for (var i = 0; i < dm.Aggregates.Count; i++)
+                    str.Add(dm.Aggregates[i].Field);
+
+            }
+            IEnumerable aggregate = ds.PerformSelect(DataSource, str);
+            var count = DataSource.Cast<CONTRATOS_ROL>().Count();
+            if (dm.Skip != 0)
+            {
+                DataSource = ds.PerformSkip(DataSource, dm.Skip);
+            }
+            if (dm.Take != 0)
+            {
+                DataSource = ds.PerformTake(DataSource, dm.Take);
+            }
+            return Json(new { result = DataSource, count = count }, JsonRequestBehavior.AllowGet);
+        }
+        // Insert de datos rol
+        public ActionResult PerformInsert_rol(EditParams_CONTRATOS_ROL param)
+        {
+            db.CONTRATOS_ROL.Add(param.value);
+            db.SaveChanges();
+            var data = db.CONTRATOS_ROL.ToList();
+            var value = data.Last();
+            return Json(value, JsonRequestBehavior.AllowGet);
+        }
+
+        //Actualizar grid rol
+        public ActionResult PerformUpdate_rol(EditParams_CONTRATOS_ROL param)
+        {
+            CONTRATOS_ROL table = db.CONTRATOS_ROL.Single(o => o.COD_CONTRATO_ROL == param.value.COD_CONTRATO_ROL);
+            CONTRATOS_ROL param1 = param.value;
+            db.Entry(table).CurrentValues.SetValues(param.value);
+            db.SaveChanges();
+            return RedirectToAction("GetOrderData_rol");
+
+        }
+
+        //Borrar grid rol
+        public ActionResult PerformDelete_rol(int key, string keyColumn)
+        {
+            db.CONTRATOS_ROL.Remove(db.CONTRATOS_ROL.Single(o => o.COD_CONTRATO_ROL == key));
+            db.SaveChanges();
+            return RedirectToAction("GetOrderData_rol");
+
+        }
+
+
+
+
+        // ACA INICIA EL GET: REGISTRO_NOVEDADES
+
+
+
+
+
+
+
         #endregion
         #region Adjuntar
         public ActionResult Adjunto(long? id)
