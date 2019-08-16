@@ -1234,6 +1234,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.DETALLE_FACTURA_I
           <Property Name="TIPO" Type="varchar" MaxLength="4" Nullable="false" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="300" />
           <Property Name="COD_EN_PSL" Type="varchar" MaxLength="50" />
+          <Property Name="COD_FACTURA_ANT" Type="bigint" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.FLUJO_INGRESOS_ITEM' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -5144,7 +5145,8 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
     [DETALLE_FACTURA_ITEMPERS].[PERIODO_FACTURA] AS [PERIODO_FACTURA], 
     [DETALLE_FACTURA_ITEMPERS].[TIPO] AS [TIPO], 
     [DETALLE_FACTURA_ITEMPERS].[DESCRIPCION] AS [DESCRIPCION], 
-    [DETALLE_FACTURA_ITEMPERS].[COD_EN_PSL] AS [COD_EN_PSL]
+    [DETALLE_FACTURA_ITEMPERS].[COD_EN_PSL] AS [COD_EN_PSL], 
+    [DETALLE_FACTURA_ITEMPERS].[COD_FACTURA_ANT] AS [COD_FACTURA_ANT]
     FROM [dbo].[DETALLE_FACTURA_ITEMPERS] AS [DETALLE_FACTURA_ITEMPERS]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="FLUJO_INGRESOS_ITEM" EntityType="Self.FLUJO_INGRESOS_ITEM" store:Type="Views" store:Schema="dbo">
@@ -12470,6 +12472,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <Property Name="TIPO" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="COD_EN_PSL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="COD_FACTURA_ANT" Type="Int64" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -15577,6 +15580,7 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
           <EntitySetMapping Name="DETALLE_FACTURA_ITEMPERS">
             <EntityTypeMapping TypeName="test_payc_contabilidadModel.DETALLE_FACTURA_ITEMPERS">
               <MappingFragment StoreEntitySet="DETALLE_FACTURA_ITEMPERS">
+                <ScalarProperty Name="COD_FACTURA_ANT" ColumnName="COD_FACTURA_ANT" />
                 <ScalarProperty Name="COD_EN_PSL" ColumnName="COD_EN_PSL" />
                 <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
                 <ScalarProperty Name="TIPO" ColumnName="TIPO" />

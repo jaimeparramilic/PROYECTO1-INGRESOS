@@ -217,6 +217,7 @@ namespace syncfusion_payc.Controllers
                     ViewBag.TOTAL_FACTURA = dr.GetValue(0).ToString();
                 }
                 connection.Close();
+
             }
 
             //Consulta para traer total de items y facutra tipo int para corregir error del sumary de la grid roles (para poder restar el total - total items)
@@ -248,78 +249,67 @@ namespace syncfusion_payc.Controllers
                 connection.Close();
             }
 
-            return View();
-        }
-        public ActionResult VerificarV(long? id)
-        {
-            db.Configuration.ProxyCreationEnabled = false;
-            db.Configuration.LazyLoadingEnabled = false;
-            db.Configuration.ProxyCreationEnabled = false;
-            db.Configuration.LazyLoadingEnabled = false;
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DATOS_VERIFICAR_FACTURA DatVerificarFactu = db.DATOS_VERIFICAR_FACTURA.Find(id);
+           //aca enpieza la segunda tap 
 
-            if (DatVerificarFactu == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.COD_FACTURA = DatVerificarFactu.COD_FACTURA;
-            ViewBag.COD_CONTRATO_PROYECTO = DatVerificarFactu.COD_CONTRATO_PROYECTO;
-            ViewBag.COD_FORMAS_PAGO_FECHAS = DatVerificarFactu.COD_FORMAS_PAGO_FECHAS;
-            ViewBag.COD_ESTADO_FACTURA = DatVerificarFactu.COD_ESTADO_FACTURA;
-            ViewBag.DESCRIPCION_PROYECTO = DatVerificarFactu.DESCRIPCION;
-            ViewBag.PERIODO_FACTURAR = DatVerificarFactu.PERIODO_FACTURAR;
-            ViewBag.ESTADO_FACTURA = DatVerificarFactu.COD_ESTADO_FACTURA;
-
-            //Consulta para traer total
-            ViewBag.TOTAL_FACTURA = "0";
-            string query = @"SELECT FORMAT([TOTAL_FACTURA],'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS] WHERE COD_FACTURA=" + id.ToString();
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                SqlCommand command = new SqlCommand(query, connection);
-                connection.Open();
-                SqlDataReader dr = command.ExecuteReader();
-                while (dr.Read())
-                {
-                    ViewBag.TOTAL_FACTURA = dr.GetValue(0).ToString();
-                }
-                connection.Close();
-            }
-
-            ViewBag.TOTAL_FACTURA_A = "0";
-            string query_t = @"SELECT FORMAT([TOTAL_FACTURA]),'C','es-CO')FROM[test_payc_contabilidad].[dbo].[TOTAL_FACTURAS] WHERE COD_FACTURA=" + id.ToString();
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                SqlCommand command = new SqlCommand(query, connection);
-                connection.Open();
-                SqlDataReader dr = command.ExecuteReader();
-                while (dr.Read())
-                {
-                    ViewBag.TOTAL_FACTURA_A = dr.GetValue(0).ToString();
-                }
-                connection.Close();
-
-            }
-
-            
             long? cp = db.DETALLE_FACTURA_ITEMPERS.Where(u => u.COD_FACTURA == id).Select(o => o.COD_CONTRATO_PROYECTO).FirstOrDefault();
 
             ViewBag.datasource3 = db.DETALLE_FACTURA_ITEMPERS.Where(u => u.COD_FACTURA == id);
             ViewBag.datasource2 = db.DETALLE_FACTURA_ITEMPERS.Where(u => u.COD_CONTRATO_PROYECTO == cp && u.COD_FACTURA != null && u.COD_FACTURA != id);
+            ViewBag.datasource4 = db.FACTURAS                .Where(u => u.COD_FACTURA != id).Select(x => new { x.VALOR_SIN_IMPUESTOS }).ToList();
 
-            var a = db.DETALLE_FACTURA_ITEMPERS.Where(u => u.COD_CONTRATO_PROYECTO == cp && u.COD_FACTURA != null && u.COD_FACTURA != id).Select(x => new{x.COD_FORMAS_PAGO_FECHAS,x.PERIODO_FACTURA }).Distinct().ToList();
+            var a = db.DETALLE_FACTURA_ITEMPERS.Where(u => u.COD_CONTRATO_PROYECTO == cp && u.COD_FACTURA != null && u.COD_FACTURA != id).Select(x => new { x.COD_FORMAS_PAGO_FECHAS, x.PERIODO_FACTURA }).Distinct().ToList();
             ViewBag.fechas_facturas = a;
-            
 
-                return View();
+            return View();
+        }
+        public ActionResult Actualizar_total_factura_ant(long? FACTURA_ANT)
+        {
+            
+            ViewBag.datasource4 = @"SELECT FORMAT([VALOR_SIN_IMPUESTOS],'C','es-CO') FROM [test_payc_contabilidad].[dbo].[FACTURAS] WHERE COD_FACTURA=" + FACTURA_ANT.ToString();
+
+            return View();
+        }
+        //Actualizar grid rol
+        public ActionResult Actualizar_total_factura_anterior(long? FACTURA_ANT)
+        {
+
+            //string query = @"SELECT FORMAT([TOTAL_FACTURA]),'C','es-CO')FROM[test_payc_contabilidad].[dbo].[TOTAL_FACTURAS] WHERE COD_FACTURA=" + FACTURA_ANT.ToString();
+            //var total_factura_ant = "";
+            //using (SqlConnection connection = new SqlConnection(connectionString))
+            //{
+            //    SqlCommand command = new SqlCommand(query, connection);
+            //    connection.Open();
+            //    SqlDataReader dr = command.ExecuteReader();
+            //    while (dr.Read())
+            //    {
+            //        total_factura_ant = dr.GetValue(0).ToString();
+            //    }
+            //    connection.Close();
+            //}
+            //using (SqlConnection connection = new SqlConnection(connectionString))
+            //{
+            //    SqlCommand command = new SqlCommand(query_t, connection);
+            //    connection.Open();
+            //    SqlDataReader dr = command.ExecuteReader();
+            //    while (dr.Read())
+            //    {
+            //        total_factura_ant = dr.GetValue(0).ToString();
+            //    }
+            //    connection.Close();
+
+            //}
+            var test = db.FACTURAS.Where(u => u.COD_FACTURA == FACTURA_ANT).Select(x => new { x.VALOR_SIN_IMPUESTOS }).ToList();
+
+            //ViewBag.datasource4 = db.FACTURAS.Where(u => u.COD_FACTURA == FACTURA_ANT).Select(x => new { x.VALOR_SIN_IMPUESTOS }).ToList(); 
+            //db.VISTA_TOTALES_GRUPOS_FACTURAS_SECUENCIA.Where(c c.COD_FACTURA==)
+            // return Json(new { query_t= query, success=true }, JsonRequestBehavior.AllowGet);
+            // return Json(test, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true, responseText = test }, JsonRequestBehavior.AllowGet);
+
+
         }
 
-        //Función que actualiza la nueva factura del ítem o de la persona
-        public ActionResult Actualizar_Factura(long FACTURA_ANT,long FACTURA_ACTUAL,string TIPO,long COD_DETALLE)
+        public ActionResult Actualizar_Factura(long FACTURA_ANT, long FACTURA_ACTUAL, string TIPO, long COD_DETALLE)
         {
             if (TIPO == "PERS")
             {
@@ -328,6 +318,7 @@ namespace syncfusion_payc.Controllers
                 table.COD_FACTURA = FACTURA_ACTUAL;
                 db.SaveChanges();
             }
+
             else
             {
                 DETALLE_FACTURA_ITEM table = db.DETALLE_FACTURA_ITEM.Single(o => o.COD_DETALLE_FACTURA_ITEM == COD_DETALLE);
@@ -335,10 +326,186 @@ namespace syncfusion_payc.Controllers
                 table.COD_FACTURA = FACTURA_ACTUAL;
                 db.SaveChanges();
             }
-            //Actualizar valores totales
-            ViewBag.TOTAL_FACTURA_A = "0";
-            string query = @"SELECT FORMAT([TOTAL_FACTURA]),'C','es-CO')FROM[test_payc_contabilidad].[dbo].[TOTAL_FACTURAS] WHERE COD_FACTURA=" + FACTURA_ANT.ToString();
-                            
+
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Actualizar_Factura_Anterior(long FACTURA_ACT, long FACTURA_ANT, string TIPO, long COD_DETALLE)
+        {
+            if (TIPO == "PERS")
+            {
+                DETALLE_FACTURA_ADJUNTO_PERS table = db.DETALLE_FACTURA_ADJUNTO_PERS.Single(o => o.COD_DETALLE_FACTURA_ADJUNTO_PERS == COD_DETALLE);
+                table.COD_FACTURA = FACTURA_ANT;
+                table.COD_FACTURA_ANT = FACTURA_ANT;
+                db.SaveChanges();
+            }
+
+            else
+            {
+                DETALLE_FACTURA_ITEM table = db.DETALLE_FACTURA_ITEM.Single(o => o.COD_DETALLE_FACTURA_ITEM == COD_DETALLE);
+                table.COD_FACTURA = FACTURA_ANT;
+                table.COD_FACTURA_ANT = FACTURA_ANT;
+                db.SaveChanges();
+            }
+
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+
+        #endregion
+
+        #region verificar v 
+        // public ActionResult VerificarV(long? id)
+        //{
+        //    db.Configuration.ProxyCreationEnabled = false;
+        //    db.Configuration.LazyLoadingEnabled = false;
+        //    db.Configuration.ProxyCreationEnabled = false;
+        //    db.Configuration.LazyLoadingEnabled = false;
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    DATOS_VERIFICAR_FACTURA DatVerificarFactu = db.DATOS_VERIFICAR_FACTURA.Find(id);
+
+        //    if (DatVerificarFactu == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    ViewBag.COD_FACTURA = DatVerificarFactu.COD_FACTURA;
+        //    ViewBag.COD_CONTRATO_PROYECTO = DatVerificarFactu.COD_CONTRATO_PROYECTO;
+        //    ViewBag.COD_FORMAS_PAGO_FECHAS = DatVerificarFactu.COD_FORMAS_PAGO_FECHAS;
+        //    ViewBag.COD_ESTADO_FACTURA = DatVerificarFactu.COD_ESTADO_FACTURA;
+        //    ViewBag.DESCRIPCION_PROYECTO = DatVerificarFactu.DESCRIPCION;
+        //    ViewBag.PERIODO_FACTURAR = DatVerificarFactu.PERIODO_FACTURAR;
+        //    ViewBag.ESTADO_FACTURA = DatVerificarFactu.COD_ESTADO_FACTURA;
+
+        //    //Consulta para traer total
+        //    ViewBag.TOTAL_FACTURA = "0";
+        //    string query = @"SELECT FORMAT([TOTAL_FACTURA],'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS] WHERE COD_FACTURA=" + id.ToString();
+        //    using (SqlConnection connection = new SqlConnection(connectionString))
+        //    {
+        //        SqlCommand command = new SqlCommand(query, connection);
+        //        connection.Open();
+        //        SqlDataReader dr = command.ExecuteReader();
+        //        while (dr.Read())
+        //        {
+        //            ViewBag.TOTAL_FACTURA = dr.GetValue(0).ToString();
+        //        }
+        //        connection.Close();
+        //    }
+
+        //    ViewBag.TOTAL_FACTURA_A = "0";
+        //    string query_t = @"SELECT FORMAT([TOTAL_FACTURA]),'C','es-CO')FROM[test_payc_contabilidad].[dbo].[TOTAL_FACTURAS] WHERE COD_FACTURA=" + id.ToString();
+
+        //    using (SqlConnection connection = new SqlConnection(connectionString))
+        //    {
+        //        SqlCommand command = new SqlCommand(query, connection);
+        //        connection.Open();
+        //        SqlDataReader dr = command.ExecuteReader();
+        //        while (dr.Read())
+        //        {
+        //            ViewBag.TOTAL_FACTURA_A = dr.GetValue(0).ToString();
+        //        }
+        //        connection.Close();
+
+        //    }
+
+
+        //    long? cp = db.DETALLE_FACTURA_ITEMPERS.Where(u => u.COD_FACTURA == id).Select(o => o.COD_CONTRATO_PROYECTO).FirstOrDefault();
+
+        //    ViewBag.datasource3 = db.DETALLE_FACTURA_ITEMPERS.Where(u => u.COD_FACTURA == id);
+        //    ViewBag.datasource2 = db.DETALLE_FACTURA_ITEMPERS.Where(u => u.COD_CONTRATO_PROYECTO == cp && u.COD_FACTURA != null && u.COD_FACTURA != id);
+
+        //    var a = db.DETALLE_FACTURA_ITEMPERS.Where(u => u.COD_CONTRATO_PROYECTO == cp && u.COD_FACTURA != null && u.COD_FACTURA != id).Select(x => new{x.COD_FORMAS_PAGO_FECHAS,x.PERIODO_FACTURA }).Distinct().ToList();
+        //    ViewBag.fechas_facturas = a;
+
+
+        //        return View();
+        //}
+        //Actualizar grid rol
+        //public ActionResult Actualizar_total_factura_anterior(long? FACTURA_ANT)
+        //{
+
+        //    //string query = @"SELECT FORMAT([TOTAL_FACTURA]),'C','es-CO')FROM[test_payc_contabilidad].[dbo].[TOTAL_FACTURAS] WHERE COD_FACTURA=" + FACTURA_ANT.ToString();
+        //    //var total_factura_ant = "";
+        //    //using (SqlConnection connection = new SqlConnection(connectionString))
+        //    //{
+        //    //    SqlCommand command = new SqlCommand(query, connection);
+        //    //    connection.Open();
+        //    //    SqlDataReader dr = command.ExecuteReader();
+        //    //    while (dr.Read())
+        //    //    {
+        //    //        total_factura_ant = dr.GetValue(0).ToString();
+        //    //    }
+        //    //    connection.Close();
+        //    //}
+        //    //using (SqlConnection connection = new SqlConnection(connectionString))
+        //    //{
+        //    //    SqlCommand command = new SqlCommand(query_t, connection);
+        //    //    connection.Open();
+        //    //    SqlDataReader dr = command.ExecuteReader();
+        //    //    while (dr.Read())
+        //    //    {
+        //    //        total_factura_ant = dr.GetValue(0).ToString();
+        //    //    }
+        //    //    connection.Close();
+
+        //    //}
+        //    var test = db.FACTURAS.Where(u => u.COD_FACTURA == FACTURA_ANT).Select(x => new { x.VALOR_SIN_IMPUESTOS }).ToList();
+
+        //    //ViewBag.datasource4 = db.FACTURAS.Where(u => u.COD_FACTURA == FACTURA_ANT).Select(x => new { x.VALOR_SIN_IMPUESTOS }).ToList(); 
+        //    //db.VISTA_TOTALES_GRUPOS_FACTURAS_SECUENCIA.Where(c c.COD_FACTURA==)
+        //    // return Json(new { query_t= query, success=true }, JsonRequestBehavior.AllowGet);
+        //    // return Json(test, JsonRequestBehavior.AllowGet);
+        //    return Json(new { success = true, responseText = test }, JsonRequestBehavior.AllowGet);
+
+
+        //}
+
+        //Actualizar valores totales
+        //Función que actualiza la nueva factura del ítem o de la persona
+        //public ActionResult Actualizar_Factura(long FACTURA_ANT,long FACTURA_ACTUAL,string TIPO,long COD_DETALLE)
+        //{
+        //    if (TIPO == "PERS")
+        //    {
+        //        DETALLE_FACTURA_ADJUNTO_PERS table = db.DETALLE_FACTURA_ADJUNTO_PERS.Single(o => o.COD_DETALLE_FACTURA_ADJUNTO_PERS == COD_DETALLE);
+        //        table.COD_FACTURA_ANT = FACTURA_ANT;
+        //        table.COD_FACTURA = FACTURA_ACTUAL;
+        //        db.SaveChanges();
+        //    }
+
+        //    else
+        //    {
+        //        DETALLE_FACTURA_ITEM table = db.DETALLE_FACTURA_ITEM.Single(o => o.COD_DETALLE_FACTURA_ITEM == COD_DETALLE);
+        //        table.COD_FACTURA_ANT = FACTURA_ANT;
+        //        table.COD_FACTURA = FACTURA_ACTUAL;
+        //        db.SaveChanges();
+        //    }
+
+        //    return Json(true, JsonRequestBehavior.AllowGet);
+        //}
+
+        //Funcion para refrescar totales
+        public ActionResult refrescar_total_AntAct(long COD_FACTURA)
+        {
+
+         
+
+            string total_factura_Act = "0";
+            string query_Act = @"SELECT FORMAT([TOTAL],'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS_PERS] WHERE COD_FACTURA=" + COD_FACTURA.ToString();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(query_Act, connection);
+                connection.Open();
+                SqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    total_factura_Act = dr.GetValue(0).ToString();
+                }
+                connection.Close();
+            }
+
+            string result = "";
+            string query = @"SELECT FORMAT([TOTAL_FACTURA],'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS] WHERE COD_FACTURA=" + COD_FACTURA.ToString();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(query, connection);
@@ -346,20 +513,25 @@ namespace syncfusion_payc.Controllers
                 SqlDataReader dr = command.ExecuteReader();
                 while (dr.Read())
                 {
-                    ViewBag.TOTAL_FACTURA_A = dr.GetValue(0).ToString();
+                    result = dr.GetValue(0).ToString();
                 }
                 connection.Close();
-
             }
-            //Actualizar grid rol
-           
-            return Json(true, JsonRequestBehavior.AllowGet);
+
+            return Json(new { success = true, responseText = result, total_factura_Act }, JsonRequestBehavior.AllowGet);
         }
+
         //TRAER DATOS ROL 
-        
-        public ActionResult GetOrderData_rol(DataManager dm)
+        public ActionResult UrlAdaptora()
         {
-            IEnumerable DataSource = db.CONTRATOS_ROL.ToList();
+            var DataSource2 = db.CONTRATOS_ROL.ToList();
+            ViewBag.dataSourcem = DataSource2;
+            return View();
+        }
+        
+        public ActionResult GetOrderData_rol(DataManager dm,long? cod_contrato_proyecto)
+        {
+            IEnumerable DataSource = db.CONTRATOS_ROL.Where(c=>c.COD_CONTRATO_PROYECTO==cod_contrato_proyecto).ToList();
             DataOperations ds = new DataOperations();
             List<string> str = new List<string>();
             db.Configuration.ProxyCreationEnabled = false;
@@ -392,7 +564,7 @@ namespace syncfusion_payc.Controllers
             {
                 DataSource = ds.PerformTake(DataSource, dm.Take);
             }
-            return Json(new { result = DataSource, count = count }, JsonRequestBehavior.AllowGet);
+            return Json(new { result = DataSource, count = count,dm }, JsonRequestBehavior.AllowGet);
         }
         // Insert de datos rol
         public ActionResult PerformInsert_rol(EditParams_CONTRATOS_ROL param)
@@ -423,16 +595,264 @@ namespace syncfusion_payc.Controllers
             return RedirectToAction("GetOrderData_rol");
 
         }
+        //Funcion que realiza el cargue inicial de incrementos
+        public void cargue_inicial_incrementos(long COD_CONTRATO_PROYECTO)
+        {
+            string queryString = @"INSERT INTO[test_payc_contabilidad].[dbo].[INCREMENTO_ORDEN] (COD_CONTRATO_PROYECTO, FACTOR_INCREMENTO, FECHA_INCREMENTO) SELECT " + COD_CONTRATO_PROYECTO.ToString() + ", FACTOR_INCREMENTO, FECHA_FORMA_PAGO FROM [test_payc_contabilidad].[dbo].[INCREMENTOS_ANUALES_FECHA]";
+            //Ejecución del query
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
 
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+        }
 
+        //Cargue de lista incermentos salariales
+        public ActionResult GetOrderData_incrementos(DataManager dm, long? cod_contrato_proyecto)
+        {
+            IEnumerable DataSource = db.INCREMENTO_ORDEN.Where(c => c.COD_CONTRATO_PROYECTO == cod_contrato_proyecto).ToList();
+            DataOperations ds = new DataOperations();
+            List<string> str = new List<string>();
+            db.Configuration.ProxyCreationEnabled = false;
+            db.Configuration.LazyLoadingEnabled = false;
+            if (dm.Search != null && dm.Search.Count > 0)
+            {
+                DataSource = ds.PerformSearching(DataSource, dm.Search);
+            }
+            if (dm.Sorted != null && dm.Sorted.Count > 0) //Sorting
+            {
+                DataSource = ds.PerformSorting(DataSource, dm.Sorted);
+            }
+            if (dm.Where != null && dm.Where.Count > 0) //Filtering
+            {
+                DataSource = ds.PerformWhereFilter(DataSource, dm.Where, dm.Where[0].Operator);
+            }
+            if (dm.Aggregates != null)
+            {
+                for (var i = 0; i < dm.Aggregates.Count; i++)
+                    str.Add(dm.Aggregates[i].Field);
 
+            }
+            IEnumerable aggregate = ds.PerformSelect(DataSource, str);
+            var count = DataSource.Cast<INCREMENTO_ORDEN>().Count();
+            if (dm.Skip != 0)
+            {
+                DataSource = ds.PerformSkip(DataSource, dm.Skip);
+            }
+            if (dm.Take != 0)
+            {
+                DataSource = ds.PerformTake(DataSource, dm.Take);
+            }
+            return Json(new { result = DataSource, count = count }, JsonRequestBehavior.AllowGet);
+        }
 
-        // ACA INICIA EL GET: REGISTRO_NOVEDADES
+        //Perform file insertion 
+        public ActionResult PerformInsert_incrementos(EditParams_INCREMENTO_ORDEN param)
+        {
+            db.INCREMENTO_ORDEN.Add(param.value);
+            db.SaveChanges();
+            var data = db.INCREMENTO_ORDEN.ToList();
+            var value = data.Last();
+            return Json(value, JsonRequestBehavior.AllowGet);
+        }
 
+        //Actualizar grid
+        public ActionResult PerformUpdate_incrementos(EditParams_INCREMENTO_ORDEN param)
+        {
 
+            INCREMENTO_ORDEN table = db.INCREMENTO_ORDEN.Single(o => o.COD_INCREMENTO_ORDEN == param.value.COD_INCREMENTO_ORDEN);
 
+            db.Entry(table).CurrentValues.SetValues(param.value);
+            db.SaveChanges();
+            return RedirectToAction("GetOrderData_incrementos");
 
+        }
 
+        //Borrar grid
+        public ActionResult PerformDelete_incrementos(int key, string keyColumn)
+        {
+            db.INCREMENTO_ORDEN.Remove(db.INCREMENTO_ORDEN.Single(o => o.COD_INCREMENTO_ORDEN == key));
+            db.SaveChanges();
+            return RedirectToAction("GetOrderData_incrementos");
+
+        }
+        //Funcion para regenerar el flujo del rol
+        public ActionResult regenerar_flujo_rol(long COD_CONTRATO_PROYECTO)
+        {
+            DateTime hoy = DateTime.Today;
+            string usuario = User.Identity.GetUserName();
+            //Query para recalcular
+            string queryString = @" UPDATE [test_payc_contabilidad].[dbo].[FLUJO_INGRESOS_ROL] SET ESTADO='NO' WHERE COD_CONTRATO_PROYECTO=" + COD_CONTRATO_PROYECTO.ToString() + @";
+                                    INSERT INTO [test_payc_contabilidad].[dbo].[FLUJO_INGRESOS_ROL]
+                                            ([COD_FORMAS_PAGO_FECHAS]
+                                            ,[COD_ROL]
+                                            ,[COD_CONTRATO_PROYECTO]
+                                            ,[ETAPA]
+                                            ,[VALOR_SIN_PRESTACIONES]
+                                            ,[VALOR_CON_PRESTACIONES]
+                                            ,[VALOR_FACTOR_MULTIPLICADOR]
+                                            ,[FECHA_REGISTRO]
+                                            ,[USUARIO_REGISTRO]
+                                            ,[ESTADO]
+                                            ) (SELECT [COD_FORMAS_PAGO_FECHAS]
+                                            ,[COD_ROL]
+                                            ,[COD_CONTRATO_PROYECTO]
+                                            ,[ETAPA]
+                                            ,[VALOR_SIN_PRESTACIONES]
+                                            ,[VALOR_CON_PRESTACIONES]
+                                            ,[VALOR_FACTOR_MULTIPLICADOR], 
+                                             GETDATE() AS FECHA_REGISTRO,'" +
+                                             usuario + @"', 'SI' AS ESTADO" +
+
+                                            @" FROM [test_payc_contabilidad].[dbo].GENERACION_FLUJOS_ROL3 WHERE COD_CONTRATO_PROYECTO=" + COD_CONTRATO_PROYECTO.ToString() + @");";
+
+            //Ejecución del query
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+            return Json(new { success = true, responseText = "SI" }, JsonRequestBehavior.AllowGet);
+        }
+        //Funcion para regenerar el flujo del rol
+        public ActionResult generar_colaboradores_pendientes(long COD_CONTRATO_PROYECTO)
+        {
+            //Query para recalcular
+            string queryString = @"INSERT INTO [test_payc_contabilidad].[dbo].[CONTRATO_COLABORADOR]
+                                    ([COD_CONTRATO_PROYECTO]
+                                    ,[COD_ROL]
+                                    ,[FECHA_INI]
+                                    ,[FECHA_FIN]) 
+                                    (SELECT [COD_CONTRATO_PROYECTO]
+                                    ,[COD_ROL]
+                                    ,[FECHA_INI]
+                                    ,[FECHA_FIN]
+                                    FROM [test_payc_contabilidad].[dbo].[GENERACION_COLABORADORES_PENDIENTES] 
+                                    WHERE COD_CONTRATO_PROYECTO=" + COD_CONTRATO_PROYECTO.ToString() + @"
+                                    AND COD_ROL IS NOT NULL AND FECHA_FIN IS NOT NULL
+);";
+
+            //Ejecución del query
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand(queryString, connection);
+
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+            return Json(new { success = true, responseText = "SI" }, JsonRequestBehavior.AllowGet);
+        }
+        //Funcion para validar asignación
+        public ActionResult validar_asignacion(long COD_CONTRATO_PROYECTO)
+        {
+            List<string> mensaje_error = new List<string>();
+            int vacios = 0;
+
+            string queryString = @"SELECT ISNULL(COD_COLABORADOR,null) AS COD_COLABORADOR, 
+                            ISNULL(COD_ROL,null) AS COD_ROL,
+                            ISNULL(FECHA_INI,null) AS FECHA_INI,
+                            ISNULL(FECHA_FIN,null) AS FECHA_FIN 
+                            FROM [test_payc_contabilidad].[dbo].[CONTRATO_COLABORADOR] 
+                            WHERE COD_CONTRATO_PROYECTO=" + COD_CONTRATO_PROYECTO.ToString();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                int col_colaborador = 0;
+                int col_rol = 1;
+
+                int col_fecha_ini = 2;
+                int col_fecha_fin = 3;
+                connection.Open();
+                SqlCommand command = new SqlCommand(queryString, connection);
+
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+
+                        if (reader.IsDBNull(col_colaborador) || reader.IsDBNull(col_rol) || reader.IsDBNull(col_fecha_ini) || reader.IsDBNull(col_fecha_fin))
+                        {
+                            vacios = vacios + 1;
+                            if (reader.IsDBNull(col_rol))
+                            {
+                                mensaje_error.Add("Exite un rol vacio");
+                            }
+                            else
+                            {
+                                long rol_error = Convert.ToInt64(reader["COD_ROL"].ToString());
+                                ROLES table = db.ROLES.Single(o => o.COD_ROL == rol_error);
+                                mensaje_error.Add("El rol " + table.DESCRIPCION + " cuenta con campos vacíos");
+                            }
+                        }
+
+                    }
+                }
+                connection.Close();
+            }
+
+            if (vacios == 0)
+            {
+                //Check pendientes
+                int roles_pendientes = 0;
+                queryString = @"SELECT  [COD_ROL],
+		                        [ROL_TEXTO]
+                                ,MIN([FECHA_FORMA_PAGO]) AS FECHA_INI_VACIO
+	                            ,MAX([FECHA_FORMA_PAGO]) AS FECHA_FIN_VACIO
+                                ,[COD_COLABORADOR]
+                                ,[NOMBRE]
+                                FROM [test_payc_contabilidad].[dbo].[ORDENES_SERVICIO_ROLES_COLABORADOR] WHERE COD_COLABORADOR IS NULL AND COD_CONTRATO_PROYECTO=" + COD_CONTRATO_PROYECTO.ToString() + @"
+                                GROUP BY COD_ROL, ROL_TEXTO, COD_COLABORADOR, NOMBRE";
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand(queryString, connection);
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            if (reader["FECHA_INI_VACIO"].ToString() != reader["FECHA_FIN_VACIO"].ToString())
+                            {
+                                roles_pendientes = roles_pendientes + 1;
+                                //mensaje_error.Add(queryString);
+                                mensaje_error.Add("El rol " + reader["ROL_TEXTO"].ToString() + " no cuenta con colaboradores asignados para las fechas entre " + reader["FECHA_INI_VACIO"].ToString() + " y " + reader["FECHA_FIN_VACIO"].ToString());
+                            }
+                        }
+                    }
+                    connection.Close();
+                }
+                if (roles_pendientes == 0)
+                {
+                    //Check colaborador duplicado
+                    queryString = @"SELECT * FROM [test_payc_contabilidad].[dbo].[CHECK_COLABORADOR_MES] WHERE COD_CONTRATO_PROYECTO=" + COD_CONTRATO_PROYECTO.ToString() + @"
+                                    AND CUENTA>1";
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        connection.Open();
+                        SqlCommand command = new SqlCommand(queryString, connection);
+
+                        SqlDataReader reader = command.ExecuteReader();
+                        if (reader.HasRows)
+                        {
+                            while (reader.Read())
+                            {
+
+                                mensaje_error.Add("El rol " + reader["ROL_TEXTO"].ToString() + " Cuenta con más de un colaborador para la fecha: " + reader["FECHA_FORMA_PAGO"].ToString());
+                            }
+                        }
+                        connection.Close();
+                    }
+                }
+
+            }
+
+            return Json(new { success = true, responseText = "SI", data = mensaje_error }, "application/json", JsonRequestBehavior.AllowGet);
+        }
 
 
         #endregion

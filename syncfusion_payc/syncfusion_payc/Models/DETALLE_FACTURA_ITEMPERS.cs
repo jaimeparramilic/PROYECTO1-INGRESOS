@@ -28,5 +28,6 @@ namespace syncfusion_payc.Models
         public string TIPO { get; set; }
         public string DESCRIPCION { get; set; }
         public string COD_EN_PSL { get; set; }
+        public Nullable<long> COD_FACTURA_ANT { get; set; }
     }
 }

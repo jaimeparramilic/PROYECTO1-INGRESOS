@@ -1652,6 +1652,7 @@
     <Content Include="Content\main2.css" />
     <Content Include="Content\Site2.css" />
     <Content Include="favicon.ico" />
+    <Content Include="HtmlPage1.html" />
     <Content Include="images\ajax-loader.gif" />
     <Content Include="images\icons-menu.png" />
     <Content Include="images\img-user.jpg" />

@@ -579,7 +579,6 @@
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
     <EntitySet Name="VISTA_NOVEDADES_DETALLE_ADJUNTO_PERS" EntityType="test_payc_contabilidadModel.VISTA_NOVEDADES_DETALLE_ADJUNTO_PERS" />
-    <EntitySet Name="DETALLE_FACTURA_ITEMPERS" EntityType="test_payc_contabilidadModel.DETALLE_FACTURA_ITEMPERS" />
     <EntitySet Name="DETALLE_FACTURA_ADJUNTO_PERS" EntityType="test_payc_contabilidadModel.DETALLE_FACTURA_ADJUNTO_PERS" />
     <AssociationSet Name="FK_DETALLE_FACTURA_ADJUNTO_PERS_CAUSA_ESTADO" Association="test_payc_contabilidadModel.FK_DETALLE_FACTURA_ADJUNTO_PERS_CAUSA_ESTADO">
       <End Role="CAUSA_ESTADO" EntitySet="CAUSA_ESTADO" />
@@ -655,6 +654,7 @@
       <End Role="DETALLE_FACTURA_ITEM" EntitySet="DETALLE_FACTURA_ITEM" />
     </AssociationSet>
     <EntitySet Name="VISTA_PRUEBA_ESTADOS_CECO" EntityType="test_payc_contabilidadModel.VISTA_PRUEBA_ESTADOS_CECO" />
+    <EntitySet Name="DETALLE_FACTURA_ITEMPERS" EntityType="test_payc_contabilidadModel.DETALLE_FACTURA_ITEMPERS" />
   </EntityContainer>
   <EntityType Name="CONTRATO_PROYECTO">
     <Key>
@@ -4961,26 +4961,6 @@
     <Property Name="SALARIO_COMERCIAL" Type="Decimal" Precision="30" Scale="20" />
     <Property Name="COD_DETALLE_FACTURA_ADJUNTO_PERS" Type="Int64" />
   </EntityType>
-  <EntityType Name="DETALLE_FACTURA_ITEMPERS">
-    <Key>
-      <PropertyRef Name="CAD_DETALLE_FACTURA" />
-      <PropertyRef Name="TIPO" />
-    </Key>
-    <Property Name="COD_FACTURA" Type="Int64" />
-    <Property Name="CAD_DETALLE_FACTURA" Type="Int64" Nullable="false" />
-    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
-    <Property Name="COD_ITEMPERS_CONTRATO" Type="Int64" />
-    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
-    <Property Name="VALOR_SIN_IMPUESTOS" Type="Decimal" />
-    <Property Name="COD_CAUSA_ESTADO" Type="Int64" />
-    <Property Name="COD_ESTADO_DETALLE" Type="Int64" />
-    <Property Name="COD_GRUPO_FACTURA" Type="Int64" />
-    <Property Name="COD_CONCEPTO_PSL" Type="Int64" />
-    <Property Name="PERIODO_FACTURA" Type="DateTime" Precision="0" />
-    <Property Name="TIPO" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-    <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-    <Property Name="COD_EN_PSL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-  </EntityType>
   <EntityType Name="DETALLE_FACTURA_ADJUNTO_PERS">
     <Key>
       <PropertyRef Name="COD_DETALLE_FACTURA_ADJUNTO_PERS" />
@@ -5272,5 +5252,26 @@
     </Key>
     <Property Name="COD_ESTADO_CECO" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="DESCRIPCION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="DETALLE_FACTURA_ITEMPERS">
+    <Key>
+      <PropertyRef Name="CAD_DETALLE_FACTURA" />
+      <PropertyRef Name="TIPO" />
+    </Key>
+    <Property Name="COD_FACTURA" Type="Int64" />
+    <Property Name="CAD_DETALLE_FACTURA" Type="Int64" Nullable="false" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="Int64" />
+    <Property Name="COD_ITEMPERS_CONTRATO" Type="Int64" />
+    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="Int64" />
+    <Property Name="VALOR_SIN_IMPUESTOS" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="COD_CAUSA_ESTADO" Type="Int64" />
+    <Property Name="COD_ESTADO_DETALLE" Type="Int64" />
+    <Property Name="COD_GRUPO_FACTURA" Type="Int64" />
+    <Property Name="COD_CONCEPTO_PSL" Type="Int64" />
+    <Property Name="PERIODO_FACTURA" Type="DateTime" Precision="0" />
+    <Property Name="TIPO" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="DESCRIPCION" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="COD_EN_PSL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="COD_FACTURA_ANT" Type="Int64" />
   </EntityType>
 </Schema>

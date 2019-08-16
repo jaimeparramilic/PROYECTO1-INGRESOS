@@ -802,7 +802,7 @@ th[data-p="0,0"]{
     white-space: normal !important;
 }
 
-.e-grid .e-gridheader {
+./*e-grid .e-gridheader {
     background: transparent none repeat scroll 0 0 !important;
     border-style: none;
     border-top-style: none;
@@ -872,7 +872,7 @@ th[data-p="0,0"]{
     border-top-right-radius: 3px;
     border-top-left-radius: unset;
     border-top-right-radius: unset;
-}
+}*/
 
 
 /*Estilo de Verificar V*/
@@ -887,28 +887,53 @@ th[data-p="0,0"]{
     height: 0 auto;
 
     padding: 0 10px;
-    border: 3px solid #ccc;
+    border: 1px solid #ccc;
    
-    border-radius: 10px;
+    
     display:block;
     float:left;
 }
 
-#personal td {
-    background-color: cornflowerblue;
-    padding: 5px;
-    border-radius: 5px;
-    margin: 3px;
-}
 
-#items td {
+
+/*#Fact_Ant td {
     background-color: #ccc;
     padding: 5px;
-    border-radius: 5px;
-    margin: 3px;
-}
-.contenedor_facturas_ant{
+  
+    width: 100%;
+}*/
 
-    margin-right:20px;
+/*#Fact_Act td {
+    background-color: white;
+    padding: 5px;
+   
+    width: 100%;
+    margin-top:25px;
+}*/
+
+/*tr:nth-child(event) {
+    background-color: #ddd;
+    
 }
 
+
+
+tr:hover td {
+    background-color: #ccc;
+    color: white
+}*/
+
+.contenedor_facturas_ant, .contenedor_facturas {
+    align-content: center;
+    margin-right: 30px;
+    margin-left: 30px;
+    /*overflow-y: scroll;*/
+    height: 55vh !important;
+}
+
+
+
+.w3-blue, .w3-hover-blue:hover {
+    color: #fff !important;
+    background-color: #9F77A9 !important;
+}

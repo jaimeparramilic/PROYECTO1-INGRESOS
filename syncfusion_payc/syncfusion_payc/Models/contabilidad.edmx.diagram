@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d9d32a8db5f3424fb71f25fe58108d34" Name="Diagram1" ZoomLevel="48">
+      <Diagram DiagramId="d9d32a8db5f3424fb71f25fe58108d34" Name="Diagram1" ZoomLevel="67">
         <EntityTypeShape EntityType="test_payc_contabilidadModel.ACUERDOS_PAGO_ENTREGAB" Width="1.5" PointX="18.75" PointY="37.625" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.ASIGNACION_CARTERA" Width="1.5" PointX="15.75" PointY="45.875" />
         <EntityTypeShape EntityType="test_payc_contabilidadModel.CARGOS" Width="1.5" PointX="0.75" PointY="20.875" />
