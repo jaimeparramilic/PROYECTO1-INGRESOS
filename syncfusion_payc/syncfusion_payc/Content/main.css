@@ -849,7 +849,7 @@ th[data-p="0,0"]{
 /*Estilo cards*/
 .w3-container.w3-blue, .w3-hover-blue:hover {
     color: #fff !important;
-    background-color: #7d6400 !important;
+    background-color: #4E3504 !important;
     display: block !important;
 }
 .e-text.CanSelect.e-draggable.e-droppable.e-js.e-node-hover {
@@ -868,7 +868,8 @@ th[data-p="0,0"]{
 
 /*Estilo cards desabilitadas*/
 .e-treeview .e-node-disable {
-    opacity:0.85 !important;
+    opacity: 1.90 !important;
+    
 }
 
 /*Estilo icono card*/
@@ -884,7 +885,7 @@ th[data-p="0,0"]{
 }
 
 .e-tab .e-header.e-addborderbottom .e-active {
-    border-top: 3px solid #321B0B !important;
+    border-top: 3px solid #4E3504 !important;
     border-top-color: rgb(50, 119, 178);
     border-top-style: solid;
     border-top-width: 3px;
