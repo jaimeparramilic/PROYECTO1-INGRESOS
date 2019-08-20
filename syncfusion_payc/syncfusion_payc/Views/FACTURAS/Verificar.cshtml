@@ -1,6 +1,7 @@
 ﻿@using Syncfusion.JavaScript
 @using System.Collections.Generic
 @using System.Linq
+@using System.Globalization
 
 @model IEnumerable<syncfusion_payc.Models.FACTURAS>
 
@@ -15,7 +16,7 @@
     <div class="control-section">
         @{ Html.EJ().Tab("SETTINGSTABS").Items(data =>
               {
-                  data.Add().ID("EDICION_MANUAL").Text("EDICION_MANUAL").ContentTemplate(
+                  data.Add().ID("EDICION_MANUAL").Text("EDICIÓN MANUAL").ContentTemplate(
                        @<div>
 
 
@@ -243,7 +244,7 @@
 
 </div>);
                   data.Add().ID("AÑADIR_OTRAS_FACTURAS").Text("AÑADIR OTRAS FACTURAS").ContentTemplate(
-                      @<div>
+                      @<div class="contenedor_tab_facturas">
 
     @{
        
@@ -257,7 +258,7 @@
     <!--FILA CONTENEDORES DRAG AND DROP-->
     <div class="row">
         <!--CONTENEDOR FACTURAS ANTERIORES -->
-        <div class="col-md-5 contenedor_facturas_ant">
+        <div class="col-md-6 contenedor_facturas_ant">
             <div class="col-md-12">
                 <H4>ITEMS MES ANTERIOR POR AGREGAR</H4>
                 <div class="contenedor_drop">
@@ -273,7 +274,6 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             @foreach (var c in db.DETALLE_FACTURA_ITEMPERS.Where(u => u.COD_CONTRATO_PROYECTO == cp && u.COD_FACTURA != null && u.COD_FACTURA != id).Select(x => new { x.COD_FORMAS_PAGO_FECHAS, x.PERIODO_FACTURA, x.COD_FACTURA }).Distinct().ToList())
                                  {
-
                                 <button class="dropdown-item" onclick="cambio_mes(@c.COD_FORMAS_PAGO_FECHAS,@c.COD_FACTURA)">@c.PERIODO_FACTURA</button>
                                  }                    
                         </div>
@@ -282,54 +282,93 @@
                 </div>
                 @*CONTENEDOR TABLA DRABABLE FACTURAS ANT*@
                 <div class="contenedor_tabla_dragable">
-                    @*Encabezado*@
-                    <table style="width:100% !important;">
-                        @*<thead>
-                    <tr>
-                        <th>FACTURAS ANTERIORES</th>
-                    </tr>
-                </thead>*@
-                        <tbody id="Fact_Ant">
-                            @foreach (var a in ViewBag.datasource2)
+                    @*Contenedor elementos drag and drop*@
+                    <ul id="Fact_Ant">
+                        @*REcorre los elementos de las otras facturas*@
+                        @foreach (var a in ViewBag.datasource2)
+                             {
+                            @*Solo imprime los que tienen valor a mayor a 0*@
+                                 if (a.VALOR_SIN_IMPUESTOS != 0)
                                  {
                                      string COD_FACTURA = a.COD_FACTURA.ToString();
                                      string COD_CONTRATO_PROYECTO = a.COD_CONTRATO_PROYECTO.ToString();
                                      string VALOR_SIN_IMPUESTOS = a.VALOR_SIN_IMPUESTOS.ToString();
                                      string COD_FORMAS_PAGO_FECHA = a.COD_FORMAS_PAGO_FECHAS.ToString();
-                                     string DESCRIPCION = a.DESCRIPCION.ToString();
-
-
-                                <tr class="s_panel facturas_ant FACTURA_@COD_FACTURA COD_FECHA_@COD_FORMAS_PAGO_FECHA" tipo="@a.TIPO" factura_ant="@a.COD_FACTURA" factura_actual="@(((long) ViewBag.COD_FACTURA).ToString())" cod_detalle="@a.CAD_DETALLE_FACTURA" descripcion="@a.DESCRIPCION">
-                                    <td>
-                                        <div class="col-md-12" style="margin-top:10px !important;">
-                                            <div class="w3-card-4">
-
-                                                <header class="w3-container w3-blue" >
-                                                    <h1 style="font-size:14px !important;  margin: 5px 0 !important;">@a.DESCRIPCION</h1>
-                                                </header>
-
-                                                <div class="w3-container">
-                                                    <h1 style="font-size:14px !important;  margin: 5px 0 !important;">@a.PERIODO_FACTURA.ToString("dd/MM/yyyy")</h1>
-
+                                     string DESCRIPCION = a.NOMBRE_ROL.ToString();
+                                     string NOMBRE_PERSONA = a.NOMBRE_PERSONA.ToString();
+                                <li class="s_panel facturas_ant FACTURA_@COD_FACTURA COD_FECHA_@COD_FORMAS_PAGO_FECHA" tipo="@a.TIPO" factura_ant="@COD_FACTURA" factura_actual="@(((long)ViewBag.COD_FACTURA).ToString())" cod_detalle="@a.CAD_DETALLE_FACTURA" descripcion="@a.NOMBRE_ROL" cod_formas_pago_fecha="@COD_FORMAS_PAGO_FECHA">
+                                    <div class="w3-card-4">
+                                        <header class="w3-container w3-blue header1">
+                                            <h1 style="font-size:14px !important;  margin: 5px 0 !important;" class="texto_card tooltip1" title="Nombre rol: @a.NOMBRE_ROL">@a.NOMBRE_ROL</h1>
+                                        </header>
+                                        <div class="w3-container">
+                                            <div class="row">
+                                                <div class="col-md-10 valores_cards tooltip1" style="font-size:9px !important;" data-toggle="tooltip" title="Nombre persona: @a.NOMBRE_PERSONA.ToString()">
+                                                    <h1 style="font-size:11px !important;  margin: 5px 0 !important;" class="texto_card"><span class="e-icon e-userlogin icono-card" style="color:#808080 !important;font-size:11px !important;"></span>@a.NOMBRE_PERSONA.ToString()</h1>
                                                 </div>
-
-                                                <footer class="w3-container w3-blue" style="display:block !important;left:0px!important; max-height:1000px !important; position:relative !important; height:auto !important;min-height:initial !important">
-                                                    <h5 style="font-size:14px !important; margin: 5px 0 !important;">@a.VALOR_SIN_IMPUESTOS</h5>
-                                                </footer>
-
                                             </div>
-
+                                            <div class="row">
+                                                <div class="col-md-12"><a href="#" onclick="mostrar_mas()" style="font-size:10px !important;">Ver más</a></div>
+                                            </div>
+                                            <div class="row  mostrar_mas">
+                                            <div class="col-md-4 valores_cards tooltip1" style="font-size:9px !important;" data-toggle="tooltip" title="Dedicación de la persona: @a.DEDICACION.ToString()"><span class="e-icon e-datetime icono-card" style="color:#808080 !important;"></span>@a.DEDICACION.ToString()</div>
+                                             @*Solo imprime los que tienen valor a mayor a 0*@
+                                            @if (a.HORAS_ED != 0)
+                                                 {
+                                            <div class="col-md-4 valores_cards texto_card tooltip1" style="font-size:9px !important;" data-toggle="tooltip" title="Horas extra diurnas (@a.HORAS_ED.ToString("F1", CultureInfo.CreateSpecificCulture("es-ES")))"><span class="e-icon e-clock icono-card" style="color:#808080 !important;"></span>@a.HORAS_ED.ToString("F1", CultureInfo.CreateSpecificCulture("es-ES"))</div>
+                                                 }
+                                            @if (a.HORAS_EN != 0)
+                                                 {
+                                            <div class="col-md-4 valores_cards texto_card tooltip1" style="font-size:9px !important;" data-toggle="tooltip" title="Horas extra nocturas (@a.HORAS_EN.ToString("F1", CultureInfo.CreateSpecificCulture("es-ES")))"><span class="e-icon e-clock icono-card" style="color:#808080 !important;"></span>@a.HORAS_EN.ToString("F1", CultureInfo.CreateSpecificCulture("es-ES"))</div>
+                                                 }
+                                            @if (a.HORAS_FD != 0)
+                                                 {
+                                            <div class="col-md-4 valores_cards texto_card tooltip1" style="font-size:9px !important;" data-toggle="tooltip" title="Horas extra fin de semana diurnas (@a.HORAS_FD.ToString("F1", CultureInfo.CreateSpecificCulture("es-ES")))"><span class="e-icon e-clock icono-card" style="color:#808080 !important;"></span>@a.HORAS_FD.ToString("F1", CultureInfo.CreateSpecificCulture("es-ES"))</div>
+                                                 }
+                                            @if (a.HORAS_FN != 0)
+                                                 {
+                                            <div class="col-md-4 valores_cards texto_card tooltip1" style="font-size:9px !important;" data-toggle="tooltip" title="Horas extra fin de semana nocturnas (@a.HORAS_FN.ToString("F1", CultureInfo.CreateSpecificCulture("es-ES")))"><span class="e-icon e-clock icono-card" style="color:#808080 !important;"></span>@a.HORAS_FN.ToString("F1", CultureInfo.CreateSpecificCulture("es-ES"))</div>
+                                                 }
+                                            @if (a.HORAS_AUSENCIA != 0)
+                                                 {
+                                            <div class="col-md-4 valores_cards texto_card tooltip1" style="font-size:9px !important;" data-toggle="tooltip" title="Horas ausencia (@a.HORAS_AUSENCIA.ToString("F1", CultureInfo.CreateSpecificCulture("es-ES")))"><span class="e-icon e-clock icono-card" style="color:#808080 !important;"></span>@a.HORAS_AUSENCIA.ToString("F1", CultureInfo.CreateSpecificCulture("es-ES"))</div>
+                                                 }
+                                            @if (a.VALOR_DIAS_LAB != 0)
+                                                {
+                                            <div class="col-md-4 valores_cards texto_card tooltip1" style="font-size:9px !important;" data-toggle="tooltip" title="Valor sin adiciones y descuentos (@a.VALOR_DIAS_LAB.ToString("C", CultureInfo.CreateSpecificCulture("es-CO")))"><span class="icono-card" style="color:#808080 !important;"></span>@a.VALOR_DIAS_LAB.ToString("C", CultureInfo.CreateSpecificCulture("es-CO"))</div>
+                                                }
+                                               
+                                            @if (a.ADICIONES != 0)
+                                                {
+                                            <div class="col-md-4 valores_cards texto_card tooltip1" style="font-size:9px !important;" data-toggle="tooltip" title="Valor por adiciones (@a.ADICIONES.ToString("C", CultureInfo.CreateSpecificCulture("es-CO")))"><span class="icono-card" style="color:#808080 !important;"></span>@a.ADICIONES.ToString("C", CultureInfo.CreateSpecificCulture("es-CO"))</div>
+                                                }
+                                              
+                                            @if (a.DESCUENTO_AUSENCIA != 0)
+                                                {
+                                            <div class="col-md-4 valores_cards texto_card tooltip1" style="font-size:9px !important;" data-toggle="tooltip" title="Valor por adiciones (@a.DESCUENTO_AUSENCIA.ToString("C", CultureInfo.CreateSpecificCulture("es-CO")))"><span class="icono-card" style="color:#808080 !important;"></span>@a.DESCUENTO_AUSENCIA.ToString("C", CultureInfo.CreateSpecificCulture("es-CO"))</div>
+                                                }
+                                             <div class="col-md-10"><a href="#" onclick="mostrar_mas()" style="font-size:10px !important;">Ver menos</a></div>
+                                            </div>
+                                           
                                         </div>
-                                    </td>
-                                </tr>
+                                        <footer class="w3-container w3-blue footer1" style="display:block !important;left:0px!important; max-height:1000px !important; position:relative !important; height:auto !important;min-height:initial !important">
+                                            <div class="row">
+                                                <div class="col-md-4 valores_cards tooltip1" style="font-size:9px !important;" data-toggle="tooltip" title="Periodo factura (@a.PERIODO_FACTURACION.ToString("dd/MM/yyyy"))">
+                                                    <h1 class="texto_card" style="font-size:11px !important;  margin: 5px 0 !important;">@a.PERIODO_FACTURACION.ToString("dd/MM/yyyy")</h1>
+                                                </div>
+                                                <div class="col-md-4 valores_cards" style="font-size:9px !important;">
+                                                    <h5 class="texto_card tooltip1" style="font-size:11px !important; margin: 5px 0 !important;" data-toggle="tooltip" title="Valor total a facturar (@a.VALOR_SIN_IMPUESTOS.ToString("C", CultureInfo.CreateSpecificCulture("es-CO")))">@a.VALOR_SIN_IMPUESTOS.ToString("C", CultureInfo.CreateSpecificCulture("es-CO"))</h5>
+                                                </div>
+                                            </div>   
+                                        </footer>
+                                    </div>
+                                </li>
                                  }
-                        </tbody>
-
-                    </table>
+                             }
+                    </ul>
                 </div>
-
-
-                <div class="row">
+            @*CONTENEDOR TOTALES ANTERIORES*@
+                @*<div class="row">
                     <div class="col-md-12">
                         <table class="col-md-12">
                             <tbody>
@@ -340,98 +379,122 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div>*@
             </div>
-
-
         <!--CONTENEDOR FACTURA ACTUAL-->
-        <div class="col-md-5 contenedor_facturas">
-<div class="col-md-12">
-            <h4>ITEMS A FACTUTAR</h4>
-        </div>
-            <div class="contenedor_tabla_dragable">
-
-                <table style="width:100% !important;">
-
-                    <tbody id="Fact_Act">
-                        @foreach (var b in ViewBag.datasource3)
-                        {
-
-                            string COD_FACTURA = b.COD_FACTURA.ToString();
-                            string COD_FACTURA_ANT = b.COD_FACTURA_ANT == null ? "" : b.COD_FACTURA_ANT.ToString();
-                            string COD_CONTRATO_PROYECTO = b.COD_CONTRATO_PROYECTO.ToString();
-                            string VALOR_SIN_IMPUESTOS = b.VALOR_SIN_IMPUESTOS.ToString();
-                            string COD_FORMAS_PAGO_FECHA = b.COD_FORMAS_PAGO_FECHAS.ToString();
-                            string DESCRIPCION = b.DESCRIPCION.ToString();
-                            //<tr class="s_panel facturas FACTURA_@COD_FACTURA "                                 >
-                            <tr class="s_panel facturas FACTURA_@COD_FACTURA" tipo="@b.TIPO" factura_act="@b.COD_FACTURA" factura_ant="@b.COD_FACTURA_ANT" cod_detalle="@b.CAD_DETALLE_FACTURA" descripcion="@b.DESCRIPCION">
-
-                                <td>
-                                    <div class="col-md-12" style="margin-top:10px !important;">
-                                        <div class="w3-card-4">
-
-                                            <header class="w3-container w3-blue">
-                                                <h1 style="font-size:14px !important;  margin: 5px 0 !important;">@b.DESCRIPCION</h1>
-                                            </header>
-
-                                            <div class="w3-container">
-                                                <h1 style="font-size:14px !important;  margin: 5px 0 !important;">@b.PERIODO_FACTURA.ToString("dd/MM/yyyy")</h1>
-
-                                            </div>
-
-                                            <footer class="w3-container w3-blue" style="display:block !important;left:0px!important; max-height:1000px !important; position:relative !important; height:auto !important;min-height:initial !important">
-                                                <h5 style="font-size:14px !important; margin: 5px 0 !important;">@b.VALOR_SIN_IMPUESTOS</h5>
-                                            </footer>
-
-                                        </div>
-
-                                    </div>
-                                </td>
-                            </tr>
-                            @*<tr class="FACTURA_@COD_FACTURA">
-                <td id="Fac_Act">@b.COD_FACTURA</td>
-                <td id="Fac_Act">@b.PERIODO_FACTURA.ToString("dd/MM/yyyy")</td>
-                <td id="Fac_Act">@b.VALOR_SIN_IMPUESTOS</td>
-                <td id="Fac_Act">@b.DESCRIPCION</td>
-            </tr>*@
-                            }
-
-
-                        </tbody>
-                </table>
+        <div class="col-md-6 contenedor_facturas">
+            <div class="col-md-12">
+                <h4>ITEMS A FACTUTAR</h4>
             </div>
-
-
+            @*Fila con el valot total de la factura actual*@
             <div class="row">
                 <div class="col-md-12">
                     <table class="col-md-12">
                         <tbody>
                             <tr class="fila_total">
                                 <th class="titulo_total"><b>Total Factura Actual:</b></th>
-
-                                @*<th class="total"><span class="valor_item">@(ViewBag.TOTAL_FACTURA_ITEM_)</span></th>*@
-                                @*<th class="total"><span class="valor">@(ViewBag.TOTAL)</span></th>*@
-                                <th class="total"><span class="valor_actual">@(ViewBag.TOTAL_FACTURA)</span></th>
+                                <th class="total"><span class="valor_total">@(ViewBag.TOTAL_FACTURA)</span></th>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
+            <div class="contenedor_tabla_dragable">
+
+                <ul id="Fact_Act">
+                     @*REcorre los elementos de las otras facturas*@
+                        @foreach (var a in ViewBag.datasource3)
+                             {
+                            @*Solo imprime los que tienen valor a mayor a 0*@
+                                 if (a.VALOR_SIN_IMPUESTOS != 0)
+                                 {
+                                     string COD_FACTURA = a.COD_FACTURA.ToString();
+                                     string COD_CONTRATO_PROYECTO = a.COD_CONTRATO_PROYECTO.ToString();
+                                     string VALOR_SIN_IMPUESTOS = a.VALOR_SIN_IMPUESTOS.ToString();
+                                     string COD_FORMAS_PAGO_FECHA = a.COD_FORMAS_PAGO_FECHAS.ToString();
+                                     string DESCRIPCION = a.NOMBRE_ROL.ToString();
+                                     string NOMBRE_PERSONA = a.NOMBRE_PERSONA.ToString();
+                                <li class="s_panel facturas FACTURA_@COD_FACTURA COD_FECHA_@COD_FORMAS_PAGO_FECHA" tipo="@a.TIPO" factura_ant="@COD_FACTURA" factura_actual="@(((long)ViewBag.COD_FACTURA).ToString())" cod_detalle="@a.CAD_DETALLE_FACTURA" descripcion="@a.NOMBRE_ROL" cod_formas_pago_fecha="@COD_FORMAS_PAGO_FECHA">
+                                    <div class="w3-card-4">
+                                        <header class="w3-container w3-blue header1">
+                                            <h1 style="font-size:14px !important;  margin: 5px 0 !important;" class="texto_card tooltip1" title="Nombre rol: @a.NOMBRE_ROL">@a.NOMBRE_ROL</h1>
+                                        </header>
+                                        <div class="w3-container">
+
+                                            <div class="row">
+                                                <div class="col-md-10 valores_cards tooltip1" style="font-size:9px !important;" data-toggle="tooltip" title="Nombre persona: @a.NOMBRE_PERSONA.ToString()">
+                                                    <h1 style="font-size:11px !important;  margin: 5px 0 !important;" class="texto_card"><span class="e-icon e-userlogin icono-card" style="color:#808080 !important;font-size:11px !important;"></span>@a.NOMBRE_PERSONA.ToString()</h1>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12"><a href="#" onclick="mostrar_mas()" style="font-size:10px !important;">Ver más</a></div>
+                                            </div>
+                                            <div class="row mostrar_mas">
+                                            <div class="col-md-4 valores_cards tooltip1" style="font-size:9px !important;" data-toggle="tooltip" title="Dedicación de la persona: @a.DEDICACION.ToString()"><span class="e-icon e-datetime icono-card" style="color:#808080 !important;"></span>@a.DEDICACION.ToString()</div>
+                                             @*Solo imprime los que tienen valor a mayor a 0*@
+                                            @if (a.HORAS_ED != 0)
+                                                 {
+                                            <div class="col-md-4 valores_cards texto_card tooltip1" style="font-size:9px !important;" data-toggle="tooltip" title="Horas extra diurnas (@a.HORAS_ED.ToString("F1", CultureInfo.CreateSpecificCulture("es-ES")))"><span class="e-icon e-clock icono-card" style="color:#808080 !important;"></span>@a.HORAS_ED.ToString("F1", CultureInfo.CreateSpecificCulture("es-ES"))</div>
+                                                 }
+                                            @if (a.HORAS_EN != 0)
+                                                 {
+                                            <div class="col-md-4 valores_cards texto_card tooltip1" style="font-size:9px !important;" data-toggle="tooltip" title="Horas extra nocturas (@a.HORAS_EN.ToString("F1", CultureInfo.CreateSpecificCulture("es-ES")))"><span class="e-icon e-clock icono-card" style="color:#808080 !important;"></span>@a.HORAS_EN.ToString("F1", CultureInfo.CreateSpecificCulture("es-ES"))</div>
+                                                 }
+                                            @if (a.HORAS_FD != 0)
+                                                 {
+                                            <div class="col-md-4 valores_cards texto_card tooltip1" style="font-size:9px !important;" data-toggle="tooltip" title="Horas extra fin de semana diurnas (@a.HORAS_FD.ToString("F1", CultureInfo.CreateSpecificCulture("es-ES")))"><span class="e-icon e-clock icono-card" style="color:#808080 !important;"></span>@a.HORAS_FD.ToString("F1", CultureInfo.CreateSpecificCulture("es-ES"))</div>
+                                                 }
+                                            @if (a.HORAS_FN != 0)
+                                                 {
+                                            <div class="col-md-4 valores_cards texto_card tooltip1" style="font-size:9px !important;" data-toggle="tooltip" title="Horas extra fin de semana nocturnas (@a.HORAS_FN.ToString("F1", CultureInfo.CreateSpecificCulture("es-ES")))"><span class="e-icon e-clock icono-card" style="color:#808080 !important;"></span>@a.HORAS_FN.ToString("F1", CultureInfo.CreateSpecificCulture("es-ES"))</div>
+                                                 }
+                                            @if (a.HORAS_AUSENCIA != 0)
+                                                 {
+                                            <div class="col-md-4 valores_cards texto_card tooltip1" style="font-size:9px !important;" data-toggle="tooltip" title="Horas ausencia (@a.HORAS_AUSENCIA.ToString("F1", CultureInfo.CreateSpecificCulture("es-ES")))"><span class="e-icon e-clock icono-card" style="color:#808080 !important;"></span>@a.HORAS_AUSENCIA.ToString("F1", CultureInfo.CreateSpecificCulture("es-ES"))</div>
+                                                 }
+                                            @if (a.VALOR_DIAS_LAB != 0)
+                                                {
+                                            <div class="col-md-4 valores_cards texto_card tooltip1" style="font-size:9px !important;" data-toggle="tooltip" title="Valor sin adiciones y descuentos (@a.VALOR_DIAS_LAB.ToString("C", CultureInfo.CreateSpecificCulture("es-CO")))"><span class="icono-card" style="color:#808080 !important;"></span>@a.VALOR_DIAS_LAB.ToString("C", CultureInfo.CreateSpecificCulture("es-CO"))</div>
+                                                }
+                                               
+                                            @if (a.ADICIONES != 0)
+                                                {
+                                            <div class="col-md-4 valores_cards texto_card tooltip1" style="font-size:9px !important;" data-toggle="tooltip" title="Valor por adiciones (@a.ADICIONES.ToString("C", CultureInfo.CreateSpecificCulture("es-CO")))"><span class="icono-card" style="color:#808080 !important;"></span>@a.ADICIONES.ToString("C", CultureInfo.CreateSpecificCulture("es-CO"))</div>
+                                                }
+                                              
+                                            @if (a.DESCUENTO_AUSENCIA != 0)
+                                                {
+                                            <div class="col-md-4 valores_cards texto_card tooltip1" style="font-size:9px !important;" data-toggle="tooltip" title="Valor por adiciones (@a.DESCUENTO_AUSENCIA.ToString("C", CultureInfo.CreateSpecificCulture("es-CO")))"><span class="icono-card" style="color:#808080 !important;"></span>@a.DESCUENTO_AUSENCIA.ToString("C", CultureInfo.CreateSpecificCulture("es-CO"))</div>
+                                                }
+                                            <div class="col-md-10"><a href="#" onclick="mostrar_mas()" style="font-size:10px !important;">Ver menos</a></div>
+                                            </div>
+                                        </div>
+                                        <footer class="w3-container w3-blue footer1" style="display:block !important;left:0px!important; max-height:1000px !important; position:relative !important; height:auto !important;min-height:initial !important">
+                                            <div class="row">
+                                                <div class="col-md-4 valores_cards tooltip1" style="font-size:9px !important;" data-toggle="tooltip" title="Periodo factura (@a.PERIODO_FACTURACION.ToString("dd/MM/yyyy"))">
+                                                    <h1 class="texto_card" style="font-size:11px !important;  margin: 5px 0 !important;">@a.PERIODO_FACTURACION.ToString("dd/MM/yyyy")</h1>
+                                                </div>
+                                                <div class="col-md-4 valores_cards" style="font-size:9px !important;">
+                                                    <h5 class="texto_card tooltip1" style="font-size:11px !important; margin: 5px 0 !important;" data-toggle="tooltip" title="Valor total a facturar (@a.VALOR_SIN_IMPUESTOS.ToString("C", CultureInfo.CreateSpecificCulture("es-CO")))">@a.VALOR_SIN_IMPUESTOS.ToString("C", CultureInfo.CreateSpecificCulture("es-CO"))</h5>
+                                                </div>
+                                            </div>   
+                                        </footer>
+                                    </div>
+                                </li>
+                                 }
+                             }
+                </ul>
+            </div>
+
         </div>
     </div>
-
-    
-
 </div>);
-
-
-
 }).ClientSideEvents(evt => evt.ItemActive("cambio_tab")).Render();
         }
     </div>
 
     <!--FILA BOTONES-->
-    <div class="row">
+    <div class="row botones_validacion">
         <div class="col-md-6" style="margin-top:20px!important">
             <input type="button" value="Validar" class="btn btn-purple" onclick="validar_factura()" />
             <input type="button" value="Volver" class="btn btn-purple" onclick="redireccionar_index_facturas()" />
@@ -527,7 +590,6 @@
 
     //Función que se ejecuta en el evento load
     function inicio_grid_items(args) {
-
         var cod_contrato_proyecto = "@(ViewBag.COD_CONTRATO_PROYECTO == null ? "" : Html.Raw((String)ViewBag.COD_CONTRATO_PROYECTO.ToString()).ToString())";
         if (cod_contrato_proyecto != "") {
             this.model.filterSettings.filteredColumns.push({ field: "COD_CONTRATO_PROYECTO", operator: "equal", value: cod_contrato_proyecto });
@@ -574,9 +636,8 @@
     }
 
     //Función que se ejecuta en el evento load
-    function inicio_grid_roles1(args) {
-
-
+    function inicio_grid_roles1(args)
+    {
         var COD_FACTURA = "@(ViewBag.COD_FACTURA == null ? "" : Html.Raw((String)ViewBag.COD_FACTURA.ToString()).ToString())";
         if (COD_FACTURA != "") {
             this.model.filterSettings.filteredColumns.push({ field: "COD_FACTURA", operator: "equal", value: COD_FACTURA });
@@ -696,11 +757,14 @@
                 //console.log("esta en success de post")
                 //console.log(data)
                 $('.valor').text(data.responseText);
+                $('.valor_total').text(data.responseText);
                 $('.valor_personas').text(data.total_factura_pers);
                 $('.valor_items').text(data.total_factura_item);
             }
         });
     }
+
+    
 
     //Función que permite verificar las facturas
     function ver_adjunto_factura() {
@@ -879,103 +943,71 @@
 <script>
     
     var temp = null;
+    //Se ejecuta cuando se carga el documento html
     $(document).ready(function () {
-
-        //$("#Fact_Ant").sortable({ connectWith: "#Fact_Act",
-        //    change: function (event, ui) {
-        //        var tipo = ui.item.attr("tipo");
-        //        var factura_act = ui.item.attr("factura_act");
-        //        var factura_ant = ui.item.attr("factura_ant");
-        //        var cod_detalle = ui.item.attr("cod_detalle");
-        //        var url = "../Actualizar_Factura_Anterior";
-
-        //        var data = json.stringify({ tipo: tipo, factura_act: factura_act, factura_ant: factura_ant, cod_detalle: cod_detalle });
-
-        //        $.ajax({
-        //            type: "post",
-        //            url: url,
-        //            data: data,
-        //            datatype: "json",
-        //            contenttype: "application/json; charset=utf-8",
-        //            datafilter: function (data) { return data; },
-        //            success: function (data) {
-
-        //            },
-        //            error: function (xmlhttprequest, textstatus, errorthrown) {
-
-        //            }
-        //        });
-        //    }
-        //});
-        //Vuelve los  "dragable"
-        $("#Fact_Act").sortable({connectwith: "#Fact_Ant",
-            change: function (event, ui) {
-                var tipo = ui.item.attr("tipo");
-                var factura_ant = ui.item.attr("factura_ant");
-                var factura_actual = ui.item.attr("factura_actual");
-                var cod_detalle = ui.item.attr("cod_detalle");
-                //var descripcion = ui.item.attr("descripcion");
-                var url = "../Actualizar_Factura";
-
-                var data = JSON.stringify({ TIPO: tipo, FACTURA_ANT: factura_ant, FACTURA_ACTUAL: factura_actual, COD_DETALLE: cod_detalle });
-               
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: data,
-                    dataType: "json",
-                    contentType: "application/json; charset=utf-8",
-                    dataFilter: function (data) { return data; },
-                    success: function (data) {
-
-                    },
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-
-                    }
-                });
+        //Inicializa el tooltip
+        
+        //Instancia las listas de elementos facturables para la funcionalidad drag and drop
+        $("#Fact_Ant,#Fact_Act").ejTreeView({
+            allowDragAndDrop: true,
+            allowDropChild: false,
+            allowDropSibling: true,
+            allowDragAndDropAcrossControl: true,
+            nodeDropped: "drop_elemento",
+            enableFiltering: true
+        });
+                
+        //Bloquear elementos factura actual (solo se pueden añadir a la factura actual, los elementos actuales quedan blqoueados para ser enviados a las facturas anteriores)
+        var treeObj = $("#Fact_Act").data("ejTreeView");
+        treeObj.disableNode($(".facturas")); 
+        treeObj = null;
+        setTimeout(function () { $('.tooltip1').tooltip(); }, 1000);
+    });
+    //Función que se activa cuando se hace drop del elemento a facturar.
+    function drop_elemento(ui) {
+        temp = ui;
+        var tipo = ui.droppedElement["0"].attributes["tipo"].nodeValue;
+        var factura_ant = ui.droppedElement["0"].attributes["factura_ant"].nodeValue;
+        var factura_actual = ui.droppedElement["0"].attributes["factura_actual"].nodeValue;
+        var cod_detalle = ui.droppedElement["0"].attributes["cod_detalle"].nodeValue;
+        var contenedor = "";
+        try {
+            contenedor = ui.target.context.parentNode.attributes["id"].nodeValue;
+        }
+        catch{
+            contenedor = ui.target.context.attributes["id"].nodeValue;
+        }
+        if (contenedor == "Fact_Ant") {
+            factura_actual = factura_ant;
+        }
+        var url = "../Actualizar_Factura";
+        var data = JSON.stringify({ TIPO: tipo, FACTURA_ANT: factura_ant, FACTURA_ACTUAL: factura_actual, COD_DETALLE: cod_detalle });
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            dataFilter: function (data) { return data; },
+            success: function (data) {
+                refrescar_total();
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                refrescar_total();
             }
         });
-    });
-    //$(document).ready(function () {
-    //    $("#Fact_Act", "#Fact_Ant" ).sortable({ connectwith: "#Fact_Ant"});
-    //    //vuelve los ítems "dragable"
-    //    $("#Fact_Act", "#Fact_Ant").sortable({
-    //        change: function (event, ui) {
-    //            var tipo = ui.item.attr("tipo");
-    //            var factura_act = ui.item.attr("factura_act");
-    //            var factura_ant = ui.item.attr("factura_ant");
-    //            var cod_detalle = ui.item.attr("cod_detalle");
-    //            var url = "../Actualizar_Factura_Anterior";
-
-    //            var data = json.stringify({ tipo: tipo, factura_act: factura_act, factura_ant: factura_ant, cod_detalle: cod_detalle });
-
-    //            $.ajax({
-    //                type: "post",
-    //                url: url,
-    //                data: data,
-    //                datatype: "json",
-    //                contenttype: "application/json; charset=utf-8",
-    //                datafilter: function (data) { return data; },
-    //                success: function (data) {
-
-    //                },
-    //                error: function (xmlhttprequest, textstatus, errorthrown) {
-
-    //                }
-    //            });
-    //        }
-    //    });
-    // });
-    
+    }  
     //Función que se activa cuando se cambia la selecciòn del la lista desplegable de fechas de facturas
     function cambio_mes(sender, cod_factura) {
-        console.log("total_factura_ant")
-
+        //console.log(sender);
         $(".facturas_ant").hide();
-        $(".COD_FECHA_" + sender).show();
-        var factura_ant = cod_factura
+        $(".COD_FECHA_" + sender).show();     
+    }
+
+    //Función para actualizar el total del por facturar
+    function actualizar_anteriores(cod_factura) {
         var url = "../Actualizar_total_factura_anterior";
-        var data = JSON.stringify({ FACTURA_ANT: (factura_ant) });
+        var data = JSON.stringify({ COD_FACTURA: (cod_factura) });
 
 
         $.ajax({
@@ -993,11 +1025,48 @@
 
             }
         });
-        function onClientActive(Items) {
-            jQuery.addEventLog("Index" + e.activeIndex + " is <span class='eventTitle'>activated</span>. </br>");
-        }
     }
-        
-  
+
+    function onClientActive(Items) {
+        jQuery.addEventLog("Index" + e.activeIndex + " is <span class='eventTitle'>activated</span>. </br>");
+    } 
+
+    //Funcion para refrescar ant
+    function refrescar_total_ant() {
+        //console.log("esta en reefrescar total")
+        var instancia = $("#GRID_ROLES").ejGrid("instance");
+        setTimeout(function () { instancia.refreshContent(); }, 1000)
+        try {
+            var instanciaI = $("#GRID_ITEMS").ejGrid("instance");
+            //var instanciaR = $("#GRID_ROLES").ejGrid("instance");
+            setTimeout(function () { instanciaI.refreshContent(); }, 1000);
+            //setTimeout(function () { instanciaR.refreshContent(); }, 1000);
+        }
+        catch{
+
+        }
+        var cod_factura =@(ViewBag.COD_FACTURA == null ? "" : Html.Raw((String)ViewBag.COD_FACTURA.ToString()).ToString());
+        var data = JSON.stringify({ COD_FACTURA: parseInt(cod_factura) });
+        var url = "../refrescar_total_ant";
+        //console.log("Va a iniciar post de reefrescar total")
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: data,
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            dataFilter: function (data) { return data; },
+            success: function (data) {
+                //console.log("esta en success de post")
+                //console.log(data)
+                $('.valor').text(data.responseText);
+                $('.valor_personas').text(data.total_factura_pers);
+                $('.valor_items').text(data.total_factura_item);
+            }
+        });
+    }
+    function mostrar_mas() {
+        $(".mostrar_mas").toggle();
+    }
 </script>
 

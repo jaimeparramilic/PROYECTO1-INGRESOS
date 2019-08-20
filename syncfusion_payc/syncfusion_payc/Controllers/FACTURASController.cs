@@ -222,7 +222,7 @@ namespace syncfusion_payc.Controllers
 
             //Consulta para traer total de items y facutra tipo int para corregir error del sumary de la grid roles (para poder restar el total - total items)
             ViewBag.TOTAL_FACTURA_ITEM = "0";
-            string query_item = @"SELECT FORMAT([TOTAL],'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS_ITEM] WHERE COD_FACTURA=" + id.ToString();
+            string query_item = @"SELECT FORMAT(SUM([TOTAL]),'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS_ITEM] WHERE COD_FACTURA=" + id.ToString();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(query_item, connection);
@@ -236,7 +236,7 @@ namespace syncfusion_payc.Controllers
             }
 
             ViewBag.TOTAL_FACTURA_PERS = "0";
-            string query_pers = @"SELECT FORMAT([TOTAL],'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS_PERS] WHERE COD_FACTURA=" + id.ToString();
+            string query_pers = @"SELECT FORMAT(SUM([TOTAL]),'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS_PERS] WHERE COD_FACTURA=" + id.ToString();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(query_pers, connection);
@@ -253,9 +253,10 @@ namespace syncfusion_payc.Controllers
 
             long? cp = db.DETALLE_FACTURA_ITEMPERS.Where(u => u.COD_FACTURA == id).Select(o => o.COD_CONTRATO_PROYECTO).FirstOrDefault();
 
-            ViewBag.datasource3 = db.DETALLE_FACTURA_ITEMPERS.Where(u => u.COD_FACTURA == id);
-            ViewBag.datasource2 = db.DETALLE_FACTURA_ITEMPERS.Where(u => u.COD_CONTRATO_PROYECTO == cp && u.COD_FACTURA != null && u.COD_FACTURA != id);
-            ViewBag.datasource4 = db.FACTURAS                .Where(u => u.COD_FACTURA != id).Select(x => new { x.VALOR_SIN_IMPUESTOS }).ToList();
+            //ViewBag.datasource3 = db.DETALLE_FACTURA_ITEMPERS.Where(u => u.COD_FACTURA == id);
+            ViewBag.datasource2 = db.VISTA_DRAGDROP.Where(u => u.COD_CONTRATO_PROYECTO == cp && u.COD_FACTURA != id && (u.COD_ESTADO_FACTURA == 1 || u.COD_ESTADO_FACTURA == 2)).ToList();
+            ViewBag.datasource3 = db.VISTA_DRAGDROP.Where(o => o.COD_FACTURA == id).ToList();
+            ViewBag.datasource4 = db.FACTURAS.Where(u => u.COD_FACTURA != id).Select(x => new { x.VALOR_SIN_IMPUESTOS }).ToList();
 
             var a = db.DETALLE_FACTURA_ITEMPERS.Where(u => u.COD_CONTRATO_PROYECTO == cp && u.COD_FACTURA != null && u.COD_FACTURA != id).Select(x => new { x.COD_FORMAS_PAGO_FECHAS, x.PERIODO_FACTURA }).Distinct().ToList();
             ViewBag.fechas_facturas = a;
@@ -270,7 +271,7 @@ namespace syncfusion_payc.Controllers
             return View();
         }
         //Actualizar grid rol
-        public ActionResult Actualizar_total_factura_anterior(long? FACTURA_ANT)
+        public ActionResult Actualizar_total_factura_anterior(long? COD_FACTURA)
         {
 
             //string query = @"SELECT FORMAT([TOTAL_FACTURA]),'C','es-CO')FROM[test_payc_contabilidad].[dbo].[TOTAL_FACTURAS] WHERE COD_FACTURA=" + FACTURA_ANT.ToString();
@@ -298,7 +299,7 @@ namespace syncfusion_payc.Controllers
             //    connection.Close();
 
             //}
-            var test = db.FACTURAS.Where(u => u.COD_FACTURA == FACTURA_ANT).Select(x => new { x.VALOR_SIN_IMPUESTOS }).ToList();
+            var test = db.FACTURAS.Where(u => u.COD_FACTURA != COD_FACTURA).Select(x => new { x.VALOR_SIN_IMPUESTOS }).ToList();
 
             //ViewBag.datasource4 = db.FACTURAS.Where(u => u.COD_FACTURA == FACTURA_ANT).Select(x => new { x.VALOR_SIN_IMPUESTOS }).ToList(); 
             //db.VISTA_TOTALES_GRUPOS_FACTURAS_SECUENCIA.Where(c c.COD_FACTURA==)
@@ -327,7 +328,57 @@ namespace syncfusion_payc.Controllers
                 db.SaveChanges();
             }
 
-            return Json(true, JsonRequestBehavior.AllowGet);
+            //Actualizar valor factura actual
+            try
+            {
+                string query = @"SELECT SUM([TOTAL_FACTURA]) FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS] WHERE COD_FACTURA=" + FACTURA_ACTUAL.ToString();
+                string valor_factura = "0";
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand command = new SqlCommand(query, connection);
+                    connection.Open();
+                    SqlDataReader dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        valor_factura = dr.GetValue(0).ToString();
+                    }
+                    connection.Close();
+                }
+                FACTURAS table1 = db.FACTURAS.Single(o => o.COD_FACTURA == FACTURA_ACTUAL);
+                table1.VALOR_SIN_IMPUESTOS = Decimal.Parse(valor_factura);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, responseText = ex.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+
+            //Actualizar valor factura anterior
+            try
+            {
+                string query = @"SELECT SUM([TOTAL_FACTURA]) FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS] WHERE COD_FACTURA=" + FACTURA_ANT.ToString();
+                string valor_factura = "0";
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand command = new SqlCommand(query, connection);
+                    connection.Open();
+                    SqlDataReader dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        valor_factura = dr.GetValue(0).ToString();
+                    }
+                    connection.Close();
+                }
+                FACTURAS table1 = db.FACTURAS.Single(o => o.COD_FACTURA == FACTURA_ANT);
+                table1.VALOR_SIN_IMPUESTOS = Decimal.Parse(valor_factura);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, responseText = ex.ToString() }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
         public ActionResult Actualizar_Factura_Anterior(long FACTURA_ACT, long FACTURA_ANT, string TIPO, long COD_DETALLE)
         {
@@ -352,7 +403,6 @@ namespace syncfusion_payc.Controllers
 
 
         #endregion
-
         #region verificar v 
         // public ActionResult VerificarV(long? id)
         //{
@@ -491,7 +541,7 @@ namespace syncfusion_payc.Controllers
          
 
             string total_factura_Act = "0";
-            string query_Act = @"SELECT FORMAT([TOTAL],'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS_PERS] WHERE COD_FACTURA=" + COD_FACTURA.ToString();
+            string query_Act = @"SELECT FORMAT(SUM([TOTAL]),'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS_PERS] WHERE COD_FACTURA=" + COD_FACTURA.ToString();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(query_Act, connection);
@@ -505,7 +555,7 @@ namespace syncfusion_payc.Controllers
             }
 
             string result = "";
-            string query = @"SELECT FORMAT([TOTAL_FACTURA],'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS] WHERE COD_FACTURA=" + COD_FACTURA.ToString();
+            string query = @"SELECT FORMAT(SUM([TOTAL_FACTURA]),'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS] WHERE COD_FACTURA=" + COD_FACTURA.ToString();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(query, connection);
@@ -1204,7 +1254,7 @@ namespace syncfusion_payc.Controllers
         {
 
             string total_factura_item = "0";
-            string query_item = @"SELECT FORMAT([TOTAL],'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS_ITEM] WHERE COD_FACTURA=" + COD_FACTURA.ToString();
+            string query_item = @"SELECT FORMAT(SUM([TOTAL]),'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS_ITEM] WHERE COD_FACTURA=" + COD_FACTURA.ToString();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(query_item, connection);
@@ -1218,7 +1268,7 @@ namespace syncfusion_payc.Controllers
             }
 
             string total_factura_pers = "0";
-            string query_pers = @"SELECT FORMAT([TOTAL],'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS_PERS] WHERE COD_FACTURA=" + COD_FACTURA.ToString();
+            string query_pers = @"SELECT FORMAT(SUM([TOTAL]),'C','es-CO') FROM [test_payc_contabilidad].[dbo].[TOTAL_FACTURAS_PERS] WHERE COD_FACTURA=" + COD_FACTURA.ToString();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(query_pers, connection);
@@ -1247,7 +1297,7 @@ namespace syncfusion_payc.Controllers
 
             return Json(new { success = true, responseText = result, total_factura_item, total_factura_pers }, JsonRequestBehavior.AllowGet);
         }
-
+        
         #endregion
         #region enviar a psl
         public ActionResult facturar(long COD_FACTURA)

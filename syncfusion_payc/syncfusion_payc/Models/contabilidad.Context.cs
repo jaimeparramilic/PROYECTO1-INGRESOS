@@ -220,6 +220,7 @@ namespace syncfusion_payc.Models
         public virtual DbSet<DETALLE_FACTURA_ITEM> DETALLE_FACTURA_ITEM { get; set; }
         public virtual DbSet<VISTA_PRUEBA_ESTADOS_CECO> VISTA_PRUEBA_ESTADOS_CECO { get; set; }
         public virtual DbSet<DETALLE_FACTURA_ITEMPERS> DETALLE_FACTURA_ITEMPERS { get; set; }
+        public virtual DbSet<VISTA_DRAGDROP> VISTA_DRAGDROP { get; set; }
     
         public virtual ObjectResult<sp_actualizar_estado_centro_costo_Result> sp_actualizar_estado_centro_costo(ObjectParameter ret, ObjectParameter error, Nullable<int> cont)
         {

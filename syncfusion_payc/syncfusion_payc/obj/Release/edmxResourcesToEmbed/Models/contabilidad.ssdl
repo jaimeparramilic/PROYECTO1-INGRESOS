@@ -2315,6 +2315,49 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_DETDOCVTAEN
     <Property Name="ddvcomentario" Type="nvarchar" MaxLength="4000" Nullable="false" />
   </EntityType>
   <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_DRAGDROP' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+  <EntityType Name="VISTA_DRAGDROP">
+    <Key>
+      <PropertyRef Name="COD_CONTRATO_PROYECTO" />
+      <PropertyRef Name="COD_FACTURA" />
+      <PropertyRef Name="CAD_DETALLE_FACTURA" />
+      <PropertyRef Name="TIPO" />
+    </Key>
+    <Property Name="ID" Type="bigint" />
+    <Property Name="NOMBRE_PROYECTO" Type="varchar" MaxLength="300" />
+    <Property Name="NOMBRE_ROL" Type="varchar" MaxLength="300" />
+    <Property Name="NOMBRE_PERSONA" Type="varchar" MaxLength="601" />
+    <Property Name="FECHA_INGRESO" Type="varchar(max)" />
+    <Property Name="FECHA_RETIRO_EN_CONTRATO" Type="varchar(max)" />
+    <Property Name="VALOR_SIN_IMPUESTOS" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="VALOR_DIAS_LAB" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="ADICIONES" Type="numeric" Precision="38" Scale="8" />
+    <Property Name="DESCUENTO_AUSENCIA" Type="numeric" Precision="38" Scale="8" />
+    <Property Name="HORAS_ED" Type="numeric" Precision="38" Scale="8" />
+    <Property Name="HORAS_EN" Type="numeric" Precision="38" Scale="8" />
+    <Property Name="HORAS_FD" Type="numeric" Precision="38" Scale="8" />
+    <Property Name="HORAS_FN" Type="numeric" Precision="38" Scale="8" />
+    <Property Name="HORAS_AUSENCIA" Type="numeric" Precision="38" Scale="8" />
+    <Property Name="NOVEDADES" Type="varchar(max)" />
+    <Property Name="CENTRO_COSTOS" Type="varchar" MaxLength="300" />
+    <Property Name="NUMERO_FACTURA" Type="varchar" MaxLength="10" />
+    <Property Name="NUMERO_FACTURA_PRODUCTIVO" Type="varchar" MaxLength="10" />
+    <Property Name="PERIODO_FACTURACION" Type="date" />
+    <Property Name="COD_ROL" Type="bigint" />
+    <Property Name="SALARIO_COMERCIAL_SIN_PRESTACIONES_CON_INCREMENTOS" Type="numeric" Precision="38" Scale="8" />
+    <Property Name="PRESTACIONES" Type="numeric" Precision="30" Scale="20" />
+    <Property Name="COD_CONTRATO_PROYECTO" Type="bigint" Nullable="false" />
+    <Property Name="DEDICACION" Type="varchar(max)" />
+    <Property Name="COD_FACTURA" Type="bigint" Nullable="false" />
+    <Property Name="CAD_DETALLE_FACTURA" Type="bigint" Nullable="false" />
+    <Property Name="COD_FORMAS_PAGO_FECHAS" Type="bigint" />
+    <Property Name="COD_FACTURA_ANT" Type="bigint" />
+    <Property Name="COD_ESTADO_FACTURA" Type="bigint" />
+    <Property Name="TIPO" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="HORAS_EXTRA" Type="numeric" Precision="38" Scale="8" />
+    <Property Name="DIAS_AUSENCIA" Type="numeric" Precision="38" Scale="8" />
+  </EntityType>
+  <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_ENCDOCVTAENTRA' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
   <EntityType Name="VISTA_ENCDOCVTAENTRA">
     <Key>
@@ -5958,6 +6001,43 @@ advertencia 6002: La tabla o vista 'test_payc_contabilidad.dbo.VISTA_USUARIOS_At
     [VISTA_DETDOCVTAENTRA_MULTIPLES_FACTURAS_PRUEBAS].[FECHA_FACTURA] AS [FECHA_FACTURA], 
     [VISTA_DETDOCVTAENTRA_MULTIPLES_FACTURAS_PRUEBAS].[ddvcomentario] AS [ddvcomentario]
     FROM [dbo].[VISTA_DETDOCVTAENTRA_MULTIPLES_FACTURAS_PRUEBAS] AS [VISTA_DETDOCVTAENTRA_MULTIPLES_FACTURAS_PRUEBAS]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="VISTA_DRAGDROP" EntityType="Self.VISTA_DRAGDROP" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [VISTA_DRAGDROP].[ID] AS [ID], 
+    [VISTA_DRAGDROP].[NOMBRE_PROYECTO] AS [NOMBRE_PROYECTO], 
+    [VISTA_DRAGDROP].[NOMBRE_ROL] AS [NOMBRE_ROL], 
+    [VISTA_DRAGDROP].[NOMBRE_PERSONA] AS [NOMBRE_PERSONA], 
+    [VISTA_DRAGDROP].[FECHA_INGRESO] AS [FECHA_INGRESO], 
+    [VISTA_DRAGDROP].[FECHA_RETIRO_EN_CONTRATO] AS [FECHA_RETIRO_EN_CONTRATO], 
+    [VISTA_DRAGDROP].[VALOR_SIN_IMPUESTOS] AS [VALOR_SIN_IMPUESTOS], 
+    [VISTA_DRAGDROP].[VALOR_DIAS_LAB] AS [VALOR_DIAS_LAB], 
+    [VISTA_DRAGDROP].[ADICIONES] AS [ADICIONES], 
+    [VISTA_DRAGDROP].[DESCUENTO_AUSENCIA] AS [DESCUENTO_AUSENCIA], 
+    [VISTA_DRAGDROP].[HORAS_ED] AS [HORAS_ED], 
+    [VISTA_DRAGDROP].[HORAS_EN] AS [HORAS_EN], 
+    [VISTA_DRAGDROP].[HORAS_FD] AS [HORAS_FD], 
+    [VISTA_DRAGDROP].[HORAS_FN] AS [HORAS_FN], 
+    [VISTA_DRAGDROP].[HORAS_AUSENCIA] AS [HORAS_AUSENCIA], 
+    [VISTA_DRAGDROP].[NOVEDADES] AS [NOVEDADES], 
+    [VISTA_DRAGDROP].[CENTRO_COSTOS] AS [CENTRO_COSTOS], 
+    [VISTA_DRAGDROP].[NUMERO_FACTURA] AS [NUMERO_FACTURA], 
+    [VISTA_DRAGDROP].[NUMERO_FACTURA_PRODUCTIVO] AS [NUMERO_FACTURA_PRODUCTIVO], 
+    [VISTA_DRAGDROP].[PERIODO_FACTURACION] AS [PERIODO_FACTURACION], 
+    [VISTA_DRAGDROP].[COD_ROL] AS [COD_ROL], 
+    [VISTA_DRAGDROP].[SALARIO_COMERCIAL_SIN_PRESTACIONES_CON_INCREMENTOS] AS [SALARIO_COMERCIAL_SIN_PRESTACIONES_CON_INCREMENTOS], 
+    [VISTA_DRAGDROP].[PRESTACIONES] AS [PRESTACIONES], 
+    [VISTA_DRAGDROP].[COD_CONTRATO_PROYECTO] AS [COD_CONTRATO_PROYECTO], 
+    [VISTA_DRAGDROP].[DEDICACION] AS [DEDICACION], 
+    [VISTA_DRAGDROP].[COD_FACTURA] AS [COD_FACTURA], 
+    [VISTA_DRAGDROP].[CAD_DETALLE_FACTURA] AS [CAD_DETALLE_FACTURA], 
+    [VISTA_DRAGDROP].[COD_FORMAS_PAGO_FECHAS] AS [COD_FORMAS_PAGO_FECHAS], 
+    [VISTA_DRAGDROP].[COD_FACTURA_ANT] AS [COD_FACTURA_ANT], 
+    [VISTA_DRAGDROP].[COD_ESTADO_FACTURA] AS [COD_ESTADO_FACTURA], 
+    [VISTA_DRAGDROP].[TIPO] AS [TIPO], 
+    [VISTA_DRAGDROP].[HORAS_EXTRA] AS [HORAS_EXTRA], 
+    [VISTA_DRAGDROP].[DIAS_AUSENCIA] AS [DIAS_AUSENCIA]
+    FROM [dbo].[VISTA_DRAGDROP] AS [VISTA_DRAGDROP]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="VISTA_ENCDOCVTAENTRA" EntityType="Self.VISTA_ENCDOCVTAENTRA" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
