@@ -1,0 +1,25 @@
+La administración del CECO debe ser completamente de admon
+
+Condiciones contractuales -> No es responsabilidad del auxiliar comercial.
+Acta de inicio -> la debe subir el área técnica
+La Fecha Fin de ejecución debería ser cálculado a partir de la duración
+
+Polizas -> Se debería subir en el aplicativo
+Recibo de pago de polizas -> Se debería subir en el aplicativo
+El pliego enviado al cliente -> Se debería subir en el aplicativo
+
+Acta de liquidación -> Se debería subir en el aplicativo
+Certificación de trabajo -> Se debería subir en el aplicativo
+
+Revisar el cargue de la información básica del responsable
+Valor del proyecto va a generar errores
+
+Unificar la BBDD de clientes, con la información básica general
+
+Diferenciar el cargue de roles y salarios por cada una de las etapas
+
+Agregar el total en la Etapa 3, para poder compararla con la tabla de la propuesta económica
+
+Incluir un paso de validación para el incremento salarial
+
+¿Qué es reembolsable?
