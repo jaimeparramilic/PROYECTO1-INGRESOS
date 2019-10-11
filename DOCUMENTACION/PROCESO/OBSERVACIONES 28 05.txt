@@ -1,6 +1,0 @@
-OBSERVACIONES PROCESO DE FACTURACIÓN:
-- Cómo adjuntar documentos al link de facturación electrónica
-- Los documentos deberían llegar directamente en formato PDF y XLM (Facturación electrónica cómo adjuntar 
-  soportes para que le lleguen al cliente)
-- Gestión de contingencias
-- Validación de las cifras contra la planeación
