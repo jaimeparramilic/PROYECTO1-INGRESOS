@@ -347,13 +347,20 @@
                             contentType: "application/json; charset=utf-8",
                             dataFilter: function (data) { return data; },
                             success: function (data) {
-                                var gridObj = $("#Grid").ejGrid("instance");
-                                gridObj.refreshContent();
-                                $('.contenedor_loader1').hide();
-                                alert("Factura enviada con éxito");
+                                if (data.success) {
+                                    var gridObj = $("#Grid").ejGrid("instance");
+                                    gridObj.refreshContent();
+                                    $('.contenedor_loader1').hide();
+                                    alert("Factura enviada con éxito");
+                                } else {
+                                    var gridObj = $("#Grid").ejGrid("instance");
+                                    gridObj.refreshContent();
+                                    $('.contenedor_loader1').hide();
+                                    alert("Ha ocurrido un error: '" + data.result + "'. Por favor contacte al administrador del sistema.");
+                                }
+
                             },
                             error: function (data) {
-
                                 alert("Ha ocurrido un error inesperado, por favor, vuelva a intentarlo. Si el problema persiste, contacte al administrador del sistema.");
                             }
                         });
