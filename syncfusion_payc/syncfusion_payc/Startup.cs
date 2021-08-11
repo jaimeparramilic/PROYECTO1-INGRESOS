@@ -46,7 +46,7 @@ namespace syncfusion_payc
                 user.UserName = "ADMIN";
                 user.Email = "director.analitica@payc.com.co";
 
-                string userPWD = "1234JAMS*";
+                string userPWD = "Analitica_Payc2021*";
 
                 var chkUser = UserManager.Create(user, userPWD);
 
